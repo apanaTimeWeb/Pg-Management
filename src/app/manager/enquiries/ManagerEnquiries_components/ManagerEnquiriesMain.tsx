@@ -1,21 +1,16 @@
 // RESPONSIBILITY: Renders the ManagerEnquiriesMain component.
 'use client';
-
 import { Search, Plus, Lock, AlertTriangle } from 'lucide-react';
-
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
 import { ManagerUseManagerEnquiries } from '@/app/manager/enquiries/ManagerEnquiries_hooks/ManagerUseManagerEnquiries';
 import { ManagerEnquiriesKanban } from '@/app/manager/enquiries/ManagerEnquiries_components/ManagerEnquiriesKanban';
 import { ManagerEnquiriesLost } from '@/app/manager/enquiries/ManagerEnquiries_components/ManagerEnquiriesLost';
 import { ManagerEnquiriesModals } from '@/app/manager/enquiries/ManagerEnquiries_components/ManagerEnquiriesModals';
-
 import type { EnquiryStatus } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
-
 export function ManagerEnquiriesMain() {
   const user = typeof window !== 'undefined' ? getSession() : null;
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
-  
   const {
     loading, showAddModal, setShowAddModal, searchQuery, setSearchQuery,
     activeTab, setActiveTab, waMenuEnquiry, setWaMenuEnquiry, formData, setFormData,
@@ -23,9 +18,7 @@ export function ManagerEnquiriesMain() {
     activeEnquiries, lostEnquiries,
     handleAdd, handleStatusChange, handleConvertToCheckin, handleRoomAvailable, handleRentOffer
   } = ManagerUseManagerEnquiries(selectedPropertyId, ctxLoading, user?.id);
-
   if (ctxLoading || loading) return <div className="p-6 motion-safe:animate-pulse text-secondary">Loading...</div>;
-
   if (!selectedPropertyId) {
     return (
       <div className="h-[80vh] flex flex-col items-center justify-center text-center max-w-md mx-auto">
@@ -37,7 +30,6 @@ export function ManagerEnquiriesMain() {
       </div>
     );
   }
-
   const columns: { id: EnquiryStatus, label: string }[] = [
     { id: 'new', label: 'New Lead' },
     { id: 'contacted', label: 'Contacted' },
@@ -45,10 +37,8 @@ export function ManagerEnquiriesMain() {
     { id: 'interested', label: 'Interested' },
     { id: 'booked', label: 'Booked' }
   ];
-
   const totalPages = Math.ceil(lostEnquiries.length / itemsPerPage);
   const paginatedLostEnquiries = lostEnquiries.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-
   return (
     <div className="space-y-6 pb-20 h-full flex flex-col">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 shrink-0">
@@ -76,7 +66,6 @@ export function ManagerEnquiriesMain() {
           </button>
         </div>
       </div>
-
       {/* Tabs */}
       <div className="flex border-b border shrink-0">
         <button
@@ -104,7 +93,6 @@ export function ManagerEnquiriesMain() {
           )}
         </button>
       </div>
-
       {activeTab === 'pipeline' ? (
         <ManagerEnquiriesKanban 
           activeEnquiries={activeEnquiries}
@@ -124,7 +112,6 @@ export function ManagerEnquiriesMain() {
           handleStatusChange={handleStatusChange}
         />
       )}
-
       <ManagerEnquiriesModals 
         waMenuEnquiry={waMenuEnquiry}
         setWaMenuEnquiry={setWaMenuEnquiry}

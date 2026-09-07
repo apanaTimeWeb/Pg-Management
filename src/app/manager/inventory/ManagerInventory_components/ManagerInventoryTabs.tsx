@@ -1,15 +1,12 @@
 // RESPONSIBILITY: Renders the ManagerInventoryTabs component.
 import { Archive, ShoppingCart, Clock, AlertTriangle } from 'lucide-react';
-
 import type { ManagerInventoryTab } from '@/app/manager/inventory/ManagerInventory_types/ManagerInventory.types';
-
 interface Props {
   activeTab: ManagerInventoryTab;
   setActiveTab: (tab: ManagerInventoryTab) => void;
   pendingCount: number;
   alertCount: number;
 }
-
 export function ManagerInventoryTabs({ activeTab, setActiveTab, pendingCount, alertCount }: Props) {
   return (
     <div className="flex border-b border mb-6">

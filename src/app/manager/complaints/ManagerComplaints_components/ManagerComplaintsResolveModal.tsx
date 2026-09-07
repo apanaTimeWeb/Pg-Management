@@ -3,23 +3,19 @@
 // Responsibility: Renders the complaint resolution modal wired to React Hook Form (resolveForm).
 // Receives: complaint data, onClose callback, and RHF UseFormReturn.
 import { CheckCircle, X, IndianRupee } from 'lucide-react';
-
 import type { UseFormReturn } from 'react-hook-form';
 import type { ManagerComplaintData } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';
 import type { ComplaintResolveFormData } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';
-
 interface Props {
   resolvingComplaint: ManagerComplaintData;
   onClose: () => void;
   resolveForm: UseFormReturn<ComplaintResolveFormData>;
   handleResolveSubmit: (e?: React.BaseSyntheticEvent) => void;
 }
-
 export function ManagerComplaintsResolveModal({
   resolvingComplaint, onClose, resolveForm, handleResolveSubmit
 }: Props) {
   const { register, formState: { errors } } = resolveForm;
-
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <div className="bg-card w-full max-w-md rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 motion-safe:duration-200">
@@ -31,13 +27,11 @@ export function ManagerComplaintsResolveModal({
             <X className="w-5 h-5" />
           </button>
         </div>
-
         <form onSubmit={handleResolveSubmit} className="p-6 space-y-5">
           <div className="p-4 bg-input rounded-lg text-sm mb-4">
             <div className="font-bold text-primary">{resolvingComplaint.title || resolvingComplaint.category}</div>
             <div className="text-secondary">Room {resolvingComplaint.roomNumber || '-'}</div>
           </div>
-
           <div>
             <label className="block text-sm font-bold text-secondary mb-2 uppercase tracking-wider">Repair Cost (₹)</label>
             <div className="relative">
@@ -53,7 +47,6 @@ export function ManagerComplaintsResolveModal({
             {errors.repairCost && <p className="text-xs text-danger mt-1">{errors.repairCost.message}</p>}
             <p className="text-xs text-secondary mt-1.5">This will be automatically logged as a maintenance expense in your P&L.</p>
           </div>
-
           <div>
             <label className="block text-sm font-bold text-secondary mb-2 uppercase tracking-wider">Resolution Notes (Optional)</label>
             <textarea
@@ -63,7 +56,6 @@ export function ManagerComplaintsResolveModal({
               placeholder="e.g. AC gas refilled by technician..."
             />
           </div>
-
           <div className="pt-2 flex gap-3">
             <button type="button" onClick={onClose} className="flex-1 py-3 bg-input text-primary rounded-xl font-bold hover:bg-border motion-safe:transition-colors">Cancel</button>
             <button type="submit" className="flex-1 py-3 bg-success text-white rounded-xl font-bold shadow-lg shadow-success/20 hover:bg-success-hover,green motion-safe:transition-colors">Confirm & Resolve</button>

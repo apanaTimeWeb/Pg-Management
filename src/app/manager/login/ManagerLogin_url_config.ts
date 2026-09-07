@@ -1,0 +1,1 @@
+export const MANAGER_LOGIN_URL = '/manager/login';

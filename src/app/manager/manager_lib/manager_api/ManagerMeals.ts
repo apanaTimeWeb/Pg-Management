@@ -1,43 +1,35 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
-
 import type { BaseEntity } from '@/lib/types';
-
 export type MealType = 'Breakfast' | 'Lunch' | 'Dinner';
 export type MealStatusType = 'pending' | 'ready' | 'announced';
-
 export interface MealStatus extends BaseEntity {
   propertyId: string;
   date: string; // YYYY-MM-DD
   mealType: MealType;
   status: MealStatusType;
 }
-
 export const mealsApi = {
   getTodayMealStatus: (propertyId: string): Record<MealType, MealStatusType> => {
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split('T')[0] as string;
     const allStatuses = db.getAll<MealStatus>(STORAGE_KEYS.MEAL_STATUS)
       .filter(m => m.propertyId === propertyId && m.date === today && !m.isDeleted);
-    
     return {
       Breakfast: allStatuses.find(m => m.mealType === 'Breakfast')?.status || 'pending',
       Lunch: allStatuses.find(m => m.mealType === 'Lunch')?.status || 'pending',
       Dinner: allStatuses.find(m => m.mealType === 'Dinner')?.status || 'pending'
     };
   },
-
   getAllTodayStatuses: (propertyId: string): MealStatus[] => {
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split('T')[0] as string;
     return db.getAll<MealStatus>(STORAGE_KEYS.MEAL_STATUS)
       .filter(m => m.propertyId === propertyId && m.date === today && !m.isDeleted);
   },
-
   markMealReady: (propertyId: string, mealType: MealType, actorId: string): void => {
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split('T')[0] as string;
     const existing = db.getAll<MealStatus>(STORAGE_KEYS.MEAL_STATUS)
       .find(m => m.propertyId === propertyId && m.date === today && m.mealType === mealType && !m.isDeleted);
-      
     if (existing) {
       if (existing.status !== 'announced') {
         db.update<MealStatus>(STORAGE_KEYS.MEAL_STATUS, existing.id, {
@@ -49,9 +41,7 @@ export const mealsApi = {
     } else {
       const newStatus: MealStatus = {
         id: createId('msl'),
-        propertyId,
-// @ts-expect-error
-        date: today,
+        propertyId,        date: today,
         mealType,
         status: 'ready',
         createdAt: new Date().toISOString(),
@@ -63,12 +53,10 @@ export const mealsApi = {
       db.insert(STORAGE_KEYS.MEAL_STATUS, newStatus);
     }
   },
-
   announceMeal: (propertyId: string, mealType: MealType, actorId: string): void => {
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split('T')[0] as string;
     const existing = db.getAll<MealStatus>(STORAGE_KEYS.MEAL_STATUS)
       .find(m => m.propertyId === propertyId && m.date === today && m.mealType === mealType && !m.isDeleted);
-      
     if (existing) {
       db.update<MealStatus>(STORAGE_KEYS.MEAL_STATUS, existing.id, {
         status: 'announced',
@@ -78,9 +66,7 @@ export const mealsApi = {
     } else {
       const newStatus: MealStatus = {
         id: createId('msl'),
-        propertyId,
-// @ts-expect-error
-        date: today,
+        propertyId,        date: today,
         mealType,
         status: 'announced',
         createdAt: new Date().toISOString(),
@@ -91,7 +77,6 @@ export const mealsApi = {
       };
       db.insert(STORAGE_KEYS.MEAL_STATUS, newStatus);
     }
-
     // Create a broadcast announcement
     const broadcast = {
       id: createId('brd'),
@@ -106,8 +91,6 @@ export const mealsApi = {
       createdBy: actorId,
       updatedBy: actorId,
       isDeleted: false
-    };
-// @ts-expect-error
-    db.insert(STORAGE_KEYS.BROADCASTS, broadcast as unknown);
+    };    db.insert(STORAGE_KEYS.BROADCASTS, broadcast as unknown as BaseEntity);
   }
 };

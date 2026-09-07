@@ -1,6 +1,5 @@
 // [TYPES] ManagerComplaints
 import { z } from 'zod';
-
 export interface ManagerComplaintData {
   id: string;
   category?: string;
@@ -14,7 +13,6 @@ export interface ManagerComplaintData {
   resolutionNotes?: string;
   repairCost?: number;
 }
-
 export const ComplaintResolveSchema = z.object({
   repairCost: z
     .string()
@@ -23,5 +21,4 @@ export const ComplaintResolveSchema = z.object({
     }),
   resolutionNotes: z.string(),
 });
-
 export type ComplaintResolveFormData = z.infer<typeof ComplaintResolveSchema>;

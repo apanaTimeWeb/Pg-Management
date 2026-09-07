@@ -1,6 +1,5 @@
 import type { StockRequest } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
 import type { MealStatus } from '@/app/manager/manager_lib/manager_api/ManagerMeals';
-
 export interface ManagerDashboardStats {
   activeStudents: number;
   vacantBeds: number;
@@ -11,7 +10,6 @@ export interface ManagerDashboardStats {
   lateEntries: number;
   activeSos: number;
 }
-
 export interface ManagerDashboardData {
   stats: ManagerDashboardStats | null;
   kitchenRequests: StockRequest[];
@@ -19,7 +17,6 @@ export interface ManagerDashboardData {
   isPresent: boolean;
   loading: boolean;
 }
-
 export interface UseManagerDashboardReturn extends ManagerDashboardData {
   handleAnnounceMeal: (mealType: 'Breakfast' | 'Lunch' | 'Dinner') => void;
   handleMarkPresent: () => void;

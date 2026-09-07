@@ -1,69 +1,53 @@
 // DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerRooms.ts]
 import { useState, useEffect } from 'react';
-
 import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 // [DATA HOOK] ManagerUseManagerRooms
 // Responsibility: Fetches enriched room data (occupancy, beds, tenants) for the selected property.
-// Data Flow: ManagerPropertyContext → api → local state → ManagerRoomsMain
-
-import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
-
+// Data Flow: ManagerPropertyContext â†’ api â†’ local state â†’ ManagerRoomsMain
+import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
 import type { ManagerRoomData } from '@/app/manager/rooms/ManagerRooms_types/ManagerRooms.types';
-
 export function ManagerUseManagerRooms(selectedPropertyId: string | null, ctxLoading: boolean, userId: string | undefined) {
   const [rooms, setRooms] = useState<ManagerRoomData[]>([]);
   const [loading, setLoading] = useState(true);
-  
   const [searchQuery, setSearchQuery] = useState('');
   const [filterSharing, setFilterSharing] = useState('all');
   const [filterStatus, setFilterStatus] = useState('all');
   const { currentPage, setCurrentPage } = ManagerUseManagerUrlPagination(1);
-
   const loadData = () => {
     if (!userId || !selectedPropertyId) return;
     setLoading(true);
-    
-    const allRooms = (api as any).rooms.listByProperty(selectedPropertyId);
-
-    const enhanced = allRooms.map((r: any) => {
-      const beds = (api as any).beds.listByRoom(r.id);
+    const allRooms = api.rooms.listByProperty(selectedPropertyId);
+    const enhanced = allRooms.map((r) => {
+      const beds = api.beds.listByRoom(r.id);
       return {
         ...r,
         bedsCount: beds.length,
-        vacantCount: beds.filter((b: any) => b.status === 'available').length
+        vacantCount: beds.filter((b) => (b as Record<string, unknown>).status === 'available').length
       };
     });
-
     setRooms(enhanced);
     setLoading(false);
   };
-
   // Re-fetch rooms when property changes, context loading completes, or the acting user identity changes.
   useEffect(() => {
     if (!ctxLoading && selectedPropertyId) {
       loadData();
     }
   }, [selectedPropertyId, ctxLoading, userId]);
-
   // Reset pagination to page 1 whenever any filter criterion or the selected property changes.
   useEffect(() => {
     setCurrentPage(1);
   }, [searchQuery, filterSharing, filterStatus, selectedPropertyId]);
-
   const filteredRooms = rooms.filter(r => {
     const matchesSearch = (r.number || '').toLowerCase().includes(searchQuery.toLowerCase()) || 
                           (r.floor || '').toString().includes(searchQuery);
-    
     let matchesSharing = true;
     if (filterSharing !== 'all') matchesSharing = r.sharing === parseInt(filterSharing);
-    
     let matchesStatus = true;
     if (filterStatus === 'available') matchesStatus = r.vacantCount > 0;
     if (filterStatus === 'occupied') matchesStatus = r.vacantCount === 0;
-
     return matchesSearch && matchesSharing && matchesStatus;
   });
-
   return {
     rooms, loading, filteredRooms,
     searchQuery, setSearchQuery,

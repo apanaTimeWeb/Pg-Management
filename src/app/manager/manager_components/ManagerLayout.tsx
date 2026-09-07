@@ -1,6 +1,5 @@
 // RESPONSIBILITY: Renders the ManagerLayout component.
 'use client';
-
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -9,15 +8,12 @@ import {
   Users, AlertCircle, Utensils, UserPlus, Clock, LogOut, Radio, FileText, Archive, IndianRupee, Receipt,
   Menu, X, ShieldAlert, Building2
 } from 'lucide-react';
-
 import { getSession, clearSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { useManagerI18n } from '@/app/manager/ManagerI18n';
 import { ManagerForcePasswordChangeModal } from '@/app/manager/manager_components/ManagerForcePasswordChangeModal';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
-
 import type { DictKey } from '@/app/manager/ManagerI18n';;
-
 const MENU_ITEMS = [
   { key: 'dashboard', icon: LayoutDashboard, href: '/manager/dashboard' },
   { key: 'enquiries', icon: MessageSquare, href: '/manager/enquiries' },
@@ -35,21 +31,16 @@ const MENU_ITEMS = [
   { key: 'finance', icon: IndianRupee, href: '/manager/finance' },
   { key: 'expenses', icon: Receipt, href: '/manager/expenses', label: 'Expenses' }
 ];
-
 export function ManagerLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const user = typeof window !== 'undefined' ? getSession() : null;
   const { properties, selectedPropertyId, setSelectedPropertyId } = useManagerPropertyContext();
   const { lang, setLang, t } = useManagerI18n();
-  
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
-
   const [forcePasswordChange, setForcePasswordChange] = useState(user?.mustChangePassword || false);
-
   const handleLogout = (e: React.MouseEvent) => {
     e.preventDefault();
     if(typeof window !== 'undefined'){ 
@@ -57,7 +48,6 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
       window.location.href='/'; 
     }
   };
-
   return (
     <div className="min-h-screen bg-page flex flex-col md:flex-row text-primary">
       <ManagerForcePasswordChangeModal 
@@ -85,7 +75,6 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
           </button>
         </div>
       </div>
-
       {/* Mobile Backdrop */}
       {isMobileMenuOpen && (
         <div 
@@ -93,7 +82,6 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
-
       {/* Sidebar */}
       <aside className={`
         fixed inset-y-0 left-0 z-50 w-64 bg-sidebar border-r border overflow-y-auto shrink-0
@@ -128,7 +116,6 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
           })}
         </nav>
       </aside>
-
       {/* Main Content */}
       <main className="flex-1 flex flex-col min-w-0">
         <header className="hidden md:flex h-16 bg-header border-b border items-center px-6 justify-between shrink-0 sticky top-0 z-20 backdrop-blur-md bg-opacity-80">
@@ -152,7 +139,6 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
                 हिं
               </button>
             </div>
-
             {/* Property Switcher */}
             <div className="flex items-center gap-2 bg-input border border rounded-[var(--radius-md,8px)] px-3 py-1.5">
               <Building2 className="w-4 h-4 text-secondary shrink-0" />
@@ -162,12 +148,11 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
                 onChange={(e) => setSelectedPropertyId(e.target.value)}
               >
                 {properties.map(p => (
-// @ts-expect-error
+                  // @ts-expect-error
                   <option key={p.id} value={p.id}>{(p as any).name}</option>
                 ))}
               </select>
             </div>
-
             <div className="text-sm text-secondary">
               Manager: <strong className="text-primary">{user?.name}</strong>
             </div>
@@ -176,7 +161,6 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
             </button>
           </div>
         </header>
-        
         <div className="flex-1 p-4 md:p-6 text-primary overflow-x-hidden">
           {children}
         </div>
@@ -184,4 +168,3 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-

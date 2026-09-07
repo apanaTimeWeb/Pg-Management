@@ -1,12 +1,9 @@
 import type { Invoice } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
-
 export type ManagerFinanceFilter = 'all' | 'paid' | 'pending';
-
 export interface EnrichedInvoice extends Invoice {
   studentName?: string;
   roomBed?: string;
 }
-
 export interface ManagerFinanceStats {
   totalExpectedRent: number;
   totalCollectedRent: number;
@@ -15,7 +12,6 @@ export interface ManagerFinanceStats {
   studentsPaidCount: number;
   studentsPendingCount: number;
 }
-
 export interface ManagerFinanceData {
   invoices: EnrichedInvoice[];
   stats: ManagerFinanceStats | null;
@@ -25,7 +21,6 @@ export interface ManagerFinanceData {
   totalPages: number;
   paginatedData: EnrichedInvoice[];
 }
-
 export interface UseManagerFinanceReturn extends ManagerFinanceData {
   setFilter: (f: ManagerFinanceFilter) => void;
   setCurrentPage: (p: number) => void;

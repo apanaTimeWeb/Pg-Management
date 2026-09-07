@@ -1,0 +1,1 @@
+export const MANAGER_BROADCASTS_URL = '/manager/broadcasts';

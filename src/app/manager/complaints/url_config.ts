@@ -1,1 +1,0 @@
-export const MANAGER_COMPLAINTS_URL = '/manager/complaints';

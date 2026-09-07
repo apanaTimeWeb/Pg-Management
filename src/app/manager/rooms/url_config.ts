@@ -1,1 +1,0 @@
-export const MANAGER_ROOMS_URL = '/manager/rooms';

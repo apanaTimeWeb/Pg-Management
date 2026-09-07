@@ -1,5 +1,4 @@
 import type { StockBatch } from '@/app/staff/staff_lib/staff_api/StaffStock';
-
 export interface ManagerInventoryItem {
   id: string;
   name: string;
@@ -10,7 +9,6 @@ export interface ManagerInventoryItem {
   lowStockThreshold?: number;
   expiryDate?: string;
 }
-
 export interface ManagerKitchenRequest {
   id: string;
   itemName: string;
@@ -19,5 +17,4 @@ export interface ManagerKitchenRequest {
   status: 'pending' | 'verified' | string;
   createdAt: string;
 }
-
 export type ManagerInventoryTab = 'live' | 'requests' | 'batches' | 'alerts';

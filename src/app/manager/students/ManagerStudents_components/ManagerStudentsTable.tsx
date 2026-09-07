@@ -1,13 +1,10 @@
 // RESPONSIBILITY: Renders the ManagerStudentsTable component.
 import Link from 'next/link';
 import { ChevronRight, IndianRupee } from 'lucide-react';
-
 import type { ManagerStudentData } from '@/app/manager/students/ManagerStudents_types/ManagerStudents.types';
-
 interface Props {
   students: ManagerStudentData[];
 }
-
 export function ManagerStudentsTable({ students }: Props) {
   return (
     <div className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden">

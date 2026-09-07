@@ -9,14 +9,12 @@ export interface Visitor {
   relation: string;
   status: 'pending' | 'approved' | 'rejected' | 'checked_in' | 'checked_out';
 }
-
 export interface ManagerVisitorsData {
   visitors: Visitor[];
   loading: boolean;
   selectedPropertyId: string | null;
   ctxLoading: boolean;
 }
-
 export interface UseManagerVisitorsReturn extends ManagerVisitorsData {
   handleStatus: (id: string, status: string) => void;
 }

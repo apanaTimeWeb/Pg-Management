@@ -1,15 +1,12 @@
 // RESPONSIBILITY: Renders the ManagerExpensesHeader component.
 import { Plus } from 'lucide-react';
-
 import { formatINR } from '@/lib/utils/formatters';
-
 interface Props {
   groceryExpenses: number;
   costPerStudent: number;
   studentCount: number;
   setIsModalOpen: (open: boolean) => void;
 }
-
 export function ManagerExpensesHeader({ groceryExpenses, costPerStudent, studentCount, setIsModalOpen }: Props) {
   return (
     <>
@@ -25,7 +22,6 @@ export function ManagerExpensesHeader({ groceryExpenses, costPerStudent, student
           <Plus className="w-5 h-5" /> Log Expense
         </button>
       </div>
-
       {/* Grocery Budget Analytics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="bg-card border border rounded-[var(--radius-lg,12px)] p-5 shadow-sm">

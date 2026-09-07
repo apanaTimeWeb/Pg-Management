@@ -1,1 +1,0 @@
-export const MANAGER_VISITORS_URL = '/manager/visitors';

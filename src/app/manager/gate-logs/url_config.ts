@@ -1,1 +1,0 @@
-export const MANAGER_GATE_LOGS_URL = '/manager/gate-logs';

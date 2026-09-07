@@ -1,28 +1,22 @@
 import React, { useState } from 'react';
 import { X, Upload, IndianRupee } from 'lucide-react';
-
 interface ManagerBillUploadModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (amount: number, imageUrl: string) => void;
   invoiceTitle: string;
 }
-
 export function ManagerBillUploadModal({ isOpen, onClose, onSubmit, invoiceTitle }: ManagerBillUploadModalProps) {
   const [amount, setAmount] = useState('');
   const [loading, setLoading] = useState(false);
-
   if (!isOpen) return null;
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!amount) return;
-
     setLoading(true);
     // Simulate image upload by providing a dummy URL
     // In a real app, we would upload the file to S3/Cloudinary here
     const dummyImageUrl = 'https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=500&auto=format&fit=crop';
-    
     setTimeout(() => {
       onSubmit(Number(amount), dummyImageUrl);
       setLoading(false);
@@ -30,7 +24,6 @@ export function ManagerBillUploadModal({ isOpen, onClose, onSubmit, invoiceTitle
       onClose();
     }, 800);
   };
-
   return (
     <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
       <div className="bg-card w-full max-w-md rounded-[var(--radius-lg,12px)] shadow-2xl overflow-hidden border border">
@@ -43,7 +36,6 @@ export function ManagerBillUploadModal({ isOpen, onClose, onSubmit, invoiceTitle
             <X className="w-5 h-5" />
           </button>
         </div>
-
         <form onSubmit={handleSubmit} className="p-5 space-y-5">
           <div className="space-y-1.5">
             <label className="text-sm font-bold text-secondary">Bill Amount</label>
@@ -60,7 +52,6 @@ export function ManagerBillUploadModal({ isOpen, onClose, onSubmit, invoiceTitle
               />
             </div>
           </div>
-
           <div className="space-y-1.5">
             <label className="text-sm font-bold text-secondary">Upload Bill Image</label>
             <div className="border-2 border-dashed border rounded-[var(--radius-md,8px)] p-6 flex flex-col items-center justify-center text-center hover:bg-input motion-safe:transition-colors cursor-pointer group">
@@ -71,7 +62,6 @@ export function ManagerBillUploadModal({ isOpen, onClose, onSubmit, invoiceTitle
               <p className="text-xs text-secondary mt-1">PNG, JPG up to 5MB (Simulation)</p>
             </div>
           </div>
-
           <div className="pt-2 flex justify-end gap-3">
             <button
               type="button"

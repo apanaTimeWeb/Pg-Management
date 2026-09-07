@@ -4,7 +4,6 @@ export interface ManagerStudentUser {
   email?: string;
   phone?: string;
 }
-
 export interface ManagerStudentProfile {
   id: string;
   userId: string;
@@ -14,7 +13,6 @@ export interface ManagerStudentProfile {
   duesAmount: number;
   pgScore: number;
 }
-
 export interface ManagerStudentData {
   user?: ManagerStudentUser;
   profile: ManagerStudentProfile;

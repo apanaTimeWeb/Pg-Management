@@ -5,7 +5,6 @@ export interface ManagerAttendanceStudent {
   phone: string;
   roomNumber?: string;
 }
-
 export interface ManagerAttendanceRecord {
   id?: string;
   studentId: string;
@@ -13,5 +12,4 @@ export interface ManagerAttendanceRecord {
   status: 'Present' | 'Absent' | 'On Leave';
   date: string;
 }
-
 export type ManagerAttendanceStatus = 'Present' | 'Absent' | 'On Leave' | 'Pending';

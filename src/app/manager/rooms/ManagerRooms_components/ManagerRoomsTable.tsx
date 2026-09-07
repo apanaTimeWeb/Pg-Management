@@ -1,9 +1,7 @@
 // RESPONSIBILITY: Renders the ManagerRoomsTable component.
 import { BedDouble, ChevronRight, User, Users } from 'lucide-react';
 import Link from 'next/link';
-
 import type { ManagerRoomData } from '@/app/manager/rooms/ManagerRooms_types/ManagerRooms.types';
-
 interface Props {
   loading: boolean;
   filteredRooms: ManagerRoomData[];
@@ -12,15 +10,12 @@ interface Props {
   totalPages: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
-
 export function ManagerRoomsTable({ 
   loading, filteredRooms, currentPage, itemsPerPage, totalPages, setCurrentPage 
 }: Props) {
-  
   if (loading) {
     return <div className="motion-safe:animate-pulse h-64 bg-card border border rounded-[var(--radius-lg,12px)]"></div>;
   }
-
   if (filteredRooms.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16 bg-card border border rounded-[var(--radius-lg,12px)] text-center">
@@ -32,9 +27,7 @@ export function ManagerRoomsTable({
       </div>
     );
   }
-
   const paginatedRooms = filteredRooms.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-
   return (
     <div className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm">
       <div className="overflow-x-auto">
@@ -53,7 +46,6 @@ export function ManagerRoomsTable({
               const safeSharing = room.sharing || 1;
               const occupiedBeds = safeSharing - room.vacantCount;
               const percent = Math.round((occupiedBeds / safeSharing) * 100);
-              
               return (
                 <tr key={room.id} className="hover:bg-[rgba(99,102,241,0.02)] motion-safe:transition-colors group">
                   <td className="px-6 py-4">
@@ -118,7 +110,6 @@ export function ManagerRoomsTable({
           </tbody>
         </table>
       </div>
-      
       {totalPages > 1 && (
         <div className="p-4 border-t border bg-[rgba(99,102,241,0.01)] flex items-center justify-between">
           <span className="text-sm text-secondary">

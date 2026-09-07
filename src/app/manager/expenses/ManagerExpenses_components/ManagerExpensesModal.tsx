@@ -3,10 +3,8 @@
 // Responsibility: Renders the expense creation modal wired to React Hook Form.
 // Receives: RHF UseFormReturn to register fields and display inline errors.
 import { IndianRupee, Loader2 } from 'lucide-react';
-
 import type { UseFormReturn } from 'react-hook-form';
 import type { ExpenseFormData } from '@/app/manager/expenses/ManagerExpenses_types/ManagerExpenses.types';
-
 interface Props {
   isModalOpen: boolean;
   onModalClose: () => void;
@@ -15,14 +13,11 @@ interface Props {
   handleSubmit: (e?: React.BaseSyntheticEvent) => void;
   categoryLabels: Record<string, string>;
 }
-
 export function ManagerExpensesModal({
   isModalOpen, onModalClose, isSubmitting, form, handleSubmit, categoryLabels
 }: Props) {
   if (!isModalOpen) return null;
-
   const { register, formState: { errors } } = form;
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in">
       <div className="bg-card rounded-[var(--radius-lg,12px)] w-full max-w-md shadow-2xl border border overflow-hidden flex flex-col max-h-[90vh]">
@@ -32,7 +27,6 @@ export function ManagerExpensesModal({
             &times;
           </button>
         </div>
-
         <form onSubmit={handleSubmit} className="p-6 flex-1 overflow-y-auto">
           <div className="space-y-5">
             <div>
@@ -47,7 +41,6 @@ export function ManagerExpensesModal({
               </select>
               {errors.category && <p className="text-xs text-danger mt-1">{errors.category.message}</p>}
             </div>
-
             <div>
               <label className="block text-sm font-medium text-secondary mb-1">Amount (₹)</label>
               <div className="relative">
@@ -62,7 +55,6 @@ export function ManagerExpensesModal({
               </div>
               {errors.amount && <p className="text-xs text-danger mt-1">{errors.amount.message}</p>}
             </div>
-
             <div>
               <label className="block text-sm font-medium text-secondary mb-1">Description</label>
               <textarea
@@ -74,7 +66,6 @@ export function ManagerExpensesModal({
               {errors.description && <p className="text-xs text-danger mt-1">{errors.description.message}</p>}
             </div>
           </div>
-
           <div className="mt-8 flex gap-3">
             <button
               type="button"

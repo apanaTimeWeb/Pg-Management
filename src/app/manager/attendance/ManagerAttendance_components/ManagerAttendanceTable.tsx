@@ -1,8 +1,6 @@
 // RESPONSIBILITY: Renders the ManagerAttendanceTable component.
 import { Search, BedDouble, CheckCircle, XCircle, Clock, Users } from 'lucide-react';
-
 import type { ManagerAttendanceStudent, ManagerAttendanceRecord } from '@/app/manager/attendance/ManagerAttendance_types/ManagerAttendance.types';
-
 interface Props {
   paginatedData: ManagerAttendanceStudent[];
   attendance: ManagerAttendanceRecord[];
@@ -10,7 +8,6 @@ interface Props {
   setSearchQuery: (val: string) => void;
   handleMark: (studentId: string, status: 'Present' | 'Absent' | 'On Leave') => void;
 }
-
 export function ManagerAttendanceTable({ paginatedData, attendance, searchQuery, setSearchQuery, handleMark }: Props) {
   const getStatusColor = (status: string) => {
     if (status === 'Present') return 'bg-success-bg text-success border-success';
@@ -18,7 +15,6 @@ export function ManagerAttendanceTable({ paginatedData, attendance, searchQuery,
     if (status === 'On Leave') return 'bg-warning-bg text-warning border-warning';
     return 'bg-input text-secondary border';
   };
-
   return (
     <>
       <div className="p-4 border-b border bg-card">
@@ -33,7 +29,6 @@ export function ManagerAttendanceTable({ paginatedData, attendance, searchQuery,
           />
         </div>
       </div>
-
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm whitespace-nowrap">
           <thead className="bg-card border-b border text-secondary sticky top-0 z-10 shadow-sm shadow-black/5">
@@ -48,7 +43,6 @@ export function ManagerAttendanceTable({ paginatedData, attendance, searchQuery,
             {paginatedData.map(s => {
               const record = attendance.find(a => a.studentId === s.userId || a.studentId === s.id);
               const currentStatus = record?.status || 'Pending';
-
               return (
                 <tr key={s.id} className="hover:bg-page motion-safe:transition-colors group">
                   <td className="p-4">

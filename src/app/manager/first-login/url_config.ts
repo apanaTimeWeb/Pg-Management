@@ -1,1 +1,0 @@
-export const MANAGER_FIRST_LOGIN_URL = '/manager/first-login';

@@ -1,5 +1,4 @@
 import type { EnquiryStatus } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
-
 export interface EnquiryFormData {
   name: string;
   phone: string;
@@ -8,9 +7,7 @@ export interface EnquiryFormData {
   budget: string;
   notes: string;
 }
-
 export type EnquiriesTab = 'pipeline' | 'lost';
-
 export interface ManagerEnquiriesState {
   enquiries: unknown[];
   loading: boolean;

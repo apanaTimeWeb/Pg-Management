@@ -30,7 +30,7 @@ export const db = {
 
   getById<T extends BaseEntity>(key: string, id: string): T | null {
     const items = this.getAll<T>(key);
-    return items.find((item: any) => item.id === id) ?? null;
+    return items.find((item: T) => item.id === id) ?? null;
   },
 
   insert<T extends BaseEntity>(key: string, item: T): T {
@@ -42,7 +42,7 @@ export const db = {
 
   update<T extends BaseEntity>(key: string, id: string, patch: Partial<T>): T | null {
     const items = this.getAll<T>(key);
-    const index = items.findIndex((item: any) => item.id === id);
+    const index = items.findIndex((item: T) => item.id === id);
     if (index === -1) return null;
     const updated = { ...items[index], ...patch, updatedAt: new Date().toISOString() } as T;
     items[index] = updated;
@@ -52,7 +52,7 @@ export const db = {
 
   remove<T extends BaseEntity>(key: string, id: string): boolean {
     const items = this.getAll<T>(key);
-    const index = items.findIndex((item: any) => item.id === id);
+    const index = items.findIndex((item: T) => item.id === id);
     if (index === -1) return false;
     const item = items[index];
     if (item) {

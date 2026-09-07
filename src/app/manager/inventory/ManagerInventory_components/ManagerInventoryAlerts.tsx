@@ -1,10 +1,7 @@
 // RESPONSIBILITY: Renders the ManagerInventoryAlerts component.
 import { AlertTriangle, CheckCircle } from 'lucide-react';
-
-import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
-
+import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
 import type { ManagerInventoryItem, ManagerKitchenRequest } from '@/app/manager/inventory/ManagerInventory_types/ManagerInventory.types';
-
 interface Props {
   alertCount: number;
   expiryAlerts: ManagerInventoryItem[];
@@ -14,7 +11,6 @@ interface Props {
   userId: string | undefined;
   loadData: () => void;
 }
-
 export function ManagerInventoryAlerts({
   alertCount, expiryAlerts, lowStockAlerts, requests, selectedPropertyId, userId, loadData
 }: Props) {
@@ -29,10 +25,9 @@ export function ManagerInventoryAlerts({
       </div>
     );
   }
-
   const handleCreateRequest = (item: ManagerInventoryItem) => {
     if (!selectedPropertyId || !userId) return;
-    (api as any).managerOperations.addInventoryItem({
+    api.managerOperations.addInventoryItem({
       propertyId: selectedPropertyId,
       name: item.name,
       quantity: 0,
@@ -43,7 +38,6 @@ export function ManagerInventoryAlerts({
     alert('Added to Kitchen Requests!');
     loadData();
   };
-
   return (
     <div className="space-y-6">
       {expiryAlerts.length > 0 && (
@@ -55,7 +49,6 @@ export function ManagerInventoryAlerts({
             {expiryAlerts.map(i => {
               const diffDays = Math.ceil((new Date(i.expiryDate!).getTime() - new Date().setHours(0,0,0,0)) / (1000 * 60 * 60 * 24));
               const statusText = diffDays < 0 ? 'is EXPIRED!' : `expires in ${diffDays} days!`;
-              
               return (
                 <div key={`exp-${i.id}`} className="bg-[rgba(239,68,68,0.05)] border border-[rgba(239,68,68,0.2)] text-danger text-sm rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
@@ -74,7 +67,6 @@ export function ManagerInventoryAlerts({
           </div>
         </div>
       )}
-
       {lowStockAlerts.length > 0 && (
         <div className="bg-card border border-[rgba(239,68,68,0.3)] rounded-[var(--radius-lg,12px)] p-5 shadow-sm">
           <h3 className="font-bold text-danger mb-4 flex items-center gap-2">

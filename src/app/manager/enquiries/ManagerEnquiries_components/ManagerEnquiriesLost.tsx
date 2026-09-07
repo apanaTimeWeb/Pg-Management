@@ -1,10 +1,7 @@
 // RESPONSIBILITY: Renders the ManagerEnquiriesLost component.
 import { MessageCircle, Mail } from 'lucide-react';
-
 import { Pagination } from '@/components/ui/Pagination';
-
 import type { Enquiry, EnquiryStatus } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
-
 interface Props {
   paginatedLostEnquiries: Enquiry[];
   lostEnquiries: Enquiry[];
@@ -14,7 +11,6 @@ interface Props {
   setWaMenuEnquiry: (enq: Enquiry) => void;
   handleStatusChange: (id: string, status: EnquiryStatus) => void;
 }
-
 export function ManagerEnquiriesLost({
   paginatedLostEnquiries, lostEnquiries, currentPage, totalPages,
   setCurrentPage, setWaMenuEnquiry, handleStatusChange
@@ -37,7 +33,6 @@ export function ManagerEnquiriesLost({
       )}
     </div>
   );
-
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -54,16 +49,13 @@ export function ManagerEnquiriesLost({
                   <span className="text-sm text-secondary leading-relaxed">{enq.notes}</span>
                 </div>
               )}
-
               <div className="bg-danger-bg p-3 rounded-lg border border-danger/20 mb-4 mt-3">
                 <p className="text-xs font-semibold text-danger uppercase tracking-wider mb-1">Reason for Loss</p>
                 <p className="text-sm text-primary font-medium">{enq.lossReason || 'Not specified'}</p>
               </div>
             </div>
-
             <div>
               {renderCardContactActions(enq)}
-              
               <div className="mt-3 pt-3 border-t border">
                 <select 
                   value={enq.status}

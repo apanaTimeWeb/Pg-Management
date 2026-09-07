@@ -1,0 +1,1 @@
+export const MANAGER_STUDENTS_URL = '/manager/students';

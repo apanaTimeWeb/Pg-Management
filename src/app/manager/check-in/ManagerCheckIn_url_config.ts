@@ -1,0 +1,1 @@
+export const MANAGER_CHECK_IN_URL = '/manager/check-in';

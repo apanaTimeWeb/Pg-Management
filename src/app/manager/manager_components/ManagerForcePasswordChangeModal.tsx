@@ -1,62 +1,47 @@
 'use client';
-
 import React, { useState } from 'react';
-
 import { authApi as api } from '@/app/login/login_lib/login_api/LoginAuth';
-
 import type { SessionUser } from '@/lib/types';
-
 ;
 import { Lock, AlertTriangle, Key } from 'lucide-react';
-
 import { getSession } from '@/app/login/login_lib/login_auth/LoginSession';
-
 interface ManagerForcePasswordChangeModalProps {
   user: SessionUser | null;
   onSuccess: () => void;
 }
-
 export function ManagerForcePasswordChangeModal({ user, onSuccess }: ManagerForcePasswordChangeModalProps) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-
   if (!user || !user.mustChangePassword) return null;
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-
     if (password.length < 6) {
       setError('Password must be at least 6 characters long.');
       return;
     }
-
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
       return;
     }
-
     setLoading(true);
     try {
       api.changePassword(user.id, password);
-      
       // Update session to reflect password changed
       const currentSession = getSession();
       if (currentSession) {
         currentSession.mustChangePassword = false;
         localStorage.setItem('spg_current_session', JSON.stringify(currentSession));
       }
-      
       onSuccess();
-    } catch (err: any) {
-      setError((err as any).message || 'Failed to change password');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to change password');
     } finally {
       setLoading(false);
     }
   };
-
   return (
     <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
       <div className="bg-card border border rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-in fade-in zoom-in motion-safe:duration-300">
@@ -70,7 +55,6 @@ export function ManagerForcePasswordChangeModal({ user, onSuccess }: ManagerForc
             Since this is your first time logging in, you must change the temporary password provided to you.
           </p>
         </div>
-
         <form onSubmit={handleSubmit} className="p-6 space-y-5">
           {error && (
             <div className="p-3 bg-danger-bg border border-danger text-danger rounded-lg text-sm flex items-start gap-2">
@@ -78,7 +62,6 @@ export function ManagerForcePasswordChangeModal({ user, onSuccess }: ManagerForc
               <span>{error}</span>
             </div>
           )}
-
           <div>
             <label className="block text-sm font-medium text-secondary mb-1">New Password</label>
             <div className="relative">
@@ -95,7 +78,6 @@ export function ManagerForcePasswordChangeModal({ user, onSuccess }: ManagerForc
               />
             </div>
           </div>
-
           <div>
             <label className="block text-sm font-medium text-secondary mb-1">Confirm Password</label>
             <div className="relative">
@@ -112,7 +94,6 @@ export function ManagerForcePasswordChangeModal({ user, onSuccess }: ManagerForc
               />
             </div>
           </div>
-
           <button
             type="submit"
             disabled={loading}

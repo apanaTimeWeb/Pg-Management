@@ -1,13 +1,11 @@
 // RESPONSIBILITY: Renders the ManagerComplaintsMain component.
 'use client';
-
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { Pagination } from '@/components/ui/Pagination';
 import { ManagerUseManagerComplaints } from '@/app/manager/complaints/ManagerComplaints_hooks/ManagerUseManagerComplaints';
 import { ManagerComplaintsActive } from '@/app/manager/complaints/ManagerComplaints_components/ManagerComplaintsActive';
 import { ManagerComplaintsLog } from '@/app/manager/complaints/ManagerComplaints_components/ManagerComplaintsLog';
 import { ManagerComplaintsResolveModal } from '@/app/manager/complaints/ManagerComplaints_components/ManagerComplaintsResolveModal';
-
 export function ManagerComplaintsMain() {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
   const {
@@ -20,17 +18,14 @@ export function ManagerComplaintsMain() {
     activeComplaintsCount, resolvedComplaintsCount,
     handleResolveSubmit, handleStartWork
   } = ManagerUseManagerComplaints(selectedPropertyId, ctxLoading);
-
   if (ctxLoading) return <div className="p-6 text-secondary">Loading...</div>;
   if (!selectedPropertyId) return <div className="p-6 text-secondary text-center">Property Required</div>;
-
   return (
     <div className="space-y-6 pb-20">
       <div>
         <h1 className="text-[24px] font-bold text-primary">Maintenance & Complaints</h1>
         <p className="text-sm text-secondary">Manage student issues and track repair costs.</p>
       </div>
-
       <div className="flex border-b border gap-6">
         <button 
           onClick={() => setActiveTab('active')} 
@@ -45,7 +40,6 @@ export function ManagerComplaintsMain() {
           Maintenance Log
         </button>
       </div>
-
       {activeTab === 'active' && (
         <ManagerComplaintsActive 
           paginatedData={paginatedData}
@@ -54,23 +48,20 @@ export function ManagerComplaintsMain() {
           setResolvingComplaint={onOpenResolveModal}
         />
       )}
-
       {activeTab === 'log' && (
         <ManagerComplaintsLog 
           paginatedData={paginatedData}
           resolvedComplaintsCount={resolvedComplaintsCount}
         />
       )}
-
       {totalPages > 1 && (
         <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
       )}
-
       {resolvingComplaint && (
         <ManagerComplaintsResolveModal 
           resolvingComplaint={resolvingComplaint}
           onClose={onCloseResolveModal}
-// @ts-expect-error
+          // @ts-expect-error
           resolveForm={resolveForm}
           handleResolveSubmit={handleResolveSubmit}
         />

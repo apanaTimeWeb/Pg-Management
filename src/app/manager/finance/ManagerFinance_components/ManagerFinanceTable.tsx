@@ -1,8 +1,6 @@
 // RESPONSIBILITY: Renders the ManagerFinanceTable component.
 import { IndianRupee, CheckCircle, Receipt, Bell, User as UserIcon, Calendar } from 'lucide-react';
-
 import type { EnrichedInvoice, ManagerFinanceFilter } from '@/app/manager/finance/ManagerFinance_types/ManagerFinance.types';
-
 interface ManagerFinanceTableProps {
   invoices: EnrichedInvoice[];
   paginatedData: EnrichedInvoice[];
@@ -11,7 +9,6 @@ interface ManagerFinanceTableProps {
   handleSendReminder: (studentName: string) => void;
   handleMarkPaid: (invId: string) => void;
 }
-
 export function ManagerFinanceTable({ 
   invoices, 
   paginatedData, 
@@ -42,7 +39,6 @@ export function ManagerFinanceTable({
           Paid ({invoices.filter(i => i.status.toLowerCase() === 'paid').length})
         </button>
       </div>
-
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm whitespace-nowrap">
           <thead className="bg-card border-b border text-secondary sticky top-0 z-10 shadow-sm shadow-black/5">

@@ -7,7 +7,6 @@ import {
   Package, 
   TrendingUp 
 } from 'lucide-react';
-
 export function ManagerDashboardQuickActions() {
   return (
     <div>

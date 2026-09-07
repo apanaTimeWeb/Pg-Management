@@ -1,12 +1,9 @@
 // RESPONSIBILITY: Renders the ManagerCheckinForm component.
 import { ArrowRight, ArrowLeft, CheckCircle } from 'lucide-react';
-
 import { ManagerCheckinFormSteps1to5 } from '@/app/manager/check-in/ManagerCheckin_components/ManagerCheckinFormSteps1to5';
 import { ManagerCheckinFormSteps6to10 } from '@/app/manager/check-in/ManagerCheckin_components/ManagerCheckinFormSteps6to10';
-
 import type { ManagerCheckinFormData } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-
 interface Props {
   step: number;
   formData: ManagerCheckinFormData;
@@ -21,7 +18,6 @@ interface Props {
   handleNext: () => void;
   handleCommit: () => void;
 }
-
 export function ManagerCheckinForm({
   step, formData, setFormData, errors, setErrors, vacantBeds, compatibilityScore, router,
   isSubmitting, handlePrev, handleNext, handleCommit
@@ -46,7 +42,6 @@ export function ManagerCheckinForm({
           router={router} 
         />
       </div>
-
       {step < 10 && (
         <div className="flex justify-between items-center pt-4 border-t border mt-6">
           <button 
@@ -58,11 +53,9 @@ export function ManagerCheckinForm({
           >
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
-          
           {step < 9 ? (
             <button 
-              onClick={handleNext}
-              disabled={(step === 4 && !(formData as any).room.bedId) || (step === 7 && !(formData as any).agreement.accepted)}
+              onClick={handleNext}              disabled={(step === 4 && !formData.room.bedId) || (step === 7 && !formData.agreement.accepted)}
               className="px-6 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-hover motion-safe:transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Next <ArrowRight className="w-4 h-4" />

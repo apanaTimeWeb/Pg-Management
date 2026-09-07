@@ -1,1 +1,0 @@
-export const MANAGER_FINANCE_URL = '/manager/finance';

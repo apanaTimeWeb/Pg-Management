@@ -1,12 +1,9 @@
 // RESPONSIBILITY: Renders the ManagerGateLogsTable component.
 import { LogIn, LogOut, AlertTriangle } from 'lucide-react';
-
 import type { GateLog } from '@/app/manager/gate-logs/ManagerGateLogs_types/ManagerGateLogs.types';
-
 interface ManagerGateLogsTableProps {
   paginatedData: GateLog[];
 }
-
 export function ManagerGateLogsTable({ paginatedData }: ManagerGateLogsTableProps) {
   return (
     <div className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm">

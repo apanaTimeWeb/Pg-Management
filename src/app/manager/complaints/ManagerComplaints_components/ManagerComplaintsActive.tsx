@@ -1,15 +1,12 @@
 // RESPONSIBILITY: Renders the ManagerComplaintsActive component.
 import { Clock, AlertCircle, CheckCircle } from 'lucide-react';
-
 import type { ManagerComplaintData } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';
-
 interface Props {
   paginatedData: ManagerComplaintData[];
   activeComplaintsCount: number;
   handleStartWork: (id: string) => void;
   setResolvingComplaint: (c: ManagerComplaintData) => void;
 }
-
 export function ManagerComplaintsActive({ 
   paginatedData, activeComplaintsCount, handleStartWork, setResolvingComplaint 
 }: Props) {

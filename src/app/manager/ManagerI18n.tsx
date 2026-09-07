@@ -1,10 +1,7 @@
 // RESPONSIBILITY: Renders the ManagerI18n component.
 'use client';
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
-
 type Language = 'en' | 'hi';
-
 const en = {
   dashboard: 'Dashboard',
   enquiries: 'Enquiries',
@@ -23,7 +20,6 @@ const en = {
   todayCheckins: 'Today Check-ins',
   recentActivity: 'Recent Activity'
 };
-
 const hi = {
   dashboard: 'डैशबोर्ड (Dashboard)',
   enquiries: 'पूछताछ (Enquiries)',
@@ -42,21 +38,16 @@ const hi = {
   todayCheckins: 'आज के चेक-इन',
   recentActivity: 'हाल की गतिविधि'
 };
-
 const dictionaries = { en, hi };
 export type DictKey = keyof typeof en;
-
 interface I18nContextProps {
   lang: Language;
   setLang: (lang: Language) => void;
   t: (key: DictKey) => string;
 }
-
 const I18nContext = createContext<I18nContextProps | undefined>(undefined);
-
 export const ManagerI18nProvider = ({ children }: { children: React.ReactNode }) => {
   const [lang, setLangState] = useState<Language>('en');
-
   useEffect(() => {
     const saved = localStorage.getItem('spg_ui_manager_lang') as Language;
     if (saved === 'en' || saved === 'hi') {
@@ -64,23 +55,19 @@ export const ManagerI18nProvider = ({ children }: { children: React.ReactNode })
       setLangState(saved);
     }
   }, []);
-
   const setLang = (newLang: Language) => {
     setLangState(newLang);
     localStorage.setItem('spg_ui_manager_lang', newLang);
   };
-
   const t = (key: DictKey): string => {
     return dictionaries[lang][key] || dictionaries.en[key] || key;
   };
-
   return (
     <I18nContext.Provider value={{ lang, setLang, t }}>
       {children}
     </I18nContext.Provider>
   );
 };
-
 export const useManagerI18n = () => {
   const context = useContext(I18nContext);
   if (!context) {

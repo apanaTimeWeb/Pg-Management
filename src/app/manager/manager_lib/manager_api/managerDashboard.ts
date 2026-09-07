@@ -1,30 +1,21 @@
+import type { BaseEntity } from '@/lib/storage/db';
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
-
 export const managerDashboardApi = {
   seedMocksIfEmpty: (propertyId: string) => {
     if (!propertyId) return;
-
     // Check if students exist
-    const students = db.getAll<any>(STORAGE_KEYS.STUDENTS).filter(t => t.propertyId === propertyId);
+    const students = db.getAll<BaseEntity & { propertyId?: string; isDeleted?: boolean; [key: string]: unknown }>(STORAGE_KEYS.STUDENTS).filter(t => t.propertyId === propertyId);
     if (students.length === 0) {
       // Seed Rooms & Beds
-      const r1 = createId('room');
-// @ts-expect-error
-      db.insert(STORAGE_KEYS.ROOMS, { id: r1, propertyId, number: '101', floor: 1, type: '2 Sharing', isDeleted: false } as unknown);
-      
+      const r1 = createId('room');      db.insert(STORAGE_KEYS.ROOMS, { id: r1, propertyId, number: '101', floor: 1, type: '2 Sharing', isDeleted: false } as unknown as BaseEntity);
       const b1 = createId('bed');
-      const b2 = createId('bed');
-// @ts-expect-error
-      db.insert(STORAGE_KEYS.BEDS, { id: b1, propertyId, roomId: r1, code: 'A', status: 'occupied', isDeleted: false } as unknown);
-// @ts-expect-error
-      db.insert(STORAGE_KEYS.BEDS, { id: b2, propertyId, roomId: r1, code: 'B', status: 'available', isDeleted: false } as unknown);
-
+      const b2 = createId('bed');      db.insert(STORAGE_KEYS.BEDS, { id: b1, propertyId, roomId: r1, code: 'A', status: 'occupied', isDeleted: false } as unknown as BaseEntity);      db.insert(STORAGE_KEYS.BEDS, { id: b2, propertyId, roomId: r1, code: 'B', status: 'available', isDeleted: false } as unknown as BaseEntity);
       // Seed Students
-      const t1 = createId('student');
-// @ts-expect-error
-      db.insert(STORAGE_KEYS.STUDENTS, {
+      
+      
+      const t1 = createId('student');      db.insert(STORAGE_KEYS.STUDENTS, {
         id: t1,
         propertyId,
         roomId: r1,
@@ -38,12 +29,13 @@ export const managerDashboardApi = {
         securityDeposit: 8000,
         checkInDate: new Date().toISOString(),
         isDeleted: false
-      } as unknown);
-
-      // Seed Complaints
-// @ts-expect-error
-      db.insert(STORAGE_KEYS.COMPLAINTS, {
+      } as unknown as BaseEntity);
+      // Seed Complaints      db.insert(STORAGE_KEYS.COMPLAINTS, {
         id: createId('complaint'),
+        
+        
+        
+        
         propertyId,
         studentId: t1,
         studentName: 'Rahul Sharma',
@@ -53,11 +45,8 @@ export const managerDashboardApi = {
         priority: 'high',
         createdAt: new Date().toISOString(),
         isDeleted: false
-      } as unknown);
-
-      // Seed Visitors
-// @ts-expect-error
-      db.insert(STORAGE_KEYS.VISITORS || 'spg_visitors', {
+      } as unknown as BaseEntity);
+      // Seed Visitors      db.insert(STORAGE_KEYS.VISITORS || 'spg_visitors', {
         id: createId('visitor'),
         propertyId,
         studentId: t1,
@@ -68,11 +57,8 @@ export const managerDashboardApi = {
         status: 'pending',
         createdAt: new Date().toISOString(),
         isDeleted: false
-      } as unknown);
-      
-      // Seed Enquiries
-// @ts-expect-error
-      db.insert(STORAGE_KEYS.ENQUIRIES || 'spg_enquiries', {
+      } as unknown as BaseEntity);
+      // Seed Enquiries      db.insert(STORAGE_KEYS.ENQUIRIES || 'spg_enquiries', {
         id: createId('enquiry'),
         propertyId,
         name: 'Sneha Gupta',
@@ -81,51 +67,39 @@ export const managerDashboardApi = {
         expectedDate: new Date().toISOString(),
         createdAt: new Date().toISOString(),
         isDeleted: false
-      } as unknown);
+      } as unknown as BaseEntity);
     }
   },
-
   getStats: (propertyId: string) => {
     if (!propertyId) return null;
-    
     // Auto-seed so dashboard feels alive
     managerDashboardApi.seedMocksIfEmpty(propertyId);
-
-    const students = db.getAll<any>(STORAGE_KEYS.STUDENTS).filter(t => t.propertyId === propertyId && !t.isDeleted);
+    const students = db.getAll<BaseEntity & { propertyId?: string; isDeleted?: boolean; [key: string]: unknown }>(STORAGE_KEYS.STUDENTS).filter(t => t.propertyId === propertyId && !t.isDeleted);
     const activeStudents = students.filter(t => t.status === 'active' || t.status === 'on_notice').length;
-
-    const beds = db.getAll<any>(STORAGE_KEYS.BEDS).filter(b => b.propertyId === propertyId && !b.isDeleted);
+    const beds = db.getAll<BaseEntity & { propertyId?: string; isDeleted?: boolean; [key: string]: unknown }>(STORAGE_KEYS.BEDS).filter(b => b.propertyId === propertyId && !b.isDeleted);
     const vacantBeds = beds.filter(b => b.status === 'available' || b.status === 'vacant').length;
-
-    const complaints = db.getAll<any>(STORAGE_KEYS.COMPLAINTS).filter(c => c.propertyId === propertyId && !c.isDeleted);
+    const complaints = db.getAll<BaseEntity & { propertyId?: string; isDeleted?: boolean; [key: string]: unknown }>(STORAGE_KEYS.COMPLAINTS).filter(c => c.propertyId === propertyId && !c.isDeleted);
     const openComplaints = complaints.filter(c => c.status !== 'resolved').length;
-
     // Simulate overdue rent by checking students dues
-    const overdueStudentsCount = students.filter(t => t.duesAmount > 0).length;
-
-    const activeSos = db.getAll<any>(STORAGE_KEYS.SOS || 'spg_sos').filter(s => s.propertyId === propertyId && s.status === 'active' && !s.isDeleted).length;
-
+    const overdueStudentsCount = students.filter(t => (t.duesAmount as number) > 0).length;
+    const activeSos = db.getAll<BaseEntity & { propertyId?: string; isDeleted?: boolean; [key: string]: unknown }>(STORAGE_KEYS.SOS || 'spg_sos').filter(s => s.propertyId === propertyId && s.status === 'active' && !s.isDeleted).length;
     // Rent Statistics
     const { financeApi } = require('@/app/owner/owner_lib/owner_api/OwnerFinance');
     financeApi.seedMonthlyInvoices(propertyId); // Ensure current month invoices exist
-
     const now = new Date();
     const currentMonthStr = `${now.toLocaleString('default', { month: 'long' })} ${now.getFullYear()}`;
-    const allInvoices = db.getAll<any>(STORAGE_KEYS.INVOICES).filter(i => i.propertyId === propertyId && i.month === currentMonthStr && !i.isDeleted);
-    
-    const totalExpectedRent = allInvoices.reduce((acc, curr) => acc + curr.amount, 0);
-    const totalCollectedRent = allInvoices.filter(i => i.status.toLowerCase() === 'paid').reduce((acc, curr) => acc + curr.amount, 0);
-    const pendingRentAmount = allInvoices.filter(i => i.status.toLowerCase() !== 'paid').reduce((acc, curr) => acc + curr.amount, 0);
-    
-    const paidStudentIds = new Set(allInvoices.filter(i => i.status.toLowerCase() === 'paid').map(i => i.studentId));
-    const pendingStudentIds = new Set(allInvoices.filter(i => i.status.toLowerCase() !== 'paid').map(i => i.studentId));
-    
+    const allInvoices = db.getAll<BaseEntity & { propertyId?: string; isDeleted?: boolean; [key: string]: unknown }>(STORAGE_KEYS.INVOICES).filter(i => i.propertyId === propertyId && i.month === currentMonthStr && !i.isDeleted);
+    const totalExpectedRent = allInvoices.reduce((acc, curr) => acc + (curr.amount as number), 0);
+    const totalCollectedRent = allInvoices.filter(i => (i.status as string).toLowerCase() === 'paid').reduce((acc, curr) => acc + (curr.amount as number), 0);
+    const pendingRentAmount = allInvoices.filter(i => (i.status as string).toLowerCase() !== 'paid').reduce((acc, curr) => acc + (curr.amount as number), 0);
+    const paidStudentIds = new Set(allInvoices.filter(i => (i.status as string).toLowerCase() === 'paid').map(i => i.studentId));
+    const pendingStudentIds = new Set(allInvoices.filter(i => (i.status as string).toLowerCase() !== 'paid').map(i => i.studentId));
     return {
       activeStudents,
       vacantBeds,
       todayCheckins: 1, // Simulated fixed
       openComplaints,
-      pendingVisitors: db.getAll<any>(STORAGE_KEYS.VISITORS || 'spg_visitors').filter(v => v.propertyId === propertyId && v.status === 'pending').length || 1, 
+      pendingVisitors: db.getAll<BaseEntity & { propertyId?: string; isDeleted?: boolean; [key: string]: unknown }>(STORAGE_KEYS.VISITORS || 'spg_visitors').filter(v => v.propertyId === propertyId && v.status === 'pending').length || 1, 
       overdueStudentsCount: pendingStudentIds.size,
       lateEntries: 2, 
       lowInventoryItems: 3, 

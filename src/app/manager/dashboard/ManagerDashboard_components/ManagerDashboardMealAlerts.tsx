@@ -1,16 +1,12 @@
 // RESPONSIBILITY: Renders the ManagerDashboardMealAlerts component.
 import { Utensils } from 'lucide-react';
-
 import type { MealStatus } from '@/app/manager/manager_lib/manager_api/ManagerMeals';
-
 interface ManagerDashboardMealAlertsProps {
   readyMeals: MealStatus[];
   handleAnnounceMeal: (mealType: 'Breakfast'|'Lunch'|'Dinner') => void;
 }
-
 export function ManagerDashboardMealAlerts({ readyMeals, handleAnnounceMeal }: ManagerDashboardMealAlertsProps) {
   if (readyMeals.length === 0) return null;
-
   return (
     <div className="mb-6 bg-[rgba(99,102,241,0.05)] border border-primary border-opacity-30 rounded-[var(--radius-lg,12px)] p-6">
       <h2 className="text-lg font-semibold text-primary mb-4 flex items-center gap-2">

@@ -1,6 +1,5 @@
 // RESPONSIBILITY: Renders the ManagerInventoryMain component.
 'use client';
-
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
 import { ManagerUseManagerInventory } from '@/app/manager/inventory/ManagerInventory_hooks/ManagerUseManagerInventory';
@@ -10,11 +9,9 @@ import { ManagerInventoryLive } from '@/app/manager/inventory/ManagerInventory_c
 import { ManagerInventoryBatches } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryBatches';
 import { ManagerInventoryAlerts } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryAlerts';
 import { Pagination } from '@/components/ui/Pagination';
-
 export function ManagerInventoryMain() {
   const user = typeof window !== 'undefined' ? getSession() : null;
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
-  
   const {
     inventory, requests, batches, activeTab, setActiveTab,
     formData, setFormData, purchaseCost, setPurchaseCost, purchasedQty, setPurchasedQty, purchaseDate, setPurchaseDate,
@@ -22,59 +19,51 @@ export function ManagerInventoryMain() {
     lowStockAlerts, expiryAlerts, alertCount, pendingCount,
     loadData, handleUpdateQty, handleAdd, handleMarkPurchased
   } = ManagerUseManagerInventory(selectedPropertyId, ctxLoading, user?.id);
-
   if (ctxLoading) return <div className="p-6 text-secondary">Loading...</div>;
   if (!selectedPropertyId) return <div className="p-6 text-center text-secondary">Property Required</div>;
-
   const currentList = activeTab === 'live' ? inventory : requests;
   const totalPages = Math.ceil(currentList.length / itemsPerPage);
   const paginatedRequests = requests.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-
   return (
     <div className="space-y-6 pb-20">
       <div>
         <h1 className="text-[24px] font-bold text-primary">Inventory & Kitchen Requests</h1>
         <p className="text-sm text-secondary">Manage live stock and fulfill cook requests.</p>
       </div>
-
       <ManagerInventoryTabs 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
         pendingCount={pendingCount} 
         alertCount={alertCount} 
       />
-
       {activeTab === 'requests' && (
         <ManagerInventoryRequests 
           requests={paginatedRequests}
           purchasedQty={purchasedQty}
-// @ts-expect-error
+          // @ts-expect-error
           setPurchasedQty={setPurchasedQty}
           purchaseDate={purchaseDate}
-// @ts-expect-error
+          // @ts-expect-error
           setPurchaseDate={setPurchaseDate}
           purchaseCost={purchaseCost}
-// @ts-expect-error
+          // @ts-expect-error
           setPurchaseCost={setPurchaseCost}
           handleMarkPurchased={handleMarkPurchased}
         />
       )}
-
       {activeTab === 'live' && (
         <ManagerInventoryLive 
           inventory={inventory}
           handleUpdateQty={handleUpdateQty}
           formData={formData}
-// @ts-expect-error
+          // @ts-expect-error
           setFormData={setFormData}
           handleAdd={handleAdd}
         />
       )}
-
       {activeTab === 'batches' && (
         <ManagerInventoryBatches batches={batches} />
       )}
-
       {activeTab === 'alerts' && (
         <ManagerInventoryAlerts 
           alertCount={alertCount}
@@ -86,7 +75,6 @@ export function ManagerInventoryMain() {
           loadData={loadData}
         />
       )}
-
       {(activeTab === 'requests' || activeTab === 'live') && totalPages > 1 && (
         <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
       )}

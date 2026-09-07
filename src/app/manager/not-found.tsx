@@ -1,7 +1,6 @@
 // RESPONSIBILITY: Renders the not-found component.
 import Link from 'next/link';
 import { AlertCircle } from 'lucide-react';
-
 export default function ManagerNotFound() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">

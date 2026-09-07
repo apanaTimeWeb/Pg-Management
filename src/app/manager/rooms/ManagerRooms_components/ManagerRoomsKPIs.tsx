@@ -1,18 +1,14 @@
 // RESPONSIBILITY: Renders the ManagerRoomsKPIs component.
 import { Hash, BedDouble, CheckCircle2, AlertCircle } from 'lucide-react';
-
 import type { ManagerRoomData } from '@/app/manager/rooms/ManagerRooms_types/ManagerRooms.types';
-
 interface Props {
   rooms: ManagerRoomData[];
 }
-
 export function ManagerRoomsKPIs({ rooms }: Props) {
   const totalRooms = rooms.length;
   const totalBeds = rooms.reduce((acc, r) => acc + r.bedsCount, 0);
   const vacantBeds = rooms.reduce((acc, r) => acc + r.vacantCount, 0);
   const filledBeds = totalBeds - vacantBeds;
-
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
       <div className="bg-card border border rounded-[var(--radius-md,8px)] p-4 shadow-sm flex items-center justify-between">

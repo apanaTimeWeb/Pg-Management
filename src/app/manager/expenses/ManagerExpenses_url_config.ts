@@ -1,0 +1,1 @@
+export const MANAGER_EXPENSES_URL = '/manager/expenses';

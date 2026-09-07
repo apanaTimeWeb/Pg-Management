@@ -1,6 +1,5 @@
 // RESPONSIBILITY: Renders the ManagerRoomsFilters component.
 import { Search, Filter } from 'lucide-react';
-
 interface Props {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
@@ -11,7 +10,6 @@ interface Props {
   filterStatus: string;
   setFilterStatus: (val: string) => void;
 }
-
 export function ManagerRoomsFilters({ 
   searchQuery, setSearchQuery, 
   showFilters, setShowFilters, 
@@ -41,7 +39,6 @@ export function ManagerRoomsFilters({
         <Filter className="w-4 h-4" />
         Filters {(filterSharing !== 'all' || filterStatus !== 'all') && <span className="w-2 h-2 rounded-full bg-primary ml-1"></span>}
       </button>
-
       {/* Filter Popover */}
       {showFilters && (
         <div className="absolute top-full right-0 mt-2 w-72 bg-card border border rounded-[var(--radius-lg,12px)] shadow-xl z-10 p-4 flex flex-col gap-4">
@@ -57,7 +54,6 @@ export function ManagerRoomsFilters({
               Clear All
             </button>
           </div>
-          
           <div className="space-y-1">
             <label className="text-xs font-medium text-secondary">Sharing Type</label>
             <select 
@@ -71,7 +67,6 @@ export function ManagerRoomsFilters({
               <option value="3">Triple</option>
             </select>
           </div>
-
           <div className="space-y-1">
             <label className="text-xs font-medium text-secondary">Vacancy Status</label>
             <select 

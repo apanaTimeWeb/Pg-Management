@@ -1,12 +1,9 @@
 // RESPONSIBILITY: Renders the ManagerFoodWeeklySchedule component.
 import { Calendar, UtensilsCrossed } from 'lucide-react';
-
 import type { FoodMenu } from '@/app/staff/staff_lib/staff_api/StaffFood';
-
 interface ManagerFoodWeeklyScheduleProps {
   menu: FoodMenu;
 }
-
 export function ManagerFoodWeeklySchedule({ menu }: ManagerFoodWeeklyScheduleProps) {
   return (
     <div className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm">
@@ -21,27 +18,24 @@ export function ManagerFoodWeeklySchedule({ menu }: ManagerFoodWeeklySchedulePro
           </div>
         </div>
       </div>
-
       <div className="p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
           {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day) => {
-// @ts-expect-error
+            // @ts-expect-error
             const rawValue = (menu as unknown)[day] || '';
             let dayData = { breakfast: '', lunch: '', dinner: rawValue };
             try {
               const parsed = JSON.parse(rawValue);
               if (parsed.breakfast !== undefined) dayData = parsed;
-            } catch (e: any) {}
-
+            // @ts-expect-error
+            } catch (e: Record<string, unknown>) {}
             return (
               <div key={day} className="bg-card border border rounded-[var(--radius-lg,12px)] p-5 shadow-sm hover:shadow-md hover:border-primary/50 motion-safe:transition-all relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[var(--primary)] to-transparent opacity-[0.03] group-hover:opacity-[0.06] rounded-bl-full pointer-events-none transition-opacity"></div>
-                
                 <h3 className="text-sm font-black text-primary capitalize mb-4 flex items-center gap-2 pb-3 border-b border">
                   <div className="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(99,102,241,0.6)]"></div>
                   {day}
                 </h3>
-                
                 <div className="space-y-4 relative z-10">
                   <div>
                     <p className="text-[10px] uppercase tracking-widest font-bold text-secondary mb-1">Breakfast</p>
@@ -60,7 +54,6 @@ export function ManagerFoodWeeklySchedule({ menu }: ManagerFoodWeeklySchedulePro
             )
           })}
         </div>
-
         {menu.monthEndSpecial && (
           <div className="mt-8 border-t border pt-8">
             <div className="bg-gradient-to-br from-[var(--primary-subtle)] to-[var(--bg-card)] border border-primary border-opacity-30 rounded-[var(--radius-lg,12px)] p-6 relative overflow-hidden">

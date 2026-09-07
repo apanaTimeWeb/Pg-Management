@@ -4,36 +4,25 @@
 // Uses React Hook Form + Zod (GateLogFormSchema) for validation and reset.
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-
 import { GateLogFormSchema } from '@/app/manager/gate-logs/ManagerGateLogs_types/ManagerGateLogs.types';
-
 import type { GateLogFormData } from '@/app/manager/gate-logs/ManagerGateLogs_types/ManagerGateLogs.types';
-
 interface ManagerGateLogsFormProps {
   handleAdd: (studentId: string, type: 'entry' | 'exit', isLate: boolean) => void;
 }
-
 export function ManagerGateLogsForm({ handleAdd }: ManagerGateLogsFormProps) {
-   
   const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<GateLogFormData>({
-// @ts-expect-error
+    // @ts-expect-error
     resolver: zodResolver(GateLogFormSchema) as unknown,
     defaultValues: { studentId: '', type: 'entry', isLate: false },
   });
-
   const watchedType = watch('type');
-
   const onSubmit = (data: GateLogFormData) => {
     handleAdd(data.studentId, data.type, data.isLate);
     reset({ studentId: '', type: 'entry', isLate: false });
   };
-
   return (
     <div className="bg-card border border p-5 rounded-[var(--radius-lg,12px)] sticky top-6">
       <h2 className="font-bold text-lg text-primary mb-4">Manual Entry</h2>
-// @ts-expect-error
-// @ts-expect-error
-    // @ts-expect-error - unresolved TS error
       <form onSubmit={handleSubmit(onSubmit as any)} className="space-y-4">
         <div>
           <label className="block text-sm text-secondary mb-1">Student ID</label>

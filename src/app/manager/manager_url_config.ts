@@ -1,5 +1,4 @@
 // RESPONSIBILITY: Centralized URL configuration for the Manager module.
-
 export const MANAGER_URLS = {
   // Routes
   DASHBOARD: '/manager/dashboard',
@@ -18,7 +17,6 @@ export const MANAGER_URLS = {
   STUDENTS: '/manager/students',
   VISITORS: '/manager/visitors',
   LOGIN: '/manager/login',
-  
   // API Routes (Prefixes)
   API_BASE: '/api/v1/manager',
 };

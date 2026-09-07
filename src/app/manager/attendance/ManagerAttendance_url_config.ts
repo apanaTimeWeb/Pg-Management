@@ -1,0 +1,1 @@
+export const MANAGER_ATTENDANCE_URL = '/manager/attendance';

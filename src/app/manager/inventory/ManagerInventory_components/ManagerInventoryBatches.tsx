@@ -1,10 +1,8 @@
 // RESPONSIBILITY: Renders the ManagerInventoryBatches component.
 import type { StockBatch } from '@/app/staff/staff_lib/staff_api/StaffStock';
-
 interface Props {
   batches: StockBatch[];
 }
-
 export function ManagerInventoryBatches({ batches }: Props) {
   return (
     <div className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm">
@@ -12,7 +10,6 @@ export function ManagerInventoryBatches({ batches }: Props) {
         <h2 className="text-base font-semibold text-primary">Cook's Usage Logs & Batches</h2>
         <p className="text-sm text-secondary">Track exact dates when items were ordered, opened, and expired.</p>
       </div>
-      
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm">
           <thead className="bg-card border-b border text-secondary">

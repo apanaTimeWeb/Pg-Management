@@ -1,8 +1,6 @@
 // RESPONSIBILITY: Renders the ManagerInventoryRequests component.
 import { CheckCircle, Clock, ShoppingCart } from 'lucide-react';
-
 import type { ManagerKitchenRequest } from '@/app/manager/inventory/ManagerInventory_types/ManagerInventory.types';
-
 interface Props {
   requests: ManagerKitchenRequest[];
   purchasedQty: { [key: string]: string };
@@ -13,7 +11,6 @@ interface Props {
   setPurchaseCost: (val: unknown) => void;
   handleMarkPurchased: (id: string, defaultQty: number) => void;
 }
-
 export function ManagerInventoryRequests({
   requests, purchasedQty, setPurchasedQty,
   purchaseDate, setPurchaseDate,
@@ -29,7 +26,6 @@ export function ManagerInventoryRequests({
       </div>
     );
   }
-
   return (
     <div className="space-y-4">
       {requests.map(req => (
@@ -46,7 +42,6 @@ export function ManagerInventoryRequests({
             <h3 className="text-lg font-bold text-primary">{req.itemName}</h3>
             <p className="text-sm font-medium text-secondary">Requested: <span className="text-primary">{req.quantityRequested} {req.unit}</span></p>
           </div>
-
           {req.status === 'pending' ? (
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 bg-input p-3 rounded-xl border border">
               <div className="flex flex-wrap gap-3">

@@ -1,6 +1,5 @@
 // RESPONSIBILITY: Renders the ManagerFoodEmptyState component.
 import { UtensilsCrossed } from 'lucide-react';
-
 export function ManagerFoodEmptyState() {
   return (
     <div className="flex flex-col items-center justify-center py-16 bg-card border border rounded-[var(--radius-lg,12px)] text-center">
