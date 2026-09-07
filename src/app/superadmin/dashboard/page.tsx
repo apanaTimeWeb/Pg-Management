@@ -1,5 +1,6 @@
 'use client';
 
+// RESPONSIBILITY: Entry point for the SuperAdmin Dashboard page. Composes KPI grid, latest requests table, and acquisition chart.
 import React from 'react';
 
 import { SuperAdminDashboardKpiGrid } from '@/app/superadmin/dashboard/SuperAdminDashboard_components/SuperAdminDashboardKpiGrid';
@@ -9,12 +10,9 @@ import { SuperadminUseSuperAdminDashboardData } from '@/app/superadmin/dashboard
 import { SUPER_ADMIN_DASHBOARD_ACQUISITION_MOCK } from '@/app/superadmin/dashboard/SuperAdminDashboard_utils/SuperAdminDashboard.constants';
 
 export default function SuperAdminDashboardPage() {
-  const { data, loading } = SuperadminUseSuperAdminDashboardData();
-  console.log('DASHBOARD RENDER:', { loading, hasData: !!data });
+  const { data } = SuperadminUseSuperAdminDashboardData();
 
-  if (loading || !data) {
-    // We rely on loading.tsx for the initial suspense, but keep this fallback 
-    // just in case the hook forces a re-render with loading=true.
+  if (!data) {
     return (
       <div className="flex items-center justify-center h-64 text-secondary">
         Loading dashboard data...
@@ -24,6 +22,12 @@ export default function SuperAdminDashboardPage() {
 
   return (
     <div className="space-y-6">
+      {/* Page Header */}
+      <div>
+        <h1 className="text-[22px] font-bold text-primary">Dashboard</h1>
+        <p className="text-secondary text-sm">Platform-wide overview and health metrics.</p>
+      </div>
+
       {/* KPI Grid */}
       <SuperAdminDashboardKpiGrid data={data} />
 
@@ -41,4 +45,3 @@ export default function SuperAdminDashboardPage() {
     </div>
   );
 }
-

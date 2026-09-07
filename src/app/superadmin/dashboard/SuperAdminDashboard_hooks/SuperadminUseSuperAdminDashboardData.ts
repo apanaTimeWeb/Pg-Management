@@ -1,27 +1,13 @@
-// DATA FLOW: [AI_TODO: Document data flow direction for SuperadminUseSuperAdminDashboardData.ts]
+// DATA FLOW: Mock data → useState (synchronous) → DashboardPage
 'use client';
 
-import { useEffect, useState } from 'react';
-
+import { useState } from 'react';
 import { MOCK_DASHBOARD_STATS } from '@/app/superadmin/superadmin_lib/superadmin_mock_data';
-
 import type { SuperAdminDashboardData } from '@/app/superadmin/dashboard/SuperAdminDashboard_types/SuperAdminDashboard.types';
 
 export function SuperadminUseSuperAdminDashboardData() {
-  const [data, setData] = useState<SuperAdminDashboardData | null>(MOCK_DASHBOARD_STATS as unknown as SuperAdminDashboardData);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    // In a real app, replace with async call and error handling
-    const fetched = MOCK_DASHBOARD_STATS;
-    // Safely cast to our strict type matching the API structure
-    console.log('FETCHED MOCK DATA:', fetched);
-    setData(fetched as unknown as SuperAdminDashboardData);
-    setLoading(false);
-  }, []);
+  const [data] = useState<SuperAdminDashboardData>(MOCK_DASHBOARD_STATS as unknown as SuperAdminDashboardData);
+  const [loading] = useState<boolean>(false);
 
   return { data, loading };
 }
-
-
-

@@ -1,22 +1,13 @@
-// DATA FLOW: [AI_TODO: Document data flow direction for SuperadminUseSuperAdminAnalyticsData.ts]
+// DATA FLOW: Mock data → useState (synchronous) → AnalyticsPage
 'use client';
 
-import { useState, useEffect } from 'react';
-
+import { useState } from 'react';
 import { MOCK_DASHBOARD_STATS } from '@/app/superadmin/superadmin_lib/superadmin_mock_data';
-
 import type { SuperAdminAnalyticsStats } from '@/app/superadmin/analytics/SuperAdminAnalytics_types/SuperAdminAnalytics.types';
 
 export function SuperadminUseSuperAdminAnalyticsData() {
-  const [stats, setStats] = useState<SuperAdminAnalyticsStats | null>(MOCK_DASHBOARD_STATS as unknown as SuperAdminAnalyticsStats);
+  const [stats] = useState<SuperAdminAnalyticsStats>(MOCK_DASHBOARD_STATS as unknown as SuperAdminAnalyticsStats);
+  const [loading] = useState(false);
 
-  
-
-  return {
-    stats
-  };
+  return { stats, loading };
 }
-
-
-
-

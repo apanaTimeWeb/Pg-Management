@@ -156,7 +156,7 @@ export const MOCK_REQUESTS = [
     bedCount: 150,
     status: 'Approved',
     planId: 'p3',
-    message: 'Documentation has been submitted. Awaiting account creation.',
+    message: 'Documentation has been submitted.',
     createdAt: '2024-03-12T09:15:00Z',
     updatedAt: '2024-03-13T11:00:00Z',
     createdBy: 'public',
@@ -238,7 +238,6 @@ export const MOCK_TICKETS = [
     status: 'Open',
     priority: 'High',
     ownerId: '1',
-    category: 'Billing',
     createdAt: '2024-03-15T09:00:00Z',
     updatedAt: '2024-03-15T09:00:00Z',
     createdBy: '1',
@@ -252,7 +251,6 @@ export const MOCK_TICKETS = [
     status: 'In Progress',
     priority: 'Medium',
     ownerId: '1',
-    category: 'Account',
     createdAt: '2024-03-14T10:00:00Z',
     updatedAt: '2024-03-15T08:00:00Z',
     createdBy: '1',
@@ -266,7 +264,6 @@ export const MOCK_TICKETS = [
     status: 'Resolved',
     priority: 'High',
     ownerId: '2',
-    category: 'Technical',
     createdAt: '2024-03-10T14:00:00Z',
     updatedAt: '2024-03-12T11:00:00Z',
     createdBy: '2',
@@ -280,7 +277,6 @@ export const MOCK_TICKETS = [
     status: 'Open',
     priority: 'Low',
     ownerId: '4',
-    category: 'Reports',
     createdAt: '2024-03-16T07:30:00Z',
     updatedAt: '2024-03-16T07:30:00Z',
     createdBy: '4',
@@ -305,7 +301,7 @@ export const MOCK_AUDIT_LOGS = [
     actorId: 'superadmin',
     entityId: 'p2',
     entity: 'plan',
-    details: 'Updated Premium plan price from ₹1999 to ₹2499',
+    details: 'Updated Premium plan price from Rs.1999 to Rs.2499',
     createdAt: '2024-03-12T14:30:00Z',
   },
   {
@@ -340,14 +336,15 @@ export const MOCK_AUDIT_LOGS = [
   },
 ];
 
-// Dashboard Stats (used by Dashboard and Analytics pages)
+// Dashboard Stats - NOTE: field names MUST match SuperAdminDashboardData interface exactly
+// SuperAdminDashboardData expects: mrr (not monthlyRecurringRevenue)
 export const MOCK_DASHBOARD_STATS = {
   activeOwnersCount: 42,
   pendingRequestsCount: 8,
   activePropertiesCount: 156,
   totalStudentsCount: 3420,
   occupancyPercentage: 85,
-  monthlyRecurringRevenue: 1250000,
+  mrr: 1250000,               // field name matches SuperAdminDashboardData.mrr
   openTicketsCount: 12,
   expiringPlansCount: 5,
   latestRequests: MOCK_REQUESTS,

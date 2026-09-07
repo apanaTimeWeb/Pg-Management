@@ -23,7 +23,7 @@ export function SuperadminUseSuperAdminSettingsData() {
     e.preventDefault();
     if (!settings) return;
     setSaving(true);
-    settingsApi.updateSettings(settings as unknown as any);
+    settingsApi.updateSettings(settings as unknown as import('@/app/superadmin/superadmin_lib/superadmin_api/SuperadminSettings').PlatformSettings);
     setTimeout(() => {
       setSaving(false);
       toast.success('Platform settings saved successfully.');
