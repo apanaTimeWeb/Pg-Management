@@ -1,4 +1,4 @@
-import { OwnerRequestStatus } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_types/SuperAdminOwnerRequests.types';
+import type { OwnerRequestStatus } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_types/SuperAdminOwnerRequests.types';
 
 export const SUPER_ADMIN_OWNER_REQUEST_STATUSES: OwnerRequestStatus[] = [
   'All',

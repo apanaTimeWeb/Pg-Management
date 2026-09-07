@@ -31,29 +31,29 @@ export function StudentProfileMain() {
           <h2 className="text-2xl font-black text-primary">{session?.name}</h2>
           <p className="text-secondary font-medium mt-1">{session?.email}</p>
           <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 bg-page border border-border rounded-[var(--radius-full)] text-sm font-bold text-primary shadow-sm">
-            <span>Room {profile.roomNumber}</span>
+            <span>Room {(profile as any).roomNumber}</span>
             <span className="w-1.5 h-1.5 rounded-[var(--radius-full)] bg-border"></span>
-            <span>Bed {profile.bedId}</span>
+            <span>Bed {(profile as any).bedId}</span>
           </div>
 
         <div className="border-t border-border pt-6 mt-2">
           <div className="flex flex-col sm:flex-row justify-between items-center bg-page rounded-[var(--radius-lg)] p-4 border border-border">
             <div className="flex items-center gap-4 mb-4 sm:mb-0">
-              <div className={`w-14 h-14 rounded-[var(--radius-full)] flex items-center justify-center border-4 ${profile.pgScore >= 90 ? 'border-success bg-success-bg text-success' : profile.pgScore < 50 ? 'border-danger bg-danger-bg text-danger' : 'border-primary bg-primary-subtle text-primary'}`}>
+              <div className={`w-14 h-14 rounded-[var(--radius-full)] flex items-center justify-center border-4 ${(profile as any).pgScore >= 90 ? 'border-success bg-success-bg text-success' : (profile as any).pgScore < 50 ? 'border-danger bg-danger-bg text-danger' : 'border-primary bg-primary-subtle text-primary'}`}>
                 <Star className="w-6 h-6 fill-current" />
               </div>
               <div className="text-left">
                 <div className="text-sm font-bold text-secondary uppercase tracking-wider">Your PG Score</div>
-                <div className="text-2xl font-black text-primary">{profile.pgScore} <span className="text-sm font-medium text-secondary">/ 100</span></div>
+                <div className="text-2xl font-black text-primary">{(profile as any).pgScore} <span className="text-sm font-medium text-secondary">/ 100</span></div>
               </div>
             </div>
             
             <div className="text-left sm:text-right text-sm">
-              {profile.pgScore >= 90 ? (
+              {(profile as any).pgScore >= 90 ? (
                 <div className="flex items-center sm:justify-end gap-1 text-success font-semibold">
                   <Award className="w-4 h-4" /> Excellent! Eligible for discounts.
                 </div>
-              ) : profile.pgScore >= 70 ? (
+              ) : (profile as any).pgScore >= 70 ? (
                 <div className="flex items-center sm:justify-end gap-1 text-primary font-semibold">
                   <TrendingUp className="w-4 h-4" /> Good standing. Keep it up!
                 </div>
@@ -62,7 +62,7 @@ export function StudentProfileMain() {
                   <TrendingDown className="w-4 h-4" /> Pay rent on time to improve score.
                 </div>
               )}
-              {profile.discountApplied && (
+              {(profile as any).discountApplied && (
                 <div className="mt-1 text-xs bg-success text-white px-2 py-0.5 rounded-[var(--radius-sm)] inline-block">5% Discount Applied Next Month</div>
               )}
             </div>
@@ -80,7 +80,7 @@ export function StudentProfileMain() {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-bold text-secondary mb-2 uppercase tracking-wider">Phone Number</label>
-              <input type="tel" onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }} value={formData.phone} onChange={e=>setFormData({...formData, phone: e.target.value})} className="w-full bg-page border border-border px-4 py-3 rounded-[var(--radius-lg)] text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary motion-safe:transition-shadow focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none" />
+              <input type="tel" onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }} value={(formData as any).phone} onChange={e=>setFormData({...(formData as any), phone: e.target.value})} className="w-full bg-page border border-border px-4 py-3 rounded-[var(--radius-lg)] text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary motion-safe:transition-shadow focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none" />
             </div>
           </div>
         </div>
@@ -93,11 +93,11 @@ export function StudentProfileMain() {
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-bold text-secondary mb-2 uppercase tracking-wider">Parent / Guardian Name</label>
-              <input type="text" value={formData.parentName} onChange={e=>setFormData({...formData, parentName: e.target.value})} className="w-full bg-page border border-border px-4 py-3 rounded-[var(--radius-lg)] text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary motion-safe:transition-shadow focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none" />
+              <input type="text" value={(formData as any).parentName} onChange={e=>setFormData({...(formData as any), parentName: e.target.value})} className="w-full bg-page border border-border px-4 py-3 rounded-[var(--radius-lg)] text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary motion-safe:transition-shadow focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none" />
             </div>
             <div>
               <label className="block text-sm font-bold text-secondary mb-2 uppercase tracking-wider">Parent / Guardian Phone</label>
-              <input type="tel" onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }} value={formData.parentPhone} onChange={e=>setFormData({...formData, parentPhone: e.target.value})} className="w-full bg-page border border-border px-4 py-3 rounded-[var(--radius-lg)] text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary motion-safe:transition-shadow focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none" />
+              <input type="tel" onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }} value={(formData as any).parentPhone} onChange={e=>setFormData({...(formData as any), parentPhone: e.target.value})} className="w-full bg-page border border-border px-4 py-3 rounded-[var(--radius-lg)] text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary motion-safe:transition-shadow focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none" />
             </div>
           </div>
         </div>

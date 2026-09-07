@@ -62,7 +62,8 @@ export function OwnerPayrollStats({
           >
             <option value="all">All Properties</option>
             {properties.map(p => (
-              <option key={p.id} value={p.id}>{p.name}</option>
+// @ts-expect-error
+              <option key={p.id} value={p.id}>{(p as any).name}</option>
             ))}
           </select>
           

@@ -15,11 +15,11 @@ export function StudentLoginMain() {
     e.preventDefault();
     setError('');
     try {
-      const user = api.auth.login({ email, password, expectedRole: 'student' });
+      const user = api.login({ email, password, expectedRole: 'student' });
       setSession(user);
       router.push('/student/dashboard');
-    } catch (err: unknown) {
-      setError(err.message || 'Login failed');
+    } catch (err: any) {
+      setError((err as any).message || 'Login failed');
     }
   };
 

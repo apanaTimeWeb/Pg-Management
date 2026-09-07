@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { authApi as api } from '@/app/login/login_lib/login_api/LoginAuth';
-import { SessionUser } from '@/lib/types';
+import type { SessionUser } from '@/lib/types';;
 import { Lock, AlertTriangle, Key } from 'lucide-react';
 import { getSession } from '@/app/login/login_lib/login_auth/LoginSession';
 
@@ -35,7 +35,7 @@ export function OwnerForcePasswordChangeModal({ user, onSuccess }: OwnerForcePas
 
     setLoading(true);
     try {
-      api.auth.changePassword(user.id, password);
+      api.changePassword(user.id, password);
       
       // Update session to reflect password changed
       const currentSession = getSession();
@@ -45,8 +45,8 @@ export function OwnerForcePasswordChangeModal({ user, onSuccess }: OwnerForcePas
       }
       
       onSuccess();
-    } catch (err: unknown) {
-      setError(err.message || 'Failed to change password');
+    } catch (err: any) {
+      setError((err as any).message || 'Failed to change password');
     } finally {
       setLoading(false);
     }

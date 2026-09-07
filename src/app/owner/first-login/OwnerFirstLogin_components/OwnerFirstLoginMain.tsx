@@ -16,11 +16,11 @@ export function OwnerFirstLoginMain() {
     try {
       const session = getSession();
       if(!session) return;
-      api.auth.changePassword(session.id, newPassword);
+      api.changePassword(session.id, newPassword);
       session.mustChangePassword = false;
       setSession(session);
       router.push('/owner/dashboard');
-    } catch(err: unknown) {
+    } catch (err: any) {
       setError(err.message);
     }
   };

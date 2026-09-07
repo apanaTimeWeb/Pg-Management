@@ -69,7 +69,7 @@ export function OwnerSettingsMain() {
               <label className="text-sm font-medium text-secondary">Rent Due Date (Day of Month)</label>
               <input 
                 type="number" min="1" max="31"
-                value={formData.dueDate} onChange={e => setFormData(p => ({...p, dueDate: parseInt(e.target.value)}))}
+                value={(formData as any).dueDate} onChange={e => setFormData(p => ({...p, dueDate: parseInt(e.target.value)}))}
                 className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:border-primary outline-none"
               />
             </div>
@@ -77,7 +77,7 @@ export function OwnerSettingsMain() {
               <label className="text-sm font-medium text-secondary">Late Fine Per Day (₹)</label>
               <input 
                 type="number" min="0"
-                value={formData.lateFine} onChange={e => setFormData(p => ({...p, lateFine: parseInt(e.target.value)}))}
+                value={(formData as any).lateFine} onChange={e => setFormData(p => ({...p, lateFine: parseInt(e.target.value)}))}
                 className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:border-primary outline-none"
               />
             </div>
@@ -93,7 +93,7 @@ export function OwnerSettingsMain() {
               <label className="text-sm font-medium text-secondary">Notice Period (Days)</label>
               <input 
                 type="number" min="1"
-                value={formData.noticeDays} onChange={e => setFormData(p => ({...p, noticeDays: parseInt(e.target.value)}))}
+                value={(formData as any).noticeDays} onChange={e => setFormData(p => ({...p, noticeDays: parseInt(e.target.value)}))}
                 className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:border-primary outline-none"
               />
               <p className="text-xs text-secondary mt-1">Days student must serve before leaving.</p>
@@ -102,7 +102,7 @@ export function OwnerSettingsMain() {
               <label className="text-sm font-medium text-secondary">Night Entry Cutoff Time</label>
               <input 
                 type="time"
-                value={formData.nightEntryTime} onChange={e => setFormData(p => ({...p, nightEntryTime: e.target.value}))}
+                value={(formData as any).nightEntryTime} onChange={e => setFormData(p => ({...p, nightEntryTime: e.target.value}))}
                 className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:border-primary outline-none"
               />
               <p className="text-xs text-secondary mt-1">Triggers alert for parents/managers if late.</p>

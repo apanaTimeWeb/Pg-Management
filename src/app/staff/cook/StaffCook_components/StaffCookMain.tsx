@@ -6,8 +6,11 @@ import { staffOperationsApi } from '@/app/staff/staff_lib/staff_api/staffOperati
 import { useStaffContext } from '@/app/staff/staff_components/StaffContext';
 import { getSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
 import { CheckCircle, Utensils, ShoppingCart, Truck, Archive, AlertTriangle } from 'lucide-react';
+import { stockApi } from "@/app/staff/staff_lib/staff_api/StaffStock";
 import { authApi as api } from '@/app/staff/staff_lib/staff_api/StaffAuth';
-import { mealsApi, MealType, MealStatusType } from '@/app/staff/staff_lib/staff_api/StaffMeals';
+import { mealsApi } from '@/app/staff/staff_lib/staff_api/StaffMeals';
+import type { MealStatusType } from '@/app/staff/staff_lib/staff_api/StaffMeals';;
+import type { MealType } from '@/app/staff/staff_lib/staff_api/StaffMeals';;
 import { stockRequestsApi } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
 import { attendanceApi } from '@/app/owner/owner_lib/owner_api/OwnerAttendance';
 import { Pagination } from '@/components/ui/Pagination';
@@ -45,7 +48,7 @@ export function StaffCookMain() {
     if (propertyId) {
       setOrders(staffOperationsApi.getLiveOrders(propertyId));
       setRequests(stockRequestsApi.getByProperty(propertyId));
-      setLiveStock(api.stock.getByProperty(propertyId).filter(s => s.category?.toLowerCase() === 'groceries'));
+      setLiveStock(stockApi.getByProperty(propertyId).filter((s: any) => s.category?.toLowerCase() === 'groceries'));
       setMealStatuses(mealsApi.getTodayMealStatus(propertyId));
       setTodayMenu(staffOperationsApi.getTodayMenu(propertyId));
       if (session) setIsPresent(attendanceApi.getTodayStatus(propertyId, session.id));
@@ -80,9 +83,9 @@ export function StaffCookMain() {
     
     stockRequestsApi.create({
       propertyId,
-      itemName: formData.itemName,
-      quantityRequested: parseFloat(formData.quantityRequested) || 0,
-      unit: formData.unit,
+      itemName: (formData as any).itemName,
+      quantityRequested: parseFloat((formData as any).quantityRequested) || 0,
+      unit: (formData as any).unit,
       requestedBy: session.id
     });
     
@@ -255,16 +258,16 @@ export function StaffCookMain() {
             <form onSubmit={handleRequestStock} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-secondary mb-1">Item Name</label>
-                <input type="text" required value={formData.itemName} onChange={e => setFormData({...formData, itemName: e.target.value})} className="w-full bg-input border border-border rounded-lg p-3 text-sm text-primary" placeholder="e.g. Paneer, Rice, Milk" />
+                <input type="text" required value={(formData as any).itemName} onChange={e => setFormData({...(formData as any), itemName: e.target.value})} className="w-full bg-input border border-border rounded-lg p-3 text-sm text-primary" placeholder="e.g. Paneer, Rice, Milk" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-secondary mb-1">Quantity</label>
-                  <input type="number" step="0.1" required value={formData.quantityRequested} onChange={e => setFormData({...formData, quantityRequested: e.target.value})} className="w-full bg-input border border-border rounded-lg p-3 text-sm text-primary" placeholder="0" />
+                  <input type="number" step="0.1" required value={(formData as any).quantityRequested} onChange={e => setFormData({...(formData as any), quantityRequested: e.target.value})} className="w-full bg-input border border-border rounded-lg p-3 text-sm text-primary" placeholder="0" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-secondary mb-1">Unit</label>
-                  <select value={formData.unit} onChange={e => setFormData({...formData, unit: e.target.value})} className="w-full bg-input border border-border rounded-lg p-3 text-sm text-primary">
+                  <select value={(formData as any).unit} onChange={e => setFormData({...(formData as any), unit: e.target.value})} className="w-full bg-input border border-border rounded-lg p-3 text-sm text-primary">
                     <option value="kg">Kilograms (kg)</option>
                     <option value="L">Liters (L)</option>
                     <option value="packets">Packets</option>
@@ -357,7 +360,7 @@ export function StaffCookMain() {
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border)]">
-              {paginatedStock.map(item => (
+              {paginatedStock.map((item: any) => (
                 <tr key={item.id} className="hover:bg-input motion-safe:transition-colors">
                   <td className="p-4 font-medium text-primary">{item.name}</td>
                   <td className="p-4">

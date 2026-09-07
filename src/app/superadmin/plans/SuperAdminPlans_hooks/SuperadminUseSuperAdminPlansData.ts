@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { plansApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminPlans';
-import { SuperAdminPlan } from '@/app/superadmin/plans/SuperAdminPlans_types/SuperAdminPlans.types';
+import type { SuperAdminPlan } from '@/app/superadmin/plans/SuperAdminPlans_types/SuperAdminPlans.types';
 
 export function SuperadminUseSuperAdminPlansData() {
   const [plans, setPlans] = useState<SuperAdminPlan[]>([]);

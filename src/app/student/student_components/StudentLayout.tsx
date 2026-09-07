@@ -7,7 +7,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Home, IndianRupee, Utensils, MessageSquareWarning, FileText, Bell, LogOut, User, Menu, X, ShieldAlert } from 'lucide-react';
 import { getSession, clearSession } from '@/app/student/student_lib/student_auth/StudentSession';
 import { StudentProvider, useStudentContext } from '@/app/student/student_components/StudentContext';
-import { useStudentI18n, DictKey } from '@/app/student/StudentI18n';
+import { useStudentI18n } from '@/app/student/StudentI18n';
+import type { DictKey } from '@/app/student/StudentI18n';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const NAV_ITEMS = [
@@ -90,8 +91,8 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
             <p className="text-xs font-bold text-secondary uppercase tracking-wider mb-2">Menu</p>
           </div>
           
-          {NAV_ITEMS.map((item) => {
-            if (item.key === 'mess' && !profile?.hasMessFacility) return null;
+          {NAV_ITEMS.map((item: any) => {
+            if (item.key === 'mess' && !(profile as any)?.hasMessFacility) return null;
             return (
             <Link
               key={item.key}
@@ -162,7 +163,7 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
       {/* Mobile Bottom Navigation */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-card/90 backdrop-blur-xl border-t border-border pb-safe shadow-[0_-4px_20px_rgba(0,0,0,0.05)] z-40 motion-safe:transition-all motion-safe:duration-300">
         <div className="flex items-center justify-around p-2">
-          {NAV_ITEMS.filter(item => !(item.key === 'mess' && !profile?.hasMessFacility)).slice(0, 5).map((item) => (
+          {NAV_ITEMS.filter(item => !(item.key === 'mess' && !profile?.hasMessFacility)).slice(0, 5).map((item: any) => (
             <Link
               key={item.key}
               href={item.href}

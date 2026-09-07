@@ -13,7 +13,7 @@ try {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
     NEXT_PUBLIC_APP_ENV: process.env.NEXT_PUBLIC_APP_ENV,
   });
-} catch (error) {
+} catch (error: unknown) {
   console.error('❌ Invalid environment variables:', error);
   throw new Error('Invalid environment variables');
 }

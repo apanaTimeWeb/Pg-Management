@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the SuperAdminOwnersTable component.
 import React from 'react';
 import { MoreVertical, Users } from 'lucide-react';
-import { SuperAdminOwnersTableProps } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
+import type { SuperAdminOwnersTableProps } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
 import { StatusBadge } from '@/components/ui/statusBadgeConfig';
 import { formatINR } from '@/lib/utils/formatters';
 import { Pagination } from '@/components/ui/Pagination';
@@ -44,7 +44,7 @@ export const SuperAdminOwnersTable: React.FC<SuperAdminOwnersTableProps> = ({
                 </td>
               </tr>
             ) : (
-              owners.map((o) => (
+              owners.map((o: any) => (
                 <tr 
                   key={o.id} 
                   onClick={() => onRowClick(o.id)} 

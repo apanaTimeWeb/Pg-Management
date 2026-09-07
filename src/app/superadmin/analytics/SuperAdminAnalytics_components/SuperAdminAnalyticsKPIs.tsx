@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the SuperAdminAnalyticsKPIs component.
 import React from 'react';
 import { TrendingUp, Users, Activity, CreditCard, ArrowUpRight, ArrowDownRight } from 'lucide-react';
-import { SuperAdminAnalyticsKPIsProps } from '@/app/superadmin/analytics/SuperAdminAnalytics_types/SuperAdminAnalytics.types';
+import type { SuperAdminAnalyticsKPIsProps } from '@/app/superadmin/analytics/SuperAdminAnalytics_types/SuperAdminAnalytics.types';
 
 export const SuperAdminAnalyticsKPIs: React.FC<SuperAdminAnalyticsKPIsProps> = ({ stats }) => {
   const kpis = [
@@ -14,7 +14,7 @@ export const SuperAdminAnalyticsKPIs: React.FC<SuperAdminAnalyticsKPIsProps> = (
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       {kpis.map((k, i) => (
-        <div key={i} className="bg-card border border p-5 rounded-[var(--radius-lg,12px)] shadow-sm">
+        <div key={k.label || i} className="bg-card border border p-5 rounded-[var(--radius-lg,12px)] shadow-sm">
           <div className="flex justify-between items-start mb-4">
             <div className="p-2 bg-page rounded-[var(--radius-md,8px)]">
               <k.icon className={`w-5 h-5 ${k.color}`} />

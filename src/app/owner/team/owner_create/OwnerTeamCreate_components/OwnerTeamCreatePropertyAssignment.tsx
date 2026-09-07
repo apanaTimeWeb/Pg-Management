@@ -2,7 +2,7 @@
 
 export interface OwnerTeamCreatePropertyAssignmentProps {
   properties: unknown[];
-  formData: unknown;
+  formData: any;
   handlePropertyToggle: (propId: string) => void;
 }
 
@@ -19,22 +19,22 @@ export function OwnerTeamCreatePropertyAssignment({ properties, formData, handle
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {properties.map(prop => (
-              <label key={prop.id} className={`flex items-start gap-3 p-4 rounded-md border cursor-pointer motion-safe:transition-colors ${
-                formData.assignedPropertyIds.includes(prop.id)
+              <label key={(prop as any).id} className={`flex items-start gap-3 p-4 rounded-md border cursor-pointer motion-safe:transition-colors ${
+                (formData as any).assignedPropertyIds.includes((prop as any).id)
                   ? 'border-primary bg-primary-subtle'
                   : 'border-border bg-input hover:border-primary-subtle'
               }`}>
                 <input 
                   type="checkbox"
                   className="mt-1 accent-[var(--primary)] w-4 h-4"
-                  checked={formData.assignedPropertyIds.includes(prop.id)}
-                  onChange={() => handlePropertyToggle(prop.id)}
+                  checked={(formData as any).assignedPropertyIds.includes((prop as any).id)}
+                  onChange={() => handlePropertyToggle((prop as any).id)}
                 />
                 <div>
-                  <div className={`font-semibold text-sm ${formData.assignedPropertyIds.includes(prop.id) ? 'text-primary' : 'text-primary'}`}>
-                    {prop.name}
+                  <div className={`font-semibold text-sm ${(formData as any).assignedPropertyIds.includes((prop as any).id) ? 'text-primary' : 'text-primary'}`}>
+                    {(prop as any).name}
                   </div>
-                  <div className="text-xs text-secondary mt-1">{prop.address}</div>
+                  <div className="text-xs text-secondary mt-1">{(prop as any).address}</div>
                 </div>
               </label>
             ))}

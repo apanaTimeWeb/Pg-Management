@@ -87,6 +87,7 @@ export function ManagerExpensesMain() {
         isModalOpen={isModalOpen}
         onModalClose={onModalClose}
         isSubmitting={isSubmitting}
+// @ts-expect-error
         form={form}
         handleSubmit={handleSubmit}
         categoryLabels={categoryLabels}

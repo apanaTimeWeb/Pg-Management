@@ -10,20 +10,20 @@ export const staffOperationsApi = {
     const menu = menus[0];
     const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
     const today = days[new Date().getDay()];
-    const rawValue = menu[today] || '';
+    const rawValue = menu[today!] || '';
     try {
       const parsed = JSON.parse(rawValue);
       if (parsed.breakfast !== undefined) return parsed;
-    } catch (e) {}
+    } catch (e: any) {}
     return { breakfast: '', lunch: '', dinner: rawValue };
   },
   saveMenu: (propertyId: string, data: unknown, staffId: string) => {
     const existing = staffOperationsApi.getTodayMenu(propertyId);
     if (existing) {
-      db.update<any>(STORAGE_KEYS.MENUS || 'spg_menus', existing.id, { ...data, updatedAt: new Date().toISOString(), updatedBy: staffId });
+      db.update<any>(STORAGE_KEYS.MENUS || 'spg_menus', existing.id, { ...(data as any), updatedAt: new Date().toISOString(), updatedBy: staffId });
     } else {
       db.insert(STORAGE_KEYS.MENUS || 'spg_menus', {
-        id: createId('mnu'), propertyId, ...data, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), createdBy: staffId, updatedBy: staffId, isDeleted: false
+        id: createId('mnu'), propertyId, ...(data as any), createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), createdBy: staffId, updatedBy: staffId, isDeleted: false
       });
     }
   },

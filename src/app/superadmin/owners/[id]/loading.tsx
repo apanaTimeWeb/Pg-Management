@@ -5,7 +5,7 @@ export default function Loading() {
     <div className="max-w-6xl mx-auto space-y-6 pb-20">
       
       {/* Header Skeleton */}
-      <div className="flex items-center gap-4 border-b border pb-4">
+      <div className="flexitems-center gap-4 border-b border pb-4">
         <div className="w-10 h-10 rounded-[var(--radius-md,8px)] bg-skeleton-base motion-safe:animate-pulse"></div>
         <div>
           <div className="h-7 w-64 bg-skeleton-base motion-safe:animate-pulse rounded-md mb-2"></div>
@@ -18,7 +18,7 @@ export default function Loading() {
       </div>
 
       {/* Alert Skeleton */}
-      <div className="bg-card border border p-4 rounded-[var(--radius-lg,12px)] flex items-start gap-3 h-[72px]">
+      <div className="bg-card border border p-4 rounded-[var(--radius-lg,12px)] flexitems-start gap-3 h-[72px]">
         <div className="w-5 h-5 rounded-full bg-skeleton-base motion-safe:animate-pulse shrink-0"></div>
         <div className="w-full">
           <div className="h-4 w-1/3 bg-skeleton-base motion-safe:animate-pulse rounded-md mb-2"></div>
@@ -50,8 +50,8 @@ export default function Loading() {
         {/* Right Col Skeletons */}
         <div className="lg:col-span-2 space-y-6">
           <div className="grid grid-cols-3 gap-4">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="bg-card border border rounded-[var(--radius-lg,12px)] p-5 h-[100px] flex flex-col justify-center items-center">
+            {[...Array(3)].map((_,i) => (
+              <div key={i} className="bg-card border border rounded-[var(--radius-lg,12px)] p-5 h-[100px] flex flex-col justify-centeritems-center">
                 <div className="h-3 w-20 bg-skeleton-base motion-safe:animate-pulse rounded-md mb-4"></div>
                 <div className="h-8 w-16 bg-skeleton-base motion-safe:animate-pulse rounded-md"></div>
               </div>
@@ -63,8 +63,8 @@ export default function Loading() {
               <div className="h-5 w-32 bg-skeleton-base motion-safe:animate-pulse rounded-md"></div>
             </div>
             <div className="p-4 space-y-4">
-              {[...Array(3)].map((_, i) => (
-                <div key={i} className="flex justify-between items-center pb-4 border-b border">
+              {[...Array(3)].map((_,i) => (
+                <div key={i} className="flex justify-betweenitems-center pb-4 border-b border">
                   <div>
                     <div className="h-4 w-32 bg-skeleton-base motion-safe:animate-pulse rounded-md mb-2"></div>
                     <div className="h-3 w-48 bg-skeleton-base motion-safe:animate-pulse rounded-md"></div>

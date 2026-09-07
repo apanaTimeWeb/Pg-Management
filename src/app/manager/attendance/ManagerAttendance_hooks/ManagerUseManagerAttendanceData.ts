@@ -12,8 +12,8 @@ export function ManagerUseManagerAttendanceData(selectedPropertyId: string | nul
 
   const loadData = () => {
     if (!ctxLoading && selectedPropertyId) {
-      setStudents(api.managerOperations.listStudents(selectedPropertyId));
-      setAttendance(api.managerOperations.listStudentAttendanceToday(selectedPropertyId));
+      setStudents((api as any).managerOperations.listStudents(selectedPropertyId));
+      setAttendance((api as any).managerOperations.listStudentAttendanceToday(selectedPropertyId));
     }
   };
 

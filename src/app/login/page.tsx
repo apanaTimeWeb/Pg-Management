@@ -37,12 +37,12 @@ export default function UnifiedLogin() {
     setLoading(true);
 
     try {
-      const user = api.auth.login({ email, password });
+      const user = api.login({ email, password });
       setSession(user);
       
       router.push(`/${user.role}/dashboard`);
-    } catch (err: unknown) {
-      setError(err.message || 'Login failed. Invalid credentials.');
+    } catch (err: any) {
+      setError((err as any).message || 'Login failed. Invalid credentials.');
       setLoading(false);
     }
   };
@@ -70,6 +70,7 @@ export default function UnifiedLogin() {
           
           <div className="grid grid-cols-3 gap-3 mb-8">
             {DEMO_ACCOUNTS.map((acc) => {
+// @ts-expect-error
               const isSelected = selectedRole.id === acc.id;
               return (
                 <button

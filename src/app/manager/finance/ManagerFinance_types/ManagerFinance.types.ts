@@ -1,4 +1,4 @@
-import { Invoice } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
+import type { Invoice } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
 
 export type ManagerFinanceFilter = 'all' | 'paid' | 'pending';
 

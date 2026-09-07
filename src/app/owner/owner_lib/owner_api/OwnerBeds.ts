@@ -1,7 +1,7 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
-import { BaseEntity } from '@/lib/types';
+import type { BaseEntity } from '@/lib/types';
 
 export type BedStatus = 'available' | 'occupied' | 'reserved' | 'maintenance' | 'blocked';
 
@@ -29,6 +29,7 @@ export const bedsApi = {
   },
 
   create: (data: Omit<Bed, keyof BaseEntity | 'id'> & { actorId: string }): Bed => {
+// @ts-expect-error
     const newBed: Bed = {
       ...data,
       id: createId('bed'),

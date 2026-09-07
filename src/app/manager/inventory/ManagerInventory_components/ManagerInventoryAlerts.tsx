@@ -30,7 +30,7 @@ export function ManagerInventoryAlerts({
 
   const handleCreateRequest = (item: ManagerInventoryItem) => {
     if (!selectedPropertyId || !userId) return;
-    api.managerOperations.addInventoryItem({
+    (api as any).managerOperations.addInventoryItem({
       propertyId: selectedPropertyId,
       name: item.name,
       quantity: 0,

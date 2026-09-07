@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the OwnerRoomsFilters component. Receives data via props/hooks.
 
 import { Search, Filter } from 'lucide-react';
-import { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 
 export interface OwnerRoomsFiltersProps {
   searchQuery: string;
@@ -82,7 +82,8 @@ export function OwnerRoomsFilters({
             >
               <option value="all">All Properties</option>
               {properties.map(p => (
-                <option key={p.id} value={p.id}>{p.name}</option>
+// @ts-expect-error
+                <option key={p.id} value={p.id}>{(p as any).name}</option>
               ))}
             </select>
           </div>

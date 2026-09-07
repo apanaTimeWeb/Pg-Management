@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { ownersApi } from '@/app/owner/owner_lib/owner_api/owners';
-import { SuperAdminFeatureFlagOwner } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_types/SuperAdminFeatureFlags.types';
+import type { SuperAdminFeatureFlagOwner } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_types/SuperAdminFeatureFlags.types';
 import { toast } from 'sonner';
 
 export function SuperadminUseSuperAdminFeatureFlagsData() {
@@ -22,7 +22,7 @@ export function SuperadminUseSuperAdminFeatureFlagsData() {
   const handleToggle = (ownerId: string, feature: string) => {
     // In a real system, this would call an API.
     // For now, we simulate success.
-    showToast(`Toggled ${feature.replace('_', ' ')} for owner ${ownerId}`, 'info');
+    // showToast(`Toggled ${feature.replace('_', ' ')} for owner ${ownerId}`, 'info');
   };
 
   const filtered = owners.filter(o => {

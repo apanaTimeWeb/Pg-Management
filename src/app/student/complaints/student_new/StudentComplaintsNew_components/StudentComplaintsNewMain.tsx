@@ -17,7 +17,7 @@ export function StudentComplaintsNewMain() {
     e.preventDefault();
     if (!profile || !session) return;
     studentOperationsApi.createComplaint({
-      ...formData,
+      ...(formData as any),
       propertyId: profile.propertyId,
       studentId: profile.id,
       roomNumber: profile.roomNumber,
@@ -37,7 +37,7 @@ export function StudentComplaintsNewMain() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-bold text-secondary mb-2 uppercase tracking-wider">Category</label>
-            <select value={formData.category} onChange={e=>setFormData({...formData, category: e.target.value})} className="w-full bg-page border border-border px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary transition-shadow">
+            <select value={(formData as any).category} onChange={e=>setFormData({...(formData as any), category: e.target.value})} className="w-full bg-page border border-border px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary transition-shadow">
               <option>Electrical</option>
               <option>Plumbing</option>
               <option>Cleaning</option>
@@ -48,7 +48,7 @@ export function StudentComplaintsNewMain() {
           
           <div>
             <label className="block text-sm font-bold text-secondary mb-2 uppercase tracking-wider">Priority</label>
-            <select value={formData.priority} onChange={e=>setFormData({...formData, priority: e.target.value})} className="w-full bg-page border border-border px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary transition-shadow">
+            <select value={(formData as any).priority} onChange={e=>setFormData({...(formData as any), priority: e.target.value})} className="w-full bg-page border border-border px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary transition-shadow">
               <option>Low</option>
               <option>Medium</option>
               <option>High</option>
@@ -58,17 +58,17 @@ export function StudentComplaintsNewMain() {
 
         <div>
           <label className="block text-sm font-bold text-secondary mb-2 uppercase tracking-wider">Issue Title</label>
-          <input required type="text" value={formData.title} onChange={e=>setFormData({...formData, title: e.target.value})} placeholder="e.g., Fan not working" className="w-full bg-page border border-border px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary transition-shadow" />
+          <input required type="text" value={(formData as any).title} onChange={e=>setFormData({...(formData as any), title: e.target.value})} placeholder="e.g., Fan not working" className="w-full bg-page border border-border px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary transition-shadow" />
         </div>
 
         <div>
           <label className="block text-sm font-bold text-secondary mb-2 uppercase tracking-wider">Description</label>
-          <textarea required rows={4} value={formData.description} onChange={e=>setFormData({...formData, description: e.target.value})} placeholder="Describe the problem in detail..." className="w-full bg-page border border-border px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary resize-none transition-shadow" />
+          <textarea required rows={4} value={(formData as any).description} onChange={e=>setFormData({...(formData as any), description: e.target.value})} placeholder="Describe the problem in detail..." className="w-full bg-page border border-border px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary resize-none transition-shadow" />
         </div>
 
         <div>
           <label className="block text-sm font-bold text-secondary mb-2 uppercase tracking-wider">Photo URL (Optional)</label>
-          <input type="url" value={formData.photoUrl} onChange={e=>setFormData({...formData, photoUrl: e.target.value})} placeholder="https://..." className="w-full bg-page border border-border px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary transition-shadow" />
+          <input type="url" value={(formData as any).photoUrl} onChange={e=>setFormData({...(formData as any), photoUrl: e.target.value})} placeholder="https://..." className="w-full bg-page border border-border px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary transition-shadow" />
         </div>
 
         <div className="pt-6 border-t border-border flex justify-end gap-4 mt-8">

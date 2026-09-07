@@ -1,7 +1,7 @@
 // DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerStudents.ts]
 // [DATA HOOK] ManagerUseManagerStudents
 // Responsibility: Fetches enriched student list (profile + user data) for the selected property.
-// Data Flow: ManagerPropertyContext → api.students.listByProperty → local state → ManagerStudentsMain
+// Data Flow: ManagerPropertyContext → (api as any).students.listByProperty → local state → ManagerStudentsMain
 
 import { useState, useEffect } from 'react';
 import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
@@ -12,7 +12,7 @@ export function ManagerUseManagerStudents(selectedPropertyId: string | null, ctx
 
   const fetchStudents = () => {
     if (!ctxLoading && selectedPropertyId) {
-      const data = api.students.listByProperty(selectedPropertyId);
+      const data = (api as any).students.listByProperty(selectedPropertyId);
       setStudents(data);
     }
   };

@@ -1,12 +1,12 @@
 // RESPONSIBILITY: Renders the OwnerTeamCreateManagerPermissions component. Receives data via props/hooks.
 
 export interface OwnerTeamCreateManagerPermissionsProps {
-  formData: unknown;
+  formData: any;
   handlePermissionToggle: (key: unknown) => void;
 }
 
 export function OwnerTeamCreateManagerPermissions({ formData, handlePermissionToggle }: OwnerTeamCreateManagerPermissionsProps) {
-  if (formData.roleType !== 'manager') return null;
+  if ((formData as any).roleType !== 'manager') return null;
 
   return (
     <div className="bg-card border border-primary rounded-lg overflow-hidden shadow-[0_0_15px_rgba(99,102,241,0.1)]">
@@ -27,8 +27,8 @@ export function OwnerTeamCreateManagerPermissions({ formData, handlePermissionTo
               <input 
                 type="checkbox"
                 className="mt-1 accent-[var(--primary)] w-4 h-4"
-                checked={formData.permissions[perm.key as keyof typeof formData.permissions]}
-                onChange={() => handlePermissionToggle(perm.key as keyof typeof formData.permissions)}
+                checked={!!(formData as any).permissions?.[perm.key]}
+                onChange={() => handlePermissionToggle(perm.key)}
               />
               <div>
                 <div className="font-semibold text-sm text-primary">{perm.label}</div>

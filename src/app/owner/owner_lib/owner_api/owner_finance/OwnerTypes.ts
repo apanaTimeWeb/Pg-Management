@@ -1,4 +1,4 @@
-import { BaseEntity } from '@/lib/types';
+import type { BaseEntity } from '@/lib/types';
 
 export interface Invoice extends BaseEntity {
   propertyId: string;

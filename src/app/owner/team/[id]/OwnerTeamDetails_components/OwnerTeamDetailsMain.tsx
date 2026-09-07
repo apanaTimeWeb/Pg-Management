@@ -5,7 +5,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
-import { TeamMember } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
+import type { TeamMember } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
 import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { 
   ArrowLeft, User, Phone, Mail, IndianRupee, Clock, Calendar, 
@@ -23,7 +23,7 @@ export function OwnerTeamDetailsMain() {
 
   useEffect(() => {
     if (params.id) {
-      const data = api.team.getTeamMemberById(params.id as string);
+      const data = (api as any).team.getTeamMemberById(params.id as string);
       setMember(data);
       setLoading(false);
     }

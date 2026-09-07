@@ -3,10 +3,12 @@
 
 import { useState, useEffect } from 'react';
 import { useStaffContext } from '@/app/staff/staff_components/StaffContext';
+import { stockApi } from "@/app/staff/staff_lib/staff_api/StaffStock";
+import { stockRequestsApi } from "@/app/staff/staff_lib/staff_api/StaffStockRequests";
 import { authApi as api } from '@/app/staff/staff_lib/staff_api/StaffAuth';
 import { getSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
-import { StockItem } from '@/app/staff/staff_lib/staff_api/StaffStock';
-import { StockRequest } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
+import type { StockItem } from '@/app/staff/staff_lib/staff_api/StaffStock';
+import type { StockRequest } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
 import { AlertTriangle, Package, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -22,8 +24,8 @@ export function StaffAlertsMain() {
   const loadData = () => {
     if (staffRole === 'cook' && propertyId) {
       setLoading(true);
-      setStockItems(api.stock.getByProperty(propertyId));
-      setRequests(api.stockRequests.getByProperty(propertyId));
+      setStockItems(stockApi.getByProperty(propertyId));
+      setRequests(stockRequestsApi.getByProperty(propertyId));
       setLoading(false);
     }
   };
@@ -153,7 +155,7 @@ export function StaffAlertsMain() {
                 {req.status === 'purchased' && (
                   <button 
                     onClick={() => {
-                      api.stockRequests.verifyReceipt(req.id, req.purchasedQuantity || req.quantityRequested, req.unit);
+                      stockRequestsApi.verifyReceipt(req.id, req.purchasedQuantity || req.quantityRequested, req.unit);
                       loadData();
                     }} 
                     className="bg-success text-white px-5 py-2 rounded-md text-sm font-bold hover:bg-success-hover w-full sm:w-auto text-center"

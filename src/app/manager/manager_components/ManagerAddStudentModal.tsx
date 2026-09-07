@@ -34,10 +34,10 @@ export function ManagerAddStudentModal({ propertyId, onClose, onSuccess }: AddSt
   const [rooms, setRooms] = useState<any[]>([]);
 
   React.useEffect(() => {
-    const allRooms = api.rooms.listByProperty(propertyId);
-    const allBeds = api.beds.listByProperty(propertyId);
+    const allRooms = (api as any).rooms.listByProperty(propertyId);
+    const allBeds = (api as any).beds.listByProperty(propertyId);
     setRooms(allRooms);
-    setAvailableBeds(allBeds.filter(b => b.status === 'available'));
+    setAvailableBeds(allBeds.filter((b: any) => b.status === 'available'));
   }, [propertyId]);
 
   const handleBedChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -46,13 +46,13 @@ export function ManagerAddStudentModal({ propertyId, onClose, onSuccess }: AddSt
     if (bed) {
       const room = rooms.find(r => r.id === bed.roomId);
       setFormData({
-        ...formData,
+        ...(formData as any),
         bedId,
         roomId: room?.id || '',
-        rentAmount: room?.rentPerBed ? room.rentPerBed.toString() : formData.rentAmount
+        rentAmount: room?.rentPerBed ? room.rentPerBed.toString() : (formData as any).rentAmount
       });
     } else {
-      setFormData({ ...formData, bedId: '', roomId: '' });
+      setFormData({ ...(formData as any), bedId: '', roomId: '' });
     }
   };
 
@@ -60,7 +60,7 @@ export function ManagerAddStudentModal({ propertyId, onClose, onSuccess }: AddSt
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
     setFormData({ 
-      ...formData, 
+      ...(formData as any), 
       [name]: type === 'checkbox' ? checked : value 
     });
   };
@@ -73,18 +73,18 @@ export function ManagerAddStudentModal({ propertyId, onClose, onSuccess }: AddSt
     try {
       const startDate = new Date();
       const endDate = new Date(startDate);
-      endDate.setMonth(endDate.getMonth() + Number(formData.stayDuration));
+      endDate.setMonth(endDate.getMonth() + Number((formData as any).stayDuration));
 
-      api.students.onboardStudent({
-        ...formData,
+      (api as any).students.onboardStudent({
+        ...(formData as any),
         propertyId,
         stayStartDate: startDate.toISOString().split('T')[0],
         stayEndDate: endDate.toISOString().split('T')[0]
       }, user?.id || '');
 
       onSuccess();
-    } catch (err: unknown) {
-      setError(err.message || 'Failed to onboard student');
+    } catch (err: any) {
+      setError((err as any).message || 'Failed to onboard student');
       setLoading(false);
     }
   };
@@ -117,19 +117,19 @@ export function ManagerAddStudentModal({ propertyId, onClose, onSuccess }: AddSt
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-secondary mb-1">Full Name *</label>
-                <input type="text" name="name" required value={formData.name} onChange={handleChange} className="w-full bg-input border border rounded-lg px-3 py-2 text-primary focus:outline-none focus:border-primary" placeholder="John Doe" />
+                <input type="text" name="name" required value={(formData as any).name} onChange={handleChange} className="w-full bg-input border border rounded-lg px-3 py-2 text-primary focus:outline-none focus:border-primary" placeholder="John Doe" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-secondary mb-1">Email *</label>
-                <input type="email" name="email" required value={formData.email} onChange={handleChange} className="w-full bg-input border border rounded-lg px-3 py-2 text-primary focus:outline-none focus:border-primary" placeholder="john@example.com" />
+                <input type="email" name="email" required value={(formData as any).email} onChange={handleChange} className="w-full bg-input border border rounded-lg px-3 py-2 text-primary focus:outline-none focus:border-primary" placeholder="john@example.com" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-secondary mb-1">Phone Number *</label>
-                <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} className="w-full bg-input border border rounded-lg px-3 py-2 text-primary focus:outline-none focus:border-primary" placeholder="+91 9876543210" />
+                <input type="tel" name="phone" required value={(formData as any).phone} onChange={handleChange} className="w-full bg-input border border rounded-lg px-3 py-2 text-primary focus:outline-none focus:border-primary" placeholder="+91 9876543210" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-secondary mb-1">Temporary Password</label>
-                <input type="text" name="password" value={formData.password} onChange={handleChange} className="w-full bg-input border border rounded-lg px-3 py-2 text-primary focus:outline-none focus:border-primary" placeholder="Default: Student@123" />
+                <input type="text" name="password" value={(formData as any).password} onChange={handleChange} className="w-full bg-input border border rounded-lg px-3 py-2 text-primary focus:outline-none focus:border-primary" placeholder="Default: Student@123" />
               </div>
             </div>
           </section>
@@ -142,7 +142,7 @@ export function ManagerAddStudentModal({ propertyId, onClose, onSuccess }: AddSt
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-secondary mb-1">Select Room & Bed *</label>
-                <select name="bedId" required value={formData.bedId} onChange={handleBedChange} className="w-full bg-input border border rounded-lg px-3 py-2 text-primary focus:outline-none focus:border-primary">
+                <select name="bedId" required value={(formData as any).bedId} onChange={handleBedChange} className="w-full bg-input border border rounded-lg px-3 py-2 text-primary focus:outline-none focus:border-primary">
                   <option value="">-- Select Available Bed --</option>
                   {availableBeds.map(bed => {
                     const room = rooms.find(r => r.id === bed.roomId);
@@ -159,12 +159,12 @@ export function ManagerAddStudentModal({ propertyId, onClose, onSuccess }: AddSt
                 <label className="block text-sm font-medium text-secondary mb-1">Monthly Rent *</label>
                 <div className="relative">
                   <IndianRupee className="absolute left-3 top-2.5 w-4 h-4 text-secondary" />
-                  <input type="number" name="rentAmount" required value={formData.rentAmount} onChange={handleChange} className="w-full bg-input border border rounded-lg pl-9 pr-3 py-2 text-primary focus:outline-none focus:border-primary" placeholder="8000" />
+                  <input type="number" name="rentAmount" required value={(formData as any).rentAmount} onChange={handleChange} className="w-full bg-input border border rounded-lg pl-9 pr-3 py-2 text-primary focus:outline-none focus:border-primary" placeholder="8000" />
                 </div>
               </div>
               <div className="col-span-1 md:col-span-2">
                 <label className="block text-sm font-medium text-secondary mb-1">Stay Duration (Months) *</label>
-                <select name="stayDuration" required value={formData.stayDuration} onChange={handleChange} className="w-full bg-input border border rounded-lg px-3 py-2 text-primary focus:outline-none focus:border-primary">
+                <select name="stayDuration" required value={(formData as any).stayDuration} onChange={handleChange} className="w-full bg-input border border rounded-lg px-3 py-2 text-primary focus:outline-none focus:border-primary">
                   {[1, 2, 3, 4, 5, 6, 9, 12].map(months => (
                     <option key={months} value={months}>{months} {months === 1 ? 'Month' : 'Months'}</option>
                   ))}
@@ -176,7 +176,7 @@ export function ManagerAddStudentModal({ propertyId, onClose, onSuccess }: AddSt
                   <input 
                     type="checkbox" 
                     name="hasMessFacility" 
-                    checked={formData.hasMessFacility} 
+                    checked={(formData as any).hasMessFacility} 
                     onChange={handleChange} 
                     className="w-5 h-5 accent-[var(--primary)]"
                   />
@@ -197,15 +197,15 @@ export function ManagerAddStudentModal({ propertyId, onClose, onSuccess }: AddSt
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-secondary mb-1">Parent Name</label>
-                <input type="text" name="parentName" value={formData.parentName} onChange={handleChange} className="w-full bg-input border border rounded-lg px-3 py-2 text-primary focus:outline-none focus:border-primary" placeholder="Parent's Name" />
+                <input type="text" name="parentName" value={(formData as any).parentName} onChange={handleChange} className="w-full bg-input border border rounded-lg px-3 py-2 text-primary focus:outline-none focus:border-primary" placeholder="Parent's Name" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-secondary mb-1">Parent Email</label>
-                <input type="email" name="parentEmail" value={formData.parentEmail} onChange={handleChange} className="w-full bg-input border border rounded-lg px-3 py-2 text-primary focus:outline-none focus:border-primary" placeholder="For Parent App Access" />
+                <input type="email" name="parentEmail" value={(formData as any).parentEmail} onChange={handleChange} className="w-full bg-input border border rounded-lg px-3 py-2 text-primary focus:outline-none focus:border-primary" placeholder="For Parent App Access" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-secondary mb-1">Parent Phone</label>
-                <input type="tel" name="parentPhone" value={formData.parentPhone} onChange={handleChange} className="w-full bg-input border border rounded-lg px-3 py-2 text-primary focus:outline-none focus:border-primary" placeholder="+91 9876543210" />
+                <input type="tel" name="parentPhone" value={(formData as any).parentPhone} onChange={handleChange} className="w-full bg-input border border rounded-lg px-3 py-2 text-primary focus:outline-none focus:border-primary" placeholder="+91 9876543210" />
               </div>
             </div>
           </section>

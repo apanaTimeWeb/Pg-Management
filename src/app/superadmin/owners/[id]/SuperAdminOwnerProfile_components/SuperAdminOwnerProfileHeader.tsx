@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, AlertTriangle } from 'lucide-react';
-import { Owner360Data } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
+import type { Owner360Data } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
 
 export const SuperAdminOwnerProfileHeader: React.FC<{ data: Owner360Data }> = ({ data }) => {
   const { owner, user, subscription } = data;
@@ -24,7 +24,7 @@ export const SuperAdminOwnerProfileHeader: React.FC<{ data: Owner360Data }> = ({
             {(user?.status || 'UNKNOWN').toUpperCase()}
           </span>
           <span className="px-3 py-1 bg-primary-subtle text-primary border border-primary rounded-[var(--radius-full,999px)] text-[11px] font-semibold capitalize">
-            {subscription?.planId || 'No Plan'} Plan
+            {((subscription as Record<string, unknown>)?.planId as string) || 'No Plan'} Plan
           </span>
         </div>
       </div>

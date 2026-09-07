@@ -8,7 +8,7 @@ class Logger {
     // In development, we can format them nicely
     if (process.env.NODE_ENV !== 'production') {
       const timestamp = new Date().toISOString();
-      const prefix = \[\] [\]\;
+      const prefix = `[${level.toUpperCase()}] [${timestamp}]`;
       
       switch (level) {
         case 'info':

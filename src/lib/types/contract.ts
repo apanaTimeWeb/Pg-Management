@@ -10,6 +10,10 @@ export interface BaseEntity {
   id: string;
   createdAt: string;
   updatedAt: string;
+  createdBy?: string;
+  updatedBy?: string;
+  isDeleted?: boolean;
+  [key: string]: unknown;
 }
 
 export interface User extends BaseEntity {
@@ -20,6 +24,7 @@ export interface User extends BaseEntity {
   password?: string; 
   ownerId?: string; // If applicable
   status: 'active' | 'inactive' | 'suspended';
+  [key: string]: unknown;
 }
 
 export interface PricingRule extends BaseEntity {
@@ -29,6 +34,9 @@ export interface PricingRule extends BaseEntity {
   endMonth: number; // 1-12
   adjustmentType: 'percentage' | 'fixed';
   adjustmentValue: number; // e.g. 10 for +10% or +10 INR
+  createdBy?: string;
+  updatedBy?: string;
+  isDeleted?: boolean;
 }
 
 export interface Property extends BaseEntity {

@@ -1,4 +1,5 @@
-// @ts-nocheck
+import type { BaseEntity } from '@/lib/storage/db';
+
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
@@ -46,14 +47,14 @@ export function runSeed() {
     { id: parentId, ...base(), role: 'parent', ownerId: ownerUserId, name: 'Parent 3', email: 'peter.m@example.com', password: 'Parent@123', status: 'Active', mustChangePassword: false, linkedStudentId: studentId }
   ];
 
-  db.replaceAll(STORAGE_KEYS.USERS, users as unknown);
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.USERS, (users) as unknown as BaseEntity[]);
 
   const plans = [
     { id: 'plan_basic', ...base(), name: 'Basic', price: 999, maxProperties: 1, maxBeds: 50, maxStaff: 5, features: [] },
     { id: 'plan_gold', ...base(), name: 'Gold', price: 2999, maxProperties: 5, maxBeds: 300, maxStaff: 15, features: ['mess', 'parent_portal'] },
     { id: 'plan_plat', ...base(), name: 'Platinum', price: 5999, maxProperties: 999, maxBeds: 9999, maxStaff: 999, features: ['mess', 'parent_portal', 'iot', 'sos'] }
   ];
-  db.replaceAll(STORAGE_KEYS.PLANS, plans as unknown);
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.PLANS, (plans) as unknown as BaseEntity[]);
 
   // Generate 25 Owner Requests
   const requests = Array.from({length: 25}).map((_, i) => ({
@@ -69,7 +70,7 @@ export function runSeed() {
     status: ['Pending', 'Approved', 'Rejected', 'Hold'][i % 4],
     createdAt: new Date(Date.now() - i * 86400000).toISOString() // Different dates
   }));
-  db.replaceAll(STORAGE_KEYS.OWNER_REQUESTS, requests as unknown);
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.OWNER_REQUESTS, (requests) as unknown as BaseEntity[]);
 
   // Generate 22 Owners
   const owners = Array.from({length: 22}).map((_, i) => ({
@@ -82,8 +83,8 @@ export function runSeed() {
     phone: `88888880${i.toString().padStart(2, '0')}`,
     status: ['Active', 'Inactive'][i % 2]
   }));
-  owners[0] = { id: ownerProfileId, ...base(), userId: ownerUserId, name: 'Owner 3', businessName: 'Owner3 Stays', email: 'owner@gmail.com', phone: '8888888888', status: 'Active' };
-  db.replaceAll(STORAGE_KEYS.OWNERS, owners as unknown);
+  owners[0]! = { id: ownerProfileId, ...base(), userId: ownerUserId, name: 'Owner 3', businessName: 'Owner3 Stays', email: 'owner@gmail.com', phone: '8888888888', status: 'Active' };
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.OWNERS, (owners) as unknown as BaseEntity[]);
 
   // Generate 35 Tickets
   const tickets = Array.from({length: 35}).map((_, i) => ({
@@ -93,10 +94,10 @@ export function runSeed() {
     description: `I am facing an issue in the platform. Please check.`,
     status: ['Open', 'In Progress', 'Resolved'][i % 3],
     priority: ['High', 'Medium', 'Low'][i % 3],
-    reportedBy: owners[i % owners.length].userId,
+    reportedBy: owners[i % owners.length]?.userId,
     createdAt: new Date(Date.now() - i * 3600000).toISOString()
   }));
-  db.replaceAll(STORAGE_KEYS.TICKETS || 'spg_tickets', tickets as unknown);
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.TICKETS || 'spg_tickets', (tickets) as unknown as BaseEntity[]);
 
   const subs = owners.map((o, i) => ({
     id: createId('sub'), 
@@ -107,39 +108,39 @@ export function runSeed() {
     startDate: new Date(Date.now() - i * 864000000).toISOString(),
     endDate: new Date(Date.now() + 30 * 86400000).toISOString()
   }));
-  db.replaceAll(STORAGE_KEYS.SUBSCRIPTIONS, subs as unknown);
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.SUBSCRIPTIONS, (subs) as unknown as BaseEntity[]);
 
   const propPatna = { id: 'prop_patna', ...base(), ownerId: ownerUserId, name: 'Owner3 PG Patna', city: 'Patna', bedsPlanned: 75 };
   const propDelhi = { id: 'prop_delhi', ...base(), ownerId: ownerUserId, name: 'Owner3 PG Delhi', city: 'Delhi', bedsPlanned: 40 };
-  db.replaceAll(STORAGE_KEYS.PROPERTIES, [propPatna, propDelhi] as unknown);
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.PROPERTIES, ([propPatna, propDelhi]) as unknown as BaseEntity[]);
 
   const rooms = Array.from({length: 8}).map((_, i) => ({
     id: `room_${i+1}`, ...base(), propertyId: 'prop_patna', floor: 3, number: `30${i+1}`, sharing: 2, rentPerBed: 5000, deposit: 5000, amenities: ['AC', 'WiFi'], status: 'available'
   }));
-  db.replaceAll(STORAGE_KEYS.ROOMS, rooms as unknown);
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.ROOMS, (rooms) as unknown as BaseEntity[]);
 
   const beds = [
-    { id: 'bed_303B', ...base(), roomId: rooms[2].id, propertyId: 'prop_patna', code: 'B', status: 'occupied', studentId: studentId },
-    { id: 'bed_303A', ...base(), roomId: rooms[2].id, propertyId: 'prop_patna', code: 'A', status: 'occupied', studentId: studentId2 },
-    { id: 'bed_304A', ...base(), roomId: rooms[3].id, propertyId: 'prop_patna', code: 'A', status: 'occupied', studentId: studentId3 },
-    { id: 'bed_304B', ...base(), roomId: rooms[3].id, propertyId: 'prop_patna', code: 'B', status: 'occupied', studentId: studentId4 }
+    { id: 'bed_303B', ...base(), roomId: rooms[2]?.id, propertyId: 'prop_patna', code: 'B', status: 'occupied', studentId: studentId },
+    { id: 'bed_303A', ...base(), roomId: rooms[2]?.id, propertyId: 'prop_patna', code: 'A', status: 'occupied', studentId: studentId2 },
+    { id: 'bed_304A', ...base(), roomId: rooms[3]?.id, propertyId: 'prop_patna', code: 'A', status: 'occupied', studentId: studentId3 },
+    { id: 'bed_304B', ...base(), roomId: rooms[3]?.id, propertyId: 'prop_patna', code: 'B', status: 'occupied', studentId: studentId4 }
   ];
-  db.replaceAll(STORAGE_KEYS.BEDS, beds as unknown);
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.BEDS, (beds) as unknown as BaseEntity[]);
 
   const staffProfiles = [
     { id: createId('stf'), ...base(), userId: managerId, ownerId: ownerUserId, staffType: 'manager', salary: 25000, joinDate: now, shift: 'Flexible', permissions: { canEditRent: true, canAddExpense: true, canOnboardStudent: true, canBroadcast: true, canCollectCash: true } },
     { id: createId('stf'), ...base(), userId: cookId, ownerId: ownerUserId, staffType: 'cook', salary: 15000, joinDate: now, shift: 'Morning', permissions: { canEditRent: false, canAddExpense: false, canOnboardStudent: false, canBroadcast: false, canCollectCash: false } },
     { id: createId('stf'), ...base(), userId: guardId, ownerId: ownerUserId, staffType: 'guard', salary: 12000, joinDate: now, shift: 'Night', permissions: { canEditRent: false, canAddExpense: false, canOnboardStudent: false, canBroadcast: false, canCollectCash: false } }
   ];
-  db.replaceAll(STORAGE_KEYS.STAFF, staffProfiles as unknown);
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.STAFF, (staffProfiles) as unknown as BaseEntity[]);
 
   const studentProfiles = [
-    { id: createId('std'), ...base(), userId: studentId, ownerId: ownerUserId, propertyId: 'prop_patna', roomId: rooms[2].id, bedId: 'bed_303B', rentAmount: 5000, duesAmount: 0, pgScore: 95, agreementAccepted: true, agreementTimestamp: now, status: 'active', checkInDate: new Date(Date.now() - 300 * 86400000).toISOString(), stayStartDate: new Date(Date.now() - 300 * 86400000).toISOString(), stayEndDate: new Date(Date.now() + 60 * 86400000).toISOString() },
-    { id: createId('std'), ...base(), userId: studentId2, ownerId: ownerUserId, propertyId: 'prop_patna', roomId: rooms[2].id, bedId: 'bed_303A', rentAmount: 5000, duesAmount: 5000, pgScore: 70, agreementAccepted: true, agreementTimestamp: now, status: 'active', checkInDate: now, stayStartDate: now, stayEndDate: new Date(Date.now() + 365 * 86400000).toISOString() },
-    { id: createId('std'), ...base(), userId: studentId3, ownerId: ownerUserId, propertyId: 'prop_patna', roomId: rooms[3].id, bedId: 'bed_304A', rentAmount: 6000, duesAmount: 0, pgScore: 100, agreementAccepted: true, agreementTimestamp: now, status: 'active', checkInDate: now, stayStartDate: now, stayEndDate: new Date(Date.now() + 180 * 86400000).toISOString() },
-    { id: createId('std'), ...base(), userId: studentId4, ownerId: ownerUserId, propertyId: 'prop_patna', roomId: rooms[3].id, bedId: 'bed_304B', rentAmount: 6000, duesAmount: 0, pgScore: 88, agreementAccepted: true, agreementTimestamp: now, status: 'active', checkInDate: now, stayStartDate: now, stayEndDate: new Date(Date.now() + 180 * 86400000).toISOString() }
+    { id: createId('std'), ...base(), userId: studentId, ownerId: ownerUserId, propertyId: 'prop_patna', roomId: rooms[2]?.id, bedId: 'bed_303B', rentAmount: 5000, duesAmount: 0, pgScore: 95, agreementAccepted: true, agreementTimestamp: now, status: 'active', checkInDate: new Date(Date.now() - 300 * 86400000).toISOString(), stayStartDate: new Date(Date.now() - 300 * 86400000).toISOString(), stayEndDate: new Date(Date.now() + 60 * 86400000).toISOString() },
+    { id: createId('std'), ...base(), userId: studentId2, ownerId: ownerUserId, propertyId: 'prop_patna', roomId: rooms[2]?.id, bedId: 'bed_303A', rentAmount: 5000, duesAmount: 5000, pgScore: 70, agreementAccepted: true, agreementTimestamp: now, status: 'active', checkInDate: now, stayStartDate: now, stayEndDate: new Date(Date.now() + 365 * 86400000).toISOString() },
+    { id: createId('std'), ...base(), userId: studentId3, ownerId: ownerUserId, propertyId: 'prop_patna', roomId: rooms[3]?.id, bedId: 'bed_304A', rentAmount: 6000, duesAmount: 0, pgScore: 100, agreementAccepted: true, agreementTimestamp: now, status: 'active', checkInDate: now, stayStartDate: now, stayEndDate: new Date(Date.now() + 180 * 86400000).toISOString() },
+    { id: createId('std'), ...base(), userId: studentId4, ownerId: ownerUserId, propertyId: 'prop_patna', roomId: rooms[3]?.id, bedId: 'bed_304B', rentAmount: 6000, duesAmount: 0, pgScore: 88, agreementAccepted: true, agreementTimestamp: now, status: 'active', checkInDate: now, stayStartDate: now, stayEndDate: new Date(Date.now() + 180 * 86400000).toISOString() }
   ];
-  db.replaceAll(STORAGE_KEYS.STUDENTS, studentProfiles as unknown);
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.STUDENTS, (studentProfiles) as unknown as BaseEntity[]);
 
   const invoices = [];
   
@@ -167,15 +168,15 @@ export function runSeed() {
     invoices.push({ id: createId('inv'), ...base(), propertyId: 'prop_patna', amount: 6000, status: m === 0 ? 'Pending' : 'Paid', studentId: studentId4, title: `Rent - ${d.toLocaleString('default', { month: 'short', year: 'numeric' })}`, dueDate: d.toISOString(), updatedAt: m === 0 ? now : new Date(d.getTime() + 86400000).toISOString() });
   }
 
-  db.replaceAll(STORAGE_KEYS.INVOICES, invoices as unknown);
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.INVOICES, (invoices) as unknown as BaseEntity[]);
 
-  db.replaceAll(STORAGE_KEYS.COMPLAINTS, [
-    { id: createId('cmp'), ...base(), propertyId: 'prop_patna', studentId: studentId, studentName: 'Student 3', roomId: rooms[2].id, roomNumber: '303', category: 'maintenance', title: 'AC not working in Room 303', description: 'The AC is blowing hot air since yesterday.', status: 'Open', priority: 'High' },
-    { id: createId('cmp'), ...base(), propertyId: 'prop_patna', studentId: studentId, studentName: 'Student 3', roomId: rooms[2].id, roomNumber: '303', category: 'cleaning', title: 'Room cleaning missed', description: 'No one came to clean the room today.', status: 'Resolved', priority: 'Medium', repairCost: 1500, resolvedAt: now, resolutionNotes: 'Replaced AC capacitor and serviced unit' }
-  ] as unknown);
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.COMPLAINTS, [
+    { id: createId('cmp'), ...base(), propertyId: 'prop_patna', studentId: studentId, studentName: 'Student 3', roomId: rooms[2]?.id, roomNumber: '303', category: 'maintenance', title: 'AC not working in Room 303', description: 'The AC is blowing hot air since yesterday.', status: 'Open', priority: 'High' },
+    { id: createId('cmp'), ...base(), propertyId: 'prop_patna', studentId: studentId, studentName: 'Student 3', roomId: rooms[2]?.id, roomNumber: '303', category: 'cleaning', title: 'Room cleaning missed', description: 'No one came to clean the room today.', status: 'Resolved', priority: 'Medium', repairCost: 1500, resolvedAt: now, resolutionNotes: 'Replaced AC capacitor and serviced unit' }
+  ] as any[]);
 
   const foodMenu = JSON.stringify({ breakfast: 'Poha & Jalebi', lunch: 'Dal, Roti, Rice, Paneer Masala', dinner: 'Jeera Rice, Chole, Salad' });
-  db.replaceAll(STORAGE_KEYS.MENUS, [
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.MENUS, [
     { 
       id: createId('food'), 
       propertyId: 'prop_patna', 
@@ -183,17 +184,17 @@ export function runSeed() {
       monthEndSpecial: 'Paneer Tikka, Naan, Gulab Jamun',
       updatedAt: new Date().toISOString()
     }
-  ] as unknown);
+  ] as any[]);
 
-  db.replaceAll(STORAGE_KEYS.MEAL_STATUS, [
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.MEAL_STATUS, [
     { id: createId('msl'), ...base(), propertyId: 'prop_patna', date: new Date().toISOString().split('T')[0], mealType: 'Breakfast', status: 'announced' },
     { id: createId('msl'), ...base(), propertyId: 'prop_patna', date: new Date().toISOString().split('T')[0], mealType: 'Lunch', status: 'ready' },
     { id: createId('msl'), ...base(), propertyId: 'prop_patna', date: new Date().toISOString().split('T')[0], mealType: 'Dinner', status: 'pending' }
-  ] as unknown);
+  ] as any[]);
 
-  db.replaceAll(STORAGE_KEYS.WALLETS, [
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.WALLETS, [
     { id: createId('wal'), ...base(), studentId, balance: 1000, propertyId: 'prop_patna' }
-  ] as unknown);
+  ] as any[]);
 
   const gateLogs = Array.from({length: 35}).map((_, i) => ({
     id: createId('log'),
@@ -205,7 +206,7 @@ export function runSeed() {
     timestamp: new Date(Date.now() - i * 3600000).toISOString(),
     createdAt: new Date(Date.now() - i * 3600000).toISOString()
   }));
-  db.replaceAll(STORAGE_KEYS.GATE_LOGS, gateLogs as unknown);
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.GATE_LOGS, (gateLogs) as unknown as BaseEntity[]);
 
   const enquiries = Array.from({length: 35}).map((_, i) => ({
     id: createId('enq'),
@@ -217,7 +218,7 @@ export function runSeed() {
     status: ['New', 'Contacted', 'Converted', 'Closed'][i % 4],
     createdAt: new Date(Date.now() - i * 86400000).toISOString()
   }));
-  db.replaceAll(STORAGE_KEYS.ENQUIRIES, enquiries as unknown);
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.ENQUIRIES, (enquiries) as unknown as BaseEntity[]);
 
   const visitorNames = ['Ramesh Kumar', 'Sunita Devi', 'Ajay Sharma', 'Pooja Singh', 'Vikram Yadav', 'Meena Patel', 'Suresh Gupta'];
   const visitors = Array.from({length: 35}).map((_, i) => ({
@@ -234,7 +235,7 @@ export function runSeed() {
     checkInTime: i % 2 === 0 ? new Date(Date.now() - i * 3600000).toISOString() : null,
     createdAt: new Date(Date.now() - i * 7200000).toISOString()
   }));
-  db.replaceAll('spg_visitors', visitors as unknown);
+  db.replaceAll<BaseEntity>('spg_visitors', (visitors) as unknown as BaseEntity[]);
 
   const staffAttendance = Array.from({length: 35}).map((_, i) => ({
     id: createId('att'),
@@ -245,7 +246,7 @@ export function runSeed() {
     status: ['present', 'absent', 'half_day', 'leave'][i % 4],
     markedAt: new Date(Date.now() - i * 3600000).toISOString()
   }));
-  db.replaceAll(STORAGE_KEYS.STAFF_ATTENDANCE || 'spg_staff_attendance', staffAttendance as unknown);
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.STAFF_ATTENDANCE || 'spg_staff_attendance', (staffAttendance) as unknown as BaseEntity[]);
 
   const inventory = Array.from({length: 35}).map((_, i) => ({
     id: createId('inv'),
@@ -257,7 +258,7 @@ export function runSeed() {
     unit: ['kg', 'liter', 'pieces', 'boxes'][i % 4],
     status: ['In Stock', 'Low Stock', 'Out of Stock'][i % 3]
   }));
-  db.replaceAll('spg_inventory', inventory as unknown);
+  db.replaceAll<BaseEntity>('spg_inventory', (inventory) as unknown as BaseEntity[]);
 
   const documents = Array.from({length: 35}).map((_, i) => ({
     id: createId('doc'),
@@ -269,7 +270,7 @@ export function runSeed() {
     url: '#',
     createdAt: new Date(Date.now() - i * 86400000).toISOString()
   }));
-  db.replaceAll('spg_documents', documents as unknown);
+  db.replaceAll<BaseEntity>('spg_documents', (documents) as unknown as BaseEntity[]);
 
   const broadcasts = Array.from({length: 35}).map((_, i) => ({
     id: createId('brd'),
@@ -281,7 +282,7 @@ export function runSeed() {
     status: ['Sent', 'Draft', 'Scheduled'][i % 3],
     createdAt: new Date(Date.now() - i * 43200000).toISOString()
   }));
-  db.replaceAll('spg_broadcasts', broadcasts as unknown);
+  db.replaceAll<BaseEntity>('spg_broadcasts', (broadcasts) as unknown as BaseEntity[]);
 
   // Generate 45 Audit Logs
   const auditLogs = Array.from({length: 45}).map((_, i) => ({
@@ -295,7 +296,7 @@ export function runSeed() {
     details: `Action performed successfully. Transaction #${1000 + i}`,
     createdAt: new Date(Date.now() - i * 7200000).toISOString()
   }));
-  db.replaceAll(STORAGE_KEYS.AUDIT_LOGS, auditLogs as unknown);
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.AUDIT_LOGS, (auditLogs) as unknown as BaseEntity[]);
 
   // ── COOK PORTAL SEED DATA ──────────────────────────────────────────
 
@@ -321,7 +322,7 @@ export function runSeed() {
     { name: 'Poha (Flattened Rice)', unit: 'Kg', quantity: 2,  lowStockThreshold: 0.5,category: 'Groceries', expiryDate: '2026-11-30' },
     { name: 'Chole (Chickpeas)',unit: 'Kg',      quantity: 4,  lowStockThreshold: 1,  category: 'Groceries', expiryDate: '2027-04-01' },
     { name: 'Ghee',             unit: 'Kg',      quantity: 1,  lowStockThreshold: 0.5,category: 'Groceries', expiryDate: '2026-12-15' },
-  ].map(item => ({
+  ].map((item: any) => ({
     id: createId('stk'),
     ...base(),
     propertyId: 'prop_patna',
@@ -338,7 +339,7 @@ export function runSeed() {
     lowStockThreshold: [5, 1, 2, 1, 1, 3, 1, 1, 1, 1, 2, 1, 5, 5, 1][i],
     category: ['Maintenance', 'Cleaning', 'Cleaning', 'Cleaning', 'Cleaning', 'Cleaning', 'Cleaning', 'Maintenance', 'Maintenance', 'Maintenance', 'Maintenance', 'Maintenance', 'Cleaning', 'Cleaning', 'Cleaning'][i],
   }));
-  db.replaceAll(STORAGE_KEYS.INVENTORY, [...groceryItems, ...maintenanceItems] as unknown);
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.INVENTORY, ([...groceryItems, ...maintenanceItems]) as unknown as BaseEntity[]);
 
   // 20 Stock Requests (kitchen grocery requests from cook to manager)
   const stockRequestItems = ['Basmati Rice', 'Paneer', 'Tomatoes', 'Fresh Milk', 'Toor Dal', 'Sunflower Oil', 'Wheat Flour (Atta)', 'Chole (Chickpeas)', 'Onions', 'Potatoes'];
@@ -356,7 +357,7 @@ export function runSeed() {
     expiryDate: i % 4 === 2 ? new Date(Date.now() + 30 * 86400000).toISOString().split('T')[0] : null,
     createdAt: new Date(Date.now() - i * 7200000).toISOString()
   }));
-  db.replaceAll('spg_stock_requests', stockRequests as unknown);
+  db.replaceAll<BaseEntity>('spg_stock_requests', (stockRequests) as unknown as BaseEntity[]);
 
   // 15 Live Meal Orders for cook
   const studentNames = ['Rajan Kumar', 'Priya Sharma', 'Mohan Das', 'Anita Singh', 'Vijay Mehta', 'Sunita Patel', 'Arjun Rao'];
@@ -372,7 +373,7 @@ export function runSeed() {
     orderedAt: new Date(Date.now() - i * 1800000).toISOString(),
     createdAt: new Date(Date.now() - i * 1800000).toISOString()
   }));
-  db.replaceAll(STORAGE_KEYS.MEAL_ORDERS, mealOrders as unknown);
+  db.replaceAll<BaseEntity>(STORAGE_KEYS.MEAL_ORDERS, (mealOrders) as unknown as BaseEntity[]);
 
   // 15 Staff Tasks
   const taskTitles = [
@@ -403,7 +404,7 @@ export function runSeed() {
     priority: ['high', 'medium', 'low'][i % 3],
     createdAt: new Date(Date.now() - i * 86400000).toISOString()
   }));
-  db.replaceAll('spg_tasks', tasks as unknown);
+  db.replaceAll<BaseEntity>('spg_tasks', (tasks) as unknown as BaseEntity[]);
 
   localStorage.setItem(STORAGE_KEYS.IS_SEEDED, 'v13');
   console.log('✅ LocalStorage Seeded with Demo Accounts + Cook Data (v13)');

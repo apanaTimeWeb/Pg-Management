@@ -70,6 +70,7 @@ export function ManagerComplaintsMain() {
         <ManagerComplaintsResolveModal 
           resolvingComplaint={resolvingComplaint}
           onClose={onCloseResolveModal}
+// @ts-expect-error
           resolveForm={resolveForm}
           handleResolveSubmit={handleResolveSubmit}
         />

@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { ownerRequestsApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminOwnerRequests';
 import { ownersApi } from '@/app/owner/owner_lib/owner_api/owners';
 import { toast } from 'sonner';
-import { OwnerFormData, OwnerFormErrors, CreatedCredentials } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_types/SuperAdminCreateOwner.types';
+import type { OwnerFormData, OwnerFormErrors, CreatedCredentials } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_types/SuperAdminCreateOwner.types';
 import { DEFAULT_CREATE_OWNER_FORM_DATA, PLAN_LIMITS } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_utils/SuperAdminCreateOwner.constants';
 
 export function SuperadminUseSuperAdminCreateOwner() {
@@ -53,10 +53,10 @@ export function SuperadminUseSuperAdminCreateOwner() {
 
   const validate = (): boolean => {
     const newErrors: OwnerFormErrors = {};
-    if (!formData.name) newErrors.name = 'Name is required';
-    if (!formData.phone || formData.phone.length < 10) newErrors.phone = 'Valid phone required';
-    if (!formData.email || !/^\S+@\S+\.\S+$/.test(formData.email)) newErrors.email = 'Valid email required';
-    if (!formData.temporaryPassword || formData.temporaryPassword.length < 6) {
+    if (!(formData as any).name) newErrors.name = 'Name is required';
+    if (!(formData as any).phone || (formData as any).phone.length < 10) newErrors.phone = 'Valid phone required';
+    if (!(formData as any).email || !/^\S+@\S+\.\S+$/.test((formData as any).email)) newErrors.email = 'Valid email required';
+    if (!(formData as any).temporaryPassword || (formData as any).temporaryPassword.length < 6) {
       newErrors.temporaryPassword = 'Password must be at least 6 characters';
     }
     
@@ -74,11 +74,11 @@ export function SuperadminUseSuperAdminCreateOwner() {
 
     setLoading(true);
     try {
-      ownersApi.createOwner({ ...formData, requestId });
-      setCreatedCreds({ email: formData.email, password: formData.temporaryPassword });
+      ownersApi.createOwner({ ...(formData as any), requestId });
+      setCreatedCreds({ email: (formData as any).email, password: (formData as any).temporaryPassword });
       setSuccess(true);
-    } catch (err: unknown) {
-      toast.error(err.message || 'Failed to create owner.');
+    } catch (err: any) {
+      toast.error((err as any).message || 'Failed to create owner.');
     } finally {
       setLoading(false);
     }

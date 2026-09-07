@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the SuperAdminPlansCard component.
 import React from 'react';
 import { Check } from 'lucide-react';
-import { SuperAdminPlansCardProps } from '@/app/superadmin/plans/SuperAdminPlans_types/SuperAdminPlans.types';
+import type { SuperAdminPlansCardProps } from '@/app/superadmin/plans/SuperAdminPlans_types/SuperAdminPlans.types';
 
 export const SuperAdminPlansCard: React.FC<SuperAdminPlansCardProps> = ({ plan, onEditClick }) => {
   return (

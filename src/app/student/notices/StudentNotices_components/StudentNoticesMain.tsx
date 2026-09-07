@@ -15,7 +15,7 @@ export function StudentNoticesMain() {
 
   useEffect(() => {
     if (profile) {
-      setNotices(studentOperationsApi.getNotices(profile.propertyId));
+      setNotices(studentOperationsApi.getNotices((profile as any).propertyId));
     }
   }, [profile]);
 

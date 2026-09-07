@@ -1,7 +1,7 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
-import { BaseEntity } from '@/lib/types';
+import type { BaseEntity } from '@/lib/types/models';
 
 export interface OwnerRequest extends BaseEntity {
   name: string;
@@ -15,13 +15,15 @@ export interface OwnerRequest extends BaseEntity {
   gst?: string;
   message?: string;
   status: 'Pending' | 'Approved' | 'Rejected' | 'Hold';
+  [key: string]: unknown;
 }
 
 export const ownerRequestsApi = {
   create(data: Omit<OwnerRequest, 'id' | 'createdAt' | 'updatedAt' | 'createdBy' | 'updatedBy' | 'isDeleted' | 'status'>) {
-    const req: OwnerRequest = {
+    const req = {
+      
       id: createId('req'),
-      ...data,
+      
       status: 'Pending',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
@@ -29,7 +31,7 @@ export const ownerRequestsApi = {
       updatedBy: 'public',
       isDeleted: false
     };
-    return db.insert(STORAGE_KEYS.OWNER_REQUESTS, req);
+    return db.insert(STORAGE_KEYS.OWNER_REQUESTS, req as unknown as import('@/lib/storage/db').BaseEntity);
   },
   
   list() {
@@ -42,7 +44,7 @@ export const ownerRequestsApi = {
   },
   
   updateStatus(id: string, status: 'Approved' | 'Rejected' | 'Hold', reason?: string) {
-    const patch: unknown = { status };
+    const patch: Partial<OwnerRequest> = { status };
     if (reason) patch.message = reason; // Storing reject reason in message for now
     return db.update<OwnerRequest>(STORAGE_KEYS.OWNER_REQUESTS, id, patch);
   }

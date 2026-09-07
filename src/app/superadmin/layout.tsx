@@ -5,11 +5,12 @@ import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { LayoutDashboard, FileText, UserPlus, Users, Package, BarChart3, ToggleLeft, Ticket, History, Settings, Menu, X, ShieldAlert, LogOut } from 'lucide-react';
 import { getSession, clearSession } from '@/app/superadmin/superadmin_lib/superadmin_auth/SuperadminSession';
-import { SuperadminI18nProvider, useSuperadminI18n, DictKey } from '@/app/superadmin/SuperadminI18n';
+import { SuperadminI18nProvider, useSuperadminI18n } from '@/app/superadmin/SuperadminI18n';
+import type { DictKey } from '@/app/superadmin/SuperadminI18n';
 import { useTheme } from 'next-themes';
 import { Moon, Sun } from 'lucide-react';
 
-function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMobileMenuOpen, navItems, handleLogout, pathname }: unknown) {
+function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMobileMenuOpen, navItems, handleLogout, pathname }: any) {
   const { lang, setLang, t } = useSuperadminI18n();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -78,13 +79,16 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
       `}>
         <nav className="p-4 space-y-1">
           {navItems.map((item: unknown) => {
-            const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+            const isActive = pathname === (item as any).href || pathname.startsWith((item as any).href + '/');
             return (
-              <Link key={item.href} href={item.href} onClick={() => setIsMobileMenuOpen(false)}
+              <Link key={(item as any).href} href={(item as any).href} onClick={() => setIsMobileMenuOpen(false)}
                 className={`flex items-center gap-3 px-4 py-3 rounded-[var(--radius-md,8px)] text-sm font-medium motion-safe:transition-all ${isActive ? 'bg-primary-subtle text-primary border-l-4 border-primary shadow-sm' : 'text-secondary hover:bg-page hover:text-primary hover:translate-x-1'}`}
               >
-                <item.icon className="w-5 h-5 shrink-0" />
-                <span className="truncate">{item.key ? t(item.key as DictKey) : item.name}</span>
+                {(() => {
+                  const Icon = (item as any).icon;
+                  return <Icon className="w-5 h-5 shrink-0" />;
+                })()}
+                <span className="truncate">{(item as any).key ? t((item as any).key as DictKey) : (item as any).name}</span>
               </Link>
             );
           })}

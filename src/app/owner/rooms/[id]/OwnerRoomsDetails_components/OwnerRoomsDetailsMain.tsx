@@ -5,8 +5,8 @@
 import { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
-import { Room } from '@/app/owner/owner_lib/owner_api/OwnerRooms';
-import { Bed } from '@/app/owner/owner_lib/owner_api/OwnerBeds';
+import type { Room } from '@/app/owner/owner_lib/owner_api/OwnerRooms';
+import type { Bed } from '@/app/owner/owner_lib/owner_api/OwnerBeds';
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { ArrowLeft, BedDouble, AlertTriangle, User, Hash, Settings, Edit3, Trash2 } from 'lucide-react';
 import Link from 'next/link';
@@ -27,21 +27,21 @@ export function OwnerRoomsDetailsMain({ params }: { params: Promise<{ id: string
     if (!user || !id) return;
     setLoading(true);
     
-    const fetchedRoom = api.rooms.getById(id);
+    const fetchedRoom = (api as any).rooms.getById(id);
     if (!fetchedRoom) {
       router.replace('/owner/rooms');
       return;
     }
     
     // Safety check: is owner of this property?
-    const prop = api.properties.getById(fetchedRoom.propertyId);
+    const prop = (api as any).properties.getById(fetchedRoom.propertyId);
     if (prop?.ownerId !== user.id) {
       router.replace('/owner/rooms');
       return;
     }
 
     setRoom(fetchedRoom);
-    setBeds(api.beds.listByRoom(id));
+    setBeds((api as any).beds.listByRoom(id));
     setLoading(false);
   };
 
@@ -52,16 +52,16 @@ export function OwnerRoomsDetailsMain({ params }: { params: Promise<{ id: string
   const handleBedStatusChange = (bedId: string, newStatus: unknown) => {
     if (!user) return;
     try {
-      api.beds.updateStatus(bedId, newStatus, user.id);
+      (api as any).beds.updateStatus(bedId, newStatus, user.id);
       loadData(); // refresh
-    } catch (err: unknown) {
+    } catch (err: any) {
       alert('Failed to update bed status');
     }
   };
 
   const handleRoomMaintenance = (isMaintenance: boolean) => {
     if (!user || !room) return;
-    api.rooms.updateStatus(room.id, isMaintenance ? 'maintenance' : 'available', user.id);
+    (api as any).rooms.updateStatus(room.id, isMaintenance ? 'maintenance' : 'available', user.id);
     loadData();
   };
 
@@ -69,11 +69,11 @@ export function OwnerRoomsDetailsMain({ params }: { params: Promise<{ id: string
     if (!user || !room) return;
     try {
       if (confirm(`Are you sure you want to delete Room ${room.number}?`)) {
-        api.rooms.delete(room.id, user.id);
+        (api as any).rooms.delete(room.id, user.id);
         router.push('/owner/rooms');
       }
-    } catch (err: unknown) {
-      setError(err.message || 'Cannot delete room.');
+    } catch (err: any) {
+      setError((err as any).message || 'Cannot delete room.');
     }
   };
 

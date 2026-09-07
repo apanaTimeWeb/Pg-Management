@@ -19,7 +19,7 @@ export function StudentSosMain() {
     if (!profile || !session) return;
     setLoading(true);
     setTimeout(() => {
-      studentOperationsApi.triggerSos(profile.studentId || profile.userId, profile.propertyId, session.id);
+      studentOperationsApi.triggerSos((profile as any).studentId || (profile as any).userId, (profile as any).propertyId, session.id);
       setSuccess(true);
       setLoading(false);
     }, 1000);

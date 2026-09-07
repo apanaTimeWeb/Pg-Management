@@ -1,10 +1,10 @@
 // RESPONSIBILITY: Renders the OwnerFinanceTabs component. Receives data via props/hooks.
 
 import { Receipt, TrendingDown, FileText } from 'lucide-react';
-import { Payment, Expense, Invoice } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
+import type { Payment, Expense, Invoice } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
 import { formatINR, formatDateOnly } from '@/lib/utils/formatters';
 import { Pagination } from '@/components/ui/Pagination';
-import { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 
 export interface OwnerFinanceTabsProps {
   activeTab: 'payments' | 'invoices' | 'expenses';
@@ -37,6 +37,7 @@ export function OwnerFinanceTabs({
           return (
             <button
               key={tab.id}
+// @ts-expect-error
               onClick={() => setActiveTab(tab.id as unknown)}
               className={`flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 motion-safe:transition-colors relative ${
                 activeTab === tab.id ? 'text-primary' : 'text-secondary hover:text-primary'

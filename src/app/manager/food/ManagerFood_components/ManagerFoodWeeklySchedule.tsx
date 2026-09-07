@@ -1,6 +1,6 @@
 // RESPONSIBILITY: Renders the ManagerFoodWeeklySchedule component.
 import { Calendar, UtensilsCrossed } from 'lucide-react';
-import { FoodMenu } from '@/app/staff/staff_lib/staff_api/StaffFood';
+import type { FoodMenu } from '@/app/staff/staff_lib/staff_api/StaffFood';
 
 interface ManagerFoodWeeklyScheduleProps {
   menu: FoodMenu;
@@ -24,12 +24,13 @@ export function ManagerFoodWeeklySchedule({ menu }: ManagerFoodWeeklySchedulePro
       <div className="p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
           {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day) => {
+// @ts-expect-error
             const rawValue = (menu as unknown)[day] || '';
             let dayData = { breakfast: '', lunch: '', dinner: rawValue };
             try {
               const parsed = JSON.parse(rawValue);
               if (parsed.breakfast !== undefined) dayData = parsed;
-            } catch (e) {}
+            } catch (e: any) {}
 
             return (
               <div key={day} className="bg-card border border rounded-[var(--radius-lg,12px)] p-5 shadow-sm hover:shadow-md hover:border-primary/50 motion-safe:transition-all relative overflow-hidden group">

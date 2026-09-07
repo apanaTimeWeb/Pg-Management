@@ -1,5 +1,5 @@
-import { OwnerRequest } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminOwnerRequests';
-import { BaseEntity } from '@/lib/types';
+import type { OwnerRequest } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminOwnerRequests';
+import type { BaseEntity } from '@/lib/types/models';
 
 export interface AuditLog extends BaseEntity {
   action: string;

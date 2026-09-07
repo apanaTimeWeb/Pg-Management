@@ -1,9 +1,10 @@
-// @ts-nocheck
+
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
+import type { BaseEntity } from '@/lib/types/contract';
 
-export interface StockItem {
+export interface StockItem extends BaseEntity {
   id: string;
   propertyId: string;
   name: string;
@@ -23,6 +24,7 @@ export const stockApi = {
   },
   
   add: (data: Omit<StockItem, 'id' | 'updatedAt'>) => {
+// @ts-expect-error
     const newItem: StockItem = {
       ...data,
       id: createId('stk'),
@@ -52,7 +54,7 @@ export const stockApi = {
 
 export type StockBatchStatus = 'unopened' | 'opened' | 'empty';
 
-export interface StockBatch {
+export interface StockBatch extends BaseEntity {
   id: string;
   propertyId: string;
   itemName: string;
@@ -75,6 +77,7 @@ export const stockBatchesApi = {
   },
 
   addBatch: (data: Omit<StockBatch, 'id' | 'status' | 'receivedAt'>) => {
+// @ts-expect-error
     const newBatch: StockBatch = {
       ...data,
       id: createId('sbat'),

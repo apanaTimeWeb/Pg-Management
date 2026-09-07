@@ -1,6 +1,6 @@
 // RESPONSIBILITY: Renders the SuperAdminDashboardKpiGrid component.
 import React from 'react';
-import { SuperAdminDashboardKpiGridProps } from '@/app/superadmin/dashboard/SuperAdminDashboard_types/SuperAdminDashboard.types';
+import type { SuperAdminDashboardKpiGridProps } from '@/app/superadmin/dashboard/SuperAdminDashboard_types/SuperAdminDashboard.types';
 import { Users, Clock, Building2, UserCircle, CreditCard, Activity, Ticket } from 'lucide-react';
 
 export const SuperAdminDashboardKpiGrid: React.FC<SuperAdminDashboardKpiGridProps> = ({ data }) => {
@@ -19,7 +19,7 @@ export const SuperAdminDashboardKpiGrid: React.FC<SuperAdminDashboardKpiGridProp
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
       {kpis.map((kpi, i) => (
         <div
-          key={i}
+          key={(kpi as any).id || (kpi as any).name || (kpi as any).title || i}
           className="card bg-card border border p-5 rounded-[var(--radius-lg,12px)] shadow-sm flex flex-col justify-between min-h-[120px] group motion-safe:hover:-translate-y-1 hover:shadow-md motion-safe:transition-all"
         >
           <div>

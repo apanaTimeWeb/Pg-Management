@@ -14,9 +14,9 @@ export function StudentUseStudentProfile() {
   useEffect(() => {
     if (profile) {
       setFormData({
-        phone: profile.user?.phone || '',
-        parentName: profile.parentName || '',
-        parentPhone: profile.parentPhone || ''
+        phone: (profile as any).user?.phone || '',
+        parentName: (profile as any).parentName || '',
+        parentPhone: (profile as any).parentPhone || ''
       });
     }
   }, [profile]);
@@ -24,7 +24,7 @@ export function StudentUseStudentProfile() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!profile || !session) return;
-    studentOperationsApi.updateProfile(profile.id, formData, session.id);
+    studentOperationsApi.updateProfile((profile as any).id, formData, session.id);
     alert('Profile updated successfully.');
     window.location.reload();
   };

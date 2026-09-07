@@ -3,6 +3,10 @@ import { useMemo } from 'react';
 // Mock permissions structure. In a real app, this comes from the auth context/token.
 type Role = 'owner' | 'manager' | 'staff' | 'student' | 'superadmin';
 
+/**
+ * usePermissions
+ * Custom hook for React.
+ */
 export function usePermissions(requiredRole?: Role, requiredPermissions?: string[]) {
   // Mock current user state
   const currentUserRole: Role = 'owner';
@@ -13,7 +17,7 @@ export function usePermissions(requiredRole?: Role, requiredPermissions?: string
     let permMatch = true;
 
     if (requiredRole) {
-      roleMatch = currentUserRole === requiredRole || currentUserRole === 'superadmin';
+      roleMatch = currentUserRole === requiredRole || (currentUserRole as string) === 'superadmin';
     }
 
     if (requiredPermissions && requiredPermissions.length > 0) {

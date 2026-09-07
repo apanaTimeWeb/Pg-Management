@@ -53,7 +53,7 @@ export default function Owner360Page() {
             <form onSubmit={(e) => {
               e.preventDefault();
               const formData = new FormData(e.currentTarget);
-              actionsHook.handleResetPassword(formData.get('newPass') as string);
+              actionsHook.handleResetPassword((formData as any).get('newPass') as string);
             }}>
               <input 
                 type="text" 

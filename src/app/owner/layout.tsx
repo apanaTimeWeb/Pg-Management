@@ -1,6 +1,6 @@
 // RESPONSIBILITY: Renders the OwnerLayout component. Receives data via props/hooks.
 
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { OwnerRequireOwner } from '@/app/owner/owner_components/OwnerRequireOwner';
 import { OwnerPropertyProvider } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { OwnerLayout } from '@/app/owner/owner_components/OwnerLayout';

@@ -18,7 +18,7 @@ export function OwnerReportsMain() {
   useEffect(() => {
     if (!user) return;
     setLoading(true);
-    const data = api.reports.getOwnerReport(user.id, selectedPropertyId);
+    const data = (api as any).reports.getOwnerReport(user.id, selectedPropertyId);
     setReport(data);
     setLoading(false);
   }, [user?.id, selectedPropertyId]);

@@ -15,12 +15,12 @@ export function StaffFirstLoginMain() {
     try {
       const session = getSession();
       if(!session) return;
-      api.auth.changePassword(session.id, newPassword);
+      api.changePassword(session.id, newPassword);
       session.mustChangePassword = false;
       setSession(session);
       router.push('/staff/dashboard');
-    } catch(err: unknown) {
-      setError(err.message);
+    } catch (err: any) {
+      setError((err as any).message);
     }
   };
 

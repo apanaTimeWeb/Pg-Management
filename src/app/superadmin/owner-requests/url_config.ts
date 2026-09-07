@@ -1,1 +1,1 @@
-export const SUPERADMIN_OWNER-REQUESTS_URL = '/superadmin/owner-requests';
+export const SUPERADMIN_OWNER_REQUESTS_URL = '/superadmin/owner-requests';

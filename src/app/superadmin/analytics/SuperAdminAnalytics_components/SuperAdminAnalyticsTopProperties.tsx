@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the SuperAdminAnalyticsTopProperties component.
 import React from 'react';
 import { Building2 } from 'lucide-react';
-import { SuperAdminAnalyticsTopPropertiesProps } from '@/app/superadmin/analytics/SuperAdminAnalytics_types/SuperAdminAnalytics.types';
+import type { SuperAdminAnalyticsTopPropertiesProps } from '@/app/superadmin/analytics/SuperAdminAnalytics_types/SuperAdminAnalytics.types';
 
 export const SuperAdminAnalyticsTopProperties: React.FC<SuperAdminAnalyticsTopPropertiesProps> = () => {
   return (
@@ -24,7 +24,7 @@ export const SuperAdminAnalyticsTopProperties: React.FC<SuperAdminAnalyticsTopPr
           </thead>
           <tbody className="divide-y divide-[var(--border)]">
             {[1,2,3,4,5].map(i => (
-              <tr key={i} className="h-12 even:bg-black/5 dark:even:bg-white/[0.02] hover:bg-primary-subtle motion-safe:transition-colors">
+              <tr key={`fallback-${i}`} className="h-12 even:bg-black/5 dark:even:bg-white/[0.02] hover:bg-primary-subtle motion-safe:transition-colors">
                 <td className="px-6 py-4 font-medium text-primary">Elite PG {i}</td>
                 <td className="px-6 py-4 text-secondary">Owner {i}</td>
                 <td className="px-6 py-4 text-center font-medium text-primary">{i * 20 + 50}</td>

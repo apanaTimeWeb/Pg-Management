@@ -10,6 +10,7 @@ export interface Plan {
   maxBeds: number;
   maxStaff: number;
   features: string[];
+  [key: string]: unknown;
   createdAt: string;
   updatedAt: string;
   createdBy: string;
@@ -26,17 +27,17 @@ const SEEDED_PLANS: Plan[] = [
 
 export const plansApi = {
   listPlans(): Plan[] {
-    const records = db.getAll<Plan>('spg_plans' as unknown);
+    const records = db.getAll<Plan>('spg_plans');
     if (records.length === 0) {
       // Seed them
-      SEEDED_PLANS.forEach(p => db.insert('spg_plans' as unknown, { ...p, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), createdBy: 'system', updatedBy: 'system', isDeleted: false } as unknown));
+      SEEDED_PLANS.forEach(p => db.insert('spg_plans', { ...p, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), createdBy: 'system', updatedBy: 'system', isDeleted: false } as unknown as import('@/lib/storage/db').BaseEntity));
       return SEEDED_PLANS;
     }
     return records;
   },
   
   updatePlan(id: string, data: Partial<Plan>) {
-    db.update('spg_plans' as unknown, id, data);
+    db.update('spg_plans', id, data);
     
     db.insert(STORAGE_KEYS.AUDIT_LOGS, {
       id: createId('aud'),

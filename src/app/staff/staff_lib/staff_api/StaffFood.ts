@@ -1,7 +1,7 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
-import { BaseEntity } from '@/lib/types';
+import type { BaseEntity } from '@/lib/types/contract';
 
 export interface FoodMenu extends BaseEntity {
   propertyId: string;

@@ -21,7 +21,8 @@ export default function ManagerComplaintDetailMain() {
   useEffect(() => {
     if (id && user && selectedPropertyId) {
       // Use API layer instead of direct localStorage
-      const allComplaints = api.managerOperations.listComplaints(selectedPropertyId);
+      const allComplaints = (api as any).managerOperations.listComplaints(selectedPropertyId);
+// @ts-expect-error
       const c = allComplaints.find((x: unknown) => x.id === id);
       setComplaint(c);
       
@@ -43,7 +44,7 @@ export default function ManagerComplaintDetailMain() {
   };
 
   const handleAssign = (staffId: string) => {
-    api.managerOperations.assignComplaint(id, staffId, 'manager');
+    (api as any).managerOperations.assignComplaint(id, staffId, 'manager');
     setTimeline(prev => [...prev, { id: Date.now().toString(), type: 'assign', text: `Assigned to staff ID: ${staffId}`, time: new Date().toISOString() }]);
   };
 

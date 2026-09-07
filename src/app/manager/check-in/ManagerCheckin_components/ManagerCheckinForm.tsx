@@ -3,7 +3,7 @@ import { ArrowRight, ArrowLeft, CheckCircle } from 'lucide-react';
 import { ManagerCheckinFormSteps1to5 } from '@/app/manager/check-in/ManagerCheckin_components/ManagerCheckinFormSteps1to5';
 import { ManagerCheckinFormSteps6to10 } from '@/app/manager/check-in/ManagerCheckin_components/ManagerCheckinFormSteps6to10';
 import type { ManagerCheckinFormData } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 interface Props {
   step: number;
@@ -60,7 +60,7 @@ export function ManagerCheckinForm({
           {step < 9 ? (
             <button 
               onClick={handleNext}
-              disabled={(step === 4 && !formData.room.bedId) || (step === 7 && !formData.agreement.accepted)}
+              disabled={(step === 4 && !(formData as any).room.bedId) || (step === 7 && !(formData as any).agreement.accepted)}
               className="px-6 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-hover motion-safe:transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Next <ArrowRight className="w-4 h-4" />

@@ -8,7 +8,7 @@ export function ManagerUseManagerAttendanceActions(selectedPropertyId: string | 
   
   const handleMark = (studentId: string, status: 'Present' | 'Absent' | 'On Leave') => {
     if (!userId || !selectedPropertyId) return;
-    api.managerOperations.markStudentAttendance(studentId, selectedPropertyId, status, userId);
+    (api as any).managerOperations.markStudentAttendance(studentId, selectedPropertyId, status, userId);
     loadData();
   };
 

@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { auditApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminAudit';
-import { SuperAdminAuditLog } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_types/SuperAdminAuditLogs.types';
+import type { SuperAdminAuditLog } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_types/SuperAdminAuditLogs.types';
 
 export function SuperadminUseSuperAdminAuditLogsData() {
   const [logs, setLogs] = useState<SuperAdminAuditLog[]>([]);
@@ -19,7 +19,7 @@ export function SuperadminUseSuperAdminAuditLogsData() {
 
   useEffect(() => {
     const rawLogs = auditApi.getAll();
-    const sortedLogs = rawLogs.sort((a: unknown, b: unknown) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    const sortedLogs = rawLogs.sort((a: unknown, b: unknown) => new Date((b as any).createdAt).getTime() - new Date((a as any).createdAt).getTime());
     setLogs(sortedLogs as unknown as SuperAdminAuditLog[]);
     setLoading(false);
   }, []);

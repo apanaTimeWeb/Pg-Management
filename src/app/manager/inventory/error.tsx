@@ -4,7 +4,7 @@ import { AlertTriangle } from 'lucide-react';
 
 export default function ErrorBoundary({ ManagerError, reset }: { ManagerError: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
-    console.ManagerError(ManagerError);
+    console.error(ManagerError);
   }, [ManagerError]);
 
   return (

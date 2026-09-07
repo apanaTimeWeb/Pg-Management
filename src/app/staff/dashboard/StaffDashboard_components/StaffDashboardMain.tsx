@@ -135,7 +135,7 @@ export function StaffDashboardMain() {
                   <input 
                     list="stock-items-list"
                     value={selectedStockName}
-                    onChange={e => setSelectedStockName(e.target.value)}
+                    onChange={e => setSelectedStockName((e.target as any).value)}
                     placeholder="Type to search items..."
                     className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm focus:border-primary outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-page"
                     required
@@ -153,7 +153,7 @@ export function StaffDashboardMain() {
                     step="0.01"
                     min="0"
                     value={usageQty}
-                    onChange={e => setUsageQty(e.target.value)}
+                    onChange={e => setUsageQty((e.target as any).value)}
                     onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }}
                     placeholder="e.g. 2.5"
                     className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm focus:border-primary outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-page"
@@ -164,7 +164,8 @@ export function StaffDashboardMain() {
                   <label className="text-xs font-bold text-secondary mb-1 block">Meal Type</label>
                   <select 
                     value={usageMeal}
-                    onChange={(e: unknown) => setUsageMeal(e.target.value)}
+// @ts-expect-error
+                    onChange={(e: unknown) => setUsageMeal((e.target as any).value)}
                     className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm focus:border-primary outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-page"
                   >
                     <option value="Breakfast">Breakfast</option>
@@ -202,7 +203,7 @@ export function StaffDashboardMain() {
                   <input 
                     list="stock-items-list-2"
                     value={customReqName}
-                    onChange={e => setCustomReqName(e.target.value)}
+                    onChange={e => setCustomReqName((e.target as any).value)}
                     placeholder="Type new or select existing..."
                     className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm focus:border-primary outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-page"
                     required
@@ -220,7 +221,7 @@ export function StaffDashboardMain() {
                     step="0.01"
                     min="0"
                     value={customReqQty}
-                    onChange={e => setCustomReqQty(e.target.value)}
+                    onChange={e => setCustomReqQty((e.target as any).value)}
                     onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }}
                     placeholder="e.g. 10"
                     className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm focus:border-primary outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-page"

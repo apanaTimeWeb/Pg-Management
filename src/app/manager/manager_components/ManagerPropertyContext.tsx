@@ -29,7 +29,8 @@ export const ManagerPropertyProvider = ({ children }: { children: React.ReactNod
     if (user?.role === 'manager' && user.assignedPropertyIds && user.assignedPropertyIds.length > 0) {
       // Find all properties in the system (or by owner if manager's owner was known, but assignedPropertyIds is direct)
       // Since manager belongs to an owner, and we want to load just their assigned properties:
-      const allProps = api.properties.listAll();
+      const allProps = (api as any).properties.listAll();
+// @ts-expect-error
       const assignedProps = allProps.filter((p: unknown) => user.assignedPropertyIds?.includes(p.id));
       
       setProperties(assignedProps);

@@ -12,7 +12,8 @@ import {
 } from 'lucide-react';
 import { getSession, clearSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
-import { useOwnerI18n, DictKey } from '@/app/owner/OwnerI18n';
+import { useOwnerI18n } from '@/app/owner/OwnerI18n';
+import type { DictKey } from '@/app/owner/OwnerI18n';;
 import { OwnerForcePasswordChangeModal } from '@/app/owner/owner_components/OwnerForcePasswordChangeModal';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
@@ -101,7 +102,7 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
           </button>
         </div>
         <nav className="p-4 space-y-1">
-          {NAV_ITEMS.map((item) => {
+          {NAV_ITEMS.map((item: any) => {
             const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
             const label = item.label || t(item.key as DictKey);
             return (
@@ -150,7 +151,7 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
               >
                 <option value="all">All Properties</option>
                 {properties.map(p => (
-                  <option key={p.id} value={p.id}>{p.name}</option>
+                  <option key={p.id} value={p.id}>{(p as any).name}</option>
                 ))}
               </select>
             </div>

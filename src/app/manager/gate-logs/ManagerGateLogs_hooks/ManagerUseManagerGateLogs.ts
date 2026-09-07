@@ -20,7 +20,7 @@ export function ManagerUseManagerGateLogs(): UseManagerGateLogsReturn {
 
   const loadData = () => {
     if (!ctxLoading && selectedPropertyId) {
-      setLogs(api.managerOperations.listGateLogs(selectedPropertyId) as GateLog[]);
+      setLogs((api as any).managerOperations.listGateLogs(selectedPropertyId) as GateLog[]);
     }
   };
 
@@ -38,7 +38,7 @@ export function ManagerUseManagerGateLogs(): UseManagerGateLogsReturn {
   const handleAdd = (studentId: string, type: 'entry' | 'exit', isLate: boolean) => {
     if (!user || !selectedPropertyId || !studentId) return;
     
-    api.managerOperations.addGateLog({
+    (api as any).managerOperations.addGateLog({
       propertyId: selectedPropertyId,
       studentId,
       type,

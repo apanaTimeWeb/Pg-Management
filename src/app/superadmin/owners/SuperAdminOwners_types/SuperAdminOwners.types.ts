@@ -1,4 +1,4 @@
-import { BaseEntity } from '@/lib/types';
+import type { BaseEntity } from '@/lib/types/contract';
 export interface User extends BaseEntity {
   role: 'owner' | 'manager' | 'staff' | 'student';
   name: string;

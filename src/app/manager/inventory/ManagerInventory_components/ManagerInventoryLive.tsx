@@ -5,7 +5,7 @@ import type { ManagerInventoryItem } from '@/app/manager/inventory/ManagerInvent
 interface Props {
   inventory: ManagerInventoryItem[];
   handleUpdateQty: (id: string, delta: number) => void;
-  formData: unknown;
+  formData: any;
   setFormData: (val: unknown) => void;
   handleAdd: (e: React.FormEvent) => void;
 }
@@ -24,7 +24,7 @@ export function ManagerInventoryLive({ inventory, handleUpdateQty, formData, set
             </tr>
           </thead>
           <tbody className="divide-y divide-[var(--border)]">
-            {inventory.map(item => (
+            {inventory.map((item: any) => (
               <tr key={item.id} className="hover:bg-input motion-safe:transition-colors">
                 <td className="p-4">
                   <div className="font-medium text-primary">{item.name}</div>
@@ -67,21 +67,21 @@ export function ManagerInventoryLive({ inventory, handleUpdateQty, formData, set
           <form onSubmit={handleAdd} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-secondary mb-1">Item Name</label>
-              <input type="text" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-input border border rounded p-2 text-sm text-primary" placeholder="e.g. Light Bulbs" />
+              <input type="text" required value={(formData as any).name} onChange={e => setFormData({...(formData as any), name: e.target.value})} className="w-full bg-input border border rounded p-2 text-sm text-primary" placeholder="e.g. Light Bulbs" />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-secondary mb-1">Qty</label>
-                <input type="number" required value={formData.quantity} onChange={e => setFormData({...formData, quantity: e.target.value})} className="w-full bg-input border border rounded p-2 text-sm text-primary" placeholder="0" />
+                <input type="number" required value={(formData as any).quantity} onChange={e => setFormData({...(formData as any), quantity: e.target.value})} className="w-full bg-input border border rounded p-2 text-sm text-primary" placeholder="0" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-secondary mb-1">Min Threshold</label>
-                <input type="number" required value={formData.threshold} onChange={e => setFormData({...formData, threshold: e.target.value})} className="w-full bg-input border border rounded p-2 text-sm text-primary" placeholder="0" />
+                <input type="number" required value={(formData as any).threshold} onChange={e => setFormData({...(formData as any), threshold: e.target.value})} className="w-full bg-input border border rounded p-2 text-sm text-primary" placeholder="0" />
               </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-secondary mb-1">Category</label>
-              <select value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} className="w-full bg-input border border rounded p-2 text-sm text-primary">
+              <select value={(formData as any).category} onChange={e => setFormData({...(formData as any), category: e.target.value})} className="w-full bg-input border border rounded p-2 text-sm text-primary">
                 <option>Maintenance</option>
                 <option>Cleaning</option>
                 <option>Misc</option>

@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the SuperAdminOwnerProfileMain component.
 import React from 'react';
 import { Building2, FileText, Ticket } from 'lucide-react';
-import { Owner360Data } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
+import type { Owner360Data } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
 
 export const SuperAdminOwnerProfileMain: React.FC<{ data: Owner360Data }> = ({ data }) => {
   const { subscription, properties, recentPayments, tickets } = data;
@@ -13,19 +13,19 @@ export const SuperAdminOwnerProfileMain: React.FC<{ data: Owner360Data }> = ({ d
         <div className="bg-card border border rounded-[var(--radius-lg,12px)] p-5 shadow-sm text-center flex flex-col justify-center">
           <div className="text-[11px] font-medium text-secondary uppercase tracking-wider mb-2">Properties</div>
           <div className="text-[28px] font-bold text-primary">
-            {properties.length} <span className="text-lg text-disabled">/ {subscription?.maxProperties || 0}</span>
+            {properties.length} <span className="text-lg text-disabled">/ {((subscription as Record<string, unknown>)?.maxProperties as number) || 0}</span>
           </div>
         </div>
         <div className="bg-card border border rounded-[var(--radius-lg,12px)] p-5 shadow-sm text-center flex flex-col justify-center">
           <div className="text-[11px] font-medium text-secondary uppercase tracking-wider mb-2">Total Students</div>
           <div className="text-[28px] font-bold text-primary">
-            {data.studentsCount} <span className="text-lg text-disabled">/ {subscription?.maxBeds || 0}</span>
+            {data.studentsCount} <span className="text-lg text-disabled">/ {((subscription as Record<string, unknown>)?.maxBeds as number) || 0}</span>
           </div>
         </div>
         <div className="bg-card border border rounded-[var(--radius-lg,12px)] p-5 shadow-sm text-center flex flex-col justify-center">
           <div className="text-[11px] font-medium text-secondary uppercase tracking-wider mb-2">Staff/Managers</div>
           <div className="text-[28px] font-bold text-primary">
-            {data.managersCount} <span className="text-lg text-disabled">/ {subscription?.maxStaff || 0}</span>
+            {data.managersCount} <span className="text-lg text-disabled">/ {((subscription as Record<string, unknown>)?.maxStaff as number) || 0}</span>
           </div>
         </div>
       </div>
@@ -40,14 +40,14 @@ export const SuperAdminOwnerProfileMain: React.FC<{ data: Owner360Data }> = ({ d
           {properties.length === 0 ? (
             <div className="p-6 text-center text-secondary text-sm">No properties created yet.</div>
           ) : (
-            properties.map((p: unknown) => (
-              <div key={p.id} className="p-4 flex items-center justify-between hover:bg-primary-subtle motion-safe:transition-colors">
+            (properties as unknown as import('@/lib/storage/db').BaseEntity[]).map((p: any) => (
+              <div key={p.id as string} className="p-4 flex items-center justify-between hover:bg-primary-subtle motion-safe:transition-colors">
                 <div>
-                  <div className="font-medium text-primary">{p.name}</div>
-                  <div className="text-[12px] text-secondary">{p.city} • {p.managers} Staff</div>
+                  <div className="font-medium text-primary">{(p as any).name as string}</div>
+                  <div className="text-[12px] text-secondary">{p.city as string} • {p.managers as number} Staff</div>
                 </div>
                 <div className="text-right">
-                  <div className="font-bold text-primary">{p.occupied} / {p.capacity}</div>
+                  <div className="font-bold text-primary">{p.occupied as number} / {p.capacity as number}</div>
                   <div className="text-[11px] text-success">Occupied</div>
                 </div>
               </div>
@@ -67,13 +67,13 @@ export const SuperAdminOwnerProfileMain: React.FC<{ data: Owner360Data }> = ({ d
             {recentPayments.length === 0 ? (
               <div className="p-6 text-center text-secondary text-sm">No payments recorded.</div>
             ) : (
-              recentPayments.map((p: unknown) => (
-                <div key={p.id} className="p-4 flex items-center justify-between">
+              (recentPayments as unknown as import('@/lib/storage/db').BaseEntity[]).map((p: any) => (
+                <div key={p.id as string} className="p-4 flex items-center justify-between">
                   <div>
-                    <div className="text-[12px] text-secondary">{new Date(p.date).toLocaleDateString()}</div>
-                    <div className="text-[11px] font-medium text-primary">{p.mode}</div>
+                    <div className="text-[12px] text-secondary">{new Date(p.date as string).toLocaleDateString()}</div>
+                    <div className="text-[11px] font-medium text-primary">{p.mode as string}</div>
                   </div>
-                  <div className="font-medium text-success">₹{p.amount.toLocaleString()}</div>
+                  <div className="font-medium text-success">₹{(p.amount as number).toLocaleString()}</div>
                 </div>
               ))
             )}
@@ -90,9 +90,9 @@ export const SuperAdminOwnerProfileMain: React.FC<{ data: Owner360Data }> = ({ d
             {tickets.length === 0 ? (
               <div className="p-6 text-center text-secondary text-sm">No support tickets found.</div>
             ) : (
-              tickets.map((t: unknown) => (
-                <div key={t.id} className="p-4 flex flex-col gap-1">
-                  <div className="font-medium text-primary text-sm line-clamp-1" title={t.issue}>{t.issue}</div>
+              (tickets as unknown as import('@/lib/storage/db').BaseEntity[]).map((t) => (
+                <div key={t.id as string} className="p-4 flex flex-col gap-1">
+                  <div className="font-medium text-primary text-sm line-clamp-1" title={t.issue as string}>{t.issue as string}</div>
                   <div>
                     {t.status === 'Resolved' ? (
                       <span className="text-[10px] bg-success-bg text-success px-2 py-0.5 rounded-full font-bold uppercase border border-success">Resolved</span>

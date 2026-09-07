@@ -15,13 +15,14 @@ export interface PlatformSettings {
   createdBy: string;
   updatedBy: string;
   isDeleted: boolean;
+  [key: string]: unknown;
 }
 
 export const settingsApi = {
   getSettings(): PlatformSettings {
-    const records = db.getAll<PlatformSettings>('spg_settings' as unknown);
+    const records = db.getAll<PlatformSettings>('spg_settings');
     if (records.length > 0) {
-      return records[0];
+      return records[0]!;
     }
     // Default SuperadminSettings if not seeded
     const def: PlatformSettings = {
@@ -38,14 +39,14 @@ export const settingsApi = {
       updatedBy: 'system',
       isDeleted: false
     };
-    db.insert('spg_settings' as unknown, def as unknown);
+    db.insert('spg_settings', def as unknown as import('@/lib/storage/db').BaseEntity);
     return def;
   },
   
   updateSettings(data: Partial<PlatformSettings>) {
     const current = this.getSettings();
     const updated = { ...current, ...data };
-    db.update<PlatformSettings>('spg_settings' as unknown, current.id, updated);
+    db.update<PlatformSettings>('spg_settings', current.id, updated);
     
     db.insert(STORAGE_KEYS.AUDIT_LOGS, {
       id: createId('aud'),
@@ -65,7 +66,7 @@ export const settingsApi = {
 
   exportDatabase(): string {
     if (typeof window === 'undefined') return '{}';
-    const data: Record<string, any> = {};
+    const data: Record<string, unknown> = {};
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       if (key && key.startsWith('spg_')) {
@@ -100,7 +101,7 @@ export const settingsApi = {
         }
       }
       return true;
-    } catch (err) {
+    } catch (err: any) {
       console.error('Import failed', err);
       return false;
     }

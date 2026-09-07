@@ -1,5 +1,5 @@
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
-import { Role } from '@/lib/types';
+import type { Role } from '@/lib/types';;
 
 export function requireRole(expectedRole: Role) {
   const session = getSession();

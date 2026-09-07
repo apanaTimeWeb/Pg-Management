@@ -3,9 +3,9 @@
 
 import { useState, useEffect } from 'react';
 import { useStaffContext } from '@/app/staff/staff_components/StaffContext';
-import { authApi as api } from '@/app/staff/staff_lib/staff_api/StaffAuth';
+import { stockApi, stockBatchesApi } from '@/app/staff/staff_lib/staff_api/StaffStock';
 import { Package, Plus, Search, Edit2, Trash2, Check, X } from 'lucide-react';
-import { StockItem, stockBatchesApi, StockBatch } from '@/app/staff/staff_lib/staff_api/StaffStock';
+import type { StockItem, StockBatch } from '@/app/staff/staff_lib/staff_api/StaffStock';
 import { Pagination } from '@/components/ui/Pagination';
 
 export function StaffStockMain() {
@@ -39,7 +39,7 @@ export function StaffStockMain() {
   const loadStock = () => {
     if (propertyId) {
       setLoading(true);
-      const data = api.stock.getByProperty(propertyId);
+      const data = stockApi.getByProperty(propertyId);
       const batchesData = stockBatchesApi.getByProperty(propertyId);
       setItems(data);
       setBatches(batchesData);
@@ -57,7 +57,7 @@ export function StaffStockMain() {
     e.preventDefault();
     if (!propertyId || !newItemName.trim() || !newItemQty) return;
     
-    api.stock.add({
+    stockApi.add({
       propertyId,
       name: newItemName.trim(),
       quantity: parseFloat(newItemQty),
@@ -76,7 +76,7 @@ export function StaffStockMain() {
 
   const handleUpdateQty = (id: string) => {
     if (!editQty) return;
-    api.stock.update(id, { quantity: parseFloat(editQty) });
+    stockApi.update(id, { quantity: parseFloat(editQty) });
     setEditingId(null);
     setEditQty('');
     loadStock();
@@ -84,7 +84,7 @@ export function StaffStockMain() {
 
   const handleDelete = (id: string) => {
     if (confirm('Are you sure you want to remove this item?')) {
-      api.stock.delete(id);
+      stockApi.delete(id);
       loadStock();
     }
   };
@@ -267,7 +267,7 @@ export function StaffStockMain() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[var(--border)]">
-                    {paginatedItems.map(item => {
+                    {paginatedItems.map((item: any) => {
                       const isLowStock = item.lowStockThreshold !== undefined && item.quantity <= item.lowStockThreshold;
                       
                       let isExpiringSoon = false;

@@ -4,9 +4,13 @@
 import { useState, useEffect } from 'react';
 import { useStaffContext } from '@/app/staff/staff_components/StaffContext';
 import { authApi as api } from '@/app/staff/staff_lib/staff_api/StaffAuth';
-import { FoodMenu } from '@/app/staff/staff_lib/staff_api/StaffFood';
-import { StockItem } from '@/app/staff/staff_lib/staff_api/StaffStock';
-import { StockRequest } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
+import type { FoodMenu } from '@/app/staff/staff_lib/staff_api/StaffFood';
+import { foodApi } from '@/app/staff/staff_lib/staff_api/StaffFood';
+import type { StockItem } from '@/app/staff/staff_lib/staff_api/StaffStock';
+import { stockApi } from '@/app/staff/staff_lib/staff_api/StaffStock';
+import type { StockRequest } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
+import { stockRequestsApi } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
+import { usageLogsApi } from '@/app/staff/staff_lib/staff_api/StaffUsageLogs';
 import { getSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
 import { attendanceApi } from '@/app/owner/owner_lib/owner_api/OwnerAttendance';
 
@@ -29,9 +33,9 @@ export function StaffUseStaffDashboard() {
 
   const loadData = () => {
     if (staffRole === 'cook' && propertyId) {
-      setMenu(api.food.getByProperty(propertyId));
-      setStockItems(api.stock.getByProperty(propertyId));
-      setRequests(api.stockRequests.getByProperty(propertyId).filter((r: unknown) => r.status !== 'verified'));
+      setMenu(foodApi.getByProperty(propertyId));
+      setStockItems(stockApi.getByProperty(propertyId));
+      setRequests(stockRequestsApi.getByProperty(propertyId).filter((r: unknown) => (r as any).status !== 'verified'));
     }
     if (propertyId && user) {
       setIsPresent(attendanceApi.getTodayStatus(propertyId, user.id));
@@ -46,7 +50,7 @@ export function StaffUseStaffDashboard() {
   const handleNotifyManager = (item: StockItem) => {
     if (!user) return;
     
-    api.stockRequests.create({
+    stockRequestsApi.create({
       propertyId: propertyId!,
       itemName: item.name,
       quantityRequested: item.lowStockThreshold && item.lowStockThreshold > 0 ? item.lowStockThreshold * 2 : 10,
@@ -62,7 +66,7 @@ export function StaffUseStaffDashboard() {
     
     const item = stockItems.find(i => `${i.name} (Avail: ${i.quantity} ${i.unit})` === customReqName || i.name === customReqName);
     
-    api.stockRequests.create({
+    stockRequestsApi.create({
       propertyId,
       itemName: item ? item.name : customReqName,
       quantityRequested: parseFloat(customReqQty),
@@ -94,9 +98,9 @@ export function StaffUseStaffDashboard() {
 
     const used = parseFloat(usageQty);
     if (used > 0 && item.quantity >= used) {
-      api.stock.update(item.id, { quantity: item.quantity - used });
+      stockApi.update(item.id, { quantity: item.quantity - used });
       
-      api.usageLogs.create({
+      usageLogsApi.create({
         propertyId: propertyId!,
         itemName: item.name,
         quantity: used,
@@ -127,7 +131,7 @@ export function StaffUseStaffDashboard() {
         const parsed = JSON.parse(rawVal);
         if (parsed.breakfast !== undefined) dayData = parsed;
       }
-    } catch (e) {}
+    } catch (e: any) {}
 
     return { day: today, data: dayData };
   };

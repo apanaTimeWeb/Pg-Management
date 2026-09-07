@@ -10,7 +10,7 @@ export default function Loading() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[1, 2, 3].map(i => (
-          <div key={i} className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm h-[450px]">
+          <div key={`fallback-${i}`} className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm h-[450px]">
             <div className="p-6 border-b border text-center flex flex-col items-center">
               <div className="h-6 w-24 bg-skeleton-base motion-safe:animate-pulse rounded-md mb-4"></div>
               <div className="h-10 w-32 bg-skeleton-base motion-safe:animate-pulse rounded-md mb-6"></div>

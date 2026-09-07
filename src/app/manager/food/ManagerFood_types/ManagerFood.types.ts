@@ -1,4 +1,4 @@
-import { FoodMenu } from '@/app/staff/staff_lib/staff_api/StaffFood';
+import type { FoodMenu } from '@/app/staff/staff_lib/staff_api/StaffFood';
 
 export interface ManagerFoodData {
   loading: boolean;

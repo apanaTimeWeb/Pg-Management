@@ -1,6 +1,6 @@
 // RESPONSIBILITY: Renders the SuperAdminDashboardAcquisitionChart component.
 import React from 'react';
-import { SuperAdminDashboardAcquisitionChartProps } from '@/app/superadmin/dashboard/SuperAdminDashboard_types/SuperAdminDashboard.types';
+import type { SuperAdminDashboardAcquisitionChartProps } from '@/app/superadmin/dashboard/SuperAdminDashboard_types/SuperAdminDashboard.types';
 import { BarChart } from '@/components/ui/charts/BarChart';
 
 export const SuperAdminDashboardAcquisitionChart: React.FC<SuperAdminDashboardAcquisitionChartProps> = ({ data }) => {
@@ -10,7 +10,7 @@ export const SuperAdminDashboardAcquisitionChart: React.FC<SuperAdminDashboardAc
       <p className="text-xs text-secondary mb-6">New students joining the platform.</p>
       <div className="h-[280px]">
         <BarChart 
-          data={data} 
+          data={data as any} 
           xAxisKey="month" 
           dataKey="students" 
           color="var(--primary)" 

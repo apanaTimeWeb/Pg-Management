@@ -40,8 +40,8 @@ export function StudentMessMain() {
       studentOperationsApi.orderMeal(profile.studentId || profile.userId, profile.propertyId, type, cost, session.id);
       alert(`Ordered ${type}. ₹${cost} deducted from wallet.`);
       loadData();
-    } catch (e: unknown) {
-      alert(e.message);
+    } catch (e: any) {
+      alert((e as any).message);
       setShowRecharge(true);
     }
   };

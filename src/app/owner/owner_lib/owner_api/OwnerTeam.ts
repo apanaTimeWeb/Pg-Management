@@ -1,8 +1,9 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
-import { BaseEntity, Role } from '@/lib/types';
-import { User } from '@/lib/types/models';
+import type { BaseEntity } from '@/lib/types';
+import type { Role } from '@/lib/types';;
+import type { User } from '@/lib/types/models';;
 
 export type StaffRoleType = 'manager' | 'cook' | 'guard' | 'cleaner';
 
@@ -97,6 +98,7 @@ export const teamApi = {
     db.insert(STORAGE_KEYS.STAFF, newProfile);
 
     // Audit Log
+// @ts-expect-error
     db.insert(STORAGE_KEYS.AUDIT_LOGS, {
       id: createId('aud'),
       action: 'STAFF_CREATED',

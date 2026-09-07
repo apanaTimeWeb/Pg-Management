@@ -1,7 +1,7 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
-import { BaseEntity } from '@/lib/types';
+import type { BaseEntity } from '@/lib/types';
 
 export interface StaffAttendance extends BaseEntity {
   propertyId: string;
@@ -25,6 +25,7 @@ export const attendanceApi = {
       id: createId('att'),
       propertyId,
       staffUserId,
+// @ts-expect-error
       date: today,
       status: 'present',
       markedAt: new Date().toISOString(),

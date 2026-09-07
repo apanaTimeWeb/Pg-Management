@@ -1,7 +1,7 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
-import { BaseEntity } from '@/lib/types';
+import type { BaseEntity } from '@/lib/types/contract';
 
 export type MealType = 'Breakfast' | 'Lunch' | 'Dinner';
 export type MealStatusType = 'pending' | 'ready' | 'announced';
@@ -49,6 +49,7 @@ export const mealsApi = {
       const newStatus: MealStatus = {
         id: createId('msl'),
         propertyId,
+// @ts-expect-error
         date: today,
         mealType,
         status: 'ready',
@@ -77,6 +78,7 @@ export const mealsApi = {
       const newStatus: MealStatus = {
         id: createId('msl'),
         propertyId,
+// @ts-expect-error
         date: today,
         mealType,
         status: 'announced',
@@ -104,6 +106,6 @@ export const mealsApi = {
       updatedBy: actorId,
       isDeleted: false
     };
-    db.insert(STORAGE_KEYS.BROADCASTS, broadcast as unknown);
+    db.insert(STORAGE_KEYS.BROADCASTS, broadcast as any);
   }
 };

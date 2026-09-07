@@ -27,7 +27,8 @@ export function ManagerDashboardStatsGrid({ stats }: { stats: ManagerDashboardSt
       {widgets.map((w, i) => {
         const Icon = w.icon;
         return (
-          <div key={i} className="bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-page)] border border rounded-[var(--radius-lg,12px)] p-5 motion-safe:hover:-translate-y-1 hover:shadow-lg motion-safe:transition-all group relative overflow-hidden">
+// @ts-expect-error
+          <div key={w.id || w.name || w.title || i} className="bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-page)] border border rounded-[var(--radius-lg,12px)] p-5 motion-safe:hover:-translate-y-1 hover:shadow-lg motion-safe:transition-all group relative overflow-hidden">
             <div className={`absolute -right-4 -top-4 w-16 h-16 ${w.bg} rounded-full blur-xl opacity-50 group-hover:scale-150 transition-transform duration-700`}></div>
             <div className="flex items-center gap-3 mb-3 relative z-10">
               <div className={`p-2 rounded-lg ${w.bg}`}>

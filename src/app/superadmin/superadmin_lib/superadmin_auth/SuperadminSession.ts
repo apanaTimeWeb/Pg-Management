@@ -1,4 +1,4 @@
-import { SessionUser } from '@/lib/types';
+import type { SessionUser } from '@/lib/types/models';
 
 export function getSession(): SessionUser | null {
   if (typeof window === 'undefined') return null;
@@ -8,8 +8,8 @@ export function getSession(): SessionUser | null {
     const user = JSON.parse(data) as SessionUser;
     
     // Auto-migrate legacy 'tenant' role to 'student'
-    if (user && (user.role as unknown) === 'tenant') {
-      user.role = 'student' as unknown;
+    if (user && (user.role as string) === 'tenant') {
+      user.role = 'student' as SessionUser['role'];
       localStorage.setItem('spg_current_session', JSON.stringify(user));
     }
     

@@ -16,11 +16,11 @@ export function OwnerLoginMain() {
     e.preventDefault();
     setError('');
     try {
-      const user = api.auth.login({ email, password, expectedRole: 'owner' });
+      const user = api.login({ email, password, expectedRole: 'owner' });
       setSession(user);
       router.push(user.mustChangePassword ? '/owner/first-login' : '/owner/dashboard');
-    } catch (err: unknown) {
-      setError(err.message || 'Login failed');
+    } catch (err: any) {
+      setError((err as any).message || 'Login failed');
     }
   };
 

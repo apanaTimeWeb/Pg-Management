@@ -8,7 +8,7 @@ interface Props {
 export function ManagerCheckinProgress({ step }: Props) {
   return (
     <div className="flex items-center justify-between overflow-x-auto pb-4 scrollbar-hide">
-      {MANAGER_CHECKIN_WIZARD_STEPS.map((s) => {
+      {MANAGER_CHECKIN_WIZARD_STEPS.map((s: any) => {
         const Icon = s.icon;
         const isActive = s.id === step;
         const isPassed = s.id < step;

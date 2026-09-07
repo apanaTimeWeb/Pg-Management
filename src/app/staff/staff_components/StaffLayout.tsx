@@ -7,7 +7,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import { LayoutDashboard, Utensils, Shield, Sparkles, Wrench, ListTodo, LogOut, Menu, X, ShieldAlert, Bell, Package } from 'lucide-react';
 import { getSession, clearSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
 import { StaffProvider, useStaffContext } from '@/app/staff/staff_components/StaffContext';
-import { useStaffI18n, DictKey } from '@/app/staff/StaffI18n';
+import { useStaffI18n } from '@/app/staff/StaffI18n';
+import type { DictKey } from '@/app/staff/StaffI18n';;
 import { StaffForcePasswordChangeModal } from '@/app/staff/staff_components/StaffForcePasswordChangeModal';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
@@ -100,7 +101,7 @@ function StaffLayoutInner({ children }: { children: React.ReactNode }) {
           </button>
         </div>
         <nav className="p-4 space-y-1">
-          {visibleLinks.map((item) => {
+          {visibleLinks.map((item: any) => {
             const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
             return (
               <Link key={item.href} href={item.href} onClick={() => setIsMobileMenuOpen(false)}

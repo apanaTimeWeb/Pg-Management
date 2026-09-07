@@ -3,7 +3,7 @@
 import { MapPin } from 'lucide-react';
 
 export interface OwnerPropertiesCreateLocationProps {
-  formData: unknown;
+  formData: any;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
 }
 
@@ -17,7 +17,7 @@ export function OwnerPropertiesCreateLocation({ formData, handleInputChange }: O
       <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-1 md:col-span-2">
           <label className="text-xs font-medium text-secondary">Complete Address *</label>
-          <input required type="text" name="address" value={formData.address} onChange={handleInputChange}
+          <input required type="text" name="address" value={(formData as any).address} onChange={handleInputChange}
             className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary motion-safe:transition-all"
             placeholder="Plot no, Street, Area"
           />
@@ -25,7 +25,7 @@ export function OwnerPropertiesCreateLocation({ formData, handleInputChange }: O
         
         <div className="space-y-1">
           <label className="text-xs font-medium text-secondary">City *</label>
-          <input required type="text" name="city" value={formData.city} onChange={handleInputChange}
+          <input required type="text" name="city" value={(formData as any).city} onChange={handleInputChange}
             className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary motion-safe:transition-all"
             placeholder="e.g. Patna, Delhi"
           />
@@ -33,7 +33,7 @@ export function OwnerPropertiesCreateLocation({ formData, handleInputChange }: O
 
         <div className="space-y-1">
           <label className="text-xs font-medium text-secondary">Pincode *</label>
-          <input required type="text" name="pincode" value={formData.pincode} onChange={handleInputChange}
+          <input required type="text" name="pincode" value={(formData as any).pincode} onChange={handleInputChange}
             className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary motion-safe:transition-all"
             placeholder="800001"
           />
@@ -41,7 +41,7 @@ export function OwnerPropertiesCreateLocation({ formData, handleInputChange }: O
         
         <div className="space-y-1 md:col-span-2">
           <label className="text-xs font-medium text-secondary">Landmark (Optional)</label>
-          <input type="text" name="landmark" value={formData.landmark} onChange={handleInputChange}
+          <input type="text" name="landmark" value={(formData as any).landmark} onChange={handleInputChange}
             className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary motion-safe:transition-all"
             placeholder="e.g. Near Metro Station"
           />

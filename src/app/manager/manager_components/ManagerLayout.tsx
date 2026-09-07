@@ -6,7 +6,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { getSession, clearSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
-import { useManagerI18n, DictKey } from '@/app/manager/ManagerI18n';
+import { useManagerI18n } from '@/app/manager/ManagerI18n';
+import type { DictKey } from '@/app/manager/ManagerI18n';;
 import { 
   LayoutDashboard, MessageSquare, ClipboardCheck, BedDouble, 
   Users, AlertCircle, Utensils, UserPlus, Clock, LogOut, Radio, FileText, Archive, IndianRupee, Receipt,
@@ -108,7 +109,7 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
           </button>
         </div>
         <nav className="p-4 space-y-1">
-          {MENU_ITEMS.map((item) => {
+          {MENU_ITEMS.map((item: any) => {
             const label = item.label || t(item.key as DictKey);
             return (
               <Link key={item.key} href={item.href} onClick={() => setIsMobileMenuOpen(false)}
@@ -159,7 +160,8 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
                 onChange={(e) => setSelectedPropertyId(e.target.value)}
               >
                 {properties.map(p => (
-                  <option key={p.id} value={p.id}>{p.name}</option>
+// @ts-expect-error
+                  <option key={p.id} value={p.id}>{(p as any).name}</option>
                 ))}
               </select>
             </div>

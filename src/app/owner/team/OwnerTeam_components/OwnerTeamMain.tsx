@@ -3,13 +3,13 @@
 // RESPONSIBILITY: Renders the OwnerTeamMain component. Receives data via props/hooks.
 
 import { useState, useEffect } from 'react';
-import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { teamApi as api } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { Plus, Search, Filter, ShieldCheck, Wrench, Utensils, Shield, Sparkles, Building2, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 import { OWNER_URLS } from '@/app/owner/owner_url_config';
-import { TeamMember, StaffRoleType } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
+import type { TeamMember, StaffRoleType } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
 import { Pagination } from '@/components/ui/Pagination';
 import { useTableSync } from '@/lib/hooks/useTableSync';
 
@@ -39,7 +39,7 @@ export function OwnerTeamMain() {
   useEffect(() => {
     if (!user) return;
     setLoading(true);
-    const members = api.team.listByOwner(user.id);
+    const members = api.listByOwner(user.id);
     setTeam(members);
     setLoading(false);
   }, [user?.id]);
@@ -104,13 +104,13 @@ export function OwnerTeamMain() {
           >
             <option value="all">All Properties</option>
             {properties.map(p => (
-              <option key={p.id} value={p.id}>{p.name}</option>
+              <option key={p.id} value={p.id}>{(p as any).name}</option>
             ))}
           </select>
           
           <select 
             value={roleFilter}
-            onChange={(e) => setRoleFilter(e.target.value as unknown)}
+            onChange={(e) => setRoleFilter(arguments[0] as any)}
             className="bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:border-primary"
           >
             <option value="all">All Roles</option>
@@ -124,7 +124,7 @@ export function OwnerTeamMain() {
 
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1,2,3].map(i => <div key={i} className="h-48 bg-card border border-border rounded-lg motion-safe:animate-pulse"></div>)}
+          {[1,2,3].map(i => <div key={`fallback-${i}`} className="h-48 bg-card border border-border rounded-lg motion-safe:animate-pulse"></div>)}
         </div>
       ) : filteredTeam.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-16 bg-card border border-border rounded-lg text-center">

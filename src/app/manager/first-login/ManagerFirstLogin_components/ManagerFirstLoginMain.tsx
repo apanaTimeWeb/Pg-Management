@@ -15,11 +15,11 @@ export function ManagerFirstLoginMain() {
     try {
       const session = getSession();
       if(!session) return;
-      api.auth.changePassword(session.id, newPassword);
+      api.changePassword(session.id, newPassword);
       session.mustChangePassword = false;
       setSession(session);
       router.push('/manager/dashboard');
-    } catch(err: unknown) {
+    } catch (err: any) {
       setError(err.message);
     }
   };

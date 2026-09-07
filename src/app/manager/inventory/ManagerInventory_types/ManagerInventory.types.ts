@@ -1,4 +1,4 @@
-import { StockBatch } from '@/app/staff/staff_lib/staff_api/StaffStock';
+import type { StockBatch } from '@/app/staff/staff_lib/staff_api/StaffStock';
 
 export interface ManagerInventoryItem {
   id: string;

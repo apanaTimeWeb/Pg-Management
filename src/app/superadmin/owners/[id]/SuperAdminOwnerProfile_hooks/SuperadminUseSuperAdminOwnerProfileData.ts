@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { ownersApi } from '@/app/owner/owner_lib/owner_api/owners';
-import { Owner360Data } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
+import type { Owner360Data } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
 import { useRouter } from 'next/navigation';
 
 export function SuperadminUseSuperAdminOwnerProfileData(id: string) {
@@ -16,7 +16,7 @@ export function SuperadminUseSuperAdminOwnerProfileData(id: string) {
       setLoading(true);
       const fetched = ownersApi.getOwner360(id);
       setData(fetched as Owner360Data);
-    } catch (e) {
+    } catch (e: any) {
       router.push('/superadmin/owners');
     } finally {
       setLoading(false);

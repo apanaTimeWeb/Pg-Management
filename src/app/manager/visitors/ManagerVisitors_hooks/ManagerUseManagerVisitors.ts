@@ -19,7 +19,7 @@ export function ManagerUseManagerVisitors(): UseManagerVisitorsReturn {
   const loadData = () => {
     if (!ctxLoading && selectedPropertyId) {
       setLoading(true);
-      setVisitors(api.managerOperations.listVisitors(selectedPropertyId) as Visitor[]);
+      setVisitors((api as any).managerOperations.listVisitors(selectedPropertyId) as Visitor[]);
       setLoading(false);
     }
   };
@@ -32,7 +32,7 @@ export function ManagerUseManagerVisitors(): UseManagerVisitorsReturn {
 
   const handleStatus = (id: string, status: string) => {
     if (!user) return;
-    api.managerOperations.updateVisitorStatus(id, status as 'approved' | 'rejected' | 'checked_in' | 'checked_out', user.id);
+    (api as any).managerOperations.updateVisitorStatus(id, status as 'approved' | 'rejected' | 'checked_in' | 'checked_out', user.id);
     loadData();
   };
 

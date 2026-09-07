@@ -1,4 +1,4 @@
-import { BaseEntity } from '@/lib/types';
+// RESPONSIBILITY: Type-safe localStorage database wrapper.
 
 const isBrowser = typeof window !== 'undefined';
 
@@ -12,15 +12,25 @@ function setStorageItem(key: string, value: string): void {
   localStorage.setItem(key, value);
 }
 
+export interface BaseEntity {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  createdBy?: string;
+  updatedBy?: string;
+  isDeleted?: boolean;
+  [key: string]: unknown;
+}
+
 export const db = {
   getAll<T extends BaseEntity>(key: string): T[] {
     const data = getStorageItem(key);
-    return data ? JSON.parse(data) : [];
+    return data ? (JSON.parse(data) as T[]) : [];
   },
 
-  getById<T extends BaseEntity>(key: string, id: string): T | undefined {
+  getById<T extends BaseEntity>(key: string, id: string): T | null {
     const items = this.getAll<T>(key);
-    return items.find((item) => item.id === id);
+    return items.find((item: any) => item.id === id) ?? null;
   },
 
   insert<T extends BaseEntity>(key: string, item: T): T {
@@ -32,21 +42,23 @@ export const db = {
 
   update<T extends BaseEntity>(key: string, id: string, patch: Partial<T>): T | null {
     const items = this.getAll<T>(key);
-    const index = items.findIndex((item) => item.id === id);
+    const index = items.findIndex((item: any) => item.id === id);
     if (index === -1) return null;
-
-    items[index] = { ...items[index], ...patch, updatedAt: new Date().toISOString() };
+    const updated = { ...items[index], ...patch, updatedAt: new Date().toISOString() } as T;
+    items[index] = updated;
     setStorageItem(key, JSON.stringify(items));
-    return items[index];
+    return items[index] ?? null;
   },
 
   remove<T extends BaseEntity>(key: string, id: string): boolean {
     const items = this.getAll<T>(key);
-    const index = items.findIndex((item) => item.id === id);
+    const index = items.findIndex((item: any) => item.id === id);
     if (index === -1) return false;
-
-    items[index].isDeleted = true;
-    items[index].updatedAt = new Date().toISOString();
+    const item = items[index];
+    if (item) {
+      item.isDeleted = true;
+      item.updatedAt = new Date().toISOString();
+    }
     setStorageItem(key, JSON.stringify(items));
     return true;
   },

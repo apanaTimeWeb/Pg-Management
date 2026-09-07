@@ -1,1 +1,1 @@
-export const STAFF_FIRST-LOGIN_URL = '/staff/first-login';
+export const STAFF_FIRST_LOGIN_URL = '/staff/first-login';

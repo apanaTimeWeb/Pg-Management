@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the SuperAdminOwnersFilters component.
 import React from 'react';
 import { Search } from 'lucide-react';
-import { SuperAdminOwnersFiltersProps } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
+import type { SuperAdminOwnersFiltersProps } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
 import { SUPER_ADMIN_OWNERS_STATUS_FILTERS } from '@/app/superadmin/owners/SuperAdminOwners_utils/SuperAdminOwners.constants';
 
 export const SuperAdminOwnersFilters: React.FC<SuperAdminOwnersFiltersProps> = ({

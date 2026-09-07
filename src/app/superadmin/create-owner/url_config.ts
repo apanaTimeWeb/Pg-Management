@@ -1,1 +1,1 @@
-export const SUPERADMIN_CREATE-OWNER_URL = '/superadmin/create-owner';
+export const SUPERADMIN_CREATE_OWNER_URL = '/superadmin/create-owner';

@@ -8,6 +8,10 @@ interface ConfirmOptions {
   requireTypeToConfirm?: string;
 }
 
+/**
+ * useConfirm
+ * Custom hook for React.
+ */
 export function useConfirm() {
   const [isOpen, setIsOpen] = useState(false);
   const [options, setOptions] = useState<ConfirmOptions | null>(null);

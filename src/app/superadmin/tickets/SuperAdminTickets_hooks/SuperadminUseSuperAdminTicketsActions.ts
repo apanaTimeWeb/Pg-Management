@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { ticketsApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminTickets';
-import { CreateTicketFormData } from '@/app/superadmin/tickets/SuperAdminTickets_types/SuperAdminTickets.types';
+import type { CreateTicketFormData } from '@/app/superadmin/tickets/SuperAdminTickets_types/SuperAdminTickets.types';
 import { DEFAULT_CREATE_TICKET_FORM_DATA } from '@/app/superadmin/tickets/SuperAdminTickets_utils/SuperAdminTickets.constants';
 
 export function SuperadminUseSuperAdminTicketsActions(refetch: () => void) {
@@ -12,7 +12,7 @@ export function SuperadminUseSuperAdminTicketsActions(refetch: () => void) {
 
   const handleCreate = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.ownerId || !formData.title || !formData.description) return;
+    if (!(formData as any).ownerId || !(formData as any).title || !(formData as any).description) return;
     
     ticketsApi.createTicketOnBehalf(formData);
     setCreateModal(false);

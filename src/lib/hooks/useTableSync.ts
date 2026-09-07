@@ -3,6 +3,10 @@ import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { useDebounce } from '@/lib/hooks/useDebounce';
 
+/**
+ * useTableSync
+ * Custom hook for React.
+ */
 export function useTableSync(defaultPage = 1, defaultSearch = '') {
   const router = useRouter();
   const pathname = usePathname();

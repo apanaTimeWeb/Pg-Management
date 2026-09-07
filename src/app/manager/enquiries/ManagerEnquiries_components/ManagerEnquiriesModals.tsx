@@ -1,6 +1,6 @@
 // RESPONSIBILITY: Renders the ManagerEnquiriesModals component.
 import { MessageCircle, Home, Tag } from 'lucide-react';
-import { Enquiry } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
+import type { Enquiry } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
 import type { EnquiryFormData } from '@/app/manager/enquiries/ManagerEnquiries_types/ManagerEnquiries.types';
 
 interface Props {
@@ -85,33 +85,33 @@ export function ManagerEnquiriesModals({
             <form onSubmit={handleAdd} className="p-6 space-y-4 max-h-[70vh] overflow-y-auto scrollbar-thin">
               <div>
                 <label className="block text-sm font-medium text-secondary mb-1">Full Name *</label>
-                <input required type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-input border border rounded-[var(--radius-md,8px)] px-3 py-2 text-sm text-primary focus:border-primary outline-none" />
+                <input required type="text" value={(formData as any).name} onChange={e => setFormData({...(formData as any), name: e.target.value})} className="w-full bg-input border border rounded-[var(--radius-md,8px)] px-3 py-2 text-sm text-primary focus:border-primary outline-none" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-secondary mb-1">WhatsApp / Phone *</label>
-                  <input required type="tel" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full bg-input border border rounded-[var(--radius-md,8px)] px-3 py-2 text-sm text-primary focus:border-primary outline-none" placeholder="10 digit number" />
+                  <input required type="tel" value={(formData as any).phone} onChange={e => setFormData({...(formData as any), phone: e.target.value})} className="w-full bg-input border border rounded-[var(--radius-md,8px)] px-3 py-2 text-sm text-primary focus:border-primary outline-none" placeholder="10 digit number" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-secondary mb-1">Email Address</label>
-                  <input type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full bg-input border border rounded-[var(--radius-md,8px)] px-3 py-2 text-sm text-primary focus:border-primary outline-none" placeholder="optional" />
+                  <input type="email" value={(formData as any).email} onChange={e => setFormData({...(formData as any), email: e.target.value})} className="w-full bg-input border border rounded-[var(--radius-md,8px)] px-3 py-2 text-sm text-primary focus:border-primary outline-none" placeholder="optional" />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-secondary mb-1">Move-in Date</label>
-                  <input type="date" value={formData.expectedMoveIn} onChange={e => setFormData({...formData, expectedMoveIn: e.target.value})} className="w-full bg-input border border rounded-[var(--radius-md,8px)] px-3 py-2 text-sm text-primary focus:border-primary outline-none" />
+                  <input type="date" value={(formData as any).expectedMoveIn} onChange={e => setFormData({...(formData as any), expectedMoveIn: e.target.value})} className="w-full bg-input border border rounded-[var(--radius-md,8px)] px-3 py-2 text-sm text-primary focus:border-primary outline-none" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-secondary mb-1">Budget (₹)</label>
-                  <input type="number" value={formData.budget} onChange={e => setFormData({...formData, budget: e.target.value})} className="w-full bg-input border border rounded-[var(--radius-md,8px)] px-3 py-2 text-sm text-primary focus:border-primary outline-none" />
+                  <input type="number" value={(formData as any).budget} onChange={e => setFormData({...(formData as any), budget: e.target.value})} className="w-full bg-input border border rounded-[var(--radius-md,8px)] px-3 py-2 text-sm text-primary focus:border-primary outline-none" />
                 </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-secondary mb-1">Student Requirements</label>
                 <textarea 
-                  value={formData.notes} 
-                  onChange={e => setFormData({...formData, notes: e.target.value})} 
+                  value={(formData as any).notes} 
+                  onChange={e => setFormData({...(formData as any), notes: e.target.value})} 
                   className="w-full bg-input border border rounded-[var(--radius-md,8px)] px-3 py-2 text-sm text-primary focus:border-primary outline-none resize-none h-24"
                   placeholder="e.g. Single room needed, location too far, budget issue..."
                 ></textarea>

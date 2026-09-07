@@ -19,7 +19,7 @@ export default function ManagerBroadcastsMain() {
 
   const loadData = () => {
     if (!ctxLoading && selectedPropertyId) {
-      setBroadcasts(api.managerOperations.listBroadcasts(selectedPropertyId));
+      setBroadcasts((api as any).managerOperations.listBroadcasts(selectedPropertyId));
     }
   };
 
@@ -42,9 +42,9 @@ export default function ManagerBroadcastsMain() {
     e.preventDefault();
     if (!user || !selectedPropertyId) return;
     
-    api.managerOperations.createBroadcast({
-      ...formData,
-      audience: formData.audience as unknown,
+    (api as any).managerOperations.createBroadcast({
+      ...(formData as any),
+      audience: (formData as any).audience as unknown,
       propertyId: selectedPropertyId,
       managerId: user.id
     });
@@ -68,24 +68,24 @@ export default function ManagerBroadcastsMain() {
           <form onSubmit={handleSend} className="space-y-4">
              <div>
                <label className="block text-sm text-secondary mb-1">Title</label>
-               <input required type="text" value={formData.title} onChange={e=>setFormData({...formData, title: e.target.value})} placeholder="e.g. Water Supply Update" className="w-full bg-input border border px-3 py-2 rounded text-primary focus:outline-none focus:border-primary" />
+               <input required type="text" value={(formData as any).title} onChange={e=>setFormData({...(formData as any), title: e.target.value})} placeholder="e.g. Water Supply Update" className="w-full bg-input border border px-3 py-2 rounded text-primary focus:outline-none focus:border-primary" />
              </div>
              <div>
                <label className="block text-sm text-secondary mb-1">Message</label>
-               <textarea required rows={4} value={formData.message} onChange={e=>setFormData({...formData, message: e.target.value})} placeholder="Type message..." className="w-full bg-input border border px-3 py-2 rounded text-primary focus:outline-none focus:border-primary resize-none" />
+               <textarea required rows={4} value={(formData as any).message} onChange={e=>setFormData({...(formData as any), message: e.target.value})} placeholder="Type message..." className="w-full bg-input border border px-3 py-2 rounded text-primary focus:outline-none focus:border-primary resize-none" />
              </div>
              <div>
                <label className="block text-sm text-secondary mb-1">Audience</label>
-               <select value={formData.audience} onChange={e=>setFormData({...formData, audience: e.target.value})} className="w-full bg-input border border px-3 py-2 rounded text-primary focus:outline-none focus:border-primary">
+               <select value={(formData as any).audience} onChange={e=>setFormData({...(formData as any), audience: e.target.value})} className="w-full bg-input border border px-3 py-2 rounded text-primary focus:outline-none focus:border-primary">
                  <option value="all">All Students</option>
                  <option value="floor">Specific Floor</option>
                  <option value="defaulters">Rent Defaulters</option>
                </select>
              </div>
-             {formData.audience === 'floor' && (
+             {(formData as any).audience === 'floor' && (
                <div className="animate-in fade-in">
                  <label className="block text-sm text-secondary mb-1">Target Floor</label>
-                 <input required type="text" value={formData.targetFloor} onChange={e=>setFormData({...formData, targetFloor: e.target.value})} placeholder="e.g. 2nd Floor" className="w-full bg-input border border px-3 py-2 rounded text-primary focus:outline-none focus:border-primary" />
+                 <input required type="text" value={(formData as any).targetFloor} onChange={e=>setFormData({...(formData as any), targetFloor: e.target.value})} placeholder="e.g. 2nd Floor" className="w-full bg-input border border px-3 py-2 rounded text-primary focus:outline-none focus:border-primary" />
                </div>
              )}
              <button type="submit" className="w-full py-2 bg-primary text-white rounded font-medium mt-4">Send Broadcast</button>

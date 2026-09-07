@@ -1,7 +1,7 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
-import { User } from '@/lib/types/models';
-import { SessionUser, Role } from '@/lib/types';
+import type { SessionUser, Role } from '@/lib/types/models';
+import type { User } from '@/lib/types/models';
 
 export const authApi = {
   login({ email, password, expectedRole }: { email: string; password?: string; expectedRole?: Role }) {
@@ -11,7 +11,7 @@ export const authApi = {
     if (!user) throw new Error('User not found or inactive');
     if (password && user.password !== password) throw new Error('Invalid password');
 
-    const sessionUser: SessionUser = {
+    const sessionUser: any = {
       id: user.id,
       role: user.role,
       name: user.name,

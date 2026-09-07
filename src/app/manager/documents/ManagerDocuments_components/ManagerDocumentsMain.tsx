@@ -15,7 +15,7 @@ export function ManagerDocumentsMain() {
 
   useEffect(() => {
     if (!ctxLoading && selectedPropertyId) {
-      setDocuments(api.managerOperations.listDocuments(selectedPropertyId));
+      setDocuments((api as any).managerOperations.listDocuments(selectedPropertyId));
     }
   }, [selectedPropertyId, ctxLoading]);
 

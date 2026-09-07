@@ -3,7 +3,15 @@ import { AreaChart as RechartsArea, Area, XAxis, YAxis, CartesianGrid, Tooltip, 
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
-export function AreaChart({ data, xAxisKey, dataKey, color = 'var(--primary)', height = 300 }: unknown) {
+export interface AreaChartProps {
+  data: Record<string, unknown>[];
+  xAxisKey: string;
+  dataKey: string;
+  color?: string;
+  height?: number | string;
+}
+
+export function AreaChart({ data, xAxisKey, dataKey, color = 'var(--primary)', height = 300 }: AreaChartProps) {
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
 
@@ -43,13 +51,13 @@ export function AreaChart({ data, xAxisKey, dataKey, color = 'var(--primary)', h
             fontSize={12} 
             tickLine={false}
             axisLine={false}
-            tickFormatter={(value) => `₹${value/1000}k`}
+            tickFormatter={(value: number) => `₹${value/1000}k`}
             dx={-10}
           />
           <Tooltip 
             contentStyle={{ backgroundColor: tooltipBg, borderRadius: '8px', border: `1px solid ${tooltipBorder}`, color: tooltipText, boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
             itemStyle={{ color: color, fontWeight: 'bold' }}
-            formatter={(value: unknown) => [`₹${value.toLocaleString()}`, 'Revenue']}
+            formatter={((value: unknown) => [`₹${Number(value).toLocaleString()}`, 'Revenue']) as Parameters<typeof Tooltip>[0]['formatter']}
           />
           <Area 
             type="monotone" 

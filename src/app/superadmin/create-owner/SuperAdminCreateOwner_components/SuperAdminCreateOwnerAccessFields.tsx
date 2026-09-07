@@ -2,7 +2,7 @@
 import React from 'react';
 import { Shield } from 'lucide-react';
 import { InputError } from '@/components/ui/InputError';
-import { SuperAdminCreateOwnerFieldProps } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_types/SuperAdminCreateOwner.types';
+import type { SuperAdminCreateOwnerFieldProps } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_types/SuperAdminCreateOwner.types';
 
 export const SuperAdminCreateOwnerAccessFields: React.FC<SuperAdminCreateOwnerFieldProps> = ({ formData, setFormData, errors }) => {
   return (
@@ -16,8 +16,8 @@ export const SuperAdminCreateOwnerAccessFields: React.FC<SuperAdminCreateOwnerFi
           <label className="block text-xs font-medium text-secondary mb-1">Login Email *</label>
           <input 
             type="email" 
-            value={formData.email} 
-            onChange={e => setFormData({ ...formData, email: e.target.value })} 
+            value={(formData as any).email} 
+            onChange={e => setFormData({ ...(formData as any), email: e.target.value })} 
             className={`w-full p-2.5 rounded-md border ${errors.email ? 'border-danger' : 'border'} bg-input text-primary text-sm focus:ring-primary`} 
           />
           <InputError message={errors.email} />
@@ -26,8 +26,8 @@ export const SuperAdminCreateOwnerAccessFields: React.FC<SuperAdminCreateOwnerFi
           <label className="block text-xs font-medium text-secondary mb-1">Temporary Password *</label>
           <input 
             type="text" 
-            value={formData.temporaryPassword || ''} 
-            onChange={e => setFormData({ ...formData, temporaryPassword: e.target.value })} 
+            value={(formData as any).temporaryPassword || ''} 
+            onChange={e => setFormData({ ...(formData as any), temporaryPassword: e.target.value })} 
             className={`w-full p-2.5 rounded-md border ${errors.temporaryPassword ? 'border-danger' : 'border'} bg-input text-primary text-sm font-mono focus:ring-primary`} 
             placeholder="e.g. Temp@123" 
           />
@@ -37,8 +37,8 @@ export const SuperAdminCreateOwnerAccessFields: React.FC<SuperAdminCreateOwnerFi
           <label className="flex items-center gap-2 mt-2 cursor-pointer w-fit">
             <input 
               type="checkbox" 
-              checked={formData.mustChangePassword} 
-              onChange={e => setFormData({ ...formData, mustChangePassword: e.target.checked })} 
+              checked={(formData as any).mustChangePassword} 
+              onChange={e => setFormData({ ...(formData as any), mustChangePassword: e.target.checked })} 
               className="rounded text-primary focus:ring-primary bg-input border w-4 h-4" 
             />
             <span className="text-sm text-primary">Force password change on first login</span>

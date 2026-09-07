@@ -2,7 +2,7 @@
 import React from 'react';
 import { Shield, Clock } from 'lucide-react';
 import { Pagination } from '@/components/ui/Pagination';
-import { SuperAdminAuditLogsTimelineProps } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_types/SuperAdminAuditLogs.types';
+import type { SuperAdminAuditLogsTimelineProps } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_types/SuperAdminAuditLogs.types';
 
 export const SuperAdminAuditLogsTimeline: React.FC<SuperAdminAuditLogsTimelineProps> = ({ logs, currentPage, totalPages, setCurrentPage }) => {
   return (

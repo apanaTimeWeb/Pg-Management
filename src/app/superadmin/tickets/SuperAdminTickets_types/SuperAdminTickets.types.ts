@@ -32,7 +32,7 @@ export interface SuperAdminTicketsHeaderProps {
 
 export interface SuperAdminTicketsTableProps {
   tickets: SuperAdminTicket[];
-  owners: unknown[]; // Using any[] temporarily until owner types are centralized globally
+  owners: TicketOwnerContext[];
   loading: boolean;
   search: string;
   setSearch: (s: string) => void;
@@ -45,7 +45,7 @@ export interface SuperAdminTicketsTableProps {
 export interface SuperAdminTicketsCreateModalProps {
   isOpen: boolean;
   onClose: () => void;
-  owners: unknown[]; // Using any[] temporarily
+  owners: TicketOwnerContext[];
   formData: CreateTicketFormData;
   setFormData: React.Dispatch<React.SetStateAction<CreateTicketFormData>>;
   onSubmit: (e: React.FormEvent) => void;

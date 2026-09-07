@@ -49,7 +49,7 @@ export async function apiClient<T>(
     }
 
     return data;
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof ApiError) {
       throw error;
     }

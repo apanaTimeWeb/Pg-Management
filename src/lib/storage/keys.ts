@@ -42,5 +42,7 @@ export const STORAGE_KEYS = {
   AUDIT_LOGS: 'spg_audit_logs',
   FEATURE_FLAGS: 'spg_feature_flags',
   EXPENSES: 'spg_expenses',
+  AUTH_TOKEN: 'spg_auth_token',
+  PRICING_RULES: 'spg_pricing_rules',
   IS_SEEDED: 'spg_is_seeded'
 };

@@ -15,11 +15,11 @@ export function StaffLoginMain() {
     e.preventDefault();
     setError('');
     try {
-      const user = api.auth.login({ email, password, expectedRole: 'staff' });
+      const user = api.login({ email, password, expectedRole: 'staff' });
       setSession(user);
       router.push(user.mustChangePassword ? '/staff/first-login' : '/staff/dashboard');
-    } catch (err: unknown) {
-      setError(err.message || 'Login failed');
+    } catch (err: any) {
+      setError((err as any).message || 'Login failed');
     }
   };
 

@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the SuperAdminSettingsDataSync component.
 import React from 'react';
 import { Database, Download, Upload, AlertTriangle } from 'lucide-react';
-import { SuperAdminSettingsDataSyncProps } from '@/app/superadmin/settings/SuperAdminSettings_types/SuperAdminSettings.types';
+import type { SuperAdminSettingsDataSyncProps } from '@/app/superadmin/settings/SuperAdminSettings_types/SuperAdminSettings.types';
 
 export const SuperAdminSettingsDataSync: React.FC<SuperAdminSettingsDataSyncProps> = ({ handleExport, handleImport, isImporting }) => {
   return (

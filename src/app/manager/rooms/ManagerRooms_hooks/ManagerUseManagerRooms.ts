@@ -21,14 +21,14 @@ export function ManagerUseManagerRooms(selectedPropertyId: string | null, ctxLoa
     if (!userId || !selectedPropertyId) return;
     setLoading(true);
     
-    const allRooms = api.rooms.listByProperty(selectedPropertyId);
+    const allRooms = (api as any).rooms.listByProperty(selectedPropertyId);
 
-    const enhanced = allRooms.map(r => {
-      const beds = api.beds.listByRoom(r.id);
+    const enhanced = allRooms.map((r: any) => {
+      const beds = (api as any).beds.listByRoom(r.id);
       return {
         ...r,
         bedsCount: beds.length,
-        vacantCount: beds.filter(b => b.status === 'available').length
+        vacantCount: beds.filter((b: any) => b.status === 'available').length
       };
     });
 

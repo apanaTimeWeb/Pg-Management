@@ -21,7 +21,7 @@ export function StudentRentMain() {
 
   const loadData = () => {
     if (profile) {
-      setInvoices(studentOperationsApi.getInvoices(profile.userId || profile.id));
+      setInvoices(studentOperationsApi.getInvoices((profile as any).userId || (profile as any).id));
     }
   };
 
@@ -32,7 +32,7 @@ export function StudentRentMain() {
   const handlePay = () => {
     if (!session || !profile || !showPayModal) return;
     const totalAmount = showPayModal.amount + (showPayModal.electricityBillAmount || 0);
-    studentOperationsApi.payInvoice(showPayModal.id, profile.id, totalAmount, session.id);
+    studentOperationsApi.payInvoice(showPayModal.id, (profile as any).id, totalAmount, (session as any).id);
     toast.success('Payment successful! (Mock) +10 PG Score');
     setShowPayModal(null);
     loadData();
@@ -54,10 +54,10 @@ export function StudentRentMain() {
         <h1 className="text-[24px] font-bold text-primary">Rent & Dues Schedule</h1>
         <p className="text-sm text-secondary">Manage your monthly rent payments for your stay.</p>
         
-        {profile.stayStartDate && profile.stayEndDate && (
+        {(profile as any).stayStartDate && (profile as any).stayEndDate && (
           <div className="mt-4 p-4 bg-primary-subtle border border-primary/20 rounded-lg flex gap-4 text-sm font-medium text-primary">
-            <div><span className="opacity-70">Stay Starts:</span> {new Date(profile.stayStartDate).toLocaleDateString()}</div>
-            <div><span className="opacity-70">Stay Ends:</span> {new Date(profile.stayEndDate).toLocaleDateString()}</div>
+            <div><span className="opacity-70">Stay Starts:</span> {new Date((profile as any).stayStartDate).toLocaleDateString()}</div>
+            <div><span className="opacity-70">Stay Ends:</span> {new Date((profile as any).stayEndDate).toLocaleDateString()}</div>
           </div>
         )}
       </div>
@@ -89,52 +89,52 @@ export function StudentRentMain() {
         {invoices.length > 0 ? (
           <div className="relative border-l-2 border-border ml-3 space-y-6">
             {invoices.filter(i => i.type === 'Rent' || !i.type).sort((a,b) => new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime()).map((invoice: unknown) => {
-              const dueTime = new Date(invoice.dueDate).getTime();
+              const dueTime = new Date((invoice as any).dueDate).getTime();
               const nowTime = new Date().getTime();
               const diffDays = (dueTime - nowTime) / (1000 * 3600 * 24);
               const isDueSoon = diffDays <= 3;
-              const showAsDue = invoice.status === 'Pending' && isDueSoon;
-              const displayStatus = invoice.status === 'Paid' ? 'Paid' : (showAsDue ? 'DUE' : 'PENDING');
+              const showAsDue = (invoice as any).status === 'Pending' && isDueSoon;
+              const displayStatus = (invoice as any).status === 'Paid' ? 'Paid' : (showAsDue ? 'DUE' : 'PENDING');
 
               return (
-                <div key={invoice.id} className="relative pl-6">
-                  <div className={`absolute w-4 h-4 rounded-full -left-[9px] top-1 ${invoice.status === 'Paid' ? 'bg-success' : (showAsDue ? 'bg-danger' : 'bg-warning border-2 border-bg-card')}`}></div>
+                <div key={(invoice as any).id} className="relative pl-6">
+                  <div className={`absolute w-4 h-4 rounded-full -left-[9px] top-1 ${(invoice as any).status === 'Paid' ? 'bg-success' : (showAsDue ? 'bg-danger' : 'bg-warning border-2 border-bg-card')}`}></div>
                   <div className={`bg-input p-4 rounded-lg border ${showAsDue ? 'border-danger/50 shadow-sm' : 'border-border'} hover:shadow-md motion-safe:transition-all group flex flex-col md:flex-row md:items-center justify-between gap-4`}>
                     <div className="flex-1">
                       <div className="flex items-start justify-between mb-1">
-                        <h4 className={`font-bold ${showAsDue ? 'text-danger' : 'text-primary'}`}>{invoice.title || invoice.description || 'Monthly Rent'}</h4>
-                        <div className={`text-xs font-bold px-2 py-1 rounded ${invoice.status === 'Paid' ? 'bg-success-bg text-success' : (showAsDue ? 'bg-danger-bg text-danger' : 'bg-warning-bg text-warning')}`}>
+                        <h4 className={`font-bold ${showAsDue ? 'text-danger' : 'text-primary'}`}>{(invoice as any).title || (invoice as any).description || 'Monthly Rent'}</h4>
+                        <div className={`text-xs font-bold px-2 py-1 rounded ${(invoice as any).status === 'Paid' ? 'bg-success-bg text-success' : (showAsDue ? 'bg-danger-bg text-danger' : 'bg-warning-bg text-warning')}`}>
                           {displayStatus}
                         </div>
                       </div>
-                      <p className={`text-xs ${showAsDue ? 'text-danger font-medium' : 'text-secondary'}`}>Due: {new Date(invoice.dueDate).toLocaleDateString()} | Updated: {new Date(invoice.updatedAt).toLocaleDateString()}</p>
+                      <p className={`text-xs ${showAsDue ? 'text-danger font-medium' : 'text-secondary'}`}>Due: {new Date((invoice as any).dueDate).toLocaleDateString()} | Updated: {new Date((invoice as any).updatedAt).toLocaleDateString()}</p>
                     </div>
                     
                     <div className="flex flex-col gap-1 md:items-end">
                       <div className={`font-black text-xl ${showAsDue ? 'text-danger' : 'text-primary'}`}>
-                        ₹{(invoice.amount + (invoice.electricityBillAmount || 0)).toLocaleString()}
+                        ₹{((invoice as any).amount + ((invoice as any).electricityBillAmount || 0)).toLocaleString()}
                       </div>
-                      {invoice.electricityBillAmount !== undefined && (
+                      {(invoice as any).electricityBillAmount !== undefined && (
                         <div className="text-xs text-secondary font-medium">
-                          Rent: ₹{invoice.amount.toLocaleString()} + EB: ₹{invoice.electricityBillAmount.toLocaleString()}
+                          Rent: ₹{(invoice as any).amount.toLocaleString()} + EB: ₹{(invoice as any).electricityBillAmount.toLocaleString()}
                         </div>
                       )}
                     </div>
                     
                     <div className="flex items-center gap-4 mt-4 md:mt-0">
-                      {invoice.status === 'Pending' && (
+                      {(invoice as any).status === 'Pending' && (
                         <button onClick={() => setShowPayModal(invoice)} className="px-4 py-2 bg-primary text-white rounded font-bold shadow-md shadow-primary-subtle hover:bg-primary-hover hover:-translate-y-0.5 motion-safe:transition-all text-sm whitespace-nowrap">
                           Pay Now &rarr;
                         </button>
                       )}
-                      {invoice.status === 'Paid' && (
+                      {(invoice as any).status === 'Paid' && (
                         <button onClick={() => window.print()} className="px-3 py-2 bg-card text-primary border border-border rounded font-medium hover:bg-page motion-safe:transition-colors text-sm flex items-center gap-1 opacity-0 group-hover:opacity-100">
                           <Download className="w-4 h-4"/> Receipt
                         </button>
                       )}
-                      {invoice.electricityBillImage && (
+                      {(invoice as any).electricityBillImage && (
                         <a
-                          href={invoice.electricityBillImage}
+                          href={(invoice as any).electricityBillImage}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="px-3 py-2 bg-input text-secondary border border-border rounded font-medium hover:text-primary motion-safe:transition-colors text-sm flex items-center gap-1"

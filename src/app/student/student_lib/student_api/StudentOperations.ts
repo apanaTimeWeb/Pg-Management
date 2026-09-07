@@ -22,7 +22,7 @@ export const studentOperationsApi = {
   },
   
   updateProfile: (studentId: string, data: unknown, userId: string) => {
-    db.update<any>(STORAGE_KEYS.STUDENTS, studentId, { ...data, updatedAt: new Date().toISOString(), updatedBy: userId });
+    db.update<any>(STORAGE_KEYS.STUDENTS, studentId, { ...(data as any), updatedAt: new Date().toISOString(), updatedBy: userId });
   },
 
   // Finance
@@ -96,11 +96,11 @@ export const studentOperationsApi = {
     const menu = menus[0];
     const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
     const today = days[new Date().getDay()];
-    const rawValue = menu[today] || '';
+    const rawValue = menu[today!] || '';
     try {
       const parsed = JSON.parse(rawValue);
       if (parsed.breakfast !== undefined) return parsed;
-    } catch (e) {}
+    } catch (e: any) {}
     return { breakfast: '', lunch: '', dinner: rawValue };
   },
   orderMeal: (studentId: string, propertyId: string, mealType: 'breakfast'|'lunch'|'dinner', cost: number, userId: string) => {
@@ -148,7 +148,7 @@ export const studentOperationsApi = {
   },
   createComplaint: (data: unknown, userId: string) => {
     db.insert(STORAGE_KEYS.COMPLAINTS, {
-      id: createId('cmp'), ...data, status: 'Open',
+      id: createId('cmp'), ...(data as any), status: 'Open',
       createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), createdBy: userId, updatedBy: userId, isDeleted: false
     });
   },

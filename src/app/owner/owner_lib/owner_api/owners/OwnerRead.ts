@@ -1,7 +1,7 @@
-// @ts-nocheck
+
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
-import { User } from '@/app/owner/owner_lib/types';
+import type { User } from '@/lib/types/models';
 
 export function listOwners() {
   const owners = db.getAll<any>(STORAGE_KEYS.OWNERS).filter(o => !o.isDeleted);

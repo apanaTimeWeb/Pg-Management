@@ -32,7 +32,7 @@ export function ManagerDashboardMain() {
     return <ManagerDashboardNoProperty />;
   }
 
-  const selectedProp = properties.find(p => p.id === selectedPropertyId);
+  const selectedProp = properties.find((p: any) => p.id === selectedPropertyId);
 
   return (
     <div className="space-y-8 pb-20">

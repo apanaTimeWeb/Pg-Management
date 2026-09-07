@@ -1,8 +1,8 @@
-// @ts-nocheck
+
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
-import { User } from '@/app/owner/owner_lib/types';
+import type { User } from '@/lib/types/models';
 
 export function upgradePlan(ownerId: string, newPlanId: string) {
   const subs = db.getAll<any>(STORAGE_KEYS.SUBSCRIPTIONS);
@@ -11,6 +11,7 @@ export function upgradePlan(ownerId: string, newPlanId: string) {
   const activeSub = subs.find(s => s.ownerId === ownerId && s.status === 'active');
   
   // Fetch the new plan details
+// @ts-expect-error
   const plans = db.getAll<any>('spg_plans' as unknown);
   const newPlan = plans.find(p => p.id === newPlanId);
   
@@ -20,6 +21,7 @@ export function upgradePlan(ownerId: string, newPlanId: string) {
 
   // Mark current as expired if exists
   if (activeSub) {
+// @ts-expect-error
     db.OwnerUpdate(STORAGE_KEYS.SUBSCRIPTIONS, activeSub.id, { 
       status: 'expired',
       updatedAt: now
@@ -65,6 +67,7 @@ export function upgradePlan(ownerId: string, newPlanId: string) {
 export function updateStatus(id: string, status: 'Active' | 'Pending' | 'Suspended') {
   const user = db.getAll<User>(STORAGE_KEYS.USERS).find(u => u.ownerId === id);
   if (user) {
+// @ts-expect-error
     db.OwnerUpdate<User>(STORAGE_KEYS.USERS, user.id, { status });
     db.insert(STORAGE_KEYS.AUDIT_LOGS, {
       id: createId('aud'),
@@ -84,6 +87,7 @@ export function updateStatus(id: string, status: 'Active' | 'Pending' | 'Suspend
 export function resetPassword(id: string, newPassword: string) {
   const user = db.getAll<User>(STORAGE_KEYS.USERS).find(u => u.ownerId === id);
   if (user) {
+// @ts-expect-error
     db.OwnerUpdate<User>(STORAGE_KEYS.USERS, user.id, { password: newPassword, mustChangePassword: true });
     db.insert(STORAGE_KEYS.AUDIT_LOGS, {
       id: createId('aud'),

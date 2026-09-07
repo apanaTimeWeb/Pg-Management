@@ -23,7 +23,7 @@ export const parentOperationsApi = {
   },
 
   getChildGateLogs: (studentId: string) => {
-    return db.getAll<any>('spg_gate_logs').filter(l => l.studentId === studentId && !l.isDeleted).sort((a,b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    return db.getAll<any>('spg_gate_logs').filter(l => l.studentId === studentId && !l.isDeleted).sort((a,b) => new Date((b as any).createdAt).getTime() - new Date((a as any).createdAt).getTime());
   },
 
   getChildAlerts: (studentId: string) => {
@@ -41,7 +41,7 @@ export const parentOperationsApi = {
     const invoices = db.getAll<any>(STORAGE_KEYS.INVOICES).filter(i => i.studentId === studentId && i.status !== 'Paid' && !i.isDeleted);
     invoices.forEach(i => alerts.push({ type: 'due', title: `Rent Due: ₹${i.amount}`, date: i.dueDate, severity: 'low' }));
 
-    return alerts.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    return alerts.sort((a,b) => new Date((b as any).date).getTime() - new Date((a as any).date).getTime());
   },
 
   getChildInvoices: (studentId: string) => {
@@ -49,7 +49,7 @@ export const parentOperationsApi = {
   },
 
   getChildComplaints: (studentId: string) => {
-    return db.getAll<any>(STORAGE_KEYS.COMPLAINTS).filter(c => c.studentId === studentId && !c.isDeleted).sort((a,b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    return db.getAll<any>(STORAGE_KEYS.COMPLAINTS).filter(c => c.studentId === studentId && !c.isDeleted).sort((a,b) => new Date((b as any).createdAt).getTime() - new Date((a as any).createdAt).getTime());
   },
 
   getWalletBalance: (studentId: string) => {

@@ -58,7 +58,7 @@ export default function LandingPage() {
               { icon: <PenTool />, title: 'eSign Agreements', desc: 'Paperless rent agreements generated automatically.' },
               { icon: <Bot />, title: 'AI Matching', desc: 'Find the perfect roommate with AI suggestions.' }
             ].map((f, i) => (
-              <div key={i} className="flex gap-4 p-6 bg-card rounded-2xl border border shadow-sm hover:shadow-md transition-shadow">
+              <div key={(f as any).id || (f as any).name || f.title || i} className="flex gap-4 p-6 bg-card rounded-2xl border border shadow-sm hover:shadow-md transition-shadow">
                 <div className="text-primary shrink-0">{f.icon}</div>
                 <div>
                   <h4 className="font-bold text-primary mb-2">{f.title}</h4>

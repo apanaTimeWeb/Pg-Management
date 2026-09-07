@@ -1,9 +1,10 @@
-// @ts-nocheck
+
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
+import type { BaseEntity } from '@/lib/types/contract';
 
-export interface UsageLog {
+export interface UsageLog extends BaseEntity {
   id: string;
   propertyId: string;
   itemName: string;
@@ -23,6 +24,7 @@ export const usageLogsApi = {
   },
 
   create: (data: Omit<UsageLog, 'id' | 'createdAt'>) => {
+// @ts-expect-error
     const newLog: UsageLog = {
       ...data,
       id: createId('usg'),

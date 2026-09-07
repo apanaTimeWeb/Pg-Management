@@ -1,6 +1,6 @@
 // RESPONSIBILITY: Renders the SuperAdminTicketsCreateModal component.
 import React from 'react';
-import { SuperAdminTicketsCreateModalProps } from '@/app/superadmin/tickets/SuperAdminTickets_types/SuperAdminTickets.types';
+import type { SuperAdminTicketsCreateModalProps } from '@/app/superadmin/tickets/SuperAdminTickets_types/SuperAdminTickets.types';
 
 export const SuperAdminTicketsCreateModal: React.FC<SuperAdminTicketsCreateModalProps> = ({
   isOpen,
@@ -21,8 +21,8 @@ export const SuperAdminTicketsCreateModal: React.FC<SuperAdminTicketsCreateModal
             <label className="block text-xs font-medium text-secondary mb-1">Select Owner *</label>
             <select 
               required 
-              value={formData.ownerId} 
-              onChange={e => setFormData({ ...formData, ownerId: e.target.value })} 
+              value={(formData as any).ownerId} 
+              onChange={e => setFormData({ ...(formData as any), ownerId: e.target.value })} 
               className="w-full bg-input border border text-primary p-2.5 rounded-[var(--radius-md,8px)] focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm motion-safe:transition-colors"
             >
               <option value="">-- Choose Owner --</option>
@@ -34,8 +34,8 @@ export const SuperAdminTicketsCreateModal: React.FC<SuperAdminTicketsCreateModal
             <input 
               type="text" 
               required 
-              value={formData.title} 
-              onChange={e => setFormData({ ...formData, title: e.target.value })} 
+              value={(formData as any).title} 
+              onChange={e => setFormData({ ...(formData as any), title: e.target.value })} 
               className="w-full bg-input border border text-primary p-2.5 rounded-[var(--radius-md,8px)] focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm motion-safe:transition-colors" 
               placeholder="E.g. Cannot access dashboard"
             />
@@ -44,8 +44,8 @@ export const SuperAdminTicketsCreateModal: React.FC<SuperAdminTicketsCreateModal
             <label className="block text-xs font-medium text-secondary mb-1">Description *</label>
             <textarea 
               required 
-              value={formData.description} 
-              onChange={e => setFormData({ ...formData, description: e.target.value })} 
+              value={(formData as any).description} 
+              onChange={e => setFormData({ ...(formData as any), description: e.target.value })} 
               rows={3} 
               className="w-full bg-input border border text-primary p-2.5 rounded-[var(--radius-md,8px)] focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm motion-safe:transition-colors resize-none" 
               placeholder="Describe the issue in detail..."
@@ -54,8 +54,8 @@ export const SuperAdminTicketsCreateModal: React.FC<SuperAdminTicketsCreateModal
           <div>
             <label className="block text-xs font-medium text-secondary mb-1">Priority *</label>
             <select 
-              value={formData.priority} 
-              onChange={e => setFormData({ ...formData, priority: e.target.value })} 
+              value={(formData as any).priority} 
+              onChange={e => setFormData({ ...(formData as any), priority: e.target.value })} 
               className="w-full bg-input border border text-primary p-2.5 rounded-[var(--radius-md,8px)] focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none text-sm motion-safe:transition-colors"
             >
               <option>Low</option>

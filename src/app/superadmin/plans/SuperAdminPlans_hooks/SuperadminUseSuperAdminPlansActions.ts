@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { plansApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminPlans';
-import { SuperAdminPlan } from '@/app/superadmin/plans/SuperAdminPlans_types/SuperAdminPlans.types';
+import type { SuperAdminPlan } from '@/app/superadmin/plans/SuperAdminPlans_types/SuperAdminPlans.types';
 
 export function SuperadminUseSuperAdminPlansActions(refetch: () => void) {
   const [editPlan, setEditPlan] = useState<SuperAdminPlan | null>(null);
@@ -12,7 +12,7 @@ export function SuperadminUseSuperAdminPlansActions(refetch: () => void) {
     e.preventDefault();
     if (!editPlan) return;
     
-    plansApi.updatePlan(editPlan.id, editPlan);
+    plansApi.updatePlan(editPlan.id, editPlan as unknown as any);
     setEditPlan(null);
     refetch();
   };

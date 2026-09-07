@@ -22,10 +22,11 @@ export function StudentUseStudentDashboard() {
     if (!profile) return;
     
     const formData = new FormData(e.currentTarget);
-    const name = formData.get('name') as string;
-    const phone = formData.get('phone') as string;
+    const name = (formData as any).get('name') as string;
+    const phone = (formData as any).get('phone') as string;
     
-    import('@/app/student/student_lib/student_api/StudentAuth').then(({ api }) => {
+    import('@/app/student/student_lib/student_api/StudentAuth' as any).then((mod: any) => {
+      const api = mod.api || mod.authApi || mod;
       api.managerEnquiries.create({
         propertyId: profile.propertyId,
         name,

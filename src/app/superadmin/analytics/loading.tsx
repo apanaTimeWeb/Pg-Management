@@ -11,7 +11,7 @@ export default function Loading() {
       {/* KPIs Skeleton */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {[1, 2, 3, 4].map(i => (
-          <div key={i} className="bg-card border border p-5 rounded-[var(--radius-lg,12px)] shadow-sm h-32">
+          <div key={`fallback-${i}`} className="bg-card border border p-5 rounded-[var(--radius-lg,12px)] shadow-sm h-32">
             <div className="flex justify-between items-start mb-4">
               <div className="h-9 w-9 bg-skeleton-base motion-safe:animate-pulse rounded-[var(--radius-md,8px)]"></div>
               <div className="h-5 w-16 bg-skeleton-base motion-safe:animate-pulse rounded-full"></div>

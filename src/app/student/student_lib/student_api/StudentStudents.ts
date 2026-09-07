@@ -1,10 +1,11 @@
-// @ts-nocheck
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
-import { BaseEntity, User } from '@/lib/types';
-
+import type { BaseEntity, User } from '@/lib/types/models';
 export interface StudentProfile extends BaseEntity {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
   userId: string;
   propertyId: string;
   roomId?: string;
@@ -100,7 +101,7 @@ export const studentsApi = {
     }
   },
 
-  onboardStudent: (data: unknown, actorId: string): void => {
+  onboardStudent: (data: any, actorId: string): void => {
     const existingUsers = db.getAll<User>(STORAGE_KEYS.USERS);
     if (existingUsers.some(u => u.email && u.email.toLowerCase() === data.email.toLowerCase() && !u.isDeleted)) {
       throw new Error('A user with this student email already exists.');
@@ -220,14 +221,7 @@ export const studentsApi = {
     }
   },
 
-  listByProperty: (propertyId: string) => {
-    const students = db.getAll<StudentProfile>(STORAGE_KEYS.STUDENTS).filter(t => t.propertyId === propertyId && t.status === 'active' && !t.isDeleted);
-    const users = db.getAll<User>(STORAGE_KEYS.USERS);
-    return students.map(t => ({
-      profile: t,
-      user: users.find(u => u.id === t.userId)
-    }));
-  },
+
 
   getById: (profileId: string): StudentMember | null => {
     const profile = db.getAll<StudentProfile>(STORAGE_KEYS.STUDENTS).find(p => p.id === profileId && !p.isDeleted);

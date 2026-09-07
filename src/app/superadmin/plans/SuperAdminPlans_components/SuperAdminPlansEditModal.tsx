@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the SuperAdminPlansEditModal component.
 import React from 'react';
 import { X, Save } from 'lucide-react';
-import { SuperAdminPlansEditModalProps } from '@/app/superadmin/plans/SuperAdminPlans_types/SuperAdminPlans.types';
+import type { SuperAdminPlansEditModalProps } from '@/app/superadmin/plans/SuperAdminPlans_types/SuperAdminPlans.types';
 
 export const SuperAdminPlansEditModal: React.FC<SuperAdminPlansEditModalProps> = ({ editPlan, setEditPlan, onSave }) => {
   if (!editPlan) return null;

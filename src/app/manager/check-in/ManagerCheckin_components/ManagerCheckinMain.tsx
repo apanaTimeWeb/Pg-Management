@@ -22,11 +22,11 @@ export function ManagerCheckinMain() {
   } = ManagerUseManagerCheckinForm(enquiryId, null, selectedPropertyId, user?.id);
 
   const { vacantBeds, compatibilityScore, enquiryData } = ManagerUseManagerCheckinData(
-    selectedPropertyId, step, enquiryId, formData.room.bedId, formData.compatibility
+    selectedPropertyId, step, enquiryId, (formData as any).room.bedId, (formData as any).compatibility
   );
 
   // Sync initial enquiry data if fetched
-  if (enquiryData && formData.personal.name === '') {
+  if (enquiryData && (formData as any).personal.name === '') {
     setFormData(prev => ({
       ...prev,
       personal: { ...prev.personal, name: enquiryData.name, phone: enquiryData.phone, email: enquiryData.email || '' },

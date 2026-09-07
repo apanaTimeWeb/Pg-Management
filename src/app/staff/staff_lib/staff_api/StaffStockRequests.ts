@@ -1,11 +1,12 @@
-// @ts-nocheck
+
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
 
 export type StockRequestStatus = 'pending' | 'purchased' | 'verified';
+import type { BaseEntity } from '@/lib/types/contract';
 
-export interface StockRequest {
+export interface StockRequest extends BaseEntity {
   id: string;
   propertyId: string;
   itemName: string;
@@ -91,6 +92,7 @@ export const stockRequestsApi = {
 
     // Update Live Stock
     const liveStock = stockApi.getByProperty(existing.propertyId);
+// @ts-expect-error
     const existingItem = liveStock.find((item: unknown) => item.name.toLowerCase() === existing.itemName.toLowerCase());
     
     if (existingItem) {

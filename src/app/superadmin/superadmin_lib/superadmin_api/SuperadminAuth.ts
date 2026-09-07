@@ -1,7 +1,6 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
-import { User } from '@/lib/types/models';
-import { SessionUser, Role } from '@/lib/types';
+import type { SessionUser, Role, User } from '@/lib/types/models';
 
 export const authApi = {
   login({ email, password, expectedRole }: { email: string; password?: string; expectedRole?: Role }) {
@@ -18,8 +17,8 @@ export const authApi = {
       email: user.email,
       propertyId: user.propertyId,
       ownerId: user.ownerId,
-      assignedPropertyIds: user.assignedPropertyIds,
-      mustChangePassword: user.mustChangePassword
+      // // // assignedPropertyIds: user.assignedPropertyIds,
+      // mustChangePassword: user.mustChangePassword
     };
 
     if (typeof window !== 'undefined') {
@@ -46,7 +45,7 @@ export const authApi = {
     if (!user) throw new Error('User not found');
     db.update<User>(STORAGE_KEYS.USERS, userId, { 
       password: newPassword, 
-      mustChangePassword: false 
+      // // mustChangePassword: false 
     });
   }
 };

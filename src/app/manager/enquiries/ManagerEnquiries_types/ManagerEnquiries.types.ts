@@ -1,4 +1,4 @@
-import { EnquiryStatus } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
+import type { EnquiryStatus } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
 
 export interface EnquiryFormData {
   name: string;

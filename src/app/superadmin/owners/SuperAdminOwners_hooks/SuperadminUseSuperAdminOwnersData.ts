@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { ownersApi } from '@/app/owner/owner_lib/owner_api/owners';
-import { OwnerDirectoryItem, OwnerStatus } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
+import type { OwnerDirectoryItem, OwnerStatus } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
 import { ITEMS_PER_PAGE } from '@/app/superadmin/owners/SuperAdminOwners_utils/SuperAdminOwners.constants';
 
 export function SuperadminUseSuperAdminOwnersData() {

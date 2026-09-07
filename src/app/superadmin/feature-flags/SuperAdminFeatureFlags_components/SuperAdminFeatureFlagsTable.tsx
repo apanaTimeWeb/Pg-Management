@@ -1,6 +1,6 @@
 // RESPONSIBILITY: Renders the SuperAdminFeatureFlagsTable component.
 import React from 'react';
-import { SuperAdminFeatureFlagsTableProps } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_types/SuperAdminFeatureFlags.types';
+import type { SuperAdminFeatureFlagsTableProps } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_types/SuperAdminFeatureFlags.types';
 
 export const SuperAdminFeatureFlagsTable: React.FC<SuperAdminFeatureFlagsTableProps> = ({ owners, availableFeatures, onToggle }) => {
   return (

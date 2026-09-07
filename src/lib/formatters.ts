@@ -19,15 +19,15 @@ export function formatCurrency(amount: number): string {
  */
 export function formatCompactCurrency(amount: number): string {
   if (amount >= 10000000) {
-    return \?\Cr\;
+    return '₹' + (amount / 10000000).toFixed(2) + 'Cr';
   }
   if (amount >= 100000) {
-    return \?\L\;
+    return '₹' + (amount / 100000).toFixed(2) + 'L';
   }
   if (amount >= 1000) {
-    return \?\K\;
+    return '₹' + (amount / 1000).toFixed(2) + 'K';
   }
-  return \?\\;
+  return '₹' + amount;
 }
 
 /**
@@ -35,7 +35,7 @@ export function formatCompactCurrency(amount: number): string {
  * Example: 12.5 -> "12.5%"
  */
 export function formatPercentage(value: number): string {
-  return \\%\;
+  return value + '%';
 }
 
 /**
@@ -44,6 +44,5 @@ export function formatPercentage(value: number): string {
  */
 export function maskPhoneNumber(phone: string): string {
   if (!phone || phone.length < 10) return phone;
-  return \\****\\;
+  return phone.slice(0, 2) + '****' + phone.slice(-4);
 }
-

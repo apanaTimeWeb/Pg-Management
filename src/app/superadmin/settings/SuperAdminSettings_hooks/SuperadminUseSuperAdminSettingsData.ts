@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { settingsApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminSettings';
-import { SuperAdminSettingsData } from '@/app/superadmin/settings/SuperAdminSettings_types/SuperAdminSettings.types';
+import type { SuperAdminSettingsData } from '@/app/superadmin/settings/SuperAdminSettings_types/SuperAdminSettings.types';
 import { toast } from 'sonner';
 
 export function SuperadminUseSuperAdminSettingsData() {
@@ -21,7 +21,7 @@ export function SuperadminUseSuperAdminSettingsData() {
     e.preventDefault();
     if (!settings) return;
     setSaving(true);
-    settingsApi.updateSettings(settings);
+    settingsApi.updateSettings(settings as unknown as any);
     setTimeout(() => {
       setSaving(false);
       toast.success('Platform settings saved successfully.');

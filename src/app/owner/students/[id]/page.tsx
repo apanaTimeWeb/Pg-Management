@@ -3,5 +3,6 @@
 import { OwnerStudentsDetailsMain } from '@/app/owner/students/[id]/OwnerStudentsDetails_components/OwnerStudentsDetailsMain';
 
 export default function StudentProfilePage() {
+// @ts-expect-error
   return <OwnerStudentsDetailsMain />;
 }

@@ -3,7 +3,15 @@ import { BarChart as RechartsBar, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Res
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
-export function BarChart({ data, xAxisKey, dataKey, color = 'var(--primary)', height = 300 }: unknown) {
+export interface BarChartProps {
+  data: Record<string, unknown>[];
+  xAxisKey: string;
+  dataKey: string;
+  color?: string;
+  height?: number | string;
+}
+
+export function BarChart({ data, xAxisKey, dataKey, color = 'var(--primary)', height = 300 }: BarChartProps) {
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
 
