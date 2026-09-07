@@ -1,34 +1,17 @@
-// DATA FLOW: [AI_TODO: Document data flow direction for SuperadminUseSuperAdminOwnersData.ts]
+// DATA FLOW: Mock data → useState → filter/search/paginate → UI
 'use client';
 
 import { useState, useEffect } from 'react';
-
 import { MOCK_OWNERS } from '@/app/superadmin/superadmin_lib/superadmin_mock_data';
 import { ITEMS_PER_PAGE } from '@/app/superadmin/owners/SuperAdminOwners_utils/SuperAdminOwners.constants';
-
 import type { OwnerDirectoryItem, OwnerStatus } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
 
 export function SuperadminUseSuperAdminOwnersData() {
-  const [owners, setOwners] = useState<OwnerDirectoryItem[]>(MOCK_OWNERS as unknown as OwnerDirectoryItem[]);
-  const [loading, setLoading] = useState(false);
+  const [owners] = useState<OwnerDirectoryItem[]>(MOCK_OWNERS as unknown as OwnerDirectoryItem[]);
+  const [loading] = useState(false);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<OwnerStatus>('All');
-
-  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-
-  const loadOwners = () => {
-    setLoading(true);
-    // Cast to OwnerDirectoryItem[] to ensure strict typing. 
-    // Real implementation would use TanStack React Query.
-    const fetched = MOCK_OWNERS;
-    setOwners(fetched as OwnerDirectoryItem[]);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    loadOwners();
-  }, []);
 
   // Reset page when filter or search changes
   useEffect(() => {
@@ -39,9 +22,11 @@ export function SuperadminUseSuperAdminOwnersData() {
     if (statusFilter !== 'All' && o.status !== statusFilter) return false;
     if (search) {
       const q = search.toLowerCase();
-      return o.name.toLowerCase().includes(q) || 
-             o.businessName.toLowerCase().includes(q) || 
-             o.email.toLowerCase().includes(q);
+      return (
+        o.name.toLowerCase().includes(q) ||
+        o.businessName.toLowerCase().includes(q) ||
+        o.email.toLowerCase().includes(q)
+      );
     }
     return true;
   });
@@ -59,8 +44,6 @@ export function SuperadminUseSuperAdminOwnersData() {
     currentPage,
     totalPages,
     setCurrentPage,
-    refetch: loadOwners
+    refetch: () => {},
   };
 }
-
-

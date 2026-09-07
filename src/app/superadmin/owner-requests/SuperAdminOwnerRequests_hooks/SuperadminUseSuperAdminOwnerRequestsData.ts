@@ -1,30 +1,17 @@
-// DATA FLOW: [AI_TODO: Document data flow direction for SuperadminUseSuperAdminOwnerRequestsData.ts]
+// DATA FLOW: Mock data → useState → filter/search/paginate → UI
+'use client';
+
 import { useState, useEffect } from 'react';
-
-import { ownerRequestsApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminOwnerRequests';
+import { MOCK_REQUESTS } from '@/app/superadmin/superadmin_lib/superadmin_mock_data';
 import { ITEMS_PER_PAGE } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_utils/SuperAdminOwnerRequests.constants';
-
 import type { OwnerRequest, OwnerRequestStatus } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_types/SuperAdminOwnerRequests.types';
 
 export const SuperadminUseSuperAdminOwnerRequestsData = () => {
-  const [requests, setRequests] = useState<OwnerRequest[]>([]);
+  const [requests] = useState<OwnerRequest[]>(MOCK_REQUESTS as unknown as OwnerRequest[]);
   const [filter, setFilter] = useState<OwnerRequestStatus>('All');
   const [search, setSearch] = useState('');
-  const [loading, setLoading] = useState(false);
-  
-  // Pagination
+  const [loading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-
-  const loadRequests = () => {
-    setLoading(true);
-    // TODO: In a real app with React Query, this would be an async fetch
-    setRequests(ownerRequestsApi.list());
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    loadRequests();
-  }, []);
 
   // Reset page when filter or search changes
   useEffect(() => {
@@ -35,9 +22,11 @@ export const SuperadminUseSuperAdminOwnerRequestsData = () => {
     if (filter !== 'All' && r.status !== filter) return false;
     if (search) {
       const q = search.toLowerCase();
-      return r.name.toLowerCase().includes(q) || 
-             r.businessName.toLowerCase().includes(q) || 
-             r.email.toLowerCase().includes(q);
+      return (
+        r.name.toLowerCase().includes(q) ||
+        r.businessName.toLowerCase().includes(q) ||
+        r.email.toLowerCase().includes(q)
+      );
     }
     return true;
   });
@@ -55,8 +44,6 @@ export const SuperadminUseSuperAdminOwnerRequestsData = () => {
     currentPage,
     totalPages,
     setCurrentPage,
-    refetch: loadRequests
+    refetch: () => {},
   };
 };
-
-

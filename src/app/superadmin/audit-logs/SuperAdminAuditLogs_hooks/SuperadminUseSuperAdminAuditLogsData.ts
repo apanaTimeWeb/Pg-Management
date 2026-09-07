@@ -1,16 +1,14 @@
-// DATA FLOW: [AI_TODO: Document data flow direction for SuperadminUseSuperAdminAuditLogsData.ts]
+// DATA FLOW: Mock data → useState → filter/paginate → UI
 'use client';
 
 import { useState, useEffect } from 'react';
-
-import { auditApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminAudit';
-
+import { MOCK_AUDIT_LOGS } from '@/app/superadmin/superadmin_lib/superadmin_mock_data';
 import type { SuperAdminAuditLog } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_types/SuperAdminAuditLogs.types';
 
 export function SuperadminUseSuperAdminAuditLogsData() {
-  const [logs, setLogs] = useState<SuperAdminAuditLog[]>([]);
-  const [loading, setLoading] = useState(false);
-  
+  const [logs] = useState<SuperAdminAuditLog[]>(MOCK_AUDIT_LOGS as SuperAdminAuditLog[]);
+  const [loading] = useState(false);
+
   // Filters
   const [search, setSearch] = useState('');
   const [roleFilter, setRoleFilter] = useState('All');
@@ -19,21 +17,17 @@ export function SuperadminUseSuperAdminAuditLogsData() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  useEffect(() => {
-    const rawLogs = auditApi.getAll();
-    const sortedLogs = rawLogs.sort((a: unknown, b: unknown) => new Date((b as any).createdAt).getTime() - new Date((a as any).createdAt).getTime());
-    setLogs(sortedLogs as unknown as SuperAdminAuditLog[]);
-    setLoading(false);
-  }, []);
-
   // Reset page when filter or search changes
   useEffect(() => {
     setCurrentPage(1);
   }, [roleFilter, search]);
 
   const filtered = logs.filter(l => {
-    if (roleFilter !== 'All' && l.actorId !== 'superadmin' && roleFilter === 'superadmin') return false;
-    
+    if (roleFilter !== 'All') {
+      const actionText = l.action ? l.action.toLowerCase() : '';
+      if (!actionText.includes(roleFilter.toLowerCase())) return false;
+    }
+
     if (search) {
       const q = search.toLowerCase();
       const actionText = l.action ? l.action.toLowerCase() : '';
@@ -56,8 +50,6 @@ export function SuperadminUseSuperAdminAuditLogsData() {
     setCurrentPage,
     totalPages,
     paginatedData,
-    filters: ['All', 'Auth', 'Settings', 'Owners']
+    filters: ['All', 'Auth', 'Settings', 'Owners'],
   };
 }
-
-

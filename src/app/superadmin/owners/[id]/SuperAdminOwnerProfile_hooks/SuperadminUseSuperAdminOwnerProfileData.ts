@@ -2,6 +2,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { MOCK_OWNERS, MOCK_REQUESTS, MOCK_PLANS, MOCK_TICKETS, MOCK_DASHBOARD_STATS } from '@/app/superadmin/superadmin_lib/superadmin_mock_data';
+
 import { useRouter } from 'next/navigation';
 
 import { ownersApi } from '@/app/owner/owner_lib/owner_api/owners';
@@ -10,19 +12,11 @@ import type { Owner360Data } from '@/app/superadmin/owners/SuperAdminOwners_type
 
 export function SuperadminUseSuperAdminOwnerProfileData(id: string) {
   const router = useRouter();
-  const [data, setData] = useState<Owner360Data | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<Owner360Data | null>({ owner: MOCK_OWNERS.find(o => o.id === id) || MOCK_OWNERS[0], user: { status: 'Active' }, properties: [], managersCount: 2, studentsCount: 45, recentPayments: [], tickets: [] } as any);
+  const [loading, setLoading] = useState(false);
 
   const loadData = () => {
-    try {
-      setLoading(true);
-      const fetched = ownersApi.getOwner360(id);
-      setData(fetched as Owner360Data);
-    } catch (e: any) {
-      router.push('/superadmin/owners');
-    } finally {
-      setLoading(false);
-    }
+    setLoading(false);
   };
 
   useEffect(() => {

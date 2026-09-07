@@ -1,31 +1,17 @@
-// DATA FLOW: [AI_TODO: Document data flow direction for SuperadminUseSuperAdminPlansData.ts]
+// DATA FLOW: Mock data → useState → UI
 'use client';
 
-import { useState, useEffect } from 'react';
-
-import { plansApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminPlans';
-
+import { useState } from 'react';
+import { MOCK_PLANS } from '@/app/superadmin/superadmin_lib/superadmin_mock_data';
 import type { SuperAdminPlan } from '@/app/superadmin/plans/SuperAdminPlans_types/SuperAdminPlans.types';
 
 export function SuperadminUseSuperAdminPlansData() {
-  const [plans, setPlans] = useState<SuperAdminPlan[]>([]);
-  const [loading, setLoading] = useState(false);
-
-  const loadPlans = () => {
-    setLoading(true);
-    setPlans(plansApi.listPlans() as unknown as SuperAdminPlan[]);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    loadPlans();
-  }, []);
+  const [plans] = useState<SuperAdminPlan[]>(MOCK_PLANS as unknown as SuperAdminPlan[]);
+  const [loading] = useState(false);
 
   return {
     plans,
     loading,
-    refetch: loadPlans
+    refetch: () => {},
   };
 }
-
-
