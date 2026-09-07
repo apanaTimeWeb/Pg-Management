@@ -5,7 +5,7 @@
 import { useState, useEffect } from 'react';
 import { Settings, Save, AlertCircle } from 'lucide-react';
 
-import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 

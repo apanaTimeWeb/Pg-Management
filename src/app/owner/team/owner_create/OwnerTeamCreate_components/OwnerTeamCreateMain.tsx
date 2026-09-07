@@ -5,7 +5,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { teamApi } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
 
 ;
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
@@ -85,7 +85,7 @@ export function OwnerTeamCreateMain() {
 
     setSubmitting(true);
     try {
-      (api as any).team.createTeamMember(formData, user.id);
+      teamApi.createTeamMember({...formData, joinDate: formData.joinDate || ''}, user.id);
       
       const loginUrl = (formData as any).roleType === 'manager' ? '/manager/login' : '/staff/login';
       setSuccessData({

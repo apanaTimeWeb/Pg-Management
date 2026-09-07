@@ -37,8 +37,8 @@ export const payrollApi = {
     db.insert('spg_salary_payments' as unknown, payment as unknown);
 
     // Automatically create an Expense for this salary payment
-    const { financeApi } = require('./finance');
-    const { propertiesApi } = require('./properties');
+    const { financeApi } = require('./OwnerFinance');
+    const { propertiesApi } = require('./OwnerProperties');
     const ownerProps = propertiesApi.listByOwner(data.ownerId);
     if (ownerProps.length > 0) {
       financeApi.createExpense({

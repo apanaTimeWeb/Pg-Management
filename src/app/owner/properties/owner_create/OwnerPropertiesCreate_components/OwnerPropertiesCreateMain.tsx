@@ -8,7 +8,8 @@ import { AlertCircle, ArrowLeft, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
 
-import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { propertiesApi } from '@/app/owner/owner_lib/owner_api/OwnerProperties';
+import { ownersApi } from '@/app/owner/owner_lib/owner_api/owners';
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { OwnerPropertiesCreateBasicInfo } from '@/app/owner/properties/owner_create/OwnerPropertiesCreate_components/OwnerPropertiesCreateBasicInfo';
@@ -29,7 +30,7 @@ export function OwnerPropertiesCreateMain() {
   useEffect(() => {
     if (user && user.ownerId) {
       try {
-        const details = (api as any).owners.getOwner360(user.ownerId);
+        const details = ownersApi.getOwner360(user.ownerId);
         if (!details || !details.subscription || details.subscription.status !== 'active' || details.subscription.planId === 'none') {
           router.push('/owner/subscription');
           toast.error('Please purchase a subscription plan to create a PG.');
@@ -105,7 +106,7 @@ export function OwnerPropertiesCreateMain() {
     try {
       const photosArray = (formData as any).photos.split(',').map((s: any) => s.trim()).filter(Boolean);
       
-      const newProp = (api as any).properties.create({
+      const newProp = propertiesApi.create({
         ownerId: user.id,
         name: (formData as any).name,
         slug: (formData as any).slug,

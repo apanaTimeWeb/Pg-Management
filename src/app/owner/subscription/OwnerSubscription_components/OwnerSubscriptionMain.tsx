@@ -2,10 +2,15 @@
 
 // RESPONSIBILITY: Renders the OwnerSubscriptionMain component. Receives data via props/hooks.
 
+import { teamApi } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
+import { propertiesApi } from '@/app/owner/owner_lib/owner_api/OwnerProperties';
+import { ownersApi } from '@/app/owner/owner_lib/owner_api/owners';
+import { studentsApi } from '@/app/owner/owner_lib/owner_api/OwnerStudents';
+import { plansApi } from '@/app/owner/owner_lib/owner_api/OwnerPlans';
 import { useState, useEffect } from 'react';
 
 import { authApi } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
-const api = authApi as any;
+
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 
 import { toast } from 'sonner';
@@ -40,8 +45,8 @@ export function OwnerSubscriptionMain() {
     
     // Fetch owner and plan data
 // @ts-expect-error
-    const ownerRecord = (api as any).owners.listOwners().find((o: unknown) => o.userId === user.id);
-    const plans = (api as any).plans.listPlans();
+    const ownerRecord = ownersApi.listOwners().find((o: unknown) => o.userId === user.id);
+    const plans = plansApi.listPlans();
     
     const activePlan = ownerRecord?.planId && ownerRecord.planId !== 'none' && ownerRecord.planId !== 'None' 
 
@@ -49,9 +54,9 @@ export function OwnerSubscriptionMain() {
       : null;
 
     // Actual usage logic:
-    const propsCount = (api as any).properties.listByOwner(user.id).length;
-    const staffCount = (api as any).team.listByOwner(user.id).length;
-    const studentsCount = (api as any).students.listByOwner(user.id).length; 
+    const propsCount = propertiesApi.listByOwner(user.id).length;
+    const staffCount = teamApi.listByOwner(user.id).length;
+    const studentsCount = studentsApi.listByOwner(user.id).length; 
 
     setAllPlans(plans);
     setData({
@@ -77,7 +82,7 @@ export function OwnerSubscriptionMain() {
 
   const handlePaymentSuccess = (planId: string) => {
     try {
-      (api as any).owners.upgradePlan(data.ownerRecord.id, planId);
+      ownersApi.upgradePlan(data.ownerRecord.id, planId);
       toast.success('Payment successful! Your plan has been upgraded.');
       setPaymentModalOpen(false);
       loadSubscriptionData();

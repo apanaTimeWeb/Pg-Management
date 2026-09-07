@@ -7,7 +7,7 @@ import { TrendingDown } from 'lucide-react';
 
 import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
-import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { financeApi } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
 import { OwnerFinanceCards } from '@/app/owner/finance/OwnerFinance_components/OwnerFinanceCards';
 import { OwnerFinanceCharts } from '@/app/owner/finance/OwnerFinance_components/OwnerFinanceCharts';
 import { OwnerFinanceTabs } from '@/app/owner/finance/OwnerFinance_components/OwnerFinanceTabs';
@@ -29,7 +29,7 @@ export function OwnerFinanceMain() {
   const loadData = () => {
     if (!user) return;
     setLoading(true);
-    const data = (api as any).finance.getStats(user.id, selectedPropertyId);
+    const data = financeApi.getStats(user.id, selectedPropertyId);
     setStats(data);
     setLoading(false);
   };

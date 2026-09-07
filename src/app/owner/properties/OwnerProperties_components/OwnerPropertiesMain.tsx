@@ -5,10 +5,11 @@ import Image from 'next/image';
 
 import { Building2, Plus, Bed, IndianRupee, MapPin, Users, Activity } from 'lucide-react';
 import Link from 'next/link';
+import { propertiesApi } from '@/app/owner/owner_lib/owner_api/OwnerProperties';
 import { useState, useEffect } from 'react';
 
 import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
-import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { dashboardApi } from '@/app/owner/owner_lib/owner_api/OwnerDashboard';
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 
 
@@ -22,7 +23,7 @@ export function OwnerPropertiesMain() {
   useEffect(() => {
     if (user) {
       // Force a fresh fetch specifically for this page instead of relying on context
-      const allProps = (api as any).properties.listByOwner(user.id);
+      const allProps = propertiesApi.listByOwner(user.id);
       setLocalProps(allProps);
     }
     setLoading(false);
@@ -68,8 +69,7 @@ export function OwnerPropertiesMain() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {localProps.map((property) => {
             // Get stats for this property (using the dashboard API logic scoped to this property)
-// @ts-expect-error
-            const stats = api.dashboard.getOwnerMetrics(user!.id, property.id);
+            const stats = dashboardApi.getOwnerMetrics(user!.id, property.id);
             const coverPhoto = property.photos?.[0] || 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=600&auto=format&fit=crop';
             
             return (

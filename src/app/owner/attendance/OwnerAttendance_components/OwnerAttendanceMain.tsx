@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { Users, CheckCircle2, XCircle, Search, Building } from 'lucide-react';
 import { format } from 'date-fns';
 
-import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { teamApi } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { Pagination } from '@/components/ui/Pagination';
@@ -34,7 +34,7 @@ export function OwnerAttendanceMain() {
     setLoading(true);
     
     // Get all staff members for this owner
-    const allStaff = (api as any).team.listByOwner(user.id);
+    const allStaff = teamApi.listByOwner(user.id);
     setStaff(allStaff);
 
     // Get attendance for the selected date

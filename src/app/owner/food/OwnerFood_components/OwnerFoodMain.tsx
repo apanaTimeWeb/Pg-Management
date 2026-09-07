@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { UtensilsCrossed, CheckCircle2, PlusCircle } from 'lucide-react';
 
 import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
-import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { foodApi } from '@/app/owner/owner_lib/owner_api/OwnerFood';
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 
 
@@ -48,7 +48,7 @@ export function OwnerFoodMain() {
 
     if (selectedPropertyId && selectedPropertyId !== 'all') {
       setLoading(true);
-      const data = (api as any).food.getByProperty(selectedPropertyId);
+      const data = foodApi.getByProperty(selectedPropertyId);
       if (data) {
         setMenu(data);
         setHasMenu(true);
@@ -82,7 +82,7 @@ export function OwnerFoodMain() {
     if (!selectedPropertyId || selectedPropertyId === 'all') return;
     setSaving(true);
     try {
-      (api as any).food.save(selectedPropertyId, menu);
+      foodApi.save(selectedPropertyId, menu);
       setSuccessMsg('Food Menu saved successfully!');
       setHasMenu(true);
       setTimeout(() => {

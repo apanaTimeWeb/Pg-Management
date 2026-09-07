@@ -5,7 +5,7 @@
 import { useState, useEffect } from 'react';
 import { IndianRupee } from 'lucide-react';
 
-import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { managerOperationsApi } from '@/app/owner/owner_lib/owner_api/OwnerOperations';
 import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { Pagination } from '@/components/ui/Pagination';
 import { useTableSync } from '@/lib/hooks/useTableSync';
@@ -21,14 +21,14 @@ export function OwnerMaintenanceMain() {
     
     if (filterPropertyId === 'all') {
       properties.forEach(p => {
-        const propsComplaints = (api as any).managerOperations.listComplaints(p.id).map((c: any) => ({...c, propertyName: (p as any).name}));
+        const propsComplaints = managerOperationsApi.listComplaints(p.id).map((c: any) => ({...c, propertyName: (p as any).name}));
         allComplaints = [...allComplaints, ...propsComplaints];
       });
     } else {
       const selectedProp = properties.find(p => p.id === filterPropertyId);
       if (selectedProp) {
     // @ts-expect-error - unresolved TS error
-        allComplaints = (api as any).managerOperations.listComplaints(selectedProp.id).map((c: any) => ({...c, propertyName: selectedPro(p as any).name}));
+        allComplaints = managerOperationsApi.listComplaints(selectedProp.id).map((c: any) => ({...c, propertyName: selectedPro(p as any).name}));
       }
     }
     

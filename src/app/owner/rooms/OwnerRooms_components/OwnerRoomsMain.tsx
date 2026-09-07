@@ -6,7 +6,8 @@ import { useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
 
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
-import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { roomsApi } from '@/app/owner/owner_lib/owner_api/OwnerRooms';
+import { bedsApi } from '@/app/owner/owner_lib/owner_api/OwnerBeds';
 import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { OwnerRoomsKPIs } from '@/app/owner/rooms/OwnerRooms_components/OwnerRoomsKPIs';
 import { OwnerRoomsFilters } from '@/app/owner/rooms/OwnerRooms_components/OwnerRoomsFilters';
@@ -51,14 +52,14 @@ export function OwnerRoomsMain() {
     
     if (selectedPropertyId === 'all') {
       properties.forEach(p => {
-        allRooms = [...allRooms, ...(api as any).rooms.listByProperty(p.id)];
+        allRooms = [...allRooms, ...roomsApi.listByProperty(p.id)];
       });
     } else {
-      allRooms = (api as any).rooms.listByProperty(selectedPropertyId);
+      allRooms = roomsApi.listByProperty(selectedPropertyId);
     }
 
     const enhanced = allRooms.map(r => {
-      const beds = (api as any).beds.listByRoom(r.id);
+      const beds = bedsApi.listByRoom(r.id);
       return {
         ...r,
         bedsCount: beds.length,
@@ -90,7 +91,7 @@ export function OwnerRoomsMain() {
     try {
       if (!(formData as any).propertyId) throw new Error('Please select a property.');
       
-      (api as any).rooms.create({
+      roomsApi.create({
         propertyId: (formData as any).propertyId,
         floor: (formData as any).floor,
         number: (formData as any).number,

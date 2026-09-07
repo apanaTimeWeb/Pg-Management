@@ -2,9 +2,11 @@
 
 // RESPONSIBILITY: Renders the OwnerStudentsMain component. Receives data via props/hooks.
 
+import { propertiesApi } from '@/app/owner/owner_lib/owner_api/OwnerProperties';
+import { studentsApi } from '@/app/owner/owner_lib/owner_api/OwnerStudents';
 import { useState, useEffect } from 'react';
 import { authApi } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
-const api = authApi as any;
+
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { Search, Users, AlertCircle, Building, Filter } from 'lucide-react';
@@ -33,9 +35,9 @@ export function OwnerStudentsMain() {
     if (!user) return;
     setLoading(true);
     // Auto seed mocks if empty for demo purposes
-    (api as any).students.seedMocksIfEmpty(user.id);
+    studentsApi.seedMocksIfEmpty(user.id);
     
-    const data = (api as any).students.listByOwner(user.id);
+    const data = studentsApi.listByOwner(user.id);
     setStudents(data);
     setLoading(false);
   }, [user?.id]);
