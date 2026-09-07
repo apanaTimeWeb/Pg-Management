@@ -23,7 +23,7 @@ export const managerOperationsApi = {
     return db.getAll<any>(STORAGE_KEYS.VISITORS || 'spg_visitors').filter(v => v.propertyId === propertyId && !v.isDeleted).sort((a,b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   },
   updateVisitorStatus: (id: string, status: 'approved' | 'rejected' | 'checked_in' | 'checked_out', managerId: string) => {
-    const data: any = { status, updatedBy: managerId, updatedAt: new Date().toISOString() };
+    const data: unknown = { status, updatedBy: managerId, updatedAt: new Date().toISOString() };
     if (status === 'checked_in') data.checkInTime = new Date().toISOString();
     if (status === 'checked_out') data.checkOutTime = new Date().toISOString();
     db.update<any>(STORAGE_KEYS.VISITORS, id, data);

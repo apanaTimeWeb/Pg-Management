@@ -89,7 +89,7 @@ export function StaffStockMain() {
     }
   };
 
-  if (ctxLoading || loading) return <div className="p-6 animate-pulse">Loading stock...</div>;
+  if (ctxLoading || loading) return <div className="p-6 motion-safe:animate-pulse">Loading stock...</div>;
   if (!propertyId) return <div className="p-6 text-center text-secondary">Property Required</div>;
 
   return (
@@ -105,7 +105,7 @@ export function StaffStockMain() {
       <div className="flex border-b border-border mb-6">
         <button
           onClick={() => setActiveTab('live')}
-          className={`px-6 py-3 font-semibold text-sm border-b-2 transition-colors ${
+          className={`px-6 py-3 font-semibold text-sm border-b-2 motion-safe:transition-colors ${
             activeTab === 'live' 
               ? 'border-primary text-primary' 
               : 'border-transparent text-secondary hover:text-primary'
@@ -115,7 +115,7 @@ export function StaffStockMain() {
         </button>
         <button
           onClick={() => setActiveTab('pantry')}
-          className={`px-6 py-3 font-semibold text-sm border-b-2 transition-colors ${
+          className={`px-6 py-3 font-semibold text-sm border-b-2 motion-safe:transition-colors ${
             activeTab === 'pantry' 
               ? 'border-primary text-primary' 
               : 'border-transparent text-secondary hover:text-primary'
@@ -141,7 +141,7 @@ export function StaffStockMain() {
           </div>
           <button 
             onClick={() => setShowAddForm(true)}
-            className="bg-primary text-white px-5 py-2.5 rounded-md text-sm font-bold hover:bg-primary-hover transition-colors flex items-center gap-2"
+            className="bg-primary text-white px-5 py-2.5 rounded-md text-sm font-bold hover:bg-primary-hover motion-safe:transition-colors flex items-center gap-2"
           >
             <Plus className="w-4 h-4" />
             Add Item
@@ -284,7 +284,7 @@ export function StaffStockMain() {
                       const rowAlertClass = (isLowStock || isExpired || isExpiringSoon) ? 'bg-[rgba(239,68,68,0.05)] hover:bg-[rgba(239,68,68,0.08)]' : 'hover:bg-[rgba(0,0,0,0.01)] dark:hover:bg-[rgba(255,255,255,0.01)]';
 
                       return (
-                      <tr key={item.id} className={`transition-colors ${rowAlertClass}`}>
+                      <tr key={item.id} className={`motion-safe:transition-colors ${rowAlertClass}`}>
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
                             <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${(isLowStock || isExpired || isExpiringSoon) ? 'bg-[rgba(239,68,68,0.1)] text-danger' : 'bg-[rgba(99,102,241,0.1)] text-primary'}`}>
@@ -344,14 +344,14 @@ export function StaffStockMain() {
                                   setEditingId(item.id);
                                   setEditQty(item.quantity.toString());
                                 }}
-                                className="p-2 text-secondary hover:text-primary hover:bg-primary-subtle rounded-full transition-colors"
+                                className="p-2 text-secondary hover:text-primary hover:bg-primary-subtle rounded-full motion-safe:transition-colors"
                                 title="Update Quantity"
                               >
                                 <Edit2 className="w-4 h-4" />
                               </button>
                               <button 
                                 onClick={() => handleDelete(item.id)}
-                                className="p-2 text-secondary hover:text-danger hover:bg-danger-bg rounded-full transition-colors"
+                                className="p-2 text-secondary hover:text-danger hover:bg-danger-bg rounded-full motion-safe:transition-colors"
                                 title="Delete Item"
                               >
                                 <Trash2 className="w-4 h-4" />
@@ -437,7 +437,7 @@ export function StaffStockMain() {
                             stockBatchesApi.openBatch(batch.id);
                             loadStock();
                           }}
-                          className="flex-1 bg-primary-subtle text-primary font-bold text-xs py-2 rounded-lg hover:bg-primary hover:text-white transition-colors"
+                          className="flex-1 bg-primary-subtle text-primary font-bold text-xs py-2 rounded-lg hover:bg-primary hover:text-white motion-safe:transition-colors"
                         >
                           Open Box
                         </button>
@@ -450,7 +450,7 @@ export function StaffStockMain() {
                               loadStock();
                             }
                           }}
-                          className="flex-1 bg-[rgba(239,68,68,0.1)] text-danger font-bold text-xs py-2 rounded-lg hover:bg-danger hover:text-white transition-colors"
+                          className="flex-1 bg-[rgba(239,68,68,0.1)] text-danger font-bold text-xs py-2 rounded-lg hover:bg-danger hover:text-white motion-safe:transition-colors"
                         >
                           Mark Empty
                         </button>

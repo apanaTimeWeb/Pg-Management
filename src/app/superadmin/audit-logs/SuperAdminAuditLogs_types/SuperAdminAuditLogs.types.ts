@@ -6,7 +6,7 @@ export interface SuperAdminAuditLog {
   entityId?: string; // used in auditApi.write
   details?: string;  // used in some manual logs
   entity?: string;   // used in auditApi.write
-  meta?: any;
+  meta?: unknown;
   createdAt: string;
 }
 

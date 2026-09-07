@@ -12,7 +12,7 @@ import {
   Users, AlertCircle, Utensils, UserPlus, Clock, LogOut, Radio, FileText, Archive, IndianRupee, Receipt,
   Menu, X, ShieldAlert, Building2
 } from 'lucide-react';
-import { ManagerForcePasswordChangeModal } from './ManagerForcePasswordChangeModal';
+import { ManagerForcePasswordChangeModal } from '@/app/manager/manager_components/ManagerForcePasswordChangeModal';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const MENU_ITEMS = [
@@ -56,28 +56,28 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg-page)] flex flex-col md:flex-row text-[var(--text-primary)]">
+    <div className="min-h-screen bg-page flex flex-col md:flex-row text-primary">
       <ManagerForcePasswordChangeModal 
         user={user} 
         onSuccess={() => setForcePasswordChange(false)} 
       />
       {/* Mobile Header */}
-      <div className="md:hidden flex items-center justify-between bg-[var(--bg-header)]/90 backdrop-blur-md p-3 border-b border-[var(--border)] shrink-0 sticky top-0 z-50">
+      <div className="md:hidden flex items-center justify-between bg-header/90 backdrop-blur-md p-3 border-b border shrink-0 sticky top-0 z-50">
         <div className="flex items-center gap-2">
-          <button onClick={() => setIsMobileMenuOpen(true)} className="text-[var(--text-primary)] p-1">
+          <button onClick={() => setIsMobileMenuOpen(true)} className="text-primary p-1">
             <Menu className="w-6 h-6" />
           </button>
-          <div className="flex items-center gap-1 font-bold text-[var(--text-primary)]">
-            <ShieldAlert className="text-[var(--primary)] w-5 h-5 hidden sm:block" />
+          <div className="flex items-center gap-1 font-bold text-primary">
+            <ShieldAlert className="text-primary w-5 h-5 hidden sm:block" />
             <span className="hidden sm:block">ManagerOps</span>
           </div>
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <div className="text-xs font-medium text-[var(--text-secondary)] max-w-[80px] truncate">
+          <div className="text-xs font-medium text-secondary max-w-[80px] truncate">
             {user?.name || 'Manager'}
           </div>
-          <button onClick={handleLogout} className="text-xs bg-[var(--danger-bg)] text-[var(--danger)] px-2 py-1.5 rounded-md font-bold flex items-center gap-1">
+          <button onClick={handleLogout} className="text-xs bg-danger-bg text-danger px-2 py-1.5 rounded-md font-bold flex items-center gap-1">
             <LogOut className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -93,17 +93,17 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
 
       {/* Sidebar */}
       <aside className={`
-        fixed inset-y-0 left-0 z-50 w-64 bg-[var(--bg-sidebar)] border-r border-[var(--border)] overflow-y-auto shrink-0
-        transform transition-transform duration-300 ease-in-out
+        fixed inset-y-0 left-0 z-50 w-64 bg-sidebar border-r border overflow-y-auto shrink-0
+        transform transition-transform motion-safe:duration-300 motion-safe:ease-in-out
         ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
         md:relative md:translate-x-0 md:sticky md:top-0 md:h-screen
       `}>
-        <div className="flex items-center justify-between p-6 border-b border-[var(--border)] shrink-0">
-          <div className="flex items-center gap-2 font-bold text-xl text-[var(--text-primary)]">
-            <ShieldAlert className="text-[var(--primary)] w-7 h-7" />
+        <div className="flex items-center justify-between p-6 border-b border shrink-0">
+          <div className="flex items-center gap-2 font-bold text-xl text-primary">
+            <ShieldAlert className="text-primary w-7 h-7" />
             <span>ManagerOps</span>
           </div>
-          <button className="md:hidden text-[var(--text-secondary)]" onClick={() => setIsMobileMenuOpen(false)}>
+          <button className="md:hidden text-secondary" onClick={() => setIsMobileMenuOpen(false)}>
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -112,13 +112,13 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
             const label = item.label || t(item.key as DictKey);
             return (
               <Link key={item.key} href={item.href} onClick={() => setIsMobileMenuOpen(false)}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors text-[13px] font-medium
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg motion-safe:transition-colors text-[13px] font-medium
                   ${pathname.startsWith(item.href)
-                    ? 'bg-[var(--primary)] text-white' 
-                    : 'text-[var(--text-secondary)] hover:bg-[var(--bg-input)] hover:text-[var(--text-primary)]'
+                    ? 'bg-primary text-white' 
+                    : 'text-secondary hover:bg-input hover:text-primary'
                   }`}
               >
-                <item.icon className={`w-4 h-4 ${pathname.startsWith(item.href) ? 'text-white' : 'text-[var(--text-secondary)]'}`} />
+                <item.icon className={`w-4 h-4 ${pathname.startsWith(item.href) ? 'text-white' : 'text-secondary'}`} />
                 {label}
               </Link>
             );
@@ -128,33 +128,33 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col min-w-0">
-        <header className="hidden md:flex h-16 bg-[var(--bg-header)] border-b border-[var(--border)] items-center px-6 justify-between shrink-0 sticky top-0 z-20 backdrop-blur-md bg-opacity-80">
-          <h2 className="text-lg font-semibold text-[var(--text-primary)] capitalize">
+        <header className="hidden md:flex h-16 bg-header border-b border items-center px-6 justify-between shrink-0 sticky top-0 z-20 backdrop-blur-md bg-opacity-80">
+          <h2 className="text-lg font-semibold text-primary capitalize">
             {pathname.split('/')[2]?.replace('-', ' ') || 'Dashboard'}
           </h2>
           <div className="flex items-center gap-4">
             <ThemeToggle />
             {/* Language Switcher */}
-            <div className="flex items-center bg-[var(--bg-input)] border border-[var(--border)] rounded-[var(--radius-md,8px)] overflow-hidden text-xs font-bold">
+            <div className="flex items-center bg-input border border rounded-[var(--radius-md,8px)] overflow-hidden text-xs font-bold">
               <button 
                 onClick={() => setLang('en')}
-                className={`px-3 py-1.5 transition-colors ${lang === 'en' ? 'bg-[var(--primary)] text-white' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
+                className={`px-3 py-1.5 motion-safe:transition-colors ${lang === 'en' ? 'bg-primary text-white' : 'text-secondary hover:text-primary'}`}
               >
                 EN
               </button>
               <button 
                 onClick={() => setLang('hi')}
-                className={`px-3 py-1.5 transition-colors ${lang === 'hi' ? 'bg-[var(--primary)] text-white' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
+                className={`px-3 py-1.5 motion-safe:transition-colors ${lang === 'hi' ? 'bg-primary text-white' : 'text-secondary hover:text-primary'}`}
               >
                 हिं
               </button>
             </div>
 
             {/* Property Switcher */}
-            <div className="flex items-center gap-2 bg-[var(--bg-input)] border border-[var(--border)] rounded-[var(--radius-md,8px)] px-3 py-1.5">
-              <Building2 className="w-4 h-4 text-[var(--text-secondary)] shrink-0" />
+            <div className="flex items-center gap-2 bg-input border border rounded-[var(--radius-md,8px)] px-3 py-1.5">
+              <Building2 className="w-4 h-4 text-secondary shrink-0" />
               <select 
-                className="bg-transparent text-sm font-medium text-[var(--text-primary)] outline-none cursor-pointer w-full max-w-[150px] truncate"
+                className="bg-transparent text-sm font-medium text-primary outline-none cursor-pointer w-full max-w-[150px] truncate"
                 value={selectedPropertyId}
                 onChange={(e) => setSelectedPropertyId(e.target.value)}
               >
@@ -164,16 +164,16 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
               </select>
             </div>
 
-            <div className="text-sm text-[var(--text-secondary)]">
-              Manager: <strong className="text-[var(--text-primary)]">{user?.name}</strong>
+            <div className="text-sm text-secondary">
+              Manager: <strong className="text-primary">{user?.name}</strong>
             </div>
-            <button onClick={handleLogout} className="text-sm bg-[var(--bg-page)] border border-[var(--border)] px-4 py-2 rounded-[var(--radius-md,8px)] text-[var(--danger)] font-medium hover:bg-[var(--danger-bg)] hover:text-[var(--danger)] transition-all">
+            <button onClick={handleLogout} className="text-sm bg-page border border px-4 py-2 rounded-[var(--radius-md,8px)] text-danger font-medium hover:bg-danger-bg hover:text-danger motion-safe:transition-all">
               {t('logout')}
             </button>
           </div>
         </header>
         
-        <div className="flex-1 p-4 md:p-6 text-[var(--text-primary)] overflow-x-hidden">
+        <div className="flex-1 p-4 md:p-6 text-primary overflow-x-hidden">
           {children}
         </div>
       </main>

@@ -9,7 +9,7 @@ import { SuperadminI18nProvider, useSuperadminI18n, DictKey } from '@/app/supera
 import { useTheme } from 'next-themes';
 import { Moon, Sun } from 'lucide-react';
 
-function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMobileMenuOpen, navItems, handleLogout, pathname }: any) {
+function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMobileMenuOpen, navItems, handleLogout, pathname }: unknown) {
   const { lang, setLang, t } = useSuperadminI18n();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -19,16 +19,16 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
   }, []);
 
   return (
-    <div className="min-h-screen bg-[var(--bg-page)] font-sans">
+    <div className="min-h-screen bg-page font-sans">
       
       {/* FIXED TOP HEADER */}
-      <header className="fixed top-0 left-0 right-0 h-16 bg-[var(--bg-header)]/90 backdrop-blur-md border-b border-[var(--border)] z-50 flex items-center justify-between px-4 md:px-6 shadow-sm">
+      <header className="fixed top-0 left-0 right-0 h-16 bg-header/90 backdrop-blur-md border-b border z-50 flex items-center justify-between px-4 md:px-6 shadow-sm">
         <div className="flex items-center gap-4">
-          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-[var(--text-primary)] hover:bg-[var(--bg-page)] p-2 rounded-full transition-colors md:hidden">
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-primary hover:bg-page p-2 rounded-full motion-safe:transition-colors md:hidden">
             <Menu className="w-5 h-5" />
           </button>
-          <div className="flex items-center gap-2 font-bold text-xl text-[var(--text-primary)]">
-            <ShieldAlert className="text-[var(--primary)] w-7 h-7" />
+          <div className="flex items-center gap-2 font-bold text-xl text-primary">
+            <ShieldAlert className="text-primary w-7 h-7" />
             <span className="hidden sm:inline">SPG Platform</span>
           </div>
         </div>
@@ -38,7 +38,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
           {mounted && (
             <button 
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="px-3 py-1.5 flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--primary)] hover:bg-[var(--primary-subtle)] rounded-[var(--radius-md,8px)] transition-colors border border-transparent hover:border-[var(--primary-subtle)]"
+              className="px-3 py-1.5 flex items-center gap-2 text-sm font-medium text-secondary hover:text-primary hover:bg-primary-subtle rounded-[var(--radius-md,8px)] motion-safe:transition-colors border border-transparent hover:border-primary-subtle"
               title="Toggle Theme"
             >
               {theme === 'dark' ? (
@@ -50,11 +50,11 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
           )}
 
 
-          <div className="text-sm text-[var(--text-secondary)] max-w-[80px] truncate">
-            SuperAdmin: <strong className="text-[var(--text-primary)]">{adminName}</strong>
+          <div className="text-sm text-secondary max-w-[80px] truncate">
+            SuperAdmin: <strong className="text-primary">{adminName}</strong>
           </div>
           
-          <button onClick={handleLogout} className="text-sm bg-[var(--bg-page)] border border-[var(--border)] px-2 sm:px-4 py-2 rounded-[var(--radius-md,8px)] text-[var(--danger)] font-medium hover:bg-[var(--danger-bg)] hover:text-[var(--danger)] transition-all flex items-center gap-1 sm:gap-2">
+          <button onClick={handleLogout} className="text-sm bg-page border border px-2 sm:px-4 py-2 rounded-[var(--radius-md,8px)] text-danger font-medium hover:bg-danger-bg hover:text-danger motion-safe:transition-all flex items-center gap-1 sm:gap-2">
             <LogOut className="w-4 h-4" />
             <span className="hidden sm:inline">{t('logout')}</span>
           </button>
@@ -71,17 +71,17 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
 
       {/* FIXED SIDEBAR */}
       <aside className={`
-        fixed top-16 bottom-0 left-0 z-40 w-60 bg-[var(--bg-sidebar)] border-r border-[var(--border)] overflow-y-auto
-        transform transition-transform duration-300 ease-in-out
+        fixed top-16 bottom-0 left-0 z-40 w-60 bg-sidebar border-r border overflow-y-auto
+        transform transition-transform motion-safe:duration-300 motion-safe:ease-in-out
         ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
         md:translate-x-0 custom-scrollbar
       `}>
         <nav className="p-4 space-y-1">
-          {navItems.map((item: any) => {
+          {navItems.map((item: unknown) => {
             const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
             return (
               <Link key={item.href} href={item.href} onClick={() => setIsMobileMenuOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-[var(--radius-md,8px)] text-sm font-medium transition-all ${isActive ? 'bg-[var(--primary-subtle)] text-[var(--primary)] border-l-4 border-[var(--primary)] shadow-sm' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-page)] hover:text-[var(--text-primary)] hover:translate-x-1'}`}
+                className={`flex items-center gap-3 px-4 py-3 rounded-[var(--radius-md,8px)] text-sm font-medium motion-safe:transition-all ${isActive ? 'bg-primary-subtle text-primary border-l-4 border-primary shadow-sm' : 'text-secondary hover:bg-page hover:text-primary hover:translate-x-1'}`}
               >
                 <item.icon className="w-5 h-5 shrink-0" />
                 <span className="truncate">{item.key ? t(item.key as DictKey) : item.name}</span>
@@ -93,7 +93,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
 
       {/* MAIN CONTENT */}
       <main className="md:ml-60 pt-16 min-h-screen flex flex-col">
-        <div className="flex-1 p-4 md:p-6 text-[var(--text-primary)] overflow-x-hidden">
+        <div className="flex-1 p-4 md:p-6 text-primary overflow-x-hidden">
           {/* Breadcrumb / Title Bar (Optional, specific to pages usually, but we can put a generic one here or leave to pages) */}
           {children}
         </div>

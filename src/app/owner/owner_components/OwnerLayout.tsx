@@ -13,7 +13,7 @@ import {
 import { getSession, clearSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { useOwnerI18n, DictKey } from '@/app/owner/OwnerI18n';
-import { OwnerForcePasswordChangeModal } from './OwnerForcePasswordChangeModal';
+import { OwnerForcePasswordChangeModal } from '@/app/owner/owner_components/OwnerForcePasswordChangeModal';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const NAV_ITEMS = [
@@ -87,7 +87,7 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
       {/* Sidebar */}
       <aside className={`
         fixed inset-y-0 left-0 z-50 w-64 bg-sidebar border-r border-border overflow-y-auto shrink-0
-        transform transition-transform duration-300 ease-in-out
+        transform transition-transform motion-safe:duration-300 motion-safe:ease-in-out
         ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
         md:relative md:translate-x-0 md:sticky md:top-0 md:h-screen
       `}>
@@ -106,7 +106,7 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
             const label = item.label || t(item.key as DictKey);
             return (
               <Link key={item.href} href={item.href} onClick={() => setIsMobileMenuOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors ${isActive ? 'bg-primary-subtle text-primary border-l-4 border-primary' : 'text-secondary hover:bg-page hover:text-primary'}`}
+                className={`flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium motion-safe:transition-colors ${isActive ? 'bg-primary-subtle text-primary border-l-4 border-primary' : 'text-secondary hover:bg-page hover:text-primary'}`}
               >
                 <item.icon className="w-5 h-5" />
                 {label}
@@ -128,13 +128,13 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
             <div className="flex items-center bg-input border border-border rounded-md overflow-hidden text-xs font-bold">
               <button 
                 onClick={() => setLang('en')}
-                className={`px-3 py-1.5 transition-colors ${lang === 'en' ? 'bg-primary text-white' : 'text-secondary hover:text-primary'}`}
+                className={`px-3 py-1.5 motion-safe:transition-colors ${lang === 'en' ? 'bg-primary text-white' : 'text-secondary hover:text-primary'}`}
               >
                 EN
               </button>
               <button 
                 onClick={() => setLang('hi')}
-                className={`px-3 py-1.5 transition-colors ${lang === 'hi' ? 'bg-primary text-white' : 'text-secondary hover:text-primary'}`}
+                className={`px-3 py-1.5 motion-safe:transition-colors ${lang === 'hi' ? 'bg-primary text-white' : 'text-secondary hover:text-primary'}`}
               >
                 हिं
               </button>
@@ -158,7 +158,7 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
             <div className="text-sm text-secondary">
               Owner: <strong className="text-primary">{user?.name}</strong>
             </div>
-            <button onClick={handleLogout} className="text-sm bg-page border border-border px-4 py-2 rounded-md text-danger font-medium hover:bg-danger-bg hover:text-danger transition-all">
+            <button onClick={handleLogout} className="text-sm bg-page border border-border px-4 py-2 rounded-md text-danger font-medium hover:bg-danger-bg hover:text-danger motion-safe:transition-all">
               {t('logout')}
             </button>
           </div>

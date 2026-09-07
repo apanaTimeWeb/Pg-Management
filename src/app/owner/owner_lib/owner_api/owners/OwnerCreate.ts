@@ -5,7 +5,7 @@ import { createId } from '@/lib/utils/id';
 import { User } from '@/app/owner/owner_lib/types';
 import { ownerRequestsApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminOwnerRequests';
 
-export function createOwner(data: any) {
+export function createOwner(data: unknown) {
   // 1. Validate unique email in users
   const existingUser = db.query<User>(STORAGE_KEYS.USERS, u => u.email === data.email && !u.isDeleted);
   if (existingUser.length > 0) {

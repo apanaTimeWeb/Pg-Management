@@ -77,7 +77,7 @@ export function SuperadminUseSuperAdminCreateOwner() {
       ownersApi.createOwner({ ...formData, requestId });
       setCreatedCreds({ email: formData.email, password: formData.temporaryPassword });
       setSuccess(true);
-    } catch (err: any) {
+    } catch (err: unknown) {
       toast.error(err.message || 'Failed to create owner.');
     } finally {
       setLoading(false);

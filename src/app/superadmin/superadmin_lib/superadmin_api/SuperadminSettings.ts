@@ -19,7 +19,7 @@ export interface PlatformSettings {
 
 export const settingsApi = {
   getSettings(): PlatformSettings {
-    const records = db.getAll<PlatformSettings>('spg_settings' as any);
+    const records = db.getAll<PlatformSettings>('spg_settings' as unknown);
     if (records.length > 0) {
       return records[0];
     }
@@ -38,14 +38,14 @@ export const settingsApi = {
       updatedBy: 'system',
       isDeleted: false
     };
-    db.insert('spg_settings' as any, def as any);
+    db.insert('spg_settings' as unknown, def as unknown);
     return def;
   },
   
   updateSettings(data: Partial<PlatformSettings>) {
     const current = this.getSettings();
     const updated = { ...current, ...data };
-    db.update<PlatformSettings>('spg_settings' as any, current.id, updated);
+    db.update<PlatformSettings>('spg_settings' as unknown, current.id, updated);
     
     db.insert(STORAGE_KEYS.AUDIT_LOGS, {
       id: createId('aud'),

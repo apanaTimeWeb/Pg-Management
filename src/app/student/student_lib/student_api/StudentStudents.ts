@@ -100,7 +100,7 @@ export const studentsApi = {
     }
   },
 
-  onboardStudent: (data: any, actorId: string): void => {
+  onboardStudent: (data: unknown, actorId: string): void => {
     const existingUsers = db.getAll<User>(STORAGE_KEYS.USERS);
     if (existingUsers.some(u => u.email && u.email.toLowerCase() === data.email.toLowerCase() && !u.isDeleted)) {
       throw new Error('A user with this student email already exists.');
@@ -296,7 +296,7 @@ export const studentsApi = {
       });
 
       db.insert(STORAGE_KEYS.STUDENTS, {
-        id: pId, userId: uId, propertyId: propId, status: d.status as any,
+        id: pId, userId: uId, propertyId: propId, status: d.status as unknown,
         duesAmount: d.dues, walletBalance: 1000, rentAmount: 8500, pgScore: 85,
         parentName: 'Mr. ' + d.name.split(' ')[1], parentPhone: '9998887776',
         createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(),

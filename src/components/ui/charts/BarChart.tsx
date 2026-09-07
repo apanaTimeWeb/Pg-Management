@@ -3,7 +3,7 @@ import { BarChart as RechartsBar, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Res
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
-export function BarChart({ data, xAxisKey, dataKey, color = 'var(--primary)', height = 300 }: any) {
+export function BarChart({ data, xAxisKey, dataKey, color = 'var(--primary)', height = 300 }: unknown) {
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
 
@@ -11,7 +11,7 @@ export function BarChart({ data, xAxisKey, dataKey, color = 'var(--primary)', he
     setMounted(true);
   }, []);
 
-  if (!mounted) return <div style={{ height }} className="w-full animate-pulse bg-[var(--bg-page)] rounded-lg"></div>;
+  if (!mounted) return <div style={{ height }} className="w-full motion-safe:animate-pulse bg-page rounded-lg"></div>;
 
   const textColor = theme === 'dark' ? '#94A3B8' : '#64748B'; // slate-400 : slate-500
   const gridColor = theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';

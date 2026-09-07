@@ -105,7 +105,7 @@ export function OwnerCreate(data: Partial<Property> & { ownerId: string, generat
             createdBy: data.ownerId,
             updatedBy: data.ownerId,
             isDeleted: false
-          } as any);
+          } as unknown);
 
           // Add Beds
           const bedCodes = ['A', 'B', 'C', 'D', 'E'];
@@ -120,7 +120,7 @@ export function OwnerCreate(data: Partial<Property> & { ownerId: string, generat
               createdBy: data.ownerId,
               updatedBy: data.ownerId,
               isDeleted: false
-            } as any);
+            } as unknown);
           }
           roomCounter++;
         }
@@ -149,15 +149,15 @@ export function OwnerCreate(data: Partial<Property> & { ownerId: string, generat
             createdBy: data.ownerId,
             updatedBy: data.ownerId,
             isDeleted: false
-          } as any);
+          } as unknown);
 
           // 2 beds per room
           db.insert(STORAGE_KEYS.BEDS, {
             id: createId('bed'), roomId, code: 'A', status: 'vacant', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), createdBy: data.ownerId, updatedBy: data.ownerId, isDeleted: false
-          } as any);
+          } as unknown);
           db.insert(STORAGE_KEYS.BEDS, {
             id: createId('bed'), roomId, code: 'B', status: 'vacant', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), createdBy: data.ownerId, updatedBy: data.ownerId, isDeleted: false
-          } as any);
+          } as unknown);
         }
       }
     }
@@ -176,7 +176,7 @@ export function OwnerCreate(data: Partial<Property> & { ownerId: string, generat
     createdBy: data.ownerId,
     updatedBy: data.ownerId,
     isDeleted: false
-  } as any);
+  } as unknown);
 
   return newProp;
 }

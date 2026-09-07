@@ -28,7 +28,7 @@ export function OwnerTeamCreateSuccess({ successData }: OwnerTeamCreateSuccessPr
         </div>
 
         <div className="bg-page border border-border rounded-md p-6 text-left space-y-4 max-w-md mx-auto relative">
-          <button onClick={copyToClipboard} className="absolute top-4 right-4 p-2 text-secondary hover:text-primary bg-input rounded-md transition-colors" title="Copy to clipboard">
+          <button onClick={copyToClipboard} className="absolute top-4 right-4 p-2 text-secondary hover:text-primary bg-input rounded-md motion-safe:transition-colors" title="Copy to clipboard">
             <Copy className="w-4 h-4" />
           </button>
           <div>
@@ -45,7 +45,7 @@ export function OwnerTeamCreateSuccess({ successData }: OwnerTeamCreateSuccessPr
           </div>
         </div>
 
-        <Link href="/owner/team" className="inline-block mt-4 bg-primary text-white px-6 py-2.5 rounded-md font-medium hover:bg-primary-hover transition-colors text-sm">
+        <Link href="/owner/team" className="inline-block mt-4 bg-primary text-white px-6 py-2.5 rounded-md font-medium hover:bg-primary-hover motion-safe:transition-colors text-sm">
           Back to Team Directory
         </Link>
       </div>

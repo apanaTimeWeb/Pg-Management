@@ -19,7 +19,7 @@ export function OwnerPropertiesCreateAmenities({ amenities, handleToggleAmenity,
               key={am}
               type="button"
               onClick={() => handleToggleAmenity(am)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors border ${
+              className={`px-4 py-2 rounded-full text-sm font-medium motion-safe:transition-colors border ${
                 amenities.includes(am) 
                   ? 'bg-primary-subtle border-primary text-primary' 
                   : 'bg-input border-border text-secondary hover:border-text-primary'

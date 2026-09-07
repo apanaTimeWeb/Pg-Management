@@ -25,7 +25,7 @@ export function ManagerExpensesMain() {
   if (propsLoading || loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 text-[var(--primary)] animate-spin" />
+        <Loader2 className="w-8 h-8 text-primary motion-safe:animate-spin" />
       </div>
     );
   }
@@ -33,9 +33,9 @@ export function ManagerExpensesMain() {
   if (!selectedPropertyId) {
     return (
       <div className="flex flex-col items-center justify-center h-[50vh] text-center">
-        <AlertCircle className="w-16 h-16 text-[var(--warning)] mb-4" />
-        <h2 className="text-xl font-bold text-[var(--text-primary)]">Property Required</h2>
-        <p className="text-[var(--text-secondary)] mt-2">Please select a property from the top menu to view or log expenses.</p>
+        <AlertCircle className="w-16 h-16 text-warning mb-4" />
+        <h2 className="text-xl font-bold text-primary">Property Required</h2>
+        <p className="text-secondary mt-2">Please select a property from the top menu to view or log expenses.</p>
       </div>
     );
   }

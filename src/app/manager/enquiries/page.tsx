@@ -3,7 +3,7 @@ import { ManagerEnquiriesMain } from '@/app/manager/enquiries/ManagerEnquiries_c
 
 export default function ManagerEnquiriesPage() {
   return (
-    <Suspense fallback={<div className="p-6 animate-pulse text-[var(--text-secondary)]">Loading...</div>}>
+    <Suspense fallback={<div className="p-6 motion-safe:animate-pulse text-secondary">Loading...</div>}>
       <ManagerEnquiriesMain />
     </Suspense>
   );

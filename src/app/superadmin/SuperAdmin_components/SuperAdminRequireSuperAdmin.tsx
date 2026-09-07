@@ -19,7 +19,7 @@ export function SuperAdminRequireSuperAdmin({ children }: { children: React.Reac
   }, [router, pathname]);
 
   if (!authorized) {
-    return <div className="min-h-screen flex items-center justify-center bg-[var(--bg-page)] text-[var(--text-primary)]">Loading SPG Platform...</div>;
+    return <div className="min-h-screen flex items-center justify-center bg-page text-primary">Loading SPG Platform...</div>;
   }
   return <>{children}</>;
 }

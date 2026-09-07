@@ -11,12 +11,12 @@ export const managerDashboardApi = {
     if (students.length === 0) {
       // Seed Rooms & Beds
       const r1 = createId('room');
-      db.insert(STORAGE_KEYS.ROOMS, { id: r1, propertyId, number: '101', floor: 1, type: '2 Sharing', isDeleted: false } as any);
+      db.insert(STORAGE_KEYS.ROOMS, { id: r1, propertyId, number: '101', floor: 1, type: '2 Sharing', isDeleted: false } as unknown);
       
       const b1 = createId('bed');
       const b2 = createId('bed');
-      db.insert(STORAGE_KEYS.BEDS, { id: b1, propertyId, roomId: r1, code: 'A', status: 'occupied', isDeleted: false } as any);
-      db.insert(STORAGE_KEYS.BEDS, { id: b2, propertyId, roomId: r1, code: 'B', status: 'available', isDeleted: false } as any);
+      db.insert(STORAGE_KEYS.BEDS, { id: b1, propertyId, roomId: r1, code: 'A', status: 'occupied', isDeleted: false } as unknown);
+      db.insert(STORAGE_KEYS.BEDS, { id: b2, propertyId, roomId: r1, code: 'B', status: 'available', isDeleted: false } as unknown);
 
       // Seed Students
       const t1 = createId('student');
@@ -34,7 +34,7 @@ export const managerDashboardApi = {
         securityDeposit: 8000,
         checkInDate: new Date().toISOString(),
         isDeleted: false
-      } as any);
+      } as unknown);
 
       // Seed Complaints
       db.insert(STORAGE_KEYS.COMPLAINTS, {
@@ -48,7 +48,7 @@ export const managerDashboardApi = {
         priority: 'high',
         createdAt: new Date().toISOString(),
         isDeleted: false
-      } as any);
+      } as unknown);
 
       // Seed Visitors
       db.insert(STORAGE_KEYS.VISITORS || 'spg_visitors', {
@@ -62,7 +62,7 @@ export const managerDashboardApi = {
         status: 'pending',
         createdAt: new Date().toISOString(),
         isDeleted: false
-      } as any);
+      } as unknown);
       
       // Seed Enquiries
       db.insert(STORAGE_KEYS.ENQUIRIES || 'spg_enquiries', {
@@ -74,7 +74,7 @@ export const managerDashboardApi = {
         expectedDate: new Date().toISOString(),
         createdAt: new Date().toISOString(),
         isDeleted: false
-      } as any);
+      } as unknown);
     }
   },
 

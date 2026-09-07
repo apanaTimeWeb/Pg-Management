@@ -23,19 +23,19 @@ export function StaffHeader() {
         <div className="hidden md:flex items-center bg-input border border-border rounded-md overflow-hidden text-xs font-bold">
           <button 
             onClick={() => setLang('en')}
-            className={`px-3 py-1.5 transition-colors ${lang === 'en' ? 'bg-primary text-white' : 'text-secondary hover:text-primary'}`}
+            className={`px-3 py-1.5 motion-safe:transition-colors ${lang === 'en' ? 'bg-primary text-white' : 'text-secondary hover:text-primary'}`}
           >
             EN
           </button>
           <button 
             onClick={() => setLang('hi')}
-            className={`px-3 py-1.5 transition-colors ${lang === 'hi' ? 'bg-primary text-white' : 'text-secondary hover:text-primary'}`}
+            className={`px-3 py-1.5 motion-safe:transition-colors ${lang === 'hi' ? 'bg-primary text-white' : 'text-secondary hover:text-primary'}`}
           >
             हिं
           </button>
         </div>
 
-        <button className="relative p-2 text-secondary hover:bg-input rounded-full transition-colors">
+        <button className="relative p-2 text-secondary hover:bg-input rounded-full motion-safe:transition-colors">
           <Bell className="w-5 h-5" />
           <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-danger rounded-full border border-bg-page"></span>
         </button>

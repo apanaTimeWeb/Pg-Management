@@ -17,7 +17,7 @@ export const staffOperationsApi = {
     } catch (e) {}
     return { breakfast: '', lunch: '', dinner: rawValue };
   },
-  saveMenu: (propertyId: string, data: any, staffId: string) => {
+  saveMenu: (propertyId: string, data: unknown, staffId: string) => {
     const existing = staffOperationsApi.getTodayMenu(propertyId);
     if (existing) {
       db.update<any>(STORAGE_KEYS.MENUS || 'spg_menus', existing.id, { ...data, updatedAt: new Date().toISOString(), updatedBy: staffId });

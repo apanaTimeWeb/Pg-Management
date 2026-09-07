@@ -3,7 +3,7 @@ import { ManagerRoomsMain } from '@/app/manager/rooms/ManagerRooms_components/Ma
 
 export default function ManagerRoomsPage() {
   return (
-    <Suspense fallback={<div className="p-6 animate-pulse">Loading rooms...</div>}>
+    <Suspense fallback={<div className="p-6 motion-safe:animate-pulse">Loading rooms...</div>}>
       <ManagerRoomsMain />
     </Suspense>
   );

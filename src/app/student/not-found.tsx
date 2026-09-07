@@ -14,7 +14,7 @@ export default function StudentNotFound() {
       </p>
       <Link 
         href="/student/dashboard" 
-        className="bg-primary text-white px-6 py-2.5 rounded-md font-medium hover:bg-primary-hover transition-colors"
+        className="bg-primary text-white px-6 py-2.5 rounded-md font-medium hover:bg-primary-hover motion-safe:transition-colors"
       >
         Return to Dashboard
       </Link>

@@ -40,7 +40,7 @@ export function StudentMessMain() {
       studentOperationsApi.orderMeal(profile.studentId || profile.userId, profile.propertyId, type, cost, session.id);
       alert(`Ordered ${type}. ₹${cost} deducted from wallet.`);
       loadData();
-    } catch (e: any) {
+    } catch (e: unknown) {
       alert(e.message);
       setShowRecharge(true);
     }
@@ -71,7 +71,7 @@ export function StudentMessMain() {
             <div className="text-3xl font-black text-primary">₹{wallet}</div>
           </div>
         </div>
-        <button onClick={() => setShowRecharge(true)} className="w-full md:w-auto px-6 py-2 bg-primary text-white rounded font-bold shadow-sm hover:bg-primary-hover transition-colors">
+        <button onClick={() => setShowRecharge(true)} className="w-full md:w-auto px-6 py-2 bg-primary text-white rounded font-bold shadow-sm hover:bg-primary-hover motion-safe:transition-colors">
           Recharge Wallet
         </button>
       </div>
@@ -84,7 +84,7 @@ export function StudentMessMain() {
         </div>
         <div className="divide-y divide-[var(--border)]">
           {meals.map(m => (
-            <div key={m.type} className="p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:bg-input transition-colors">
+            <div key={m.type} className="p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:bg-input motion-safe:transition-colors">
               <div>
                 <div className="text-secondary text-sm font-medium uppercase tracking-wider mb-1">{m.label}</div>
                 <div className="text-lg font-bold text-primary">{m.menu || 'To be decided'}</div>
@@ -94,7 +94,7 @@ export function StudentMessMain() {
                 <button onClick={() => alert('Skipped meal.')} className="flex-1 md:flex-none px-4 py-2 border border-border text-primary rounded font-medium bg-card hover:bg-input">
                   Skip
                 </button>
-                <button onClick={() => handleOrder(m.type, m.cost)} className="flex-1 md:flex-none px-4 py-2 bg-success text-white rounded font-bold shadow-sm hover:bg-green-600 transition-colors flex items-center justify-center gap-2">
+                <button onClick={() => handleOrder(m.type, m.cost)} className="flex-1 md:flex-none px-4 py-2 bg-success text-white rounded font-bold shadow-sm hover:bg-green-600 motion-safe:transition-colors flex items-center justify-center gap-2">
                   <CheckCircle className="w-4 h-4"/> Eat (₹{m.cost})
                 </button>
               </div>
@@ -105,7 +105,7 @@ export function StudentMessMain() {
 
       {showRecharge && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="bg-card w-full max-w-sm rounded-lg shadow-2xl p-6 animate-in zoom-in-95 duration-200">
+          <div className="bg-card w-full max-w-sm rounded-lg shadow-2xl p-6 animate-in zoom-in-95 motion-safe:duration-200">
             <h2 className="text-xl font-bold text-primary mb-4 flex items-center gap-2"><Zap className="w-5 h-5 text-yellow-500"/> Recharge Wallet</h2>
             <div className="space-y-4">
               <div>

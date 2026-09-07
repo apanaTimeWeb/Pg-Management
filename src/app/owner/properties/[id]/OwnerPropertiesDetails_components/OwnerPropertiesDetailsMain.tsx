@@ -43,13 +43,13 @@ export function OwnerPropertiesDetailsMain({ params }: { params: Promise<{ id: s
       setPricingRules(api.pricing.listByProperty(id));
       
       const team = api.team.listByOwner(user.id);
-      const propertyManagers = team.filter((m: any) => m.user.assignedPropertyIds?.includes(id) && (m.profile.staffType === 'manager' || m.user.role === 'manager'));
+      const propertyManagers = team.filter((m: unknown) => m.user.assignedPropertyIds?.includes(id) && (m.profile.staffType === 'manager' || m.user.role === 'manager'));
       setManagers(propertyManagers);
     }
     setLoading(false);
   }, [id, user?.id, router]);
 
-  if (loading) return <div className="p-6 animate-pulse">Loading property details...</div>;
+  if (loading) return <div className="p-6 motion-safe:animate-pulse">Loading property details...</div>;
   if (!property) return null; // handled by redirect
 
   const handleDelete = () => {
@@ -80,7 +80,7 @@ export function OwnerPropertiesDetailsMain({ params }: { params: Promise<{ id: s
   return (
     <div className="max-w-6xl mx-auto space-y-6 pb-20">
       <div className="flex items-center gap-4 mb-2">
-        <Link href="/owner/properties" className="p-2 hover:bg-card rounded-full transition-colors text-secondary hover:text-primary">
+        <Link href="/owner/properties" className="p-2 hover:bg-card rounded-full motion-safe:transition-colors text-secondary hover:text-primary">
           <ArrowLeft className="w-5 h-5" />
         </Link>
         <div>
@@ -153,7 +153,7 @@ export function OwnerPropertiesDetailsMain({ params }: { params: Promise<{ id: s
 
           {/* Quick Actions / Preview */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Link href="/owner/rooms" className="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-all group cursor-pointer block">
+            <Link href="/owner/rooms" className="bg-card border border-border rounded-lg p-6 hover:shadow-lg motion-safe:transition-all group cursor-pointer block">
               <div className="flex justify-between items-start mb-4">
                 <div className="w-12 h-12 rounded-xl bg-[rgba(99,102,241,0.1)] flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
                   <Bed className="w-6 h-6" />
@@ -164,7 +164,7 @@ export function OwnerPropertiesDetailsMain({ params }: { params: Promise<{ id: s
               <p className="text-xs text-secondary">View and manage beds, pricing, and availability.</p>
             </Link>
 
-            <Link href="/owner/team" className="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-all group cursor-pointer block">
+            <Link href="/owner/team" className="bg-card border border-border rounded-lg p-6 hover:shadow-lg motion-safe:transition-all group cursor-pointer block">
               <div className="flex justify-between items-start mb-4">
                 <div className="w-12 h-12 rounded-xl bg-[rgba(16,185,129,0.1)] flex items-center justify-center text-success group-hover:scale-110 transition-transform">
                   <Users className="w-6 h-6" />
@@ -179,7 +179,7 @@ export function OwnerPropertiesDetailsMain({ params }: { params: Promise<{ id: s
           <div className="bg-card border border-border rounded-lg p-6 mt-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-primary">Seasonal Pricing Rules</h2>
-              <button onClick={() => setShowAddRule(!showAddRule)} className="text-sm bg-primary-subtle text-primary px-3 py-1.5 rounded-md font-medium flex items-center gap-1 hover:bg-[rgba(99,102,241,0.15)] transition-colors">
+              <button onClick={() => setShowAddRule(!showAddRule)} className="text-sm bg-primary-subtle text-primary px-3 py-1.5 rounded-md font-medium flex items-center gap-1 hover:bg-[rgba(99,102,241,0.15)] motion-safe:transition-colors">
                 {showAddRule ? <X className="w-4 h-4"/> : <Plus className="w-4 h-4"/>}
                 {showAddRule ? 'Cancel' : 'Add Rule'}
               </button>
@@ -202,7 +202,7 @@ export function OwnerPropertiesDetailsMain({ params }: { params: Promise<{ id: s
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-secondary mb-1">Type</label>
-                    <select value={newRule.adjustmentType} onChange={e=>setNewRule({...newRule, adjustmentType: e.target.value as any})} className="w-full bg-input border border-border p-2 rounded text-sm text-primary focus:outline-none focus:border-primary">
+                    <select value={newRule.adjustmentType} onChange={e=>setNewRule({...newRule, adjustmentType: e.target.value as unknown})} className="w-full bg-input border border-border p-2 rounded text-sm text-primary focus:outline-none focus:border-primary">
                       <option value="percentage">Percentage (%)</option>
                       <option value="fixed">Fixed (₹)</option>
                     </select>
@@ -262,7 +262,7 @@ export function OwnerPropertiesDetailsMain({ params }: { params: Promise<{ id: s
               <div className="text-sm text-secondary mb-4">No managers assigned to this property yet.</div>
             )}
             
-            <Link href="/owner/team" className="block text-center w-full mt-2 bg-input border border-border rounded-md py-2 text-sm font-medium text-primary hover:bg-page transition-colors">
+            <Link href="/owner/team" className="block text-center w-full mt-2 bg-input border border-border rounded-md py-2 text-sm font-medium text-primary hover:bg-page motion-safe:transition-colors">
               Assign Manager
             </Link>
           </div>
@@ -277,7 +277,7 @@ export function OwnerPropertiesDetailsMain({ params }: { params: Promise<{ id: s
             </p>
             <button 
               onClick={handleDelete}
-              className="w-full bg-danger text-white font-bold py-2 rounded-md shadow-md hover:bg-red-600 transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-danger text-white font-bold py-2 rounded-md shadow-md hover:bg-red-600 motion-safe:transition-colors flex items-center justify-center gap-2"
             >
               <Trash2 className="w-4 h-4" />
               Delete Property

@@ -72,7 +72,7 @@ export function StudentComplaintsNewMain() {
         </div>
 
         <div className="pt-6 border-t border-border flex justify-end gap-4 mt-8">
-          <button type="button" onClick={() => router.back()} className="px-6 py-3 bg-page border border-border text-primary rounded-xl font-bold text-sm hover:bg-input transition-colors">Cancel</button>
+          <button type="button" onClick={() => router.back()} className="px-6 py-3 bg-page border border-border text-primary rounded-xl font-bold text-sm hover:bg-input motion-safe:transition-colors">Cancel</button>
           <button type="submit" className="px-8 py-3 bg-primary text-white rounded-xl font-bold text-sm shadow-lg shadow-primary-subtle hover:-translate-y-0.5 transition-transform">Submit Complaint</button>
         </div>
       </form>

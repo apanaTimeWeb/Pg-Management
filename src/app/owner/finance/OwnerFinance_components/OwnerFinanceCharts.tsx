@@ -7,10 +7,10 @@ import dynamic from 'next/dynamic';
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 export interface OwnerFinanceChartsProps {
-  trendOptions: any;
-  trendSeries: any[];
+  trendOptions: unknown;
+  trendSeries: unknown[];
   expenseSeries: number[];
-  expensePieOptions: any;
+  expensePieOptions: unknown;
 }
 
 export function OwnerFinanceCharts({

@@ -6,9 +6,9 @@ import { Dispatch, SetStateAction } from 'react';
 export interface OwnerRoomsAddModalProps {
   showAddModal: boolean;
   setShowAddModal: Dispatch<SetStateAction<boolean>>;
-  formData: any;
+  formData: unknown;
   setFormData: Dispatch<SetStateAction<any>>;
-  properties: any[];
+  properties: unknown[];
   error: string;
   submitting: boolean;
   handleCreateRoom: (e: React.FormEvent) => void;
@@ -31,7 +31,7 @@ export function OwnerRoomsAddModal({
       <div className="bg-card border border-border rounded-lg shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
         <div className="flex items-center justify-between p-4 border-b border-border bg-[rgba(99,102,241,0.02)] shrink-0">
           <h2 className="text-lg font-bold text-primary">Add New Room</h2>
-          <button onClick={() => setShowAddModal(false)} className="text-secondary hover:text-danger transition-colors p-1 rounded-full hover:bg-page">
+          <button onClick={() => setShowAddModal(false)} className="text-secondary hover:text-danger motion-safe:transition-colors p-1 rounded-full hover:bg-page">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -50,7 +50,7 @@ export function OwnerRoomsAddModal({
               <select 
                 required 
                 value={formData.propertyId} 
-                onChange={e => setFormData((p: any) => ({...p, propertyId: e.target.value}))}
+                onChange={e => setFormData((p: unknown) => ({...p, propertyId: e.target.value}))}
                 className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:border-primary outline-none"
               >
                 <option value="" disabled>Select Property</option>
@@ -67,7 +67,7 @@ export function OwnerRoomsAddModal({
                   required type="number" min="0"
                   onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }}
                   value={formData.floor} 
-                  onChange={e => setFormData((p: any) => ({...p, floor: parseInt(e.target.value)||0}))}
+                  onChange={e => setFormData((p: unknown) => ({...p, floor: parseInt(e.target.value)||0}))}
                   className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:border-primary outline-none"
                 />
               </div>
@@ -76,7 +76,7 @@ export function OwnerRoomsAddModal({
                 <input 
                   required type="text" placeholder="e.g. 101"
                   value={formData.number} 
-                  onChange={e => setFormData((p: any) => ({...p, number: e.target.value}))}
+                  onChange={e => setFormData((p: unknown) => ({...p, number: e.target.value}))}
                   className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:border-primary outline-none"
                 />
               </div>
@@ -88,7 +88,7 @@ export function OwnerRoomsAddModal({
                 <select 
                   required
                   value={formData.sharing} 
-                  onChange={e => setFormData((p: any) => ({...p, sharing: parseInt(e.target.value)||1}))}
+                  onChange={e => setFormData((p: unknown) => ({...p, sharing: parseInt(e.target.value)||1}))}
                   className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:border-primary outline-none"
                 >
                   <option value="1">1 (Single)</option>
@@ -102,7 +102,7 @@ export function OwnerRoomsAddModal({
                   required type="number" min="0"
                   onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }}
                   value={formData.rentPerBed} 
-                  onChange={e => setFormData((p: any) => ({...p, rentPerBed: parseInt(e.target.value)||0}))}
+                  onChange={e => setFormData((p: unknown) => ({...p, rentPerBed: parseInt(e.target.value)||0}))}
                   className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:border-primary outline-none"
                 />
               </div>
@@ -112,7 +112,7 @@ export function OwnerRoomsAddModal({
                   required type="number" min="0"
                   onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }}
                   value={formData.deposit} 
-                  onChange={e => setFormData((p: any) => ({...p, deposit: parseInt(e.target.value)||0}))}
+                  onChange={e => setFormData((p: unknown) => ({...p, deposit: parseInt(e.target.value)||0}))}
                   className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:border-primary outline-none"
                 />
               </div>
@@ -123,7 +123,7 @@ export function OwnerRoomsAddModal({
               <input 
                 type="text" placeholder="AC, Balcony, Attached Washroom"
                 value={formData.amenities} 
-                onChange={e => setFormData((p: any) => ({...p, amenities: e.target.value}))}
+                onChange={e => setFormData((p: unknown) => ({...p, amenities: e.target.value}))}
                 className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:border-primary outline-none"
               />
             </div>
@@ -141,7 +141,7 @@ export function OwnerRoomsAddModal({
           <button 
             type="button" 
             onClick={() => setShowAddModal(false)}
-            className="px-4 py-2 text-sm font-medium text-secondary hover:text-primary transition-colors"
+            className="px-4 py-2 text-sm font-medium text-secondary hover:text-primary motion-safe:transition-colors"
           >
             Cancel
           </button>
@@ -149,7 +149,7 @@ export function OwnerRoomsAddModal({
             type="submit" 
             form="addRoomForm"
             disabled={submitting}
-            className="bg-primary text-white px-6 py-2 rounded-md text-sm font-bold hover:bg-primary-hover transition-colors disabled:opacity-50"
+            className="bg-primary text-white px-6 py-2 rounded-md text-sm font-bold hover:bg-primary-hover motion-safe:transition-colors disabled:opacity-50"
           >
             {submitting ? 'Creating...' : 'Create Room & Beds'}
           </button>

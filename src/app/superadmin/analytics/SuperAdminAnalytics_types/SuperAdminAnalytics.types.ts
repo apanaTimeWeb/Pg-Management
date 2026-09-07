@@ -7,8 +7,8 @@ export interface SuperAdminAnalyticsStats {
   occupancyPercentage: number;
   openTicketsCount: number;
   expiringPlansCount: number;
-  latestRequests: any[];
-  recentAuditLogs: any[];
+  latestRequests: unknown[];
+  recentAuditLogs: unknown[];
   ownersByPlan: Array<{ plan: string; count: number }>;
 }
 

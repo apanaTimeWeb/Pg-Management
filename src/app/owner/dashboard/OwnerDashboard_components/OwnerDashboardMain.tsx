@@ -34,7 +34,7 @@ export function OwnerDashboardMain() {
   if (propsLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full motion-safe:animate-spin"></div>
       </div>
     );
   }
@@ -51,7 +51,7 @@ export function OwnerDashboardMain() {
         </p>
         <Link 
           href="/owner/properties/create"
-          className="bg-primary text-white px-6 py-3 rounded-md font-medium hover:bg-primary-hover transition-colors"
+          className="bg-primary text-white px-6 py-3 rounded-md font-medium hover:bg-primary-hover motion-safe:transition-colors"
         >
           ➕ Create your first PG
         </Link>
@@ -60,7 +60,7 @@ export function OwnerDashboardMain() {
   }
 
   // --- CHART CONFIGURATIONS ---
-  const incomeTrendOptions: any = {
+  const incomeTrendOptions: unknown = {
     chart: { type: 'area', height: 320, toolbar: { show: false }, background: 'transparent' },
     colors: ['#10B981', '#EF4444'], // Success green for collected, Danger red for pending
     dataLabels: { enabled: false },
@@ -89,7 +89,7 @@ export function OwnerDashboardMain() {
     { name: 'Pending', data: propMetrics.collectionVsPending.map(d => d.pending) }
   ];
 
-  const expenseBreakdownOptions: any = {
+  const expenseBreakdownOptions: unknown = {
     chart: { type: 'donut', background: 'transparent' },
     labels: globalMetrics.expenseBreakdown.map(e => e.category.replace('_', ' ').toUpperCase()),
     colors: ['#F59E0B', '#3B82F6', '#8B5CF6', '#EC4899', '#6366F1'],
@@ -112,7 +112,7 @@ export function OwnerDashboardMain() {
     : 0;
 
   return (
-    <div className="pb-20 space-y-10 animate-in fade-in duration-300">
+    <div className="pb-20 space-y-10 animate-in fade-in motion-safe:duration-300">
       
       {/* --------------------------------------------------------------------- */}
       {/* SECTION 1: EXECUTIVE FINANCIAL SUMMARY                                */}

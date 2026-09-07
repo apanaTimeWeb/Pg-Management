@@ -16,9 +16,9 @@ export const getStatusConfig = (status: string): StatusBadgeConfig => {
   // Success Statuses
   if (['active', 'working', 'present', 'resolved', 'paid'].includes(s)) {
     return {
-      textClass: 'text-[var(--success)]',
-      bgClass: 'bg-[var(--success-bg)]',
-      borderClass: 'border-[var(--success)]',
+      textClass: 'text-success',
+      bgClass: 'bg-success-bg',
+      borderClass: 'border-success',
       icon: CheckCircle
     };
   }
@@ -26,9 +26,9 @@ export const getStatusConfig = (status: string): StatusBadgeConfig => {
   // Warning Statuses
   if (['pending', 'in-progress', 'expiring', 'open'].includes(s)) {
     return {
-      textClass: 'text-[var(--warning)]',
-      bgClass: 'bg-[var(--warning-bg)]',
-      borderClass: 'border-[var(--warning)]',
+      textClass: 'text-warning',
+      bgClass: 'bg-warning-bg',
+      borderClass: 'border-warning',
       icon: Clock
     };
   }
@@ -36,18 +36,18 @@ export const getStatusConfig = (status: string): StatusBadgeConfig => {
   // Danger Statuses
   if (['suspended', 'overdue', 'failed', 'broken', 'closed'].includes(s)) {
     return {
-      textClass: 'text-[var(--danger)]',
-      bgClass: 'bg-[var(--danger-bg)]',
-      borderClass: 'border-[var(--danger)]',
+      textClass: 'text-danger',
+      bgClass: 'bg-danger-bg',
+      borderClass: 'border-danger',
       icon: XCircle
     };
   }
 
   // Default / Neutral
   return {
-    textClass: 'text-[var(--info)]',
-    bgClass: 'bg-[var(--info-bg)]',
-    borderClass: 'border-[var(--info)]',
+    textClass: 'text-info',
+    bgClass: 'bg-info-bg',
+    borderClass: 'border-info',
     icon: Info
   };
 };

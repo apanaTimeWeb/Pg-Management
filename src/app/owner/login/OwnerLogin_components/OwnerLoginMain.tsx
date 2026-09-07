@@ -19,7 +19,7 @@ export function OwnerLoginMain() {
       const user = api.auth.login({ email, password, expectedRole: 'owner' });
       setSession(user);
       router.push(user.mustChangePassword ? '/owner/first-login' : '/owner/dashboard');
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err.message || 'Login failed');
     }
   };
@@ -41,7 +41,7 @@ export function OwnerLoginMain() {
           
           {error && <div className="text-danger text-sm bg-danger-bg p-3 rounded-md">{error}</div>}
           
-          <button type="submit" className="w-full bg-primary text-white font-medium py-2 rounded-md hover:bg-primary-hover transition-colors">
+          <button type="submit" className="w-full bg-primary text-white font-medium py-2 rounded-md hover:bg-primary-hover motion-safe:transition-colors">
             Login
           </button>
         </form>

@@ -3,7 +3,7 @@ import { ManagerExpensesMain } from '@/app/manager/expenses/ManagerExpenses_comp
 
 export default function ManagerExpensesPage() {
   return (
-    <Suspense fallback={<div className="p-6 animate-pulse text-[var(--text-secondary)]">Loading...</div>}>
+    <Suspense fallback={<div className="p-6 motion-safe:animate-pulse text-secondary">Loading...</div>}>
       <ManagerExpensesMain />
     </Suspense>
   );

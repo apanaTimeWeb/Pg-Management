@@ -37,8 +37,8 @@ export function OwnerFinanceTabs({
           return (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={`flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors relative ${
+              onClick={() => setActiveTab(tab.id as unknown)}
+              className={`flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 motion-safe:transition-colors relative ${
                 activeTab === tab.id ? 'text-primary' : 'text-secondary hover:text-primary'
               }`}
             >
@@ -70,7 +70,7 @@ export function OwnerFinanceTabs({
                 </tr>
               ) : (
                 paymentsData.paginated.map((p: Payment) => (
-                  <tr key={p.id} className="hover:bg-page transition-colors">
+                  <tr key={p.id} className="hover:bg-page motion-safe:transition-colors">
                     <td className="px-6 py-4 text-primary">{formatDateOnly(p.date)}</td>
                     <td className="px-6 py-4 text-primary font-medium">{p.studentId === 'dummy' ? 'Unknown Student' : p.studentId}</td>
                     <td className="px-6 py-4 uppercase text-xs font-bold text-secondary">{p.method.replace('_', ' ')}</td>
@@ -105,7 +105,7 @@ export function OwnerFinanceTabs({
                 </tr>
               ) : (
                 expensesData.paginated.map((e: Expense) => (
-                  <tr key={e.id} className="hover:bg-page transition-colors">
+                  <tr key={e.id} className="hover:bg-page motion-safe:transition-colors">
                     <td className="px-6 py-4 text-primary">{formatDateOnly(e.date)}</td>
                     <td className="px-6 py-4">
                       <span className="px-2 py-1 bg-input rounded border border-border text-xs font-bold uppercase tracking-wider text-secondary">
@@ -143,7 +143,7 @@ export function OwnerFinanceTabs({
                 </tr>
               ) : (
                 invoicesData.paginated.map((i: Invoice) => (
-                  <tr key={i.id} className="hover:bg-page transition-colors">
+                  <tr key={i.id} className="hover:bg-page motion-safe:transition-colors">
                     <td className="px-6 py-4 font-medium text-primary">{i.month}</td>
                     <td className="px-6 py-4 text-primary">{formatDateOnly(i.dueDate)}</td>
                     <td className="px-6 py-4 font-bold">{formatINR(i.amount)}</td>

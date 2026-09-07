@@ -31,7 +31,7 @@ export function StudentNav() {
             const Icon = link.icon;
             const isActive = pathname === link.href || pathname.startsWith(link.href + '/');
             return (
-              <Link key={link.href} href={link.href} className={`flex items-center gap-3 px-4 py-3 rounded-md transition-all font-medium text-sm ${isActive ? 'bg-primary text-white shadow-md' : 'text-secondary hover:bg-input hover:text-primary'}`}>
+              <Link key={link.href} href={link.href} className={`flex items-center gap-3 px-4 py-3 rounded-md motion-safe:transition-all font-medium text-sm ${isActive ? 'bg-primary text-white shadow-md' : 'text-secondary hover:bg-input hover:text-primary'}`}>
                 <Icon className="w-5 h-5" /> {link.label}
               </Link>
             );
@@ -43,10 +43,10 @@ export function StudentNav() {
         </nav>
 
         <div className="p-4 border-t border-border space-y-2">
-          <Link href="/student/sos" className="block text-center w-full px-4 py-3 bg-danger text-white rounded font-bold shadow hover:bg-red-600 transition-colors">
+          <Link href="/student/sos" className="block text-center w-full px-4 py-3 bg-danger text-white rounded font-bold shadow hover:bg-red-600 motion-safe:transition-colors">
             EMERGENCY SOS
           </Link>
-          <button onClick={() => { clearSession(); window.location.href = '/student/login'; }} className="flex items-center gap-3 px-4 py-3 w-full text-left text-danger hover:bg-danger-bg rounded-md transition-colors font-medium text-sm">
+          <button onClick={() => { clearSession(); window.location.href = '/student/login'; }} className="flex items-center gap-3 px-4 py-3 w-full text-left text-danger hover:bg-danger-bg rounded-md motion-safe:transition-colors font-medium text-sm">
             <LogOut className="w-5 h-5" /> Sign out
           </button>
         </div>

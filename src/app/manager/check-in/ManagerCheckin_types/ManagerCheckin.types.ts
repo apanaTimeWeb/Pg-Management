@@ -12,7 +12,7 @@ export interface ManagerCheckinPersonal {
 }
 
 export interface ManagerCheckinDocuments {
-  files: any[];
+  files: unknown[];
   aadharNumber: string;
   panNumber: string;
 }
@@ -62,7 +62,7 @@ export interface ManagerCheckinFormData {
 export interface ManagerCheckinStep {
   id: number;
   title: string;
-  icon: any; // Lucide icon type
+  icon: unknown; // Lucide icon type
 }
 
 // Per-step Zod validation schemas (used in useManagerCheckinForm handleNext)

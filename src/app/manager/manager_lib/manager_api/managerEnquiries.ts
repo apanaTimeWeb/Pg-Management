@@ -91,7 +91,7 @@ export const managerEnquiriesApi = {
     const enq = db.getById<Enquiry>(STORAGE_KEYS.ENQUIRIES, id);
     if (!enq) return;
 
-    const updateData: any = { 
+    const updateData: unknown = { 
       status, 
       updatedAt: new Date().toISOString(),
       updatedBy: managerId
@@ -105,7 +105,7 @@ export const managerEnquiriesApi = {
     // If converted/booked and it was a referral, grant reward
     if ((status === 'booked' || status === 'converted') && enq.referredByStudentId && enq.status !== 'booked' && enq.status !== 'converted') {
       const allStudents = db.getAll<any>(STORAGE_KEYS.STUDENTS);
-      const student = allStudents.find((t: any) => t.userId === enq.referredByStudentId);
+      const student = allStudents.find((t: unknown) => t.userId === enq.referredByStudentId);
       if (student) {
         db.update<any>(STORAGE_KEYS.STUDENTS, student.id, {
           pendingReferralRewards: (student.pendingReferralRewards || 0) + 1

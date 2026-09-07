@@ -25,7 +25,7 @@ export default function OwnerError({
       </p>
       <button
         onClick={() => reset()}
-        className="flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-medium text-white transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:scale-95"
+        className="flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-medium text-white motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:-translate-y-1 hover:shadow-lg motion-safe:active:scale-95"
       >
         <RefreshCcw className="h-4 w-4" />
         Try Again

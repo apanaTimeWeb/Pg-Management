@@ -164,7 +164,7 @@ export function StaffDashboardMain() {
                   <label className="text-xs font-bold text-secondary mb-1 block">Meal Type</label>
                   <select 
                     value={usageMeal}
-                    onChange={(e: any) => setUsageMeal(e.target.value)}
+                    onChange={(e: unknown) => setUsageMeal(e.target.value)}
                     className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm focus:border-primary outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-page"
                   >
                     <option value="Breakfast">Breakfast</option>

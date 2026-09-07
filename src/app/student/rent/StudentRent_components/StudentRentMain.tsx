@@ -88,7 +88,7 @@ export function StudentRentMain() {
         </h3>
         {invoices.length > 0 ? (
           <div className="relative border-l-2 border-border ml-3 space-y-6">
-            {invoices.filter(i => i.type === 'Rent' || !i.type).sort((a,b) => new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime()).map((invoice: any) => {
+            {invoices.filter(i => i.type === 'Rent' || !i.type).sort((a,b) => new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime()).map((invoice: unknown) => {
               const dueTime = new Date(invoice.dueDate).getTime();
               const nowTime = new Date().getTime();
               const diffDays = (dueTime - nowTime) / (1000 * 3600 * 24);
@@ -99,7 +99,7 @@ export function StudentRentMain() {
               return (
                 <div key={invoice.id} className="relative pl-6">
                   <div className={`absolute w-4 h-4 rounded-full -left-[9px] top-1 ${invoice.status === 'Paid' ? 'bg-success' : (showAsDue ? 'bg-danger' : 'bg-warning border-2 border-bg-card')}`}></div>
-                  <div className={`bg-input p-4 rounded-lg border ${showAsDue ? 'border-danger/50 shadow-sm' : 'border-border'} hover:shadow-md transition-all group flex flex-col md:flex-row md:items-center justify-between gap-4`}>
+                  <div className={`bg-input p-4 rounded-lg border ${showAsDue ? 'border-danger/50 shadow-sm' : 'border-border'} hover:shadow-md motion-safe:transition-all group flex flex-col md:flex-row md:items-center justify-between gap-4`}>
                     <div className="flex-1">
                       <div className="flex items-start justify-between mb-1">
                         <h4 className={`font-bold ${showAsDue ? 'text-danger' : 'text-primary'}`}>{invoice.title || invoice.description || 'Monthly Rent'}</h4>
@@ -123,12 +123,12 @@ export function StudentRentMain() {
                     
                     <div className="flex items-center gap-4 mt-4 md:mt-0">
                       {invoice.status === 'Pending' && (
-                        <button onClick={() => setShowPayModal(invoice)} className="px-4 py-2 bg-primary text-white rounded font-bold shadow-md shadow-primary-subtle hover:bg-primary-hover hover:-translate-y-0.5 transition-all text-sm whitespace-nowrap">
+                        <button onClick={() => setShowPayModal(invoice)} className="px-4 py-2 bg-primary text-white rounded font-bold shadow-md shadow-primary-subtle hover:bg-primary-hover hover:-translate-y-0.5 motion-safe:transition-all text-sm whitespace-nowrap">
                           Pay Now &rarr;
                         </button>
                       )}
                       {invoice.status === 'Paid' && (
-                        <button onClick={() => window.print()} className="px-3 py-2 bg-card text-primary border border-border rounded font-medium hover:bg-page transition-colors text-sm flex items-center gap-1 opacity-0 group-hover:opacity-100">
+                        <button onClick={() => window.print()} className="px-3 py-2 bg-card text-primary border border-border rounded font-medium hover:bg-page motion-safe:transition-colors text-sm flex items-center gap-1 opacity-0 group-hover:opacity-100">
                           <Download className="w-4 h-4"/> Receipt
                         </button>
                       )}
@@ -137,7 +137,7 @@ export function StudentRentMain() {
                           href={invoice.electricityBillImage}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-3 py-2 bg-input text-secondary border border-border rounded font-medium hover:text-primary transition-colors text-sm flex items-center gap-1"
+                          className="px-3 py-2 bg-input text-secondary border border-border rounded font-medium hover:text-primary motion-safe:transition-colors text-sm flex items-center gap-1"
                         >
                           View Bill
                         </a>
@@ -157,7 +157,7 @@ export function StudentRentMain() {
 
       {showPayModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="bg-card w-full max-w-md rounded-lg shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+          <div className="bg-card w-full max-w-md rounded-lg shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 motion-safe:duration-200">
             <div className="p-6 border-b border-border">
               <h2 className="text-xl font-bold text-primary">Mock Payment Gateway</h2>
             </div>

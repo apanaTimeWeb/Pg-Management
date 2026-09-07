@@ -26,7 +26,7 @@ export default function AuditLogsPage() {
     <div className="space-y-6 pb-20">
       <SuperAdminAuditLogsHeader />
 
-      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[var(--radius-lg,12px)] shadow-sm">
+      <div className="bg-card border border rounded-[var(--radius-lg,12px)] shadow-sm">
         <SuperAdminAuditLogsFilters 
           search={search} 
           setSearch={setSearch} 

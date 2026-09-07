@@ -34,7 +34,7 @@ export function OwnerSubscriptionMain() {
     setLoading(true);
     
     // Fetch owner and plan data
-    const ownerRecord = api.owners.listOwners().find((o: any) => o.userId === user.id);
+    const ownerRecord = api.owners.listOwners().find((o: unknown) => o.userId === user.id);
     const plans = api.plans.listPlans();
     
     const activePlan = ownerRecord?.planId && ownerRecord.planId !== 'none' && ownerRecord.planId !== 'None' 
@@ -63,7 +63,7 @@ export function OwnerSubscriptionMain() {
     loadSubscriptionData();
   }, [user?.id]);
 
-  const handleOpenPaymentModal = (plan: any) => {
+  const handleOpenPaymentModal = (plan: unknown) => {
     setSelectedPlan(plan);
     setPaymentForm({ cardName: '', cardNumber: '', expiry: '', cvv: '' });
     setPaymentModalOpen(true);
@@ -82,7 +82,7 @@ export function OwnerSubscriptionMain() {
         toast.success('Payment successful! Your plan has been upgraded.');
         setPaymentModalOpen(false);
         loadSubscriptionData(); // Reload UI with new plan
-      } catch (err: any) {
+      } catch (err: unknown) {
         toast.error(err.message || 'Payment processing failed.');
       } finally {
         setProcessingPayment(false);
@@ -93,7 +93,7 @@ export function OwnerSubscriptionMain() {
   if (loading || !data) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full motion-safe:animate-spin"></div>
       </div>
     );
   }
@@ -108,7 +108,7 @@ export function OwnerSubscriptionMain() {
   };
 
   return (
-    <div className="pb-20 space-y-10 animate-in fade-in duration-300">
+    <div className="pb-20 space-y-10 animate-in fade-in motion-safe:duration-300">
       
       {/* Header */}
       <div className="flex items-center justify-between">
@@ -173,7 +173,7 @@ export function OwnerSubscriptionMain() {
                 <span className="font-medium text-primary">{usage.properties} / {plan ? (plan.maxProperties === 999 ? '∞' : plan.maxProperties) : 0}</span>
               </div>
               <div className="h-2 bg-border rounded-full overflow-hidden">
-                <div className={`h-full rounded-full ${getMeterColor(usage.properties, plan?.maxProperties || 0)} transition-all duration-500`} 
+                <div className={`h-full rounded-full ${getMeterColor(usage.properties, plan?.maxProperties || 0)} motion-safe:transition-all duration-500`} 
                      style={{ width: `${Math.min(100, plan && plan.maxProperties > 0 ? (usage.properties / plan.maxProperties) * 100 : 0)}%` }} />
               </div>
             </div>
@@ -184,7 +184,7 @@ export function OwnerSubscriptionMain() {
                 <span className="font-medium text-primary">{usage.staff} / {plan ? (plan.maxStaff === 999 ? '∞' : plan.maxStaff) : 0}</span>
               </div>
               <div className="h-2 bg-border rounded-full overflow-hidden">
-                <div className={`h-full rounded-full ${getMeterColor(usage.staff, plan?.maxStaff || 0)} transition-all duration-500`} 
+                <div className={`h-full rounded-full ${getMeterColor(usage.staff, plan?.maxStaff || 0)} motion-safe:transition-all duration-500`} 
                      style={{ width: `${Math.min(100, plan && plan.maxStaff > 0 ? (usage.staff / plan.maxStaff) * 100 : 0)}%` }} />
               </div>
             </div>
@@ -210,7 +210,7 @@ export function OwnerSubscriptionMain() {
             return (
               <div 
                 key={p.id} 
-                className={`relative bg-card border rounded-lg p-6 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl
+                className={`relative bg-card border rounded-lg p-6 flex flex-col motion-safe:transition-all motion-safe:duration-300 motion-safe:hover:-translate-y-1 hover:shadow-xl
                   ${isActive ? 'border-primary shadow-[0_0_15px_rgba(99,102,241,0.15)]' : 'border-border'}
                 `}
               >
@@ -257,7 +257,7 @@ export function OwnerSubscriptionMain() {
                 <button
                   onClick={() => handleOpenPaymentModal(p)}
                   disabled={isActive}
-                  className={`w-full py-3 px-4 rounded-md text-[14px] font-bold flex items-center justify-center gap-2 transition-all
+                  className={`w-full py-3 px-4 rounded-md text-[14px] font-bold flex items-center justify-center gap-2 motion-safe:transition-all
                     ${isActive 
                       ? 'bg-page text-secondary border border-border cursor-not-allowed'
                       : 'bg-primary text-white hover:bg-primary-hover hover:shadow-lg'
@@ -280,7 +280,7 @@ export function OwnerSubscriptionMain() {
 
       {/* Payment Modal */}
       {paymentModalOpen && selectedPlan && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in motion-safe:duration-200">
           <div className="bg-card rounded-lg shadow-2xl w-full max-w-md border border-border overflow-hidden">
             
             {/* Modal Header */}
@@ -291,7 +291,7 @@ export function OwnerSubscriptionMain() {
               </div>
               <button 
                 onClick={() => !processingPayment && setPaymentModalOpen(false)}
-                className="text-secondary hover:text-primary transition-colors p-1"
+                className="text-secondary hover:text-primary motion-safe:transition-colors p-1"
                 disabled={processingPayment}
               >
                 <X className="w-5 h-5" />
@@ -317,7 +317,7 @@ export function OwnerSubscriptionMain() {
                   value={paymentForm.cardName}
                   onChange={e => setPaymentForm({...paymentForm, cardName: e.target.value})}
                   disabled={processingPayment}
-                  className="w-full bg-input border border-border rounded-md px-4 py-2.5 text-sm text-primary outline-none focus:border-primary transition-colors"
+                  className="w-full bg-input border border-border rounded-md px-4 py-2.5 text-sm text-primary outline-none focus:border-primary motion-safe:transition-colors"
                 />
               </div>
 
@@ -332,7 +332,7 @@ export function OwnerSubscriptionMain() {
                     value={paymentForm.cardNumber}
                     onChange={e => setPaymentForm({...paymentForm, cardNumber: e.target.value.replace(/\D/g, '')})}
                     disabled={processingPayment}
-                    className="w-full bg-input border border-border rounded-md pl-10 pr-4 py-2.5 text-sm text-primary outline-none focus:border-primary transition-colors"
+                    className="w-full bg-input border border-border rounded-md pl-10 pr-4 py-2.5 text-sm text-primary outline-none focus:border-primary motion-safe:transition-colors"
                   />
                   <CreditCard className="w-4 h-4 text-secondary absolute left-3.5 top-3" />
                 </div>
@@ -353,7 +353,7 @@ export function OwnerSubscriptionMain() {
                       setPaymentForm({...paymentForm, expiry: val})
                     }}
                     disabled={processingPayment}
-                    className="w-full bg-input border border-border rounded-md px-4 py-2.5 text-sm text-primary outline-none focus:border-primary transition-colors"
+                    className="w-full bg-input border border-border rounded-md px-4 py-2.5 text-sm text-primary outline-none focus:border-primary motion-safe:transition-colors"
                   />
                 </div>
                 <div>
@@ -366,7 +366,7 @@ export function OwnerSubscriptionMain() {
                     value={paymentForm.cvv}
                     onChange={e => setPaymentForm({...paymentForm, cvv: e.target.value.replace(/\D/g, '')})}
                     disabled={processingPayment}
-                    className="w-full bg-input border border-border rounded-md px-4 py-2.5 text-sm text-primary outline-none focus:border-primary transition-colors"
+                    className="w-full bg-input border border-border rounded-md px-4 py-2.5 text-sm text-primary outline-none focus:border-primary motion-safe:transition-colors"
                   />
                 </div>
               </div>
@@ -375,10 +375,10 @@ export function OwnerSubscriptionMain() {
               <button
                 type="submit"
                 disabled={processingPayment}
-                className="w-full mt-2 py-3 bg-primary text-white text-[14px] font-bold rounded-md hover:bg-primary-hover transition-colors flex justify-center items-center gap-2 shadow-md disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full mt-2 py-3 bg-primary text-white text-[14px] font-bold rounded-md hover:bg-primary-hover motion-safe:transition-colors flex justify-center items-center gap-2 shadow-md disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {processingPayment ? (
-                  <><Loader2 className="w-4 h-4 animate-spin" /> Processing Secure Payment...</>
+                  <><Loader2 className="w-4 h-4 motion-safe:animate-spin" /> Processing Secure Payment...</>
                 ) : (
                   <><CheckCircle2 className="w-4 h-4" /> Pay ₹{selectedPlan.price.toLocaleString('en-IN')}</>
                 )}

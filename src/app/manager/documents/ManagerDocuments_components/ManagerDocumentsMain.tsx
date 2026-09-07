@@ -30,19 +30,19 @@ export function ManagerDocumentsMain() {
   const totalPages = Math.ceil(documents.length / itemsPerPage);
   const paginatedData = documents.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
-  if (ctxLoading) return <div className="p-6 text-[var(--text-secondary)]">Loading...</div>;
-  if (!selectedPropertyId) return <div className="p-6 text-center text-[var(--text-secondary)]">Property Required</div>;
+  if (ctxLoading) return <div className="p-6 text-secondary">Loading...</div>;
+  if (!selectedPropertyId) return <div className="p-6 text-center text-secondary">Property Required</div>;
 
   return (
     <div className="space-y-6 pb-20">
       <div>
-        <h1 className="text-[24px] font-bold text-[var(--text-primary)]">Student Documents</h1>
-        <p className="text-sm text-[var(--text-secondary)]">Verify uploaded IDs and agreements.</p>
+        <h1 className="text-[24px] font-bold text-primary">Student Documents</h1>
+        <p className="text-sm text-secondary">Verify uploaded IDs and agreements.</p>
       </div>
 
-      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm">
+      <div className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm">
         <table className="w-full text-left text-sm">
-          <thead className="bg-[var(--bg-card)] border-b border-[var(--border)] text-[var(--text-secondary)] sticky top-0 z-10 shadow-sm shadow-black/5">
+          <thead className="bg-card border-b border text-secondary sticky top-0 z-10 shadow-sm shadow-black/5">
             <tr>
               <th className="p-4 font-semibold uppercase tracking-wider text-[11px]">Student ID</th>
               <th className="p-4 font-semibold uppercase tracking-wider text-[11px]">Document Type</th>
@@ -52,16 +52,16 @@ export function ManagerDocumentsMain() {
           </thead>
           <tbody className="divide-y divide-[var(--border)]">
             {paginatedData.map(d => (
-              <tr key={d.id} className="hover:bg-[var(--bg-page)] transition-colors">
-                <td className="p-4 font-medium text-[var(--text-primary)]">{d.uploaderId?.slice(0,8) || d.studentId?.slice(0,8) || 'student'}...</td>
-                <td className="p-4 text-[var(--text-secondary)] uppercase text-xs">{d.type || d.documentType || 'Aadhaar'}</td>
+              <tr key={d.id} className="hover:bg-page motion-safe:transition-colors">
+                <td className="p-4 font-medium text-primary">{d.uploaderId?.slice(0,8) || d.studentId?.slice(0,8) || 'student'}...</td>
+                <td className="p-4 text-secondary uppercase text-xs">{d.type || d.documentType || 'Aadhaar'}</td>
                 <td className="p-4">
-                  <span className={`px-2 py-1 rounded text-xs font-bold ${d.status === 'verified' ? 'bg-[rgba(16,185,129,0.1)] text-[var(--success)]' : 'bg-[var(--warning-bg)] text-[var(--warning)]'}`}>
+                  <span className={`px-2 py-1 rounded text-xs font-bold ${d.status === 'verified' ? 'bg-[rgba(16,185,129,0.1)] text-success' : 'bg-warning-bg text-warning'}`}>
                     {d.status || 'pending'}
                   </span>
                 </td>
                 <td className="p-4 flex justify-end">
-                  <button className="p-2 hover:bg-[var(--bg-input)] rounded border border-transparent hover:border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--primary)] transition-colors">
+                  <button className="p-2 hover:bg-input rounded border border-transparent hover:border text-secondary hover:text-primary motion-safe:transition-colors">
                     <Download className="w-4 h-4" />
                   </button>
                 </td>
@@ -69,7 +69,7 @@ export function ManagerDocumentsMain() {
             ))}
             {paginatedData.length === 0 && (
               <tr>
-                <td colSpan={4} className="p-8 text-center text-[var(--text-secondary)]">No documents uploaded.</td>
+                <td colSpan={4} className="p-8 text-center text-secondary">No documents uploaded.</td>
               </tr>
             )}
           </tbody>

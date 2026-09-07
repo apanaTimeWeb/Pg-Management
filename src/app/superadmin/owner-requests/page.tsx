@@ -18,12 +18,12 @@ export default function SuperAdminOwnerRequestsPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-[22px] font-bold text-[var(--text-primary)]">Owner Requests</h1>
-          <p className="text-[var(--text-secondary)] text-[14px]">Manage incoming inquiries for new PGs.</p>
+          <h1 className="text-[22px] font-bold text-primary">Owner Requests</h1>
+          <p className="text-secondary text-[14px]">Manage incoming inquiries for new PGs.</p>
         </div>
       </div>
 
-      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[var(--radius-lg,12px)] shadow-sm">
+      <div className="bg-card border border rounded-[var(--radius-lg,12px)] shadow-sm">
         <SuperAdminOwnerRequestsFilters 
           filter={dataHook.filter}
           setFilter={dataHook.setFilter}

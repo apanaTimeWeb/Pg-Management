@@ -16,7 +16,7 @@ export function OwnerMaintenanceMain() {
   const { page: currentPage, setPage: setCurrentPage } = useTableSync();
 
   useEffect(() => {
-    let allComplaints: any[] = [];
+    let allComplaints: unknown[] = [];
     
     if (filterPropertyId === 'all') {
       properties.forEach(p => {
@@ -76,7 +76,7 @@ export function OwnerMaintenanceMain() {
           </div>
           
           {paginatedData.map(c => (
-            <div key={c.id} className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 items-center p-4 rounded-xl border border-border hover:bg-input transition-colors">
+            <div key={c.id} className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 items-center p-4 rounded-xl border border-border hover:bg-input motion-safe:transition-colors">
               <div className="md:col-span-2 flex justify-between md:block">
                 <span className="md:hidden text-xs font-bold text-secondary uppercase">PG & Room</span>
                 <div>

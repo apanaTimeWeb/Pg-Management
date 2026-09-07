@@ -27,7 +27,7 @@ export const parentOperationsApi = {
   },
 
   getChildAlerts: (studentId: string) => {
-    const alerts: any[] = [];
+    const alerts: unknown[] = [];
     
     // Check SOS
     const sos = db.getAll<any>('spg_sos').filter(s => s.studentId === studentId && s.status === 'active' && !s.isDeleted);

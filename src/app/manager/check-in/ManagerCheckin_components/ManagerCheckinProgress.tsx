@@ -14,14 +14,14 @@ export function ManagerCheckinProgress({ step }: Props) {
         const isPassed = s.id < step;
         return (
           <div key={s.id} className="flex flex-col items-center gap-2 min-w-[64px]">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-colors ${
-              isActive ? 'border-[var(--primary)] bg-[var(--primary-subtle)] text-[var(--primary)]' : 
-              isPassed ? 'border-[var(--success)] bg-[var(--success)] text-white' : 
-              'border-[var(--border)] bg-[var(--bg-input)] text-[var(--text-secondary)]'
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 motion-safe:transition-colors ${
+              isActive ? 'border-primary bg-primary-subtle text-primary' : 
+              isPassed ? 'border-success bg-success text-white' : 
+              'border bg-input text-secondary'
             }`}>
               <Icon className="w-4 h-4" />
             </div>
-            <span className={`text-[10px] font-medium hidden sm:block ${isActive ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'}`}>
+            <span className={`text-[10px] font-medium hidden sm:block ${isActive ? 'text-primary' : 'text-secondary'}`}>
               {s.title}
             </span>
           </div>

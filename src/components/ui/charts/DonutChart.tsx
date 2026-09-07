@@ -3,7 +3,7 @@ import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recha
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
-export function DonutChart({ data, dataKey = 'value', nameKey = 'name', height = 300 }: any) {
+export function DonutChart({ data, dataKey = 'value', nameKey = 'name', height = 300 }: unknown) {
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
 
@@ -11,7 +11,7 @@ export function DonutChart({ data, dataKey = 'value', nameKey = 'name', height =
     setMounted(true);
   }, []);
 
-  if (!mounted) return <div style={{ height }} className="w-full animate-pulse bg-[var(--bg-page)] rounded-lg"></div>;
+  if (!mounted) return <div style={{ height }} className="w-full motion-safe:animate-pulse bg-page rounded-lg"></div>;
 
   const tooltipBg = theme === 'dark' ? 'var(--bg-card)' : '#FFFFFF';
   const tooltipBorder = theme === 'dark' ? 'var(--border)' : '#E2E8F0';
@@ -35,7 +35,7 @@ export function DonutChart({ data, dataKey = 'value', nameKey = 'name', height =
             nameKey={nameKey}
             stroke="none"
           >
-            {data.map((entry: any, index: number) => (
+            {data.map((entry: unknown, index: number) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>

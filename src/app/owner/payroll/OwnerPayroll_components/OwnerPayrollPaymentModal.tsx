@@ -7,10 +7,10 @@ import { Dispatch, SetStateAction } from 'react';
 export interface OwnerPayrollPaymentModalProps {
   paymentModalOpen: boolean;
   setPaymentModalOpen: Dispatch<SetStateAction<boolean>>;
-  selectedStaff: any;
+  selectedStaff: unknown;
   currentDate: Date;
   processingPayment: boolean;
-  paymentForm: any;
+  paymentForm: unknown;
   setPaymentForm: Dispatch<SetStateAction<any>>;
   handleProcessPayment: (e: React.FormEvent) => void;
 }
@@ -28,7 +28,7 @@ export function OwnerPayrollPaymentModal({
   if (!paymentModalOpen || !selectedStaff) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in motion-safe:duration-200">
       <div className="bg-card rounded-lg shadow-2xl w-full max-w-md border border-border overflow-hidden">
         <div className="px-6 py-4 border-b border-border flex items-center justify-between bg-page">
           <div>
@@ -37,7 +37,7 @@ export function OwnerPayrollPaymentModal({
           </div>
           <button 
             onClick={() => !processingPayment && setPaymentModalOpen(false)}
-            className="text-secondary hover:text-primary transition-colors p-1"
+            className="text-secondary hover:text-primary motion-safe:transition-colors p-1"
             disabled={processingPayment}
           >
             <X className="w-5 h-5" />
@@ -58,7 +58,7 @@ export function OwnerPayrollPaymentModal({
                   key={mode}
                   type="button"
                   onClick={() => setPaymentForm({...paymentForm, mode})}
-                  className={`py-2 px-3 rounded-md text-[13px] font-semibold border transition-all ${
+                  className={`py-2 px-3 rounded-md text-[13px] font-semibold border motion-safe:transition-all ${
                     paymentForm.mode === mode 
                       ? 'border-primary bg-primary-subtle text-primary'
                       : 'border-border bg-page text-secondary hover:border-text-secondary'
@@ -71,7 +71,7 @@ export function OwnerPayrollPaymentModal({
           </div>
 
           {paymentForm.mode !== 'Cash' && (
-            <div className="animate-in fade-in duration-200">
+            <div className="animate-in fade-in motion-safe:duration-200">
               <label className="block text-[12px] font-semibold text-secondary mb-1.5 uppercase tracking-wider">Transaction ID (Optional)</label>
               <input 
                 type="text" 
@@ -79,7 +79,7 @@ export function OwnerPayrollPaymentModal({
                 value={paymentForm.transactionId}
                 onChange={e => setPaymentForm({...paymentForm, transactionId: e.target.value})}
                 disabled={processingPayment}
-                className="w-full bg-input border border-border rounded-md px-4 py-2.5 text-sm text-primary outline-none focus:border-primary transition-colors"
+                className="w-full bg-input border border-border rounded-md px-4 py-2.5 text-sm text-primary outline-none focus:border-primary motion-safe:transition-colors"
               />
             </div>
           )}
@@ -87,10 +87,10 @@ export function OwnerPayrollPaymentModal({
           <button
             type="submit"
             disabled={processingPayment}
-            className="w-full mt-4 py-3 bg-primary text-white text-[14px] font-bold rounded-md hover:bg-primary-hover transition-colors flex justify-center items-center gap-2 shadow-md disabled:opacity-70 disabled:cursor-not-allowed"
+            className="w-full mt-4 py-3 bg-primary text-white text-[14px] font-bold rounded-md hover:bg-primary-hover motion-safe:transition-colors flex justify-center items-center gap-2 shadow-md disabled:opacity-70 disabled:cursor-not-allowed"
           >
             {processingPayment ? (
-              <><Loader2 className="w-4 h-4 animate-spin" /> Recording Payment...</>
+              <><Loader2 className="w-4 h-4 motion-safe:animate-spin" /> Recording Payment...</>
             ) : (
               <><Banknote className="w-4 h-4" /> Mark as Paid</>
             )}

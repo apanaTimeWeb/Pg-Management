@@ -3,7 +3,7 @@
 import { Image as ImageIcon } from 'lucide-react';
 
 export interface OwnerPropertiesCreatePhotosProps {
-  formData: any;
+  formData: unknown;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
 }
 
@@ -18,7 +18,7 @@ export function OwnerPropertiesCreatePhotos({ formData, handleInputChange }: Own
         <div className="space-y-1">
           <label className="text-xs font-medium text-secondary">Photo URLs (comma separated)</label>
           <textarea name="photos" value={formData.photos} onChange={handleInputChange} rows={3}
-            className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-none"
+            className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary motion-safe:transition-all resize-none"
             placeholder="https://example.com/photo1.jpg, https://example.com/photo2.jpg"
           />
           <p className="text-[10px] text-secondary mt-1">Leave empty to use a beautiful default placeholder image.</p>

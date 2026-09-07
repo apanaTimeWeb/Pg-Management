@@ -14,7 +14,7 @@ interface ManagerGateLogsFormProps {
 export function ManagerGateLogsForm({ handleAdd }: ManagerGateLogsFormProps) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<GateLogFormData>({
-    resolver: zodResolver(GateLogFormSchema) as any,
+    resolver: zodResolver(GateLogFormSchema) as unknown,
     defaultValues: { studentId: '', type: 'entry', isLate: false },
   });
 
@@ -26,31 +26,31 @@ export function ManagerGateLogsForm({ handleAdd }: ManagerGateLogsFormProps) {
   };
 
   return (
-    <div className="bg-[var(--bg-card)] border border-[var(--border)] p-5 rounded-[var(--radius-lg,12px)] sticky top-6">
-      <h2 className="font-bold text-lg text-[var(--text-primary)] mb-4">Manual Entry</h2>
+    <div className="bg-card border border p-5 rounded-[var(--radius-lg,12px)] sticky top-6">
+      <h2 className="font-bold text-lg text-primary mb-4">Manual Entry</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
-          <label className="block text-sm text-[var(--text-secondary)] mb-1">Student ID</label>
+          <label className="block text-sm text-secondary mb-1">Student ID</label>
           <input
             type="text"
             {...register('studentId')}
             placeholder="e.g. ten_123"
-            className="w-full bg-[var(--bg-input)] border border-[var(--border)] px-3 py-2 rounded text-[var(--text-primary)] focus:outline-none focus:border-[var(--primary)]"
+            className="w-full bg-input border border px-3 py-2 rounded text-primary focus:outline-none focus:border-primary"
           />
-          {errors.studentId && <p className="text-xs text-[var(--danger)] mt-1">{errors.studentId.message}</p>}
+          {errors.studentId && <p className="text-xs text-danger mt-1">{errors.studentId.message}</p>}
         </div>
         <div>
-          <label className="block text-sm text-[var(--text-secondary)] mb-1">Type</label>
+          <label className="block text-sm text-secondary mb-1">Type</label>
           <select
             {...register('type')}
-            className="w-full bg-[var(--bg-input)] border border-[var(--border)] px-3 py-2 rounded text-[var(--text-primary)] focus:outline-none focus:border-[var(--primary)]"
+            className="w-full bg-input border border px-3 py-2 rounded text-primary focus:outline-none focus:border-primary"
           >
             <option value="entry">Entry</option>
             <option value="exit">Exit</option>
           </select>
         </div>
         {watchedType === 'entry' && (
-          <label className="flex items-center gap-2 cursor-pointer text-sm text-[var(--text-primary)] mt-2">
+          <label className="flex items-center gap-2 cursor-pointer text-sm text-primary mt-2">
             <input
               type="checkbox"
               {...register('isLate')}
@@ -59,7 +59,7 @@ export function ManagerGateLogsForm({ handleAdd }: ManagerGateLogsFormProps) {
             Flag as Late Entry
           </label>
         )}
-        <button type="submit" className="w-full py-2 bg-[var(--primary)] text-white rounded font-medium mt-4">
+        <button type="submit" className="w-full py-2 bg-primary text-white rounded font-medium mt-4">
           Log {watchedType}
         </button>
       </form>

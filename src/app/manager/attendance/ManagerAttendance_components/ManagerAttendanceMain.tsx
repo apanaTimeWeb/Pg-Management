@@ -23,16 +23,16 @@ export function ManagerAttendanceMain() {
   const { handleMark } = ManagerUseManagerAttendanceActions(selectedPropertyId, user?.id, loadData);
 
   if (ctxLoading) return (
-    <div className="p-8 text-center text-[var(--text-secondary)] animate-pulse">
+    <div className="p-8 text-center text-secondary motion-safe:animate-pulse">
       Loading student roster...
     </div>
   );
   
   if (!selectedPropertyId) return (
     <div className="p-8 text-center flex flex-col items-center">
-      <Building className="w-12 h-12 text-[var(--text-secondary)] mb-4 opacity-50" />
-      <h3 className="text-lg font-bold text-[var(--text-primary)]">Property Required</h3>
-      <p className="text-sm text-[var(--text-secondary)]">Please select a property from the top navigation to mark attendance.</p>
+      <Building className="w-12 h-12 text-secondary mb-4 opacity-50" />
+      <h3 className="text-lg font-bold text-primary">Property Required</h3>
+      <p className="text-sm text-secondary">Please select a property from the top navigation to mark attendance.</p>
     </div>
   );
 
@@ -56,7 +56,7 @@ export function ManagerAttendanceMain() {
         pendingCount={pendingCount} 
       />
 
-      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm">
+      <div className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm">
         <ManagerAttendanceTable 
           paginatedData={paginatedData}
           attendance={attendance}

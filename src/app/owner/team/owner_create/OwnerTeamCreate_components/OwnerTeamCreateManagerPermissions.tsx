@@ -1,8 +1,8 @@
 // RESPONSIBILITY: Renders the OwnerTeamCreateManagerPermissions component. Receives data via props/hooks.
 
 export interface OwnerTeamCreateManagerPermissionsProps {
-  formData: any;
-  handlePermissionToggle: (key: any) => void;
+  formData: unknown;
+  handlePermissionToggle: (key: unknown) => void;
 }
 
 export function OwnerTeamCreateManagerPermissions({ formData, handlePermissionToggle }: OwnerTeamCreateManagerPermissionsProps) {
@@ -23,7 +23,7 @@ export function OwnerTeamCreateManagerPermissions({ formData, handlePermissionTo
             { key: 'canOnboardStudent', label: 'Onboard Students', desc: 'Allow manager to add new students to the system.' },
             { key: 'canBroadcast', label: 'Send Broadcasts', desc: 'Allow manager to send announcements to all students.' }
           ].map(perm => (
-            <label key={perm.key} className="flex items-start gap-3 p-3 rounded-lg border border-border bg-page cursor-pointer hover:border-primary-subtle transition-colors">
+            <label key={perm.key} className="flex items-start gap-3 p-3 rounded-lg border border-border bg-page cursor-pointer hover:border-primary-subtle motion-safe:transition-colors">
               <input 
                 type="checkbox"
                 className="mt-1 accent-[var(--primary)] w-4 h-4"

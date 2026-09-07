@@ -35,7 +35,7 @@ export function ManagerUseManagerFinance(): UseManagerFinanceReturn {
     
     // Map student names
     const enrichedInvoices = allInvoices.map(inv => {
-      const studentData = students.find((t: any) => t.profile.id === inv.studentId);
+      const studentData = students.find((t: unknown) => t.profile.id === inv.studentId);
       return {
         ...inv,
         studentName: studentData?.user?.name || 'Unknown',

@@ -104,6 +104,6 @@ export const mealsApi = {
       updatedBy: actorId,
       isDeleted: false
     };
-    db.insert(STORAGE_KEYS.BROADCASTS, broadcast as any);
+    db.insert(STORAGE_KEYS.BROADCASTS, broadcast as unknown);
   }
 };

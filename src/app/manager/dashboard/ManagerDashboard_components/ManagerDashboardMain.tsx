@@ -25,7 +25,7 @@ export function ManagerDashboardMain() {
   } = ManagerUseManagerDashboard();
 
   if (ctxLoading || loading) {
-    return <div className="p-6 animate-pulse text-slate-400">Loading operational dashboard...</div>;
+    return <div className="p-6 motion-safe:animate-pulse text-slate-400">Loading operational dashboard...</div>;
   }
 
   if (properties.length === 0 || !selectedPropertyId) {

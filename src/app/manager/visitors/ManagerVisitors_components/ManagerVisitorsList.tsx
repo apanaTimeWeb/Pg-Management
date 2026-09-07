@@ -11,33 +11,33 @@ export function ManagerVisitorsList({ visitors, handleStatus }: ManagerVisitorsL
   return (
     <div className="space-y-4">
       {visitors.map(v => (
-        <div key={v.id} className="bg-[var(--bg-card)] border border-[var(--border)] p-4 rounded-[var(--radius-lg,12px)] flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+        <div key={v.id} className="bg-card border border p-4 rounded-[var(--radius-lg,12px)] flex flex-col sm:flex-row justify-between sm:items-center gap-4">
           <div>
-            <h3 className="font-bold text-[var(--text-primary)]">{v.name}</h3>
-            <p className="text-sm text-[var(--text-secondary)]">Visiting: {v.studentName || 'Student'} (Room {v.roomNumber || '-'})</p>
-            <div className="text-xs text-[var(--text-secondary)] mt-1">Phone: {v.phone} • Relation: {v.relation}</div>
-            <div className="mt-2 text-xs font-medium px-2 py-1 bg-[var(--bg-input)] inline-block rounded text-[var(--text-primary)]">
+            <h3 className="font-bold text-primary">{v.name}</h3>
+            <p className="text-sm text-secondary">Visiting: {v.studentName || 'Student'} (Room {v.roomNumber || '-'})</p>
+            <div className="text-xs text-secondary mt-1">Phone: {v.phone} • Relation: {v.relation}</div>
+            <div className="mt-2 text-xs font-medium px-2 py-1 bg-input inline-block rounded text-primary">
               Status: {v.status}
             </div>
           </div>
           <div className="flex gap-2">
             {v.status === 'pending' && (
               <>
-                <button onClick={() => handleStatus(v.id, 'approved')} className="px-3 py-1.5 bg-[var(--success-bg)] text-[var(--success)] rounded flex items-center gap-1 hover:bg-green-900 border border-[var(--success)]"><Check className="w-4 h-4"/> Approve</button>
-                <button onClick={() => handleStatus(v.id, 'rejected')} className="px-3 py-1.5 bg-[var(--danger-bg)] text-[var(--danger)] rounded flex items-center gap-1 hover:bg-red-900 border border-[var(--danger)]"><X className="w-4 h-4"/> Reject</button>
+                <button onClick={() => handleStatus(v.id, 'approved')} className="px-3 py-1.5 bg-success-bg text-success rounded flex items-center gap-1 hover:bg-green-900 border border-success"><Check className="w-4 h-4"/> Approve</button>
+                <button onClick={() => handleStatus(v.id, 'rejected')} className="px-3 py-1.5 bg-danger-bg text-danger rounded flex items-center gap-1 hover:bg-red-900 border border-danger"><X className="w-4 h-4"/> Reject</button>
               </>
             )}
             {v.status === 'approved' && (
-              <button onClick={() => handleStatus(v.id, 'checked_in')} className="px-3 py-1.5 bg-[var(--primary-subtle)] text-[var(--primary)] rounded flex items-center gap-1 border border-[var(--primary)]"><LogIn className="w-4 h-4"/> Check-in</button>
+              <button onClick={() => handleStatus(v.id, 'checked_in')} className="px-3 py-1.5 bg-primary-subtle text-primary rounded flex items-center gap-1 border border-primary"><LogIn className="w-4 h-4"/> Check-in</button>
             )}
             {v.status === 'checked_in' && (
-              <button onClick={() => handleStatus(v.id, 'checked_out')} className="px-3 py-1.5 bg-[var(--bg-input)] text-[var(--text-primary)] rounded flex items-center gap-1 border border-[var(--border)] hover:bg-[var(--primary-subtle)] hover:text-[var(--primary)]"><LogOut className="w-4 h-4"/> Check-out</button>
+              <button onClick={() => handleStatus(v.id, 'checked_out')} className="px-3 py-1.5 bg-input text-primary rounded flex items-center gap-1 border border hover:bg-primary-subtle hover:text-primary"><LogOut className="w-4 h-4"/> Check-out</button>
             )}
           </div>
         </div>
       ))}
       {visitors.length === 0 && (
-        <div className="text-center p-8 text-[var(--text-secondary)] bg-[var(--bg-card)] rounded-[var(--radius-lg,12px)] border border-[var(--border)]">
+        <div className="text-center p-8 text-secondary bg-card rounded-[var(--radius-lg,12px)] border border">
           No visitors found.
         </div>
       )}

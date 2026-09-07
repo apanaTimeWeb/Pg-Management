@@ -98,7 +98,7 @@ export function OwnerFoodMain() {
   };
 
   const handleMealChange = (day: keyof FoodMenu, meal: 'breakfast'|'lunch'|'dinner', value: string) => {
-    const current = parseDay((menu as any)[day]);
+    const current = parseDay((menu as unknown)[day]);
     current[meal] = value;
     setMenu(prev => ({ ...prev, [day]: JSON.stringify(current) }));
   };
@@ -138,7 +138,7 @@ export function OwnerFoodMain() {
       </div>
 
       {loading ? (
-        <div className="animate-pulse h-[400px] bg-card rounded-lg border border-border"></div>
+        <div className="motion-safe:animate-pulse h-[400px] bg-card rounded-lg border border-border"></div>
       ) : (
         <>
           {successMsg && (
@@ -158,7 +158,7 @@ export function OwnerFoodMain() {
               </p>
               <button 
                 onClick={() => setIsEditing(true)}
-                className="bg-primary text-white px-6 py-3 rounded-md text-sm font-bold hover:bg-primary-hover transition-colors flex items-center gap-2"
+                className="bg-primary text-white px-6 py-3 rounded-md text-sm font-bold hover:bg-primary-hover motion-safe:transition-colors flex items-center gap-2"
               >
                 <PlusCircle className="w-5 h-5" />
                 Add Your Food Menu
@@ -182,14 +182,14 @@ export function OwnerFoodMain() {
                 <div className="flex items-center gap-3">
                   <button 
                     onClick={handleFillDummyData}
-                    className="bg-input border border-border text-secondary hover:text-primary px-4 py-2.5 rounded-md text-sm font-bold transition-colors"
+                    className="bg-input border border-border text-secondary hover:text-primary px-4 py-2.5 rounded-md text-sm font-bold motion-safe:transition-colors"
                   >
                     Fill Dummy Data
                   </button>
                   <button 
                     onClick={handleSave}
                     disabled={saving}
-                    className="bg-primary text-white px-5 py-2.5 rounded-md text-sm font-bold hover:bg-primary-hover transition-colors flex items-center gap-2 disabled:opacity-70"
+                    className="bg-primary text-white px-5 py-2.5 rounded-md text-sm font-bold hover:bg-primary-hover motion-safe:transition-colors flex items-center gap-2 disabled:opacity-70"
                   >
                     <Save className="w-4 h-4" />
                     {saving ? 'Saving...' : 'Save Menu'}
@@ -208,7 +208,7 @@ export function OwnerFoodMain() {
               <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
                   {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day) => {
-                    const dayData = parseDay((menu as any)[day]);
+                    const dayData = parseDay((menu as unknown)[day]);
                     return (
                       <div key={day} className="space-y-3 bg-page border border-border rounded-lg p-4 shadow-sm">
                         <label className="text-sm font-bold text-primary capitalize flex items-center gap-2 mb-2 pb-2 border-b border-border">
@@ -222,7 +222,7 @@ export function OwnerFoodMain() {
                               value={dayData.breakfast}
                               onChange={(e) => handleMealChange(day as keyof FoodMenu, 'breakfast', e.target.value)}
                               placeholder="e.g. Poha, Tea"
-                              className="w-full bg-input border border-border rounded-sm px-3 py-2 text-sm text-primary focus:border-primary outline-none transition-colors"
+                              className="w-full bg-input border border-border rounded-sm px-3 py-2 text-sm text-primary focus:border-primary outline-none motion-safe:transition-colors"
                             />
                           </div>
                           <div>
@@ -231,7 +231,7 @@ export function OwnerFoodMain() {
                               value={dayData.lunch}
                               onChange={(e) => handleMealChange(day as keyof FoodMenu, 'lunch', e.target.value)}
                               placeholder="e.g. Dal, Rice, Roti"
-                              className="w-full bg-input border border-border rounded-sm px-3 py-2 text-sm text-primary focus:border-primary outline-none transition-colors"
+                              className="w-full bg-input border border-border rounded-sm px-3 py-2 text-sm text-primary focus:border-primary outline-none motion-safe:transition-colors"
                             />
                           </div>
                           <div>
@@ -240,7 +240,7 @@ export function OwnerFoodMain() {
                               value={dayData.dinner}
                               onChange={(e) => handleMealChange(day as keyof FoodMenu, 'dinner', e.target.value)}
                               placeholder={day === 'sunday' ? "e.g. Paneer, Roti" : "e.g. Chicken, Roti"}
-                              className="w-full bg-input border border-border rounded-sm px-3 py-2 text-sm text-primary focus:border-primary outline-none transition-colors"
+                              className="w-full bg-input border border-border rounded-sm px-3 py-2 text-sm text-primary focus:border-primary outline-none motion-safe:transition-colors"
                             />
                           </div>
                         </div>
@@ -289,7 +289,7 @@ export function OwnerFoodMain() {
                 </div>
                 <button 
                   onClick={() => setIsEditing(true)}
-                  className="bg-input border border-border text-primary px-4 py-2 rounded-md text-sm font-bold hover:bg-border transition-colors flex items-center gap-2"
+                  className="bg-input border border-border text-primary px-4 py-2 rounded-md text-sm font-bold hover:bg-border motion-safe:transition-colors flex items-center gap-2"
                 >
                   <Edit3 className="w-4 h-4" />
                   Edit Menu
@@ -299,9 +299,9 @@ export function OwnerFoodMain() {
               <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
                   {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day) => {
-                    const dayData = parseDay((menu as any)[day]);
+                    const dayData = parseDay((menu as unknown)[day]);
                     return (
-                      <div key={day} className="bg-card border border-border rounded-lg p-5 shadow-sm hover:shadow-md hover:border-primary/50 transition-all relative overflow-hidden group">
+                      <div key={day} className="bg-card border border-border rounded-lg p-5 shadow-sm hover:shadow-md hover:border-primary/50 motion-safe:transition-all relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[var(--primary)] to-transparent opacity-[0.03] group-hover:opacity-[0.06] rounded-bl-full pointer-events-none transition-opacity"></div>
                         
                         <h3 className="text-sm font-black text-primary capitalize mb-4 flex items-center gap-2 pb-3 border-b border-border">

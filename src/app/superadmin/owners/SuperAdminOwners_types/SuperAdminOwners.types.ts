@@ -39,12 +39,12 @@ export interface OwnerDirectoryItem extends OwnerProfile {
 export interface Owner360Data {
   owner: OwnerProfile;
   user?: User;
-  subscription?: any; // To be strictly typed when subscription module is refactored
-  properties: any[];
+  subscription?: unknown; // To be strictly typed when subscription module is refactored
+  properties: unknown[];
   managersCount: number;
   studentsCount: number;
-  recentPayments: any[];
-  tickets: any[];
+  recentPayments: unknown[];
+  tickets: unknown[];
 }
 
 // Props Interfaces for Components
@@ -77,16 +77,16 @@ export interface SuperAdminOwnerProfileStatsGridProps {
 }
 
 export interface SuperAdminOwnerProfilePropertiesProps {
-  properties: any[];
+  properties: unknown[];
 }
 
 export interface SuperAdminOwnerProfileSubscriptionProps {
-  subscription: any;
-  payments: any[];
+  subscription: unknown;
+  payments: unknown[];
   onUpgradePlan: (planId: string) => void;
 }
 
 export interface SuperAdminOwnerProfileAuditLogsProps {
-  logs: any[];
+  logs: unknown[];
   onAddNote: (note: string) => void;
 }

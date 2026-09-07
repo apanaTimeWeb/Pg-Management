@@ -5,18 +5,18 @@ import { SuperAdminFeatureFlagsToolbarProps } from '@/app/superadmin/feature-fla
 
 export const SuperAdminFeatureFlagsToolbar: React.FC<SuperAdminFeatureFlagsToolbarProps> = ({ search, setSearch }) => {
   return (
-    <div className="p-4 border-b border-[var(--border)] flex justify-between items-center bg-[var(--bg-page)] rounded-t-[var(--radius-lg,12px)]">
+    <div className="p-4 border-b border flex justify-between items-center bg-page rounded-t-[var(--radius-lg,12px)]">
       <div className="relative w-full sm:w-72">
-        <Search className="w-4 h-4 absolute left-3 top-2.5 text-[var(--text-secondary)]" />
+        <Search className="w-4 h-4 absolute left-3 top-2.5 text-secondary" />
         <input 
           type="text" 
           placeholder="Find owner..." 
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="w-full bg-[var(--bg-input)] border border-[var(--border)] pl-9 pr-4 py-2 rounded-[var(--radius-md,8px)] text-sm text-[var(--text-primary)] focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)] transition-colors"
+          className="w-full bg-input border border pl-9 pr-4 py-2 rounded-[var(--radius-md,8px)] text-sm text-primary focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary motion-safe:transition-colors"
         />
       </div>
-      <button className="flex items-center gap-2 text-sm text-[var(--primary)] font-medium bg-[var(--primary-subtle)] px-4 py-2 rounded-[var(--radius-md,8px)] hover:bg-[rgba(99,102,241,0.2)] transition-colors">
+      <button className="flex items-center gap-2 text-sm text-primary font-medium bg-primary-subtle px-4 py-2 rounded-[var(--radius-md,8px)] hover:bg-[rgba(99,102,241,0.2)] motion-safe:transition-colors">
         <Settings2 className="w-4 h-4"/> Global Defaults
       </button>
     </div>

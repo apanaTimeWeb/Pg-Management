@@ -22,16 +22,16 @@ export function ManagerEnquiriesMain() {
     handleAdd, handleStatusChange, handleConvertToCheckin, handleRoomAvailable, handleRentOffer
   } = ManagerUseManagerEnquiries(selectedPropertyId, ctxLoading, user?.id);
 
-  if (ctxLoading || loading) return <div className="p-6 animate-pulse text-[var(--text-secondary)]">Loading...</div>;
+  if (ctxLoading || loading) return <div className="p-6 motion-safe:animate-pulse text-secondary">Loading...</div>;
 
   if (!selectedPropertyId) {
     return (
       <div className="h-[80vh] flex flex-col items-center justify-center text-center max-w-md mx-auto">
-        <div className="w-20 h-20 rounded-full bg-[var(--bg-card)] flex items-center justify-center mb-6 border border-[var(--border)]">
-          <Lock className="w-10 h-10 text-[var(--text-secondary)]" />
+        <div className="w-20 h-20 rounded-full bg-card flex items-center justify-center mb-6 border border">
+          <Lock className="w-10 h-10 text-secondary" />
         </div>
-        <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-2">Select a Property</h2>
-        <p className="text-[var(--text-secondary)]">You need an assigned property to manage enquiries.</p>
+        <h2 className="text-2xl font-bold text-primary mb-2">Select a Property</h2>
+        <p className="text-secondary">You need an assigned property to manage enquiries.</p>
       </div>
     );
   }
@@ -51,23 +51,23 @@ export function ManagerEnquiriesMain() {
     <div className="space-y-6 pb-20 h-full flex flex-col">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 shrink-0">
         <div>
-          <h1 className="text-[24px] font-bold text-[var(--text-primary)]">Enquiries Pipeline</h1>
-          <p className="text-sm text-[var(--text-secondary)]">Manage leads and follow-ups.</p>
+          <h1 className="text-[24px] font-bold text-primary">Enquiries Pipeline</h1>
+          <p className="text-sm text-secondary">Manage leads and follow-ups.</p>
         </div>
         <div className="flex items-center gap-3">
           <div className="relative">
-            <Search className="w-4 h-4 text-[var(--text-secondary)] absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-secondary absolute left-3 top-1/2 -translate-y-1/2" />
             <input 
               type="text" 
               placeholder="Search leads..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full sm:w-64 pl-9 pr-4 py-2 bg-[var(--bg-card)] border border-[var(--border)] rounded-[var(--radius-md,8px)] text-sm text-[var(--text-primary)] focus:outline-none focus:border-[var(--primary)]"
+              className="w-full sm:w-64 pl-9 pr-4 py-2 bg-card border border rounded-[var(--radius-md,8px)] text-sm text-primary focus:outline-none focus:border-primary"
             />
           </div>
           <button 
             onClick={() => setShowAddModal(true)}
-            className="px-4 py-2 bg-[var(--primary)] text-white rounded-[var(--radius-md,8px)] text-sm font-medium hover:bg-[var(--primary-hover)] transition-colors flex items-center gap-2 whitespace-nowrap"
+            className="px-4 py-2 bg-primary text-white rounded-[var(--radius-md,8px)] text-sm font-medium hover:bg-primary-hover motion-safe:transition-colors flex items-center gap-2 whitespace-nowrap"
           >
             <Plus className="w-4 h-4" />
             New Lead
@@ -76,29 +76,29 @@ export function ManagerEnquiriesMain() {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-[var(--border)] shrink-0">
+      <div className="flex border-b border shrink-0">
         <button
           onClick={() => setActiveTab('pipeline')}
-          className={`px-6 py-3 font-semibold text-sm border-b-2 transition-colors ${
+          className={`px-6 py-3 font-semibold text-sm border-b-2 motion-safe:transition-colors ${
             activeTab === 'pipeline' 
-              ? 'border-[var(--primary)] text-[var(--primary)]' 
-              : 'border-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+              ? 'border-primary text-primary' 
+              : 'border-transparent text-secondary hover:text-primary'
           }`}
         >
           Active Pipeline
         </button>
         <button
           onClick={() => setActiveTab('lost')}
-          className={`flex items-center gap-2 px-6 py-3 font-semibold text-sm border-b-2 transition-colors ${
+          className={`flex items-center gap-2 px-6 py-3 font-semibold text-sm border-b-2 motion-safe:transition-colors ${
             activeTab === 'lost' 
-              ? 'border-[var(--danger)] text-[var(--danger)]' 
-              : 'border-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+              ? 'border-danger text-danger' 
+              : 'border-transparent text-secondary hover:text-primary'
           }`}
         >
           <AlertTriangle className="w-4 h-4" />
           Lost Leads & Follow-ups
           {lostEnquiries.length > 0 && (
-            <span className="bg-[var(--danger)] text-white text-[10px] px-2 py-0.5 rounded-full ml-1">{lostEnquiries.length}</span>
+            <span className="bg-danger text-white text-[10px] px-2 py-0.5 rounded-full ml-1">{lostEnquiries.length}</span>
           )}
         </button>
       </div>

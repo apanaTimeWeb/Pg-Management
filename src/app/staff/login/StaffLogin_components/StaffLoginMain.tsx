@@ -18,7 +18,7 @@ export function StaffLoginMain() {
       const user = api.auth.login({ email, password, expectedRole: 'staff' });
       setSession(user);
       router.push(user.mustChangePassword ? '/staff/first-login' : '/staff/dashboard');
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err.message || 'Login failed');
     }
   };
@@ -40,7 +40,7 @@ export function StaffLoginMain() {
           
           {error && <div className="text-danger text-sm bg-danger-bg p-3 rounded-md">{error}</div>}
           
-          <button type="submit" className="w-full bg-primary text-white font-medium py-2 rounded-md hover:bg-primary-hover transition-colors">
+          <button type="submit" className="w-full bg-primary text-white font-medium py-2 rounded-md hover:bg-primary-hover motion-safe:transition-colors">
             Login
           </button>
         </form>

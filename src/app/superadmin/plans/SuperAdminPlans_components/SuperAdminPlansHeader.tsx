@@ -5,8 +5,8 @@ import { SuperAdminPlansHeaderProps } from '@/app/superadmin/plans/SuperAdminPla
 export const SuperAdminPlansHeader: React.FC<SuperAdminPlansHeaderProps> = () => {
   return (
     <div>
-      <h1 className="text-[22px] font-bold text-[var(--text-primary)]">Subscription Plans</h1>
-      <p className="text-[var(--text-secondary)] text-sm">Manage pricing and limits for SaaS subscriptions.</p>
+      <h1 className="text-[22px] font-bold text-primary">Subscription Plans</h1>
+      <p className="text-secondary text-sm">Manage pricing and limits for SaaS subscriptions.</p>
     </div>
   );
 };

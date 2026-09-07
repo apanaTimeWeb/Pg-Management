@@ -42,7 +42,7 @@ export const ownerRequestsApi = {
   },
   
   updateStatus(id: string, status: 'Approved' | 'Rejected' | 'Hold', reason?: string) {
-    const patch: any = { status };
+    const patch: unknown = { status };
     if (reason) patch.message = reason; // Storing reject reason in message for now
     return db.update<OwnerRequest>(STORAGE_KEYS.OWNER_REQUESTS, id, patch);
   }

@@ -14,7 +14,7 @@ export default function SuperAdminDashboardPage() {
     // We rely on loading.tsx for the initial suspense, but keep this fallback 
     // just in case the hook forces a re-render with loading=true.
     return (
-      <div className="flex items-center justify-center h-64 text-[var(--text-secondary)]">
+      <div className="flex items-center justify-center h-64 text-secondary">
         Loading dashboard data...
       </div>
     );

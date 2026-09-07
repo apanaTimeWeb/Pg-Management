@@ -25,7 +25,7 @@ export function OwnerPropertiesMain() {
   }, [user?.id]);
 
   if (loading) {
-    return <div className="p-6 animate-pulse">Loading properties...</div>;
+    return <div className="p-6 motion-safe:animate-pulse">Loading properties...</div>;
   }
 
   return (
@@ -37,7 +37,7 @@ export function OwnerPropertiesMain() {
         </div>
         <Link 
           href="/owner/properties/create"
-          className="bg-primary text-white px-4 py-2 rounded-md font-medium hover:bg-primary-hover transition-colors flex items-center gap-2 text-sm shadow-md"
+          className="bg-primary text-white px-4 py-2 rounded-md font-medium hover:bg-primary-hover motion-safe:transition-colors flex items-center gap-2 text-sm shadow-md"
         >
           <Plus className="w-4 h-4" />
           <span>Add Property</span>
@@ -55,7 +55,7 @@ export function OwnerPropertiesMain() {
           </p>
           <Link 
             href="/owner/properties/create"
-            className="bg-primary text-white px-5 py-2.5 rounded-md font-medium hover:bg-primary-hover transition-colors inline-block text-sm"
+            className="bg-primary text-white px-5 py-2.5 rounded-md font-medium hover:bg-primary-hover motion-safe:transition-colors inline-block text-sm"
           >
             Add Property
           </Link>
@@ -71,7 +71,7 @@ export function OwnerPropertiesMain() {
               <Link 
                 key={property.id} 
                 href={`/owner/properties/${property.id}`}
-                className="group bg-card border border-border rounded-lg overflow-hidden hover:shadow-xl transition-all block"
+                className="group bg-card border border-border rounded-lg overflow-hidden hover:shadow-xl motion-safe:transition-all block"
               >
                 {/* Photo Gradient Header */}
                 <div className="relative h-40 w-full bg-page">
@@ -136,7 +136,7 @@ export function OwnerPropertiesMain() {
                   </div>
                 </div>
                 
-                <div className="border-t border-border bg-[rgba(99,102,241,0.02)] p-3 text-center text-xs font-medium text-primary group-hover:bg-[rgba(99,102,241,0.05)] transition-colors">
+                <div className="border-t border-border bg-[rgba(99,102,241,0.02)] p-3 text-center text-xs font-medium text-primary group-hover:bg-[rgba(99,102,241,0.05)] motion-safe:transition-colors">
                   View Property Details &rarr;
                 </div>
               </Link>

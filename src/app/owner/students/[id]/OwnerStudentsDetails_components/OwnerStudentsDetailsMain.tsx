@@ -10,7 +10,7 @@ import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPrope
 import { ArrowLeft, User, Phone, Mail, Building, CreditCard, Activity, CheckCircle, ShieldAlert, LogOut, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { studentOperationsApi } from '@/app/student/student_lib/student_api/StudentOperations';
-import { OwnerBillUploadModal } from './OwnerBillUploadModal';
+import { OwnerBillUploadModal } from '@/app/owner/students/[id]/OwnerStudentsDetails_components/OwnerBillUploadModal';
 import { financeApi } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
 
 export function OwnerStudentsDetailsMain({ params }: { params: Promise<{ id: string }> }) {
@@ -75,7 +75,7 @@ export function OwnerStudentsDetailsMain({ params }: { params: Promise<{ id: str
     }
   };
 
-  if (loading || !student) return <div className="p-6 animate-pulse">Loading profile...</div>;
+  if (loading || !student) return <div className="p-6 motion-safe:animate-pulse">Loading profile...</div>;
 
   const propertyName = properties.find(p => p.id === student.profile.propertyId)?.name || 'Unknown Property';
 
@@ -91,7 +91,7 @@ export function OwnerStudentsDetailsMain({ params }: { params: Promise<{ id: str
         invoiceTitle={selectedInvoiceForBill?.month || 'Invoice'}
       />
       <div className="flex items-center gap-4 mb-2">
-        <Link href="/owner/students" className="p-2 hover:bg-card rounded-full transition-colors text-secondary hover:text-primary">
+        <Link href="/owner/students" className="p-2 hover:bg-card rounded-full motion-safe:transition-colors text-secondary hover:text-primary">
           <ArrowLeft className="w-5 h-5" />
         </Link>
         <div>
@@ -155,14 +155,14 @@ export function OwnerStudentsDetailsMain({ params }: { params: Promise<{ id: str
             </div>
             <div className="p-4 space-y-3">
               {student.profile.status === 'active' && (
-                <button onClick={handleMarkNotice} className="w-full py-2.5 bg-warning-bg text-warning border border-warning rounded-md text-sm font-medium hover:bg-orange-900 transition-colors flex items-center justify-center gap-2">
+                <button onClick={handleMarkNotice} className="w-full py-2.5 bg-warning-bg text-warning border border-warning rounded-md text-sm font-medium hover:bg-orange-900 motion-safe:transition-colors flex items-center justify-center gap-2">
                   <ShieldAlert className="w-4 h-4" />
                   Mark on Notice
                 </button>
               )}
               
               {student.profile.status !== 'checked_out' && (
-                <button onClick={handleCheckout} className="w-full py-2.5 bg-danger-bg text-danger border border-danger rounded-md text-sm font-medium hover:bg-red-900 transition-colors flex items-center justify-center gap-2">
+                <button onClick={handleCheckout} className="w-full py-2.5 bg-danger-bg text-danger border border-danger rounded-md text-sm font-medium hover:bg-red-900 motion-safe:transition-colors flex items-center justify-center gap-2">
                   <LogOut className="w-4 h-4" />
                   Complete Checkout
                 </button>
@@ -208,7 +208,7 @@ export function OwnerStudentsDetailsMain({ params }: { params: Promise<{ id: str
             </h3>
             {invoices.length > 0 ? (
               <div className="relative border-l-2 border-border ml-3 space-y-6">
-                {invoices.filter(i => i.type === 'Rent' || !i.type).sort((a,b) => new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime()).map((invoice: any) => {
+                {invoices.filter(i => i.type === 'Rent' || !i.type).sort((a,b) => new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime()).map((invoice: unknown) => {
                   const dueTime = new Date(invoice.dueDate).getTime();
                   const nowTime = new Date().getTime();
                   const diffDays = (dueTime - nowTime) / (1000 * 3600 * 24);
@@ -256,7 +256,7 @@ export function OwnerStudentsDetailsMain({ params }: { params: Promise<{ id: str
                               setSelectedInvoiceForBill(invoice);
                               setIsBillModalOpen(true);
                             }}
-                            className="text-xs font-bold text-primary bg-primary-subtle hover:bg-primary hover:text-white transition-colors px-3 py-1.5 rounded"
+                            className="text-xs font-bold text-primary bg-primary-subtle hover:bg-primary hover:text-white motion-safe:transition-colors px-3 py-1.5 rounded"
                           >
                             Add Electricity Bill
                           </button>
@@ -266,7 +266,7 @@ export function OwnerStudentsDetailsMain({ params }: { params: Promise<{ id: str
                             href={invoice.electricityBillImage}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-xs font-bold text-secondary bg-page border border-border hover:text-primary transition-colors px-3 py-1.5 rounded inline-flex items-center gap-1"
+                            className="text-xs font-bold text-secondary bg-page border border-border hover:text-primary motion-safe:transition-colors px-3 py-1.5 rounded inline-flex items-center gap-1"
                           >
                             View Bill Receipt
                           </a>

@@ -14,7 +14,7 @@ export interface OwnerRoomsFiltersProps {
   setFilterStatus: (val: string) => void;
   selectedPropertyId: string;
   setSelectedPropertyId?: (id: string) => void;
-  properties: any[];
+  properties: unknown[];
 }
 
 export function OwnerRoomsFilters({
@@ -39,12 +39,12 @@ export function OwnerRoomsFilters({
           placeholder="Search room number or floor..." 
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-9 pr-4 py-2 bg-input border border-border rounded-md text-sm focus:outline-none focus:border-primary text-primary transition-colors"
+          className="w-full pl-9 pr-4 py-2 bg-input border border-border rounded-md text-sm focus:outline-none focus:border-primary text-primary motion-safe:transition-colors"
         />
       </div>
       <button 
         onClick={() => setShowFilters(!showFilters)}
-        className={`flex items-center gap-2 px-4 py-2 border rounded-md text-sm font-medium transition-colors ${
+        className={`flex items-center gap-2 px-4 py-2 border rounded-md text-sm font-medium motion-safe:transition-colors ${
           showFilters || filterSharing !== 'all' || filterStatus !== 'all' || selectedPropertyId !== 'all'
             ? 'border-primary bg-[rgba(99,102,241,0.05)] text-primary' 
             : 'border-border text-primary hover:bg-input'

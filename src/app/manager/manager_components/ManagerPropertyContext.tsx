@@ -6,7 +6,7 @@ import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAut
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
 
 interface ManagerPropertyContextType {
-  properties: any[];
+  properties: unknown[];
   selectedPropertyId: string;
   setSelectedPropertyId: (id: string) => void;
   loading: boolean;
@@ -30,7 +30,7 @@ export const ManagerPropertyProvider = ({ children }: { children: React.ReactNod
       // Find all properties in the system (or by owner if manager's owner was known, but assignedPropertyIds is direct)
       // Since manager belongs to an owner, and we want to load just their assigned properties:
       const allProps = api.properties.listAll();
-      const assignedProps = allProps.filter((p: any) => user.assignedPropertyIds?.includes(p.id));
+      const assignedProps = allProps.filter((p: unknown) => user.assignedPropertyIds?.includes(p.id));
       
       setProperties(assignedProps);
       

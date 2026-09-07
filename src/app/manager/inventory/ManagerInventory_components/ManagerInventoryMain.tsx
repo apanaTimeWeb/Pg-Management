@@ -23,8 +23,8 @@ export function ManagerInventoryMain() {
     loadData, handleUpdateQty, handleAdd, handleMarkPurchased
   } = ManagerUseManagerInventory(selectedPropertyId, ctxLoading, user?.id);
 
-  if (ctxLoading) return <div className="p-6 text-[var(--text-secondary)]">Loading...</div>;
-  if (!selectedPropertyId) return <div className="p-6 text-center text-[var(--text-secondary)]">Property Required</div>;
+  if (ctxLoading) return <div className="p-6 text-secondary">Loading...</div>;
+  if (!selectedPropertyId) return <div className="p-6 text-center text-secondary">Property Required</div>;
 
   const currentList = activeTab === 'live' ? inventory : requests;
   const totalPages = Math.ceil(currentList.length / itemsPerPage);
@@ -33,8 +33,8 @@ export function ManagerInventoryMain() {
   return (
     <div className="space-y-6 pb-20">
       <div>
-        <h1 className="text-[24px] font-bold text-[var(--text-primary)]">Inventory & Kitchen Requests</h1>
-        <p className="text-sm text-[var(--text-secondary)]">Manage live stock and fulfill cook requests.</p>
+        <h1 className="text-[24px] font-bold text-primary">Inventory & Kitchen Requests</h1>
+        <p className="text-sm text-secondary">Manage live stock and fulfill cook requests.</p>
       </div>
 
       <ManagerInventoryTabs 

@@ -1,0 +1,1 @@
+export const MANAGER_INVENTORY_URL = '/manager/inventory';

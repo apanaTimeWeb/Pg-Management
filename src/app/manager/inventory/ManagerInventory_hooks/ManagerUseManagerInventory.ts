@@ -31,7 +31,7 @@ export function ManagerUseManagerInventory(selectedPropertyId: string | null, ct
         return;
       }
       setInventory(api.managerOperations.listInventory(selectedPropertyId));
-      setRequests(stockRequestsApi.getByProperty(selectedPropertyId).filter((r: any) => r.status !== 'verified'));
+      setRequests(stockRequestsApi.getByProperty(selectedPropertyId).filter((r: unknown) => r.status !== 'verified'));
       setBatches(stockBatchesApi.getByProperty(selectedPropertyId));
     }
   };

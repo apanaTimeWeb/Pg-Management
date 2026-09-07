@@ -42,74 +42,74 @@ export default function OwnerRequestPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg-page)]">
+    <div className="min-h-screen bg-page">
       <Navbar />
       <div className="max-w-2xl mx-auto px-4 py-16">
         {success ? (
-          <div className="bg-[var(--bg-card)] p-12 rounded-3xl border border-[var(--border)] shadow-sm text-center">
+          <div className="bg-card p-12 rounded-3xl border border shadow-sm text-center">
             <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl shadow-inner">✓</div>
-            <h2 className="text-3xl font-bold text-[var(--text-primary)] mb-4">Request bhej di gayi.</h2>
-            <p className="text-[var(--text-secondary)] text-lg">SuperAdmin ise review karenge aur aapse jald hi contact karenge.</p>
+            <h2 className="text-3xl font-bold text-primary mb-4">Request bhej di gayi.</h2>
+            <p className="text-secondary text-lg">SuperAdmin ise review karenge aur aapse jald hi contact karenge.</p>
           </div>
         ) : (
-          <div className="bg-[var(--bg-card)] p-8 rounded-3xl border border-[var(--border)] shadow-sm">
-            <h1 className="text-3xl font-bold text-[var(--text-primary)] mb-2">Partner with SmartPG</h1>
-            <p className="text-[var(--text-secondary)] mb-8">Fill the details below to request your PG Owner account.</p>
+          <div className="bg-card p-8 rounded-3xl border border shadow-sm">
+            <h1 className="text-3xl font-bold text-primary mb-2">Partner with SmartPG</h1>
+            <p className="text-secondary mb-8">Fill the details below to request your PG Owner account.</p>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-bold text-[var(--text-primary)] mb-2">Full Name *</label>
-                  <input required name="name" type="text" className="w-full px-4 py-3 rounded-xl border border-[var(--border)] focus:ring-2 focus:ring-[var(--primary)] outline-none transition-all" />
+                  <label className="block text-sm font-bold text-primary mb-2">Full Name *</label>
+                  <input required name="name" type="text" className="w-full px-4 py-3 rounded-xl border border focus:ring-2 focus:ring-primary outline-none motion-safe:transition-all" />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-[var(--text-primary)] mb-2">Business / PG Name *</label>
-                  <input required name="businessName" type="text" className="w-full px-4 py-3 rounded-xl border border-[var(--border)] focus:ring-2 focus:ring-[var(--primary)] outline-none transition-all" />
+                  <label className="block text-sm font-bold text-primary mb-2">Business / PG Name *</label>
+                  <input required name="businessName" type="text" className="w-full px-4 py-3 rounded-xl border border focus:ring-2 focus:ring-primary outline-none motion-safe:transition-all" />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-[var(--text-primary)] mb-2">Email *</label>
-                  <input required name="email" type="email" className="w-full px-4 py-3 rounded-xl border border-[var(--border)] focus:ring-2 focus:ring-[var(--primary)] outline-none transition-all" />
+                  <label className="block text-sm font-bold text-primary mb-2">Email *</label>
+                  <input required name="email" type="email" className="w-full px-4 py-3 rounded-xl border border focus:ring-2 focus:ring-primary outline-none motion-safe:transition-all" />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-[var(--text-primary)] mb-2">Phone *</label>
-                  <input required name="phone" type="tel" className="w-full px-4 py-3 rounded-xl border border-[var(--border)] focus:ring-2 focus:ring-[var(--primary)] outline-none transition-all" />
+                  <label className="block text-sm font-bold text-primary mb-2">Phone *</label>
+                  <input required name="phone" type="tel" className="w-full px-4 py-3 rounded-xl border border focus:ring-2 focus:ring-primary outline-none motion-safe:transition-all" />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-[var(--text-primary)] mb-2">City *</label>
-                  <input required name="city" type="text" className="w-full px-4 py-3 rounded-xl border border-[var(--border)] focus:ring-2 focus:ring-[var(--primary)] outline-none transition-all" />
+                  <label className="block text-sm font-bold text-primary mb-2">City *</label>
+                  <input required name="city" type="text" className="w-full px-4 py-3 rounded-xl border border focus:ring-2 focus:ring-primary outline-none motion-safe:transition-all" />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-[var(--text-primary)] mb-2">GST (Optional)</label>
-                  <input name="gst" type="text" className="w-full px-4 py-3 rounded-xl border border-[var(--border)] focus:ring-2 focus:ring-[var(--primary)] outline-none transition-all" />
+                  <label className="block text-sm font-bold text-primary mb-2">GST (Optional)</label>
+                  <input name="gst" type="text" className="w-full px-4 py-3 rounded-xl border border focus:ring-2 focus:ring-primary outline-none motion-safe:transition-all" />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-[var(--text-primary)] mb-2">Total PGs *</label>
-                  <input required name="pgCount" type="number" min="1" className="w-full px-4 py-3 rounded-xl border border-[var(--border)] focus:ring-2 focus:ring-[var(--primary)] outline-none transition-all" />
+                  <label className="block text-sm font-bold text-primary mb-2">Total PGs *</label>
+                  <input required name="pgCount" type="number" min="1" className="w-full px-4 py-3 rounded-xl border border focus:ring-2 focus:ring-primary outline-none motion-safe:transition-all" />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-[var(--text-primary)] mb-2">Total Beds *</label>
-                  <input required name="bedCount" type="number" min="1" className="w-full px-4 py-3 rounded-xl border border-[var(--border)] focus:ring-2 focus:ring-[var(--primary)] outline-none transition-all" />
+                  <label className="block text-sm font-bold text-primary mb-2">Total Beds *</label>
+                  <input required name="bedCount" type="number" min="1" className="w-full px-4 py-3 rounded-xl border border focus:ring-2 focus:ring-primary outline-none motion-safe:transition-all" />
                 </div>
               </div>
 
               {/* PLAN SELECTION */}
-              <div className="pt-6 border-t border-[var(--border)]">
-                <label className="block text-xl font-bold text-[var(--text-primary)] mb-6">Select Your Plan *</label>
+              <div className="pt-6 border-t border">
+                <label className="block text-xl font-bold text-primary mb-6">Select Your Plan *</label>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {plans.map(p => (
                     <div 
                       key={p.id}
                       onClick={() => setSelectedPlan(p.id)}
-                      className={`cursor-pointer rounded-2xl p-6 border-2 transition-all ${selectedPlan === p.id ? 'border-[var(--primary)] bg-[var(--primary-subtle)] shadow-md relative' : 'border-[var(--border)] bg-[var(--bg-page)] hover:border-indigo-300'}`}
+                      className={`cursor-pointer rounded-2xl p-6 border-2 motion-safe:transition-all ${selectedPlan === p.id ? 'border-primary bg-primary-subtle shadow-md relative' : 'border bg-page hover:border-indigo-300'}`}
                     >
-                      {selectedPlan === p.id && <div className="absolute -top-3 -right-3 bg-[var(--success)] text-white rounded-full p-1"><CheckCircle2 className="w-5 h-5"/></div>}
-                      <h3 className="text-lg font-bold text-[var(--text-primary)]">{p.name}</h3>
-                      <div className="text-2xl font-black text-[var(--primary)] my-2">{p.price}</div>
-                      <p className="text-xs text-[var(--text-secondary)] mb-4 h-8">{p.desc}</p>
+                      {selectedPlan === p.id && <div className="absolute -top-3 -right-3 bg-success text-white rounded-full p-1"><CheckCircle2 className="w-5 h-5"/></div>}
+                      <h3 className="text-lg font-bold text-primary">{p.name}</h3>
+                      <div className="text-2xl font-black text-primary my-2">{p.price}</div>
+                      <p className="text-xs text-secondary mb-4 h-8">{p.desc}</p>
                       <ul className="space-y-2">
                         {p.features.map((f, i) => (
-                          <li key={i} className="text-xs font-medium text-[var(--text-primary)] flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[var(--primary)]"></span> {f}
+                          <li key={i} className="text-xs font-medium text-primary flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-primary"></span> {f}
                           </li>
                         ))}
                       </ul>
@@ -118,11 +118,11 @@ export default function OwnerRequestPage() {
                 </div>
               </div>
 
-              <div className="pt-6 border-t border-[var(--border)]">
-                <label className="block text-sm font-bold text-[var(--text-primary)] mb-2">Message</label>
-                <textarea name="message" rows={4} className="w-full px-4 py-3 rounded-xl border border-[var(--border)] focus:ring-2 focus:ring-[var(--primary)] outline-none transition-all" placeholder="Tell us more about your requirements..."></textarea>
+              <div className="pt-6 border-t border">
+                <label className="block text-sm font-bold text-primary mb-2">Message</label>
+                <textarea name="message" rows={4} className="w-full px-4 py-3 rounded-xl border border focus:ring-2 focus:ring-primary outline-none motion-safe:transition-all" placeholder="Tell us more about your requirements..."></textarea>
               </div>
-              <button type="submit" className="w-full bg-[var(--primary)] text-white px-6 py-4 rounded-xl font-bold hover:bg-indigo-700 transition-colors shadow-lg hover:-translate-y-0.5">
+              <button type="submit" className="w-full bg-primary text-white px-6 py-4 rounded-xl font-bold hover:bg-indigo-700 motion-safe:transition-colors shadow-lg hover:-translate-y-0.5">
                 Submit Request
               </button>
             </form>

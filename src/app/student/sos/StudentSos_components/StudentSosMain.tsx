@@ -30,7 +30,7 @@ export function StudentSosMain() {
   if (success) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6 animate-in fade-in zoom-in duration-500">
-        <div className="w-24 h-24 bg-danger rounded-full flex items-center justify-center shadow-lg shadow-red-500/50 animate-pulse">
+        <div className="w-24 h-24 bg-danger rounded-full flex items-center justify-center shadow-lg shadow-red-500/50 motion-safe:animate-pulse">
           <ShieldAlert className="w-12 h-12 text-white" />
         </div>
         <div>
@@ -39,7 +39,7 @@ export function StudentSosMain() {
             Your SOS has been recorded and sent to the Guard and Manager. Help is on the way.
           </p>
         </div>
-        <button onClick={() => router.push('/student/dashboard')} className="mt-8 px-8 py-3 bg-input text-primary rounded font-bold hover:bg-primary hover:text-white transition-colors">
+        <button onClick={() => router.push('/student/dashboard')} className="mt-8 px-8 py-3 bg-input text-primary rounded font-bold hover:bg-primary hover:text-white motion-safe:transition-colors">
           Return to Dashboard
         </button>
       </div>
@@ -58,8 +58,8 @@ export function StudentSosMain() {
         disabled={loading}
         className="relative group focus:outline-none focus:ring-4 focus:ring-red-500/50 rounded-full"
       >
-        <div className="absolute inset-0 bg-red-600 rounded-full blur-xl opacity-40 group-hover:opacity-70 group-hover:scale-110 transition-all duration-300"></div>
-        <div className="relative w-48 h-48 bg-gradient-to-b from-red-500 to-red-700 rounded-full flex flex-col items-center justify-center text-white shadow-[inset_0_-10px_20px_rgba(0,0,0,0.3),0_10px_20px_rgba(0,0,0,0.5)] border-4 border-red-800/30 transform active:scale-95 transition-transform">
+        <div className="absolute inset-0 bg-red-600 rounded-full blur-xl opacity-40 group-hover:opacity-70 group-hover:scale-110 motion-safe:transition-all motion-safe:duration-300"></div>
+        <div className="relative w-48 h-48 bg-gradient-to-b from-red-500 to-red-700 rounded-full flex flex-col items-center justify-center text-white shadow-[inset_0_-10px_20px_rgba(0,0,0,0.3),0_10px_20px_rgba(0,0,0,0.5)] border-4 border-red-800/30 transform motion-safe:active:scale-95 transition-transform">
           <TriangleAlert className="w-16 h-16 mb-2" />
           <span className="font-black text-3xl tracking-widest uppercase text-white/90 drop-shadow-md">SOS</span>
         </div>

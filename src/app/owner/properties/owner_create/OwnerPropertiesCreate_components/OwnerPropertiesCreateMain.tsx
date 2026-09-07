@@ -136,7 +136,7 @@ export function OwnerPropertiesCreateMain() {
       refreshProperties();
       router.push(`/owner/properties/${newProp.id}`);
       
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err.message || 'Failed to create property. Check your subscription limit.');
     } finally {
       setLoading(false);
@@ -146,7 +146,7 @@ export function OwnerPropertiesCreateMain() {
   return (
     <div className="max-w-4xl mx-auto pb-20">
       <div className="flex items-center gap-4 mb-6">
-        <Link href="/owner/properties" className="p-2 hover:bg-card rounded-full transition-colors text-secondary hover:text-primary border border-transparent hover:border-border">
+        <Link href="/owner/properties" className="p-2 hover:bg-card rounded-full motion-safe:transition-colors text-secondary hover:text-primary border border-transparent hover:border-border">
           <ArrowLeft className="w-5 h-5" />
         </Link>
         <div>
@@ -173,7 +173,7 @@ export function OwnerPropertiesCreateMain() {
           <button 
             type="submit" 
             disabled={loading}
-            className="bg-primary text-white px-8 py-3 rounded-md font-bold hover:bg-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg hover:-translate-y-0.5"
+            className="bg-primary text-white px-8 py-3 rounded-md font-bold hover:bg-primary-hover motion-safe:transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg hover:-translate-y-0.5"
           >
             {loading ? 'Creating...' : (
               <>

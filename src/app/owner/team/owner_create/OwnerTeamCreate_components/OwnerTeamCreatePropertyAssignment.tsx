@@ -1,8 +1,8 @@
 // RESPONSIBILITY: Renders the OwnerTeamCreatePropertyAssignment component. Receives data via props/hooks.
 
 export interface OwnerTeamCreatePropertyAssignmentProps {
-  properties: any[];
-  formData: any;
+  properties: unknown[];
+  formData: unknown;
   handlePropertyToggle: (propId: string) => void;
 }
 
@@ -19,7 +19,7 @@ export function OwnerTeamCreatePropertyAssignment({ properties, formData, handle
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {properties.map(prop => (
-              <label key={prop.id} className={`flex items-start gap-3 p-4 rounded-md border cursor-pointer transition-colors ${
+              <label key={prop.id} className={`flex items-start gap-3 p-4 rounded-md border cursor-pointer motion-safe:transition-colors ${
                 formData.assignedPropertyIds.includes(prop.id)
                   ? 'border-primary bg-primary-subtle'
                   : 'border-border bg-input hover:border-primary-subtle'

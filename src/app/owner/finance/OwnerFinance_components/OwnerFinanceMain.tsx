@@ -41,10 +41,10 @@ export function OwnerFinanceMain() {
   }, [activeTab, selectedPropertyId, setCurrentPage]);
 
   if (loading || !stats) {
-    return <div className="p-6 animate-pulse">Loading finance data...</div>;
+    return <div className="p-6 motion-safe:animate-pulse">Loading finance data...</div>;
   }
 
-  const getPaginatedData = (array: any[]) => {
+  const getPaginatedData = (array: unknown[]) => {
     const totalPages = Math.ceil(array.length / itemsPerPage);
     const paginated = array.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
     return { paginated, totalPages };
@@ -59,7 +59,7 @@ export function OwnerFinanceMain() {
   const isProfitable = netProfit >= 0;
 
   // Group expenses by category for pie chart
-  const expenseCategories = stats.expenses.reduce((acc: any, exp: Expense) => {
+  const expenseCategories = stats.expenses.reduce((acc: unknown, exp: Expense) => {
     acc[exp.category] = (acc[exp.category] || 0) + exp.amount;
     return acc;
   }, {});
@@ -68,7 +68,7 @@ export function OwnerFinanceMain() {
   const expenseSeries = Object.values(expenseCategories) as number[];
 
   // Chart configs
-  const expensePieOptions: any = {
+  const expensePieOptions: unknown = {
     chart: { type: 'donut', fontFamily: 'inherit', background: 'transparent' },
     labels: expenseLabels,
     colors: ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#64748b'],
@@ -95,7 +95,7 @@ export function OwnerFinanceMain() {
     legend: { position: 'bottom' }
   };
 
-  const trendOptions: any = {
+  const trendOptions: unknown = {
     chart: { type: 'bar', toolbar: { show: false }, fontFamily: 'inherit', background: 'transparent' },
     plotOptions: { bar: { horizontal: false, columnWidth: '55%', borderRadius: 4 } },
     dataLabels: { enabled: false },
@@ -114,14 +114,14 @@ export function OwnerFinanceMain() {
   ];
 
   return (
-    <div className="space-y-6 pb-20 print:pb-0 print:space-y-4 animate-in fade-in duration-300">
+    <div className="space-y-6 pb-20 print:pb-0 print:space-y-4 animate-in fade-in motion-safe:duration-300">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 print:hidden">
         <div>
           <h1 className="text-[22px] font-bold text-primary">Financial Dashboard</h1>
           <p className="text-sm text-secondary">Track enterprise-grade financial metrics, revenue, and expenses.</p>
         </div>
         <div className="flex items-center gap-3">
-          <button className="px-4 py-2 bg-card border border-border text-primary rounded-md text-sm font-medium hover:border-primary transition-colors flex items-center gap-2">
+          <button className="px-4 py-2 bg-card border border-border text-primary rounded-md text-sm font-medium hover:border-primary motion-safe:transition-colors flex items-center gap-2">
             <TrendingDown className="w-4 h-4" /> Record Expense
           </button>
         </div>

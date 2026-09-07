@@ -96,7 +96,7 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
             <Link
               key={item.key}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-md font-bold transition-all ${
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-md font-bold motion-safe:transition-all ${
                 pathname === item.href 
                   ? 'bg-primary text-white shadow-lg shadow-primary-subtle' 
                   : 'text-secondary hover:bg-input hover:text-primary'
@@ -115,7 +115,7 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
             <Link href="/student/documents" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 rounded-md text-secondary hover:bg-input hover:text-primary text-sm font-medium">
               <FileText className="w-5 h-5"/> {t('documents' as DictKey)}
             </Link>
-            <Link href="/student/sos" onClick={() => setIsMobileMenuOpen(false)} className="flex justify-center w-full px-4 py-3 mt-2 bg-destructive text-white rounded-md font-bold shadow hover:bg-destructive/90 border border-destructive/50 transition-colors">
+            <Link href="/student/sos" onClick={() => setIsMobileMenuOpen(false)} className="flex justify-center w-full px-4 py-3 mt-2 bg-destructive text-white rounded-md font-bold shadow hover:bg-destructive/90 border border-destructive/50 motion-safe:transition-colors">
               EMERGENCY SOS
             </Link>
           </div>
@@ -133,13 +133,13 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
             <div className="flex items-center bg-input border border-border rounded-md overflow-hidden text-xs font-bold">
               <button 
                 onClick={() => setLang('en')}
-                className={`px-3 py-1.5 transition-colors ${lang === 'en' ? 'bg-primary text-white' : 'text-secondary hover:text-primary'}`}
+                className={`px-3 py-1.5 motion-safe:transition-colors ${lang === 'en' ? 'bg-primary text-white' : 'text-secondary hover:text-primary'}`}
               >
                 EN
               </button>
               <button 
                 onClick={() => setLang('hi')}
-                className={`px-3 py-1.5 transition-colors ${lang === 'hi' ? 'bg-primary text-white' : 'text-secondary hover:text-primary'}`}
+                className={`px-3 py-1.5 motion-safe:transition-colors ${lang === 'hi' ? 'bg-primary text-white' : 'text-secondary hover:text-primary'}`}
               >
                 हिं
               </button>
@@ -148,7 +148,7 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
             <div className="text-sm text-secondary">
               Student: <strong className="text-primary">{user?.name}</strong>
             </div>
-            <button onClick={handleLogout} className="text-sm bg-page border border-border px-4 py-2 rounded-md text-danger font-medium hover:bg-danger-bg hover:text-danger transition-all">
+            <button onClick={handleLogout} className="text-sm bg-page border border-border px-4 py-2 rounded-md text-danger font-medium hover:bg-danger-bg hover:text-danger motion-safe:transition-all">
               {t('logout')}
             </button>
           </div>
@@ -160,13 +160,13 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
       </main>
 
       {/* Mobile Bottom Navigation */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-card/90 backdrop-blur-xl border-t border-border pb-safe shadow-[0_-4px_20px_rgba(0,0,0,0.05)] z-40 transition-all duration-300">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-card/90 backdrop-blur-xl border-t border-border pb-safe shadow-[0_-4px_20px_rgba(0,0,0,0.05)] z-40 motion-safe:transition-all motion-safe:duration-300">
         <div className="flex items-center justify-around p-2">
           {NAV_ITEMS.filter(item => !(item.key === 'mess' && !profile?.hasMessFacility)).slice(0, 5).map((item) => (
             <Link
               key={item.key}
               href={item.href}
-              className={`flex flex-col items-center gap-1 p-2 min-w-[64px] transition-colors rounded-xl ${
+              className={`flex flex-col items-center gap-1 p-2 min-w-[64px] motion-safe:transition-colors rounded-xl ${
                 pathname === item.href ? 'text-primary bg-primary-subtle' : 'text-secondary hover:bg-input'
               }`}
             >

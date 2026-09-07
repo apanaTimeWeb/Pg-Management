@@ -8,9 +8,9 @@ interface ManagerGateLogsTableProps {
 
 export function ManagerGateLogsTable({ paginatedData }: ManagerGateLogsTableProps) {
   return (
-    <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm">
+    <div className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm">
       <table className="w-full text-left text-sm">
-        <thead className="bg-[var(--bg-card)] border-b border-[var(--border)] text-[var(--text-secondary)] sticky top-0 z-10 shadow-sm shadow-black/5">
+        <thead className="bg-card border-b border text-secondary sticky top-0 z-10 shadow-sm shadow-black/5">
           <tr>
             <th className="p-4 font-semibold uppercase tracking-wider text-[11px]">Student</th>
             <th className="p-4 font-semibold uppercase tracking-wider text-[11px]">Type</th>
@@ -20,24 +20,24 @@ export function ManagerGateLogsTable({ paginatedData }: ManagerGateLogsTableProp
         </thead>
         <tbody className="divide-y divide-[var(--border)]">
           {paginatedData.map(log => (
-            <tr key={log.id} className="hover:bg-[var(--bg-page)] transition-colors">
-              <td className="p-4 font-medium text-[var(--text-primary)]">{log.studentId}</td>
+            <tr key={log.id} className="hover:bg-page motion-safe:transition-colors">
+              <td className="p-4 font-medium text-primary">{log.studentId}</td>
               <td className="p-4">
                 {log.type === 'entry' 
-                  ? <span className="text-[var(--primary)] flex items-center gap-1 font-medium"><LogIn className="w-4 h-4"/> Entry</span> 
-                  : <span className="text-[var(--text-secondary)] flex items-center gap-1 font-medium"><LogOut className="w-4 h-4"/> Exit</span>}
+                  ? <span className="text-primary flex items-center gap-1 font-medium"><LogIn className="w-4 h-4"/> Entry</span> 
+                  : <span className="text-secondary flex items-center gap-1 font-medium"><LogOut className="w-4 h-4"/> Exit</span>}
               </td>
-              <td className="p-4 text-[var(--text-secondary)]">
+              <td className="p-4 text-secondary">
                 {new Date(log.timestamp).toLocaleString()}
               </td>
               <td className="p-4">
-                {log.isLate && <span className="text-xs bg-[var(--danger-bg)] text-[var(--danger)] px-2 py-1 rounded flex items-center gap-1 w-max font-bold"><AlertTriangle className="w-3 h-3"/> Late Entry</span>}
+                {log.isLate && <span className="text-xs bg-danger-bg text-danger px-2 py-1 rounded flex items-center gap-1 w-max font-bold"><AlertTriangle className="w-3 h-3"/> Late Entry</span>}
               </td>
             </tr>
           ))}
           {paginatedData.length === 0 && (
             <tr>
-              <td colSpan={4} className="p-8 text-center text-[var(--text-secondary)]">No gate logs found.</td>
+              <td colSpan={4} className="p-8 text-center text-secondary">No gate logs found.</td>
             </tr>
           )}
         </tbody>

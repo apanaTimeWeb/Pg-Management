@@ -3,7 +3,7 @@ import { ManagerComplaintsMain } from '@/app/manager/complaints/ManagerComplaint
 
 export default function ManagerComplaintsPage() {
   return (
-    <Suspense fallback={<div className="p-6 text-[var(--text-secondary)]">Loading...</div>}>
+    <Suspense fallback={<div className="p-6 text-secondary">Loading...</div>}>
       <ManagerComplaintsMain />
     </Suspense>
   );

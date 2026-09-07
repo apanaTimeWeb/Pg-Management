@@ -3,7 +3,7 @@ import { ManagerInventoryMain } from '@/app/manager/inventory/ManagerInventory_c
 
 export default function ManagerInventoryPage() {
   return (
-    <Suspense fallback={<div className="p-6 text-[var(--text-secondary)]">Loading...</div>}>
+    <Suspense fallback={<div className="p-6 text-secondary">Loading...</div>}>
       <ManagerInventoryMain />
     </Suspense>
   );

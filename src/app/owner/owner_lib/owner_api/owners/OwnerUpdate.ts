@@ -11,7 +11,7 @@ export function upgradePlan(ownerId: string, newPlanId: string) {
   const activeSub = subs.find(s => s.ownerId === ownerId && s.status === 'active');
   
   // Fetch the new plan details
-  const plans = db.getAll<any>('spg_plans' as any);
+  const plans = db.getAll<any>('spg_plans' as unknown);
   const newPlan = plans.find(p => p.id === newPlanId);
   
   if (!newPlan) throw new Error('Selected plan not found in database');

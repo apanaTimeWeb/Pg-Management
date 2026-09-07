@@ -20,13 +20,13 @@ export const managerCheckinApi = {
     });
   },
 
-  getCompatibilityScore: (roomId: string, currentStudentAnswers: any, newStudentAnswers: any) => {
+  getCompatibilityScore: (roomId: string, currentStudentAnswers: unknown, newStudentAnswers: unknown) => {
     // Mock simple compatibility score
     // In real app, we would fetch existing occupying student answers in this room
     return Math.floor(Math.random() * 40) + 60; // 60-100 score
   },
 
-  commitCheckin: (data: any) => {
+  commitCheckin: (data: unknown) => {
     const now = new Date().toISOString();
     const actorId = data.managerId || 'system';
 
@@ -137,7 +137,7 @@ export const managerCheckinApi = {
 
     // 5. Save Documents
     if (data.documents.files && data.documents.files.length > 0) {
-      data.documents.files.forEach((file: any) => {
+      data.documents.files.forEach((file: unknown) => {
         db.insert(STORAGE_KEYS.DOCUMENTS, {
           id: createId('doc'),
           uploaderId: tUser.id,

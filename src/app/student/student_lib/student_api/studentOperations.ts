@@ -21,7 +21,7 @@ export const studentOperationsApi = {
     };
   },
   
-  updateProfile: (studentId: string, data: any, userId: string) => {
+  updateProfile: (studentId: string, data: unknown, userId: string) => {
     db.update<any>(STORAGE_KEYS.STUDENTS, studentId, { ...data, updatedAt: new Date().toISOString(), updatedBy: userId });
   },
 
@@ -146,7 +146,7 @@ export const studentOperationsApi = {
     
     return complaints.sort((a,b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   },
-  createComplaint: (data: any, userId: string) => {
+  createComplaint: (data: unknown, userId: string) => {
     db.insert(STORAGE_KEYS.COMPLAINTS, {
       id: createId('cmp'), ...data, status: 'Open',
       createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), createdBy: userId, updatedBy: userId, isDeleted: false

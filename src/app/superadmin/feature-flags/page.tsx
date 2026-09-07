@@ -22,7 +22,7 @@ export default function FeatureFlagsPage() {
     <div className="space-y-6 pb-20">
       <SuperAdminFeatureFlagsHeader />
 
-      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[var(--radius-lg,12px)] shadow-sm">
+      <div className="bg-card border border rounded-[var(--radius-lg,12px)] shadow-sm">
         <SuperAdminFeatureFlagsToolbar 
           search={search} 
           setSearch={setSearch} 

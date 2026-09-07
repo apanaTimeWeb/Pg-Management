@@ -46,14 +46,14 @@ export function runSeed() {
     { id: parentId, ...base(), role: 'parent', ownerId: ownerUserId, name: 'Parent 3', email: 'peter.m@example.com', password: 'Parent@123', status: 'Active', mustChangePassword: false, linkedStudentId: studentId }
   ];
 
-  db.replaceAll(STORAGE_KEYS.USERS, users as any);
+  db.replaceAll(STORAGE_KEYS.USERS, users as unknown);
 
   const plans = [
     { id: 'plan_basic', ...base(), name: 'Basic', price: 999, maxProperties: 1, maxBeds: 50, maxStaff: 5, features: [] },
     { id: 'plan_gold', ...base(), name: 'Gold', price: 2999, maxProperties: 5, maxBeds: 300, maxStaff: 15, features: ['mess', 'parent_portal'] },
     { id: 'plan_plat', ...base(), name: 'Platinum', price: 5999, maxProperties: 999, maxBeds: 9999, maxStaff: 999, features: ['mess', 'parent_portal', 'iot', 'sos'] }
   ];
-  db.replaceAll(STORAGE_KEYS.PLANS, plans as any);
+  db.replaceAll(STORAGE_KEYS.PLANS, plans as unknown);
 
   // Generate 25 Owner Requests
   const requests = Array.from({length: 25}).map((_, i) => ({
@@ -69,7 +69,7 @@ export function runSeed() {
     status: ['Pending', 'Approved', 'Rejected', 'Hold'][i % 4],
     createdAt: new Date(Date.now() - i * 86400000).toISOString() // Different dates
   }));
-  db.replaceAll(STORAGE_KEYS.OWNER_REQUESTS, requests as any);
+  db.replaceAll(STORAGE_KEYS.OWNER_REQUESTS, requests as unknown);
 
   // Generate 22 Owners
   const owners = Array.from({length: 22}).map((_, i) => ({
@@ -83,7 +83,7 @@ export function runSeed() {
     status: ['Active', 'Inactive'][i % 2]
   }));
   owners[0] = { id: ownerProfileId, ...base(), userId: ownerUserId, name: 'Owner 3', businessName: 'Owner3 Stays', email: 'owner@gmail.com', phone: '8888888888', status: 'Active' };
-  db.replaceAll(STORAGE_KEYS.OWNERS, owners as any);
+  db.replaceAll(STORAGE_KEYS.OWNERS, owners as unknown);
 
   // Generate 35 Tickets
   const tickets = Array.from({length: 35}).map((_, i) => ({
@@ -96,7 +96,7 @@ export function runSeed() {
     reportedBy: owners[i % owners.length].userId,
     createdAt: new Date(Date.now() - i * 3600000).toISOString()
   }));
-  db.replaceAll(STORAGE_KEYS.TICKETS || 'spg_tickets', tickets as any);
+  db.replaceAll(STORAGE_KEYS.TICKETS || 'spg_tickets', tickets as unknown);
 
   const subs = owners.map((o, i) => ({
     id: createId('sub'), 
@@ -107,16 +107,16 @@ export function runSeed() {
     startDate: new Date(Date.now() - i * 864000000).toISOString(),
     endDate: new Date(Date.now() + 30 * 86400000).toISOString()
   }));
-  db.replaceAll(STORAGE_KEYS.SUBSCRIPTIONS, subs as any);
+  db.replaceAll(STORAGE_KEYS.SUBSCRIPTIONS, subs as unknown);
 
   const propPatna = { id: 'prop_patna', ...base(), ownerId: ownerUserId, name: 'Owner3 PG Patna', city: 'Patna', bedsPlanned: 75 };
   const propDelhi = { id: 'prop_delhi', ...base(), ownerId: ownerUserId, name: 'Owner3 PG Delhi', city: 'Delhi', bedsPlanned: 40 };
-  db.replaceAll(STORAGE_KEYS.PROPERTIES, [propPatna, propDelhi] as any);
+  db.replaceAll(STORAGE_KEYS.PROPERTIES, [propPatna, propDelhi] as unknown);
 
   const rooms = Array.from({length: 8}).map((_, i) => ({
     id: `room_${i+1}`, ...base(), propertyId: 'prop_patna', floor: 3, number: `30${i+1}`, sharing: 2, rentPerBed: 5000, deposit: 5000, amenities: ['AC', 'WiFi'], status: 'available'
   }));
-  db.replaceAll(STORAGE_KEYS.ROOMS, rooms as any);
+  db.replaceAll(STORAGE_KEYS.ROOMS, rooms as unknown);
 
   const beds = [
     { id: 'bed_303B', ...base(), roomId: rooms[2].id, propertyId: 'prop_patna', code: 'B', status: 'occupied', studentId: studentId },
@@ -124,14 +124,14 @@ export function runSeed() {
     { id: 'bed_304A', ...base(), roomId: rooms[3].id, propertyId: 'prop_patna', code: 'A', status: 'occupied', studentId: studentId3 },
     { id: 'bed_304B', ...base(), roomId: rooms[3].id, propertyId: 'prop_patna', code: 'B', status: 'occupied', studentId: studentId4 }
   ];
-  db.replaceAll(STORAGE_KEYS.BEDS, beds as any);
+  db.replaceAll(STORAGE_KEYS.BEDS, beds as unknown);
 
   const staffProfiles = [
     { id: createId('stf'), ...base(), userId: managerId, ownerId: ownerUserId, staffType: 'manager', salary: 25000, joinDate: now, shift: 'Flexible', permissions: { canEditRent: true, canAddExpense: true, canOnboardStudent: true, canBroadcast: true, canCollectCash: true } },
     { id: createId('stf'), ...base(), userId: cookId, ownerId: ownerUserId, staffType: 'cook', salary: 15000, joinDate: now, shift: 'Morning', permissions: { canEditRent: false, canAddExpense: false, canOnboardStudent: false, canBroadcast: false, canCollectCash: false } },
     { id: createId('stf'), ...base(), userId: guardId, ownerId: ownerUserId, staffType: 'guard', salary: 12000, joinDate: now, shift: 'Night', permissions: { canEditRent: false, canAddExpense: false, canOnboardStudent: false, canBroadcast: false, canCollectCash: false } }
   ];
-  db.replaceAll(STORAGE_KEYS.STAFF, staffProfiles as any);
+  db.replaceAll(STORAGE_KEYS.STAFF, staffProfiles as unknown);
 
   const studentProfiles = [
     { id: createId('std'), ...base(), userId: studentId, ownerId: ownerUserId, propertyId: 'prop_patna', roomId: rooms[2].id, bedId: 'bed_303B', rentAmount: 5000, duesAmount: 0, pgScore: 95, agreementAccepted: true, agreementTimestamp: now, status: 'active', checkInDate: new Date(Date.now() - 300 * 86400000).toISOString(), stayStartDate: new Date(Date.now() - 300 * 86400000).toISOString(), stayEndDate: new Date(Date.now() + 60 * 86400000).toISOString() },
@@ -139,7 +139,7 @@ export function runSeed() {
     { id: createId('std'), ...base(), userId: studentId3, ownerId: ownerUserId, propertyId: 'prop_patna', roomId: rooms[3].id, bedId: 'bed_304A', rentAmount: 6000, duesAmount: 0, pgScore: 100, agreementAccepted: true, agreementTimestamp: now, status: 'active', checkInDate: now, stayStartDate: now, stayEndDate: new Date(Date.now() + 180 * 86400000).toISOString() },
     { id: createId('std'), ...base(), userId: studentId4, ownerId: ownerUserId, propertyId: 'prop_patna', roomId: rooms[3].id, bedId: 'bed_304B', rentAmount: 6000, duesAmount: 0, pgScore: 88, agreementAccepted: true, agreementTimestamp: now, status: 'active', checkInDate: now, stayStartDate: now, stayEndDate: new Date(Date.now() + 180 * 86400000).toISOString() }
   ];
-  db.replaceAll(STORAGE_KEYS.STUDENTS, studentProfiles as any);
+  db.replaceAll(STORAGE_KEYS.STUDENTS, studentProfiles as unknown);
 
   const invoices = [];
   
@@ -167,12 +167,12 @@ export function runSeed() {
     invoices.push({ id: createId('inv'), ...base(), propertyId: 'prop_patna', amount: 6000, status: m === 0 ? 'Pending' : 'Paid', studentId: studentId4, title: `Rent - ${d.toLocaleString('default', { month: 'short', year: 'numeric' })}`, dueDate: d.toISOString(), updatedAt: m === 0 ? now : new Date(d.getTime() + 86400000).toISOString() });
   }
 
-  db.replaceAll(STORAGE_KEYS.INVOICES, invoices as any);
+  db.replaceAll(STORAGE_KEYS.INVOICES, invoices as unknown);
 
   db.replaceAll(STORAGE_KEYS.COMPLAINTS, [
     { id: createId('cmp'), ...base(), propertyId: 'prop_patna', studentId: studentId, studentName: 'Student 3', roomId: rooms[2].id, roomNumber: '303', category: 'maintenance', title: 'AC not working in Room 303', description: 'The AC is blowing hot air since yesterday.', status: 'Open', priority: 'High' },
     { id: createId('cmp'), ...base(), propertyId: 'prop_patna', studentId: studentId, studentName: 'Student 3', roomId: rooms[2].id, roomNumber: '303', category: 'cleaning', title: 'Room cleaning missed', description: 'No one came to clean the room today.', status: 'Resolved', priority: 'Medium', repairCost: 1500, resolvedAt: now, resolutionNotes: 'Replaced AC capacitor and serviced unit' }
-  ] as any);
+  ] as unknown);
 
   const foodMenu = JSON.stringify({ breakfast: 'Poha & Jalebi', lunch: 'Dal, Roti, Rice, Paneer Masala', dinner: 'Jeera Rice, Chole, Salad' });
   db.replaceAll(STORAGE_KEYS.MENUS, [
@@ -183,17 +183,17 @@ export function runSeed() {
       monthEndSpecial: 'Paneer Tikka, Naan, Gulab Jamun',
       updatedAt: new Date().toISOString()
     }
-  ] as any);
+  ] as unknown);
 
   db.replaceAll(STORAGE_KEYS.MEAL_STATUS, [
     { id: createId('msl'), ...base(), propertyId: 'prop_patna', date: new Date().toISOString().split('T')[0], mealType: 'Breakfast', status: 'announced' },
     { id: createId('msl'), ...base(), propertyId: 'prop_patna', date: new Date().toISOString().split('T')[0], mealType: 'Lunch', status: 'ready' },
     { id: createId('msl'), ...base(), propertyId: 'prop_patna', date: new Date().toISOString().split('T')[0], mealType: 'Dinner', status: 'pending' }
-  ] as any);
+  ] as unknown);
 
   db.replaceAll(STORAGE_KEYS.WALLETS, [
     { id: createId('wal'), ...base(), studentId, balance: 1000, propertyId: 'prop_patna' }
-  ] as any);
+  ] as unknown);
 
   const gateLogs = Array.from({length: 35}).map((_, i) => ({
     id: createId('log'),
@@ -205,7 +205,7 @@ export function runSeed() {
     timestamp: new Date(Date.now() - i * 3600000).toISOString(),
     createdAt: new Date(Date.now() - i * 3600000).toISOString()
   }));
-  db.replaceAll(STORAGE_KEYS.GATE_LOGS, gateLogs as any);
+  db.replaceAll(STORAGE_KEYS.GATE_LOGS, gateLogs as unknown);
 
   const enquiries = Array.from({length: 35}).map((_, i) => ({
     id: createId('enq'),
@@ -217,7 +217,7 @@ export function runSeed() {
     status: ['New', 'Contacted', 'Converted', 'Closed'][i % 4],
     createdAt: new Date(Date.now() - i * 86400000).toISOString()
   }));
-  db.replaceAll(STORAGE_KEYS.ENQUIRIES, enquiries as any);
+  db.replaceAll(STORAGE_KEYS.ENQUIRIES, enquiries as unknown);
 
   const visitorNames = ['Ramesh Kumar', 'Sunita Devi', 'Ajay Sharma', 'Pooja Singh', 'Vikram Yadav', 'Meena Patel', 'Suresh Gupta'];
   const visitors = Array.from({length: 35}).map((_, i) => ({
@@ -234,7 +234,7 @@ export function runSeed() {
     checkInTime: i % 2 === 0 ? new Date(Date.now() - i * 3600000).toISOString() : null,
     createdAt: new Date(Date.now() - i * 7200000).toISOString()
   }));
-  db.replaceAll('spg_visitors', visitors as any);
+  db.replaceAll('spg_visitors', visitors as unknown);
 
   const staffAttendance = Array.from({length: 35}).map((_, i) => ({
     id: createId('att'),
@@ -245,7 +245,7 @@ export function runSeed() {
     status: ['present', 'absent', 'half_day', 'leave'][i % 4],
     markedAt: new Date(Date.now() - i * 3600000).toISOString()
   }));
-  db.replaceAll(STORAGE_KEYS.STAFF_ATTENDANCE || 'spg_staff_attendance', staffAttendance as any);
+  db.replaceAll(STORAGE_KEYS.STAFF_ATTENDANCE || 'spg_staff_attendance', staffAttendance as unknown);
 
   const inventory = Array.from({length: 35}).map((_, i) => ({
     id: createId('inv'),
@@ -257,7 +257,7 @@ export function runSeed() {
     unit: ['kg', 'liter', 'pieces', 'boxes'][i % 4],
     status: ['In Stock', 'Low Stock', 'Out of Stock'][i % 3]
   }));
-  db.replaceAll('spg_inventory', inventory as any);
+  db.replaceAll('spg_inventory', inventory as unknown);
 
   const documents = Array.from({length: 35}).map((_, i) => ({
     id: createId('doc'),
@@ -269,7 +269,7 @@ export function runSeed() {
     url: '#',
     createdAt: new Date(Date.now() - i * 86400000).toISOString()
   }));
-  db.replaceAll('spg_documents', documents as any);
+  db.replaceAll('spg_documents', documents as unknown);
 
   const broadcasts = Array.from({length: 35}).map((_, i) => ({
     id: createId('brd'),
@@ -281,7 +281,7 @@ export function runSeed() {
     status: ['Sent', 'Draft', 'Scheduled'][i % 3],
     createdAt: new Date(Date.now() - i * 43200000).toISOString()
   }));
-  db.replaceAll('spg_broadcasts', broadcasts as any);
+  db.replaceAll('spg_broadcasts', broadcasts as unknown);
 
   // Generate 45 Audit Logs
   const auditLogs = Array.from({length: 45}).map((_, i) => ({
@@ -295,7 +295,7 @@ export function runSeed() {
     details: `Action performed successfully. Transaction #${1000 + i}`,
     createdAt: new Date(Date.now() - i * 7200000).toISOString()
   }));
-  db.replaceAll(STORAGE_KEYS.AUDIT_LOGS, auditLogs as any);
+  db.replaceAll(STORAGE_KEYS.AUDIT_LOGS, auditLogs as unknown);
 
   // ── COOK PORTAL SEED DATA ──────────────────────────────────────────
 
@@ -338,7 +338,7 @@ export function runSeed() {
     lowStockThreshold: [5, 1, 2, 1, 1, 3, 1, 1, 1, 1, 2, 1, 5, 5, 1][i],
     category: ['Maintenance', 'Cleaning', 'Cleaning', 'Cleaning', 'Cleaning', 'Cleaning', 'Cleaning', 'Maintenance', 'Maintenance', 'Maintenance', 'Maintenance', 'Maintenance', 'Cleaning', 'Cleaning', 'Cleaning'][i],
   }));
-  db.replaceAll(STORAGE_KEYS.INVENTORY, [...groceryItems, ...maintenanceItems] as any);
+  db.replaceAll(STORAGE_KEYS.INVENTORY, [...groceryItems, ...maintenanceItems] as unknown);
 
   // 20 Stock Requests (kitchen grocery requests from cook to manager)
   const stockRequestItems = ['Basmati Rice', 'Paneer', 'Tomatoes', 'Fresh Milk', 'Toor Dal', 'Sunflower Oil', 'Wheat Flour (Atta)', 'Chole (Chickpeas)', 'Onions', 'Potatoes'];
@@ -356,7 +356,7 @@ export function runSeed() {
     expiryDate: i % 4 === 2 ? new Date(Date.now() + 30 * 86400000).toISOString().split('T')[0] : null,
     createdAt: new Date(Date.now() - i * 7200000).toISOString()
   }));
-  db.replaceAll('spg_stock_requests', stockRequests as any);
+  db.replaceAll('spg_stock_requests', stockRequests as unknown);
 
   // 15 Live Meal Orders for cook
   const studentNames = ['Rajan Kumar', 'Priya Sharma', 'Mohan Das', 'Anita Singh', 'Vijay Mehta', 'Sunita Patel', 'Arjun Rao'];
@@ -372,7 +372,7 @@ export function runSeed() {
     orderedAt: new Date(Date.now() - i * 1800000).toISOString(),
     createdAt: new Date(Date.now() - i * 1800000).toISOString()
   }));
-  db.replaceAll(STORAGE_KEYS.MEAL_ORDERS, mealOrders as any);
+  db.replaceAll(STORAGE_KEYS.MEAL_ORDERS, mealOrders as unknown);
 
   // 15 Staff Tasks
   const taskTitles = [
@@ -403,7 +403,7 @@ export function runSeed() {
     priority: ['high', 'medium', 'low'][i % 3],
     createdAt: new Date(Date.now() - i * 86400000).toISOString()
   }));
-  db.replaceAll('spg_tasks', tasks as any);
+  db.replaceAll('spg_tasks', tasks as unknown);
 
   localStorage.setItem(STORAGE_KEYS.IS_SEEDED, 'v13');
   console.log('✅ LocalStorage Seeded with Demo Accounts + Cook Data (v13)');

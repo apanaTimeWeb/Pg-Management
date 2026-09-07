@@ -49,12 +49,12 @@ export function OwnerRoomsDetailsMain({ params }: { params: Promise<{ id: string
     loadData();
   }, [id, user?.id, router]);
 
-  const handleBedStatusChange = (bedId: string, newStatus: any) => {
+  const handleBedStatusChange = (bedId: string, newStatus: unknown) => {
     if (!user) return;
     try {
       api.beds.updateStatus(bedId, newStatus, user.id);
       loadData(); // refresh
-    } catch (err: any) {
+    } catch (err: unknown) {
       alert('Failed to update bed status');
     }
   };
@@ -72,12 +72,12 @@ export function OwnerRoomsDetailsMain({ params }: { params: Promise<{ id: string
         api.rooms.delete(room.id, user.id);
         router.push('/owner/rooms');
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err.message || 'Cannot delete room.');
     }
   };
 
-  if (loading || !room) return <div className="p-6 animate-pulse">Loading room details...</div>;
+  if (loading || !room) return <div className="p-6 motion-safe:animate-pulse">Loading room details...</div>;
 
   const propertyName = properties.find(p => p.id === room.propertyId)?.name || 'Unknown Property';
   const vacantBeds = beds.filter(b => b.status === 'available').length;
@@ -85,7 +85,7 @@ export function OwnerRoomsDetailsMain({ params }: { params: Promise<{ id: string
   return (
     <div className="max-w-5xl mx-auto space-y-6 pb-20">
       <div className="flex items-center gap-4 mb-2">
-        <Link href="/owner/rooms" className="p-2 hover:bg-card rounded-full transition-colors text-secondary hover:text-primary">
+        <Link href="/owner/rooms" className="p-2 hover:bg-card rounded-full motion-safe:transition-colors text-secondary hover:text-primary">
           <ArrowLeft className="w-5 h-5" />
         </Link>
         <div>
@@ -153,7 +153,7 @@ export function OwnerRoomsDetailsMain({ params }: { params: Promise<{ id: string
             <div className="p-4 space-y-3">
               <button 
                 onClick={() => handleRoomMaintenance(room.status !== 'maintenance')}
-                className={`w-full py-2.5 rounded-md text-sm font-medium transition-colors border ${
+                className={`w-full py-2.5 rounded-md text-sm font-medium motion-safe:transition-colors border ${
                   room.status === 'maintenance' 
                     ? 'bg-success-bg text-success border-success' 
                     : 'bg-warning-bg text-warning border-warning'
@@ -162,7 +162,7 @@ export function OwnerRoomsDetailsMain({ params }: { params: Promise<{ id: string
                 {room.status === 'maintenance' ? 'Remove Maintenance Block' : 'Mark Room under Maintenance'}
               </button>
               
-              <button onClick={handleDeleteRoom} className="w-full py-2.5 bg-danger-bg text-danger border border-danger rounded-md text-sm font-medium hover:bg-red-900 transition-colors flex items-center justify-center gap-2">
+              <button onClick={handleDeleteRoom} className="w-full py-2.5 bg-danger-bg text-danger border border-danger rounded-md text-sm font-medium hover:bg-red-900 motion-safe:transition-colors flex items-center justify-center gap-2">
                 <Trash2 className="w-4 h-4" />
                 Delete Room
               </button>
@@ -185,7 +185,7 @@ export function OwnerRoomsDetailsMain({ params }: { params: Promise<{ id: string
 
             <div className="p-5 flex-1 space-y-4">
               {beds.map(bed => (
-                <div key={bed.id} className="border border-border rounded-md p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-primary-subtle transition-colors bg-page">
+                <div key={bed.id} className="border border-border rounded-md p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-primary-subtle motion-safe:transition-colors bg-page">
                   <div className="flex items-center gap-4">
                     <div className={`w-12 h-12 rounded-lg flex items-center justify-center font-bold text-lg border
                       ${(bed.status === 'available') ? 'bg-[rgba(16,185,129,0.1)] text-success border-[rgba(16,185,129,0.2)]' : 

@@ -19,7 +19,7 @@ export function StaffFirstLoginMain() {
       session.mustChangePassword = false;
       setSession(session);
       router.push('/staff/dashboard');
-    } catch(err: any) {
+    } catch(err: unknown) {
       setError(err.message);
     }
   };

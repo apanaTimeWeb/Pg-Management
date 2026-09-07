@@ -5,8 +5,8 @@ import { SuperAdminAuditLogsHeaderProps } from '@/app/superadmin/audit-logs/Supe
 export const SuperAdminAuditLogsHeader: React.FC<SuperAdminAuditLogsHeaderProps> = () => {
   return (
     <div>
-      <h1 className="text-[22px] font-bold text-[var(--text-primary)]">System Audit Logs</h1>
-      <p className="text-[var(--text-secondary)] text-sm">Chronological record of critical system actions.</p>
+      <h1 className="text-[22px] font-bold text-primary">System Audit Logs</h1>
+      <p className="text-secondary text-sm">Chronological record of critical system actions.</p>
     </div>
   );
 };

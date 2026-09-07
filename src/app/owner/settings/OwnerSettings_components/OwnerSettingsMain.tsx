@@ -119,7 +119,7 @@ export function OwnerSettingsMain() {
           <button 
             type="submit"
             disabled={saving}
-            className="bg-primary text-white px-8 py-2.5 rounded-md font-bold hover:bg-primary-hover transition-colors disabled:opacity-50 text-sm flex items-center gap-2 shadow-md"
+            className="bg-primary text-white px-8 py-2.5 rounded-md font-bold hover:bg-primary-hover motion-safe:transition-colors disabled:opacity-50 text-sm flex items-center gap-2 shadow-md"
           >
             <Save className="w-4 h-4" />
             {saving ? 'Saving...' : 'Save Settings'}

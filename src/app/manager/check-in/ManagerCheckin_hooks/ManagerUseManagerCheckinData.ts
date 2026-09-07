@@ -6,7 +6,7 @@
 import { useState, useEffect } from 'react';
 import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
 
-export function ManagerUseManagerCheckinData(selectedPropertyId: string | null, step: number, enquiryId: string, formDataRoomBedId: string, compatibility: any) {
+export function ManagerUseManagerCheckinData(selectedPropertyId: string | null, step: number, enquiryId: string, formDataRoomBedId: string, compatibility: unknown) {
   const [vacantBeds, setVacantBeds] = useState<any[]>([]);
   const [compatibilityScore, setCompatibilityScore] = useState<number | null>(null);
   const [enquiryData, setEnquiryData] = useState<any>(null);

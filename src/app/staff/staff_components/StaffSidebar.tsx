@@ -37,7 +37,7 @@ export function StaffSidebar({ staffRole }: { staffRole: string | null }) {
             <Link
               key={link.href}
               href={link.href}
-              className={`flex items-center gap-3 px-4 py-3 rounded-md transition-all font-medium text-sm ${
+              className={`flex items-center gap-3 px-4 py-3 rounded-md motion-safe:transition-all font-medium text-sm ${
                 isActive 
                   ? 'bg-primary text-white shadow-md' 
                   : 'text-secondary hover:bg-input hover:text-primary'
@@ -53,7 +53,7 @@ export function StaffSidebar({ staffRole }: { staffRole: string | null }) {
       <div className="p-4 border-t border-border">
         <button
           onClick={() => { clearSession(); window.location.href = '/staff/login'; }}
-          className="flex items-center gap-3 px-4 py-3 w-full text-left text-danger hover:bg-danger-bg rounded-md transition-colors font-medium text-sm"
+          className="flex items-center gap-3 px-4 py-3 w-full text-left text-danger hover:bg-danger-bg rounded-md motion-safe:transition-colors font-medium text-sm"
         >
           <LogOut className="w-5 h-5" />
           Sign out

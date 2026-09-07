@@ -1,0 +1,1 @@
+export const MANAGER_FOOD_URL = '/manager/food';

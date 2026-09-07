@@ -9,7 +9,7 @@ export interface OwnerPayrollStatsProps {
   handleNextMonth: () => void;
   selectedPropertyId: string;
   setSelectedPropertyId: (id: string) => void;
-  properties: any[];
+  properties: unknown[];
   roleFilter: string;
   setRoleFilter: (role: string) => void;
   totalPayout: number;
@@ -38,7 +38,7 @@ export function OwnerPayrollStats({
     <div className="bg-card border border-border rounded-lg p-5">
       <div className="flex flex-col md:flex-row items-center justify-between mb-8 pb-4 border-b border-border gap-4">
         <div className="flex items-center justify-between w-full md:w-auto">
-          <button onClick={handlePrevMonth} className="p-2 hover:bg-page rounded-full text-secondary transition-colors">
+          <button onClick={handlePrevMonth} className="p-2 hover:bg-page rounded-full text-secondary motion-safe:transition-colors">
             <ChevronLeft className="w-5 h-5" />
           </button>
           
@@ -49,7 +49,7 @@ export function OwnerPayrollStats({
             </h2>
           </div>
           
-          <button onClick={handleNextMonth} className="p-2 hover:bg-page rounded-full text-secondary transition-colors">
+          <button onClick={handleNextMonth} className="p-2 hover:bg-page rounded-full text-secondary motion-safe:transition-colors">
             <ChevronRight className="w-5 h-5" />
           </button>
         </div>

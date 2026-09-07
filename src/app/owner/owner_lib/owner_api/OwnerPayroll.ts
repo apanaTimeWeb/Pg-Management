@@ -30,7 +30,7 @@ export const payrollApi = {
       updatedBy: data.ownerId,
       isDeleted: false
     };
-    db.insert('spg_salary_payments' as any, payment as any);
+    db.insert('spg_salary_payments' as unknown, payment as unknown);
 
     // Automatically create an Expense for this salary payment
     const { financeApi } = require('./finance');
@@ -53,7 +53,7 @@ export const payrollApi = {
     const staffList = teamApi.listByOwner(ownerId);
     
     // Get all payments for this month/year
-    const payments = db.getAll<SalaryPayment>('spg_salary_payments' as any)
+    const payments = db.getAll<SalaryPayment>('spg_salary_payments' as unknown)
       .filter(p => p.ownerId === ownerId && p.month === month && p.year === year && !p.isDeleted);
 
     // Merge staff with their payment status

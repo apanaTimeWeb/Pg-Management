@@ -1,0 +1,6 @@
+* @global-owner
+/src/app/superadmin/ @admin-team
+/src/app/owner/finance/ @finance-team
+/src/app/manager/finance/ @finance-team
+/src/app/login/ @security-team
+/src/middleware.ts @security-team

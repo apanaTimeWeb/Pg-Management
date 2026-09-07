@@ -22,6 +22,6 @@ export function ManagerRequireManager({ children }: { children: React.ReactNode 
     setAuthorized(true);
   }, [router, pathname]);
 
-  if (!authorized) return <div className="min-h-screen flex items-center justify-center bg-[var(--bg-page)] text-[var(--text-primary)]">Loading Manager Portal...</div>;
+  if (!authorized) return <div className="min-h-screen flex items-center justify-center bg-page text-primary">Loading Manager Portal...</div>;
   return <>{children}</>;
 }

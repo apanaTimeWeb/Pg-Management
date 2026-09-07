@@ -13,7 +13,7 @@ export function recordCashPayment(data: Partial<Payment>, actorId: string, invoi
     propertyId: data.propertyId!,
     studentId: data.studentId!,
     amount: data.amount!,
-    method: data.method as any,
+    method: data.method as unknown,
     date: new Date().toISOString(),
     referenceNo: data.referenceNo,
     createdAt: new Date().toISOString(),
@@ -65,7 +65,7 @@ export function createExpense(data: Partial<Expense>, actorId: string) {
   const expense: Expense = {
     id: createId('exp'),
     propertyId: data.propertyId!,
-    category: data.category as any,
+    category: data.category as unknown,
     amount: data.amount!,
     date: new Date().toISOString(),
     description: data.description!,

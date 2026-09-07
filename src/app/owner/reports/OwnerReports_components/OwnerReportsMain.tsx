@@ -32,7 +32,7 @@ export function OwnerReportsMain() {
     dlAnchorElem.click();
   };
 
-  if (loading || !report) return <div className="p-6 animate-pulse">Loading reports...</div>;
+  if (loading || !report) return <div className="p-6 motion-safe:animate-pulse">Loading reports...</div>;
 
   return (
     <div className="space-y-6 pb-20">
@@ -43,7 +43,7 @@ export function OwnerReportsMain() {
         </div>
         <button 
           onClick={handleExport}
-          className="bg-card border border-border text-primary px-4 py-2 rounded-md font-medium hover:border-primary transition-colors flex items-center gap-2 text-sm shadow-sm justify-center"
+          className="bg-card border border-border text-primary px-4 py-2 rounded-md font-medium hover:border-primary motion-safe:transition-colors flex items-center gap-2 text-sm shadow-sm justify-center"
         >
           <Download className="w-4 h-4" />
           <span>Export JSON</span>
@@ -52,7 +52,7 @@ export function OwnerReportsMain() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* Occupancy Card */}
-        <div className="bg-card border border-border rounded-lg p-6 hover:border-primary-subtle transition-colors">
+        <div className="bg-card border border-border rounded-lg p-6 hover:border-primary-subtle motion-safe:transition-colors">
           <div className="flex items-center gap-3 mb-4">
             <div className="p-2 bg-[rgba(99,102,241,0.1)] text-primary rounded-lg">
               <Building className="w-5 h-5" />
@@ -69,7 +69,7 @@ export function OwnerReportsMain() {
         </div>
 
         {/* Collection Efficiency Card */}
-        <div className="bg-card border border-border rounded-lg p-6 hover:border-success transition-colors">
+        <div className="bg-card border border-border rounded-lg p-6 hover:border-success motion-safe:transition-colors">
           <div className="flex items-center gap-3 mb-4">
             <div className="p-2 bg-[rgba(16,185,129,0.1)] text-success rounded-lg">
               <BarChart3 className="w-5 h-5" />
@@ -86,7 +86,7 @@ export function OwnerReportsMain() {
         </div>
 
         {/* Complaints Card */}
-        <div className="bg-card border border-border rounded-lg p-6 hover:border-warning transition-colors">
+        <div className="bg-card border border-border rounded-lg p-6 hover:border-warning motion-safe:transition-colors">
           <div className="flex items-center gap-3 mb-4">
             <div className="p-2 bg-warning-bg text-warning rounded-lg border border-warning">
               <AlertCircle className="w-5 h-5" />

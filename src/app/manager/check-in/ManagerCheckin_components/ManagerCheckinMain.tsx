@@ -34,15 +34,15 @@ export function ManagerCheckinMain() {
     }));
   }
 
-  if (ctxLoading) return <div className="p-6 text-[var(--text-secondary)]">Loading wizard...</div>;
+  if (ctxLoading) return <div className="p-6 text-secondary">Loading wizard...</div>;
   if (!selectedPropertyId) {
     return (
       <div className="h-[80vh] flex flex-col items-center justify-center text-center max-w-md mx-auto">
-        <div className="w-20 h-20 rounded-full bg-[var(--bg-card)] flex items-center justify-center mb-6 border border-[var(--border)]">
-          <Lock className="w-10 h-10 text-[var(--text-secondary)]" />
+        <div className="w-20 h-20 rounded-full bg-card flex items-center justify-center mb-6 border border">
+          <Lock className="w-10 h-10 text-secondary" />
         </div>
-        <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-2">Property Required</h2>
-        <p className="text-[var(--text-secondary)]">Please assign or select a property before performing a check-in.</p>
+        <h2 className="text-2xl font-bold text-primary mb-2">Property Required</h2>
+        <p className="text-secondary">Please assign or select a property before performing a check-in.</p>
       </div>
     );
   }
@@ -50,8 +50,8 @@ export function ManagerCheckinMain() {
   return (
     <div className="max-w-4xl mx-auto space-y-6 pb-20">
       <div className="mb-8">
-        <h1 className="text-[24px] font-bold text-[var(--text-primary)]">Check-in Wizard</h1>
-        <p className="text-sm text-[var(--text-secondary)] mt-1">Onboard a new student to your property.</p>
+        <h1 className="text-[24px] font-bold text-primary">Check-in Wizard</h1>
+        <p className="text-sm text-secondary mt-1">Onboard a new student to your property.</p>
       </div>
 
       <ManagerCheckinProgress step={step} />

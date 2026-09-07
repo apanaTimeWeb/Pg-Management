@@ -4,7 +4,7 @@ import { UserPlus } from 'lucide-react';
 import { StaffRoleType } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
 
 export interface OwnerTeamCreatePersonalDetailsProps {
-  formData: any;
+  formData: unknown;
   setFormData: React.Dispatch<React.SetStateAction<any>>;
 }
 
@@ -20,7 +20,7 @@ export function OwnerTeamCreatePersonalDetails({ formData, setFormData }: OwnerT
           <label className="text-sm font-medium text-secondary">Full Name *</label>
           <input 
             required type="text" placeholder="e.g. Rahul Kumar"
-            value={formData.name} onChange={e => setFormData((p: any) => ({...p, name: e.target.value}))}
+            value={formData.name} onChange={e => setFormData((p: unknown) => ({...p, name: e.target.value}))}
             className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:border-primary outline-none"
           />
         </div>
@@ -28,7 +28,7 @@ export function OwnerTeamCreatePersonalDetails({ formData, setFormData }: OwnerT
           <label className="text-sm font-medium text-secondary">Phone Number *</label>
           <input 
             required type="text" placeholder="e.g. +91 9876543210"
-            value={formData.phone} onChange={e => setFormData((p: any) => ({...p, phone: e.target.value}))}
+            value={formData.phone} onChange={e => setFormData((p: unknown) => ({...p, phone: e.target.value}))}
             className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:border-primary outline-none"
           />
         </div>
@@ -41,7 +41,7 @@ export function OwnerTeamCreatePersonalDetails({ formData, setFormData }: OwnerT
             ].map(role => (
               <label 
                 key={role.id}
-                className={`flex items-center gap-3 p-3 rounded-md border cursor-pointer transition-colors ${
+                className={`flex items-center gap-3 p-3 rounded-md border cursor-pointer motion-safe:transition-colors ${
                   formData.roleType === role.id 
                     ? 'border-primary bg-primary-subtle' 
                     : 'border-border bg-input hover:border-primary-subtle'
@@ -50,7 +50,7 @@ export function OwnerTeamCreatePersonalDetails({ formData, setFormData }: OwnerT
                 <input 
                   type="radio" name="roleType" value={role.id}
                   checked={formData.roleType === role.id}
-                  onChange={() => setFormData((p: any) => ({...p, roleType: role.id as StaffRoleType}))}
+                  onChange={() => setFormData((p: unknown) => ({...p, roleType: role.id as StaffRoleType}))}
                   className="accent-[var(--primary)]"
                 />
                 <span className={`text-sm font-medium ${formData.roleType === role.id ? 'text-primary' : 'text-primary'}`}>

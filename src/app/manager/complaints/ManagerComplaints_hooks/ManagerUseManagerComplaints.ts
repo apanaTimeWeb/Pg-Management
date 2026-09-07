@@ -23,7 +23,7 @@ export function ManagerUseManagerComplaints(selectedPropertyId: string | null, c
   // RHF for the resolve modal — replaces repairCost/resolutionNotes useState
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const resolveForm = useForm<ComplaintResolveFormData>({
-    resolver: zodResolver(ComplaintResolveSchema) as any,
+    resolver: zodResolver(ComplaintResolveSchema) as unknown,
     defaultValues: { repairCost: '', resolutionNotes: '' },
   });
 

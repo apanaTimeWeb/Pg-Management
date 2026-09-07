@@ -7,7 +7,7 @@ interface Props {
   step: number;
   formData: ManagerCheckinFormData;
   setFormData: React.Dispatch<React.SetStateAction<ManagerCheckinFormData>>;
-  vacantBeds: any[];
+  vacantBeds: unknown[];
   router: AppRouterInstance;
 }
 
@@ -18,39 +18,39 @@ export function ManagerCheckinFormSteps6to10({ step, formData, setFormData, vaca
     <>
       {step === 6 && (
         <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
-          <h2 className="text-xl font-bold text-[var(--text-primary)] flex items-center gap-2"><Wallet className="text-[var(--primary)]" /> Deposit & Rent</h2>
+          <h2 className="text-xl font-bold text-primary flex items-center gap-2"><Wallet className="text-primary" /> Deposit & Rent</h2>
           <div>
-            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Agreed Monthly Rent (₹)</label>
-            <input type="number" value={formData.deposit.rentAmount} onChange={e => setFormData({...formData, deposit: {...formData.deposit, rentAmount: e.target.value}})} className="w-full max-w-sm bg-[var(--bg-input)] border border-[var(--border)] rounded px-3 py-2 text-[var(--text-primary)] focus:border-[var(--primary)] outline-none" />
+            <label className="block text-sm font-medium text-secondary mb-1">Agreed Monthly Rent (₹)</label>
+            <input type="number" value={formData.deposit.rentAmount} onChange={e => setFormData({...formData, deposit: {...formData.deposit, rentAmount: e.target.value}})} className="w-full max-w-sm bg-input border border rounded px-3 py-2 text-primary focus:border-primary outline-none" />
           </div>
           <div className="mt-4">
-            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Stay Duration (Months)</label>
-            <select value={formData.deposit.stayDuration} onChange={e => setFormData({...formData, deposit: {...formData.deposit, stayDuration: e.target.value}})} className="w-full max-w-sm bg-[var(--bg-input)] border border-[var(--border)] rounded px-3 py-2 text-[var(--text-primary)] focus:border-[var(--primary)] outline-none">
+            <label className="block text-sm font-medium text-secondary mb-1">Stay Duration (Months)</label>
+            <select value={formData.deposit.stayDuration} onChange={e => setFormData({...formData, deposit: {...formData.deposit, stayDuration: e.target.value}})} className="w-full max-w-sm bg-input border border rounded px-3 py-2 text-primary focus:border-primary outline-none">
               {[1, 2, 3, 4, 5, 6, 9, 12].map(months => (
                 <option key={months} value={months.toString()}>{months} {months === 1 ? 'Month' : 'Months'}</option>
               ))}
             </select>
-            <p className="text-xs text-[var(--text-secondary)] mt-1">Rent schedule will be generated automatically for this duration.</p>
+            <p className="text-xs text-secondary mt-1">Rent schedule will be generated automatically for this duration.</p>
           </div>
           <div className="mt-6">
-            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-3">Deposit Model</label>
+            <label className="block text-sm font-medium text-secondary mb-3">Deposit Model</label>
             <div className="flex gap-4">
-              <label className={`flex-1 border rounded-xl p-4 cursor-pointer transition-colors ${formData.deposit.type === 'normal' ? 'border-[var(--primary)] bg-[var(--primary-subtle)]' : 'border-[var(--border)] bg-[var(--bg-input)]'}`}>
+              <label className={`flex-1 border rounded-xl p-4 cursor-pointer motion-safe:transition-colors ${formData.deposit.type === 'normal' ? 'border-primary bg-primary-subtle' : 'border bg-input'}`}>
                 <input type="radio" name="dep" checked={formData.deposit.type === 'normal'} onChange={() => setFormData({...formData, deposit: {...formData.deposit, type: 'normal', loanPartner: ''}})} className="sr-only" />
-                <div className="font-bold text-[var(--text-primary)] mb-1">Normal Deposit</div>
-                <div className="text-xs text-[var(--text-secondary)]">Student pays upfront deposit.</div>
+                <div className="font-bold text-primary mb-1">Normal Deposit</div>
+                <div className="text-xs text-secondary">Student pays upfront deposit.</div>
               </label>
-              <label className={`flex-1 border rounded-xl p-4 cursor-pointer transition-colors ${formData.deposit.type === 'zero_deposit' ? 'border-[var(--primary)] bg-[var(--primary-subtle)]' : 'border-[var(--border)] bg-[var(--bg-input)]'}`}>
+              <label className={`flex-1 border rounded-xl p-4 cursor-pointer motion-safe:transition-colors ${formData.deposit.type === 'zero_deposit' ? 'border-primary bg-primary-subtle' : 'border bg-input'}`}>
                 <input type="radio" name="dep" checked={formData.deposit.type === 'zero_deposit'} onChange={() => setFormData({...formData, deposit: {...formData.deposit, type: 'zero_deposit'}})} className="sr-only" />
-                <div className="font-bold text-[var(--text-primary)] mb-1">Zero Deposit</div>
-                <div className="text-xs text-[var(--text-secondary)]">Financed by Loan Partner.</div>
+                <div className="font-bold text-primary mb-1">Zero Deposit</div>
+                <div className="text-xs text-secondary">Financed by Loan Partner.</div>
               </label>
             </div>
           </div>
           {formData.deposit.type === 'zero_deposit' && (
             <div className="mt-4 animate-in fade-in">
-              <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Loan Partner</label>
-              <select value={formData.deposit.loanPartner} onChange={e => setFormData({...formData, deposit: {...formData.deposit, loanPartner: e.target.value}})} className="w-full max-w-sm bg-[var(--bg-input)] border border-[var(--border)] rounded px-3 py-2 text-[var(--text-primary)] focus:border-[var(--primary)] outline-none">
+              <label className="block text-sm font-medium text-secondary mb-1">Loan Partner</label>
+              <select value={formData.deposit.loanPartner} onChange={e => setFormData({...formData, deposit: {...formData.deposit, loanPartner: e.target.value}})} className="w-full max-w-sm bg-input border border rounded px-3 py-2 text-primary focus:border-primary outline-none">
                 <option value="">Select Partner</option>
                 <option value="Liquiloans">Liquiloans</option>
                 <option value="Eduvanz">Eduvanz</option>
@@ -62,7 +62,7 @@ export function ManagerCheckinFormSteps6to10({ step, formData, setFormData, vaca
 
       {step === 7 && (
         <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
-          <h2 className="text-xl font-bold text-[var(--text-primary)] flex items-center gap-2"><FileCheck className="text-[var(--primary)]" /> Digital Agreement</h2>
+          <h2 className="text-xl font-bold text-primary flex items-center gap-2"><FileCheck className="text-primary" /> Digital Agreement</h2>
           <div className="bg-white text-black font-serif border border-gray-300 p-8 rounded shadow-inner max-h-96 overflow-y-auto">
             <div className="text-center mb-6 border-b-2 border-black pb-4">
               <h1 className="text-2xl font-bold uppercase tracking-widest">Rental Agreement</h1>
@@ -87,7 +87,7 @@ export function ManagerCheckinFormSteps6to10({ step, formData, setFormData, vaca
                 </div>
                 <div>
                   {formData.agreement.accepted ? (
-                    <div className="h-10 text-[var(--success)] font-bold italic flex items-end">Digitally Accepted</div>
+                    <div className="h-10 text-success font-bold italic flex items-end">Digitally Accepted</div>
                   ) : (
                     <div className="border-b border-gray-400 h-10 w-48"></div>
                   )}
@@ -96,22 +96,22 @@ export function ManagerCheckinFormSteps6to10({ step, formData, setFormData, vaca
               </div>
             </div>
           </div>
-          <label className="flex items-center gap-3 cursor-pointer mt-4 p-3 border border-[var(--primary)] rounded-lg bg-[var(--primary-subtle)] transition-colors">
+          <label className="flex items-center gap-3 cursor-pointer mt-4 p-3 border border-primary rounded-lg bg-primary-subtle motion-safe:transition-colors">
             <input type="checkbox" checked={formData.agreement.accepted} onChange={e => setFormData({...formData, agreement: { accepted: e.target.checked }})} className="w-5 h-5 accent-[var(--primary)] cursor-pointer" />
-            <span className="text-sm font-medium text-[var(--primary)]">I verify the student has read and accepts all legal terms and conditions.</span>
+            <span className="text-sm font-medium text-primary">I verify the student has read and accepts all legal terms and conditions.</span>
           </label>
         </div>
       )}
 
       {step === 8 && (
         <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
-          <h2 className="text-xl font-bold text-[var(--text-primary)] flex items-center gap-2"><Key className="text-[var(--primary)]" /> Credentials Setup</h2>
-          <p className="text-sm text-[var(--text-secondary)]">Set a temporary password for the Student. They will be forced to change it on their first login.</p>
+          <h2 className="text-xl font-bold text-primary flex items-center gap-2"><Key className="text-primary" /> Credentials Setup</h2>
+          <p className="text-sm text-secondary">Set a temporary password for the Student. They will be forced to change it on their first login.</p>
           <div>
-            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Temporary Password</label>
-            <input type="text" value={formData.credentials.password} onChange={e => setFormData({...formData, credentials: { password: e.target.value }})} className="w-full max-w-sm bg-[var(--bg-input)] border border-[var(--border)] rounded px-3 py-2 text-[var(--text-primary)] focus:border-[var(--primary)] outline-none font-mono" />
+            <label className="block text-sm font-medium text-secondary mb-1">Temporary Password</label>
+            <input type="text" value={formData.credentials.password} onChange={e => setFormData({...formData, credentials: { password: e.target.value }})} className="w-full max-w-sm bg-input border border rounded px-3 py-2 text-primary focus:border-primary outline-none font-mono" />
           </div>
-          <div className="bg-[var(--warning-bg)] border border-[var(--warning)] text-[var(--warning)] p-3 rounded-lg text-sm flex items-start gap-2">
+          <div className="bg-warning-bg border border-warning text-warning p-3 rounded-lg text-sm flex items-start gap-2">
             <Lock className="w-4 h-4 mt-0.5 shrink-0" />
             <p>System will enforce password reset when {formData.personal.email || 'student'} logs in.</p>
           </div>
@@ -120,14 +120,14 @@ export function ManagerCheckinFormSteps6to10({ step, formData, setFormData, vaca
 
       {step === 9 && (
         <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
-          <h2 className="text-xl font-bold text-[var(--text-primary)] flex items-center gap-2"><Utensils className="text-[var(--primary)]" /> Mess Wallet Initialization</h2>
-          <div className="border-2 border-[var(--border)] rounded-xl p-8 text-center bg-[var(--bg-input)]">
-            <div className="w-16 h-16 bg-[var(--primary-subtle)] rounded-full flex items-center justify-center mx-auto mb-4 border border-[var(--primary)]">
-              <Wallet className="w-8 h-8 text-[var(--primary)]" />
+          <h2 className="text-xl font-bold text-primary flex items-center gap-2"><Utensils className="text-primary" /> Mess Wallet Initialization</h2>
+          <div className="border-2 border rounded-xl p-8 text-center bg-input">
+            <div className="w-16 h-16 bg-primary-subtle rounded-full flex items-center justify-center mx-auto mb-4 border border-primary">
+              <Wallet className="w-8 h-8 text-primary" />
             </div>
-            <h3 className="font-bold text-lg text-[var(--text-primary)] mb-2">Wallet Ready</h3>
-            <p className="text-[var(--text-secondary)] text-sm mb-4">A mess wallet will be created for this student with ₹0 starting balance.</p>
-            <div className="inline-block px-4 py-2 bg-[var(--bg-card)] border border-[var(--border)] rounded-lg text-[var(--text-primary)] font-mono font-bold text-xl">
+            <h3 className="font-bold text-lg text-primary mb-2">Wallet Ready</h3>
+            <p className="text-secondary text-sm mb-4">A mess wallet will be created for this student with ₹0 starting balance.</p>
+            <div className="inline-block px-4 py-2 bg-card border border rounded-lg text-primary font-mono font-bold text-xl">
               ₹0.00
             </div>
           </div>
@@ -136,19 +136,19 @@ export function ManagerCheckinFormSteps6to10({ step, formData, setFormData, vaca
 
       {step === 10 && (
         <div className="space-y-4 animate-in zoom-in-95 flex flex-col items-center justify-center py-10 text-center">
-          <div className="w-20 h-20 bg-[var(--success-bg)] rounded-full flex items-center justify-center mb-4 border-4 border-[var(--success)]">
-            <CheckCircle className="w-10 h-10 text-[var(--success)]" />
+          <div className="w-20 h-20 bg-success-bg rounded-full flex items-center justify-center mb-4 border-4 border-success">
+            <CheckCircle className="w-10 h-10 text-success" />
           </div>
-          <h2 className="text-2xl font-bold text-[var(--text-primary)]">Check-in Complete!</h2>
-          <p className="text-[var(--text-secondary)] mb-6 max-w-md">
+          <h2 className="text-2xl font-bold text-primary">Check-in Complete!</h2>
+          <p className="text-secondary mb-6 max-w-md">
             {formData.personal.name} has been successfully onboarded to Room {vacantBeds.find(b=>b.id===formData.room.bedId)?.roomNumber || '-'}. 
             Parent link created and mess wallet initialized.
           </p>
           <div className="flex gap-4">
-            <button onClick={() => router.push('/manager/students')} className="px-6 py-2.5 bg-[var(--bg-input)] border border-[var(--border)] text-[var(--text-primary)] font-medium rounded-lg hover:bg-[var(--primary-subtle)] transition-colors">
+            <button onClick={() => router.push('/manager/students')} className="px-6 py-2.5 bg-input border border text-primary font-medium rounded-lg hover:bg-primary-subtle motion-safe:transition-colors">
               Go to Students
             </button>
-            <button onClick={() => window.location.reload()} className="px-6 py-2.5 bg-[var(--primary)] text-white font-medium rounded-lg hover:bg-[var(--primary-hover)] transition-colors">
+            <button onClick={() => window.location.reload()} className="px-6 py-2.5 bg-primary text-white font-medium rounded-lg hover:bg-primary-hover motion-safe:transition-colors">
               New Check-in
             </button>
           </div>

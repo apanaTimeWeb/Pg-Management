@@ -31,7 +31,7 @@ export function StaffUseStaffDashboard() {
     if (staffRole === 'cook' && propertyId) {
       setMenu(api.food.getByProperty(propertyId));
       setStockItems(api.stock.getByProperty(propertyId));
-      setRequests(api.stockRequests.getByProperty(propertyId).filter((r: any) => r.status !== 'verified'));
+      setRequests(api.stockRequests.getByProperty(propertyId).filter((r: unknown) => r.status !== 'verified'));
     }
     if (propertyId && user) {
       setIsPresent(attendanceApi.getTodayStatus(propertyId, user.id));

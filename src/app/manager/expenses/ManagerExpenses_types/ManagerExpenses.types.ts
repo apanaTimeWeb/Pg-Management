@@ -16,7 +16,7 @@ export const ExpenseFormSchema = z.object({
 export type ExpenseFormData = z.infer<typeof ExpenseFormSchema>;
 
 export interface ManagerExpensesState {
-  expenses: any[];
+  expenses: unknown[];
   studentCount: number;
   loading: boolean;
   isModalOpen: boolean;

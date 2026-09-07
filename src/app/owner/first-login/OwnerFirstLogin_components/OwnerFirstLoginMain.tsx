@@ -20,7 +20,7 @@ export function OwnerFirstLoginMain() {
       session.mustChangePassword = false;
       setSession(session);
       router.push('/owner/dashboard');
-    } catch(err: any) {
+    } catch(err: unknown) {
       setError(err.message);
     }
   };

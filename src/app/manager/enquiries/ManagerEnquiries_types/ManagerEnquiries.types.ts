@@ -12,12 +12,12 @@ export interface EnquiryFormData {
 export type EnquiriesTab = 'pipeline' | 'lost';
 
 export interface ManagerEnquiriesState {
-  enquiries: any[];
+  enquiries: unknown[];
   loading: boolean;
   showAddModal: boolean;
   searchQuery: string;
   activeTab: EnquiriesTab;
-  waMenuEnquiry: any | null;
+  waMenuEnquiry: unknown | null;
   formData: EnquiryFormData;
   currentPage: number;
 }

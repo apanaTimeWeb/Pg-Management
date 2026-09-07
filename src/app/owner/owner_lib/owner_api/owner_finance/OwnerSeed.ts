@@ -23,7 +23,7 @@ export function seedMocksIfEmpty(ownerId: string) {
 
   dummyExpenses.forEach(exp => {
     db.insert(STORAGE_KEYS.EXPENSES, {
-      id: createId('exp'), propertyId: propId, category: exp.category as any, amount: exp.amount, date: new Date().toISOString(),
+      id: createId('exp'), propertyId: propId, category: exp.category as unknown, amount: exp.amount, date: new Date().toISOString(),
       description: exp.desc, recordedBy: 'system', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(),
       createdBy: 'system', updatedBy: 'system', isDeleted: false
     });

@@ -108,7 +108,7 @@ export const teamApi = {
       createdBy: actorId,
       updatedBy: actorId,
       isDeleted: false
-    } as any);
+    } as unknown);
 
     return { user: newUser, profile: newProfile };
   },

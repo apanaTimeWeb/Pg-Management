@@ -11,27 +11,27 @@ interface Props {
 
 export function ManagerInventoryTabs({ activeTab, setActiveTab, pendingCount, alertCount }: Props) {
   return (
-    <div className="flex border-b border-[var(--border)] mb-6">
+    <div className="flex border-b border mb-6">
       <button
         onClick={() => setActiveTab('requests')}
-        className={`flex items-center gap-2 px-6 py-3 font-semibold text-sm border-b-2 transition-colors ${
+        className={`flex items-center gap-2 px-6 py-3 font-semibold text-sm border-b-2 motion-safe:transition-colors ${
           activeTab === 'requests' 
-            ? 'border-[var(--primary)] text-[var(--primary)]' 
-            : 'border-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+            ? 'border-primary text-primary' 
+            : 'border-transparent text-secondary hover:text-primary'
         }`}
       >
         <ShoppingCart className="w-4 h-4" />
         Kitchen Requests
         {pendingCount > 0 && (
-          <span className="bg-[var(--danger)] text-white text-[10px] px-2 py-0.5 rounded-full ml-1">{pendingCount}</span>
+          <span className="bg-danger text-white text-[10px] px-2 py-0.5 rounded-full ml-1">{pendingCount}</span>
         )}
       </button>
       <button
         onClick={() => setActiveTab('live')}
-        className={`flex items-center gap-2 px-6 py-3 font-semibold text-sm border-b-2 transition-colors ${
+        className={`flex items-center gap-2 px-6 py-3 font-semibold text-sm border-b-2 motion-safe:transition-colors ${
           activeTab === 'live' 
-            ? 'border-[var(--primary)] text-[var(--primary)]' 
-            : 'border-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+            ? 'border-primary text-primary' 
+            : 'border-transparent text-secondary hover:text-primary'
         }`}
       >
         <Archive className="w-4 h-4" />
@@ -39,10 +39,10 @@ export function ManagerInventoryTabs({ activeTab, setActiveTab, pendingCount, al
       </button>
       <button
         onClick={() => setActiveTab('batches')}
-        className={`flex items-center gap-2 px-6 py-3 font-semibold text-sm border-b-2 transition-colors ${
+        className={`flex items-center gap-2 px-6 py-3 font-semibold text-sm border-b-2 motion-safe:transition-colors ${
           activeTab === 'batches' 
-            ? 'border-[var(--primary)] text-[var(--primary)]' 
-            : 'border-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+            ? 'border-primary text-primary' 
+            : 'border-transparent text-secondary hover:text-primary'
         }`}
       >
         <Clock className="w-4 h-4" />
@@ -50,16 +50,16 @@ export function ManagerInventoryTabs({ activeTab, setActiveTab, pendingCount, al
       </button>
       <button
         onClick={() => setActiveTab('alerts')}
-        className={`flex items-center gap-2 px-6 py-3 font-semibold text-sm border-b-2 transition-colors ${
+        className={`flex items-center gap-2 px-6 py-3 font-semibold text-sm border-b-2 motion-safe:transition-colors ${
           activeTab === 'alerts' 
-            ? 'border-[var(--danger)] text-[var(--danger)]' 
-            : 'border-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+            ? 'border-danger text-danger' 
+            : 'border-transparent text-secondary hover:text-primary'
         }`}
       >
         <AlertTriangle className="w-4 h-4" />
         Alerts
         {alertCount > 0 && (
-          <span className="bg-[var(--danger)] text-white text-[10px] px-2 py-0.5 rounded-full ml-1">{alertCount}</span>
+          <span className="bg-danger text-white text-[10px] px-2 py-0.5 rounded-full ml-1">{alertCount}</span>
         )}
       </button>
     </div>

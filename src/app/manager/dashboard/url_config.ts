@@ -1,0 +1,1 @@
+export const MANAGER_DASHBOARD_URL = '/manager/dashboard';

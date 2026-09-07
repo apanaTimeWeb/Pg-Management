@@ -32,7 +32,7 @@ export function OwnerTeamDetailsMain() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full motion-safe:animate-spin"></div>
       </div>
     );
   }
@@ -55,12 +55,12 @@ export function OwnerTeamDetailsMain() {
   const assignedProps = properties.filter(p => member.user.assignedPropertyIds?.includes(p.id));
 
   return (
-    <div className="max-w-6xl mx-auto pb-20 space-y-6 animate-in fade-in duration-300 ease-in-out">
+    <div className="max-w-6xl mx-auto pb-20 space-y-6 animate-in fade-in motion-safe:duration-300 motion-safe:ease-in-out">
       
       {/* Breadcrumb & Navigation */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Link href="/owner/team" className="p-2 border border-border rounded-full hover:bg-card transition-colors text-secondary hover:text-primary">
+          <Link href="/owner/team" className="p-2 border border-border rounded-full hover:bg-card motion-safe:transition-colors text-secondary hover:text-primary">
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div>
@@ -71,7 +71,7 @@ export function OwnerTeamDetailsMain() {
       </div>
 
       {/* Top Banner Profile Card */}
-      <div className="bg-card border border-border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+      <div className="bg-card border border-border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow motion-safe:duration-300">
         {/* Accent Strip */}
         <div className="h-24 bg-primary/10 border-b border-primary/20 relative overflow-hidden flex items-end">
            {/* Abstract subtle shape */}
@@ -171,7 +171,7 @@ export function OwnerTeamDetailsMain() {
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {assignedProps.map(prop => (
-                    <div key={prop.id} className="p-3 bg-page border border-border rounded-md flex items-start gap-3 hover:border-primary transition-colors duration-200">
+                    <div key={prop.id} className="p-3 bg-page border border-border rounded-md flex items-start gap-3 hover:border-primary motion-safe:transition-colors motion-safe:duration-200">
                       <div className="w-8 h-8 rounded-sm bg-primary-subtle flex items-center justify-center shrink-0">
                         <Building2 className="w-4 h-4 text-primary" />
                       </div>
@@ -210,7 +210,7 @@ export function OwnerTeamDetailsMain() {
               ].map((perm) => {
                 const hasPerm = member.profile.permissions[perm.key as keyof typeof member.profile.permissions];
                 return (
-                  <div key={perm.key} className="flex items-start gap-4 p-4 rounded-md bg-page border border-border hover:bg-card transition-colors duration-200">
+                  <div key={perm.key} className="flex items-start gap-4 p-4 rounded-md bg-page border border-border hover:bg-card motion-safe:transition-colors motion-safe:duration-200">
                     <div className="mt-0.5 shrink-0">
                       {hasPerm ? (
                         <div className="w-5 h-5 rounded-full bg-success flex items-center justify-center">

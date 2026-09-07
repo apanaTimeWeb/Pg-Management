@@ -5,7 +5,7 @@ import { SuperAdminCreateOwnerForm } from '@/app/superadmin/create-owner/SuperAd
 
 export default function CreateOwnerPage() {
   return (
-    <Suspense fallback={<div className="flex items-center justify-center h-64 text-[var(--text-secondary)]">Loading form...</div>}>
+    <Suspense fallback={<div className="flex items-center justify-center h-64 text-secondary">Loading form...</div>}>
       <SuperAdminCreateOwnerForm />
     </Suspense>
   );

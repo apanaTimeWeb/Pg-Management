@@ -53,7 +53,7 @@ export function StaffTasksMain() {
             <button 
               key={t.id} 
               onClick={() => handleToggle(t.id, t.status)}
-              className={`w-full flex items-center gap-3 p-4 rounded text-left transition-colors border ${
+              className={`w-full flex items-center gap-3 p-4 rounded text-left motion-safe:transition-colors border ${
                 t.status === 'done' 
                   ? 'bg-card opacity-60 border-border' 
                   : 'bg-input hover:bg-primary-subtle border-transparent'

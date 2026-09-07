@@ -6,7 +6,7 @@ import { Pagination } from '@/components/ui/Pagination';
 import { SuperAdminTicketsTableProps, SuperAdminTicket } from '@/app/superadmin/tickets/SuperAdminTickets_types/SuperAdminTickets.types';
 
 const PriorityBadge = ({ p }: { p: string }) => {
-  const color = p === 'High' ? 'text-[var(--danger)]' : p === 'Medium' ? 'text-[var(--warning)]' : 'text-[var(--success)]';
+  const color = p === 'High' ? 'text-danger' : p === 'Medium' ? 'text-warning' : 'text-success';
   return <span className={`text-[12px] font-medium ${color}`}>{p}</span>;
 };
 
@@ -22,23 +22,23 @@ export const SuperAdminTicketsTable: React.FC<SuperAdminTicketsTableProps> = ({
   onStatusChange
 }) => {
   return (
-    <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[var(--radius-lg,12px)] shadow-sm">
-      <div className="p-4 border-b border-[var(--border)] flex justify-between items-center bg-[var(--bg-card)] rounded-t-[var(--radius-lg,12px)]">
+    <div className="bg-card border border rounded-[var(--radius-lg,12px)] shadow-sm">
+      <div className="p-4 border-b border flex justify-between items-center bg-card rounded-t-[var(--radius-lg,12px)]">
         <div className="relative w-full sm:w-72">
-          <Search className="w-4 h-4 absolute left-3 top-2.5 text-[var(--text-secondary)]" />
+          <Search className="w-4 h-4 absolute left-3 top-2.5 text-secondary" />
           <input 
             type="text" 
             placeholder="Search tickets..." 
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full bg-[var(--bg-input)] border border-[var(--border)] pl-9 pr-4 py-2 rounded-[var(--radius-md,8px)] text-sm text-[var(--text-primary)] focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)] transition-colors"
+            className="w-full bg-input border border pl-9 pr-4 py-2 rounded-[var(--radius-md,8px)] text-sm text-primary focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary motion-safe:transition-colors"
           />
         </div>
       </div>
 
       <div className="overflow-x-auto min-h-[400px]">
         <table className="w-full text-sm text-left">
-          <thead className="bg-[var(--bg-card)] border-b border-[var(--border)] text-[var(--text-secondary)] uppercase text-[12px] sticky top-0 z-10 shadow-sm shadow-black/5">
+          <thead className="bg-card border-b border text-secondary uppercase text-[12px] sticky top-0 z-10 shadow-sm shadow-black/5">
             <tr>
               <th className="px-6 py-4 font-semibold">Issue</th>
               <th className="px-6 py-4 font-semibold">Owner</th>
@@ -50,13 +50,13 @@ export const SuperAdminTicketsTable: React.FC<SuperAdminTicketsTableProps> = ({
           <tbody className="divide-y divide-[var(--border)]">
             {loading ? (
               <tr>
-                <td colSpan={5} className="px-6 py-12 text-center text-[var(--text-secondary)] motion-safe:animate-pulse">
+                <td colSpan={5} className="px-6 py-12 text-center text-secondary motion-safe:animate-pulse">
                   Loading tickets...
                 </td>
               </tr>
             ) : tickets.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-6 py-12 text-center text-[var(--text-secondary)]">
+                <td colSpan={5} className="px-6 py-12 text-center text-secondary">
                   No tickets found.
                 </td>
               </tr>
@@ -64,19 +64,19 @@ export const SuperAdminTicketsTable: React.FC<SuperAdminTicketsTableProps> = ({
               tickets.map((t: SuperAdminTicket) => {
                 const owner = owners.find(o => o.id === t.ownerId);
                 return (
-                  <tr key={t.id} className="h-12 even:bg-black/5 dark:even:bg-white/[0.02] hover:bg-[var(--primary-subtle)] transition-colors">
+                  <tr key={t.id} className="h-12 even:bg-black/5 dark:even:bg-white/[0.02] hover:bg-primary-subtle motion-safe:transition-colors">
                     <td className="px-6 py-4">
-                      <div className="font-bold text-[var(--text-primary)]">{t.title}</div>
-                      <div className="text-[11px] text-[var(--text-secondary)] truncate max-w-[250px]">{t.description}</div>
+                      <div className="font-bold text-primary">{t.title}</div>
+                      <div className="text-[11px] text-secondary truncate max-w-[250px]">{t.description}</div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="font-medium text-[var(--text-primary)]">{owner?.name || 'Unknown'}</div>
-                      <div className="text-[11px] text-[var(--text-disabled)]">{owner?.businessName}</div>
+                      <div className="font-medium text-primary">{owner?.name || 'Unknown'}</div>
+                      <div className="text-[11px] text-disabled">{owner?.businessName}</div>
                     </td>
                     <td className="px-6 py-4 text-center">
                       <PriorityBadge p={t.priority} />
                     </td>
-                    <td className="px-6 py-4 text-center text-[12px] text-[var(--text-secondary)]">
+                    <td className="px-6 py-4 text-center text-[12px] text-secondary">
                       {new Date(t.createdAt).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4 text-right">
@@ -85,11 +85,11 @@ export const SuperAdminTicketsTable: React.FC<SuperAdminTicketsTableProps> = ({
                         <select 
                           value={t.status}
                           onChange={(e) => onStatusChange(t.id, e.target.value)}
-                          className="bg-transparent border border-[var(--border)] text-[11px] text-[var(--text-primary)] rounded-md px-1 py-0.5 focus:outline-none focus:border-[var(--primary)] cursor-pointer"
+                          className="bg-transparent border border text-[11px] text-primary rounded-md px-1 py-0.5 focus:outline-none focus:border-primary cursor-pointer"
                         >
-                          <option value="Open" className="text-[var(--text-primary)] bg-[var(--bg-card)]">Open</option>
-                          <option value="In Progress" className="text-[var(--text-primary)] bg-[var(--bg-card)]">In Progress</option>
-                          <option value="Resolved" className="text-[var(--text-primary)] bg-[var(--bg-card)]">Resolved</option>
+                          <option value="Open" className="text-primary bg-card">Open</option>
+                          <option value="In Progress" className="text-primary bg-card">In Progress</option>
+                          <option value="Resolved" className="text-primary bg-card">Resolved</option>
                         </select>
                       </div>
                     </td>

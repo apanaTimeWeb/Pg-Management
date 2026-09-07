@@ -25,6 +25,6 @@ export interface UseManagerDashboardReturn extends ManagerDashboardData {
   handleMarkPresent: () => void;
   selectedPropertyId: string | null;
   ctxLoading: boolean;
-  properties: any[];
-  user: any;
+  properties: unknown[];
+  user: unknown;
 }

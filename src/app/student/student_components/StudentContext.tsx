@@ -6,7 +6,7 @@ import { studentOperationsApi } from '@/app/student/student_lib/student_api/Stud
 import { getSession } from '@/app/student/student_lib/student_auth/StudentSession';
 
 interface StudentContextType {
-  profile: any | null;
+  profile: unknown | null;
   loading: boolean;
 }
 

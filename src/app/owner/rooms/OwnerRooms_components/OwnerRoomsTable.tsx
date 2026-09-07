@@ -5,9 +5,9 @@ import Link from 'next/link';
 
 export interface OwnerRoomsTableProps {
   loading: boolean;
-  filteredRooms: any[];
-  paginatedRooms: any[];
-  properties: any[];
+  filteredRooms: unknown[];
+  paginatedRooms: unknown[];
+  properties: unknown[];
   selectedPropertyId: string;
   setShowAddModal: (show: boolean) => void;
   currentPage: number;
@@ -29,7 +29,7 @@ export function OwnerRoomsTable({
   itemsPerPage
 }: OwnerRoomsTableProps) {
   if (loading) {
-    return <div className="animate-pulse h-64 bg-card border border-border rounded-lg"></div>;
+    return <div className="motion-safe:animate-pulse h-64 bg-card border border-border rounded-lg"></div>;
   }
 
   if (filteredRooms.length === 0) {
@@ -70,7 +70,7 @@ export function OwnerRoomsTable({
               const percent = Math.round((occupiedBeds / safeSharing) * 100);
               
               return (
-                <tr key={room.id} className="hover:bg-[rgba(99,102,241,0.02)] transition-colors group">
+                <tr key={room.id} className="hover:bg-[rgba(99,102,241,0.02)] motion-safe:transition-colors group">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 rounded-md bg-input border border-border flex items-center justify-center shrink-0 shadow-sm">
@@ -116,14 +116,14 @@ export function OwnerRoomsTable({
                         <span className="text-[10px] text-secondary font-medium">{occupiedBeds}/{safeSharing} beds</span>
                       </div>
                       <div className="w-full bg-input rounded-full h-1.5 overflow-hidden border border-border">
-                        <div className={`h-full rounded-full transition-all duration-500 ${percent === 100 ? 'bg-danger' : 'bg-primary'}`} style={{ width: `${percent}%` }}></div>
+                        <div className={`h-full rounded-full motion-safe:transition-all duration-500 ${percent === 100 ? 'bg-danger' : 'bg-primary'}`} style={{ width: `${percent}%` }}></div>
                       </div>
                     </div>
                   </td>
                   <td className="px-6 py-4 text-right">
                     <Link 
                       href={`/owner/rooms/${room.id}`}
-                      className="inline-flex items-center justify-center p-2 rounded-md hover:bg-primary-subtle text-secondary hover:text-primary transition-colors"
+                      className="inline-flex items-center justify-center p-2 rounded-md hover:bg-primary-subtle text-secondary hover:text-primary motion-safe:transition-colors"
                     >
                       <ChevronRight className="w-4 h-4" />
                     </Link>
@@ -145,14 +145,14 @@ export function OwnerRoomsTable({
             <button 
               disabled={currentPage === 1}
               onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-              className="px-3 py-1.5 text-sm font-medium border border-border rounded-md hover:bg-input disabled:opacity-50 disabled:cursor-not-allowed text-primary transition-colors"
+              className="px-3 py-1.5 text-sm font-medium border border-border rounded-md hover:bg-input disabled:opacity-50 disabled:cursor-not-allowed text-primary motion-safe:transition-colors"
             >
               Previous
             </button>
             <button 
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-              className="px-3 py-1.5 text-sm font-medium border border-border rounded-md hover:bg-input disabled:opacity-50 disabled:cursor-not-allowed text-primary transition-colors"
+              className="px-3 py-1.5 text-sm font-medium border border-border rounded-md hover:bg-input disabled:opacity-50 disabled:cursor-not-allowed text-primary motion-safe:transition-colors"
             >
               Next
             </button>

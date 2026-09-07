@@ -1,0 +1,1 @@
+export const MANAGER_DOCUMENTS_URL = '/manager/documents';

@@ -9,7 +9,7 @@ export interface AuditLog extends BaseEntity {
   action: string;
   entity: string;
   entityId: string;
-  meta?: any;
+  meta?: unknown;
 }
 
 export const auditApi = {

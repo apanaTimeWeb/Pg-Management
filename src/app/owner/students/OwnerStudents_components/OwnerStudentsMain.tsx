@@ -100,13 +100,13 @@ export function OwnerStudentsMain() {
               placeholder="Search by name or phone..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 bg-input border border-border rounded-md text-sm focus:outline-none focus:border-primary text-primary transition-colors"
+              className="w-full pl-9 pr-4 py-2 bg-input border border-border rounded-md text-sm focus:outline-none focus:border-primary text-primary motion-safe:transition-colors"
             />
           </div>
           
           <button 
             onClick={() => setShowFilters(!showFilters)}
-            className={`flex items-center gap-2 px-4 py-2 border rounded-md text-sm font-medium transition-colors ${showFilters ? 'bg-primary-subtle border-primary text-primary' : 'bg-input border-border text-primary hover:border-primary'}`}
+            className={`flex items-center gap-2 px-4 py-2 border rounded-md text-sm font-medium motion-safe:transition-colors ${showFilters ? 'bg-primary-subtle border-primary text-primary' : 'bg-input border-border text-primary hover:border-primary'}`}
           >
             <Filter className="w-4 h-4" />
             <span className="hidden sm:inline">Filters</span>
@@ -114,7 +114,7 @@ export function OwnerStudentsMain() {
         </div>
 
         {showFilters && (
-          <div className="mt-4 pt-4 border-t border-border grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="mt-4 pt-4 border-t border-border grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 animate-in fade-in slide-in-from-top-2 motion-safe:duration-200">
             {/* The Property Filter is now handled globally via OwnerPropertyContext, but if they want it specifically here, we can override or just point out the global one. Since the user asked for 3 dropdowns including PG, we'll add it here to filter locally too, but it will be constrained by the global context if set. */}
             <select 
               value={selectedPropertyId} 
@@ -140,7 +140,7 @@ export function OwnerStudentsMain() {
               <label className="text-xs font-bold text-secondary uppercase">Status</label>
               <select 
                 value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value as any)}
+                onChange={(e) => setStatusFilter(e.target.value as unknown)}
                 className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:border-primary"
               >
                 <option value="all">All Statuses</option>
@@ -154,7 +154,7 @@ export function OwnerStudentsMain() {
               <label className="text-xs font-bold text-secondary uppercase">Dues</label>
               <select 
                 value={duesFilter}
-                onChange={(e) => setDuesFilter(e.target.value as any)}
+                onChange={(e) => setDuesFilter(e.target.value as unknown)}
                 className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:border-primary"
               >
                 <option value="all">All Balances</option>
@@ -167,7 +167,7 @@ export function OwnerStudentsMain() {
 
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1,2,3].map(i => <div key={i} className="h-48 bg-card border border-border rounded-lg animate-pulse"></div>)}
+          {[1,2,3].map(i => <div key={i} className="h-48 bg-card border border-border rounded-lg motion-safe:animate-pulse"></div>)}
         </div>
       ) : filteredStudents.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-16 bg-card border border-border rounded-lg text-center">
@@ -185,7 +185,7 @@ export function OwnerStudentsMain() {
             const propName = property?.name || 'Unknown Property';
 
             return (
-              <div key={t.user.id} className="bg-card border border-border rounded-lg p-5 hover:border-primary-subtle transition-colors shadow-sm flex flex-col group relative overflow-hidden">
+              <div key={t.user.id} className="bg-card border border-border rounded-lg p-5 hover:border-primary-subtle motion-safe:transition-colors shadow-sm flex flex-col group relative overflow-hidden">
                 {t.profile.status === 'on_notice' && (
                   <div className="absolute top-0 right-0 bg-warning-bg text-warning text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-bl-lg border-b border-l border-warning">
                     On Notice
@@ -234,7 +234,7 @@ export function OwnerStudentsMain() {
                       </span>
                     </div>
                     {t.profile.pgScore > 90 && !t.profile.discountApplied && (
-                      <button onClick={() => handleGrantDiscount(t.profile.id)} className="text-[10px] bg-primary-subtle text-primary px-2 py-1 rounded font-bold hover:bg-primary hover:text-white transition-colors">
+                      <button onClick={() => handleGrantDiscount(t.profile.id)} className="text-[10px] bg-primary-subtle text-primary px-2 py-1 rounded font-bold hover:bg-primary hover:text-white motion-safe:transition-colors">
                         Give Discount
                       </button>
                     )}

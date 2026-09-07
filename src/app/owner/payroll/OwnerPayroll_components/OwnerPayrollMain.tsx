@@ -55,7 +55,7 @@ export function OwnerPayrollMain() {
   const handlePrevMonth = () => setCurrentDate(subMonths(currentDate, 1));
   const handleNextMonth = () => setCurrentDate(addMonths(currentDate, 1));
 
-  const handleOpenPaymentModal = (staffRecord: any) => {
+  const handleOpenPaymentModal = (staffRecord: unknown) => {
     setSelectedStaff(staffRecord);
     setPaymentForm({ mode: 'UPI', transactionId: '' });
     setPaymentModalOpen(true);
@@ -77,13 +77,13 @@ export function OwnerPayrollMain() {
           month: currentDate.getMonth() + 1,
           year: currentDate.getFullYear(),
           amount: selectedStaff.staff.salary,
-          paymentMode: paymentForm.mode as any,
+          paymentMode: paymentForm.mode as unknown,
           transactionId: paymentForm.transactionId
         });
         toast.success(`Payment recorded for ${selectedStaff.staff.name}`);
         setPaymentModalOpen(false);
         loadPayrollData();
-      } catch (err: any) {
+      } catch (err: unknown) {
         toast.error(err.message || 'Failed to record payment.');
       } finally {
         setProcessingPayment(false);
@@ -98,24 +98,24 @@ export function OwnerPayrollMain() {
     
     setTimeout(() => {
       try {
-        const props = db.getAll('spg_properties').filter((p: any) => p.name === 'Dream PG' || p.name === 'Happy PG');
+        const props = db.getAll('spg_properties').filter((p: unknown) => p.name === 'Dream PG' || p.name === 'Happy PG');
         props.forEach(p => db.remove('spg_properties', p.id));
       } catch (e) {}
 
       const dreamId = createId('prop');
       const happyId = createId('prop');
       
-      db.insert('spg_properties' as any, {
+      db.insert('spg_properties' as unknown, {
         id: dreamId, ownerId: user.id, name: 'Dream PG', slug: 'dream-pg',
         type: 'coed', address: 'Plot 10, Scheme 54', city: 'Indore', pincode: '452010',
         bedsPlanned: 100, createdAt: new Date().toISOString(), isDeleted: false
-      } as any);
+      } as unknown);
 
-      db.insert('spg_properties' as any, {
+      db.insert('spg_properties' as unknown, {
         id: happyId, ownerId: user.id, name: 'Happy PG', slug: 'happy-pg',
         type: 'boys', address: 'Vijay Nagar', city: 'Indore', pincode: '452010',
         bedsPlanned: 150, createdAt: new Date().toISOString(), isDeleted: false
-      } as any);
+      } as unknown);
 
       const newStaff = [
         { name: 'Ashfaq Ahmed', role: 'manager', salary: 30000, phone: '9876543001', propId: dreamId },
@@ -131,7 +131,7 @@ export function OwnerPayrollMain() {
         try {
           const { profile } = api.team.createTeamMember({
             name: d.name, email: email, phone: d.phone, password: 'Password@123',
-            roleType: d.role as any, assignedPropertyIds: [d.propId], salary: d.salary,
+            roleType: d.role as unknown, assignedPropertyIds: [d.propId], salary: d.salary,
             joinDate: new Date().toISOString(), shift: 'Morning',
             permissions: { canEditRent: false, canAddExpense: true, canOnboardStudent: d.role === 'manager', canBroadcast: d.role === 'manager', canCollectCash: true }
           }, user.id);
@@ -143,7 +143,7 @@ export function OwnerPayrollMain() {
               amount: d.salary, paymentMode: 'Bank Transfer', transactionId: 'TXN1122334455'
             });
           }
-        } catch (e: any) {
+        } catch (e: unknown) {
           toast.error(`Failed to create ${d.name}: ${e.message}`);
         }
       });
@@ -166,14 +166,14 @@ export function OwnerPayrollMain() {
   if (loading && staffData.length === 0) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full motion-safe:animate-spin"></div>
       </div>
     );
   }
 
   const filteredStaffData = staffData.filter(item => {
     const matchRole = roleFilter === 'all' || item.staff.staffType === roleFilter;
-    const allUsers = db.getAll('spg_users') as any[];
+    const allUsers = db.getAll('spg_users') as unknown[];
     const staffUser = allUsers.find(u => u.name === item.staff.name && u.phone === item.staff.phone);
     const matchProperty = selectedPropertyId === 'all' || (staffUser?.assignedPropertyIds || []).includes(selectedPropertyId);
     return matchRole && matchProperty;
@@ -189,7 +189,7 @@ export function OwnerPayrollMain() {
   const paginatedData = filteredStaffData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
-    <div className="pb-20 space-y-8 animate-in fade-in duration-300">
+    <div className="pb-20 space-y-8 animate-in fade-in motion-safe:duration-300">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-[22px] font-bold text-primary">Staff Payroll</h1>
@@ -197,7 +197,7 @@ export function OwnerPayrollMain() {
         </div>
         <button 
           onClick={handleSetupDreamHappy}
-          className="flex items-center gap-2 bg-primary text-white text-[12px] font-bold px-4 py-2 rounded-md hover:bg-primary-hover transition-colors"
+          className="flex items-center gap-2 bg-primary text-white text-[12px] font-bold px-4 py-2 rounded-md hover:bg-primary-hover motion-safe:transition-colors"
         >
           <Play className="w-3.5 h-3.5" /> Setup Dream & Happy PG
         </button>

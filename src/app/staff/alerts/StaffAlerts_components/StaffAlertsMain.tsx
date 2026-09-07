@@ -39,7 +39,7 @@ export function StaffAlertsMain() {
   }, [ctxLoading, propertyId, staffRole]);
 
   if (loading || ctxLoading) {
-    return <div className="flex justify-center p-10"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>;
+    return <div className="flex justify-center p-10"><Loader2 className="w-8 h-8 motion-safe:animate-spin text-primary" /></div>;
   }
 
   const lowStockAlerts = stockItems.filter(i => i.lowStockThreshold !== undefined && i.quantity <= i.lowStockThreshold);

@@ -3,7 +3,7 @@ import { ManagerAttendanceMain } from '@/app/manager/attendance/ManagerAttendanc
 
 export default function ManagerAttendancePage() {
   return (
-    <Suspense fallback={<div className="p-6 text-[var(--text-secondary)]">Loading...</div>}>
+    <Suspense fallback={<div className="p-6 text-secondary">Loading...</div>}>
       <ManagerAttendanceMain />
     </Suspense>
   );

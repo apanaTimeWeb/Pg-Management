@@ -41,32 +41,32 @@ export default function UnifiedLogin() {
       setSession(user);
       
       router.push(`/${user.role}/dashboard`);
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err.message || 'Login failed. Invalid credentials.');
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg-LoginPage)] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative">
+    <div className="min-h-screen bg-LoginPage flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative">
       <div className="absolute top-4 right-4"><ThemeToggle /></div>
       <div className="absolute top-4 left-4">
-        <Link href="/" className="font-bold text-xl tracking-tight text-[var(--text-primary)]">
-          <span className="text-[var(--primary)]">Smart</span>PG
+        <Link href="/" className="font-bold text-xl tracking-tight text-primary">
+          <span className="text-primary">Smart</span>PG
         </Link>
       </div>
 
       <div className="sm:mx-auto sm:w-full sm:max-w-xl">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-[var(--text-primary)]">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-primary">
           Sign in to your account
         </h2>
-        <p className="mt-2 text-center text-sm text-[var(--text-secondary)]">
+        <p className="mt-2 text-center text-sm text-secondary">
           Select a role below to auto-fill demo credentials
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-xl">
-        <div className="bg-[var(--bg-card)] py-8 px-4 shadow sm:rounded-2xl sm:px-10 border border-[var(--border)]">
+        <div className="bg-card py-8 px-4 shadow sm:rounded-2xl sm:px-10 border border">
           
           <div className="grid grid-cols-3 gap-3 mb-8">
             {DEMO_ACCOUNTS.map((acc) => {
@@ -76,14 +76,14 @@ export default function UnifiedLogin() {
                   key={acc.id}
                   type="button"
                   onClick={() => handleRoleSelect(acc)}
-                  className={`flex flex-col items-center justify-center p-3 rounded-[var(--radius-md,8px)] border transition-all ${
+                  className={`flex flex-col items-center justify-center p-3 rounded-[var(--radius-md,8px)] border motion-safe:transition-all ${
                     isSelected 
-                      ? 'border-[var(--primary)] bg-[var(--primary-subtle)] ring-1 ring-[var(--primary)]' 
-                      : 'border-[var(--border)] bg-[var(--bg-LoginPage)] hover:bg-[var(--border)]'
+                      ? 'border-primary bg-primary-subtle ring-1 ring-primary' 
+                      : 'border bg-LoginPage hover:bg-border'
                   }`}
                 >
-                  <acc.icon className={`w-5 h-5 mb-1 ${isSelected ? 'text-[var(--primary)]' : 'text-[var(--text-secondary)]'}`} />
-                  <span className={`text-xs font-semibold ${isSelected ? 'text-[var(--primary)]' : 'text-[var(--text-secondary)]'}`}>
+                  <acc.icon className={`w-5 h-5 mb-1 ${isSelected ? 'text-primary' : 'text-secondary'}`} />
+                  <span className={`text-xs font-semibold ${isSelected ? 'text-primary' : 'text-secondary'}`}>
                     {acc.label}
                   </span>
                 </button>
@@ -93,7 +93,7 @@ export default function UnifiedLogin() {
 
           <form className="space-y-6" onSubmit={handleLogin}>
             <div>
-              <label className="block text-sm font-medium text-[var(--text-primary)]">
+              <label className="block text-sm font-medium text-primary">
                 Email address
               </label>
               <div className="mt-1">
@@ -102,13 +102,13 @@ export default function UnifiedLogin() {
                   required
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-[var(--border)] rounded-[var(--radius-md,8px)] shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm bg-[var(--bg-input)] text-[var(--text-primary)] transition-colors"
+                  className="appearance-none block w-full px-3 py-2 border border rounded-[var(--radius-md,8px)] shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm bg-input text-primary motion-safe:transition-colors"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[var(--text-primary)]">
+              <label className="block text-sm font-medium text-primary">
                 Password
               </label>
               <div className="mt-1 relative">
@@ -117,7 +117,7 @@ export default function UnifiedLogin() {
                   required
                   value={password}
                   onChange={e => setPassword(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 pr-10 border border-[var(--border)] rounded-[var(--radius-md,8px)] shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm bg-[var(--bg-input)] text-[var(--text-primary)] transition-colors"
+                  className="appearance-none block w-full px-3 py-2 pr-10 border border rounded-[var(--radius-md,8px)] shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm bg-input text-primary motion-safe:transition-colors"
                 />
                 <button
                   type="button"
@@ -130,7 +130,7 @@ export default function UnifiedLogin() {
             </div>
 
             {error && (
-              <div className="text-[var(--danger)] text-sm bg-[var(--danger-bg)] p-3 rounded-[var(--radius-md,8px)]">
+              <div className="text-danger text-sm bg-danger-bg p-3 rounded-[var(--radius-md,8px)]">
                 {error}
               </div>
             )}
@@ -139,7 +139,7 @@ export default function UnifiedLogin() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-[var(--radius-md,8px)] shadow-sm text-sm font-medium text-white bg-[var(--primary)] hover:bg-[var(--primary-hover)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary)] disabled:opacity-50 transition-colors"
+                className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-[var(--radius-md,8px)] shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 motion-safe:transition-colors"
               >
                 {loading ? 'Signing in...' : 'Sign in'}
               </button>

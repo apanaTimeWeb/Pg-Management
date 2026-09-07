@@ -35,7 +35,7 @@ export function StudentDocumentsMain() {
         </div>
         <div className="divide-y divide-[var(--border)]">
           {docs.map(d => (
-            <div key={d.id} className="p-4 md:p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:bg-input transition-colors">
+            <div key={d.id} className="p-4 md:p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:bg-input motion-safe:transition-colors">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-input rounded flex items-center justify-center shrink-0 border border-border">
                   <FileText className="w-6 h-6 text-secondary" />

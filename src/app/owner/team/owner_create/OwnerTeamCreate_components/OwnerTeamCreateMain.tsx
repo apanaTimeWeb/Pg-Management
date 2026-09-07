@@ -88,7 +88,7 @@ export function OwnerTeamCreateMain() {
         loginUrl
       });
 
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err.message || 'Failed to create team member.');
     } finally {
       setSubmitting(false);
@@ -102,7 +102,7 @@ export function OwnerTeamCreateMain() {
   return (
     <div className="max-w-4xl mx-auto space-y-6 pb-20">
       <div className="flex items-center gap-4 mb-2">
-        <Link href="/owner/team" className="p-2 hover:bg-card rounded-full transition-colors text-secondary hover:text-primary">
+        <Link href="/owner/team" className="p-2 hover:bg-card rounded-full motion-safe:transition-colors text-secondary hover:text-primary">
           <ArrowLeft className="w-5 h-5" />
         </Link>
         <div>
@@ -128,14 +128,14 @@ export function OwnerTeamCreateMain() {
         <div className="pt-4 flex justify-end gap-4">
           <Link 
             href="/owner/team"
-            className="px-6 py-2.5 text-sm font-medium text-secondary hover:text-primary transition-colors"
+            className="px-6 py-2.5 text-sm font-medium text-secondary hover:text-primary motion-safe:transition-colors"
           >
             Cancel
           </Link>
           <button 
             type="submit"
             disabled={submitting}
-            className="bg-primary text-white px-8 py-2.5 rounded-md font-bold hover:bg-primary-hover transition-colors disabled:opacity-50 text-sm"
+            className="bg-primary text-white px-8 py-2.5 rounded-md font-bold hover:bg-primary-hover motion-safe:transition-colors disabled:opacity-50 text-sm"
           >
             {submitting ? 'Creating...' : 'Create Team Member'}
           </button>

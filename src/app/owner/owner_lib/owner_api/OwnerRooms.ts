@@ -68,7 +68,7 @@ export const roomsApi = {
       createdBy: data.actorId,
       updatedBy: data.actorId,
       isDeleted: false
-    } as any);
+    } as unknown);
 
     return newRoom;
   },
@@ -107,6 +107,6 @@ export const roomsApi = {
       createdBy: actorId,
       updatedBy: actorId,
       isDeleted: false
-    } as any);
+    } as unknown);
   }
 };

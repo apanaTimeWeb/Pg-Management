@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the OwnerTeamCreateEmploymentTerms component. Receives data via props/hooks.
 
 export interface OwnerTeamCreateEmploymentTermsProps {
-  formData: any;
+  formData: unknown;
   setFormData: React.Dispatch<React.SetStateAction<any>>;
 }
 
@@ -16,7 +16,7 @@ export function OwnerTeamCreateEmploymentTerms({ formData, setFormData }: OwnerT
           <label className="text-sm font-medium text-secondary">Monthly Salary (₹)</label>
           <input 
             required type="number" min="0"
-            value={formData.salary} onChange={e => setFormData((p: any) => ({...p, salary: parseInt(e.target.value)||0}))}
+            value={formData.salary} onChange={e => setFormData((p: unknown) => ({...p, salary: parseInt(e.target.value)||0}))}
             className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:border-primary outline-none"
           />
         </div>
@@ -24,14 +24,14 @@ export function OwnerTeamCreateEmploymentTerms({ formData, setFormData }: OwnerT
           <label className="text-sm font-medium text-secondary">Join Date</label>
           <input 
             required type="date"
-            value={formData.joinDate} onChange={e => setFormData((p: any) => ({...p, joinDate: e.target.value}))}
+            value={formData.joinDate} onChange={e => setFormData((p: unknown) => ({...p, joinDate: e.target.value}))}
             className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:border-primary outline-none"
           />
         </div>
         <div className="space-y-1">
           <label className="text-sm font-medium text-secondary">Working Shift</label>
           <select
-            value={formData.shift} onChange={e => setFormData((p: any) => ({...p, shift: e.target.value as any}))}
+            value={formData.shift} onChange={e => setFormData((p: unknown) => ({...p, shift: e.target.value as unknown}))}
             className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:border-primary outline-none"
           >
             <option value="Morning">Morning</option>

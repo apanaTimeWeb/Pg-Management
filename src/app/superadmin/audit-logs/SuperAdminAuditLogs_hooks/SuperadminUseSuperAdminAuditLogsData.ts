@@ -19,7 +19,7 @@ export function SuperadminUseSuperAdminAuditLogsData() {
 
   useEffect(() => {
     const rawLogs = auditApi.getAll();
-    const sortedLogs = rawLogs.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    const sortedLogs = rawLogs.sort((a: unknown, b: unknown) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     setLogs(sortedLogs as unknown as SuperAdminAuditLog[]);
     setLoading(false);
   }, []);

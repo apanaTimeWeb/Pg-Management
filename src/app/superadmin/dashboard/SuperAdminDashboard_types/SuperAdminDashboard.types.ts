@@ -37,5 +37,5 @@ export interface SuperAdminDashboardLatestRequestsTableProps {
 }
 
 export interface SuperAdminDashboardAcquisitionChartProps {
-  data: any[];
+  data: unknown[];
 }

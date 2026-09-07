@@ -21,26 +21,26 @@ export function ManagerComplaintsMain() {
     handleResolveSubmit, handleStartWork
   } = ManagerUseManagerComplaints(selectedPropertyId, ctxLoading);
 
-  if (ctxLoading) return <div className="p-6 text-[var(--text-secondary)]">Loading...</div>;
-  if (!selectedPropertyId) return <div className="p-6 text-[var(--text-secondary)] text-center">Property Required</div>;
+  if (ctxLoading) return <div className="p-6 text-secondary">Loading...</div>;
+  if (!selectedPropertyId) return <div className="p-6 text-secondary text-center">Property Required</div>;
 
   return (
     <div className="space-y-6 pb-20">
       <div>
-        <h1 className="text-[24px] font-bold text-[var(--text-primary)]">Maintenance & Complaints</h1>
-        <p className="text-sm text-[var(--text-secondary)]">Manage student issues and track repair costs.</p>
+        <h1 className="text-[24px] font-bold text-primary">Maintenance & Complaints</h1>
+        <p className="text-sm text-secondary">Manage student issues and track repair costs.</p>
       </div>
 
-      <div className="flex border-b border-[var(--border)] gap-6">
+      <div className="flex border-b border gap-6">
         <button 
           onClick={() => setActiveTab('active')} 
-          className={`pb-3 font-bold transition-colors ${activeTab === 'active' ? 'text-[var(--primary)] border-b-2 border-[var(--primary)]' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
+          className={`pb-3 font-bold motion-safe:transition-colors ${activeTab === 'active' ? 'text-primary border-b-2 border-primary' : 'text-secondary hover:text-primary'}`}
         >
           Active Requests ({activeComplaintsCount})
         </button>
         <button 
           onClick={() => setActiveTab('log')} 
-          className={`pb-3 font-bold transition-colors ${activeTab === 'log' ? 'text-[var(--primary)] border-b-2 border-[var(--primary)]' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
+          className={`pb-3 font-bold motion-safe:transition-colors ${activeTab === 'log' ? 'text-primary border-b-2 border-primary' : 'text-secondary hover:text-primary'}`}
         >
           Maintenance Log
         </button>

@@ -138,7 +138,7 @@ export function StaffCookMain() {
             <>
               <button 
                 onClick={handleMarkPresent}
-                className="bg-primary text-white hover:bg-primary-hover px-6 py-2.5 rounded-md font-bold text-sm transition-colors shadow-sm"
+                className="bg-primary text-white hover:bg-primary-hover px-6 py-2.5 rounded-md font-bold text-sm motion-safe:transition-colors shadow-sm"
               >
                 Mark Attendance for Today
               </button>
@@ -148,17 +148,17 @@ export function StaffCookMain() {
       </div>
 
       <div className="flex gap-2 p-1 bg-input rounded-lg w-full overflow-x-auto hide-scrollbar border border-border">
-        <button onClick={() => setActiveTab('orders')} className={`flex items-center gap-2 px-5 py-3 font-semibold text-sm border-b-2 transition-colors whitespace-nowrap ${activeTab === 'orders' ? 'border-primary text-primary' : 'border-transparent text-secondary hover:text-primary'}`}>
+        <button onClick={() => setActiveTab('orders')} className={`flex items-center gap-2 px-5 py-3 font-semibold text-sm border-b-2 motion-safe:transition-colors whitespace-nowrap ${activeTab === 'orders' ? 'border-primary text-primary' : 'border-transparent text-secondary hover:text-primary'}`}>
           <Utensils className="w-4 h-4" /> Live Meals
         </button>
-        <button onClick={() => setActiveTab('request')} className={`flex items-center gap-2 px-5 py-3 font-semibold text-sm border-b-2 transition-colors whitespace-nowrap ${activeTab === 'request' ? 'border-primary text-primary' : 'border-transparent text-secondary hover:text-primary'}`}>
+        <button onClick={() => setActiveTab('request')} className={`flex items-center gap-2 px-5 py-3 font-semibold text-sm border-b-2 motion-safe:transition-colors whitespace-nowrap ${activeTab === 'request' ? 'border-primary text-primary' : 'border-transparent text-secondary hover:text-primary'}`}>
           <ShoppingCart className="w-4 h-4" /> Request Groceries
         </button>
-        <button onClick={() => setActiveTab('incoming')} className={`flex items-center gap-2 px-5 py-3 font-semibold text-sm border-b-2 transition-colors whitespace-nowrap ${activeTab === 'incoming' ? 'border-primary text-primary' : 'border-transparent text-secondary hover:text-primary'}`}>
+        <button onClick={() => setActiveTab('incoming')} className={`flex items-center gap-2 px-5 py-3 font-semibold text-sm border-b-2 motion-safe:transition-colors whitespace-nowrap ${activeTab === 'incoming' ? 'border-primary text-primary' : 'border-transparent text-secondary hover:text-primary'}`}>
           <Truck className="w-4 h-4" /> Incoming Deliveries
           {incomingCount > 0 && <span className="bg-danger text-white text-[10px] px-2 py-0.5 rounded-full">{incomingCount}</span>}
         </button>
-        <button onClick={() => setActiveTab('stock')} className={`flex items-center gap-2 px-5 py-3 font-semibold text-sm border-b-2 transition-colors whitespace-nowrap ${activeTab === 'stock' ? 'border-primary text-primary' : 'border-transparent text-secondary hover:text-primary'}`}>
+        <button onClick={() => setActiveTab('stock')} className={`flex items-center gap-2 px-5 py-3 font-semibold text-sm border-b-2 motion-safe:transition-colors whitespace-nowrap ${activeTab === 'stock' ? 'border-primary text-primary' : 'border-transparent text-secondary hover:text-primary'}`}>
           <Archive className="w-4 h-4" /> Live Kitchen Stock
         </button>
       </div>
@@ -198,7 +198,7 @@ export function StaffCookMain() {
                 <div key={meal} className="border border-border p-4 rounded-xl flex flex-col items-center text-center gap-3">
                   <h3 className="font-bold text-primary">{meal}</h3>
                   {mealStatuses[meal] === 'pending' && (
-                    <button onClick={() => handleMarkMealReady(meal)} className="bg-primary hover:bg-primary-hover text-white w-full py-2 rounded-lg text-sm font-bold transition-colors">
+                    <button onClick={() => handleMarkMealReady(meal)} className="bg-primary hover:bg-primary-hover text-white w-full py-2 rounded-lg text-sm font-bold motion-safe:transition-colors">
                       Mark Ready
                     </button>
                   )}
@@ -229,7 +229,7 @@ export function StaffCookMain() {
                   <div className="text-sm text-secondary mt-1">{o.mealType}</div>
                 </div>
                 {o.status === 'Pending' ? (
-                  <button onClick={() => handleMarkServed(o.id)} className="flex items-center gap-2 bg-success text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-green-600 transition-colors">
+                  <button onClick={() => handleMarkServed(o.id)} className="flex items-center gap-2 bg-success text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-green-600 motion-safe:transition-colors">
                     <CheckCircle className="w-4 h-4" /> Served
                   </button>
                 ) : (
@@ -272,7 +272,7 @@ export function StaffCookMain() {
                   </select>
                 </div>
               </div>
-              <button type="submit" className="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-primary-hover transition-colors mt-2">
+              <button type="submit" className="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-primary-hover motion-safe:transition-colors mt-2">
                 Send Request
               </button>
             </form>
@@ -326,7 +326,7 @@ export function StaffCookMain() {
                 </div>
                 <button 
                   onClick={() => handleVerifyReceipt(req.id, req.purchasedQuantity || req.quantityRequested, req.unit)}
-                  className="bg-success text-white px-4 py-2 mt-4 rounded-lg text-sm font-bold hover:bg-green-600 transition-colors flex items-center gap-2 whitespace-nowrap"
+                  className="bg-success text-white px-4 py-2 mt-4 rounded-lg text-sm font-bold hover:bg-green-600 motion-safe:transition-colors flex items-center gap-2 whitespace-nowrap"
                 >
                   <CheckCircle className="w-4 h-4" /> Verify & Add
                 </button>
@@ -358,7 +358,7 @@ export function StaffCookMain() {
             </thead>
             <tbody className="divide-y divide-[var(--border)]">
               {paginatedStock.map(item => (
-                <tr key={item.id} className="hover:bg-input transition-colors">
+                <tr key={item.id} className="hover:bg-input motion-safe:transition-colors">
                   <td className="p-4 font-medium text-primary">{item.name}</td>
                   <td className="p-4">
                     <span className="font-bold text-lg text-primary">{item.quantity}</span>

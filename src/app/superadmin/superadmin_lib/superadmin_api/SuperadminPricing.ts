@@ -6,7 +6,7 @@ import { PricingRule } from '@/lib/types/contract';
 
 export const pricingApi = {
   listByProperty: (propertyId: string): PricingRule[] => {
-    return db.getAll<PricingRule>(STORAGE_KEYS.PRICING_RULES as any).filter(r => r.propertyId === propertyId && !r.isDeleted);
+    return db.getAll<PricingRule>(STORAGE_KEYS.PRICING_RULES as unknown).filter(r => r.propertyId === propertyId && !r.isDeleted);
   },
 
   create: (data: Omit<PricingRule, 'id' | 'createdAt' | 'updatedAt' | 'createdBy' | 'updatedBy' | 'isDeleted'>, actorId: string): PricingRule => {
@@ -19,12 +19,12 @@ export const pricingApi = {
       updatedBy: actorId,
       isDeleted: false
     };
-    db.insert(STORAGE_KEYS.PRICING_RULES as any, newRule);
+    db.insert(STORAGE_KEYS.PRICING_RULES as unknown, newRule);
     return newRule;
   },
 
   delete: (id: string, actorId: string) => {
-    db.update<PricingRule>(STORAGE_KEYS.PRICING_RULES as any, id, { 
+    db.update<PricingRule>(STORAGE_KEYS.PRICING_RULES as unknown, id, { 
       isDeleted: true,
       updatedAt: new Date().toISOString(),
       updatedBy: actorId

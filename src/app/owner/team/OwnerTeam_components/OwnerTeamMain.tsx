@@ -77,7 +77,7 @@ export function OwnerTeamMain() {
         </div>
         <Link 
           href={OWNER_URLS.TEAM_CREATE}
-          className="bg-primary text-white px-4 py-2 rounded-md font-medium hover:bg-primary-hover transition-colors flex items-center gap-2 text-sm shadow-md justify-center"
+          className="bg-primary text-white px-4 py-2 rounded-md font-medium hover:bg-primary-hover motion-safe:transition-colors flex items-center gap-2 text-sm shadow-md justify-center"
         >
           <UserPlus className="w-4 h-4" />
           <span>Add Team Member</span>
@@ -92,7 +92,7 @@ export function OwnerTeamMain() {
             placeholder="Search by name or phone..." 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 bg-input border border-border rounded-md text-sm focus:outline-none focus:border-primary text-primary transition-colors"
+            className="w-full pl-9 pr-4 py-2 bg-input border border-border rounded-md text-sm focus:outline-none focus:border-primary text-primary motion-safe:transition-colors"
           />
         </div>
         
@@ -110,7 +110,7 @@ export function OwnerTeamMain() {
           
           <select 
             value={roleFilter}
-            onChange={(e) => setRoleFilter(e.target.value as any)}
+            onChange={(e) => setRoleFilter(e.target.value as unknown)}
             className="bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:border-primary"
           >
             <option value="all">All Roles</option>
@@ -124,7 +124,7 @@ export function OwnerTeamMain() {
 
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1,2,3].map(i => <div key={i} className="h-48 bg-card border border-border rounded-lg animate-pulse"></div>)}
+          {[1,2,3].map(i => <div key={i} className="h-48 bg-card border border-border rounded-lg motion-safe:animate-pulse"></div>)}
         </div>
       ) : filteredTeam.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-16 bg-card border border-border rounded-lg text-center">
@@ -147,7 +147,7 @@ export function OwnerTeamMain() {
             const initials = member.user.name.substring(0, 2).toUpperCase();
 
             return (
-              <div key={member.user.id} className="bg-card border border-border rounded-lg p-5 hover:border-primary-subtle transition-colors shadow-sm flex flex-col group">
+              <div key={member.user.id} className="bg-card border border-border rounded-lg p-5 hover:border-primary-subtle motion-safe:transition-colors shadow-sm flex flex-col group">
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-center gap-3">
                     <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold tracking-wider border text-sm ${colorClass}`}>

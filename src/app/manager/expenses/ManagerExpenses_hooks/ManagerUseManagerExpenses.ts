@@ -26,7 +26,7 @@ export function ManagerUseManagerExpenses(selectedPropertyId: string | null, pro
   // React Hook Form with Zod resolver — replaces all manual useState + validation
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const form = useForm<ExpenseFormData>({
-    resolver: zodResolver(ExpenseFormSchema) as any,
+    resolver: zodResolver(ExpenseFormSchema) as unknown,
     defaultValues: {
       category: 'maintenance',
       amount: '',
@@ -76,7 +76,7 @@ export function ManagerUseManagerExpenses(selectedPropertyId: string | null, pro
     setIsSubmitting(true);
     api.finance.createExpense({
       propertyId: selectedPropertyId,
-      category: data.category as any,
+      category: data.category as unknown,
       amount: Number(data.amount),
       description: data.description,
     }, userId);

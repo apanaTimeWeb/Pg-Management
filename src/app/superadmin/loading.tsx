@@ -1,1 +1,1 @@
-export default function Loading() { return <div className="animate-pulse p-4 space-y-4"><div className="h-8 bg-muted rounded w-1/4"></div><div className="h-64 bg-muted rounded"></div></div>; }
+export default function Loading() { return <div className="motion-safe:animate-pulse p-4 space-y-4"><div className="h-8 bg-muted rounded w-1/4"></div><div className="h-64 bg-muted rounded"></div></div>; }

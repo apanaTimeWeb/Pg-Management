@@ -5,11 +5,11 @@ import { format } from 'date-fns';
 import { Pagination } from '@/components/ui/Pagination';
 
 export interface OwnerPayrollTableProps {
-  paginatedData: any[];
+  paginatedData: unknown[];
   currentPage: number;
   totalPages: number;
   setCurrentPage: (page: number) => void;
-  handleOpenPaymentModal: (item: any) => void;
+  handleOpenPaymentModal: (item: unknown) => void;
 }
 
 export function OwnerPayrollTable({
@@ -41,7 +41,7 @@ export function OwnerPayrollTable({
               </tr>
             ) : (
               paginatedData.map((item, idx) => (
-                <tr key={item.staff?.id || `staff-${idx}`} className="hover:bg-page transition-colors">
+                <tr key={item.staff?.id || `staff-${idx}`} className="hover:bg-page motion-safe:transition-colors">
                   <td className="px-5 py-4">
                     <div className="font-semibold text-[14px] text-primary">{item.staff.name}</div>
                     <div className="text-[12px] text-secondary">{item.staff.phone}</div>
@@ -75,7 +75,7 @@ export function OwnerPayrollTable({
                     ) : (
                       <button
                         onClick={() => handleOpenPaymentModal(item)}
-                        className="bg-primary text-white text-[12px] font-bold px-4 py-2 rounded-md hover:bg-primary-hover transition-colors shadow-sm"
+                        className="bg-primary text-white text-[12px] font-bold px-4 py-2 rounded-md hover:bg-primary-hover motion-safe:transition-colors shadow-sm"
                       >
                         Pay Now
                       </button>

@@ -101,7 +101,7 @@ export function OwnerRoomsMain() {
       
       setShowAddModal(false);
       loadData();
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err.message || 'Failed to create room.');
     } finally {
       setSubmitting(false);
@@ -143,7 +143,7 @@ export function OwnerRoomsMain() {
         </div>
         <button 
           onClick={() => setShowAddModal(true)}
-          className="bg-primary text-white px-4 py-2 rounded-md font-medium hover:bg-primary-hover transition-colors flex items-center gap-2 text-sm shadow-md w-full sm:w-auto justify-center"
+          className="bg-primary text-white px-4 py-2 rounded-md font-medium hover:bg-primary-hover motion-safe:transition-colors flex items-center gap-2 text-sm shadow-md w-full sm:w-auto justify-center"
         >
           <Plus className="w-4 h-4" />
           <span>Add New Room</span>

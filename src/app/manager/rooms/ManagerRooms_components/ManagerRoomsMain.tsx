@@ -26,15 +26,15 @@ export function ManagerRoomsMain() {
   const totalPages = Math.ceil(filteredRooms.length / itemsPerPage);
 
   if (ctxLoading) {
-    return <div className="p-6 animate-pulse">Loading rooms...</div>;
+    return <div className="p-6 motion-safe:animate-pulse">Loading rooms...</div>;
   }
 
   return (
     <div className="space-y-6 pb-20">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-[22px] font-bold text-[var(--text-primary)]">Rooms Directory</h1>
-          <p className="text-sm text-[var(--text-secondary)]">View and manage rooms for your assigned property.</p>
+          <h1 className="text-[22px] font-bold text-primary">Rooms Directory</h1>
+          <p className="text-sm text-secondary">View and manage rooms for your assigned property.</p>
         </div>
       </div>
 
