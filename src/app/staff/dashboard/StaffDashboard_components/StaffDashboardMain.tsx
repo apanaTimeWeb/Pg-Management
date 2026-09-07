@@ -1,7 +1,7 @@
 'use client';
 
 // RESPONSIBILITY: Renders the Staff Dashboard UI layer.
-// DATA FLOW: useStaffDashboard.ts -> StaffDashboardMain.tsx
+// DATA FLOW: StaffUseStaffDashboard.ts -> StaffDashboardMain.tsx
 
 import { Utensils, ListTodo, Package, AlertTriangle, Send, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
@@ -30,7 +30,7 @@ export function StaffDashboardMain() {
     handleLogUsage,
     todayMenu,
     isMonthEnd
-  } = useStaffDashboard();
+  } = StaffUseStaffDashboard();
 
   if (loading) return <div className="p-6 motion-safe:animate-pulse">Loading dashboard...</div>;
 

@@ -5,11 +5,11 @@
 
 import Link from 'next/link';
 import { IndianRupee, MapPin, Bell, Utensils, Zap, TriangleAlert } from 'lucide-react';
-import { useStudentDashboard } from '@/app/student/dashboard/StudentDashboard_components/StudentUseStudentDashboard';
+import { StudentUseStudentDashboard } from '@/app/student/dashboard/StudentDashboard_components/StudentUseStudentDashboard';
 import { STUDENT_ROUTES } from '@/app/student/student_url_config';
 
 export function StudentDashboardMain() {
-  const { profile, loading, menu, notices, handleReferralSubmit } = useStudentDashboard();
+  const { profile, loading, menu, notices, handleReferralSubmit } = StudentUseStudentDashboard();
 
   if (loading || !profile) return <div className="p-4 md:p-6 motion-safe:animate-pulse">Loading dashboard...</div>;
 

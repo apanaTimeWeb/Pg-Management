@@ -1,69 +1,170 @@
 @import "tailwindcss";
 
+@theme {
+  /* Core Colors */
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-subtle: var(--primary-subtle);
+  --color-bg-page: var(--bg-page);
+  --color-bg-card: var(--bg-card);
+  --color-bg-sidebar: var(--bg-sidebar);
+  --color-bg-header: var(--bg-header);
+  --color-bg-input: var(--bg-input);
+  
+  /* Elevation Layers (Rule 30) */
+  --color-bg-floating: var(--bg-floating);
+  --color-bg-overlay: var(--bg-overlay);
+  --color-bg-popover: var(--bg-popover);
+  
+  --color-border: var(--border);
+  --color-border-focus: var(--border-focus);
+  
+  /* Text Colors */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-disabled: var(--text-disabled);
+  
+  /* Skeletons */
+  --color-skeleton-base: var(--skeleton-base);
+  --color-skeleton-highlight: var(--skeleton-highlight);
+
+  /* Status Colors (Rule 4) */
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-bg);
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
+  --color-info: var(--info);
+  --color-info-bg: var(--info-bg);
+  --color-purple: var(--purple);
+  --color-purple-bg: var(--purple-bg);
+  
+  /* Payment Modes (Rule 1) */
+  --color-pay-cash: var(--pay-cash);
+  --color-pay-cash-bg: var(--pay-cash-bg);
+  --color-pay-upi: var(--pay-upi);
+  --color-pay-upi-bg: var(--pay-upi-bg);
+  --color-pay-card: var(--pay-card);
+  --color-pay-card-bg: var(--pay-card-bg);
+  --color-pay-bank: var(--pay-bank);
+  --color-pay-bank-bg: var(--pay-bank-bg);
+
+  /* Border Radii */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-full: var(--radius-full);
+}
+
 :root {
   /* LIGHT MODE */
-  --primary: #4F46E5;
-  --primary-hover: #4338CA;
-  --primary-subtle: #EEF2FF;
+  --primary: #EAB308;
+  --primary-hover: #CA8A04;
+  --primary-subtle: #FEF9C3;
   
-  --bg-page: #F8FAFC;
+  /* Layers */
+  --bg-page: #F4F4F5;
   --bg-card: #FFFFFF;
-  --bg-sidebar: #F1F5F9;
+  --bg-sidebar: #FAFAFA;
   --bg-header: #FFFFFF;
   --bg-input: #FFFFFF;
   
-  --border: #E2E8F0;
-  --border-focus: #4F46E5;
+  /* Elevation */
+  --bg-floating: #FFFFFF;
+  --bg-overlay: #FAFAFA;
+  --bg-popover: #F4F4F5;
   
-  --text-primary: #0F172A;
-  --text-secondary: #64748B;
-  --text-disabled: #94A3B8;
+  --border: #E4E4E7;
+  --border-focus: #EAB308;
   
-  --skeleton-base: #E2E8F0;
-  --skeleton-highlight: #F1F5F9;
+  --text-primary: #000000;
+  --text-secondary: #52525B;
+  --text-disabled: #A1A1AA;
+  
+  --skeleton-base: #E4E4E7;
+  --skeleton-highlight: #F4F4F5;
   
   /* Status */
-  --success: #064E3B;
-  --success-bg: #34D399;
-  --warning: #451A03;
-  --warning-bg: #FBBF24;
-  --danger: #450A0A;
-  --danger-bg: #F87171;
-  --info: #1E3A5F;
-  --info-bg: #60A5FA;
+  --success: #22C55E;
+  --success-bg: #064E3B;
+  --warning: #F59E0B;
+  --warning-bg: #451A03;
+  --danger: #EF4444;
+  --danger-bg: #450A0A;
+  --info: #3B82F6;
+  --info-bg: #1E3A5F;
+  --purple: #C084FC;
+  --purple-bg: #3B0764;
+  
+  /* Payment */
+  --pay-cash: #5EEAD4;
+  --pay-cash-bg: #134E4A;
+  --pay-upi: #67E8F9;
+  --pay-upi-bg: #164E63;
+  --pay-card: #94A3B8;
+  --pay-card-bg: #1E293B;
+  --pay-bank: #38BDF8;
+  --pay-bank-bg: #0C4A6E;
+
+  /* Border Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 999px;
 }
 
 .dark {
-  /* DARK MODE (Default per style.md) */
-  --primary: #6366F1;
-  --primary-hover: #4F46E5;
-  --primary-subtle: rgba(99, 102, 241, 0.15);
+  /* DARK MODE (Luxury Premium Gold Theme) */
+  --primary: #FACC15;
+  --primary-hover: #EAB308;
+  --primary-subtle: rgba(250, 204, 21, 0.15);
   
-  --bg-page: #0F0F1A;
-  --bg-card: #1A1A2E;
-  --bg-sidebar: #12121F;
-  --bg-header: #16162A;
-  --bg-input: #1E1E32;
+  /* Layers */
+  --bg-page: #050505;
+  --bg-card: #111111;
+  --bg-sidebar: #050505;
+  --bg-header: #111111;
+  --bg-input: #1A1A1A;
   
-  --border: #2A2A3E;
-  --border-focus: #6366F1;
+  /* Elevation (Rule 30) */
+  --bg-floating: #1A1A1A;
+  --bg-overlay: #242424;
+  --bg-popover: #2E2E2E;
   
-  --text-primary: #F0F0FF;
-  --text-secondary: #94A3B8;
-  --text-disabled: #44445A;
+  --border: #27272A;
+  --border-focus: #FACC15;
   
-  --skeleton-base: #2A2A3E;
-  --skeleton-highlight: #3F3F5A;
+  --text-primary: #FFFFFF;
+  --text-secondary: #A1A1AA;
+  --text-disabled: #52525B;
+  
+  --skeleton-base: #111111;
+  --skeleton-highlight: #1A1A1A;
 
   /* Status */
-  --success: #34D399;
+  --success: #22C55E;
   --success-bg: #064E3B;
-  --warning: #FBBF24;
+  --warning: #F59E0B;
   --warning-bg: #451A03;
-  --danger: #F87171;
+  --danger: #EF4444;
   --danger-bg: #450A0A;
-  --info: #60A5FA;
+  --info: #3B82F6;
   --info-bg: #1E3A5F;
+  --purple: #C084FC;
+  --purple-bg: #3B0764;
+  
+  /* Payment */
+  --pay-cash: #5EEAD4;
+  --pay-cash-bg: #134E4A;
+  --pay-upi: #67E8F9;
+  --pay-upi-bg: #164E63;
+  --pay-card: #94A3B8;
+  --pay-card-bg: #1E293B;
+  --pay-bank: #38BDF8;
+  --pay-bank-bg: #0C4A6E;
 }
 
 body {
@@ -81,7 +182,7 @@ body {
 }
 ::-webkit-scrollbar-thumb {
   background: var(--border);
-  border-radius: var(--radius-full, 999px);
+  border-radius: var(--radius-full);
 }
 
 /* Universal Focus Outline (Rule 13) */
@@ -93,4 +194,14 @@ body {
 /* Base interactive transitions */
 button, a, input, select, textarea, .card, tr {
   transition: all 200ms ease-in-out;
+}
+
+/* Motion Accessibility - Enterprise Compliance (Rule 29) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
