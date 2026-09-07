@@ -9,8 +9,8 @@ import { settingsApi } from '@/app/superadmin/superadmin_lib/superadmin_api/Supe
 import type { SuperAdminSettingsData } from '@/app/superadmin/settings/SuperAdminSettings_types/SuperAdminSettings.types';
 
 export function SuperadminUseSuperAdminSettingsData() {
-  const [settings, setSettings] = useState<SuperAdminSettingsData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [settings, setSettings] = useState<SuperAdminSettingsData | null>({} as SuperAdminSettingsData); // Will be populated by useEffect but no loading screen
+  const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   
 
@@ -38,3 +38,4 @@ export function SuperadminUseSuperAdminSettingsData() {
     handleSave
   };
 }
+

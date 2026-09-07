@@ -10,7 +10,7 @@ export const SuperadminUseSuperAdminOwnerRequestsData = () => {
   const [requests, setRequests] = useState<OwnerRequest[]>([]);
   const [filter, setFilter] = useState<OwnerRequestStatus>('All');
   const [search, setSearch] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -58,3 +58,5 @@ export const SuperadminUseSuperAdminOwnerRequestsData = () => {
     refetch: loadRequests
   };
 };
+
+

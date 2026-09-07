@@ -3,14 +3,14 @@
 
 import { useState, useEffect } from 'react';
 
-import { ownersApi } from '@/app/owner/owner_lib/owner_api/owners';
+import { MOCK_OWNERS } from '@/app/superadmin/superadmin_lib/superadmin_mock_data';
 import { ITEMS_PER_PAGE } from '@/app/superadmin/owners/SuperAdminOwners_utils/SuperAdminOwners.constants';
 
 import type { OwnerDirectoryItem, OwnerStatus } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
 
 export function SuperadminUseSuperAdminOwnersData() {
-  const [owners, setOwners] = useState<OwnerDirectoryItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [owners, setOwners] = useState<OwnerDirectoryItem[]>(MOCK_OWNERS as unknown as OwnerDirectoryItem[]);
+  const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<OwnerStatus>('All');
 
@@ -21,7 +21,7 @@ export function SuperadminUseSuperAdminOwnersData() {
     setLoading(true);
     // Cast to OwnerDirectoryItem[] to ensure strict typing. 
     // Real implementation would use TanStack React Query.
-    const fetched = ownersApi.listOwners();
+    const fetched = MOCK_OWNERS;
     setOwners(fetched as OwnerDirectoryItem[]);
     setLoading(false);
   };
@@ -62,3 +62,5 @@ export function SuperadminUseSuperAdminOwnersData() {
     refetch: loadOwners
   };
 }
+
+

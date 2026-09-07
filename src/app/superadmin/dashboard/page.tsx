@@ -10,6 +10,7 @@ import { SUPER_ADMIN_DASHBOARD_ACQUISITION_MOCK } from '@/app/superadmin/dashboa
 
 export default function SuperAdminDashboardPage() {
   const { data, loading } = SuperadminUseSuperAdminDashboardData();
+  console.log('DASHBOARD RENDER:', { loading, hasData: !!data });
 
   if (loading || !data) {
     // We rely on loading.tsx for the initial suspense, but keep this fallback 
@@ -40,3 +41,4 @@ export default function SuperAdminDashboardPage() {
     </div>
   );
 }
+

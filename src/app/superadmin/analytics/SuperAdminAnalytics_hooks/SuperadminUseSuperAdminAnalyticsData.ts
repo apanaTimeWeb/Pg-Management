@@ -3,18 +3,20 @@
 
 import { useState, useEffect } from 'react';
 
-import { platformApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminPlatform';
+import { MOCK_DASHBOARD_STATS } from '@/app/superadmin/superadmin_lib/superadmin_mock_data';
 
 import type { SuperAdminAnalyticsStats } from '@/app/superadmin/analytics/SuperAdminAnalytics_types/SuperAdminAnalytics.types';
 
 export function SuperadminUseSuperAdminAnalyticsData() {
-  const [stats, setStats] = useState<SuperAdminAnalyticsStats | null>(null);
+  const [stats, setStats] = useState<SuperAdminAnalyticsStats | null>(MOCK_DASHBOARD_STATS as unknown as SuperAdminAnalyticsStats);
 
-  useEffect(() => {
-    setStats(platformApi.getDashboardStats() as SuperAdminAnalyticsStats);
-  }, []);
+  
 
   return {
     stats
   };
 }
+
+
+
+

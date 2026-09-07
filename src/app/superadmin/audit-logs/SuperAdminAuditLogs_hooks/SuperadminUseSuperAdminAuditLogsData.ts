@@ -9,7 +9,7 @@ import type { SuperAdminAuditLog } from '@/app/superadmin/audit-logs/SuperAdminA
 
 export function SuperadminUseSuperAdminAuditLogsData() {
   const [logs, setLogs] = useState<SuperAdminAuditLog[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   
   // Filters
   const [search, setSearch] = useState('');
@@ -59,3 +59,5 @@ export function SuperadminUseSuperAdminAuditLogsData() {
     filters: ['All', 'Auth', 'Settings', 'Owners']
   };
 }
+
+

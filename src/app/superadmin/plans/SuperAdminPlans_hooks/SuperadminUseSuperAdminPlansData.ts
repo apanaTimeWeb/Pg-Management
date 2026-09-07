@@ -9,7 +9,7 @@ import type { SuperAdminPlan } from '@/app/superadmin/plans/SuperAdminPlans_type
 
 export function SuperadminUseSuperAdminPlansData() {
   const [plans, setPlans] = useState<SuperAdminPlan[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const loadPlans = () => {
     setLoading(true);
@@ -27,3 +27,5 @@ export function SuperadminUseSuperAdminPlansData() {
     refetch: loadPlans
   };
 }
+
+

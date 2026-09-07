@@ -12,7 +12,7 @@ import type { SuperAdminTicket } from '@/app/superadmin/tickets/SuperAdminTicket
 export function SuperadminUseSuperAdminTicketsData() {
   const [tickets, setTickets] = useState<SuperAdminTicket[]>([]);
   const [owners, setOwners] = useState<any[]>([]); // Will be typed properly when owners global types exist
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -55,3 +55,5 @@ export function SuperadminUseSuperAdminTicketsData() {
     refetch: loadData
   };
 }
+
+
