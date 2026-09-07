@@ -18,8 +18,8 @@ const DEMO_ACCOUNTS = [
 
 export default function UnifiedLogin() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState(DEMO_ACCOUNTS[0]!.email);
+  const [password, setPassword] = useState(DEMO_ACCOUNTS[0]!.password);
   const [showPassword, setShowPassword] = useState(false);
   const [selectedRole, setSelectedRole] = useState(DEMO_ACCOUNTS[0]);
   const [error, setError] = useState('');

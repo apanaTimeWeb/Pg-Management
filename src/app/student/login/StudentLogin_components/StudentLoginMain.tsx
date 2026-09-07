@@ -8,8 +8,8 @@ import { setSession } from '@/app/student/student_lib/student_auth/StudentSessio
 
 export function StudentLoginMain() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('student3@gmail.com');
+  const [password, setPassword] = useState('Student@123');
   const [error, setError] = useState('');
 
   const handleLogin = (e: React.FormEvent) => {
@@ -55,3 +55,4 @@ export function StudentLoginMain() {
     </div>
   );
 }
+

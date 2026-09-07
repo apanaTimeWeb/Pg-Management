@@ -9,8 +9,8 @@ import { setSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 
 export function OwnerLoginMain() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('owner@gmail.com');
+  const [password, setPassword] = useState('Owner3@123');
   const [error, setError] = useState('');
 
   const handleLogin = (e: React.FormEvent) => {
@@ -49,10 +49,12 @@ export function OwnerLoginMain() {
 
         <div className="mt-6 p-4 bg-page rounded-md border border-border text-xs text-secondary">
           <strong>Demo Credentials:</strong><br/>
-          Email: peter.m@example.com<br/>
-          Password: Owner@123
+          Email: owner@gmail.com<br/>
+          Password: Owner3@123
         </div>
       </div>
     </div>
   );
 }
+
+

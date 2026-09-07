@@ -5,7 +5,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { propertiesApi } from '@/app/owner/owner_lib/owner_api/OwnerProperties';
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 
 import type { Property } from '@/app/owner/owner_lib/owner_api/OwnerProperties';
@@ -36,7 +36,7 @@ export function OwnerPropertyProvider({ children }: { children: React.ReactNode 
 
   useEffect(() => {
     if (user?.role === 'owner') {
-      const props = (api as any).properties.listByOwner(user.id);
+      const props = propertiesApi.listByOwner(user.id);
       setProperties(props);
       
       const savedState = sessionStorage.getItem('spg_owner_ui_state');
@@ -49,7 +49,7 @@ export function OwnerPropertyProvider({ children }: { children: React.ReactNode 
 
   const refreshProperties = () => {
     if (user?.role === 'owner') {
-      const props = (api as any).properties.listByOwner(user.id);
+      const props = propertiesApi.listByOwner(user.id);
       setProperties(props);
     }
   };
@@ -65,3 +65,4 @@ export function OwnerPropertyProvider({ children }: { children: React.ReactNode 
     </OwnerPropertyContext.Provider>
   );
 }
+

@@ -7,8 +7,8 @@ import { setSession } from '@/app/superadmin/superadmin_lib/superadmin_auth/Supe
 
 export default function SuperAdminLogin() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('superadmin@gmail.com');
+  const [password, setPassword] = useState('Super@123');
   const [error, setError] = useState('');
 
   const handleLogin = (e: React.FormEvent) => {
@@ -47,10 +47,11 @@ export default function SuperAdminLogin() {
 
         <div className="mt-6 p-4 bg-SuperadminPage rounded-md border border text-xs text-secondary">
           <strong>Demo Credentials:</strong><br/>
-          Email: leo.a@example.org<br/>
+          Email: superadmin@gmail.com<br/>
           Password: Super@123
         </div>
       </div>
     </div>
   );
 }
+

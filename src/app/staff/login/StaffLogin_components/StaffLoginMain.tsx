@@ -8,8 +8,8 @@ import { setSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
 
 export function StaffLoginMain() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('cook3@gmail.com');
+  const [password, setPassword] = useState('Cook@123');
   const [error, setError] = useState('');
 
   const handleLogin = (e: React.FormEvent) => {
@@ -48,10 +48,12 @@ export function StaffLoginMain() {
 
         <div className="mt-6 p-4 bg-page rounded-md border border-border text-xs text-secondary">
           <strong>Demo Credentials:</strong><br/>
-          Email: ivan.p@example.net<br/>
-          Password: Staff@123
+          Email: cook3@gmail.com<br/>
+          Password: Cook@123
         </div>
       </div>
     </div>
   );
 }
+
+
