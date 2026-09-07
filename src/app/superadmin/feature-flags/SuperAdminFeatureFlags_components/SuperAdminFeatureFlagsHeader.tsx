@@ -1,0 +1,11 @@
+import React from 'react';
+import { SuperAdminFeatureFlagsHeaderProps } from '../SuperAdminFeatureFlags_types/SuperAdminFeatureFlags.types';
+
+export const SuperAdminFeatureFlagsHeader: React.FC<SuperAdminFeatureFlagsHeaderProps> = () => {
+  return (
+    <div>
+      <h1 className="text-[22px] font-bold text-[var(--text-primary)]">Feature Flags</h1>
+      <p className="text-[var(--text-secondary)] text-sm">Manage experimental and premium features per owner.</p>
+    </div>
+  );
+};

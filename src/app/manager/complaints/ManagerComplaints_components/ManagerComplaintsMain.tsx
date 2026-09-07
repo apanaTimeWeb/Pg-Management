@@ -1,0 +1,78 @@
+'use client';
+
+import { useManagerPropertyContext } from '@/app/manager/manager_shared/ManagerPropertyContext';
+import { Pagination } from '@/components/shared/Pagination';
+import { useManagerComplaints } from '@/app/manager/complaints/ManagerComplaints_hooks/useManagerComplaints';
+import { ManagerComplaintsActive } from '@/app/manager/complaints/ManagerComplaints_components/ManagerComplaintsActive';
+import { ManagerComplaintsLog } from '@/app/manager/complaints/ManagerComplaints_components/ManagerComplaintsLog';
+import { ManagerComplaintsResolveModal } from '@/app/manager/complaints/ManagerComplaints_components/ManagerComplaintsResolveModal';
+
+export function ManagerComplaintsMain() {
+  const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
+  const {
+    activeTab, setActiveTab,
+    resolvingComplaint,
+    onOpenResolveModal, onCloseResolveModal,
+    resolveForm,
+    currentPage, setCurrentPage,
+    totalPages, paginatedData,
+    activeComplaintsCount, resolvedComplaintsCount,
+    handleResolveSubmit, handleStartWork
+  } = useManagerComplaints(selectedPropertyId, ctxLoading);
+
+  if (ctxLoading) return <div className="p-6 text-[var(--text-secondary)]">Loading...</div>;
+  if (!selectedPropertyId) return <div className="p-6 text-[var(--text-secondary)] text-center">Property Required</div>;
+
+  return (
+    <div className="space-y-6 pb-20">
+      <div>
+        <h1 className="text-[24px] font-bold text-[var(--text-primary)]">Maintenance & Complaints</h1>
+        <p className="text-sm text-[var(--text-secondary)]">Manage student issues and track repair costs.</p>
+      </div>
+
+      <div className="flex border-b border-[var(--border)] gap-6">
+        <button 
+          onClick={() => setActiveTab('active')} 
+          className={`pb-3 font-bold transition-colors ${activeTab === 'active' ? 'text-[var(--primary)] border-b-2 border-[var(--primary)]' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
+        >
+          Active Requests ({activeComplaintsCount})
+        </button>
+        <button 
+          onClick={() => setActiveTab('log')} 
+          className={`pb-3 font-bold transition-colors ${activeTab === 'log' ? 'text-[var(--primary)] border-b-2 border-[var(--primary)]' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
+        >
+          Maintenance Log
+        </button>
+      </div>
+
+      {activeTab === 'active' && (
+        <ManagerComplaintsActive 
+          paginatedData={paginatedData}
+          activeComplaintsCount={activeComplaintsCount}
+          handleStartWork={handleStartWork}
+          setResolvingComplaint={onOpenResolveModal}
+        />
+      )}
+
+      {activeTab === 'log' && (
+        <ManagerComplaintsLog 
+          paginatedData={paginatedData}
+          resolvedComplaintsCount={resolvedComplaintsCount}
+        />
+      )}
+
+      {totalPages > 1 && (
+        <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+      )}
+
+      {resolvingComplaint && (
+        <ManagerComplaintsResolveModal 
+          resolvingComplaint={resolvingComplaint}
+          onClose={onCloseResolveModal}
+          resolveForm={resolveForm}
+          handleResolveSubmit={handleResolveSubmit}
+        />
+      )}
+    </div>
+  );
+}

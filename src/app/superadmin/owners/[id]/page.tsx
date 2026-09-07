@@ -1,0 +1,86 @@
+'use client';
+
+import React from 'react';
+import { useParams } from 'next/navigation';
+import { useSuperAdminOwnerProfileData } from './SuperAdminOwnerProfile_hooks/useSuperAdminOwnerProfileData';
+import { useSuperAdminOwnerProfileActions } from './SuperAdminOwnerProfile_hooks/useSuperAdminOwnerProfileActions';
+import { SuperAdminOwnerProfileHeader } from './SuperAdminOwnerProfile_components/SuperAdminOwnerProfileHeader';
+import { SuperAdminOwnerProfileSidebar } from './SuperAdminOwnerProfile_components/SuperAdminOwnerProfileSidebar';
+import { SuperAdminOwnerProfileMain } from './SuperAdminOwnerProfile_components/SuperAdminOwnerProfileMain';
+
+export default function Owner360Page() {
+  const params = useParams();
+  const id = params.id as string;
+
+  const { data, loading, refetch } = useSuperAdminOwnerProfileData(id);
+  const actionsHook = useSuperAdminOwnerProfileActions(id, refetch, data?.user?.status);
+
+  if (loading || !data) {
+    return (
+      <div className="flex items-center justify-center h-64 text-[var(--text-secondary)]">
+        Loading 360 view...
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-6xl mx-auto space-y-6 pb-20">
+      <SuperAdminOwnerProfileHeader data={data} />
+      
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left Col: Actions & Contact */}
+        <div className="lg:col-span-1">
+          <SuperAdminOwnerProfileSidebar 
+            data={data}
+            onResetPasswordClick={() => actionsHook.setResetModal(true)}
+            onToggleStatus={actionsHook.handleToggleStatus}
+            onAddNote={actionsHook.handleAddNote}
+          />
+        </div>
+
+        {/* Right Col: Usage & Lists */}
+        <div className="lg:col-span-2">
+          <SuperAdminOwnerProfileMain data={data} />
+        </div>
+      </div>
+
+      {/* Reset Modal */}
+      {actionsHook.resetModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+          <div className="bg-[var(--bg-overlay)] border border-[var(--border)] rounded-[var(--radius-xl,16px)] p-7 max-w-sm w-full shadow-2xl motion-safe:animate-in motion-safe:fade-in motion-safe:zoom-in-95">
+            <h3 className="text-lg font-bold text-[var(--text-primary)] mb-2">Reset Password</h3>
+            <p className="text-sm text-[var(--text-secondary)] mb-4">Set a temporary password. The owner will be forced to change it on their next login.</p>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              const formData = new FormData(e.currentTarget);
+              actionsHook.handleResetPassword(formData.get('newPass') as string);
+            }}>
+              <input 
+                type="text" 
+                name="newPass"
+                className="w-full bg-[var(--bg-input)] border border-[var(--border)] rounded-[var(--radius-md,8px)] p-3 text-[var(--text-primary)] text-sm mb-5 focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)] font-mono"
+                placeholder="New Temporary Password"
+                required
+              />
+              <div className="flex gap-3 justify-end">
+                <button 
+                  type="button" 
+                  onClick={() => actionsHook.setResetModal(false)} 
+                  className="px-4 py-2 text-sm font-medium text-[var(--text-primary)] bg-transparent border border-[var(--border)] hover:bg-[var(--bg-card)] rounded-[var(--radius-md,8px)] transition-colors"
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit" 
+                  className="px-4 py-2 text-sm font-medium bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] rounded-[var(--radius-md,8px)] transition-colors shadow-sm"
+                >
+                  Confirm Reset
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
