@@ -1,4 +1,5 @@
-import { StockBatch } from '@/app/staff/lib/api/stock';
+// RESPONSIBILITY: Renders the ManagerInventoryBatches component.
+import { StockBatch } from '@/app/staff/staff_lib/staff_api/StaffStock';
 
 interface Props {
   batches: StockBatch[];

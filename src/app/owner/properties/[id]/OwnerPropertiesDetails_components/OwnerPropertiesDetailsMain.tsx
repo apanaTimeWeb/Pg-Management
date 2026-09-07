@@ -4,9 +4,9 @@
 
 import { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { authApi as api } from '@/app/login/lib/api/auth';
-import { Property } from '@/app/owner/lib/api/properties';
-import { getSession } from '@/app/login/lib/auth/session';
+import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { Property } from '@/app/owner/owner_lib/owner_api/OwnerProperties';
+import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { ArrowLeft, Building2, Trash2, Users, Bed, Settings, AlertTriangle, IndianRupee, Plus, X } from 'lucide-react';
 import Link from 'next/link';
 import { db } from '@/lib/storage/db';

@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the ManagerExpensesHeader component.
 import { Plus } from 'lucide-react';
 import { formatINR } from '@/lib/utils/formatters';
 

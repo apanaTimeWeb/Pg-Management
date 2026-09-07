@@ -1,11 +1,12 @@
+// RESPONSIBILITY: Renders the StudentSosMain component.
 'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useStudentContext } from '@/app/student/components/StudentContext';
-import { getSession } from '@/app/login/lib/auth/session';
+import { useStudentContext } from '@/app/student/student_components/StudentContext';
+import { getSession } from '@/app/student/student_lib/student_auth/StudentSession';
 import { TriangleAlert, ShieldAlert } from 'lucide-react';
-import { studentOperationsApi } from '@/app/student/lib/api/studentOperations';
+import { studentOperationsApi } from '@/app/student/student_lib/student_api/StudentOperations';
 
 export function StudentSosMain() {
   const router = useRouter();

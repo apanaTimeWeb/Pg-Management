@@ -1,8 +1,9 @@
+// RESPONSIBILITY: Renders the ManagerInventoryMain component.
 'use client';
 
-import { useManagerPropertyContext } from '@/app/manager/manager_shared/ManagerPropertyContext';
-import { getSession } from '@/app/login/lib/auth/session';
-import { useManagerInventory } from '@/app/manager/inventory/ManagerInventory_hooks/useManagerInventory';
+import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
+import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+import { useManagerInventory } from '@/app/manager/inventory/ManagerInventory_hooks/ManagerUseManagerInventory';
 import { ManagerInventoryTabs } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryTabs';
 import { ManagerInventoryRequests } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryRequests';
 import { ManagerInventoryLive } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryLive';

@@ -1,8 +1,9 @@
+// RESPONSIBILITY: Renders the StudentNoticesMain component.
 'use client';
 
 import { useState, useEffect } from 'react';
-import { studentOperationsApi } from '@/app/student/lib/api/studentOperations';
-import { useStudentContext } from '@/app/student/components/StudentContext';
+import { studentOperationsApi } from '@/app/student/student_lib/student_api/StudentOperations';
+import { useStudentContext } from '@/app/student/student_components/StudentContext';
 import { Bell } from 'lucide-react';
 import { Pagination } from '@/components/shared/Pagination';
 

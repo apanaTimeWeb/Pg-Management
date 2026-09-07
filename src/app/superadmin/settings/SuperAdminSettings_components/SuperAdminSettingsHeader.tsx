@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminSettingsHeader component.
 import React from 'react';
 import { SuperAdminSettingsHeaderProps } from '@/app/superadmin/settings/SuperAdminSettings_types/SuperAdminSettings.types';
 

@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the ManagerAttendanceSummary component.
 import { format } from 'date-fns';
 
 interface Props {

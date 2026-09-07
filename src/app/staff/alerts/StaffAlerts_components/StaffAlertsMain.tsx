@@ -1,11 +1,12 @@
+// RESPONSIBILITY: Renders the StaffAlertsMain component.
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useStaffContext } from '@/app/staff/components/StaffContext';
-import { authApi as api } from '@/app/login/lib/api/auth';
-import { getSession } from '@/app/login/lib/auth/session';
-import { StockItem } from '@/app/staff/lib/api/stock';
-import { StockRequest } from '@/app/staff/lib/api/stockRequests';
+import { useStaffContext } from '@/app/staff/staff_components/StaffContext';
+import { authApi as api } from '@/app/staff/staff_lib/staff_api/StaffAuth';
+import { getSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
+import { StockItem } from '@/app/staff/staff_lib/staff_api/StaffStock';
+import { StockRequest } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
 import { AlertTriangle, Package, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';

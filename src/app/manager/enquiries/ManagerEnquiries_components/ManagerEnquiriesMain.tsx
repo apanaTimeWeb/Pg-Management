@@ -1,10 +1,11 @@
+// RESPONSIBILITY: Renders the ManagerEnquiriesMain component.
 'use client';
 
 import { Search, Plus, Lock, AlertTriangle } from 'lucide-react';
-import { useManagerPropertyContext } from '@/app/manager/manager_shared/ManagerPropertyContext';
-import { getSession } from '@/app/login/lib/auth/session';
-import { useManagerEnquiries } from '@/app/manager/enquiries/ManagerEnquiries_hooks/useManagerEnquiries';
-import { EnquiryStatus } from '@/app/manager/lib/api/managerEnquiries';
+import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
+import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+import { useManagerEnquiries } from '@/app/manager/enquiries/ManagerEnquiries_hooks/ManagerUseManagerEnquiries';
+import { EnquiryStatus } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
 import { ManagerEnquiriesKanban } from '@/app/manager/enquiries/ManagerEnquiries_components/ManagerEnquiriesKanban';
 import { ManagerEnquiriesLost } from '@/app/manager/enquiries/ManagerEnquiries_components/ManagerEnquiriesLost';
 import { ManagerEnquiriesModals } from '@/app/manager/enquiries/ManagerEnquiries_components/ManagerEnquiriesModals';

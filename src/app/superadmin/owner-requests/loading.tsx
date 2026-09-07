@@ -1,6 +1,6 @@
 import React from 'react';
 
-// RESPONSIBILITY: Renders the Skeleton UI for Next.js loading boundary
+// RESPONSIBILITY: Renders the Skeleton UI for Next.js SuperadminLoading boundary
 
 export default function Loading() {
   return (

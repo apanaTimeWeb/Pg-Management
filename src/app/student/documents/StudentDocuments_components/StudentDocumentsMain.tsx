@@ -1,9 +1,10 @@
+// RESPONSIBILITY: Renders the StudentDocumentsMain component.
 'use client';
 
 import { useState } from 'react';
-import { useStudentContext } from '@/app/student/components/StudentContext';
+import { useStudentContext } from '@/app/student/student_components/StudentContext';
 import { FileText, Download, CheckCircle, X, ExternalLink } from 'lucide-react';
-import { getSession } from '@/app/login/lib/auth/session';
+import { getSession } from '@/app/student/student_lib/student_auth/StudentSession';
 
 export function StudentDocumentsMain() {
   const { profile } = useStudentContext();

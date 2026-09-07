@@ -1,6 +1,6 @@
-import { StaffLayout } from '@/app/staff/components/StaffLayout';
+import { StaffLayout } from '@/app/staff/staff_components/StaffLayout';
 import { ToastProvider } from '@/components/shared/ToastContext';
-import { StaffI18nProvider } from '@/app/staff/i18n';
+import { StaffI18nProvider } from '@/app/staff/StaffI18n';
 
 export const metadata = {
   title: 'Staff Portal | Smart PG',

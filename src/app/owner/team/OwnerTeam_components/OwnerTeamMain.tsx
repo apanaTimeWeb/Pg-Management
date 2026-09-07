@@ -3,13 +3,13 @@
 // RESPONSIBILITY: Renders the OwnerTeamMain component. Receives data via props/hooks.
 
 import { useState, useEffect } from 'react';
-import { authApi as api } from '@/app/login/lib/api/auth';
-import { getSession } from '@/app/login/lib/auth/session';
-import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
+import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
+import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { Plus, Search, Filter, ShieldCheck, Wrench, Utensils, Shield, Sparkles, Building2, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 import { OWNER_URLS } from '@/app/owner/owner_url_config';
-import { TeamMember, StaffRoleType } from '@/app/owner/lib/api/team';
+import { TeamMember, StaffRoleType } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
 import { Pagination } from '@/components/shared/Pagination';
 import { useTableSync } from '@/hooks/useTableSync';
 

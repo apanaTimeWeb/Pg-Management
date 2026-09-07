@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { LayoutDashboard, FileText, UserPlus, Users, Package, BarChart3, ToggleLeft, Ticket, History, Settings, Menu, X, ShieldAlert, LogOut } from 'lucide-react';
-import { getSession, clearSession } from '@/app/login/lib/auth/session';
-import { SuperadminI18nProvider, useSuperadminI18n, DictKey } from '@/app/superadmin/i18n';
+import { getSession, clearSession } from '@/app/superadmin/superadmin_lib/superadmin_auth/SuperadminSession';
+import { SuperadminI18nProvider, useSuperadminI18n, DictKey } from '@/app/superadmin/SuperadminI18n';
 import { useTheme } from 'next-themes';
 import { Moon, Sun } from 'lucide-react';
 

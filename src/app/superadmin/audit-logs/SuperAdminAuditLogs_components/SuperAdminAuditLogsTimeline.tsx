@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminAuditLogsTimeline component.
 import React from 'react';
 import { Shield, Clock } from 'lucide-react';
 import { Pagination } from '@/components/shared/Pagination';

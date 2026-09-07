@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminPlansGrid component.
 import React from 'react';
 import { SuperAdminPlansCard } from '@/app/superadmin/plans/SuperAdminPlans_components/SuperAdminPlansCard';
 import { SuperAdminPlansGridProps } from '@/app/superadmin/plans/SuperAdminPlans_types/SuperAdminPlans.types';

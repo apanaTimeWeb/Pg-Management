@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the ManagerComplaintsResolveModal component.
 // [COMPONENT] ManagerComplaintsResolveModal
 // Responsibility: Renders the complaint resolution modal wired to React Hook Form (resolveForm).
 // Receives: complaint data, onClose callback, and RHF UseFormReturn.

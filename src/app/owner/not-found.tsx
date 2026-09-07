@@ -1,4 +1,4 @@
-// RESPONSIBILITY: Renders the not-found component. Receives data via props/hooks.
+// RESPONSIBILITY: Renders the OwnerNot-found component. Receives data via props/hooks.
 
 import Link from 'next/link';
 import { Building } from 'lucide-react';

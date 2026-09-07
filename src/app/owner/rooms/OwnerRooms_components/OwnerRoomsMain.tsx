@@ -3,10 +3,10 @@
 // RESPONSIBILITY: Renders the OwnerRoomsMain component. Receives data via props/hooks.
 
 import { useState, useEffect } from 'react';
-import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
-import { authApi as api } from '@/app/login/lib/api/auth';
-import { Room } from '@/app/owner/lib/api/rooms';
-import { getSession } from '@/app/login/lib/auth/session';
+import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
+import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { Room } from '@/app/owner/owner_lib/owner_api/OwnerRooms';
+import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { Plus } from 'lucide-react';
 import { OwnerRoomsKPIs } from '@/app/owner/rooms/OwnerRooms_components/OwnerRoomsKPIs';
 import { OwnerRoomsFilters } from '@/app/owner/rooms/OwnerRooms_components/OwnerRoomsFilters';

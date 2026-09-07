@@ -1,10 +1,11 @@
+// RESPONSIBILITY: Renders the ManagerStudentsMain component.
 'use client';
 
 import { useState } from 'react';
-import { useManagerPropertyContext } from '@/app/manager/manager_shared/ManagerPropertyContext';
+import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { Plus } from 'lucide-react';
-import { AddStudentModal } from '@/app/manager/manager_shared/AddStudentModal';
-import { useManagerStudents } from '@/app/manager/students/ManagerStudents_hooks/useManagerStudents';
+import { AddStudentModal } from '@/app/manager/manager_components/ManagerAddStudentModal';
+import { useManagerStudents } from '@/app/manager/students/ManagerStudents_hooks/ManagerUseManagerStudents';
 import { ManagerStudentsTable } from '@/app/manager/students/ManagerStudents_components/ManagerStudentsTable';
 
 export function ManagerStudentsMain() {

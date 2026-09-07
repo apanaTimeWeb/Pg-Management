@@ -3,14 +3,14 @@
 // RESPONSIBILITY: Renders the OwnerPayrollMain component. Receives data via props/hooks.
 
 import { useState, useEffect } from 'react';
-import { authApi as api } from '@/app/login/lib/api/auth';
-import { getSession } from '@/app/login/lib/auth/session';
+import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { useToast } from '@/components/shared/ToastContext';
 import { Play } from 'lucide-react';
 import { subMonths, addMonths } from 'date-fns';
 import { db } from '@/lib/storage/db';
 import { createId } from '@/lib/utils/id';
-import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
+import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 
 import { OwnerPayrollStats } from '@/app/owner/payroll/OwnerPayroll_components/OwnerPayrollStats';
 import { OwnerPayrollTable } from '@/app/owner/payroll/OwnerPayroll_components/OwnerPayrollTable';

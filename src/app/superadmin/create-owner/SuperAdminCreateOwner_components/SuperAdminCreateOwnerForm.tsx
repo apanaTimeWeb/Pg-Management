@@ -1,7 +1,8 @@
+// RESPONSIBILITY: Renders the SuperAdminCreateOwnerForm component.
 import React from 'react';
 import Link from 'next/link';
 import { AlertCircle } from 'lucide-react';
-import { useSuperAdminCreateOwner } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_hooks/useSuperAdminCreateOwner';
+import { SuperadminUseSuperAdminCreateOwner } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_hooks/SuperadminUseSuperAdminCreateOwner';
 import { SuperAdminCreateOwnerPersonalFields } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_components/SuperAdminCreateOwnerPersonalFields';
 import { SuperAdminCreateOwnerBusinessFields } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_components/SuperAdminCreateOwnerBusinessFields';
 import { SuperAdminCreateOwnerAccessFields } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_components/SuperAdminCreateOwnerAccessFields';
@@ -18,7 +19,7 @@ export const SuperAdminCreateOwnerForm: React.FC = () => {
     createdCreds,
     handlePlanChange,
     handleSubmit
-  } = useSuperAdminCreateOwner();
+  } = SuperadminUseSuperAdminCreateOwner();
 
   if (success && createdCreds) {
     return <SuperAdminCreateOwnerSuccess credentials={createdCreds} />;

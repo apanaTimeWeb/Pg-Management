@@ -1,14 +1,15 @@
+// RESPONSIBILITY: Renders the ManagerStudentDetailMain component.
 'use client';
 
 import { useState, useEffect } from 'react';
-import { authApi as api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
 import { useParams, useRouter } from 'next/navigation';
-import { getSession } from '@/app/login/lib/auth/session';
-import { studentOperationsApi } from '@/app/student/lib/api/studentOperations';
+import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+import { studentOperationsApi } from '@/app/student/student_lib/student_api/StudentOperations';
 import { ArrowLeft, User, MapPin, Calendar, IndianRupee, LogOut, Utensils, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { BillUploadModal } from '@/components/shared/BillUploadModal';
-import { financeApi } from '@/app/owner/lib/api/finance';
+import { financeApi } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
 
 export default function ManagerStudentDetailMain() {
   const { id } = useParams() as { id: string };

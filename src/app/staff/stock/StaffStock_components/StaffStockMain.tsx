@@ -1,10 +1,11 @@
+// RESPONSIBILITY: Renders the StaffStockMain component.
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useStaffContext } from '@/app/staff/components/StaffContext';
-import { authApi as api } from '@/app/login/lib/api/auth';
+import { useStaffContext } from '@/app/staff/staff_components/StaffContext';
+import { authApi as api } from '@/app/staff/staff_lib/staff_api/StaffAuth';
 import { Package, Plus, Search, Edit2, Trash2, Check, X } from 'lucide-react';
-import { StockItem, stockBatchesApi, StockBatch } from '@/app/staff/lib/api/stock';
+import { StockItem, stockBatchesApi, StockBatch } from '@/app/staff/staff_lib/staff_api/StaffStock';
 import { Pagination } from '@/components/shared/Pagination';
 
 export function StaffStockMain() {

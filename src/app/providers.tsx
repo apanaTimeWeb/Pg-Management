@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the providers component.
 'use client';
 
 import { useEffect } from 'react';

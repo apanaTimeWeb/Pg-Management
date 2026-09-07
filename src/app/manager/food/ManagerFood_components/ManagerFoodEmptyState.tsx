@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the ManagerFoodEmptyState component.
 import { UtensilsCrossed } from 'lucide-react';
 
 export function ManagerFoodEmptyState() {

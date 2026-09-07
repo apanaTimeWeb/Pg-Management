@@ -1,6 +1,7 @@
+// RESPONSIBILITY: Renders the ManagerFoodMain component.
 'use client';
 
-import { useManagerFood } from '@/app/manager/food/ManagerFood_hooks/useManagerFood';
+import { useManagerFood } from '@/app/manager/food/ManagerFood_hooks/ManagerUseManagerFood';
 import { ManagerFoodEmptyState } from '@/app/manager/food/ManagerFood_components/ManagerFoodEmptyState';
 import { ManagerFoodWeeklySchedule } from '@/app/manager/food/ManagerFood_components/ManagerFoodWeeklySchedule';
 

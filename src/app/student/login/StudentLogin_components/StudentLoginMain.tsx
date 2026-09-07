@@ -1,8 +1,9 @@
+// RESPONSIBILITY: Renders the StudentLoginMain component.
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { authApi as api } from '@/app/login/lib/api/auth';
-import { setSession } from '@/app/login/lib/auth/session';
+import { authApi as api } from '@/app/student/student_lib/student_api/StudentAuth';
+import { setSession } from '@/app/student/student_lib/student_auth/StudentSession';
 
 export function StudentLoginMain() {
   const router = useRouter();

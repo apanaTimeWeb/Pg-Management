@@ -3,9 +3,9 @@
 // RESPONSIBILITY: Renders the OwnerDashboardMain component. Receives data via props/hooks.
 
 import { useState, useEffect } from 'react';
-import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
-import { authApi as api } from '@/app/login/lib/api/auth';
-import { getSession } from '@/app/login/lib/auth/session';
+import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
+import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { 
   Building2, Bed, Users, IndianRupee, DoorOpen, BarChart, TrendingUp, TrendingDown,
   PieChart, Filter, Activity, AlertCircle

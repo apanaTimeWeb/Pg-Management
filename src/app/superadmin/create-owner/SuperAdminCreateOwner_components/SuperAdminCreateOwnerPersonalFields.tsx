@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminCreateOwnerPersonalFields component.
 import React from 'react';
 import { User } from 'lucide-react';
 import { InputError } from '@/components/ui/InputError';

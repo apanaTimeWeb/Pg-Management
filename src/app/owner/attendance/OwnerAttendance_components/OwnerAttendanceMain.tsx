@@ -3,12 +3,12 @@
 // RESPONSIBILITY: Renders the OwnerAttendanceMain component. Receives data via props/hooks.
 
 import { useState, useEffect } from 'react';
-import { authApi as api } from '@/app/login/lib/api/auth';
-import { getSession } from '@/app/login/lib/auth/session';
-import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
+import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
+import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { Users, CheckCircle2, XCircle, Search, Building } from 'lucide-react';
-import { attendanceApi, StaffAttendance } from '@/app/owner/lib/api/attendance';
-import { TeamMember } from '@/app/owner/lib/api/team';
+import { attendanceApi, StaffAttendance } from '@/app/owner/owner_lib/owner_api/OwnerAttendance';
+import { TeamMember } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
 import { format } from 'date-fns';
 import { Pagination } from '@/components/shared/Pagination';
 import { useTableSync } from '@/hooks/useTableSync';

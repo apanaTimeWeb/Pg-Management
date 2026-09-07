@@ -1,8 +1,9 @@
+// RESPONSIBILITY: Renders the ManagerFirstLoginMain component.
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { authApi as api } from '@/app/login/lib/api/auth';
-import { getSession, setSession } from '@/app/login/lib/auth/session';
+import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
+import { getSession, setSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
 
 export function ManagerFirstLoginMain() {
   const router = useRouter();

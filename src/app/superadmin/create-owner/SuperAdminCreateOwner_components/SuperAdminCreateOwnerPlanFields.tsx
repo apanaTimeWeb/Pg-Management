@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminCreateOwnerPlanFields component.
 import React from 'react';
 import { Package } from 'lucide-react';
 import { SuperAdminCreateOwnerPlanFieldsProps } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_types/SuperAdminCreateOwner.types';

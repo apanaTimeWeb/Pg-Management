@@ -1,11 +1,11 @@
-// RESPONSIBILITY: Renders the layout component. Receives data via props/hooks.
+// RESPONSIBILITY: Renders the OwnerLayout component. Receives data via props/hooks.
 
 import { Metadata } from 'next';
-import { RequireOwner } from '@/app/owner/components/RequireOwner';
-import { OwnerPropertyProvider } from '@/app/owner/components/OwnerPropertyContext';
-import { OwnerLayout } from '@/app/owner/components/OwnerLayout';
+import { RequireOwner } from '@/app/owner/owner_components/OwnerRequireOwner';
+import { OwnerPropertyProvider } from '@/app/owner/owner_components/OwnerPropertyContext';
+import { OwnerLayout } from '@/app/owner/owner_components/OwnerLayout';
 import { ToastProvider } from '@/components/shared/ToastContext';
-import { OwnerI18nProvider } from '@/app/owner/i18n';
+import { OwnerI18nProvider } from '@/app/owner/OwnerI18n';
 
 export const metadata: Metadata = {
   title: 'Owner Portal | SmartPG',

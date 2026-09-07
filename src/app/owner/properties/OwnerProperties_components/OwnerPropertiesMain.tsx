@@ -2,13 +2,13 @@
 
 // RESPONSIBILITY: Renders the OwnerPropertiesMain component. Receives data via props/hooks.
 
-import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
+import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { Building2, Plus, Bed, IndianRupee, MapPin, Users, Activity } from 'lucide-react';
 import Link from 'next/link';
-import { authApi as api } from '@/app/login/lib/api/auth';
-import { getSession } from '@/app/login/lib/auth/session';
+import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { useState, useEffect } from 'react';
-import { Property } from '@/app/owner/lib/api/properties';
+import { Property } from '@/app/owner/owner_lib/owner_api/OwnerProperties';
 
 export function OwnerPropertiesMain() {
   const user = typeof window !== 'undefined' ? getSession() : null;

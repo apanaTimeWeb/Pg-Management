@@ -1,13 +1,14 @@
+// RESPONSIBILITY: Renders the ManagerAttendanceMain component.
 'use client';
 
-import { useManagerUrlPagination } from '@/app/manager/manager_shared/hooks/useManagerUrlPagination';
+import { useManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 import { useState } from 'react';
-import { useManagerPropertyContext } from '@/app/manager/manager_shared/ManagerPropertyContext';
-import { getSession } from '@/app/login/lib/auth/session';
+import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
+import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
 import { Building } from 'lucide-react';
 import { Pagination } from '@/components/shared/Pagination';
-import { useManagerAttendanceData } from '@/app/manager/attendance/ManagerAttendance_hooks/useManagerAttendanceData';
-import { useManagerAttendanceActions } from '@/app/manager/attendance/ManagerAttendance_hooks/useManagerAttendanceActions';
+import { useManagerAttendanceData } from '@/app/manager/attendance/ManagerAttendance_hooks/ManagerUseManagerAttendanceData';
+import { useManagerAttendanceActions } from '@/app/manager/attendance/ManagerAttendance_hooks/ManagerUseManagerAttendanceActions';
 import { ManagerAttendanceSummary } from '@/app/manager/attendance/ManagerAttendance_components/ManagerAttendanceSummary';
 import { ManagerAttendanceTable } from '@/app/manager/attendance/ManagerAttendance_components/ManagerAttendanceTable';
 

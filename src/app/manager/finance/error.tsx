@@ -2,10 +2,10 @@
 import { useEffect } from 'react';
 import { AlertTriangle } from 'lucide-react';
 
-export default function ErrorBoundary({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+export default function ErrorBoundary({ ManagerError, reset }: { ManagerError: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
-    console.error(error);
-  }, [error]);
+    console.ManagerError(ManagerError);
+  }, [ManagerError]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[400px] p-6 text-center animate-in fade-in duration-300">
@@ -14,7 +14,7 @@ export default function ErrorBoundary({ error, reset }: { error: Error & { diges
       </div>
       <h2 className="text-xl font-bold text-[var(--text-primary)] mb-2">Something went wrong!</h2>
       <p className="text-[var(--text-secondary)] mb-6 max-w-md">
-        We encountered an error loading this module. Please try again or contact support if the issue persists.
+        We encountered an ManagerError loading this module. Please try again or contact support if the issue persists.
       </p>
       <button 
         onClick={() => reset()}

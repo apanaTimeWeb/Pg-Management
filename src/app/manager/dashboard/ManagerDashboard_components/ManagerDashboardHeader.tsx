@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the ManagerDashboardHeader component.
 import { CheckCircle2 } from 'lucide-react';
 
 interface ManagerDashboardHeaderProps {

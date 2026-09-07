@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminPlansEditModal component.
 import React from 'react';
 import { X, Save } from 'lucide-react';
 import { SuperAdminPlansEditModalProps } from '@/app/superadmin/plans/SuperAdminPlans_types/SuperAdminPlans.types';

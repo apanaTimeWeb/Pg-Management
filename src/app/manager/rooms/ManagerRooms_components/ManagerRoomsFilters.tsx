@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the ManagerRoomsFilters component.
 import { Search, Filter } from 'lucide-react';
 
 interface Props {

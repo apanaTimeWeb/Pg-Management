@@ -1,6 +1,6 @@
 "use client";
 
-// RESPONSIBILITY: Renders the global loading skeleton for the Owner module.
+// RESPONSIBILITY: Renders the global OwnerLoading skeleton for the Owner module.
 
 import React from 'react';
 import { Loader2 } from 'lucide-react';

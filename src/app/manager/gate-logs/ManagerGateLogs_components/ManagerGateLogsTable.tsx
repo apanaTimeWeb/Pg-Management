@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the ManagerGateLogsTable component.
 import { LogIn, LogOut, AlertTriangle } from 'lucide-react';
 import type { GateLog } from '@/app/manager/gate-logs/ManagerGateLogs_types/ManagerGateLogs.types';
 

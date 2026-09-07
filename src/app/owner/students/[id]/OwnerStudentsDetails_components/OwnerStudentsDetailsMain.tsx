@@ -4,14 +4,14 @@
 
 import { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { authApi as api } from '@/app/login/lib/api/auth';
-import { getSession } from '@/app/login/lib/auth/session';
-import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
+import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
+import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { ArrowLeft, User, Phone, Mail, Building, CreditCard, Activity, CheckCircle, ShieldAlert, LogOut, Clock } from 'lucide-react';
 import Link from 'next/link';
-import { studentOperationsApi } from '@/app/student/lib/api/studentOperations';
+import { studentOperationsApi } from '@/app/student/student_lib/student_api/StudentOperations';
 import { BillUploadModal } from '@/components/shared/BillUploadModal';
-import { financeApi } from '@/app/owner/lib/api/finance';
+import { financeApi } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
 
 export function OwnerStudentsDetailsMain({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();

@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the ManagerDashboardStatsGrid component.
 import { 
   Users, 
   BedDouble, 

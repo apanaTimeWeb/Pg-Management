@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminPlansCard component.
 import React from 'react';
 import { Check } from 'lucide-react';
 import { SuperAdminPlansCardProps } from '@/app/superadmin/plans/SuperAdminPlans_types/SuperAdminPlans.types';

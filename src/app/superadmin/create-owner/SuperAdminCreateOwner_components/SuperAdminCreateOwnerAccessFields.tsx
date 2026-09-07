@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminCreateOwnerAccessFields component.
 import React from 'react';
 import { Shield } from 'lucide-react';
 import { InputError } from '@/components/ui/InputError';

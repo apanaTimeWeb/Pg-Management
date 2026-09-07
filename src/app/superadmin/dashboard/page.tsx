@@ -4,11 +4,11 @@ import React from 'react';
 import { SuperAdminDashboardKpiGrid } from '@/app/superadmin/dashboard/SuperAdminDashboard_components/SuperAdminDashboardKpiGrid';
 import { SuperAdminDashboardLatestRequestsTable } from '@/app/superadmin/dashboard/SuperAdminDashboard_components/SuperAdminDashboardLatestRequestsTable';
 import { SuperAdminDashboardAcquisitionChart } from '@/app/superadmin/dashboard/SuperAdminDashboard_components/SuperAdminDashboardAcquisitionChart';
-import { useSuperAdminDashboardData } from '@/app/superadmin/dashboard/SuperAdminDashboard_hooks/useSuperAdminDashboardData';
+import { SuperadminUseSuperAdminDashboardData } from '@/app/superadmin/dashboard/SuperAdminDashboard_hooks/SuperadminUseSuperAdminDashboardData';
 import { SUPER_ADMIN_DASHBOARD_ACQUISITION_MOCK } from '@/app/superadmin/dashboard/SuperAdminDashboard_utils/SuperAdminDashboard.constants';
 
 export default function SuperAdminDashboardPage() {
-  const { data, loading } = useSuperAdminDashboardData();
+  const { data, loading } = SuperadminUseSuperAdminDashboardData();
 
   if (loading || !data) {
     // We rely on loading.tsx for the initial suspense, but keep this fallback 

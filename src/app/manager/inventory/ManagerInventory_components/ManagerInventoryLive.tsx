@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the ManagerInventoryLive component.
 import { AlertTriangle, Minus, Plus } from 'lucide-react';
 import type { ManagerInventoryItem } from '@/app/manager/inventory/ManagerInventory_types/ManagerInventory.types';
 

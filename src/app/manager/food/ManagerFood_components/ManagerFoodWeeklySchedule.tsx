@@ -1,5 +1,6 @@
+// RESPONSIBILITY: Renders the ManagerFoodWeeklySchedule component.
 import { Calendar, UtensilsCrossed } from 'lucide-react';
-import { FoodMenu } from '@/app/staff/lib/api/food';
+import { FoodMenu } from '@/app/staff/staff_lib/staff_api/StaffFood';
 
 interface ManagerFoodWeeklyScheduleProps {
   menu: FoodMenu;

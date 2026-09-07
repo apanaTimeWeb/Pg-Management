@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useSuperAdminFeatureFlagsData } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_hooks/useSuperAdminFeatureFlagsData';
+import { SuperadminUseSuperAdminFeatureFlagsData } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_hooks/SuperadminUseSuperAdminFeatureFlagsData';
 import { SuperAdminFeatureFlagsHeader } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_components/SuperAdminFeatureFlagsHeader';
 import { SuperAdminFeatureFlagsToolbar } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_components/SuperAdminFeatureFlagsToolbar';
 import { SuperAdminFeatureFlagsTable } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_components/SuperAdminFeatureFlagsTable';
@@ -14,7 +14,7 @@ export default function FeatureFlagsPage() {
     setSearch,
     handleToggle,
     availableFeatures
-  } = useSuperAdminFeatureFlagsData();
+  } = SuperadminUseSuperAdminFeatureFlagsData();
 
   if (loading) return null; // Let loading.tsx handle it
 

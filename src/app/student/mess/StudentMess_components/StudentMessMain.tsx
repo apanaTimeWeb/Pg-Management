@@ -1,9 +1,10 @@
+// RESPONSIBILITY: Renders the StudentMessMain component.
 'use client';
 
 import { useState, useEffect } from 'react';
-import { studentOperationsApi } from '@/app/student/lib/api/studentOperations';
-import { useStudentContext } from '@/app/student/components/StudentContext';
-import { getSession } from '@/app/login/lib/auth/session';
+import { studentOperationsApi } from '@/app/student/student_lib/student_api/StudentOperations';
+import { useStudentContext } from '@/app/student/student_components/StudentContext';
+import { getSession } from '@/app/student/student_lib/student_auth/StudentSession';
 import { Zap, Utensils, CheckCircle, XCircle } from 'lucide-react';
 
 export function StudentMessMain() {

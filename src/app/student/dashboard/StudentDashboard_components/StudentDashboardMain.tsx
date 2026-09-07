@@ -5,7 +5,7 @@
 
 import Link from 'next/link';
 import { IndianRupee, MapPin, Bell, Utensils, Zap, TriangleAlert } from 'lucide-react';
-import { useStudentDashboard } from '@/app/student/dashboard/StudentDashboard_components/useStudentDashboard';
+import { useStudentDashboard } from '@/app/student/dashboard/StudentDashboard_components/StudentUseStudentDashboard';
 import { STUDENT_ROUTES } from '@/app/student/student_url_config';
 
 export function StudentDashboardMain() {
@@ -103,7 +103,7 @@ export function StudentDashboardMain() {
             <Bell className="w-5 h-5 text-primary"/> Recent Notices
           </h3>
           <div className="space-y-3">
-            {notices.map(n => (
+            {notices.map((n: any) => (
               <div key={n.id} className="p-3 border-l-2 border-primary bg-input rounded-r-[var(--radius-md)] text-sm">
                 <div className="font-bold text-primary">{n.title}</div>
                 <div className="text-secondary mt-1 truncate">{n.message}</div>

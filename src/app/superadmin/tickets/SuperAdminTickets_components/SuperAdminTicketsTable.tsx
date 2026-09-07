@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminTicketsTable component.
 import React from 'react';
 import { Search } from 'lucide-react';
 import { StatusBadge } from '@/config/statusBadgeConfig';

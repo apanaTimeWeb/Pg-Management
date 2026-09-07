@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminDashboardKpiGrid component.
 import React from 'react';
 import { SuperAdminDashboardKpiGridProps } from '@/app/superadmin/dashboard/SuperAdminDashboard_types/SuperAdminDashboard.types';
 import { Users, Clock, Building2, UserCircle, CreditCard, Activity, Ticket } from 'lucide-react';

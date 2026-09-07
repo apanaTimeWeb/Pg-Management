@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminOwnersFilters component.
 import React from 'react';
 import { Search } from 'lucide-react';
 import { SuperAdminOwnersFiltersProps } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';

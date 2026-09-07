@@ -1,6 +1,7 @@
+// RESPONSIBILITY: Renders the ManagerDashboardMain component.
 'use client';
 
-import { useManagerDashboard } from '@/app/manager/dashboard/ManagerDashboard_hooks/useManagerDashboard';
+import { useManagerDashboard } from '@/app/manager/dashboard/ManagerDashboard_hooks/ManagerUseManagerDashboard';
 import { ManagerDashboardHeader } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardHeader';
 import { ManagerDashboardStatsGrid } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardStatsGrid';
 import { ManagerDashboardMealAlerts } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardMealAlerts';

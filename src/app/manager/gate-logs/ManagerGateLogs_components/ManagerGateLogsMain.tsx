@@ -1,7 +1,8 @@
+// RESPONSIBILITY: Renders the ManagerGateLogsMain component.
 'use client';
 
 import { Pagination } from '@/components/shared/Pagination';
-import { useManagerGateLogs } from '@/app/manager/gate-logs/ManagerGateLogs_hooks/useManagerGateLogs';
+import { useManagerGateLogs } from '@/app/manager/gate-logs/ManagerGateLogs_hooks/ManagerUseManagerGateLogs';
 import { ManagerGateLogsTable } from '@/app/manager/gate-logs/ManagerGateLogs_components/ManagerGateLogsTable';
 import { ManagerGateLogsForm } from '@/app/manager/gate-logs/ManagerGateLogs_components/ManagerGateLogsForm';
 

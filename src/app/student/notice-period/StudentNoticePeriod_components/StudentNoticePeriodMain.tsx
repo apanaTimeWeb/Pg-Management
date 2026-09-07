@@ -1,11 +1,12 @@
+// RESPONSIBILITY: Renders the StudentNoticePeriodMain component.
 'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useStudentContext } from '@/app/student/components/StudentContext';
-import { getSession } from '@/app/login/lib/auth/session';
+import { useStudentContext } from '@/app/student/student_components/StudentContext';
+import { getSession } from '@/app/student/student_lib/student_auth/StudentSession';
 import { CalendarClock } from 'lucide-react';
-import { authApi as api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/student/student_lib/student_api/StudentAuth';
 import { createId } from '@/lib/utils/id';
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';

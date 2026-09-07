@@ -1,7 +1,8 @@
+// RESPONSIBILITY: Renders the ManagerFinanceMain component.
 'use client';
 
 import { Pagination } from '@/components/shared/Pagination';
-import { useManagerFinance } from '@/app/manager/finance/ManagerFinance_hooks/useManagerFinance';
+import { useManagerFinance } from '@/app/manager/finance/ManagerFinance_hooks/ManagerUseManagerFinance';
 import { ManagerFinanceStats } from '@/app/manager/finance/ManagerFinance_components/ManagerFinanceStats';
 import { ManagerFinanceTable } from '@/app/manager/finance/ManagerFinance_components/ManagerFinanceTable';
 

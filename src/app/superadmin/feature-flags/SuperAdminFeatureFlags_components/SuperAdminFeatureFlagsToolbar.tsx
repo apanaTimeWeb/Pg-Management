@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminFeatureFlagsToolbar component.
 import React from 'react';
 import { Search, Settings2 } from 'lucide-react';
 import { SuperAdminFeatureFlagsToolbarProps } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_types/SuperAdminFeatureFlags.types';

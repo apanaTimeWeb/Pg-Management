@@ -1,4 +1,4 @@
-// RESPONSIBILITY: Renders the page component. Receives data via props/hooks.
+// RESPONSIBILITY: Renders the OwnerPage component. Receives data via props/hooks.
 
 import { OwnerAttendanceMain } from '@/app/owner/attendance/OwnerAttendance_components/OwnerAttendanceMain';
 

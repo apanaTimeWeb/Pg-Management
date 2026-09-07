@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the OwnerFinanceTabs component. Receives data via props/hooks.
 
 import { Receipt, TrendingDown, FileText } from 'lucide-react';
-import { Payment, Expense, Invoice } from '@/app/owner/lib/api/finance';
+import { Payment, Expense, Invoice } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
 import { formatINR, formatDateOnly } from '@/lib/utils/formatters';
 import { Pagination } from '@/components/shared/Pagination';
 import { Dispatch, SetStateAction } from 'react';

@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminAuditLogsFilters component.
 import React from 'react';
 import { Search } from 'lucide-react';
 import { SuperAdminAuditLogsFiltersProps } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_types/SuperAdminAuditLogs.types';

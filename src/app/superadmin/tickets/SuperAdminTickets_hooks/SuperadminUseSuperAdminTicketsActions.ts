@@ -1,0 +1,36 @@
+// DATA FLOW: [AI_TODO: Document data flow direction for SuperadminUseSuperAdminTicketsActions.ts]
+'use client';
+
+import { useState } from 'react';
+import { ticketsApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminTickets';
+import { CreateTicketFormData } from '@/app/superadmin/tickets/SuperAdminTickets_types/SuperAdminTickets.types';
+import { DEFAULT_CREATE_TICKET_FORM_DATA } from '@/app/superadmin/tickets/SuperAdminTickets_utils/SuperAdminTickets.constants';
+
+export function SuperadminUseSuperAdminTicketsActions(refetch: () => void) {
+  const [createModal, setCreateModal] = useState(false);
+  const [formData, setFormData] = useState<CreateTicketFormData>(DEFAULT_CREATE_TICKET_FORM_DATA);
+
+  const handleCreate = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.ownerId || !formData.title || !formData.description) return;
+    
+    ticketsApi.createTicketOnBehalf(formData);
+    setCreateModal(false);
+    setFormData(DEFAULT_CREATE_TICKET_FORM_DATA);
+    refetch();
+  };
+
+  const handleStatusChange = (id: string, newStatus: string) => {
+    ticketsApi.updateTicketStatus(id, newStatus);
+    refetch();
+  };
+
+  return {
+    createModal,
+    setCreateModal,
+    formData,
+    setFormData,
+    handleCreate,
+    handleStatusChange
+  };
+}

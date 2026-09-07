@@ -5,11 +5,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { SuperAdminOwnersFilters } from '@/app/superadmin/owners/SuperAdminOwners_components/SuperAdminOwnersFilters';
 import { SuperAdminOwnersTable } from '@/app/superadmin/owners/SuperAdminOwners_components/SuperAdminOwnersTable';
-import { useSuperAdminOwnersData } from '@/app/superadmin/owners/SuperAdminOwners_hooks/useSuperAdminOwnersData';
+import { SuperadminUseSuperAdminOwnersData } from '@/app/superadmin/owners/SuperAdminOwners_hooks/SuperadminUseSuperAdminOwnersData';
 
 export default function SuperAdminOwnersDirectoryPage() {
   const router = useRouter();
-  const dataHook = useSuperAdminOwnersData();
+  const dataHook = SuperadminUseSuperAdminOwnersData();
 
   const handleRowClick = (id: string) => {
     router.push(`/superadmin/owners/${id}`);

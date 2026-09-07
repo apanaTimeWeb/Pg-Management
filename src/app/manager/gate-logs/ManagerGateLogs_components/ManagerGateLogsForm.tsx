@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the ManagerGateLogsForm component.
 // [COMPONENT] ManagerGateLogsForm
 // Responsibility: Standalone form for manually logging student entry/exit events.
 // Uses React Hook Form + Zod (GateLogFormSchema) for validation and reset.

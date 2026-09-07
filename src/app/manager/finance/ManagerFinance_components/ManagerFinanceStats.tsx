@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the ManagerFinanceStats component.
 import { IndianRupee, PieChart } from 'lucide-react';
 import type { ManagerFinanceStats as StatsType } from '@/app/manager/finance/ManagerFinance_types/ManagerFinance.types';
 

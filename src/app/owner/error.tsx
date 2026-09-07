@@ -1,15 +1,15 @@
 "use client";
 
-// RESPONSIBILITY: Renders the global error boundary for the Owner module.
+// RESPONSIBILITY: Renders the global OwnerError boundary for the Owner module.
 
 import React from 'react';
 import { AlertTriangle, RefreshCcw } from 'lucide-react';
 
 export default function OwnerError({
-  error,
+  OwnerError,
   reset,
 }: {
-  error: Error & { digest?: string };
+  OwnerError: Error & { digest?: string };
   reset: () => void;
 }) {
   return (
@@ -21,7 +21,7 @@ export default function OwnerError({
         Something went wrong
       </h2>
       <p className="mb-8 max-w-md text-secondary">
-        An unexpected error occurred while loading the owner interface. Our engineers have been notified.
+        An unexpected OwnerError occurred while loading the owner interface. Our engineers have been notified.
       </p>
       <button
         onClick={() => reset()}

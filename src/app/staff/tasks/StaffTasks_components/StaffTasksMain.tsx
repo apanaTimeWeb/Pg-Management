@@ -1,9 +1,10 @@
+// RESPONSIBILITY: Renders the StaffTasksMain component.
 'use client';
 
 import { useState, useEffect } from 'react';
-import { staffOperationsApi } from '@/app/staff/lib/api/staffOperations';
-import { useStaffContext } from '@/app/staff/components/StaffContext';
-import { getSession } from '@/app/login/lib/auth/session';
+import { staffOperationsApi } from '@/app/staff/staff_lib/staff_api/staffOperations';
+import { useStaffContext } from '@/app/staff/staff_components/StaffContext';
+import { getSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
 import { ListTodo, CheckSquare, Square } from 'lucide-react';
 import { Pagination } from '@/components/shared/Pagination';
 

@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminAnalyticsKPIs component.
 import React from 'react';
 import { TrendingUp, Users, Activity, CreditCard, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 import { SuperAdminAnalyticsKPIsProps } from '@/app/superadmin/analytics/SuperAdminAnalytics_types/SuperAdminAnalytics.types';

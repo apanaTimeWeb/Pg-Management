@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { useParams } from 'next/navigation';
-import { useSuperAdminOwnerProfileData } from '@/app/superadmin/owners/[id]/SuperAdminOwnerProfile_hooks/useSuperAdminOwnerProfileData';
-import { useSuperAdminOwnerProfileActions } from '@/app/superadmin/owners/[id]/SuperAdminOwnerProfile_hooks/useSuperAdminOwnerProfileActions';
+import { SuperadminUseSuperAdminOwnerProfileData } from '@/app/superadmin/owners/[id]/SuperAdminOwnerProfile_hooks/SuperadminUseSuperAdminOwnerProfileData';
+import { SuperadminUseSuperAdminOwnerProfileActions } from '@/app/superadmin/owners/[id]/SuperAdminOwnerProfile_hooks/SuperadminUseSuperAdminOwnerProfileActions';
 import { SuperAdminOwnerProfileHeader } from '@/app/superadmin/owners/[id]/SuperAdminOwnerProfile_components/SuperAdminOwnerProfileHeader';
 import { SuperAdminOwnerProfileSidebar } from '@/app/superadmin/owners/[id]/SuperAdminOwnerProfile_components/SuperAdminOwnerProfileSidebar';
 import { SuperAdminOwnerProfileMain } from '@/app/superadmin/owners/[id]/SuperAdminOwnerProfile_components/SuperAdminOwnerProfileMain';
@@ -12,8 +12,8 @@ export default function Owner360Page() {
   const params = useParams();
   const id = params.id as string;
 
-  const { data, loading, refetch } = useSuperAdminOwnerProfileData(id);
-  const actionsHook = useSuperAdminOwnerProfileActions(id, refetch, data?.user?.status);
+  const { data, loading, refetch } = SuperadminUseSuperAdminOwnerProfileData(id);
+  const actionsHook = SuperadminUseSuperAdminOwnerProfileActions(id, refetch, data?.user?.status);
 
   if (loading || !data) {
     return (

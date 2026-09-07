@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { authApi as api } from '@/app/login/lib/api/auth';
-import { setSession } from '@/app/login/lib/auth/session';
+import { authApi as api } from '@/app/login/login_lib/login_api/LoginAuth';
+import { setSession } from '@/app/login/login_lib/login_auth/LoginSession';
 import { Shield, Briefcase, Users, Utensils, UserCheck, Heart, Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
 import { ThemeToggle } from '@/components/public/ThemeToggle';
@@ -48,7 +48,7 @@ export default function UnifiedLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg-page)] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative">
+    <div className="min-h-screen bg-[var(--bg-LoginPage)] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative">
       <div className="absolute top-4 right-4"><ThemeToggle /></div>
       <div className="absolute top-4 left-4">
         <Link href="/" className="font-bold text-xl tracking-tight text-[var(--text-primary)]">
@@ -79,7 +79,7 @@ export default function UnifiedLogin() {
                   className={`flex flex-col items-center justify-center p-3 rounded-[var(--radius-md,8px)] border transition-all ${
                     isSelected 
                       ? 'border-[var(--primary)] bg-[var(--primary-subtle)] ring-1 ring-[var(--primary)]' 
-                      : 'border-[var(--border)] bg-[var(--bg-page)] hover:bg-[var(--border)]'
+                      : 'border-[var(--border)] bg-[var(--bg-LoginPage)] hover:bg-[var(--border)]'
                   }`}
                 >
                   <acc.icon className={`w-5 h-5 mb-1 ${isSelected ? 'text-[var(--primary)]' : 'text-[var(--text-secondary)]'}`} />

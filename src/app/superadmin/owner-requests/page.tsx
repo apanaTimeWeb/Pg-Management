@@ -4,15 +4,15 @@ import React from 'react';
 import { SuperAdminOwnerRequestsFilters } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_components/SuperAdminOwnerRequestsFilters';
 import { SuperAdminOwnerRequestsTable } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_components/SuperAdminOwnerRequestsTable';
 import { SuperAdminOwnerRequestsReviewModal } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_components/SuperAdminOwnerRequestsReviewModal';
-import { useSuperAdminOwnerRequestsData } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_hooks/useSuperAdminOwnerRequestsData';
-import { useSuperAdminOwnerRequestsActions } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_hooks/useSuperAdminOwnerRequestsActions';
+import { SuperadminUseSuperAdminOwnerRequestsData } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_hooks/SuperadminUseSuperAdminOwnerRequestsData';
+import { SuperadminUseSuperAdminOwnerRequestsActions } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_hooks/SuperadminUseSuperAdminOwnerRequestsActions';
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 
 // RESPONSIBILITY: Entry wrapper. Composes UI components and passes state.
 
 export default function SuperAdminOwnerRequestsPage() {
-  const dataHook = useSuperAdminOwnerRequestsData();
-  const actionsHook = useSuperAdminOwnerRequestsActions(dataHook.refetch);
+  const dataHook = SuperadminUseSuperAdminOwnerRequestsData();
+  const actionsHook = SuperadminUseSuperAdminOwnerRequestsActions(dataHook.refetch);
 
   return (
     <div className="space-y-6">

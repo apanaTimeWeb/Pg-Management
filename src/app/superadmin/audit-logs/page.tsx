@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useSuperAdminAuditLogsData } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_hooks/useSuperAdminAuditLogsData';
+import { SuperadminUseSuperAdminAuditLogsData } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_hooks/SuperadminUseSuperAdminAuditLogsData';
 import { SuperAdminAuditLogsHeader } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_components/SuperAdminAuditLogsHeader';
 import { SuperAdminAuditLogsFilters } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_components/SuperAdminAuditLogsFilters';
 import { SuperAdminAuditLogsTimeline } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_components/SuperAdminAuditLogsTimeline';
@@ -18,7 +18,7 @@ export default function AuditLogsPage() {
     totalPages,
     paginatedData,
     filters
-  } = useSuperAdminAuditLogsData();
+  } = SuperadminUseSuperAdminAuditLogsData();
 
   if (loading) return null; // Let loading.tsx handle it
 

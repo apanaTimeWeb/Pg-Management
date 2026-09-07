@@ -1,8 +1,9 @@
+// RESPONSIBILITY: Renders the ManagerComplaintsMain component.
 'use client';
 
-import { useManagerPropertyContext } from '@/app/manager/manager_shared/ManagerPropertyContext';
+import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { Pagination } from '@/components/shared/Pagination';
-import { useManagerComplaints } from '@/app/manager/complaints/ManagerComplaints_hooks/useManagerComplaints';
+import { useManagerComplaints } from '@/app/manager/complaints/ManagerComplaints_hooks/ManagerUseManagerComplaints';
 import { ManagerComplaintsActive } from '@/app/manager/complaints/ManagerComplaints_components/ManagerComplaintsActive';
 import { ManagerComplaintsLog } from '@/app/manager/complaints/ManagerComplaints_components/ManagerComplaintsLog';
 import { ManagerComplaintsResolveModal } from '@/app/manager/complaints/ManagerComplaints_components/ManagerComplaintsResolveModal';

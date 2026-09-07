@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { authApi as api } from '@/app/login/lib/api/auth';
-import { setSession } from '@/app/login/lib/auth/session';
+import { authApi as api } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminAuth';
+import { setSession } from '@/app/superadmin/superadmin_lib/superadmin_auth/SuperadminSession';
 
 export default function SuperAdminLogin() {
   const router = useRouter();
@@ -23,7 +23,7 @@ export default function SuperAdminLogin() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[var(--bg-page)] px-4">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--bg-SuperadminPage)] px-4">
       <div className="bg-[var(--bg-card)] border border-[var(--border)] p-8 rounded-[var(--radius-lg,12px)] max-w-md w-full shadow-lg">
         <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-6 text-center">Platform Admin Login</h1>
         
@@ -44,7 +44,7 @@ export default function SuperAdminLogin() {
           </button>
         </form>
 
-        <div className="mt-6 p-4 bg-[var(--bg-page)] rounded-md border border-[var(--border)] text-xs text-[var(--text-secondary)]">
+        <div className="mt-6 p-4 bg-[var(--bg-SuperadminPage)] rounded-md border border-[var(--border)] text-xs text-[var(--text-secondary)]">
           <strong>Demo Credentials:</strong><br/>
           Email: leo.a@example.org<br/>
           Password: Super@123

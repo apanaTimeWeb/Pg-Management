@@ -1,5 +1,6 @@
+// RESPONSIBILITY: Renders the ManagerEnquiriesKanban component.
 import { Phone, IndianRupee, MessageCircle, Mail, UserPlus } from 'lucide-react';
-import { Enquiry, EnquiryStatus } from '@/app/manager/lib/api/managerEnquiries';
+import { Enquiry, EnquiryStatus } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
 
 interface Props {
   activeEnquiries: Enquiry[];

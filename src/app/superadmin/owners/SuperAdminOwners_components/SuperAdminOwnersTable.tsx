@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminOwnersTable component.
 import React from 'react';
 import { MoreVertical, Users } from 'lucide-react';
 import { SuperAdminOwnersTableProps } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';

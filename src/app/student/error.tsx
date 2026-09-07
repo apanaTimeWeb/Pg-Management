@@ -5,15 +5,15 @@ import { AlertTriangle } from 'lucide-react';
 import { STUDENT_ROUTES } from '@/app/student/student_url_config';
 
 export default function StudentError({
-  error,
+  StudentError,
   reset,
 }: {
-  error: Error & { digest?: string };
+  StudentError: Error & { digest?: string };
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error(error);
-  }, [error]);
+    console.error(StudentError);
+  }, [StudentError]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[400px] p-6 text-center space-y-4">
@@ -22,7 +22,7 @@ export default function StudentError({
       </div>
       <h2 className="text-xl font-bold text-[var(--text-primary)]">Something went wrong</h2>
       <p className="text-sm text-[var(--text-secondary)] max-w-md">
-        An unexpected error occurred in the student module. We've been notified and are looking into it.
+        An unexpected StudentError occurred in the student module. We've been notified and are looking into it.
       </p>
       <div className="flex gap-4 mt-6">
         <button

@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminTicketsHeader component.
 import React from 'react';
 import { Plus } from 'lucide-react';
 import { SuperAdminTicketsHeaderProps } from '@/app/superadmin/tickets/SuperAdminTickets_types/SuperAdminTickets.types';

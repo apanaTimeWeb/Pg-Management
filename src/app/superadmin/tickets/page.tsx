@@ -4,8 +4,8 @@ import React from 'react';
 import { SuperAdminTicketsHeader } from '@/app/superadmin/tickets/SuperAdminTickets_components/SuperAdminTicketsHeader';
 import { SuperAdminTicketsTable } from '@/app/superadmin/tickets/SuperAdminTickets_components/SuperAdminTicketsTable';
 import { SuperAdminTicketsCreateModal } from '@/app/superadmin/tickets/SuperAdminTickets_components/SuperAdminTicketsCreateModal';
-import { useSuperAdminTicketsData } from '@/app/superadmin/tickets/SuperAdminTickets_hooks/useSuperAdminTicketsData';
-import { useSuperAdminTicketsActions } from '@/app/superadmin/tickets/SuperAdminTickets_hooks/useSuperAdminTicketsActions';
+import { SuperadminUseSuperAdminTicketsData } from '@/app/superadmin/tickets/SuperAdminTickets_hooks/SuperadminUseSuperAdminTicketsData';
+import { SuperadminUseSuperAdminTicketsActions } from '@/app/superadmin/tickets/SuperAdminTickets_hooks/SuperadminUseSuperAdminTicketsActions';
 
 export default function TicketsPage() {
   const {
@@ -18,7 +18,7 @@ export default function TicketsPage() {
     totalPages,
     setCurrentPage,
     refetch
-  } = useSuperAdminTicketsData();
+  } = SuperadminUseSuperAdminTicketsData();
 
   const {
     createModal,
@@ -27,7 +27,7 @@ export default function TicketsPage() {
     setFormData,
     handleCreate,
     handleStatusChange
-  } = useSuperAdminTicketsActions(refetch);
+  } = SuperadminUseSuperAdminTicketsActions(refetch);
 
   return (
     <div className="space-y-6 pb-20">

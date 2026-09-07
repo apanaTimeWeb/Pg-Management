@@ -4,13 +4,13 @@
 
 import { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { authApi as api } from '@/app/login/lib/api/auth';
-import { Room } from '@/app/owner/lib/api/rooms';
-import { Bed } from '@/app/owner/lib/api/beds';
-import { getSession } from '@/app/login/lib/auth/session';
+import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { Room } from '@/app/owner/owner_lib/owner_api/OwnerRooms';
+import { Bed } from '@/app/owner/owner_lib/owner_api/OwnerBeds';
+import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { ArrowLeft, BedDouble, AlertTriangle, User, Hash, Settings, Edit3, Trash2 } from 'lucide-react';
 import Link from 'next/link';
-import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
+import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 
 export function OwnerRoomsDetailsMain({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();

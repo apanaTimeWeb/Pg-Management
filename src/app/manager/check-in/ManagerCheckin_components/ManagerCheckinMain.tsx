@@ -1,11 +1,12 @@
+// RESPONSIBILITY: Renders the ManagerCheckinMain component.
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { getSession } from '@/app/login/lib/auth/session';
-import { useManagerPropertyContext } from '@/app/manager/manager_shared/ManagerPropertyContext';
+import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { Lock } from 'lucide-react';
-import { useManagerCheckinData } from '@/app/manager/check-in/ManagerCheckin_hooks/useManagerCheckinData';
-import { useManagerCheckinForm } from '@/app/manager/check-in/ManagerCheckin_hooks/useManagerCheckinForm';
+import { useManagerCheckinData } from '@/app/manager/check-in/ManagerCheckin_hooks/ManagerUseManagerCheckinData';
+import { useManagerCheckinForm } from '@/app/manager/check-in/ManagerCheckin_hooks/ManagerUseManagerCheckinForm';
 import { ManagerCheckinProgress } from '@/app/manager/check-in/ManagerCheckin_components/ManagerCheckinProgress';
 import { ManagerCheckinForm } from '@/app/manager/check-in/ManagerCheckin_components/ManagerCheckinForm';
 

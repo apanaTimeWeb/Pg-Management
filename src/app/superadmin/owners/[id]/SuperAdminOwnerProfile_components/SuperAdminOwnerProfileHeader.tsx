@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminOwnerProfileHeader component.
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, AlertTriangle } from 'lucide-react';

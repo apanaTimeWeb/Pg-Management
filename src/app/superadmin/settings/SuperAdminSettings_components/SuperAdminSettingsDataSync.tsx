@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminSettingsDataSync component.
 import React from 'react';
 import { Database, Download, Upload, AlertTriangle } from 'lucide-react';
 import { SuperAdminSettingsDataSyncProps } from '@/app/superadmin/settings/SuperAdminSettings_types/SuperAdminSettings.types';

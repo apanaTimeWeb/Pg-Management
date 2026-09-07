@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminAuditLogsHeader component.
 import React from 'react';
 import { SuperAdminAuditLogsHeaderProps } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_types/SuperAdminAuditLogs.types';
 

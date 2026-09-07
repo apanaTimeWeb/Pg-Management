@@ -1,8 +1,9 @@
+// RESPONSIBILITY: Renders the StaffFirstLoginMain component.
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { authApi as api } from '@/app/login/lib/api/auth';
-import { getSession, setSession } from '@/app/login/lib/auth/session';
+import { authApi as api } from '@/app/staff/staff_lib/staff_api/StaffAuth';
+import { getSession, setSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
 
 export function StaffFirstLoginMain() {
   const router = useRouter();

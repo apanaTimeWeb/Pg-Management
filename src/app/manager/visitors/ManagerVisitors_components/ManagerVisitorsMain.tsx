@@ -1,10 +1,11 @@
+// RESPONSIBILITY: Renders the ManagerVisitorsMain component.
 'use client';
 
-import { useManagerVisitors } from '@/app/manager/visitors/ManagerVisitors_hooks/useManagerVisitors';
+import { ManagerUseManagerVisitors } from '@/app/manager/visitors/ManagerVisitors_hooks/ManagerUseManagerVisitors';
 import { ManagerVisitorsList } from '@/app/manager/visitors/ManagerVisitors_components/ManagerVisitorsList';
 
 export function ManagerVisitorsMain() {
-  const { visitors, loading, handleStatus, selectedPropertyId, ctxLoading } = useManagerVisitors();
+  const { visitors, loading, handleStatus, selectedPropertyId, ctxLoading } = ManagerUseManagerVisitors();
 
   if (ctxLoading || loading) return <div className="p-6 text-[var(--text-secondary)]">Loading...</div>;
   if (!selectedPropertyId) return <div className="p-6 text-center text-[var(--text-secondary)]">Property Required</div>;

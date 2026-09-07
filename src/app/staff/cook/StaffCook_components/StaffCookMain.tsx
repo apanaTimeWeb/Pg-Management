@@ -1,14 +1,15 @@
+// RESPONSIBILITY: Renders the StaffCookMain component.
 'use client';
 
 import { useState, useEffect } from 'react';
-import { staffOperationsApi } from '@/app/staff/lib/api/staffOperations';
-import { useStaffContext } from '@/app/staff/components/StaffContext';
-import { getSession } from '@/app/login/lib/auth/session';
+import { staffOperationsApi } from '@/app/staff/staff_lib/staff_api/staffOperations';
+import { useStaffContext } from '@/app/staff/staff_components/StaffContext';
+import { getSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
 import { CheckCircle, Utensils, ShoppingCart, Truck, Archive, AlertTriangle } from 'lucide-react';
-import { authApi as api } from '@/app/login/lib/api/auth';
-import { mealsApi, MealType, MealStatusType } from '@/app/staff/lib/api/meals';
-import { stockRequestsApi } from '@/app/staff/lib/api/stockRequests';
-import { attendanceApi } from '@/app/owner/lib/api/attendance';
+import { authApi as api } from '@/app/staff/staff_lib/staff_api/StaffAuth';
+import { mealsApi, MealType, MealStatusType } from '@/app/staff/staff_lib/staff_api/StaffMeals';
+import { stockRequestsApi } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
+import { attendanceApi } from '@/app/owner/owner_lib/owner_api/OwnerAttendance';
 import { Pagination } from '@/components/shared/Pagination';
 
 export function StaffCookMain() {

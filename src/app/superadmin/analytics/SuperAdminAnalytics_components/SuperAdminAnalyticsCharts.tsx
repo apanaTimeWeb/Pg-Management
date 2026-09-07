@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the SuperAdminAnalyticsCharts component.
 import React from 'react';
 import { AreaChart } from '@/components/ui/charts/AreaChart';
 import { DonutChart } from '@/components/ui/charts/DonutChart';

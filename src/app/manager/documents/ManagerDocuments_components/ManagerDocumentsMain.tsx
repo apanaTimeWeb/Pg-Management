@@ -1,10 +1,11 @@
+// RESPONSIBILITY: Renders the ManagerDocumentsMain component.
 'use client';
-import { useManagerUrlPagination } from '@/app/manager/manager_shared/hooks/useManagerUrlPagination';
+import { useManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 
 
 import { useState, useEffect } from 'react';
-import { authApi as api } from '@/app/login/lib/api/auth';
-import { useManagerPropertyContext } from '@/app/manager/manager_shared/ManagerPropertyContext';
+import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
+import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { FileText, Download } from 'lucide-react';
 import { Pagination } from '@/components/shared/Pagination';
 

@@ -1,3 +1,4 @@
+// RESPONSIBILITY: Renders the ManagerCheckinProgress component.
 import { MANAGER_CHECKIN_WIZARD_STEPS } from '@/app/manager/check-in/ManagerCheckin_utils/ManagerCheckin.constants';
 
 interface Props {

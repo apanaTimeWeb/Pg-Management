@@ -5,16 +5,16 @@ import { AlertTriangle } from 'lucide-react';
 import { STAFF_ROUTES } from '@/app/staff/staff_url_config';
 
 export default function StaffError({
-  error,
+  StaffError,
   reset,
 }: {
-  error: Error & { digest?: string };
+  StaffError: Error & { digest?: string };
   reset: () => void;
 }) {
   useEffect(() => {
-    // Log the error to an error reporting service
-    console.error(error);
-  }, [error]);
+    // Log the StaffError to an StaffError reporting service
+    console.error(StaffError);
+  }, [StaffError]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[400px] p-6 text-center space-y-4">
@@ -23,7 +23,7 @@ export default function StaffError({
       </div>
       <h2 className="text-xl font-bold text-[var(--text-primary)]">Something went wrong</h2>
       <p className="text-sm text-[var(--text-secondary)] max-w-md">
-        An unexpected error occurred in the staff module. We've been notified and are looking into it.
+        An unexpected StaffError occurred in the staff module. We've been notified and are looking into it.
       </p>
       <div className="flex gap-4 mt-6">
         <button

@@ -4,9 +4,9 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { authApi as api } from '@/app/login/lib/api/auth';
-import { TeamMember } from '@/app/owner/lib/api/team';
-import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
+import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { TeamMember } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
+import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { 
   ArrowLeft, User, Phone, Mail, IndianRupee, Clock, Calendar, 
   Building2, CheckCircle2, XCircle, ShieldCheck
