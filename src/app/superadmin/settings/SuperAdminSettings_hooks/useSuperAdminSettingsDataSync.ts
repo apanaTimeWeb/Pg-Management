@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { settingsApi } from '@/app/superadmin/lib/api/settings';
-import { useToast } from '@/lib/ui/ToastContext';
+import { useToast } from '@/components/shared/ToastContext';
 
 export function useSuperAdminSettingsDataSync() {
   const [isImporting, setIsImporting] = useState(false);

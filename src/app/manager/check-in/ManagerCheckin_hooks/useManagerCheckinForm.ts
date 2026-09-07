@@ -5,8 +5,8 @@
 import { useState, useEffect } from 'react';
 import type { ManagerCheckinFormData } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
 import { CheckinStep1Schema, CheckinStep3Schema } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
-import { api } from '@/lib/api';
-import { useToast } from '@/lib/ui/ToastContext';
+import { api } from '@/app/login/lib/api/auth';
+import { useToast } from '@/components/shared/ToastContext';
 import { useRouter } from 'next/navigation';
 
 export function useManagerCheckinForm(enquiryId: string, initialEnquiryData: any, selectedPropertyId: string | null, userId: string | undefined) {

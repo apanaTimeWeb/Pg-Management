@@ -4,9 +4,9 @@ import { useManagerUrlPagination } from '@/app/manager/manager_shared/hooks/useM
 // Data Flow: ManagerPropertyContext → api.finance → local state → ManagerFinancePage
 
 import { useState, useEffect } from 'react';
-import { api } from '@/lib/api';
+import { api } from '@/app/login/lib/api/auth';
 import { useManagerPropertyContext } from '@/app/manager/manager_shared/ManagerPropertyContext';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import type { 
   ManagerFinanceFilter, 
   EnrichedInvoice, 

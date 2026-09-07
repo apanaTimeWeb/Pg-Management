@@ -3,7 +3,7 @@
 // Data Flow: ManagerPropertyContext → api.students.listByProperty → local state → ManagerStudentsMain
 
 import { useState, useEffect } from 'react';
-import { api } from '@/lib/api';
+import { api } from '@/app/login/lib/api/auth';
 import type { ManagerStudentData } from '@/app/manager/students/ManagerStudents_types/ManagerStudents.types';
 
 export function useManagerStudents(selectedPropertyId: string | null, ctxLoading: boolean) {

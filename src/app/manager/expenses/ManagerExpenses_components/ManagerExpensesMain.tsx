@@ -2,7 +2,7 @@
 
 import { AlertCircle, Loader2 } from 'lucide-react';
 import { useManagerPropertyContext } from '@/app/manager/manager_shared/ManagerPropertyContext';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import { useManagerExpenses } from '@/app/manager/expenses/ManagerExpenses_hooks/useManagerExpenses';
 import { ManagerExpensesHeader } from '@/app/manager/expenses/ManagerExpenses_components/ManagerExpensesHeader';
 import { ManagerExpensesList } from '@/app/manager/expenses/ManagerExpenses_components/ManagerExpensesList';

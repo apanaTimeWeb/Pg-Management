@@ -1,7 +1,7 @@
 'use client';
 
 import { useManagerPropertyContext } from '@/app/manager/manager_shared/ManagerPropertyContext';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import { useManagerInventory } from '@/app/manager/inventory/ManagerInventory_hooks/useManagerInventory';
 import { ManagerInventoryTabs } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryTabs';
 import { ManagerInventoryRequests } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryRequests';

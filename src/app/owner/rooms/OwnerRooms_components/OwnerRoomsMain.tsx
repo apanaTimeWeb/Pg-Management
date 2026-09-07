@@ -4,9 +4,9 @@
 
 import { useState, useEffect } from 'react';
 import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
-import { api } from '@/lib/api';
+import { api } from '@/app/login/lib/api/auth';
 import { Room } from '@/app/owner/lib/api/rooms';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import { Plus } from 'lucide-react';
 import { OwnerRoomsKPIs } from './OwnerRoomsKPIs';
 import { OwnerRoomsFilters } from './OwnerRoomsFilters';

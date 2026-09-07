@@ -1,5 +1,5 @@
 import { StaffLayout } from '@/app/staff/components/StaffLayout';
-import { ToastProvider } from '@/lib/ui/ToastContext';
+import { ToastProvider } from '@/components/shared/ToastContext';
 import { StaffI18nProvider } from './i18n';
 
 export const metadata = {

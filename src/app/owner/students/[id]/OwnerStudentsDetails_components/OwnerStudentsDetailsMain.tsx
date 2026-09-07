@@ -4,8 +4,8 @@
 
 import { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { api } from '@/lib/api';
-import { getSession } from '@/lib/auth/session';
+import { api } from '@/app/login/lib/api/auth';
+import { getSession } from '@/app/login/lib/auth/session';
 import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
 import { ArrowLeft, User, Phone, Mail, Building, CreditCard, Activity, CheckCircle, ShieldAlert, LogOut, Clock } from 'lucide-react';
 import Link from 'next/link';

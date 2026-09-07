@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 
 export function RequireStudent({ children }: { children: React.ReactNode }) {
   const router = useRouter();

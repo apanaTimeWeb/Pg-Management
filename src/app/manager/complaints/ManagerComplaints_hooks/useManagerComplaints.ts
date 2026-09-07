@@ -7,7 +7,7 @@ import { useManagerUrlPagination } from '@/app/manager/manager_shared/hooks/useM
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { api } from '@/lib/api';
+import { api } from '@/app/login/lib/api/auth';
 import type { ManagerComplaintData } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';
 import { ComplaintResolveSchema } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';
 import type { ComplaintResolveFormData } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';

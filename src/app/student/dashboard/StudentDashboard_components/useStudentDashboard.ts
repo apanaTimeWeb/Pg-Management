@@ -25,7 +25,7 @@ export function useStudentDashboard() {
     const name = formData.get('name') as string;
     const phone = formData.get('phone') as string;
     
-    import('@/lib/api').then(({ api }) => {
+    import('@/app/login/lib/api/auth').then(({ api }) => {
       api.managerEnquiries.create({
         propertyId: profile.propertyId,
         name,

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Home, IndianRupee, Utensils, MessageSquareWarning, FileText, Bell, LogOut, User, Menu, X, ShieldAlert } from 'lucide-react';
-import { getSession, clearSession } from '@/lib/auth/session';
+import { getSession, clearSession } from '@/app/login/lib/auth/session';
 import { StudentProvider, useStudentContext } from './StudentContext';
 import { useStudentI18n, DictKey } from '@/app/student/i18n';
 import { ThemeToggle } from '@/components/public/ThemeToggle';

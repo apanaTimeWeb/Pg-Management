@@ -3,7 +3,7 @@
 import { useManagerUrlPagination } from '@/app/manager/manager_shared/hooks/useManagerUrlPagination';
 import { useState } from 'react';
 import { useManagerPropertyContext } from '@/app/manager/manager_shared/ManagerPropertyContext';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import { Building } from 'lucide-react';
 import { Pagination } from '@/components/shared/Pagination';
 import { useManagerAttendanceData } from '@/app/manager/attendance/ManagerAttendance_hooks/useManagerAttendanceData';

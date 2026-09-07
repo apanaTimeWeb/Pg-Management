@@ -7,8 +7,8 @@ import { useManagerUrlPagination } from '@/app/manager/manager_shared/hooks/useM
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { api } from '@/lib/api';
-import { useToast } from '@/lib/ui/ToastContext';
+import { api } from '@/app/login/lib/api/auth';
+import { useToast } from '@/components/shared/ToastContext';
 import type { ExpenseFormData } from '@/app/manager/expenses/ManagerExpenses_types/ManagerExpenses.types';
 import { ExpenseFormSchema } from '@/app/manager/expenses/ManagerExpenses_types/ManagerExpenses.types';
 

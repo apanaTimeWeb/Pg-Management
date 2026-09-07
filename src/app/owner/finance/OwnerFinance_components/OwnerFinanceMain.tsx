@@ -3,8 +3,8 @@
 // RESPONSIBILITY: Renders the OwnerFinanceMain component. Receives data via props/hooks.
 
 import { useState, useEffect } from 'react';
-import { api } from '@/lib/api';
-import { getSession } from '@/lib/auth/session';
+import { api } from '@/app/login/lib/api/auth';
+import { getSession } from '@/app/login/lib/auth/session';
 import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
 import { TrendingDown } from 'lucide-react';
 import { Expense } from '@/app/owner/lib/api/finance';

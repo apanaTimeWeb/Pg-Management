@@ -3,7 +3,7 @@
 // RESPONSIBILITY: Renders the RequireOwner component. Receives data via props/hooks.
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 
 export function RequireOwner({ children }: { children: React.ReactNode }) {
   const router = useRouter();

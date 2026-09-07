@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useStudentContext } from '@/app/student/components/StudentContext';
 import { FileText, Download, CheckCircle, X, ExternalLink } from 'lucide-react';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 
 export function StudentDocumentsMain() {
   const { profile } = useStudentContext();

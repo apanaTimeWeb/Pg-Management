@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Home, IndianRupee, Utensils, MessageSquareWarning, FileText, Bell, LogOut, User } from 'lucide-react';
-import { clearSession } from '@/lib/auth/session';
+import { clearSession } from '@/app/login/lib/auth/session';
 
 const links = [
   { href: '/student/dashboard', label: 'Home', icon: Home },

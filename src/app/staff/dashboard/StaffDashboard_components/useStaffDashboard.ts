@@ -3,11 +3,11 @@
 
 import { useState, useEffect } from 'react';
 import { useStaffContext } from '@/app/staff/components/StaffContext';
-import { api } from '@/lib/api';
+import { api } from '@/app/login/lib/api/auth';
 import { FoodMenu } from '@/app/staff/lib/api/food';
 import { StockItem } from '@/app/staff/lib/api/stock';
 import { StockRequest } from '@/app/staff/lib/api/stockRequests';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import { attendanceApi } from '@/app/owner/lib/api/attendance';
 
 export function useStaffDashboard() {

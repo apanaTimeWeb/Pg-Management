@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useStudentContext } from '@/app/student/components/StudentContext';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import { TriangleAlert, ShieldAlert } from 'lucide-react';
 import { studentOperationsApi } from '@/app/student/lib/api/studentOperations';
 

@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { Navbar } from '@/components/public/Navbar';
-import { api } from '@/lib/api';
+import { api } from '@/app/login/lib/api/auth';
 import { CheckCircle2 } from 'lucide-react';
 
 export default function OwnerRequestPage() {

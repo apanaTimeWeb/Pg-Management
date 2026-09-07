@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ownerRequestsApi } from '@/app/superadmin/lib/api/ownerRequests';
-import { useToast } from '@/lib/ui/ToastContext';
+import { useToast } from '@/components/shared/ToastContext';
 import { useRouter } from 'next/navigation';
 
 export const useSuperAdminOwnerRequestsActions = (refetch: () => void) => {

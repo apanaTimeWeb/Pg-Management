@@ -1,5 +1,5 @@
 import { User, FileText, Users, BedDouble, HeartHandshake } from 'lucide-react';
-import { InputError } from '@/lib/ui/InputError';
+import { InputError } from '@/components/ui/InputError';
 import type { ManagerCheckinFormData } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
 
 interface Props {

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { ownersApi } from '@/app/owner/lib/api/owners';
 import { SuperAdminFeatureFlagOwner } from '../SuperAdminFeatureFlags_types/SuperAdminFeatureFlags.types';
-import { useToast } from '@/lib/ui/ToastContext';
+import { useToast } from '@/components/shared/ToastContext';
 
 export function useSuperAdminFeatureFlagsData() {
   const [owners, setOwners] = useState<SuperAdminFeatureFlagOwner[]>([]);

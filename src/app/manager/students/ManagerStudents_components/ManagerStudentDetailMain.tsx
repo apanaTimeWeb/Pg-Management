@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { api } from '@/lib/api';
+import { api } from '@/app/login/lib/api/auth';
 import { useParams, useRouter } from 'next/navigation';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import { studentOperationsApi } from '@/app/student/lib/api/studentOperations';
 import { ArrowLeft, User, MapPin, Calendar, IndianRupee, LogOut, Utensils, Clock } from 'lucide-react';
 import Link from 'next/link';

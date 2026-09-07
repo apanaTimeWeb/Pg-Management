@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { api } from '@/lib/api';
+import { api } from '@/app/login/lib/api/auth';
 import { useParams, useRouter } from 'next/navigation';
 import { ArrowLeft, Clock, CheckCircle, AlertCircle, UserPlus, MessageSquare } from 'lucide-react';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import { useManagerPropertyContext } from '@/app/manager/manager_shared/ManagerPropertyContext';
 import Link from 'next/link';
 

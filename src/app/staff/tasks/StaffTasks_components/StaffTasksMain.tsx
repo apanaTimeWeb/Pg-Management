@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { staffOperationsApi } from '@/app/staff/lib/api/staffOperations';
 import { useStaffContext } from '@/app/staff/components/StaffContext';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import { ListTodo, CheckSquare, Square } from 'lucide-react';
 import { Pagination } from '@/components/shared/Pagination';
 

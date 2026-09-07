@@ -2,7 +2,7 @@
 
 import { Search, Plus, Lock, AlertTriangle } from 'lucide-react';
 import { useManagerPropertyContext } from '@/app/manager/manager_shared/ManagerPropertyContext';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import { useManagerEnquiries } from '@/app/manager/enquiries/ManagerEnquiries_hooks/useManagerEnquiries';
 import { EnquiryStatus } from '@/app/manager/lib/api/managerEnquiries';
 import { ManagerEnquiriesKanban } from '@/app/manager/enquiries/ManagerEnquiries_components/ManagerEnquiriesKanban';

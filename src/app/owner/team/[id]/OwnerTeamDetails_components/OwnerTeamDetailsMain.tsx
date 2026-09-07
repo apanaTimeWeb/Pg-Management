@@ -4,7 +4,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { api } from '@/lib/api';
+import { api } from '@/app/login/lib/api/auth';
 import { TeamMember } from '@/app/owner/lib/api/team';
 import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
 import { 

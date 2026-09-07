@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { studentOperationsApi } from '@/app/student/lib/api/studentOperations';
 import { useStudentContext } from '@/app/student/components/StudentContext';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import { Zap, Utensils, CheckCircle, XCircle } from 'lucide-react';
 
 export function StudentMessMain() {

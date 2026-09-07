@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { LayoutDashboard, Utensils, Shield, Sparkles, Wrench, ListTodo, LogOut, Menu, X, ShieldAlert, Bell, Package } from 'lucide-react';
-import { getSession, clearSession } from '@/lib/auth/session';
+import { getSession, clearSession } from '@/app/login/lib/auth/session';
 import { StaffProvider, useStaffContext } from './StaffContext';
 import { useStaffI18n, DictKey } from '@/app/staff/i18n';
 import { ForcePasswordChangeModal } from '@/components/shared/ForcePasswordChangeModal';

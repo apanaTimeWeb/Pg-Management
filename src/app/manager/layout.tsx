@@ -2,7 +2,7 @@
 import { RequireManager } from '@/app/manager/manager_shared/RequireManager';
 import { ManagerPropertyProvider } from '@/app/manager/manager_shared/ManagerPropertyContext';
 import { ManagerLayout as LayoutShell } from '@/app/manager/manager_shared/ManagerLayout';
-import { ToastProvider } from '@/lib/ui/ToastContext';
+import { ToastProvider } from '@/components/shared/ToastContext';
 import { ManagerI18nProvider } from './i18n';
 
 export default function ManagerLayout({ children }: { children: React.ReactNode }) {

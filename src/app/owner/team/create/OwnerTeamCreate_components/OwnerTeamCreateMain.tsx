@@ -4,9 +4,9 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { api } from '@/lib/api';
+import { api } from '@/app/login/lib/api/auth';
 import { StaffRoleType } from '@/app/owner/lib/api/team';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
 import { ArrowLeft, AlertCircle } from 'lucide-react';
 import Link from 'next/link';

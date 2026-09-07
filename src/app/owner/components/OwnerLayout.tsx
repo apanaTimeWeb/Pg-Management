@@ -10,7 +10,7 @@ import {
   Wallet, UtensilsCrossed, FileBarChart, Settings, CreditCard,
   LogOut, Bell, Building, Menu, X, ShieldAlert, Banknote, Wrench, CalendarCheck
 } from 'lucide-react';
-import { getSession, clearSession } from '@/lib/auth/session';
+import { getSession, clearSession } from '@/app/login/lib/auth/session';
 import { useOwnerPropertyContext } from './OwnerPropertyContext';
 import { useOwnerI18n, DictKey } from '@/app/owner/i18n';
 import { ForcePasswordChangeModal } from '@/components/shared/ForcePasswordChangeModal';

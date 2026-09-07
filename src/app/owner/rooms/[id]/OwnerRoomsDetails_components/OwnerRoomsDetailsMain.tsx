@@ -4,10 +4,10 @@
 
 import { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { api } from '@/lib/api';
+import { api } from '@/app/login/lib/api/auth';
 import { Room } from '@/app/owner/lib/api/rooms';
 import { Bed } from '@/app/owner/lib/api/beds';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import { ArrowLeft, BedDouble, AlertTriangle, User, Hash, Settings, Edit3, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';

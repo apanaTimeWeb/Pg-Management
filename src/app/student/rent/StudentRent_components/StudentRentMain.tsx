@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import { studentOperationsApi } from '@/app/student/lib/api/studentOperations';
 import { useStudentContext } from '@/app/student/components/StudentContext';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import { IndianRupee, CheckCircle, Download, FileText, Printer, Clock } from 'lucide-react';
 import { formatINR, formatDateOnly } from '@/lib/utils/formatters';
-import { useToast } from '@/lib/ui/ToastContext';
+import { useToast } from '@/components/shared/ToastContext';
 import { Pagination } from '@/components/shared/Pagination';
 
 export function StudentRentMain() {

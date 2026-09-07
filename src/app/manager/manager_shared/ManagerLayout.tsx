@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { getSession, clearSession } from '@/lib/auth/session';
+import { getSession, clearSession } from '@/app/login/lib/auth/session';
 import { useManagerPropertyContext } from './ManagerPropertyContext';
 import { useManagerI18n, DictKey } from '@/app/manager/i18n';
 import { 

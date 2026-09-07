@@ -3,7 +3,7 @@
 // RESPONSIBILITY: Renders the OwnerMaintenanceMain component. Receives data via props/hooks.
 
 import { useState, useEffect } from 'react';
-import { api } from '@/lib/api';
+import { api } from '@/app/login/lib/api/auth';
 import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
 import { IndianRupee } from 'lucide-react';
 import { Pagination } from '@/components/shared/Pagination';

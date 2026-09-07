@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import { studentOperationsApi } from '@/app/student/lib/api/studentOperations';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 
 interface StudentContextType {
   profile: any | null;

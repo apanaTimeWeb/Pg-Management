@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useStaffContext } from '@/app/staff/components/StaffContext';
-import { api } from '@/lib/api';
-import { getSession } from '@/lib/auth/session';
+import { api } from '@/app/login/lib/api/auth';
+import { getSession } from '@/app/login/lib/auth/session';
 import { StockItem } from '@/app/staff/lib/api/stock';
 import { StockRequest } from '@/app/staff/lib/api/stockRequests';
 import { AlertTriangle, Package, Loader2 } from 'lucide-react';

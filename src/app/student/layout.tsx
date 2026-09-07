@@ -1,5 +1,5 @@
 import { StudentLayout } from '@/app/student/components/StudentLayout';
-import { ToastProvider } from '@/lib/ui/ToastContext';
+import { ToastProvider } from '@/components/shared/ToastContext';
 import { StudentI18nProvider } from './i18n';
 
 export const metadata = {

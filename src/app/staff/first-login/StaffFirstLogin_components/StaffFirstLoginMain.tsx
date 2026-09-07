@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import api from '@/lib/api';
-import { getSession, setSession } from '@/lib/auth/session';
+import api from '@/app/login/lib/api/auth';
+import { getSession, setSession } from '@/app/login/lib/auth/session';
 
 export function StaffFirstLoginMain() {
   const router = useRouter();

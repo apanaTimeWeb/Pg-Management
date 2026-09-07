@@ -1,5 +1,5 @@
 import { StockRequest } from '@/app/staff/lib/api/stockRequests';
-import { MealStatus } from '@/lib/api/meals';
+import { MealStatus } from '@/app/manager/lib/api/meals';
 
 export interface ManagerDashboardStats {
   activeStudents: number;

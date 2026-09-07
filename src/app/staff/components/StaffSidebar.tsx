@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LayoutDashboard, Utensils, Shield, Sparkles, Wrench, ListTodo, LogOut } from 'lucide-react';
-import { clearSession } from '@/lib/auth/session';
+import { clearSession } from '@/app/login/lib/auth/session';
 
 const links = [
   { href: '/staff/dashboard', label: 'Dashboard', icon: LayoutDashboard },

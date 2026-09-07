@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { settingsApi } from '@/app/superadmin/lib/api/settings';
 import { SuperAdminSettingsData } from '../SuperAdminSettings_types/SuperAdminSettings.types';
-import { useToast } from '@/lib/ui/ToastContext';
+import { useToast } from '@/components/shared/ToastContext';
 
 export function useSuperAdminSettingsData() {
   const [settings, setSettings] = useState<SuperAdminSettingsData | null>(null);

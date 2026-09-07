@@ -4,7 +4,7 @@ import { useManagerUrlPagination } from '@/app/manager/manager_shared/hooks/useM
 // Data Flow: ManagerPropertyContext → api.managerEnquiries → local state → ManagerEnquiriesMain
 
 import { useState, useEffect } from 'react';
-import { api } from '@/lib/api';
+import { api } from '@/app/login/lib/api/auth';
 import { Enquiry, EnquiryStatus } from '@/app/manager/lib/api/managerEnquiries';
 import type { EnquiryFormData, EnquiriesTab } from '@/app/manager/enquiries/ManagerEnquiries_types/ManagerEnquiries.types';
 import { useRouter } from 'next/navigation';

@@ -1,5 +1,5 @@
 import { Utensils } from 'lucide-react';
-import { MealStatus } from '@/lib/api/meals';
+import { MealStatus } from '@/app/manager/lib/api/meals';
 
 interface ManagerDashboardMealAlertsProps {
   readyMeals: MealStatus[];

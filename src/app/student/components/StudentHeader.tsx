@@ -1,7 +1,7 @@
 'use client';
 
 import { Bell } from 'lucide-react';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import Link from 'next/link';
 import { useStudentI18n } from '@/app/student/i18n';
 import { ThemeToggle } from '@/components/public/ThemeToggle';

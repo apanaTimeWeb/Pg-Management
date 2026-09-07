@@ -3,7 +3,7 @@
 // Data Flow: step + selectedPropertyId + formData → api.managerCheckin → local state → ManagerCheckinMain
 
 import { useState, useEffect } from 'react';
-import { api } from '@/lib/api';
+import { api } from '@/app/login/lib/api/auth';
 
 export function useManagerCheckinData(selectedPropertyId: string | null, step: number, enquiryId: string, formDataRoomBedId: string, compatibility: any) {
   const [vacantBeds, setVacantBeds] = useState<any[]>([]);

@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import { useManagerPropertyContext } from '@/app/manager/manager_shared/ManagerPropertyContext';
 import { Lock } from 'lucide-react';
 import { useManagerCheckinData } from '@/app/manager/check-in/ManagerCheckin_hooks/useManagerCheckinData';

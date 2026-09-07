@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import api from '@/lib/api';
-import { setSession } from '@/lib/auth/session';
+import api from '@/app/login/lib/api/auth';
+import { setSession } from '@/app/login/lib/auth/session';
 
 export function ManagerLoginMain() {
   const router = useRouter();

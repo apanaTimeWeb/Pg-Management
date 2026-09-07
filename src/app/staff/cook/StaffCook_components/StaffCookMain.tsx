@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import { staffOperationsApi } from '@/app/staff/lib/api/staffOperations';
 import { useStaffContext } from '@/app/staff/components/StaffContext';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import { CheckCircle, Utensils, ShoppingCart, Truck, Archive, AlertTriangle } from 'lucide-react';
-import { api } from '@/lib/api';
-import { mealsApi, MealType, MealStatusType } from '@/lib/api/meals';
+import { api } from '@/app/login/lib/api/auth';
+import { mealsApi, MealType, MealStatusType } from '@/app/staff/lib/api/meals';
 import { stockRequestsApi } from '@/app/staff/lib/api/stockRequests';
 import { attendanceApi } from '@/app/owner/lib/api/attendance';
 import { Pagination } from '@/components/shared/Pagination';

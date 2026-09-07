@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { api } from '@/lib/api';
+import { api } from '@/app/login/lib/api/auth';
 import { SessionUser } from '@/lib/types';
 import { Lock, AlertTriangle, Key } from 'lucide-react';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 
 interface ForcePasswordChangeModalProps {
   user: SessionUser | null;

@@ -1,5 +1,5 @@
 import { Lock } from 'lucide-react';
-import { clearSession } from '@/lib/auth/session';
+import { clearSession } from '@/app/login/lib/auth/session';
 
 export function ManagerDashboardNoProperty() {
   return (

@@ -1,7 +1,7 @@
 'use client';
 
 import { useManagerPropertyContext } from '@/app/manager/manager_shared/ManagerPropertyContext';
-import { getSession } from '@/lib/auth/session';
+import { getSession } from '@/app/login/lib/auth/session';
 import { useManagerRooms } from '@/app/manager/rooms/ManagerRooms_hooks/useManagerRooms';
 import { ManagerRoomsKPIs } from '@/app/manager/rooms/ManagerRooms_components/ManagerRoomsKPIs';
 import { ManagerRoomsFilters } from '@/app/manager/rooms/ManagerRooms_components/ManagerRoomsFilters';

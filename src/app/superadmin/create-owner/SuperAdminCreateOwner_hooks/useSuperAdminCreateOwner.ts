@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { ownerRequestsApi } from '@/app/superadmin/lib/api/ownerRequests';
 import { ownersApi } from '@/app/owner/lib/api/owners';
-import { useToast } from '@/lib/ui/ToastContext';
+import { useToast } from '@/components/shared/ToastContext';
 import { OwnerFormData, OwnerFormErrors, CreatedCredentials } from '../SuperAdminCreateOwner_types/SuperAdminCreateOwner.types';
 import { DEFAULT_CREATE_OWNER_FORM_DATA, PLAN_LIMITS } from '../SuperAdminCreateOwner_utils/SuperAdminCreateOwner.constants';
 
