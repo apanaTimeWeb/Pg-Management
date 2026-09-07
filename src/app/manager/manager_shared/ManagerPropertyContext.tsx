@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { getSession } from '@/app/login/lib/auth/session';
 
 interface ManagerPropertyContextType {

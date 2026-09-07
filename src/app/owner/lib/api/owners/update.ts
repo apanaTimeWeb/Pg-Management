@@ -2,7 +2,7 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
-import { User } from '../../types';
+import { User } from '@/app/owner/lib/types';
 
 export function upgradePlan(ownerId: string, newPlanId: string) {
   const subs = db.getAll<any>(STORAGE_KEYS.SUBSCRIPTIONS);

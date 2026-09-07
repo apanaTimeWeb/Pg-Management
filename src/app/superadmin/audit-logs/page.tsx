@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { useSuperAdminAuditLogsData } from './SuperAdminAuditLogs_hooks/useSuperAdminAuditLogsData';
-import { SuperAdminAuditLogsHeader } from './SuperAdminAuditLogs_components/SuperAdminAuditLogsHeader';
-import { SuperAdminAuditLogsFilters } from './SuperAdminAuditLogs_components/SuperAdminAuditLogsFilters';
-import { SuperAdminAuditLogsTimeline } from './SuperAdminAuditLogs_components/SuperAdminAuditLogsTimeline';
+import { useSuperAdminAuditLogsData } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_hooks/useSuperAdminAuditLogsData';
+import { SuperAdminAuditLogsHeader } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_components/SuperAdminAuditLogsHeader';
+import { SuperAdminAuditLogsFilters } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_components/SuperAdminAuditLogsFilters';
+import { SuperAdminAuditLogsTimeline } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_components/SuperAdminAuditLogsTimeline';
 
 export default function AuditLogsPage() {
   const {

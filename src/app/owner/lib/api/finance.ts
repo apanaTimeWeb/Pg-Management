@@ -1,6 +1,6 @@
-import { getStats } from './finance/stats';
-import { listInvoices, recordCashPayment, updateElectricityBill, createExpense } from './finance/transactions';
-import { seedMocksIfEmpty, seedMonthlyInvoices } from './finance/seed';
+import { getStats } from '@/app/owner/lib/api/finance/stats';
+import { listInvoices, recordCashPayment, updateElectricityBill, createExpense } from '@/app/owner/lib/api/finance/transactions';
+import { seedMocksIfEmpty, seedMonthlyInvoices } from '@/app/owner/lib/api/finance/seed';
 export * from './finance/types';
 
 export const financeApi = {

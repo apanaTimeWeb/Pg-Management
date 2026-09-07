@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useStaffContext } from '@/app/staff/components/StaffContext';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { Package, Plus, Search, Edit2, Trash2, Check, X } from 'lucide-react';
 import { StockItem, stockBatchesApi, StockBatch } from '@/app/staff/lib/api/stock';
 import { Pagination } from '@/components/shared/Pagination';

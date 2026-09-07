@@ -1,6 +1,6 @@
 import React from 'react';
 import { Package } from 'lucide-react';
-import { SuperAdminCreateOwnerPlanFieldsProps } from '../SuperAdminCreateOwner_types/SuperAdminCreateOwner.types';
+import { SuperAdminCreateOwnerPlanFieldsProps } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_types/SuperAdminCreateOwner.types';
 
 export const SuperAdminCreateOwnerPlanFields: React.FC<SuperAdminCreateOwnerPlanFieldsProps> = ({ formData, setFormData, onPlanChange }) => {
   return (

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { settingsApi } from '@/app/superadmin/lib/api/settings';
-import { SuperAdminSettingsData } from '../SuperAdminSettings_types/SuperAdminSettings.types';
+import { SuperAdminSettingsData } from '@/app/superadmin/settings/SuperAdminSettings_types/SuperAdminSettings.types';
 import { useToast } from '@/components/shared/ToastContext';
 
 export function useSuperAdminSettingsData() {

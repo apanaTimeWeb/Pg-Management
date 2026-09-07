@@ -1,5 +1,5 @@
 import React from 'react';
-import { SuperAdminDashboardAcquisitionChartProps } from '../SuperAdminDashboard_types/SuperAdminDashboard.types';
+import { SuperAdminDashboardAcquisitionChartProps } from '@/app/superadmin/dashboard/SuperAdminDashboard_types/SuperAdminDashboard.types';
 import { BarChart } from '@/components/ui/charts/BarChart';
 
 export const SuperAdminDashboardAcquisitionChart: React.FC<SuperAdminDashboardAcquisitionChartProps> = ({ data }) => {

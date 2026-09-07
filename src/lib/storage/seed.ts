@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { db } from './db';
-import { STORAGE_KEYS } from './keys';
-import { createId } from '../utils/id';
+import { db } from '@/lib/storage/db';
+import { STORAGE_KEYS } from '@/lib/storage/keys';
+import { createId } from '@/lib/utils/id';
 
 export function runSeed() {
   if (typeof window === 'undefined') return;

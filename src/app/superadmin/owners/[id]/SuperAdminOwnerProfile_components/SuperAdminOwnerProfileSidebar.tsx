@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Key, Power } from 'lucide-react';
-import { Owner360Data } from '../../SuperAdminOwners_types/SuperAdminOwners.types';
+import { Owner360Data } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
 
 interface SidebarProps {
   data: Owner360Data;

@@ -1,6 +1,6 @@
 import React from 'react';
-import { SuperAdminPlansCard } from './SuperAdminPlansCard';
-import { SuperAdminPlansGridProps } from '../SuperAdminPlans_types/SuperAdminPlans.types';
+import { SuperAdminPlansCard } from '@/app/superadmin/plans/SuperAdminPlans_components/SuperAdminPlansCard';
+import { SuperAdminPlansGridProps } from '@/app/superadmin/plans/SuperAdminPlans_types/SuperAdminPlans.types';
 
 export const SuperAdminPlansGrid: React.FC<SuperAdminPlansGridProps> = ({ plans, loading, onEditClick }) => {
   if (loading) {

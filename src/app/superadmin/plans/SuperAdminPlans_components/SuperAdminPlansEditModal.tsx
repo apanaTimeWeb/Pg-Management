@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, Save } from 'lucide-react';
-import { SuperAdminPlansEditModalProps } from '../SuperAdminPlans_types/SuperAdminPlans.types';
+import { SuperAdminPlansEditModalProps } from '@/app/superadmin/plans/SuperAdminPlans_types/SuperAdminPlans.types';
 
 export const SuperAdminPlansEditModal: React.FC<SuperAdminPlansEditModalProps> = ({ editPlan, setEditPlan, onSave }) => {
   if (!editPlan) return null;

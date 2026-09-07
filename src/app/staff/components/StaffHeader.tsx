@@ -2,7 +2,7 @@
 
 import { Bell } from 'lucide-react';
 import { getSession } from '@/app/login/lib/auth/session';
-import { useStaffContext } from './StaffContext';
+import { useStaffContext } from '@/app/staff/components/StaffContext';
 import { useStaffI18n } from '@/app/staff/i18n';
 
 export function StaffHeader() {

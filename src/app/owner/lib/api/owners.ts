@@ -1,6 +1,6 @@
-import { createOwner } from './owners/create';
-import { listOwners, getOwner360 } from './owners/read';
-import { upgradePlan, updateStatus, resetPassword, addInternalNote } from './owners/update';
+import { createOwner } from '@/app/owner/lib/api/owners/create';
+import { listOwners, getOwner360 } from '@/app/owner/lib/api/owners/read';
+import { upgradePlan, updateStatus, resetPassword, addInternalNote } from '@/app/owner/lib/api/owners/update';
 
 export const ownersApi = {
   createOwner,

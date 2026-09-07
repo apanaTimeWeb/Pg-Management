@@ -5,8 +5,8 @@
 
 import Link from 'next/link';
 import { IndianRupee, MapPin, Bell, Utensils, Zap, TriangleAlert } from 'lucide-react';
-import { useStudentDashboard } from './useStudentDashboard';
-import { STUDENT_ROUTES } from '../../student_url_config';
+import { useStudentDashboard } from '@/app/student/dashboard/StudentDashboard_components/useStudentDashboard';
+import { STUDENT_ROUTES } from '@/app/student/student_url_config';
 
 export function StudentDashboardMain() {
   const { profile, loading, menu, notices, handleReferralSubmit } = useStudentDashboard();
@@ -66,7 +66,7 @@ export function StudentDashboardMain() {
       </div>
 
       {/* SOS Button */}
-      <Link href={STUDENT_ROUTES.SOS} className="block w-full bg-[#7f1d1d] text-white text-center py-4 rounded-[var(--radius-lg)] font-black text-lg shadow-lg hover:bg-[#991b1b] motion-safe:transition-all motion-safe:active:scale-95 flex items-center justify-center gap-2 border border-red-900/50 focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:outline-none">
+      <Link href={STUDENT_ROUTES.SOS} className="block w-full bg-destructive text-white text-center py-4 rounded-[var(--radius-lg)] font-black text-lg shadow-lg hover:bg-destructive/90 motion-safe:transition-all motion-safe:active:scale-95 flex items-center justify-center gap-2 border border-destructive/50 focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:outline-none">
         <TriangleAlert className="w-6 h-6 text-red-400" /> EMERGENCY SOS
       </Link>
 

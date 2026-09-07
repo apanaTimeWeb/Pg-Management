@@ -3,7 +3,7 @@
 // RESPONSIBILITY: Renders the OwnerPropertyContext component. Receives data via props/hooks.
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { Property } from '@/app/owner/lib/api/properties';
 import { getSession } from '@/app/login/lib/auth/session';
 

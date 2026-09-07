@@ -1,5 +1,5 @@
 import React from 'react';
-import { SuperAdminAnalyticsHeaderProps } from '../SuperAdminAnalytics_types/SuperAdminAnalytics.types';
+import { SuperAdminAnalyticsHeaderProps } from '@/app/superadmin/analytics/SuperAdminAnalytics_types/SuperAdminAnalytics.types';
 
 export const SuperAdminAnalyticsHeader: React.FC<SuperAdminAnalyticsHeaderProps> = () => {
   return (

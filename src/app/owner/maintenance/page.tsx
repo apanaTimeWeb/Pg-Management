@@ -1,6 +1,6 @@
 // RESPONSIBILITY: Renders the page component. Receives data via props/hooks.
 
-import { OwnerMaintenanceMain } from './OwnerMaintenance_components/OwnerMaintenanceMain';
+import { OwnerMaintenanceMain } from '@/app/owner/maintenance/OwnerMaintenance_components/OwnerMaintenanceMain';
 
 export default function OwnerMaintenancePage() {
   return <OwnerMaintenanceMain />;

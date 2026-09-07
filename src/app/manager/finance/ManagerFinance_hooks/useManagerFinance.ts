@@ -4,7 +4,7 @@ import { useManagerUrlPagination } from '@/app/manager/manager_shared/hooks/useM
 // Data Flow: ManagerPropertyContext → api.finance → local state → ManagerFinancePage
 
 import { useState, useEffect } from 'react';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { useManagerPropertyContext } from '@/app/manager/manager_shared/ManagerPropertyContext';
 import { getSession } from '@/app/login/lib/auth/session';
 import type { 

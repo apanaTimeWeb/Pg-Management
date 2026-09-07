@@ -1,7 +1,7 @@
 // [ACTION HOOK] useManagerAttendanceActions
 // Responsibility: Handles write operations for student attendance (mark present/absent/on-leave).
 // Data Flow: handleMark → api.managerOperations.markStudentAttendance → loadData() to refresh UI
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 
 export function useManagerAttendanceActions(selectedPropertyId: string | null, userId: string | undefined, loadData: () => void) {
   

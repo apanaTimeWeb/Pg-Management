@@ -5,7 +5,7 @@
 import { useState, useEffect } from 'react';
 import type { ManagerCheckinFormData } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
 import { CheckinStep1Schema, CheckinStep3Schema } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { useToast } from '@/components/shared/ToastContext';
 import { useRouter } from 'next/navigation';
 

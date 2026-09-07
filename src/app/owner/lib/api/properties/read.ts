@@ -1,6 +1,6 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
-import { Property } from './types';
+import { Property } from '@/app/owner/lib/api/properties/types';
 
 export function listAll(): Property[] {
   return db.getAll<Property>(STORAGE_KEYS.PROPERTIES).filter(p => !p.isDeleted);

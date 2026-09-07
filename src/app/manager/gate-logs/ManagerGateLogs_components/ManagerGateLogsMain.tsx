@@ -1,9 +1,9 @@
 'use client';
 
 import { Pagination } from '@/components/shared/Pagination';
-import { useManagerGateLogs } from '../ManagerGateLogs_hooks/useManagerGateLogs';
-import { ManagerGateLogsTable } from './ManagerGateLogsTable';
-import { ManagerGateLogsForm } from './ManagerGateLogsForm';
+import { useManagerGateLogs } from '@/app/manager/gate-logs/ManagerGateLogs_hooks/useManagerGateLogs';
+import { ManagerGateLogsTable } from '@/app/manager/gate-logs/ManagerGateLogs_components/ManagerGateLogsTable';
+import { ManagerGateLogsForm } from '@/app/manager/gate-logs/ManagerGateLogs_components/ManagerGateLogsForm';
 
 export function ManagerGateLogsMain() {
   const {

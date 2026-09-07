@@ -3,9 +3,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { SuperAdminOwnersFilters } from './SuperAdminOwners_components/SuperAdminOwnersFilters';
-import { SuperAdminOwnersTable } from './SuperAdminOwners_components/SuperAdminOwnersTable';
-import { useSuperAdminOwnersData } from './SuperAdminOwners_hooks/useSuperAdminOwnersData';
+import { SuperAdminOwnersFilters } from '@/app/superadmin/owners/SuperAdminOwners_components/SuperAdminOwnersFilters';
+import { SuperAdminOwnersTable } from '@/app/superadmin/owners/SuperAdminOwners_components/SuperAdminOwnersTable';
+import { useSuperAdminOwnersData } from '@/app/superadmin/owners/SuperAdminOwners_hooks/useSuperAdminOwnersData';
 
 export default function SuperAdminOwnersDirectoryPage() {
   const router = useRouter();

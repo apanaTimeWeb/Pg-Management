@@ -1,12 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 import { AlertCircle } from 'lucide-react';
-import { useSuperAdminCreateOwner } from '../SuperAdminCreateOwner_hooks/useSuperAdminCreateOwner';
-import { SuperAdminCreateOwnerPersonalFields } from './SuperAdminCreateOwnerPersonalFields';
-import { SuperAdminCreateOwnerBusinessFields } from './SuperAdminCreateOwnerBusinessFields';
-import { SuperAdminCreateOwnerAccessFields } from './SuperAdminCreateOwnerAccessFields';
-import { SuperAdminCreateOwnerPlanFields } from './SuperAdminCreateOwnerPlanFields';
-import { SuperAdminCreateOwnerSuccess } from './SuperAdminCreateOwnerSuccess';
+import { useSuperAdminCreateOwner } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_hooks/useSuperAdminCreateOwner';
+import { SuperAdminCreateOwnerPersonalFields } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_components/SuperAdminCreateOwnerPersonalFields';
+import { SuperAdminCreateOwnerBusinessFields } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_components/SuperAdminCreateOwnerBusinessFields';
+import { SuperAdminCreateOwnerAccessFields } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_components/SuperAdminCreateOwnerAccessFields';
+import { SuperAdminCreateOwnerPlanFields } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_components/SuperAdminCreateOwnerPlanFields';
+import { SuperAdminCreateOwnerSuccess } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_components/SuperAdminCreateOwnerSuccess';
 
 export const SuperAdminCreateOwnerForm: React.FC = () => {
   const {

@@ -1,7 +1,7 @@
-import { db } from '../storage/db';
-import { STORAGE_KEYS } from '../storage/keys';
-import { createId } from '../utils/id';
-import { BaseEntity } from '../types';
+import { db } from '@/lib/storage/db';
+import { STORAGE_KEYS } from '@/lib/storage/keys';
+import { createId } from '@/app/owner/lib/utils/id';
+import { BaseEntity } from '@/lib/types';
 
 export interface Enquiry extends BaseEntity {
   propertyId: string;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, AlertTriangle } from 'lucide-react';
-import { Owner360Data } from '../../SuperAdminOwners_types/SuperAdminOwners.types';
+import { Owner360Data } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
 
 export const SuperAdminOwnerProfileHeader: React.FC<{ data: Owner360Data }> = ({ data }) => {
   const { owner, user, subscription } = data;

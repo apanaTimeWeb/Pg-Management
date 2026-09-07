@@ -5,7 +5,7 @@
 import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
 import { Building2, Plus, Bed, IndianRupee, MapPin, Users, Activity } from 'lucide-react';
 import Link from 'next/link';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { getSession } from '@/app/login/lib/auth/session';
 import { useState, useEffect } from 'react';
 import { Property } from '@/app/owner/lib/api/properties';

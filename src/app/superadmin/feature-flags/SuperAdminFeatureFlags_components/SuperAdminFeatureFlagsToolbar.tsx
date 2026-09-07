@@ -1,6 +1,6 @@
 import React from 'react';
 import { Search, Settings2 } from 'lucide-react';
-import { SuperAdminFeatureFlagsToolbarProps } from '../SuperAdminFeatureFlags_types/SuperAdminFeatureFlags.types';
+import { SuperAdminFeatureFlagsToolbarProps } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_types/SuperAdminFeatureFlags.types';
 
 export const SuperAdminFeatureFlagsToolbar: React.FC<SuperAdminFeatureFlagsToolbarProps> = ({ search, setSearch }) => {
   return (

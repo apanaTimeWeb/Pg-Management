@@ -1,12 +1,12 @@
 'use client';
 
-import { useManagerDashboard } from '../ManagerDashboard_hooks/useManagerDashboard';
-import { ManagerDashboardHeader } from './ManagerDashboardHeader';
-import { ManagerDashboardStatsGrid } from './ManagerDashboardStatsGrid';
-import { ManagerDashboardMealAlerts } from './ManagerDashboardMealAlerts';
-import { ManagerDashboardKitchenAlerts } from './ManagerDashboardKitchenAlerts';
-import { ManagerDashboardQuickActions } from './ManagerDashboardQuickActions';
-import { ManagerDashboardNoProperty } from './ManagerDashboardNoProperty';
+import { useManagerDashboard } from '@/app/manager/dashboard/ManagerDashboard_hooks/useManagerDashboard';
+import { ManagerDashboardHeader } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardHeader';
+import { ManagerDashboardStatsGrid } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardStatsGrid';
+import { ManagerDashboardMealAlerts } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardMealAlerts';
+import { ManagerDashboardKitchenAlerts } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardKitchenAlerts';
+import { ManagerDashboardQuickActions } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardQuickActions';
+import { ManagerDashboardNoProperty } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardNoProperty';
 
 export function ManagerDashboardMain() {
   const {

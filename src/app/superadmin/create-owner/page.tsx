@@ -1,7 +1,7 @@
 'use client';
 
 import React, { Suspense } from 'react';
-import { SuperAdminCreateOwnerForm } from './SuperAdminCreateOwner_components/SuperAdminCreateOwnerForm';
+import { SuperAdminCreateOwnerForm } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_components/SuperAdminCreateOwnerForm';
 
 export default function CreateOwnerPage() {
   return (

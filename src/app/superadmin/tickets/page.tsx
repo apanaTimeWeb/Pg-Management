@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import { SuperAdminTicketsHeader } from './SuperAdminTickets_components/SuperAdminTicketsHeader';
-import { SuperAdminTicketsTable } from './SuperAdminTickets_components/SuperAdminTicketsTable';
-import { SuperAdminTicketsCreateModal } from './SuperAdminTickets_components/SuperAdminTicketsCreateModal';
-import { useSuperAdminTicketsData } from './SuperAdminTickets_hooks/useSuperAdminTicketsData';
-import { useSuperAdminTicketsActions } from './SuperAdminTickets_hooks/useSuperAdminTicketsActions';
+import { SuperAdminTicketsHeader } from '@/app/superadmin/tickets/SuperAdminTickets_components/SuperAdminTicketsHeader';
+import { SuperAdminTicketsTable } from '@/app/superadmin/tickets/SuperAdminTickets_components/SuperAdminTicketsTable';
+import { SuperAdminTicketsCreateModal } from '@/app/superadmin/tickets/SuperAdminTickets_components/SuperAdminTicketsCreateModal';
+import { useSuperAdminTicketsData } from '@/app/superadmin/tickets/SuperAdminTickets_hooks/useSuperAdminTicketsData';
+import { useSuperAdminTicketsActions } from '@/app/superadmin/tickets/SuperAdminTickets_hooks/useSuperAdminTicketsActions';
 
 export default function TicketsPage() {
   const {

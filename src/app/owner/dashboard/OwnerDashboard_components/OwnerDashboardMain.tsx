@@ -4,7 +4,7 @@
 
 import { useState, useEffect } from 'react';
 import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { getSession } from '@/app/login/lib/auth/session';
 import { 
   Building2, Bed, Users, IndianRupee, DoorOpen, BarChart, TrendingUp, TrendingDown,

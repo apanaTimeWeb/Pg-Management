@@ -1,7 +1,7 @@
-import { db } from '../storage/db';
-import { STORAGE_KEYS } from '../storage/keys';
-import { User } from '../types/models';
-import { SessionUser, Role } from '../types';
+import { db } from '@/lib/storage/db';
+import { STORAGE_KEYS } from '@/lib/storage/keys';
+import { User } from '@/lib/types/models';
+import { SessionUser, Role } from '@/lib/types';
 
 export const authApi = {
   login({ email, password, expectedRole }: { email: string; password?: string; expectedRole?: Role }) {

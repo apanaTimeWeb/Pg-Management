@@ -1,5 +1,5 @@
 import React from 'react';
-import { SuperAdminAuditLogsHeaderProps } from '../SuperAdminAuditLogs_types/SuperAdminAuditLogs.types';
+import { SuperAdminAuditLogsHeaderProps } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_types/SuperAdminAuditLogs.types';
 
 export const SuperAdminAuditLogsHeader: React.FC<SuperAdminAuditLogsHeaderProps> = () => {
   return (

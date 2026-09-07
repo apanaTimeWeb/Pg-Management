@@ -2,11 +2,11 @@
 
 import React from 'react';
 import { useParams } from 'next/navigation';
-import { useSuperAdminOwnerProfileData } from './SuperAdminOwnerProfile_hooks/useSuperAdminOwnerProfileData';
-import { useSuperAdminOwnerProfileActions } from './SuperAdminOwnerProfile_hooks/useSuperAdminOwnerProfileActions';
-import { SuperAdminOwnerProfileHeader } from './SuperAdminOwnerProfile_components/SuperAdminOwnerProfileHeader';
-import { SuperAdminOwnerProfileSidebar } from './SuperAdminOwnerProfile_components/SuperAdminOwnerProfileSidebar';
-import { SuperAdminOwnerProfileMain } from './SuperAdminOwnerProfile_components/SuperAdminOwnerProfileMain';
+import { useSuperAdminOwnerProfileData } from '@/app/superadmin/owners/[id]/SuperAdminOwnerProfile_hooks/useSuperAdminOwnerProfileData';
+import { useSuperAdminOwnerProfileActions } from '@/app/superadmin/owners/[id]/SuperAdminOwnerProfile_hooks/useSuperAdminOwnerProfileActions';
+import { SuperAdminOwnerProfileHeader } from '@/app/superadmin/owners/[id]/SuperAdminOwnerProfile_components/SuperAdminOwnerProfileHeader';
+import { SuperAdminOwnerProfileSidebar } from '@/app/superadmin/owners/[id]/SuperAdminOwnerProfile_components/SuperAdminOwnerProfileSidebar';
+import { SuperAdminOwnerProfileMain } from '@/app/superadmin/owners/[id]/SuperAdminOwnerProfile_components/SuperAdminOwnerProfileMain';
 
 export default function Owner360Page() {
   const params = useParams();

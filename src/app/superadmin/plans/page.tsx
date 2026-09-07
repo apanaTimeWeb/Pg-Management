@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import { SuperAdminPlansHeader } from './SuperAdminPlans_components/SuperAdminPlansHeader';
-import { SuperAdminPlansGrid } from './SuperAdminPlans_components/SuperAdminPlansGrid';
-import { SuperAdminPlansEditModal } from './SuperAdminPlans_components/SuperAdminPlansEditModal';
-import { useSuperAdminPlansData } from './SuperAdminPlans_hooks/useSuperAdminPlansData';
-import { useSuperAdminPlansActions } from './SuperAdminPlans_hooks/useSuperAdminPlansActions';
+import { SuperAdminPlansHeader } from '@/app/superadmin/plans/SuperAdminPlans_components/SuperAdminPlansHeader';
+import { SuperAdminPlansGrid } from '@/app/superadmin/plans/SuperAdminPlans_components/SuperAdminPlansGrid';
+import { SuperAdminPlansEditModal } from '@/app/superadmin/plans/SuperAdminPlans_components/SuperAdminPlansEditModal';
+import { useSuperAdminPlansData } from '@/app/superadmin/plans/SuperAdminPlans_hooks/useSuperAdminPlansData';
+import { useSuperAdminPlansActions } from '@/app/superadmin/plans/SuperAdminPlans_hooks/useSuperAdminPlansActions';
 
 export default function SubscriptionPlansPage() {
   const { plans, loading, refetch } = useSuperAdminPlansData();

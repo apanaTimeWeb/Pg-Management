@@ -1,7 +1,7 @@
 'use client';
 
-import { useManagerVisitors } from '../ManagerVisitors_hooks/useManagerVisitors';
-import { ManagerVisitorsList } from './ManagerVisitorsList';
+import { useManagerVisitors } from '@/app/manager/visitors/ManagerVisitors_hooks/useManagerVisitors';
+import { ManagerVisitorsList } from '@/app/manager/visitors/ManagerVisitors_components/ManagerVisitorsList';
 
 export function ManagerVisitorsMain() {
   const { visitors, loading, handleStatus, selectedPropertyId, ctxLoading } = useManagerVisitors();

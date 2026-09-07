@@ -1,6 +1,6 @@
 import { StudentLayout } from '@/app/student/components/StudentLayout';
 import { ToastProvider } from '@/components/shared/ToastContext';
-import { StudentI18nProvider } from './i18n';
+import { StudentI18nProvider } from '@/app/student/i18n';
 
 export const metadata = {
   title: 'Student Portal | ApnaPG',

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { ownersApi } from '@/app/owner/lib/api/owners';
-import { Owner360Data } from '../../SuperAdminOwners_types/SuperAdminOwners.types';
+import { Owner360Data } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
 import { useRouter } from 'next/navigation';
 
 export function useSuperAdminOwnerProfileData(id: string) {

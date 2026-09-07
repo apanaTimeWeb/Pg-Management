@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useStaffContext } from '@/app/staff/components/StaffContext';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { getSession } from '@/app/login/lib/auth/session';
 import { StockItem } from '@/app/staff/lib/api/stock';
 import { StockRequest } from '@/app/staff/lib/api/stockRequests';

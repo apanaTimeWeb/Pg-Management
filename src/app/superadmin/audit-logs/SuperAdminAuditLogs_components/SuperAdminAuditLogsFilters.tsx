@@ -1,6 +1,6 @@
 import React from 'react';
 import { Search } from 'lucide-react';
-import { SuperAdminAuditLogsFiltersProps } from '../SuperAdminAuditLogs_types/SuperAdminAuditLogs.types';
+import { SuperAdminAuditLogsFiltersProps } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_types/SuperAdminAuditLogs.types';
 
 export const SuperAdminAuditLogsFilters: React.FC<SuperAdminAuditLogsFiltersProps> = ({ search, setSearch, roleFilter, setRoleFilter, filters }) => {
   return (

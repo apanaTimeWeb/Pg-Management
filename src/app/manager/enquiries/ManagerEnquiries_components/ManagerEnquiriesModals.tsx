@@ -26,7 +26,7 @@ export function ManagerEnquiriesModals({
           <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-[var(--radius-lg,12px)] w-full max-w-sm overflow-hidden shadow-2xl animate-in fade-in zoom-in-95">
             <div className="p-4 border-b border-[var(--border)] flex justify-between items-center bg-[rgba(99,102,241,0.02)]">
               <h2 className="text-lg font-bold text-[var(--text-primary)] flex items-center gap-2">
-                <MessageCircle className="w-5 h-5 text-[#25D366]" />
+                <MessageCircle className="w-5 h-5 text-emerald-500" />
                 WhatsApp Message
               </h2>
               <button onClick={() => setWaMenuEnquiry(null)} className="text-[var(--text-secondary)] hover:text-[var(--text-primary)]">

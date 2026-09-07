@@ -1,5 +1,5 @@
 import React from 'react';
-import { SuperAdminFeatureFlagsHeaderProps } from '../SuperAdminFeatureFlags_types/SuperAdminFeatureFlags.types';
+import { SuperAdminFeatureFlagsHeaderProps } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_types/SuperAdminFeatureFlags.types';
 
 export const SuperAdminFeatureFlagsHeader: React.FC<SuperAdminFeatureFlagsHeaderProps> = () => {
   return (

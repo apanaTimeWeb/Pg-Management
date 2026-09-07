@@ -1,4 +1,4 @@
-import { CreateTicketFormData } from '../SuperAdminTickets_types/SuperAdminTickets.types';
+import { CreateTicketFormData } from '@/app/superadmin/tickets/SuperAdminTickets_types/SuperAdminTickets.types';
 
 export const SUPER_ADMIN_TICKETS_ITEMS_PER_PAGE = 10;
 

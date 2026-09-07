@@ -1,12 +1,12 @@
 'use client';
 
 import React from 'react';
-import { useSuperAdminAnalyticsData } from './SuperAdminAnalytics_hooks/useSuperAdminAnalyticsData';
-import { SuperAdminAnalyticsHeader } from './SuperAdminAnalytics_components/SuperAdminAnalyticsHeader';
-import { SuperAdminAnalyticsKPIs } from './SuperAdminAnalytics_components/SuperAdminAnalyticsKPIs';
-import { SuperAdminAnalyticsCharts } from './SuperAdminAnalytics_components/SuperAdminAnalyticsCharts';
-import { SuperAdminAnalyticsTopProperties } from './SuperAdminAnalytics_components/SuperAdminAnalyticsTopProperties';
-import { SUPER_ADMIN_MOCK_REVENUE_DATA, SUPER_ADMIN_MOCK_PLAN_DATA } from './SuperAdminAnalytics_utils/SuperAdminAnalytics.constants';
+import { useSuperAdminAnalyticsData } from '@/app/superadmin/analytics/SuperAdminAnalytics_hooks/useSuperAdminAnalyticsData';
+import { SuperAdminAnalyticsHeader } from '@/app/superadmin/analytics/SuperAdminAnalytics_components/SuperAdminAnalyticsHeader';
+import { SuperAdminAnalyticsKPIs } from '@/app/superadmin/analytics/SuperAdminAnalytics_components/SuperAdminAnalyticsKPIs';
+import { SuperAdminAnalyticsCharts } from '@/app/superadmin/analytics/SuperAdminAnalytics_components/SuperAdminAnalyticsCharts';
+import { SuperAdminAnalyticsTopProperties } from '@/app/superadmin/analytics/SuperAdminAnalytics_components/SuperAdminAnalyticsTopProperties';
+import { SUPER_ADMIN_MOCK_REVENUE_DATA, SUPER_ADMIN_MOCK_PLAN_DATA } from '@/app/superadmin/analytics/SuperAdminAnalytics_utils/SuperAdminAnalytics.constants';
 
 export default function AnalyticsPage() {
   const { stats } = useSuperAdminAnalyticsData();

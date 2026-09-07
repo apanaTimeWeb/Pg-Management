@@ -1,5 +1,5 @@
 import React from 'react';
-import { SuperAdminDashboardKpiGridProps } from '../SuperAdminDashboard_types/SuperAdminDashboard.types';
+import { SuperAdminDashboardKpiGridProps } from '@/app/superadmin/dashboard/SuperAdminDashboard_types/SuperAdminDashboard.types';
 import { Users, Clock, Building2, UserCircle, CreditCard, Activity, Ticket } from 'lucide-react';
 
 export const SuperAdminDashboardKpiGrid: React.FC<SuperAdminDashboardKpiGridProps> = ({ data }) => {

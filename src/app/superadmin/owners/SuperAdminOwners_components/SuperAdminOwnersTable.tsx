@@ -1,6 +1,6 @@
 import React from 'react';
 import { MoreVertical, Users } from 'lucide-react';
-import { SuperAdminOwnersTableProps } from '../SuperAdminOwners_types/SuperAdminOwners.types';
+import { SuperAdminOwnersTableProps } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
 import { StatusBadge } from '@/config/statusBadgeConfig';
 import { formatINR } from '@/lib/utils/formatters';
 import { Pagination } from '@/components/shared/Pagination';

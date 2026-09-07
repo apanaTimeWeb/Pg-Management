@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { ManagerComplaintsMain } from './ManagerComplaints_components/ManagerComplaintsMain';
+import { ManagerComplaintsMain } from '@/app/manager/complaints/ManagerComplaints_components/ManagerComplaintsMain';
 
 export default function ManagerComplaintsPage() {
   return (

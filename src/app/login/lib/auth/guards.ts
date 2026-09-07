@@ -1,5 +1,5 @@
-import { getSession } from './session';
-import { Role } from '../types';
+import { getSession } from '@/app/login/lib/auth/session';
+import { Role } from '@/app/login/lib/types';
 
 export function requireRole(expectedRole: Role) {
   const session = getSession();

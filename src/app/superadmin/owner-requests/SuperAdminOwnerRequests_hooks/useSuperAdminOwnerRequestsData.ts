@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ownerRequestsApi } from '@/app/superadmin/lib/api/ownerRequests';
-import type { OwnerRequest, OwnerRequestStatus } from '../SuperAdminOwnerRequests_types/SuperAdminOwnerRequests.types';
-import { ITEMS_PER_PAGE } from '../SuperAdminOwnerRequests_utils/SuperAdminOwnerRequests.constants';
+import type { OwnerRequest, OwnerRequestStatus } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_types/SuperAdminOwnerRequests.types';
+import { ITEMS_PER_PAGE } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_utils/SuperAdminOwnerRequests.constants';
 
 export const useSuperAdminOwnerRequestsData = () => {
   const [requests, setRequests] = useState<OwnerRequest[]>([]);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SuperAdminOwnerRequestsTableProps } from '../SuperAdminOwnerRequests_types/SuperAdminOwnerRequests.types';
+import { SuperAdminOwnerRequestsTableProps } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_types/SuperAdminOwnerRequests.types';
 import { StatusBadge } from '@/config/statusBadgeConfig';
 import { FileText, CheckCircle, PauseCircle, XCircle } from 'lucide-react';
 import { Pagination } from '@/components/shared/Pagination';

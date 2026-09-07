@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { platformApi } from '@/app/superadmin/lib/api/platform';
-import { SuperAdminDashboardData } from '../SuperAdminDashboard_types/SuperAdminDashboard.types';
+import { SuperAdminDashboardData } from '@/app/superadmin/dashboard/SuperAdminDashboard_types/SuperAdminDashboard.types';
 
 export function useSuperAdminDashboardData() {
   const [data, setData] = useState<SuperAdminDashboardData | null>(null);

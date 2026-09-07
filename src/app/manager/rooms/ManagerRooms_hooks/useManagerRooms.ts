@@ -4,7 +4,7 @@ import { useManagerUrlPagination } from '@/app/manager/manager_shared/hooks/useM
 // Data Flow: ManagerPropertyContext → api → local state → ManagerRoomsMain
 
 import { useState, useEffect } from 'react';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import type { ManagerRoomData } from '@/app/manager/rooms/ManagerRooms_types/ManagerRooms.types';
 
 export function useManagerRooms(selectedPropertyId: string | null, ctxLoading: boolean, userId: string | undefined) {

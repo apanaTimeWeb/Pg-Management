@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { ticketsApi } from '@/app/superadmin/lib/api/tickets';
 import { ownersApi } from '@/app/owner/lib/api/owners';
-import { SuperAdminTicket } from '../SuperAdminTickets_types/SuperAdminTickets.types';
-import { SUPER_ADMIN_TICKETS_ITEMS_PER_PAGE } from '../SuperAdminTickets_utils/SuperAdminTickets.constants';
+import { SuperAdminTicket } from '@/app/superadmin/tickets/SuperAdminTickets_types/SuperAdminTickets.types';
+import { SUPER_ADMIN_TICKETS_ITEMS_PER_PAGE } from '@/app/superadmin/tickets/SuperAdminTickets_utils/SuperAdminTickets.constants';
 
 export function useSuperAdminTicketsData() {
   const [tickets, setTickets] = useState<SuperAdminTicket[]>([]);

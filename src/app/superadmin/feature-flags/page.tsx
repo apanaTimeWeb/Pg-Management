@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { useSuperAdminFeatureFlagsData } from './SuperAdminFeatureFlags_hooks/useSuperAdminFeatureFlagsData';
-import { SuperAdminFeatureFlagsHeader } from './SuperAdminFeatureFlags_components/SuperAdminFeatureFlagsHeader';
-import { SuperAdminFeatureFlagsToolbar } from './SuperAdminFeatureFlags_components/SuperAdminFeatureFlagsToolbar';
-import { SuperAdminFeatureFlagsTable } from './SuperAdminFeatureFlags_components/SuperAdminFeatureFlagsTable';
+import { useSuperAdminFeatureFlagsData } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_hooks/useSuperAdminFeatureFlagsData';
+import { SuperAdminFeatureFlagsHeader } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_components/SuperAdminFeatureFlagsHeader';
+import { SuperAdminFeatureFlagsToolbar } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_components/SuperAdminFeatureFlagsToolbar';
+import { SuperAdminFeatureFlagsTable } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_components/SuperAdminFeatureFlagsTable';
 
 export default function FeatureFlagsPage() {
   const {

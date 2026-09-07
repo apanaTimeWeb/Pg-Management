@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { AlertTriangle } from 'lucide-react';
-import { STUDENT_ROUTES } from './student_url_config';
+import { STUDENT_ROUTES } from '@/app/student/student_url_config';
 
 export default function StudentError({
   error,

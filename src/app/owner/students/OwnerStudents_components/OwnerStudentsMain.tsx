@@ -3,7 +3,7 @@
 // RESPONSIBILITY: Renders the OwnerStudentsMain component. Receives data via props/hooks.
 
 import { useState, useEffect } from 'react';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { getSession } from '@/app/login/lib/auth/session';
 import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
 import { Search, Users, AlertCircle, Building, Filter } from 'lucide-react';

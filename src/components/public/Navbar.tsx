@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Home } from 'lucide-react';
-import { ThemeToggle } from './ThemeToggle';
+import { ThemeToggle } from '@/components/public/ThemeToggle';
 
 export function Navbar() {
   return (

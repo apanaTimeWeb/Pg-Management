@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useStudentContext } from '@/app/student/components/StudentContext';
 import { getSession } from '@/app/login/lib/auth/session';
 import { CalendarClock } from 'lucide-react';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { createId } from '@/lib/utils/id';
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';

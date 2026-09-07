@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { SessionUser } from '@/lib/types';
 import { Lock, AlertTriangle, Key } from 'lucide-react';
 import { getSession } from '@/app/login/lib/auth/session';

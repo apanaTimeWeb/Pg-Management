@@ -4,19 +4,19 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { StaffRoleType } from '@/app/owner/lib/api/team';
 import { getSession } from '@/app/login/lib/auth/session';
 import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
 import { ArrowLeft, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 
-import { OwnerTeamCreateSuccess } from './OwnerTeamCreateSuccess';
-import { OwnerTeamCreatePersonalDetails } from './OwnerTeamCreatePersonalDetails';
-import { OwnerTeamCreatePropertyAssignment } from './OwnerTeamCreatePropertyAssignment';
-import { OwnerTeamCreateCredentials } from './OwnerTeamCreateCredentials';
-import { OwnerTeamCreateEmploymentTerms } from './OwnerTeamCreateEmploymentTerms';
-import { OwnerTeamCreateManagerPermissions } from './OwnerTeamCreateManagerPermissions';
+import { OwnerTeamCreateSuccess } from '@/app/owner/team/create/OwnerTeamCreate_components/OwnerTeamCreateSuccess';
+import { OwnerTeamCreatePersonalDetails } from '@/app/owner/team/create/OwnerTeamCreate_components/OwnerTeamCreatePersonalDetails';
+import { OwnerTeamCreatePropertyAssignment } from '@/app/owner/team/create/OwnerTeamCreate_components/OwnerTeamCreatePropertyAssignment';
+import { OwnerTeamCreateCredentials } from '@/app/owner/team/create/OwnerTeamCreate_components/OwnerTeamCreateCredentials';
+import { OwnerTeamCreateEmploymentTerms } from '@/app/owner/team/create/OwnerTeamCreate_components/OwnerTeamCreateEmploymentTerms';
+import { OwnerTeamCreateManagerPermissions } from '@/app/owner/team/create/OwnerTeamCreate_components/OwnerTeamCreateManagerPermissions';
 
 export function OwnerTeamCreateMain() {
   const router = useRouter();

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { ownersApi } from '@/app/owner/lib/api/owners';
-import { SuperAdminFeatureFlagOwner } from '../SuperAdminFeatureFlags_types/SuperAdminFeatureFlags.types';
+import { SuperAdminFeatureFlagOwner } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_types/SuperAdminFeatureFlags.types';
 import { useToast } from '@/components/shared/ToastContext';
 
 export function useSuperAdminFeatureFlagsData() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SuperAdminTicketsCreateModalProps } from '../SuperAdminTickets_types/SuperAdminTickets.types';
+import { SuperAdminTicketsCreateModalProps } from '@/app/superadmin/tickets/SuperAdminTickets_types/SuperAdminTickets.types';
 
 export const SuperAdminTicketsCreateModal: React.FC<SuperAdminTicketsCreateModalProps> = ({
   isOpen,

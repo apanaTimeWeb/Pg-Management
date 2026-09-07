@@ -5,7 +5,7 @@ import { RequireOwner } from '@/app/owner/components/RequireOwner';
 import { OwnerPropertyProvider } from '@/app/owner/components/OwnerPropertyContext';
 import { OwnerLayout } from '@/app/owner/components/OwnerLayout';
 import { ToastProvider } from '@/components/shared/ToastContext';
-import { OwnerI18nProvider } from './i18n';
+import { OwnerI18nProvider } from '@/app/owner/i18n';
 
 export const metadata: Metadata = {
   title: 'Owner Portal | SmartPG',

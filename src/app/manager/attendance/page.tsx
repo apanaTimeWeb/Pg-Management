@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { ManagerAttendanceMain } from './ManagerAttendance_components/ManagerAttendanceMain';
+import { ManagerAttendanceMain } from '@/app/manager/attendance/ManagerAttendance_components/ManagerAttendanceMain';
 
 export default function ManagerAttendancePage() {
   return (

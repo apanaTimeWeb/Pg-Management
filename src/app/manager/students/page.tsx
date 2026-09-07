@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { ManagerStudentsMain } from './ManagerStudents_components/ManagerStudentsMain';
+import { ManagerStudentsMain } from '@/app/manager/students/ManagerStudents_components/ManagerStudentsMain';
 
 export default function ManagerStudentsPage() {
   return (

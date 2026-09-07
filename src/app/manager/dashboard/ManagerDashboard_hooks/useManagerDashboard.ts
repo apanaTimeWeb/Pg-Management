@@ -3,7 +3,7 @@
 // Data Flow: ManagerPropertyContext → multiple APIs → ManagerDashboardStats object → ManagerDashboardPage
 
 import { useState, useEffect } from 'react';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { getSession } from '@/app/login/lib/auth/session';
 import { useManagerPropertyContext } from '@/app/manager/manager_shared/ManagerPropertyContext';
 import { mealsApi, MealStatus } from '@/app/manager/lib/api/meals';

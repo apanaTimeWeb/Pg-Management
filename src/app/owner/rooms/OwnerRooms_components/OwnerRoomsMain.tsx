@@ -4,14 +4,14 @@
 
 import { useState, useEffect } from 'react';
 import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { Room } from '@/app/owner/lib/api/rooms';
 import { getSession } from '@/app/login/lib/auth/session';
 import { Plus } from 'lucide-react';
-import { OwnerRoomsKPIs } from './OwnerRoomsKPIs';
-import { OwnerRoomsFilters } from './OwnerRoomsFilters';
-import { OwnerRoomsTable } from './OwnerRoomsTable';
-import { OwnerRoomsAddModal } from './OwnerRoomsAddModal';
+import { OwnerRoomsKPIs } from '@/app/owner/rooms/OwnerRooms_components/OwnerRoomsKPIs';
+import { OwnerRoomsFilters } from '@/app/owner/rooms/OwnerRooms_components/OwnerRoomsFilters';
+import { OwnerRoomsTable } from '@/app/owner/rooms/OwnerRooms_components/OwnerRoomsTable';
+import { OwnerRoomsAddModal } from '@/app/owner/rooms/OwnerRooms_components/OwnerRoomsAddModal';
 
 export function OwnerRoomsMain() {
   const user = typeof window !== 'undefined' ? getSession() : null;

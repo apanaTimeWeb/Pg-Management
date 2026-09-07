@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { ownersApi } from '@/app/owner/lib/api/owners';
-import { OwnerDirectoryItem, OwnerStatus } from '../SuperAdminOwners_types/SuperAdminOwners.types';
-import { ITEMS_PER_PAGE } from '../SuperAdminOwners_utils/SuperAdminOwners.constants';
+import { OwnerDirectoryItem, OwnerStatus } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
+import { ITEMS_PER_PAGE } from '@/app/superadmin/owners/SuperAdminOwners_utils/SuperAdminOwners.constants';
 
 export function useSuperAdminOwnersData() {
   const [owners, setOwners] = useState<OwnerDirectoryItem[]>([]);

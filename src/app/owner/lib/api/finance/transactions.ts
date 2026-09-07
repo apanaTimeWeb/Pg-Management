@@ -1,7 +1,7 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
-import { Invoice, Payment, Expense } from './types';
+import { Invoice, Payment, Expense } from '@/app/owner/lib/api/finance/types';
 
 export function listInvoices(propertyId: string) {
   return db.getAll<Invoice>(STORAGE_KEYS.INVOICES).filter(i => i.propertyId === propertyId && !i.isDeleted);

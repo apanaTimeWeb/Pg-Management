@@ -3,7 +3,7 @@
 // RESPONSIBILITY: Renders the OwnerSubscriptionMain component. Receives data via props/hooks.
 
 import { useState, useEffect } from 'react';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { getSession } from '@/app/login/lib/auth/session';
 import { useToast } from '@/components/shared/ToastContext';
 import { Crown, CheckCircle2, Building, Users, Bed, CreditCard, ShieldCheck, Loader2, X, AlertCircle } from 'lucide-react';

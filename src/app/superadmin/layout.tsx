@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { LayoutDashboard, FileText, UserPlus, Users, Package, BarChart3, ToggleLeft, Ticket, History, Settings, Menu, X, ShieldAlert, LogOut } from 'lucide-react';
 import { getSession, clearSession } from '@/app/login/lib/auth/session';
-import { SuperadminI18nProvider, useSuperadminI18n, DictKey } from './i18n';
+import { SuperadminI18nProvider, useSuperadminI18n, DictKey } from '@/app/superadmin/i18n';
 import { useTheme } from 'next-themes';
 import { Moon, Sun } from 'lucide-react';
 

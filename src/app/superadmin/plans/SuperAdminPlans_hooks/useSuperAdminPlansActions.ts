@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { plansApi } from '@/app/superadmin/lib/api/plans';
-import { SuperAdminPlan } from '../SuperAdminPlans_types/SuperAdminPlans.types';
+import { SuperAdminPlan } from '@/app/superadmin/plans/SuperAdminPlans_types/SuperAdminPlans.types';
 
 export function useSuperAdminPlansActions(refetch: () => void) {
   const [editPlan, setEditPlan] = useState<SuperAdminPlan | null>(null);

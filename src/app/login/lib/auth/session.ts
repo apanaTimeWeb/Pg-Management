@@ -1,4 +1,4 @@
-import { SessionUser } from '../types';
+import { SessionUser } from '@/app/login/lib/types';
 
 export function getSession(): SessionUser | null {
   if (typeof window === 'undefined') return null;

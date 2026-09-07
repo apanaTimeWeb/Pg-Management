@@ -1,7 +1,7 @@
 import React from 'react';
 import { AreaChart } from '@/components/ui/charts/AreaChart';
 import { DonutChart } from '@/components/ui/charts/DonutChart';
-import { SuperAdminAnalyticsChartsProps } from '../SuperAdminAnalytics_types/SuperAdminAnalytics.types';
+import { SuperAdminAnalyticsChartsProps } from '@/app/superadmin/analytics/SuperAdminAnalytics_types/SuperAdminAnalytics.types';
 
 export const SuperAdminAnalyticsCharts: React.FC<SuperAdminAnalyticsChartsProps> = ({ revenueData, planData }) => {
   return (

@@ -4,7 +4,7 @@ import { useManagerUrlPagination } from '@/app/manager/manager_shared/hooks/useM
 // Data Flow: ManagerPropertyContext → api + stockRequestsApi → local state → ManagerInventoryMain
 
 import { useState, useEffect } from 'react';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { stockRequestsApi } from '@/app/staff/lib/api/stockRequests';
 import { stockBatchesApi, StockBatch } from '@/app/staff/lib/api/stock';
 import type { ManagerInventoryItem, ManagerKitchenRequest, ManagerInventoryTab } from '@/app/manager/inventory/ManagerInventory_types/ManagerInventory.types';

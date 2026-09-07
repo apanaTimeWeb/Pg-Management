@@ -20,7 +20,7 @@ export function ManagerEnquiriesLost({
     <div className="flex items-center gap-2 mt-2 pt-2 border-t border-[var(--border)]">
       <button 
         onClick={() => setWaMenuEnquiry(enq)}
-        className="flex-1 flex items-center justify-center gap-1.5 py-1.5 bg-[#25D366]/10 text-[#1DA851] rounded border border-[#25D366]/20 hover:bg-[#25D366]/20 transition-colors text-xs font-bold"
+        className="flex-1 flex items-center justify-center gap-1.5 py-1.5 bg-emerald-500/10 text-emerald-600 rounded border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors text-xs font-bold"
       >
         <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
       </button>

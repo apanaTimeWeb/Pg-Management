@@ -1,7 +1,7 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
-import { Invoice, Payment, Expense } from './types';
+import { Invoice, Payment, Expense } from '@/app/owner/lib/api/finance/types';
 
 export function seedMocksIfEmpty(ownerId: string) {
   const expenses = db.getAll<Expense>(STORAGE_KEYS.EXPENSES);

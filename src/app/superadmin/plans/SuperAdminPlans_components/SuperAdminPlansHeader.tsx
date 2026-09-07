@@ -1,5 +1,5 @@
 import React from 'react';
-import { SuperAdminPlansHeaderProps } from '../SuperAdminPlans_types/SuperAdminPlans.types';
+import { SuperAdminPlansHeaderProps } from '@/app/superadmin/plans/SuperAdminPlans_types/SuperAdminPlans.types';
 
 export const SuperAdminPlansHeader: React.FC<SuperAdminPlansHeaderProps> = () => {
   return (

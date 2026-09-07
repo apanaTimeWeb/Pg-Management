@@ -1,6 +1,6 @@
 import { AlertTriangle, CheckCircle } from 'lucide-react';
 import type { ManagerInventoryItem, ManagerKitchenRequest } from '@/app/manager/inventory/ManagerInventory_types/ManagerInventory.types';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 
 interface Props {
   alertCount: number;

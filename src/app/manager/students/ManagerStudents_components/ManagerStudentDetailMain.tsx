@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { useParams, useRouter } from 'next/navigation';
 import { getSession } from '@/app/login/lib/auth/session';
 import { studentOperationsApi } from '@/app/student/lib/api/studentOperations';

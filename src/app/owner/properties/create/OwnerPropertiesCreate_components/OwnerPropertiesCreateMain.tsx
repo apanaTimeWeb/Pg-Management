@@ -5,17 +5,17 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getSession } from '@/app/login/lib/auth/session';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { AlertCircle, ArrowLeft, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import { useToast } from '@/components/shared/ToastContext';
 import { useOwnerPropertyContext } from '@/app/owner/components/OwnerPropertyContext';
 
-import { OwnerPropertiesCreateBasicInfo } from './OwnerPropertiesCreateBasicInfo';
-import { OwnerPropertiesCreateLocation } from './OwnerPropertiesCreateLocation';
-import { OwnerPropertiesCreateConfig } from './OwnerPropertiesCreateConfig';
-import { OwnerPropertiesCreateAmenities } from './OwnerPropertiesCreateAmenities';
-import { OwnerPropertiesCreatePhotos } from './OwnerPropertiesCreatePhotos';
+import { OwnerPropertiesCreateBasicInfo } from '@/app/owner/properties/create/OwnerPropertiesCreate_components/OwnerPropertiesCreateBasicInfo';
+import { OwnerPropertiesCreateLocation } from '@/app/owner/properties/create/OwnerPropertiesCreate_components/OwnerPropertiesCreateLocation';
+import { OwnerPropertiesCreateConfig } from '@/app/owner/properties/create/OwnerPropertiesCreate_components/OwnerPropertiesCreateConfig';
+import { OwnerPropertiesCreateAmenities } from '@/app/owner/properties/create/OwnerPropertiesCreate_components/OwnerPropertiesCreateAmenities';
+import { OwnerPropertiesCreatePhotos } from '@/app/owner/properties/create/OwnerPropertiesCreate_components/OwnerPropertiesCreatePhotos';
 
 export function OwnerPropertiesCreateMain() {
   const router = useRouter();

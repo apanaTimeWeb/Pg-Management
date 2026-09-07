@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { ManagerExpensesMain } from './ManagerExpenses_components/ManagerExpensesMain';
+import { ManagerExpensesMain } from '@/app/manager/expenses/ManagerExpenses_components/ManagerExpensesMain';
 
 export default function ManagerExpensesPage() {
   return (

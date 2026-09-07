@@ -1,5 +1,5 @@
 import React from 'react';
-import { SuperAdminSettingsHeaderProps } from '../SuperAdminSettings_types/SuperAdminSettings.types';
+import { SuperAdminSettingsHeaderProps } from '@/app/superadmin/settings/SuperAdminSettings_types/SuperAdminSettings.types';
 
 export const SuperAdminSettingsHeader: React.FC<SuperAdminSettingsHeaderProps> = () => {
   return (

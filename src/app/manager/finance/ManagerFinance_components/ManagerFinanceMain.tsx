@@ -1,9 +1,9 @@
 'use client';
 
 import { Pagination } from '@/components/shared/Pagination';
-import { useManagerFinance } from '../ManagerFinance_hooks/useManagerFinance';
-import { ManagerFinanceStats } from './ManagerFinanceStats';
-import { ManagerFinanceTable } from './ManagerFinanceTable';
+import { useManagerFinance } from '@/app/manager/finance/ManagerFinance_hooks/useManagerFinance';
+import { ManagerFinanceStats } from '@/app/manager/finance/ManagerFinance_components/ManagerFinanceStats';
+import { ManagerFinanceTable } from '@/app/manager/finance/ManagerFinance_components/ManagerFinanceTable';
 
 export function ManagerFinanceMain() {
   const {

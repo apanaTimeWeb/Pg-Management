@@ -1,4 +1,4 @@
-import { BaseEntity, Role } from './index';
+import { BaseEntity, Role } from '@/lib/types/index';
 
 export interface User extends BaseEntity {
   role: Role;

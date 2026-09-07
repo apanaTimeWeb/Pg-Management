@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { auditApi } from '@/app/superadmin/lib/api/audit';
-import { SuperAdminAuditLog } from '../SuperAdminAuditLogs_types/SuperAdminAuditLogs.types';
+import { SuperAdminAuditLog } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_types/SuperAdminAuditLogs.types';
 
 export function useSuperAdminAuditLogsData() {
   const [logs, setLogs] = useState<SuperAdminAuditLog[]>([]);

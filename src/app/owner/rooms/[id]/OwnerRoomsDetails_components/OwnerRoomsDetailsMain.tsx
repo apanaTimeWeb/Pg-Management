@@ -4,7 +4,7 @@
 
 import { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { api } from '@/app/login/lib/api/auth';
+import { authApi as api } from '@/app/login/lib/api/auth';
 import { Room } from '@/app/owner/lib/api/rooms';
 import { Bed } from '@/app/owner/lib/api/beds';
 import { getSession } from '@/app/login/lib/auth/session';

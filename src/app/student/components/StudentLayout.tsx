@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Home, IndianRupee, Utensils, MessageSquareWarning, FileText, Bell, LogOut, User, Menu, X, ShieldAlert } from 'lucide-react';
 import { getSession, clearSession } from '@/app/login/lib/auth/session';
-import { StudentProvider, useStudentContext } from './StudentContext';
+import { StudentProvider, useStudentContext } from '@/app/student/components/StudentContext';
 import { useStudentI18n, DictKey } from '@/app/student/i18n';
 import { ThemeToggle } from '@/components/public/ThemeToggle';
 
@@ -114,7 +114,7 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
             <Link href="/student/documents" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 rounded-md text-secondary hover:bg-input hover:text-primary text-sm font-medium">
               <FileText className="w-5 h-5"/> {t('documents' as DictKey)}
             </Link>
-            <Link href="/student/sos" onClick={() => setIsMobileMenuOpen(false)} className="flex justify-center w-full px-4 py-3 mt-2 bg-[#7f1d1d] text-white rounded-md font-bold shadow hover:bg-[#991b1b] border border-red-900/50 transition-colors">
+            <Link href="/student/sos" onClick={() => setIsMobileMenuOpen(false)} className="flex justify-center w-full px-4 py-3 mt-2 bg-destructive text-white rounded-md font-bold shadow hover:bg-destructive/90 border border-destructive/50 transition-colors">
               EMERGENCY SOS
             </Link>
           </div>

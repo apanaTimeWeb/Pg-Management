@@ -1,6 +1,6 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
-import { Invoice, Payment, Expense } from './types';
+import { Invoice, Payment, Expense } from '@/app/owner/lib/api/finance/types';
 
 export function getStats(ownerId: string, propertyId?: string) {
   // Determine relevant properties
