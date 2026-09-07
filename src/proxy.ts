@@ -23,18 +23,7 @@ export function proxy(request: NextRequest) {
   // Verify token (Mock logic: assume a cookie 'session_token' exists)
   const token = request.cookies.get('session_token')?.value;
   
-  if (!token) {
-    // If trying to access a protected route without a token, redirect to generic login
-    // In a full implementation, you'd redirect to the role-specific login based on the URL prefix
-    let loginUrl = new URL('/login', request.url);
-    if (pathname.startsWith('/superadmin')) loginUrl = new URL('/superadmin/login', request.url);
-    else if (pathname.startsWith('/owner')) loginUrl = new URL('/owner/login', request.url);
-    else if (pathname.startsWith('/manager')) loginUrl = new URL('/manager/login', request.url);
-    else if (pathname.startsWith('/staff')) loginUrl = new URL('/staff/login', request.url);
-    else if (pathname.startsWith('/student')) loginUrl = new URL('/student/login', request.url);
-    
-    return NextResponse.redirect(loginUrl);
-  }
+  // Redirects handled by Client-Side Require components using localStorage
 
   // Add x-tenant-id for multi-tenancy (Rule 22) - mock value here, actual implementation would extract from token
   const response = NextResponse.next();
@@ -54,3 +43,4 @@ export const config = {
     '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ],
 };
+

@@ -19,6 +19,9 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
     setMounted(true);
   }, []);
 
+  const isAuthPage = pathname?.includes('/login') || pathname?.includes('/first-login');
+  if (isAuthPage) return <>{children}</>;
+
   return (
     <div className="min-h-screen bg-page font-sans">
       
@@ -150,7 +153,8 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
           >
             {children}
           </SuperAdminLayoutInner>
-              </SuperadminI18nProvider>
+      </SuperadminI18nProvider>
     </SuperAdminRequireSuperAdmin>
   );
 }
+

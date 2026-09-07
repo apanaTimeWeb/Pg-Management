@@ -12,13 +12,25 @@ export function OwnerRequireOwner({ children }: { children: React.ReactNode }) {
   const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const session = getSession();
+    const isLoginPage = pathname?.includes('/owner/login');
+
     if (!session || session.role !== 'owner') {
-      router.replace('/owner/login');
+      if (!isLoginPage) {
+        router.replace('/owner/login');
+      } else {
+        setAuthorized(true);
+      }
+      return;
+    }
+
+    if (isLoginPage) {
+      router.replace(session.mustChangePassword ? '/owner/first-login' : '/owner/dashboard');
       return;
     }
     
-    if (session.mustChangePassword && !pathname.includes('/owner/first-login')) {
+    if (session.mustChangePassword && !pathname?.includes('/owner/first-login')) {
       router.replace('/owner/first-login');
       return;
     }
@@ -29,3 +41,4 @@ export function OwnerRequireOwner({ children }: { children: React.ReactNode }) {
   if (!authorized) return <div className="min-h-screen flex items-center justify-center bg-page text-primary">Loading Owner Portal...</div>;
   return <>{children}</>;
 }
+

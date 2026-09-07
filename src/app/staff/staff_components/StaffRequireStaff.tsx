@@ -11,18 +11,33 @@ export function StaffRequireStaff({ children }: { children: React.ReactNode }) {
   const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const session = getSession();
+    const isLoginPage = pathname?.includes('/staff/login');
+
     if (!session || session.role !== 'staff') {
-      router.replace('/staff/login');
+      if (!isLoginPage) {
+        router.replace('/staff/login');
+      } else {
+        setAuthorized(true);
+      }
       return;
     }
-    if (session.mustChangePassword && !pathname.includes('/staff/first-login')) {
+
+    if (isLoginPage) {
+      router.replace(session.mustChangePassword ? '/staff/first-login' : '/staff/dashboard');
+      return;
+    }
+    
+    if (session.mustChangePassword && !pathname?.includes('/staff/first-login')) {
       router.replace('/staff/first-login');
       return;
     }
+    
     setAuthorized(true);
   }, [router, pathname]);
 
   if (!authorized) return <div className="min-h-screen flex items-center justify-center bg-page text-primary">Loading Staff Portal...</div>;
   return <>{children}</>;
 }
+
