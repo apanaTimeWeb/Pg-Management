@@ -7,8 +7,10 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 import { propertiesApi } from '@/app/owner/owner_lib/owner_api/OwnerProperties';
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
+import { seedIfNeeded } from '@/app/owner/owner_lib/owner_mock_seed';
 
 import type { Property } from '@/app/owner/owner_lib/owner_api/OwnerProperties';
+
 
 interface OwnerPropertyContextType {
   selectedPropertyId: string | 'all';
@@ -35,8 +37,10 @@ export function OwnerPropertyProvider({ children }: { children: React.ReactNode 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user?.role === 'owner') {
-      const props = propertiesApi.listByOwner(user.id);
+    seedIfNeeded(); // Ensure demo data is in localStorage before reading
+    const session = getSession();
+    if (session?.role === 'owner') {
+      const props = propertiesApi.listByOwner(session.id);
       setProperties(props);
       
       const savedState = sessionStorage.getItem('spg_owner_ui_state');
