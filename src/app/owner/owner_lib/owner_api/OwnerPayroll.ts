@@ -1,7 +1,8 @@
 import { db } from '@/lib/storage/db';
 import { createId } from '@/lib/utils/id';
-import type { BaseEntity } from '@/lib/types';
 import { teamApi } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
+
+import type { BaseEntity } from '@/lib/types';
 
 export interface SalaryPayment extends BaseEntity {
   ownerId: string;

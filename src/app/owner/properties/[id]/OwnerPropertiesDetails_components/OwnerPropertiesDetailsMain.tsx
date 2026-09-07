@@ -5,13 +5,15 @@ import Image from 'next/image';
 
 import { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
-import type { Property } from '@/app/owner/owner_lib/owner_api/OwnerProperties';
-import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { ArrowLeft, Building2, Trash2, Users, Bed, Settings, AlertTriangle, IndianRupee, Plus, X } from 'lucide-react';
 import Link from 'next/link';
+
+import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
+import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
+
+import type { Property } from '@/app/owner/owner_lib/owner_api/OwnerProperties';
 import type { PricingRule } from '@/lib/types/contract';
 
 export function OwnerPropertiesDetailsMain({ params }: { params: Promise<{ id: string }> }) {

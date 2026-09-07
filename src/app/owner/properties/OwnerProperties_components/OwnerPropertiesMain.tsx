@@ -3,12 +3,15 @@ import Image from 'next/image';
 
 // RESPONSIBILITY: Renders the OwnerPropertiesMain component. Receives data via props/hooks.
 
-import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { Building2, Plus, Bed, IndianRupee, MapPin, Users, Activity } from 'lucide-react';
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
+
+import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
-import { useState, useEffect } from 'react';
+
+
 import type { Property } from '@/app/owner/owner_lib/owner_api/OwnerProperties';
 
 export function OwnerPropertiesMain() {
@@ -77,7 +80,7 @@ export function OwnerPropertiesMain() {
               >
                 {/* Photo Gradient Header */}
                 <div className="relative h-40 w-full bg-page">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  { }
                   <Image src={coverPhoto} alt={property.name} fill className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
                   

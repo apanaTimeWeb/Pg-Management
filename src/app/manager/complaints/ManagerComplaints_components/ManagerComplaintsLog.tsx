@@ -1,5 +1,6 @@
 // RESPONSIBILITY: Renders the ManagerComplaintsLog component.
 import { IndianRupee } from 'lucide-react';
+
 import type { ManagerComplaintData } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';
 
 interface Props {

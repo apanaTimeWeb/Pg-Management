@@ -2,16 +2,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { AlertTriangle, Package, Loader2 } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
 import { useStaffContext } from '@/app/staff/staff_components/StaffContext';
 import { stockApi } from "@/app/staff/staff_lib/staff_api/StaffStock";
 import { stockRequestsApi } from "@/app/staff/staff_lib/staff_api/StaffStockRequests";
 import { authApi as api } from '@/app/staff/staff_lib/staff_api/StaffAuth';
 import { getSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
+
 import type { StockItem } from '@/app/staff/staff_lib/staff_api/StaffStock';
 import type { StockRequest } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
-import { AlertTriangle, Package, Loader2 } from 'lucide-react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 export function StaffAlertsMain() {
   const { propertyId, staffRole, loading: ctxLoading } = useStaffContext();

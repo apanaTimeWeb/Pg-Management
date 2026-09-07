@@ -1,13 +1,15 @@
 // DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerGateLogs.ts]
+import { useState, useEffect } from 'react';
+
 import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 // [DATA HOOK] ManagerUseManagerGateLogs
 // Responsibility: Fetches gate log entries and manages the add-log form state for the selected property.
 // Data Flow: ManagerPropertyContext → api.managerOperations.listGateLogs → local state → ManagerGateLogsPage
 
-import { useState, useEffect } from 'react';
 import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+
 import type { GateLog, UseManagerGateLogsReturn } from '@/app/manager/gate-logs/ManagerGateLogs_types/ManagerGateLogs.types';
 
 export function ManagerUseManagerGateLogs(): UseManagerGateLogsReturn {

@@ -1,6 +1,7 @@
 // RESPONSIBILITY: Renders the OwnerFinanceCards component. Receives data via props/hooks.
 
 import { Wallet, IndianRupee, TrendingDown, TrendingUp, Receipt, ChevronUp, ChevronDown } from 'lucide-react';
+
 import { formatINR } from '@/lib/utils/formatters';
 
 export interface OwnerFinanceCardsProps {

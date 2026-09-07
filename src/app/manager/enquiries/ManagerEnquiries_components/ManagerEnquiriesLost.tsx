@@ -1,7 +1,9 @@
 // RESPONSIBILITY: Renders the ManagerEnquiriesLost component.
 import { MessageCircle, Mail } from 'lucide-react';
-import type { Enquiry, EnquiryStatus } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
+
 import { Pagination } from '@/components/ui/Pagination';
+
+import type { Enquiry, EnquiryStatus } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
 
 interface Props {
   paginatedLostEnquiries: Enquiry[];

@@ -1,6 +1,7 @@
 // RESPONSIBILITY: Renders the SuperAdminAuditLogsFilters component.
 import React from 'react';
 import { Search } from 'lucide-react';
+
 import type { SuperAdminAuditLogsFiltersProps } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_types/SuperAdminAuditLogs.types';
 
 export const SuperAdminAuditLogsFilters: React.FC<SuperAdminAuditLogsFiltersProps> = ({ search, setSearch, roleFilter, setRoleFilter, filters }) => {

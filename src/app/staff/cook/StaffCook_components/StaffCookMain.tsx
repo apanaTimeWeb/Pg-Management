@@ -1,19 +1,28 @@
 // RESPONSIBILITY: Renders the StaffCookMain component.
 'use client';
 
+// RESPONSIBILITY: Renders the StaffCookMain component.
+'use client';
+
 import { useState, useEffect } from 'react';
-import { staffOperationsApi } from '@/app/staff/staff_lib/staff_api/staffOperations';
+import { CheckCircle, Utensils, ShoppingCart, Truck, Archive, AlertTriangle } from 'lucide-react';
+
 import { useStaffContext } from '@/app/staff/staff_components/StaffContext';
 import { getSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
-import { CheckCircle, Utensils, ShoppingCart, Truck, Archive, AlertTriangle } from 'lucide-react';
+import { staffOperationsApi } from '@/app/staff/staff_lib/staff_api/staffOperations';
 import { stockApi } from "@/app/staff/staff_lib/staff_api/StaffStock";
 import { authApi as api } from '@/app/staff/staff_lib/staff_api/StaffAuth';
 import { mealsApi } from '@/app/staff/staff_lib/staff_api/StaffMeals';
-import type { MealStatusType } from '@/app/staff/staff_lib/staff_api/StaffMeals';;
-import type { MealType } from '@/app/staff/staff_lib/staff_api/StaffMeals';;
 import { stockRequestsApi } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
 import { attendanceApi } from '@/app/owner/owner_lib/owner_api/OwnerAttendance';
 import { Pagination } from '@/components/ui/Pagination';
+
+import { StaffCookLiveMealsTab } from './StaffCookLiveMealsTab';
+import { StaffCookRequestTab } from './StaffCookRequestTab';
+import { StaffCookIncomingTab } from './StaffCookIncomingTab';
+import { StaffCookLiveStockTab } from './StaffCookLiveStockTab';
+
+import type { MealStatusType, MealType } from '@/app/staff/staff_lib/staff_api/StaffMeals';
 
 export function StaffCookMain() {
   const { propertyId } = useStaffContext();
@@ -167,228 +176,53 @@ export function StaffCookMain() {
       </div>
 
       {activeTab === 'orders' && (
-        <div className="space-y-6">
-          <div className="bg-card border border-border rounded-lg p-6">
-            <h2 className="font-bold text-lg text-primary mb-4 flex items-center gap-2">
-              <Utensils className="w-5 h-5 text-primary" /> Today's Menu & Status
-            </h2>
-            {todayMenu ? (
-              <div className="mb-6 p-4 bg-primary-bg border border-primary border-opacity-20 rounded-xl">
-                <h3 className="font-bold text-primary mb-2">Today's Menu</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                  <div className="bg-card p-2 rounded border border-primary border-opacity-20 text-center">
-                    <span className="block text-[10px] uppercase font-bold text-primary">Breakfast</span>
-                    <span className="text-sm text-primary font-medium">{todayMenu.breakfast || 'TBD'}</span>
-                  </div>
-                  <div className="bg-card p-2 rounded border border-primary border-opacity-20 text-center">
-                    <span className="block text-[10px] uppercase font-bold text-primary">Lunch</span>
-                    <span className="text-sm text-primary font-medium">{todayMenu.lunch || 'TBD'}</span>
-                  </div>
-                  <div className="bg-card p-2 rounded border border-primary border-opacity-20 text-center">
-                    <span className="block text-[10px] uppercase font-bold text-primary">Dinner</span>
-                    <span className="text-sm text-primary font-medium">{todayMenu.dinner || 'TBD'}</span>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="mb-6 p-4 bg-input rounded-xl border border-border text-sm text-secondary italic">
-                No menu set for today.
-              </div>
-            )}
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {(['Breakfast', 'Lunch', 'Dinner'] as MealType[]).map(meal => (
-                <div key={meal} className="border border-border p-4 rounded-xl flex flex-col items-center text-center gap-3">
-                  <h3 className="font-bold text-primary">{meal}</h3>
-                  {mealStatuses[meal] === 'pending' && (
-                    <button onClick={() => handleMarkMealReady(meal)} className="bg-primary hover:bg-primary-hover text-white w-full py-2 rounded-lg text-sm font-bold motion-safe:transition-colors">
-                      Mark Ready
-                    </button>
-                  )}
-                  {mealStatuses[meal] === 'ready' && (
-                    <span className="w-full py-2 bg-warning-bg text-warning rounded-lg text-sm font-bold border border-warning border-opacity-20">
-                      Waiting for Manager
-                    </span>
-                  )}
-                  {mealStatuses[meal] === 'announced' && (
-                    <span className="w-full py-2 bg-success-bg text-success rounded-lg text-sm font-bold flex items-center justify-center gap-2">
-                      <CheckCircle className="w-4 h-4" /> Announced
-                    </span>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="bg-card border border-border rounded-lg p-6">
-            <h2 className="font-bold text-lg text-primary mb-4 flex items-center gap-2">
-              <Utensils className="w-5 h-5 text-primary" /> Live Meal Queue ({orders.length})
-            </h2>
-          <div className="space-y-3">
-            {paginatedOrders.map(o => (
-              <div key={o.id} className="flex justify-between items-center p-3 bg-input border border-border rounded-xl">
-                <div>
-                  <div className="font-bold text-primary">{o.studentName} <span className="text-xs text-secondary font-normal ml-2">Room {o.roomNumber}</span></div>
-                  <div className="text-sm text-secondary mt-1">{o.mealType}</div>
-                </div>
-                {o.status === 'Pending' ? (
-                  <button onClick={() => handleMarkServed(o.id)} className="flex items-center gap-2 bg-success text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-green-600 motion-safe:transition-colors">
-                    <CheckCircle className="w-4 h-4" /> Served
-                  </button>
-                ) : (
-                  <span className="text-xs font-bold text-success px-3 py-1 bg-success-bg rounded-full">Completed</span>
-                )}
-              </div>
-            ))}
-            {orders.length === 0 && (
-              <div className="text-center p-8 text-secondary">No active meal orders.</div>
-            )}
-            {ordersTotalPages > 1 && <Pagination currentPage={ordersPage} totalPages={ordersTotalPages} onPageChange={setOrdersPage} />}
-          </div>
-        </div>
-        </div>
+        <StaffCookLiveMealsTab
+          todayMenu={todayMenu}
+          mealStatuses={mealStatuses}
+          handleMarkMealReady={handleMarkMealReady}
+          orders={orders}
+          paginatedOrders={paginatedOrders}
+          handleMarkServed={handleMarkServed}
+          ordersPage={ordersPage}
+          ordersTotalPages={ordersTotalPages}
+          setOrdersPage={setOrdersPage}
+        />
       )}
 
       {activeTab === 'request' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-card border border-border rounded-lg p-6">
-            <h2 className="font-bold text-lg text-primary mb-1">Request Groceries</h2>
-            <p className="text-sm text-secondary mb-6">Send a request to the manager to purchase items.</p>
-            
-            <form onSubmit={handleRequestStock} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-secondary mb-1">Item Name</label>
-                <input type="text" required value={(formData as any).itemName} onChange={e => setFormData({...(formData as any), itemName: e.target.value})} className="w-full bg-input border border-border rounded-lg p-3 text-sm text-primary" placeholder="e.g. Paneer, Rice, Milk" />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-secondary mb-1">Quantity</label>
-                  <input type="number" step="0.1" required value={(formData as any).quantityRequested} onChange={e => setFormData({...(formData as any), quantityRequested: e.target.value})} className="w-full bg-input border border-border rounded-lg p-3 text-sm text-primary" placeholder="0" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-secondary mb-1">Unit</label>
-                  <select value={(formData as any).unit} onChange={e => setFormData({...(formData as any), unit: e.target.value})} className="w-full bg-input border border-border rounded-lg p-3 text-sm text-primary">
-                    <option value="kg">Kilograms (kg)</option>
-                    <option value="L">Liters (L)</option>
-                    <option value="packets">Packets</option>
-                    <option value="pieces">Pieces</option>
-                  </select>
-                </div>
-              </div>
-              <button type="submit" className="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-primary-hover motion-safe:transition-colors mt-2">
-                Send Request
-              </button>
-            </form>
-          </div>
-
-          <div className="space-y-4">
-            <h3 className="font-bold text-lg text-primary">Pending Requests ({pendingRequests.length})</h3>
-            {paginatedPendingRequests.map(req => (
-              <div key={req.id} className="bg-card border border-border rounded-xl p-4 flex justify-between items-center">
-                <div>
-                  <h4 className="font-bold text-primary">{req.itemName}</h4>
-                  <p className="text-sm text-secondary">{req.quantityRequested} {req.unit}</p>
-                </div>
-                <span className="text-[10px] font-bold tracking-wider uppercase px-3 py-1 bg-warning-bg text-warning rounded-full">
-                  Waiting for Manager
-                </span>
-              </div>
-            ))}
-            {pendingRequests.length === 0 && (
-              <div className="text-sm text-secondary italic">No pending requests.</div>
-            )}
-            {requestsTotalPages > 1 && <Pagination currentPage={requestsPage} totalPages={requestsTotalPages} onPageChange={setRequestsPage} />}
-          </div>
-        </div>
+        <StaffCookRequestTab
+          formData={formData}
+          setFormData={setFormData}
+          handleRequestStock={handleRequestStock}
+          pendingRequests={pendingRequests}
+          paginatedPendingRequests={paginatedPendingRequests}
+          requestsPage={requestsPage}
+          requestsTotalPages={requestsTotalPages}
+          setRequestsPage={setRequestsPage}
+        />
       )}
 
       {activeTab === 'incoming' && (
-        <div className="space-y-4">
-          <div className="bg-primary-bg border border-primary border-opacity-20 rounded-xl p-4 mb-6">
-            <h3 className="font-bold text-primary mb-1 flex items-center gap-2"><AlertTriangle className="w-4 h-4"/> Verify Deliveries</h3>
-            <p className="text-sm text-primary opacity-80">The manager has purchased these items. Please check the packets, enter their expiry dates, and add them to your live stock.</p>
-          </div>
-
-          {paginatedIncomingDeliveries.map(req => (
-            <div key={req.id} className="bg-card border border-border rounded-2xl p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div>
-                <h3 className="text-lg font-bold text-primary">{req.itemName}</h3>
-                <p className="text-sm font-medium text-secondary">Purchased: <span className="text-primary">{req.purchasedQuantity || req.quantityRequested} {req.unit}</span></p>
-                {req.purchaseDate && <p className="text-xs text-secondary">Date: {new Date(req.purchaseDate).toLocaleDateString()}</p>}
-              </div>
-
-              <div className="flex items-center gap-3 bg-input p-2 rounded-xl border border-border">
-                <div className="flex flex-col">
-                  <label className="text-[10px] uppercase font-bold text-secondary mb-1 ml-1">Expiry Date (From Packet)</label>
-                  <input 
-                    type="date"
-                    value={expiryDates[req.id] || ''}
-                    onChange={e => setExpiryDates({...expiryDates, [req.id]: e.target.value})}
-                    className="bg-card border border-border rounded-lg p-2 text-sm text-primary"
-                  />
-                </div>
-                <button 
-                  onClick={() => handleVerifyReceipt(req.id, req.purchasedQuantity || req.quantityRequested, req.unit)}
-                  className="bg-success text-white px-4 py-2 mt-4 rounded-lg text-sm font-bold hover:bg-green-600 motion-safe:transition-colors flex items-center gap-2 whitespace-nowrap"
-                >
-                  <CheckCircle className="w-4 h-4" /> Verify & Add
-                </button>
-              </div>
-            </div>
-          ))}
-
-          {incomingDeliveries.length === 0 && (
-            <div className="text-center p-12 text-secondary bg-card border border-border rounded-3xl">
-              <Truck className="w-12 h-12 mx-auto mb-3 opacity-20" />
-              <p className="font-medium text-lg">No incoming deliveries</p>
-              <p className="text-sm mt-1">Check back later when the manager completes purchases.</p>
-            </div>
-          )}
-          {incomingTotalPages > 1 && <Pagination currentPage={incomingPage} totalPages={incomingTotalPages} onPageChange={setIncomingPage} />}
-        </div>
+        <StaffCookIncomingTab
+          incomingDeliveries={incomingDeliveries}
+          paginatedIncomingDeliveries={paginatedIncomingDeliveries}
+          expiryDates={expiryDates}
+          setExpiryDates={setExpiryDates}
+          handleVerifyReceipt={handleVerifyReceipt}
+          incomingPage={incomingPage}
+          incomingTotalPages={incomingTotalPages}
+          setIncomingPage={setIncomingPage}
+        />
       )}
 
       {activeTab === 'stock' && (
-        <div className="space-y-4">
-        <div className="bg-card border border-border rounded-lg overflow-hidden shadow-sm">
-          <table className="w-full text-left text-sm">
-            <thead className="bg-card border-b border-border text-secondary sticky top-0 z-10 shadow-sm shadow-black/5">
-              <tr>
-                <th className="p-4 font-semibold uppercase tracking-wider text-[11px]">Grocery Item</th>
-                <th className="p-4 font-semibold uppercase tracking-wider text-[11px]">Available Qty</th>
-                <th className="p-4 font-semibold uppercase tracking-wider text-[11px]">Expiry Date</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[var(--border)]">
-              {paginatedStock.map((item: any) => (
-                <tr key={item.id} className="hover:bg-input motion-safe:transition-colors">
-                  <td className="p-4 font-medium text-primary">{item.name}</td>
-                  <td className="p-4">
-                    <span className="font-bold text-lg text-primary">{item.quantity}</span>
-                    <span className="text-xs text-secondary ml-1">{item.unit}</span>
-                  </td>
-                  <td className="p-4">
-                    {item.expiryDate ? (
-                      <span className={`${new Date(item.expiryDate) < new Date() ? 'text-danger font-bold' : 'text-secondary'}`}>
-                        {new Date(item.expiryDate).toLocaleDateString()}
-                        {new Date(item.expiryDate) < new Date() && ' (Expired)'}
-                      </span>
-                    ) : (
-                      <span className="text-secondary opacity-50">Not set</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
-              {liveStock.length === 0 && (
-                <tr>
-                  <td colSpan={3} className="p-8 text-center text-secondary">No groceries in live stock. Please request items.</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-        {stockTotalPages > 1 && <Pagination currentPage={stockPage} totalPages={stockTotalPages} onPageChange={setStockPage} />}
-        </div>
+        <StaffCookLiveStockTab
+          liveStock={liveStock}
+          paginatedStock={paginatedStock}
+          stockPage={stockPage}
+          stockTotalPages={stockTotalPages}
+          setStockPage={setStockPage}
+        />
       )}
     </div>
   );

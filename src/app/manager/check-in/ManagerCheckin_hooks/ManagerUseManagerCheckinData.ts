@@ -4,6 +4,7 @@
 // Data Flow: step + selectedPropertyId + formData → api.managerCheckin → local state → ManagerCheckinMain
 
 import { useState, useEffect } from 'react';
+
 import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
 
 export function ManagerUseManagerCheckinData(selectedPropertyId: string | null, step: number, enquiryId: string, formDataRoomBedId: string, compatibility: unknown) {

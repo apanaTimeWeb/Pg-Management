@@ -1,5 +1,6 @@
 // RESPONSIBILITY: Renders the ManagerCheckinFormSteps6to10 component.
 import { Wallet, FileCheck, Key, Utensils, CheckCircle, Lock } from 'lucide-react';
+
 import type { ManagerCheckinFormData } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 

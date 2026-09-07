@@ -1,6 +1,7 @@
 // RESPONSIBILITY: Renders the SuperAdminOwnerProfileMain component.
 import React from 'react';
 import { Building2, FileText, Ticket } from 'lucide-react';
+
 import type { Owner360Data } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
 
 export const SuperAdminOwnerProfileMain: React.FC<{ data: Owner360Data }> = ({ data }) => {

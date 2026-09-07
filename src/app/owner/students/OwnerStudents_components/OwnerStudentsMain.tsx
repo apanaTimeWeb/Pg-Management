@@ -141,7 +141,7 @@ export function OwnerStudentsMain() {
               <label className="text-xs font-bold text-secondary uppercase">Status</label>
               <select 
                 value={statusFilter}
-                onChange={(e) => setStatusFilter(arguments[0] as any)}
+                onChange={(e) => setStatusFilter(e.target.value as any)}
                 className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:border-primary"
               >
                 <option value="all">All Statuses</option>

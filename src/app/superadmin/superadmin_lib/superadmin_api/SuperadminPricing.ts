@@ -2,6 +2,7 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
+
 import type { PricingRule } from '@/lib/types/contract';
 
 export const pricingApi = {

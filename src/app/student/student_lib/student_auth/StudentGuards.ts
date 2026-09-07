@@ -1,4 +1,5 @@
 import { getSession } from '@/app/student/student_lib/student_auth/StudentSession';
+
 import type { Role } from '@/lib/types/models';
 
 export function requireRole(expectedRole: Role) {

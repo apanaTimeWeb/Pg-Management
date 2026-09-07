@@ -1,6 +1,7 @@
 // RESPONSIBILITY: Renders the SuperAdminOwnerProfileSidebar component.
 import React, { useState } from 'react';
 import { Key, Power } from 'lucide-react';
+
 import type { Owner360Data } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
 
 interface SidebarProps {

@@ -2,9 +2,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+
 import { ownersApi } from '@/app/owner/owner_lib/owner_api/owners';
-import type { OwnerDirectoryItem, OwnerStatus } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
 import { ITEMS_PER_PAGE } from '@/app/superadmin/owners/SuperAdminOwners_utils/SuperAdminOwners.constants';
+
+import type { OwnerDirectoryItem, OwnerStatus } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
 
 export function SuperadminUseSuperAdminOwnersData() {
   const [owners, setOwners] = useState<OwnerDirectoryItem[]>([]);

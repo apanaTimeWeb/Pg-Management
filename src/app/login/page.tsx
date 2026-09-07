@@ -1,10 +1,11 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Shield, Briefcase, Users, Utensils, UserCheck, Eye, EyeOff } from 'lucide-react';
+import Link from 'next/link';
+
 import { authApi as api } from '@/app/login/login_lib/login_api/LoginAuth';
 import { setSession } from '@/app/login/login_lib/login_auth/LoginSession';
-import { Shield, Briefcase, Users, Utensils, UserCheck, Heart, Eye, EyeOff } from 'lucide-react';
-import Link from 'next/link';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const DEMO_ACCOUNTS = [
@@ -41,8 +42,8 @@ export default function UnifiedLogin() {
       setSession(user);
       
       router.push(`/${user.role}/dashboard`);
-    } catch (err: any) {
-      setError((err as any).message || 'Login failed. Invalid credentials.');
+    } catch (err) {
+      setError((err as Error).message || 'Login failed. Invalid credentials.');
       setLoading(false);
     }
   };
@@ -70,8 +71,7 @@ export default function UnifiedLogin() {
           
           <div className="grid grid-cols-3 gap-3 mb-8">
             {DEMO_ACCOUNTS.map((acc) => {
-// @ts-expect-error
-              const isSelected = selectedRole.id === acc.id;
+              const isSelected = selectedRole?.id === acc.id;
               return (
                 <button
                   key={acc.id}

@@ -1,5 +1,6 @@
 // RESPONSIBILITY: Renders the SuperAdminTicketsCreateModal component.
 import React from 'react';
+
 import type { SuperAdminTicketsCreateModalProps } from '@/app/superadmin/tickets/SuperAdminTickets_types/SuperAdminTickets.types';
 
 export const SuperAdminTicketsCreateModal: React.FC<SuperAdminTicketsCreateModalProps> = ({

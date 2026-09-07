@@ -2,6 +2,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+
 import { getSession } from '@/app/student/student_lib/student_auth/StudentSession';
 
 export function StudentRequireStudent({ children }: { children: React.ReactNode }) {

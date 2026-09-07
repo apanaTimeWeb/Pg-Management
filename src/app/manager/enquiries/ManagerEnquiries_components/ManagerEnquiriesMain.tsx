@@ -2,13 +2,15 @@
 'use client';
 
 import { Search, Plus, Lock, AlertTriangle } from 'lucide-react';
+
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
 import { ManagerUseManagerEnquiries } from '@/app/manager/enquiries/ManagerEnquiries_hooks/ManagerUseManagerEnquiries';
-import type { EnquiryStatus } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
 import { ManagerEnquiriesKanban } from '@/app/manager/enquiries/ManagerEnquiries_components/ManagerEnquiriesKanban';
 import { ManagerEnquiriesLost } from '@/app/manager/enquiries/ManagerEnquiries_components/ManagerEnquiriesLost';
 import { ManagerEnquiriesModals } from '@/app/manager/enquiries/ManagerEnquiries_components/ManagerEnquiriesModals';
+
+import type { EnquiryStatus } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
 
 export function ManagerEnquiriesMain() {
   const user = typeof window !== 'undefined' ? getSession() : null;

@@ -3,9 +3,10 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { CalendarClock } from 'lucide-react';
+
 import { useStudentContext } from '@/app/student/student_components/StudentContext';
 import { getSession } from '@/app/student/student_lib/student_auth/StudentSession';
-import { CalendarClock } from 'lucide-react';
 import { authApi as api } from '@/app/student/student_lib/student_api/StudentAuth';
 import { createId } from '@/lib/utils/id';
 import { db } from '@/lib/storage/db';

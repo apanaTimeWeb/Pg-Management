@@ -4,6 +4,7 @@
 // DATA FLOW: StudentUseStudentProfile.ts -> StudentProfileMain.tsx
 
 import { User, Shield, Star, Award, TrendingUp, TrendingDown } from 'lucide-react';
+
 import { StudentUseStudentProfile } from '@/app/student/profile/StudentProfile_components/StudentUseStudentProfile';
 
 export function StudentProfileMain() {

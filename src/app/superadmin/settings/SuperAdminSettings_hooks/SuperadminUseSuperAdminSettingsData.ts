@@ -2,9 +2,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { settingsApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminSettings';
-import type { SuperAdminSettingsData } from '@/app/superadmin/settings/SuperAdminSettings_types/SuperAdminSettings.types';
 import { toast } from 'sonner';
+
+import { settingsApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminSettings';
+
+import type { SuperAdminSettingsData } from '@/app/superadmin/settings/SuperAdminSettings_types/SuperAdminSettings.types';
 
 export function SuperadminUseSuperAdminSettingsData() {
   const [settings, setSettings] = useState<SuperAdminSettingsData | null>(null);

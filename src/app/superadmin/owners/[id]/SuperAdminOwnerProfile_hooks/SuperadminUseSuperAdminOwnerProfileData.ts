@@ -2,9 +2,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ownersApi } from '@/app/owner/owner_lib/owner_api/owners';
-import type { Owner360Data } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
 import { useRouter } from 'next/navigation';
+
+import { ownersApi } from '@/app/owner/owner_lib/owner_api/owners';
+
+import type { Owner360Data } from '@/app/superadmin/owners/SuperAdminOwners_types/SuperAdminOwners.types';
 
 export function SuperadminUseSuperAdminOwnerProfileData(id: string) {
   const router = useRouter();

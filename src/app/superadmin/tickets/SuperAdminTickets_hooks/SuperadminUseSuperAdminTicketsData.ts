@@ -2,10 +2,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+
 import { ticketsApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminTickets';
 import { ownersApi } from '@/app/owner/owner_lib/owner_api/owners';
-import type { SuperAdminTicket } from '@/app/superadmin/tickets/SuperAdminTickets_types/SuperAdminTickets.types';
 import { SUPER_ADMIN_TICKETS_ITEMS_PER_PAGE } from '@/app/superadmin/tickets/SuperAdminTickets_utils/SuperAdminTickets.constants';
+
+import type { SuperAdminTicket } from '@/app/superadmin/tickets/SuperAdminTickets_types/SuperAdminTickets.types';
 
 export function SuperadminUseSuperAdminTicketsData() {
   const [tickets, setTickets] = useState<SuperAdminTicket[]>([]);

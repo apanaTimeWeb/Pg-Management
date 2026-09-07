@@ -4,10 +4,13 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+
 import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
-import type { StaffRoleType } from '@/app/owner/owner_lib/owner_api/OwnerTeam';;
+
+;
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
+
 import { ArrowLeft, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 
@@ -17,6 +20,8 @@ import { OwnerTeamCreatePropertyAssignment } from '@/app/owner/team/owner_create
 import { OwnerTeamCreateCredentials } from '@/app/owner/team/owner_create/OwnerTeamCreate_components/OwnerTeamCreateCredentials';
 import { OwnerTeamCreateEmploymentTerms } from '@/app/owner/team/owner_create/OwnerTeamCreate_components/OwnerTeamCreateEmploymentTerms';
 import { OwnerTeamCreateManagerPermissions } from '@/app/owner/team/owner_create/OwnerTeamCreate_components/OwnerTeamCreateManagerPermissions';
+
+import type { StaffRoleType } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
 
 export function OwnerTeamCreateMain() {
   const router = useRouter();

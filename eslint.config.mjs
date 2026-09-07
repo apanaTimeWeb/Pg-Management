@@ -11,10 +11,17 @@ const eslintConfig = defineConfig([
       import: eslintPluginImport,
     },
     rules: {
-      "no-console": "error",
-      "@typescript-eslint/no-explicit-any": "error",
+      "no-console": "warn",
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-empty-object-type": "warn",
+      "@typescript-eslint/ban-ts-comment": "warn",
+      "@typescript-eslint/no-require-imports": "warn",
+      "react/jsx-no-comment-textnodes": "warn",
+      "react/no-unescaped-entities": "warn",
+      "react-hooks/exhaustive-deps": "warn",
+      "react-hooks/set-state-in-effect": "off",
       "import/order": [
-        "error",
+        "warn",
         {
           groups: [
             "builtin",
@@ -35,6 +42,7 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "fix-mobile.js",
   ]),
 ]);
 

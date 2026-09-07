@@ -1,6 +1,7 @@
 // RESPONSIBILITY: Renders the ManagerStudentsTable component.
 import Link from 'next/link';
 import { ChevronRight, IndianRupee } from 'lucide-react';
+
 import type { ManagerStudentData } from '@/app/manager/students/ManagerStudents_types/ManagerStudents.types';
 
 interface Props {

@@ -1,5 +1,4 @@
 // DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerComplaints.ts]
-import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 // [DATA HOOK] ManagerUseManagerComplaints
 // Responsibility: Fetches complaints, manages resolve modal state, and handles complaint status mutations.
 // Data Flow: ManagerPropertyContext → api.managerOperations.listComplaints → local state → ManagerComplaintsMain
@@ -8,9 +7,12 @@ import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+
+import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
-import type { ManagerComplaintData } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';
 import { ComplaintResolveSchema } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';
+
+import type { ManagerComplaintData } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';
 import type { ComplaintResolveFormData } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';
 
 export function ManagerUseManagerComplaints(selectedPropertyId: string | null, ctxLoading: boolean) {
@@ -21,7 +23,7 @@ export function ManagerUseManagerComplaints(selectedPropertyId: string | null, c
   const itemsPerPage = 10;
 
   // RHF for the resolve modal — replaces repairCost/resolutionNotes useState
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   const resolveForm = useForm<ComplaintResolveFormData>({
 // @ts-expect-error
     resolver: zodResolver(ComplaintResolveSchema) as unknown,

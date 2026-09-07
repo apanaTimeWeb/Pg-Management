@@ -2,9 +2,10 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
+import { Lock } from 'lucide-react';
+
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
-import { Lock } from 'lucide-react';
 import { ManagerUseManagerCheckinData } from '@/app/manager/check-in/ManagerCheckin_hooks/ManagerUseManagerCheckinData';
 import { ManagerUseManagerCheckinForm } from '@/app/manager/check-in/ManagerCheckin_hooks/ManagerUseManagerCheckinForm';
 import { ManagerCheckinProgress } from '@/app/manager/check-in/ManagerCheckin_components/ManagerCheckinProgress';

@@ -1,8 +1,10 @@
 // DATA FLOW: [AI_TODO: Document data flow direction for SuperadminUseSuperAdminOwnerRequestsData.ts]
 import { useState, useEffect } from 'react';
+
 import { ownerRequestsApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminOwnerRequests';
-import type { OwnerRequest, OwnerRequestStatus } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_types/SuperAdminOwnerRequests.types';
 import { ITEMS_PER_PAGE } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_utils/SuperAdminOwnerRequests.constants';
+
+import type { OwnerRequest, OwnerRequestStatus } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_types/SuperAdminOwnerRequests.types';
 
 export const SuperadminUseSuperAdminOwnerRequestsData = () => {
   const [requests, setRequests] = useState<OwnerRequest[]>([]);

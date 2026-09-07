@@ -4,9 +4,11 @@
 // Data Flow: ManagerPropertyContext → api.managerOperations.listVisitors → local state → ManagerVisitorsPage
 
 import { useState, useEffect } from 'react';
+
 import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+
 import type { Visitor, UseManagerVisitorsReturn } from '@/app/manager/visitors/ManagerVisitors_types/ManagerVisitors.types';
 
 export function ManagerUseManagerVisitors(): UseManagerVisitorsReturn {

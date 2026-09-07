@@ -3,15 +3,17 @@
 // RESPONSIBILITY: Renders the OwnerFinanceMain component. Receives data via props/hooks.
 
 import { useState, useEffect } from 'react';
-import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
-import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
-import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { TrendingDown } from 'lucide-react';
-import type { Expense } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
+
+import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
+import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
+import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
 import { OwnerFinanceCards } from '@/app/owner/finance/OwnerFinance_components/OwnerFinanceCards';
 import { OwnerFinanceCharts } from '@/app/owner/finance/OwnerFinance_components/OwnerFinanceCharts';
 import { OwnerFinanceTabs } from '@/app/owner/finance/OwnerFinance_components/OwnerFinanceTabs';
 import { useTableSync } from '@/lib/hooks/useTableSync';
+
+import type { Expense } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
 
 export function OwnerFinanceMain() {
   const user = typeof window !== 'undefined' ? getSession() : null;

@@ -1,14 +1,17 @@
 // DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerEnquiries.ts]
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
 import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 // [DATA HOOK] ManagerUseManagerEnquiries
 // Responsibility: Manages enquiry Kanban board state, form state, and status transitions.
 // Data Flow: ManagerPropertyContext → api.managerEnquiries → local state → ManagerEnquiriesMain
 
-import { useState, useEffect } from 'react';
 import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
+
 import type { Enquiry, EnquiryStatus } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
 import type { EnquiryFormData, EnquiriesTab } from '@/app/manager/enquiries/ManagerEnquiries_types/ManagerEnquiries.types';
-import { useRouter } from 'next/navigation';
+
 
 export function ManagerUseManagerEnquiries(selectedPropertyId: string | null, ctxLoading: boolean, userId: string | undefined) {
   const router = useRouter();

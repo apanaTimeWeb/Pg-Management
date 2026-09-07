@@ -2,9 +2,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Bell } from 'lucide-react';
+
 import { studentOperationsApi } from '@/app/student/student_lib/student_api/StudentOperations';
 import { useStudentContext } from '@/app/student/student_components/StudentContext';
-import { Bell } from 'lucide-react';
 import { Pagination } from '@/components/ui/Pagination';
 
 export function StudentNoticesMain() {

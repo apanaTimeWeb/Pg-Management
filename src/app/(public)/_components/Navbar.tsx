@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Home } from 'lucide-react';
+
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 export function Navbar() {

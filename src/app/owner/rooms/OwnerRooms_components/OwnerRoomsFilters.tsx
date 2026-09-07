@@ -1,6 +1,7 @@
 // RESPONSIBILITY: Renders the OwnerRoomsFilters component. Receives data via props/hooks.
 
 import { Search, Filter } from 'lucide-react';
+
 import type { Dispatch, SetStateAction } from 'react';
 
 export interface OwnerRoomsFiltersProps {

@@ -1,6 +1,7 @@
 // RESPONSIBILITY: Renders the OwnerRoomsAddModal component. Receives data via props/hooks.
 
 import { AlertCircle, CheckCircle2, X } from 'lucide-react';
+
 import type { Dispatch, SetStateAction } from 'react';
 
 export interface OwnerRoomsAddModalProps {

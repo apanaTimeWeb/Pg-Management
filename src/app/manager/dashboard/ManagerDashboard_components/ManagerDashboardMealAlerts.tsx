@@ -1,5 +1,6 @@
 // RESPONSIBILITY: Renders the ManagerDashboardMealAlerts component.
 import { Utensils } from 'lucide-react';
+
 import type { MealStatus } from '@/app/manager/manager_lib/manager_api/ManagerMeals';
 
 interface ManagerDashboardMealAlertsProps {

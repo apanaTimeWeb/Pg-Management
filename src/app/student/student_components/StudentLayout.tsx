@@ -5,11 +5,13 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Home, IndianRupee, Utensils, MessageSquareWarning, FileText, Bell, LogOut, User, Menu, X, ShieldAlert } from 'lucide-react';
+
 import { getSession, clearSession } from '@/app/student/student_lib/student_auth/StudentSession';
 import { StudentProvider, useStudentContext } from '@/app/student/student_components/StudentContext';
 import { useStudentI18n } from '@/app/student/StudentI18n';
-import type { DictKey } from '@/app/student/StudentI18n';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+
+import type { DictKey } from '@/app/student/StudentI18n';
 
 const NAV_ITEMS = [
   { key: 'dashboard', href: '/student/dashboard', icon: Home },

@@ -4,17 +4,19 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { getSession, clearSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
-import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
-import { useManagerI18n } from '@/app/manager/ManagerI18n';
-import type { DictKey } from '@/app/manager/ManagerI18n';;
 import { 
   LayoutDashboard, MessageSquare, ClipboardCheck, BedDouble, 
   Users, AlertCircle, Utensils, UserPlus, Clock, LogOut, Radio, FileText, Archive, IndianRupee, Receipt,
   Menu, X, ShieldAlert, Building2
 } from 'lucide-react';
+
+import { getSession, clearSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
+import { useManagerI18n } from '@/app/manager/ManagerI18n';
 import { ManagerForcePasswordChangeModal } from '@/app/manager/manager_components/ManagerForcePasswordChangeModal';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+
+import type { DictKey } from '@/app/manager/ManagerI18n';;
 
 const MENU_ITEMS = [
   { key: 'dashboard', icon: LayoutDashboard, href: '/manager/dashboard' },

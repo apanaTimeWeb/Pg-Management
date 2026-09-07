@@ -1,6 +1,7 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
+
 import type { BaseEntity, User } from '@/lib/types/models';
 export interface StudentProfile extends BaseEntity {
   id: string;
@@ -159,7 +160,7 @@ export const studentsApi = {
       const end = new Date(data.stayEndDate);
       let dues = 0;
       
-      let current = new Date(start);
+      const current = new Date(start);
       while (current <= end) {
         const monthYear = current.toLocaleString('default', { month: 'short', year: 'numeric' });
         db.insert(STORAGE_KEYS.INVOICES, {

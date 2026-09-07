@@ -1,5 +1,6 @@
 // RESPONSIBILITY: Renders the SuperAdminPlansHeader component.
 import React from 'react';
+
 import type { SuperAdminPlansHeaderProps } from '@/app/superadmin/plans/SuperAdminPlans_types/SuperAdminPlans.types';
 
 export const SuperAdminPlansHeader: React.FC<SuperAdminPlansHeaderProps> = () => {

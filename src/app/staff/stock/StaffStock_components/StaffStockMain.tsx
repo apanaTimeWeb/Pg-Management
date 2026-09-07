@@ -2,11 +2,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Package, Plus, Search } from 'lucide-react';
+import { Edit2, Trash2, Check, X } from 'lucide-react';
+
 import { useStaffContext } from '@/app/staff/staff_components/StaffContext';
-import { stockApi, stockBatchesApi } from '@/app/staff/staff_lib/staff_api/StaffStock';
-import { Package, Plus, Search, Edit2, Trash2, Check, X } from 'lucide-react';
-import type { StockItem, StockBatch } from '@/app/staff/staff_lib/staff_api/StaffStock';
+import { stockApi } from '@/app/staff/staff_lib/staff_api/StaffStock';
 import { Pagination } from '@/components/ui/Pagination';
+import { stockBatchesApi } from '@/app/staff/staff_lib/staff_api/StaffStock';
+
+import { StaffStockAddForm } from './StaffStockAddForm';
+import { StaffStockPantry } from './StaffStockPantry';
+
+import type { StockItem, StockBatch } from '@/app/staff/staff_lib/staff_api/StaffStock';
 
 export function StaffStockMain() {
   const { propertyId, loading: ctxLoading } = useStaffContext();
@@ -150,84 +157,15 @@ export function StaffStockMain() {
       </div>
 
       {showAddForm && (
-        <div className="bg-card border border-border rounded-lg p-6 shadow-sm animate-fade-in">
-          <h3 className="text-sm font-bold text-primary mb-4">Add New Stock Item</h3>
-          <form onSubmit={handleAddItem} className="grid grid-cols-1 md:grid-cols-6 gap-4">
-            <div className="md:col-span-2">
-              <label className="text-xs font-bold text-secondary mb-1 block">Item Name</label>
-              <input 
-                value={newItemName}
-                onChange={(e) => setNewItemName(e.target.value)}
-                placeholder="e.g. Rice, Oil, Dal"
-                className="w-full bg-input border border-border rounded px-3 py-2 text-sm focus:border-primary outline-none"
-                required
-              />
-            </div>
-            <div>
-              <label className="text-xs font-bold text-secondary mb-1 block">Quantity</label>
-              <input 
-                type="number"
-                step="0.01"
-                min="0"
-                value={newItemQty}
-                onChange={(e) => setNewItemQty(e.target.value)}
-                placeholder="0"
-                className="w-full bg-input border border-border rounded px-3 py-2 text-sm focus:border-primary outline-none"
-                required
-              />
-            </div>
-            <div>
-              <label className="text-xs font-bold text-secondary mb-1 block">Threshold</label>
-              <input 
-                type="number"
-                step="0.01"
-                min="0"
-                value={newItemThreshold}
-                onChange={(e) => setNewItemThreshold(e.target.value)}
-                placeholder="e.g. 2"
-                className="w-full bg-input border border-border rounded px-3 py-2 text-sm focus:border-primary outline-none"
-              />
-            </div>
-            <div>
-              <label className="text-xs font-bold text-secondary mb-1 block">Unit</label>
-              <select 
-                value={newItemUnit}
-                onChange={(e) => setNewItemUnit(e.target.value)}
-                className="w-full bg-input border border-border rounded px-3 py-2 text-sm focus:border-primary outline-none"
-              >
-                <option value="Kg">Kg</option>
-                <option value="Liters">Liters</option>
-                <option value="Packets">Packets</option>
-                <option value="Pieces">Pieces</option>
-                <option value="Grams">Grams</option>
-              </select>
-            </div>
-            <div>
-              <label className="text-xs font-bold text-secondary mb-1 block">Expiry Date</label>
-              <input 
-                type="date"
-                value={newItemExpiry}
-                onChange={(e) => setNewItemExpiry(e.target.value)}
-                className="w-full bg-input border border-border rounded px-3 py-2 text-sm focus:border-primary outline-none"
-              />
-            </div>
-            <div className="md:col-span-6 flex items-center justify-end gap-3 mt-2">
-              <button 
-                type="button" 
-                onClick={() => setShowAddForm(false)}
-                className="text-sm text-secondary hover:text-primary font-medium px-4 py-2"
-              >
-                Cancel
-              </button>
-              <button 
-                type="submit"
-                className="bg-primary text-white px-6 py-2 rounded text-sm font-bold hover:bg-primary-hover"
-              >
-                Save Item
-              </button>
-            </div>
-          </form>
-        </div>
+        <StaffStockAddForm
+          onSubmit={handleAddItem}
+          onCancel={() => setShowAddForm(false)}
+          name={newItemName} setName={setNewItemName}
+          qty={newItemQty} setQty={setNewItemQty}
+          unit={newItemUnit} setUnit={setNewItemUnit}
+          threshold={newItemThreshold} setThreshold={setNewItemThreshold}
+          expiry={newItemExpiry} setExpiry={setNewItemExpiry}
+        />
       )}
 
       {(() => {
@@ -380,88 +318,7 @@ export function StaffStockMain() {
       )}
 
       {activeTab === 'pantry' && (
-        <div className="bg-card border border-border rounded-lg overflow-hidden shadow-sm">
-          <div className="p-6 border-b border-border bg-[rgba(99,102,241,0.02)] flex justify-between items-center">
-            <h2 className="text-base font-semibold text-primary">Pantry Batches</h2>
-            <p className="text-sm text-secondary">Items received from the manager.</p>
-          </div>
-          <div className="p-6 space-y-4">
-            {batches.length === 0 ? (
-              <div className="text-center py-12 text-secondary">
-                <Package className="w-10 h-10 mx-auto opacity-30 mb-3" />
-                <p>No batches found in the pantry.</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {batches.map(batch => (
-                  <div key={batch.id} className="border border-border rounded-xl p-4 bg-card shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-bold text-lg text-primary">{batch.itemName}</h3>
-                      <span className={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full ${
-                        batch.status === 'unopened' ? 'bg-primary-subtle text-primary' : 
-                        batch.status === 'opened' ? 'bg-warning-bg text-warning border border-warning/20' : 
-                        'bg-input text-secondary'
-                      }`}>
-                        {batch.status}
-                      </span>
-                    </div>
-                    <div className="text-sm text-secondary mb-4">
-                      {batch.quantity} {batch.unit} &bull; {batch.category || 'Groceries'}
-                    </div>
-                    
-                    <div className="space-y-1.5 text-xs">
-                      {batch.receivedAt && (
-                        <div className="flex justify-between">
-                          <span className="text-secondary">Received:</span>
-                          <span className="font-medium">{new Date(batch.receivedAt).toLocaleDateString()}</span>
-                        </div>
-                      )}
-                      {batch.openedAt && (
-                        <div className="flex justify-between">
-                          <span className="text-secondary">Opened:</span>
-                          <span className="font-medium text-warning">{new Date(batch.openedAt).toLocaleDateString()}</span>
-                        </div>
-                      )}
-                      {batch.expiryDate && (
-                        <div className="flex justify-between">
-                          <span className="text-secondary">Expires:</span>
-                          <span className="font-medium text-danger">{new Date(batch.expiryDate).toLocaleDateString()}</span>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="mt-5 pt-3 border-t border-border flex gap-2">
-                      {batch.status === 'unopened' && (
-                        <button 
-                          onClick={() => {
-                            stockBatchesApi.openBatch(batch.id);
-                            loadStock();
-                          }}
-                          className="flex-1 bg-primary-subtle text-primary font-bold text-xs py-2 rounded-lg hover:bg-primary hover:text-white motion-safe:transition-colors"
-                        >
-                          Open Box
-                        </button>
-                      )}
-                      {batch.status === 'opened' && (
-                        <button 
-                          onClick={() => {
-                            if (confirm('Mark this batch as empty?')) {
-                              stockBatchesApi.emptyBatch(batch.id);
-                              loadStock();
-                            }
-                          }}
-                          className="flex-1 bg-[rgba(239,68,68,0.1)] text-danger font-bold text-xs py-2 rounded-lg hover:bg-danger hover:text-white motion-safe:transition-colors"
-                        >
-                          Mark Empty
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
+        <StaffStockPantry batches={batches} onRefresh={loadStock} />
       )}
     </div>
   );

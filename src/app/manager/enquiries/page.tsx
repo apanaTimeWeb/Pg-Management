@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+
 import { ManagerEnquiriesMain } from '@/app/manager/enquiries/ManagerEnquiries_components/ManagerEnquiriesMain';
 
 export default function ManagerEnquiriesPage() {

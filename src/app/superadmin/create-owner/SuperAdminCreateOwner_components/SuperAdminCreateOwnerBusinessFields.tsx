@@ -1,6 +1,7 @@
 // RESPONSIBILITY: Renders the SuperAdminCreateOwnerBusinessFields component.
 import React from 'react';
 import { Briefcase } from 'lucide-react';
+
 import type { SuperAdminCreateOwnerFieldProps } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_types/SuperAdminCreateOwner.types';
 
 export const SuperAdminCreateOwnerBusinessFields: React.FC<SuperAdminCreateOwnerFieldProps> = ({ formData, setFormData }) => {

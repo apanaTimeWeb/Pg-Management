@@ -1,6 +1,7 @@
 // RESPONSIBILITY: Renders the SuperAdminTicketsHeader component.
 import React from 'react';
 import { Plus } from 'lucide-react';
+
 import type { SuperAdminTicketsHeaderProps } from '@/app/superadmin/tickets/SuperAdminTickets_types/SuperAdminTickets.types';
 
 export const SuperAdminTicketsHeader: React.FC<SuperAdminTicketsHeaderProps> = ({ onCreateClick }) => {

@@ -1,7 +1,9 @@
+import { StatusCodes } from 'http-status-codes';
+
 import { env } from '@/config/env';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
+
 import type { ApiResponse } from '@/lib/types/api.types';
-import { StatusCodes } from 'http-status-codes';
 
 class ApiError extends Error {
   constructor(public statusCode: number, message: string) {

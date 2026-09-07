@@ -2,10 +2,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { ListTodo, CheckSquare, Square } from 'lucide-react';
+
 import { staffOperationsApi } from '@/app/staff/staff_lib/staff_api/staffOperations';
 import { useStaffContext } from '@/app/staff/staff_components/StaffContext';
 import { getSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
-import { ListTodo, CheckSquare, Square } from 'lucide-react';
 import { Pagination } from '@/components/ui/Pagination';
 
 export function StaffTasksMain() {

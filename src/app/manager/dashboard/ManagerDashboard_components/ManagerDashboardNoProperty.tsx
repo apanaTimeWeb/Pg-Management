@@ -1,5 +1,6 @@
 // RESPONSIBILITY: Renders the ManagerDashboardNoProperty component.
 import { Lock } from 'lucide-react';
+
 import { clearSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
 
 export function ManagerDashboardNoProperty() {

@@ -4,11 +4,13 @@
 // Data Flow: step + formData state → Zod safeParse per-step → api.managerCheckin.commitCheckin → success/error toast
 
 import { useState, useEffect } from 'react';
-import type { ManagerCheckinFormData } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
-import { CheckinStep1Schema, CheckinStep3Schema } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
-import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+
+import { CheckinStep1Schema, CheckinStep3Schema } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
+import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
+
+import type { ManagerCheckinFormData } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
 
 export function ManagerUseManagerCheckinForm(enquiryId: string, initialEnquiryData: unknown, selectedPropertyId: string | null, userId: string | undefined) {
   const [step, setStep] = useState(1);

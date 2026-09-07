@@ -1,6 +1,7 @@
 // RESPONSIBILITY: Renders the OwnerTeamCreatePersonalDetails component. Receives data via props/hooks.
 
 import { UserPlus } from 'lucide-react';
+
 import type { StaffRoleType } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
 
 export interface OwnerTeamCreatePersonalDetailsProps {

@@ -1,7 +1,9 @@
 // RESPONSIBILITY: Renders the SuperAdminDashboardAcquisitionChart component.
 import React from 'react';
-import type { SuperAdminDashboardAcquisitionChartProps } from '@/app/superadmin/dashboard/SuperAdminDashboard_types/SuperAdminDashboard.types';
+
 import { BarChart } from '@/components/ui/charts/BarChart';
+
+import type { SuperAdminDashboardAcquisitionChartProps } from '@/app/superadmin/dashboard/SuperAdminDashboard_types/SuperAdminDashboard.types';
 
 export const SuperAdminDashboardAcquisitionChart: React.FC<SuperAdminDashboardAcquisitionChartProps> = ({ data }) => {
   return (

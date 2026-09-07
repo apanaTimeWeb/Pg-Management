@@ -80,7 +80,7 @@ export const studentOperationsApi = {
     return w ? w.balance : 0;
   },
   rechargeWallet: (studentId: string, amount: number, userId: string) => {
-    let w = db.getAll<any>('spg_wallets').find(w => w.studentId === studentId);
+    const w = db.getAll<any>('spg_wallets').find(w => w.studentId === studentId);
     if (w) {
       db.update<any>('spg_wallets', w.id, { balance: w.balance + amount, updatedAt: new Date().toISOString() });
     } else {
@@ -108,7 +108,7 @@ export const studentOperationsApi = {
     if (bal < cost) throw new Error('Insufficient wallet balance');
     
     // deduct
-    let w = db.getAll<any>('spg_wallets').find(w => w.studentId === studentId);
+    const w = db.getAll<any>('spg_wallets').find(w => w.studentId === studentId);
     if (w) db.update<any>('spg_wallets', w.id, { balance: w.balance - cost, updatedAt: new Date().toISOString() });
     
     db.insert('spg_wallet_txns', { id: createId('wtx'), studentId, type: 'debit', amount: cost, description: `${mealType} deduction`, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), createdBy: userId, updatedBy: userId, isDeleted: false });

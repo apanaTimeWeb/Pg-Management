@@ -2,17 +2,19 @@
 // DATA FLOW: API -> StaffUseStaffDashboard -> StaffDashboardMain
 
 import { useState, useEffect } from 'react';
+
 import { useStaffContext } from '@/app/staff/staff_components/StaffContext';
 import { authApi as api } from '@/app/staff/staff_lib/staff_api/StaffAuth';
-import type { FoodMenu } from '@/app/staff/staff_lib/staff_api/StaffFood';
 import { foodApi } from '@/app/staff/staff_lib/staff_api/StaffFood';
-import type { StockItem } from '@/app/staff/staff_lib/staff_api/StaffStock';
 import { stockApi } from '@/app/staff/staff_lib/staff_api/StaffStock';
-import type { StockRequest } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
 import { stockRequestsApi } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
 import { usageLogsApi } from '@/app/staff/staff_lib/staff_api/StaffUsageLogs';
 import { getSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
 import { attendanceApi } from '@/app/owner/owner_lib/owner_api/OwnerAttendance';
+
+import type { StockRequest } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
+import type { StockItem } from '@/app/staff/staff_lib/staff_api/StaffStock';
+import type { FoodMenu } from '@/app/staff/staff_lib/staff_api/StaffFood';
 
 export function StaffUseStaffDashboard() {
   const { staffRole, propertyId, loading } = useStaffContext();

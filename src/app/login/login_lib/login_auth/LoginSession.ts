@@ -9,7 +9,7 @@ export function getSession(): SessionUser | null {
     
     // Auto-migrate legacy 'tenant' role to 'student'
     if (user && (user.role as unknown) === 'tenant') {
-      user.role = "student" as any;
+      user.role = "student" as SessionUser['role'];
       localStorage.setItem('spg_current_session', JSON.stringify(user));
     }
     

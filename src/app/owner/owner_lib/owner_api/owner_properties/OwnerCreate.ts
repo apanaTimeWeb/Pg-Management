@@ -2,8 +2,9 @@ import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
 import { plansApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminPlans';
-import type { Property } from '@/app/owner/owner_lib/owner_api/owner_properties/OwnerTypes';
 import { listByOwner } from '@/app/owner/owner_lib/owner_api/owner_properties/OwnerRead';
+
+import type { Property } from '@/app/owner/owner_lib/owner_api/owner_properties/OwnerTypes';
 
 export function OwnerCreate(data: Partial<Property> & { ownerId: string, generateRooms?: boolean, singleRoomsCount?: number, doubleRoomsCount?: number, tripleRoomsCount?: number }) {
   // Resolve real owner ID in case user.id was passed

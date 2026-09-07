@@ -1,11 +1,12 @@
 // RESPONSIBILITY: Renders the ManagerAttendanceMain component.
 'use client';
 
-import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 import { useState } from 'react';
+import { Building } from 'lucide-react';
+
+import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
-import { Building } from 'lucide-react';
 import { Pagination } from '@/components/ui/Pagination';
 import { ManagerUseManagerAttendanceData } from '@/app/manager/attendance/ManagerAttendance_hooks/ManagerUseManagerAttendanceData';
 import { ManagerUseManagerAttendanceActions } from '@/app/manager/attendance/ManagerAttendance_hooks/ManagerUseManagerAttendanceActions';

@@ -4,11 +4,13 @@
 // Data Flow: ManagerPropertyContext → multiple APIs → ManagerDashboardStats object → ManagerDashboardPage
 
 import { useState, useEffect } from 'react';
+
 import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
-import type { mealsApi, MealStatus } from '@/app/manager/manager_lib/manager_api/ManagerMeals';
 import { attendanceApi } from '@/app/owner/owner_lib/owner_api/OwnerAttendance';
+
+import type { mealsApi, MealStatus } from '@/app/manager/manager_lib/manager_api/ManagerMeals';
 import type { StockRequest } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
 import type { ManagerDashboardStats, UseManagerDashboardReturn } from '@/app/manager/dashboard/ManagerDashboard_types/ManagerDashboard.types';
 

@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+
 import { STORAGE_KEYS } from '@/lib/storage/keys';
+
+import type { NextRequest } from 'next/server';
 
 // In a real app, you would verify a JWT or session cookie here.
 // Since we are using localStorage for the mock backend, middleware cannot easily read it.

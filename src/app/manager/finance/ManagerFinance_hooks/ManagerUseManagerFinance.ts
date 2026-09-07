@@ -1,13 +1,15 @@
 // DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerFinance.ts]
+import { useState, useEffect } from 'react';
+
 import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 // [DATA HOOK] ManagerUseManagerFinance
 // Responsibility: Loads invoices, computes rent stats, handles mark-paid and pagination with URL-agnostic local state.
 // Data Flow: ManagerPropertyContext → (api as any).finance → local state → ManagerFinancePage
 
-import { useState, useEffect } from 'react';
 import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+
 import type { 
   ManagerFinanceFilter, 
   EnrichedInvoice, 

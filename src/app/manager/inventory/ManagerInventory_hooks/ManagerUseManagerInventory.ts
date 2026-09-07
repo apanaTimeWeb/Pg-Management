@@ -1,12 +1,14 @@
 // DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerInventory.ts]
+import { useState, useEffect } from 'react';
+
 import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 // [DATA HOOK] ManagerUseManagerInventory
 // Responsibility: Manages inventory items, kitchen requests, and stock batches for the selected property.
 // Data Flow: ManagerPropertyContext → api + stockRequestsApi → local state → ManagerInventoryMain
 
-import { useState, useEffect } from 'react';
 import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
 import { stockRequestsApi } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
+
 import type { stockBatchesApi, StockBatch } from '@/app/staff/staff_lib/staff_api/StaffStock';
 import type { ManagerInventoryItem, ManagerKitchenRequest, ManagerInventoryTab } from '@/app/manager/inventory/ManagerInventory_types/ManagerInventory.types';
 

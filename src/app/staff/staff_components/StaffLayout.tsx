@@ -5,12 +5,16 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { LayoutDashboard, Utensils, Shield, Sparkles, Wrench, ListTodo, LogOut, Menu, X, ShieldAlert, Bell, Package } from 'lucide-react';
+
 import { getSession, clearSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
 import { StaffProvider, useStaffContext } from '@/app/staff/staff_components/StaffContext';
 import { useStaffI18n } from '@/app/staff/StaffI18n';
-import type { DictKey } from '@/app/staff/StaffI18n';;
+
+;
 import { StaffForcePasswordChangeModal } from '@/app/staff/staff_components/StaffForcePasswordChangeModal';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+
+import type { DictKey } from '@/app/staff/StaffI18n';
 
 const NAV_ITEMS = [
   { key: 'dashboard', href: '/staff/dashboard', icon: LayoutDashboard },

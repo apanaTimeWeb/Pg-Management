@@ -2,9 +2,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ownersApi } from '@/app/owner/owner_lib/owner_api/owners';
-import type { SuperAdminFeatureFlagOwner } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_types/SuperAdminFeatureFlags.types';
 import { toast } from 'sonner';
+
+import { ownersApi } from '@/app/owner/owner_lib/owner_api/owners';
+
+import type { SuperAdminFeatureFlagOwner } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_types/SuperAdminFeatureFlags.types';
 
 export function SuperadminUseSuperAdminFeatureFlagsData() {
   const [owners, setOwners] = useState<SuperAdminFeatureFlagOwner[]>([]);

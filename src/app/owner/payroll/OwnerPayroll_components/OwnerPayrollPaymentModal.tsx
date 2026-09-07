@@ -2,6 +2,7 @@
 
 import { X, Loader2, Banknote } from 'lucide-react';
 import { format } from 'date-fns';
+
 import type { Dispatch, SetStateAction } from 'react';
 
 export interface OwnerPayrollPaymentModalProps {

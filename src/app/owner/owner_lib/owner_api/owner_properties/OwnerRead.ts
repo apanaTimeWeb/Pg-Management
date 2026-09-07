@@ -1,5 +1,6 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
+
 import type { Property } from '@/app/owner/owner_lib/owner_api/owner_properties/OwnerTypes';
 
 export function listAll(): Property[] {

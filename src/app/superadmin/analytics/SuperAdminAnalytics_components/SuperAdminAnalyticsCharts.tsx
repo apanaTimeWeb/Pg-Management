@@ -1,7 +1,9 @@
 // RESPONSIBILITY: Renders the SuperAdminAnalyticsCharts component.
 import React from 'react';
+
 import { AreaChart } from '@/components/ui/charts/AreaChart';
 import { DonutChart } from '@/components/ui/charts/DonutChart';
+
 import type { SuperAdminAnalyticsChartsProps } from '@/app/superadmin/analytics/SuperAdminAnalytics_types/SuperAdminAnalytics.types';
 
 export const SuperAdminAnalyticsCharts: React.FC<SuperAdminAnalyticsChartsProps> = ({ revenueData, planData }) => {

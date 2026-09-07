@@ -1,7 +1,9 @@
 // RESPONSIBILITY: Renders the SuperAdminCreateOwnerPersonalFields component.
 import React from 'react';
 import { User } from 'lucide-react';
+
 import { InputError } from '@/components/ui/InputError';
+
 import type { SuperAdminCreateOwnerFieldProps } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_types/SuperAdminCreateOwner.types';
 
 export const SuperAdminCreateOwnerPersonalFields: React.FC<SuperAdminCreateOwnerFieldProps> = ({ formData, setFormData, errors }) => {

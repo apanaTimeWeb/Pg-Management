@@ -140,15 +140,16 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
   return (
     <SuperAdminRequireSuperAdmin>
       <SuperadminI18nProvider>
-                  <SuperAdminLayoutInner 
-            children={children} 
+          <SuperAdminLayoutInner 
             adminName={adminName} 
             isMobileMenuOpen={isMobileMenuOpen} 
             setIsMobileMenuOpen={setIsMobileMenuOpen} 
             navItems={navItems} 
             handleLogout={handleLogout} 
             pathname={pathname} 
-          />
+          >
+            {children}
+          </SuperAdminLayoutInner>
               </SuperadminI18nProvider>
     </SuperAdminRequireSuperAdmin>
   );

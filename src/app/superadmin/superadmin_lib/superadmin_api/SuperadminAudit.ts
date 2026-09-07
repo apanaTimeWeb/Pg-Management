@@ -1,6 +1,7 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
+
 import type { BaseEntity, Role } from '@/lib/types/models';
 export interface AuditLog extends BaseEntity {
   [key: string]: unknown;

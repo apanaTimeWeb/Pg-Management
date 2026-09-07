@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useParams } from 'next/navigation';
+
 import { SuperadminUseSuperAdminOwnerProfileData } from '@/app/superadmin/owners/[id]/SuperAdminOwnerProfile_hooks/SuperadminUseSuperAdminOwnerProfileData';
 import { SuperadminUseSuperAdminOwnerProfileActions } from '@/app/superadmin/owners/[id]/SuperAdminOwnerProfile_hooks/SuperadminUseSuperAdminOwnerProfileActions';
 import { SuperAdminOwnerProfileHeader } from '@/app/superadmin/owners/[id]/SuperAdminOwnerProfile_components/SuperAdminOwnerProfileHeader';

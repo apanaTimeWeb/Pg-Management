@@ -2,6 +2,7 @@
 'use client';
 
 import { useState } from 'react';
+
 import { ownersApi } from '@/app/owner/owner_lib/owner_api/owners';
 
 export function SuperadminUseSuperAdminOwnerProfileActions(id: string, refetch: () => void, currentStatus?: string) {

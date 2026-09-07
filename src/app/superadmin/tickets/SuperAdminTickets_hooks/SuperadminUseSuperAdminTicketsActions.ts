@@ -2,9 +2,11 @@
 'use client';
 
 import { useState } from 'react';
+
 import { ticketsApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminTickets';
-import type { CreateTicketFormData } from '@/app/superadmin/tickets/SuperAdminTickets_types/SuperAdminTickets.types';
 import { DEFAULT_CREATE_TICKET_FORM_DATA } from '@/app/superadmin/tickets/SuperAdminTickets_utils/SuperAdminTickets.constants';
+
+import type { CreateTicketFormData } from '@/app/superadmin/tickets/SuperAdminTickets_types/SuperAdminTickets.types';
 
 export function SuperadminUseSuperAdminTicketsActions(refetch: () => void) {
   const [createModal, setCreateModal] = useState(false);

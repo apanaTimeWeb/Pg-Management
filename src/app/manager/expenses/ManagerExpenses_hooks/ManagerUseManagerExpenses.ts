@@ -1,5 +1,4 @@
 // DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerExpenses.ts]
-import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 // [DATA HOOK] ManagerUseManagerExpenses
 // Responsibility: Fetches expense list and handles add/delete expense mutations with toast feedback.
 // Data Flow: ManagerPropertyContext → (api as any).finance.listExpenses → local state → ManagerExpensesMain
@@ -8,10 +7,14 @@ import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
 import { toast } from 'sonner';
-import type { ExpenseFormData } from '@/app/manager/expenses/ManagerExpenses_types/ManagerExpenses.types';
+
+import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
+import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 import { ExpenseFormSchema } from '@/app/manager/expenses/ManagerExpenses_types/ManagerExpenses.types';
+
+import type { ExpenseFormData } from '@/app/manager/expenses/ManagerExpenses_types/ManagerExpenses.types';
+
 
 export function ManagerUseManagerExpenses(selectedPropertyId: string | null, propsLoading: boolean, userId: string | undefined) {
   
@@ -24,7 +27,7 @@ export function ManagerUseManagerExpenses(selectedPropertyId: string | null, pro
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // React Hook Form with Zod resolver — replaces all manual useState + validation
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   const form = useForm<ExpenseFormData>({
 // @ts-expect-error
     resolver: zodResolver(ExpenseFormSchema) as unknown,

@@ -1,5 +1,6 @@
 // RESPONSIBILITY: Renders the ManagerExpensesList component.
 import { Receipt, IndianRupee } from 'lucide-react';
+
 import { formatDateOnly } from '@/lib/utils/formatters';
 import { Pagination } from '@/components/ui/Pagination';
 

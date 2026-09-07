@@ -4,14 +4,16 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
-import type { TeamMember } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
-import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { 
   ArrowLeft, User, Phone, Mail, IndianRupee, Clock, Calendar, 
   Building2, CheckCircle2, XCircle, ShieldCheck
 } from 'lucide-react';
 import Link from 'next/link';
+
+import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
+import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
+
+import type { TeamMember } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
 
 export function OwnerTeamDetailsMain() {
   const params = useParams();

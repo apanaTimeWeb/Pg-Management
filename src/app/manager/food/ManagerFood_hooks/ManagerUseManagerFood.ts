@@ -4,8 +4,10 @@
 // Data Flow: ManagerPropertyContext → (api as any).food → local state → ManagerFoodPage
 
 import { useState, useEffect } from 'react';
+
 import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
+
 import type { FoodMenu } from '@/app/staff/staff_lib/staff_api/StaffFood';
 import type { UseManagerFoodReturn } from '@/app/manager/food/ManagerFood_types/ManagerFood.types';
 

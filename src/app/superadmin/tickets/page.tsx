@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+
 import { SuperAdminTicketsHeader } from '@/app/superadmin/tickets/SuperAdminTickets_components/SuperAdminTicketsHeader';
 import { SuperAdminTicketsTable } from '@/app/superadmin/tickets/SuperAdminTickets_components/SuperAdminTicketsTable';
 import { SuperAdminTicketsCreateModal } from '@/app/superadmin/tickets/SuperAdminTickets_components/SuperAdminTicketsCreateModal';

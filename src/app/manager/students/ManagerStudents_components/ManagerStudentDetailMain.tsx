@@ -2,12 +2,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
 import { useParams, useRouter } from 'next/navigation';
-import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
-import { studentOperationsApi } from '@/app/student/student_lib/student_api/StudentOperations';
 import { ArrowLeft, User, MapPin, Calendar, IndianRupee, LogOut, Utensils, Clock } from 'lucide-react';
 import Link from 'next/link';
+
+import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
+import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+import { studentOperationsApi } from '@/app/student/student_lib/student_api/StudentOperations';
 import { ManagerBillUploadModal } from '@/app/manager/students/ManagerStudents_components/ManagerBillUploadModal';
 import { financeApi } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
 

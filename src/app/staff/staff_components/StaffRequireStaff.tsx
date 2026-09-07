@@ -2,6 +2,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+
 import { getSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
 
 export function StaffRequireStaff({ children }: { children: React.ReactNode }) {

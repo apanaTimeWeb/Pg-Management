@@ -3,15 +3,17 @@
 // RESPONSIBILITY: Renders the OwnerTeamMain component. Receives data via props/hooks.
 
 import { useState, useEffect } from 'react';
+import { Plus, Search, Filter, ShieldCheck, Wrench, Utensils, Shield, Sparkles, Building2, UserPlus } from 'lucide-react';
+import Link from 'next/link';
+
 import { teamApi as api } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
-import { Plus, Search, Filter, ShieldCheck, Wrench, Utensils, Shield, Sparkles, Building2, UserPlus } from 'lucide-react';
-import Link from 'next/link';
 import { OWNER_URLS } from '@/app/owner/owner_url_config';
-import type { TeamMember, StaffRoleType } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
 import { Pagination } from '@/components/ui/Pagination';
 import { useTableSync } from '@/lib/hooks/useTableSync';
+
+import type { TeamMember, StaffRoleType } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
 
 const ROLE_ICONS: Record<StaffRoleType, any> = {
   manager: ShieldCheck,
@@ -110,7 +112,7 @@ export function OwnerTeamMain() {
           
           <select 
             value={roleFilter}
-            onChange={(e) => setRoleFilter(arguments[0] as any)}
+            onChange={(e) => setRoleFilter(e.target.value as any)}
             className="bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:border-primary"
           >
             <option value="all">All Roles</option>

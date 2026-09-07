@@ -1,7 +1,10 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
-import type { User } from '@/lib/types/models';;
+
+import type { User } from '@/lib/types/models';
+
+;
 import { managerEnquiriesApi } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
 
 export const managerCheckinApi = {
@@ -121,7 +124,7 @@ export const managerCheckinApi = {
 
     // Generate Rent Schedule (Invoices)
     let totalDues = 0;
-    let current = new Date(stayStartDate);
+    const current = new Date(stayStartDate);
     while (current <= stayEndDate) {
       const monthYear = current.toLocaleString('default', { month: 'short', year: 'numeric' });
       db.insert(STORAGE_KEYS.INVOICES, {

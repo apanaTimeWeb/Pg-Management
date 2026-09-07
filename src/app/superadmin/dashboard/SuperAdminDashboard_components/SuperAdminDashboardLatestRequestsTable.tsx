@@ -2,6 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
+
 import type { SuperAdminDashboardLatestRequestsTableProps } from '@/app/superadmin/dashboard/SuperAdminDashboard_types/SuperAdminDashboard.types';
 
 export const SuperAdminDashboardLatestRequestsTable: React.FC<SuperAdminDashboardLatestRequestsTableProps> = ({ requests }) => {

@@ -3,6 +3,7 @@
 // Responsibility: Renders the expense creation modal wired to React Hook Form.
 // Receives: RHF UseFormReturn to register fields and display inline errors.
 import { IndianRupee, Loader2 } from 'lucide-react';
+
 import type { UseFormReturn } from 'react-hook-form';
 import type { ExpenseFormData } from '@/app/manager/expenses/ManagerExpenses_types/ManagerExpenses.types';
 

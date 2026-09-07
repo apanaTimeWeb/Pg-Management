@@ -1,5 +1,6 @@
 // RESPONSIBILITY: Renders the SuperAdminSettingsHeader component.
 import React from 'react';
+
 import type { SuperAdminSettingsHeaderProps } from '@/app/superadmin/settings/SuperAdminSettings_types/SuperAdminSettings.types';
 
 export const SuperAdminSettingsHeader: React.FC<SuperAdminSettingsHeaderProps> = () => {

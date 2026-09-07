@@ -1,5 +1,6 @@
 // RESPONSIBILITY: Renders the ManagerEnquiriesModals component.
 import { MessageCircle, Home, Tag } from 'lucide-react';
+
 import type { Enquiry } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
 import type { EnquiryFormData } from '@/app/manager/enquiries/ManagerEnquiries_types/ManagerEnquiries.types';
 

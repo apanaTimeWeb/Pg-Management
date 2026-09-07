@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+
 import { ManagerInventoryMain } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryMain';
 
 export default function ManagerInventoryPage() {

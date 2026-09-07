@@ -2,8 +2,9 @@
 'use client';
 
 import { useState } from 'react';
-import { settingsApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminSettings';
 import { toast } from 'sonner';
+
+import { settingsApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminSettings';
 
 export function SuperadminUseSuperAdminSettingsDataSync() {
   const [isImporting, setIsImporting] = useState(false);

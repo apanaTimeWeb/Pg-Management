@@ -4,7 +4,9 @@
 // Uses React Hook Form + Zod (GateLogFormSchema) for validation and reset.
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+
 import { GateLogFormSchema } from '@/app/manager/gate-logs/ManagerGateLogs_types/ManagerGateLogs.types';
+
 import type { GateLogFormData } from '@/app/manager/gate-logs/ManagerGateLogs_types/ManagerGateLogs.types';
 
 interface ManagerGateLogsFormProps {
@@ -12,7 +14,7 @@ interface ManagerGateLogsFormProps {
 }
 
 export function ManagerGateLogsForm({ handleAdd }: ManagerGateLogsFormProps) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<GateLogFormData>({
 // @ts-expect-error
     resolver: zodResolver(GateLogFormSchema) as unknown,

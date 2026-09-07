@@ -1,11 +1,13 @@
 // DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerRooms.ts]
+import { useState, useEffect } from 'react';
+
 import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 // [DATA HOOK] ManagerUseManagerRooms
 // Responsibility: Fetches enriched room data (occupancy, beds, tenants) for the selected property.
 // Data Flow: ManagerPropertyContext → api → local state → ManagerRoomsMain
 
-import { useState, useEffect } from 'react';
 import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
+
 import type { ManagerRoomData } from '@/app/manager/rooms/ManagerRooms_types/ManagerRooms.types';
 
 export function ManagerUseManagerRooms(selectedPropertyId: string | null, ctxLoading: boolean, userId: string | undefined) {

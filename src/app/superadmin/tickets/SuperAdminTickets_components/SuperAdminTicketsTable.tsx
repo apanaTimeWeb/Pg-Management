@@ -1,6 +1,7 @@
 // RESPONSIBILITY: Renders the SuperAdminTicketsTable component.
 import React from 'react';
 import { Search } from 'lucide-react';
+
 import { StatusBadge } from '@/components/ui/statusBadgeConfig';
 import { Pagination } from '@/components/ui/Pagination';
 import { type SuperAdminTicketsTableProps, type SuperAdminTicket } from '@/app/superadmin/tickets/SuperAdminTickets_types/SuperAdminTickets.types';

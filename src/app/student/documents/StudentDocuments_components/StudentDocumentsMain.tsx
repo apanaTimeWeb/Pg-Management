@@ -2,8 +2,9 @@
 'use client';
 
 import { useState } from 'react';
-import { useStudentContext } from '@/app/student/student_components/StudentContext';
 import { FileText, Download, CheckCircle, X, ExternalLink } from 'lucide-react';
+
+import { useStudentContext } from '@/app/student/student_components/StudentContext';
 import { getSession } from '@/app/student/student_lib/student_auth/StudentSession';
 
 export function StudentDocumentsMain() {
@@ -108,7 +109,7 @@ export function StudentDocumentsMain() {
                   <div>
                     {profile.agreementAccepted ? (
                       <div className="h-10 text-success font-bold italic flex items-end">
-                        Digitally Accepted ({new Date(profile.agreementTimestamp || Date.now()).toLocaleDateString('en-IN')})
+                        Digitally Accepted ({new Date(profile.agreementTimestamp || 0).toLocaleDateString('en-IN')})
                       </div>
                     ) : (
                       <div className="border-b border-gray-400 h-10 w-48 text-red-500 italic flex items-end text-sm">Not Signed</div>

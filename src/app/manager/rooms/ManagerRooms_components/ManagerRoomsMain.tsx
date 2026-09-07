@@ -1,13 +1,14 @@
 // RESPONSIBILITY: Renders the ManagerRoomsMain component.
 'use client';
 
+import { useState } from 'react';
+
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
 import { ManagerUseManagerRooms } from '@/app/manager/rooms/ManagerRooms_hooks/ManagerUseManagerRooms';
 import { ManagerRoomsKPIs } from '@/app/manager/rooms/ManagerRooms_components/ManagerRoomsKPIs';
 import { ManagerRoomsFilters } from '@/app/manager/rooms/ManagerRooms_components/ManagerRoomsFilters';
 import { ManagerRoomsTable } from '@/app/manager/rooms/ManagerRooms_components/ManagerRoomsTable';
-import { useState } from 'react';
 
 export function ManagerRoomsMain() {
   const user = typeof window !== 'undefined' ? getSession() : null;

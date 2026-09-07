@@ -4,9 +4,11 @@
 // RESPONSIBILITY: Renders the OwnerPropertyContext component. Receives data via props/hooks.
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+
 import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
-import type { Property } from '@/app/owner/owner_lib/owner_api/OwnerProperties';
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
+
+import type { Property } from '@/app/owner/owner_lib/owner_api/OwnerProperties';
 
 interface OwnerPropertyContextType {
   selectedPropertyId: string | 'all';

@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { AlertTriangle } from 'lucide-react';
+
 import { STAFF_ROUTES } from '@/app/staff/staff_url_config';
 
 export default function StaffError({

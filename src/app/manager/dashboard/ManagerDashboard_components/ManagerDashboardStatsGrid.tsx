@@ -8,6 +8,7 @@ import {
   Wallet, 
   Clock 
 } from 'lucide-react';
+
 import type { ManagerDashboardStats } from '@/app/manager/dashboard/ManagerDashboard_types/ManagerDashboard.types';
 
 export function ManagerDashboardStatsGrid({ stats }: { stats: ManagerDashboardStats | null }) {

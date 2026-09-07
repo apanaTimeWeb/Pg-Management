@@ -2,8 +2,9 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
-import type { User } from '@/lib/types/models';
 import { ownerRequestsApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminOwnerRequests';
+
+import type { User } from '@/lib/types/models';
 
 export function createOwner(data: unknown) {
   // 1. Validate unique email in users
