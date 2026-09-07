@@ -6,7 +6,7 @@ import type { BaseEntity } from '@/lib/types';
 
 export interface StaffAttendance extends BaseEntity {
   propertyId: string;
-  staffUserId: string; // the userId of the staff
+  staffUserId?: string; staffId?: string; // the userId of the staff
   date: string; // YYYY-MM-DD
   status: 'present';
   markedAt: string; // ISO timestamp
@@ -18,7 +18,7 @@ export const attendanceApi = {
     
     // Check if already marked
     const existing = db.getAll<StaffAttendance>(STORAGE_KEYS.STAFF_ATTENDANCE || 'spg_staff_attendance')
-      .find(a => a.propertyId === propertyId && a.staffUserId === staffUserId && a.date === today && !a.isDeleted);
+      .find(a => a.propertyId === propertyId && (a.staffUserId || a.staffId) === staffUserId && a.date === today && !a.isDeleted);
       
     if (existing) return existing;
 
@@ -44,7 +44,7 @@ export const attendanceApi = {
   getTodayStatus: (propertyId: string, staffUserId: string): boolean => {
     const today = new Date().toISOString().split('T')[0];
     const existing = db.getAll<StaffAttendance>(STORAGE_KEYS.STAFF_ATTENDANCE || 'spg_staff_attendance')
-      .find(a => a.propertyId === propertyId && a.staffUserId === staffUserId && a.date === today && !a.isDeleted);
+      .find(a => a.propertyId === propertyId && (a.staffUserId || a.staffId) === staffUserId && a.date === today && !a.isDeleted);
     return !!existing;
   },
 

@@ -1,7 +1,8 @@
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 
-import type { Property, propertiesApi } from '@/app/owner/owner_lib/owner_api/OwnerProperties';
+import type { Property } from '@/app/owner/owner_lib/owner_api/OwnerProperties';
+import { propertiesApi } from '@/app/owner/owner_lib/owner_api/OwnerProperties';
 
 export interface OwnerDashboardMetrics {
   totalPGs: number;
@@ -29,7 +30,6 @@ export interface OwnerDashboardMetrics {
 
 export const dashboardApi = {
   getOwnerMetrics: (ownerId: string, selectedPropertyId: string | 'all'): OwnerDashboardMetrics => {
-// @ts-expect-error
     const allProps = propertiesApi.listByOwner(ownerId);
     
     // Filter properties context

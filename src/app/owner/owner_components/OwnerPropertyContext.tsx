@@ -31,7 +31,10 @@ const OwnerPropertyContext = createContext<OwnerPropertyContextType>({
 export const useOwnerPropertyContext = () => useContext(OwnerPropertyContext);
 
 export function OwnerPropertyProvider({ children }: { children: React.ReactNode }) {
-  const user = typeof window !== 'undefined' ? getSession() : null;
+  const [user, setUser] = useState<any>(null);
+  useEffect(() => {
+    if (typeof window !== 'undefined') setUser(getSession());
+  }, []);
   const [selectedPropertyId, setPropertyId] = useState<string | 'all'>('all');
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);

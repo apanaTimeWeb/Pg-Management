@@ -46,7 +46,7 @@ export function OwnerSubscriptionMain() {
     // Fetch owner and plan data
 // @ts-expect-error
     const ownerRecord = ownersApi.listOwners().find((o: unknown) => o.userId === user.id);
-    const plans = plansApi.listPlans();
+    const plans = plansApi.listPlans() || [];
     
     const activePlan = ownerRecord?.planId && ownerRecord.planId !== 'none' && ownerRecord.planId !== 'None' 
 
@@ -205,7 +205,7 @@ export function OwnerSubscriptionMain() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {allPlans.map((p: any) => {
+          {(allPlans || []).map((p: any) => {
             const isActive = plan?.id === p.id;
 
             return (
@@ -246,7 +246,7 @@ export function OwnerSubscriptionMain() {
                   </div>
                   
                   {/* Features */}
-                  {p.features.map((feat: string, idx: number) => (
+                  {(p.features || []).map((feat: string, idx: number) => (
                     <div key={idx} className="flex items-start gap-3 text-[14px] text-secondary">
                       <ShieldCheck className="w-4 h-4 text-success shrink-0 mt-0.5" />
                       <span className="capitalize">{feat.replace(/_/g, ' ')}</span>

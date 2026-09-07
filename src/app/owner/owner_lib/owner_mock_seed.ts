@@ -10,13 +10,20 @@
  */
 
 const OWNER_SEED_KEY = 'spg_owner_demo_seeded_v1';
-const OWNER_ID = 'owner_demo_1';
+
 const PROP_1_ID = 'prop_1';
 const PROP_2_ID = 'prop_2';
 
+import { getSession } from './owner_auth/OwnerSession';
+
 function seedIfNeeded(): void {
+  const currentSession = getSession();
+  const OWNER_ID = currentSession && currentSession.role === 'owner' ? currentSession.id : 'owner_demo_1';
+
   if (typeof window === 'undefined') return;
-  if (localStorage.getItem(OWNER_SEED_KEY)) return;
+  const isSeeded = localStorage.getItem(OWNER_SEED_KEY);
+  const hasProps = localStorage.getItem('spg_properties');
+  if (isSeeded && hasProps && hasProps.length > 10) return;
 
   const now = new Date().toISOString();
   const thisMonth = now.slice(0, 7);
@@ -24,14 +31,16 @@ function seedIfNeeded(): void {
   // ─────────────────────────────────────────────────
   // 1. SESSION — Auto-login as owner
   // ─────────────────────────────────────────────────
-  const session = {
-    id: OWNER_ID,
-    role: 'owner',
-    name: 'Satya Prakash',
-    email: 'satya@spgplatform.com',
-    mustChangePassword: false,
-  };
-  localStorage.setItem('spg_current_session', JSON.stringify(session));
+  if (!currentSession || currentSession.role !== 'owner') {
+    const session = {
+      id: OWNER_ID,
+      role: 'owner',
+      name: 'Satya Prakash',
+      email: 'satya@spgplatform.com',
+      mustChangePassword: false,
+    };
+    localStorage.setItem('spg_current_session', JSON.stringify(session));
+  }
 
   // ─────────────────────────────────────────────────
   // 2. PROPERTIES
@@ -47,9 +56,9 @@ function seedIfNeeded(): void {
       nightEntryTime: '22:00', noticePeriodDays: 30,
       messEnabled: true, visitorCutoff: '20:00',
       defaultDeposit: 10000, rentCycleDate: 1, photos: [],
-      bedsPlanned: 30,
+      bedsPlanned: 30, isDeleted: false,
       createdAt: '2023-01-15T00:00:00Z', updatedAt: now,
-      createdBy: OWNER_ID, updatedBy: OWNER_ID, isDeleted: false,
+      createdBy: OWNER_ID, updatedBy: OWNER_ID,
     },
     {
       id: PROP_2_ID, ownerId: OWNER_ID,
@@ -63,7 +72,7 @@ function seedIfNeeded(): void {
       defaultDeposit: 8000, rentCycleDate: 1, photos: [],
       bedsPlanned: 20,
       createdAt: '2023-03-10T00:00:00Z', updatedAt: now,
-      createdBy: OWNER_ID, updatedBy: OWNER_ID, isDeleted: false,
+      createdBy: OWNER_ID, updatedBy: OWNER_ID,
     },
   ];
   localStorage.setItem('spg_properties', JSON.stringify(properties));
@@ -116,6 +125,11 @@ function seedIfNeeded(): void {
   // ─────────────────────────────────────────────────
   // 5. USERS (students + owner user record)
   // ─────────────────────────────────────────────────
+  const owners = [
+    { id: OWNER_ID, userId: OWNER_ID, name: currentSession?.name || 'Satya Prakash', email: currentSession?.email || 'satya@spgplatform.com', phone: '9876543210', companyName: 'SmartPG', planId: 'p2', createdAt: now, updatedAt: now, isDeleted: false }
+  ];
+  localStorage.setItem('spg_owners', JSON.stringify(owners));
+
   const users = [
     { id: OWNER_ID, role: 'owner', name: 'Satya Prakash', email: 'satya@spgplatform.com', phone: '9876543210', password: 'demo123', status: 'Active', ownerId: OWNER_ID, createdAt: now, updatedAt: now, isDeleted: false },
     { id: 'student_1', role: 'student', name: 'Arjun Mehta', email: 'arjun@example.com', phone: '9001234501', password: 'pass123', status: 'Active', propertyId: PROP_1_ID, ownerId: OWNER_ID, createdAt: '2024-01-01T00:00:00Z', updatedAt: now, isDeleted: false },
@@ -277,4 +291,4 @@ function seedIfNeeded(): void {
   localStorage.setItem(OWNER_SEED_KEY, 'true');
 }
 
-export { seedIfNeeded, OWNER_ID, PROP_1_ID, PROP_2_ID };
+export { seedIfNeeded, PROP_1_ID, PROP_2_ID };

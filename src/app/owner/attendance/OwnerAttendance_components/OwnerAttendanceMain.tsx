@@ -12,7 +12,8 @@ import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPrope
 import { Pagination } from '@/components/ui/Pagination';
 import { useTableSync } from '@/lib/hooks/useTableSync';
 
-import type { attendanceApi, StaffAttendance } from '@/app/owner/owner_lib/owner_api/OwnerAttendance';
+import { attendanceApi } from '@/app/owner/owner_lib/owner_api/OwnerAttendance';
+import type { StaffAttendance } from '@/app/owner/owner_lib/owner_api/OwnerAttendance';
 import type { TeamMember } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
 ;
 
@@ -38,7 +39,6 @@ export function OwnerAttendanceMain() {
     setStaff(allStaff);
 
     // Get attendance for the selected date
-// @ts-expect-error
     const attData = attendanceApi.getAttendanceByOwner(user.id, dateStr);
     setAttendance(attData);
 
@@ -52,12 +52,12 @@ export function OwnerAttendanceMain() {
 
   const filteredStaff = staff.filter(s => {
     // Property filter (check if assignedPropertyIds includes selectedPropertyId)
-    if (selectedPropertyId !== 'all' && !s.user.assignedPropertyIds?.includes(selectedPropertyId)) return false;
+    if (selectedPropertyId !== 'all' && !s?.user?.assignedPropertyIds?.includes(selectedPropertyId)) return false;
     
     // Search
     if (debouncedSearch) {
       const sq = debouncedSearch.toLowerCase();
-      return s.user.name?.toLowerCase().includes(sq) || s.profile.staffType?.toLowerCase().includes(sq);
+      return s?.user?.name?.toLowerCase().includes(sq) || s?.profile?.staffType?.toLowerCase().includes(sq);
     }
     
     return true;
@@ -127,18 +127,18 @@ export function OwnerAttendanceMain() {
               </thead>
               <tbody className="divide-y divide-[var(--border)]">
                 {paginatedData.map((s: any) => {
-                  const markedAt = getAttendanceStatus(s.user.id);
+                  const markedAt = getAttendanceStatus(s?.user?.id);
                   const assignedProps = s.user.assignedPropertyIds?.map((pid: any) => properties.find(p => p.id === pid)?.name).filter(Boolean) || [];
                   
                   return (
-                    <tr key={s.user.id} className="hover:bg-[rgba(99,102,241,0.01)] motion-safe:transition-colors">
+                    <tr key={s?.user?.id} className="hover:bg-[rgba(99,102,241,0.01)] motion-safe:transition-colors">
                       <td className="px-6 py-4">
-                        <div className="font-bold text-primary">{s.user.name}</div>
+                        <div className="font-bold text-primary">{s?.user?.name}</div>
                         <div className="text-xs text-secondary">{s.user.phone}</div>
                       </td>
                       <td className="px-6 py-4">
                         <span className="px-2 py-1 bg-input rounded text-xs font-bold capitalize text-primary">
-                          {s.profile.staffType}
+                          {s?.profile?.staffType}
                         </span>
                       </td>
                       <td className="px-6 py-4">

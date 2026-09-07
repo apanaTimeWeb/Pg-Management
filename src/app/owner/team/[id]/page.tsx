@@ -2,6 +2,6 @@
 
 import { OwnerTeamDetailsMain } from '@/app/owner/team/[id]/OwnerTeamDetails_components/OwnerTeamDetailsMain';
 
-export default function TeamMemberProfilePage() {
+export default function Page({ params }: { params: Promise<{ id: string }> }) {
   return <OwnerTeamDetailsMain />;
 }
