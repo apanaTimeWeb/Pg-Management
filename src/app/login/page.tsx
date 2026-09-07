@@ -5,7 +5,7 @@ import { authApi as api } from '@/app/login/login_lib/login_api/LoginAuth';
 import { setSession } from '@/app/login/login_lib/login_auth/LoginSession';
 import { Shield, Briefcase, Users, Utensils, UserCheck, Heart, Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
-import { ThemeToggle } from '@/components/public/ThemeToggle';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const DEMO_ACCOUNTS = [
   { id: 'superadmin', label: 'SuperAdmin', email: 'superadmin@gmail.com', password: 'Super@123', icon: Shield },

@@ -5,14 +5,14 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { ownerRequestsApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminOwnerRequests';
 import { ownersApi } from '@/app/owner/owner_lib/owner_api/owners';
-import { useToast } from '@/components/shared/ToastContext';
+import { toast } from 'sonner';
 import { OwnerFormData, OwnerFormErrors, CreatedCredentials } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_types/SuperAdminCreateOwner.types';
 import { DEFAULT_CREATE_OWNER_FORM_DATA, PLAN_LIMITS } from '@/app/superadmin/create-owner/SuperAdminCreateOwner_utils/SuperAdminCreateOwner.constants';
 
 export function SuperadminUseSuperAdminCreateOwner() {
   const searchParams = useSearchParams();
   const requestId = searchParams.get('requestId');
-  const { showToast } = useToast();
+  
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -62,7 +62,7 @@ export function SuperadminUseSuperAdminCreateOwner() {
     
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) {
-      showToast('Please fix the errors before submitting.', 'error');
+      toast.error('Please fix the errors before submitting.');
       return false;
     }
     return true;
@@ -78,7 +78,7 @@ export function SuperadminUseSuperAdminCreateOwner() {
       setCreatedCreds({ email: formData.email, password: formData.temporaryPassword });
       setSuccess(true);
     } catch (err: any) {
-      showToast(err.message || 'Failed to create owner.', 'error');
+      toast.error(err.message || 'Failed to create owner.');
     } finally {
       setLoading(false);
     }

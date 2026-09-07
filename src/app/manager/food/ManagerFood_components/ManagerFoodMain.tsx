@@ -1,12 +1,12 @@
 // RESPONSIBILITY: Renders the ManagerFoodMain component.
 'use client';
 
-import { useManagerFood } from '@/app/manager/food/ManagerFood_hooks/ManagerUseManagerFood';
+import { ManagerUseManagerFood } from '@/app/manager/food/ManagerFood_hooks/ManagerUseManagerFood';
 import { ManagerFoodEmptyState } from '@/app/manager/food/ManagerFood_components/ManagerFoodEmptyState';
 import { ManagerFoodWeeklySchedule } from '@/app/manager/food/ManagerFood_components/ManagerFoodWeeklySchedule';
 
 export function ManagerFoodMain() {
-  const { loading, menu, selectedPropertyId, ctxLoading } = useManagerFood();
+  const { loading, menu, selectedPropertyId, ctxLoading } = ManagerUseManagerFood();
 
   if (ctxLoading || loading) {
     return <div className="p-6 animate-pulse">Loading menu...</div>;

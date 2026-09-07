@@ -12,8 +12,8 @@ import {
   Users, AlertCircle, Utensils, UserPlus, Clock, LogOut, Radio, FileText, Archive, IndianRupee, Receipt,
   Menu, X, ShieldAlert, Building2
 } from 'lucide-react';
-import { ForcePasswordChangeModal } from '@/components/shared/ForcePasswordChangeModal';
-import { ThemeToggle } from '@/components/public/ThemeToggle';
+import { ManagerForcePasswordChangeModal } from './ManagerForcePasswordChangeModal';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const MENU_ITEMS = [
   { key: 'dashboard', icon: LayoutDashboard, href: '/manager/dashboard' },
@@ -57,7 +57,7 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-[var(--bg-page)] flex flex-col md:flex-row text-[var(--text-primary)]">
-      <ForcePasswordChangeModal 
+      <ManagerForcePasswordChangeModal 
         user={user} 
         onSuccess={() => setForcePasswordChange(false)} 
       />

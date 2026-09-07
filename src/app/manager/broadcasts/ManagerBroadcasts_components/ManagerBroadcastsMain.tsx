@@ -1,6 +1,6 @@
 // RESPONSIBILITY: Renders the ManagerBroadcastsMain component.
 'use client';
-import { useManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
+import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 
 
 import { useState, useEffect } from 'react';
@@ -8,7 +8,7 @@ import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAut
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { Radio, Users, Building, AlertTriangle } from 'lucide-react';
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
-import { Pagination } from '@/components/shared/Pagination';
+import { Pagination } from '@/components/ui/Pagination';
 
 export default function ManagerBroadcastsMain() {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
@@ -28,7 +28,7 @@ export default function ManagerBroadcastsMain() {
   }, [selectedPropertyId, ctxLoading]);
 
   // Pagination
-  const { currentPage, setCurrentPage } = useManagerUrlPagination(1);
+  const { currentPage, setCurrentPage } = ManagerUseManagerUrlPagination(1);
   const itemsPerPage = 10;
 
   useEffect(() => {

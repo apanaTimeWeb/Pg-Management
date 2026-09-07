@@ -1,10 +1,9 @@
 // RESPONSIBILITY: Renders the OwnerLayout component. Receives data via props/hooks.
 
 import { Metadata } from 'next';
-import { RequireOwner } from '@/app/owner/owner_components/OwnerRequireOwner';
+import { OwnerRequireOwner } from '@/app/owner/owner_components/OwnerRequireOwner';
 import { OwnerPropertyProvider } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { OwnerLayout } from '@/app/owner/owner_components/OwnerLayout';
-import { ToastProvider } from '@/components/shared/ToastContext';
 import { OwnerI18nProvider } from '@/app/owner/OwnerI18n';
 
 export const metadata: Metadata = {
@@ -13,16 +12,14 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <RequireOwner>
+    <OwnerRequireOwner>
       <OwnerI18nProvider>
-        <ToastProvider>
-          <OwnerPropertyProvider>
+                  <OwnerPropertyProvider>
             <OwnerLayout>
               {children}
             </OwnerLayout>
           </OwnerPropertyProvider>
-        </ToastProvider>
-      </OwnerI18nProvider>
-    </RequireOwner>
+              </OwnerI18nProvider>
+    </OwnerRequireOwner>
   );
 }

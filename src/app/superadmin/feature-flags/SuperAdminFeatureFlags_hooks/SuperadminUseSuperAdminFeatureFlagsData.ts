@@ -4,13 +4,13 @@
 import { useState, useEffect } from 'react';
 import { ownersApi } from '@/app/owner/owner_lib/owner_api/owners';
 import { SuperAdminFeatureFlagOwner } from '@/app/superadmin/feature-flags/SuperAdminFeatureFlags_types/SuperAdminFeatureFlags.types';
-import { useToast } from '@/components/shared/ToastContext';
+import { toast } from 'sonner';
 
 export function SuperadminUseSuperAdminFeatureFlagsData() {
   const [owners, setOwners] = useState<SuperAdminFeatureFlagOwner[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const { showToast } = useToast();
+  
   
   const availableFeatures = ['whatsapp_alerts', 'custom_domain', 'smart_meters', 'payment_gateway'];
 

@@ -1,5 +1,5 @@
 // DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerEnquiries.ts]
-import { useManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
+import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 // [DATA HOOK] ManagerUseManagerEnquiries
 // Responsibility: Manages enquiry Kanban board state, form state, and status transitions.
 // Data Flow: ManagerPropertyContext → api.managerEnquiries → local state → ManagerEnquiriesMain
@@ -94,7 +94,7 @@ export function ManagerUseManagerEnquiries(selectedPropertyId: string | null, ct
   };
 
   // Pagination for Lost Enquiries
-  const { currentPage, setCurrentPage } = useManagerUrlPagination(1);
+  const { currentPage, setCurrentPage } = ManagerUseManagerUrlPagination(1);
   const itemsPerPage = 12;
 
   // Reset to page 1 whenever search query, property, or active tab changes to avoid empty pages.

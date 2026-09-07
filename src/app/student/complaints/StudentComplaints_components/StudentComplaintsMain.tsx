@@ -6,7 +6,7 @@ import { studentOperationsApi } from '@/app/student/student_lib/student_api/Stud
 import { useStudentContext } from '@/app/student/student_components/StudentContext';
 import { MessageSquareWarning, Plus } from 'lucide-react';
 import Link from 'next/link';
-import { Pagination } from '@/components/shared/Pagination';
+import { Pagination } from '@/components/ui/Pagination';
 
 export function StudentComplaintsMain() {
   const { profile } = useStudentContext();

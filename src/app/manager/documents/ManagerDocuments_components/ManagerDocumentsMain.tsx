@@ -1,13 +1,13 @@
 // RESPONSIBILITY: Renders the ManagerDocumentsMain component.
 'use client';
-import { useManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
+import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 
 
 import { useState, useEffect } from 'react';
 import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { FileText, Download } from 'lucide-react';
-import { Pagination } from '@/components/shared/Pagination';
+import { Pagination } from '@/components/ui/Pagination';
 
 export function ManagerDocumentsMain() {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
@@ -20,7 +20,7 @@ export function ManagerDocumentsMain() {
   }, [selectedPropertyId, ctxLoading]);
 
   // Pagination
-  const { currentPage, setCurrentPage } = useManagerUrlPagination(1);
+  const { currentPage, setCurrentPage } = ManagerUseManagerUrlPagination(1);
   const itemsPerPage = 10;
 
   useEffect(() => {

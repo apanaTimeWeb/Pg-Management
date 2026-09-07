@@ -10,7 +10,7 @@ import { authApi as api } from '@/app/staff/staff_lib/staff_api/StaffAuth';
 import { mealsApi, MealType, MealStatusType } from '@/app/staff/staff_lib/staff_api/StaffMeals';
 import { stockRequestsApi } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
 import { attendanceApi } from '@/app/owner/owner_lib/owner_api/OwnerAttendance';
-import { Pagination } from '@/components/shared/Pagination';
+import { Pagination } from '@/components/ui/Pagination';
 
 export function StaffCookMain() {
   const { propertyId } = useStaffContext();

@@ -12,8 +12,8 @@ import { StudentMember } from '@/app/student/student_lib/student_api/StudentStud
 import { formatINR } from '@/lib/utils/formatters';
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
-import { Pagination } from '@/components/shared/Pagination';
-import { useTableSync } from '@/hooks/useTableSync';
+import { Pagination } from '@/components/ui/Pagination';
+import { useTableSync } from '@/lib/hooks/useTableSync';
 
 export function OwnerStudentsMain() {
   const user = typeof window !== 'undefined' ? getSession() : null;

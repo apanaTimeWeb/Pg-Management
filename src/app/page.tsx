@@ -1,7 +1,7 @@
 'use client';
 
-import { Navbar } from '@/components/public/Navbar';
-import { Footer } from '@/components/public/Footer';
+import { Navbar } from '@/app/(public)/_components/Navbar';
+import { Footer } from '@/app/(public)/_components/Footer';
 import Link from 'next/link';
 import { CheckCircle, Shield, Users, Bed, CreditCard, Bell, Bot, PenTool } from 'lucide-react';
 

@@ -6,7 +6,7 @@ import { staffOperationsApi } from '@/app/staff/staff_lib/staff_api/staffOperati
 import { useStaffContext } from '@/app/staff/staff_components/StaffContext';
 import { getSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
 import { ListTodo, CheckSquare, Square } from 'lucide-react';
-import { Pagination } from '@/components/shared/Pagination';
+import { Pagination } from '@/components/ui/Pagination';
 
 export function StaffTasksMain() {
   const { propertyId } = useStaffContext();

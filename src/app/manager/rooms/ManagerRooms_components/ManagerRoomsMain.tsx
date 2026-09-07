@@ -3,7 +3,7 @@
 
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
-import { useManagerRooms } from '@/app/manager/rooms/ManagerRooms_hooks/ManagerUseManagerRooms';
+import { ManagerUseManagerRooms } from '@/app/manager/rooms/ManagerRooms_hooks/ManagerUseManagerRooms';
 import { ManagerRoomsKPIs } from '@/app/manager/rooms/ManagerRooms_components/ManagerRoomsKPIs';
 import { ManagerRoomsFilters } from '@/app/manager/rooms/ManagerRooms_components/ManagerRoomsFilters';
 import { ManagerRoomsTable } from '@/app/manager/rooms/ManagerRooms_components/ManagerRoomsTable';
@@ -21,7 +21,7 @@ export function ManagerRoomsMain() {
     filterSharing, setFilterSharing,
     filterStatus, setFilterStatus,
     currentPage, setCurrentPage
-  } = useManagerRooms(selectedPropertyId, ctxLoading, user?.id);
+  } = ManagerUseManagerRooms(selectedPropertyId, ctxLoading, user?.id);
 
   const totalPages = Math.ceil(filteredRooms.length / itemsPerPage);
 

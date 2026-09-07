@@ -8,7 +8,7 @@ import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSessio
 import { studentOperationsApi } from '@/app/student/student_lib/student_api/StudentOperations';
 import { ArrowLeft, User, MapPin, Calendar, IndianRupee, LogOut, Utensils, Clock } from 'lucide-react';
 import Link from 'next/link';
-import { BillUploadModal } from '@/components/shared/BillUploadModal';
+import { ManagerBillUploadModal } from './ManagerBillUploadModal';
 import { financeApi } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
 
 export default function ManagerStudentDetailMain() {
@@ -56,7 +56,7 @@ export default function ManagerStudentDetailMain() {
 
   return (
     <div className="space-y-6 pb-20 max-w-4xl mx-auto">
-      <BillUploadModal
+      <ManagerBillUploadModal
         isOpen={isBillModalOpen}
         onClose={() => {
           setIsBillModalOpen(false);

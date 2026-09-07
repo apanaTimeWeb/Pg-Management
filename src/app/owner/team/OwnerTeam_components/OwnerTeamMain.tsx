@@ -10,8 +10,8 @@ import { Plus, Search, Filter, ShieldCheck, Wrench, Utensils, Shield, Sparkles, 
 import Link from 'next/link';
 import { OWNER_URLS } from '@/app/owner/owner_url_config';
 import { TeamMember, StaffRoleType } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
-import { Pagination } from '@/components/shared/Pagination';
-import { useTableSync } from '@/hooks/useTableSync';
+import { Pagination } from '@/components/ui/Pagination';
+import { useTableSync } from '@/lib/hooks/useTableSync';
 
 const ROLE_ICONS: Record<StaffRoleType, any> = {
   manager: ShieldCheck,

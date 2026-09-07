@@ -5,12 +5,12 @@
 import { useState, useEffect } from 'react';
 import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
-import { useToast } from '@/components/shared/ToastContext';
+import { toast } from 'sonner';
 import { Crown, CheckCircle2, Building, Users, Bed, CreditCard, ShieldCheck, Loader2, X, AlertCircle } from 'lucide-react';
 
 export function OwnerSubscriptionMain() {
   const user = typeof window !== 'undefined' ? getSession() : null;
-  const { showToast } = useToast();
+  
 
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<any>(null);
@@ -79,11 +79,11 @@ export function OwnerSubscriptionMain() {
     setTimeout(() => {
       try {
         api.owners.upgradePlan(data.ownerRecord.id, selectedPlan.id);
-        showToast('Payment successful! Your plan has been upgraded.', 'success');
+        toast.success('Payment successful! Your plan has been upgraded.');
         setPaymentModalOpen(false);
         loadSubscriptionData(); // Reload UI with new plan
       } catch (err: any) {
-        showToast(err.message || 'Payment processing failed.', 'error');
+        toast.error(err.message || 'Payment processing failed.');
       } finally {
         setProcessingPayment(false);
       }

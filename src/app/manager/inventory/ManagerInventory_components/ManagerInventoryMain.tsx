@@ -3,13 +3,13 @@
 
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
-import { useManagerInventory } from '@/app/manager/inventory/ManagerInventory_hooks/ManagerUseManagerInventory';
+import { ManagerUseManagerInventory } from '@/app/manager/inventory/ManagerInventory_hooks/ManagerUseManagerInventory';
 import { ManagerInventoryTabs } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryTabs';
 import { ManagerInventoryRequests } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryRequests';
 import { ManagerInventoryLive } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryLive';
 import { ManagerInventoryBatches } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryBatches';
 import { ManagerInventoryAlerts } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryAlerts';
-import { Pagination } from '@/components/shared/Pagination';
+import { Pagination } from '@/components/ui/Pagination';
 
 export function ManagerInventoryMain() {
   const user = typeof window !== 'undefined' ? getSession() : null;
@@ -21,7 +21,7 @@ export function ManagerInventoryMain() {
     currentPage, setCurrentPage, itemsPerPage,
     lowStockAlerts, expiryAlerts, alertCount, pendingCount,
     loadData, handleUpdateQty, handleAdd, handleMarkPurchased
-  } = useManagerInventory(selectedPropertyId, ctxLoading, user?.id);
+  } = ManagerUseManagerInventory(selectedPropertyId, ctxLoading, user?.id);
 
   if (ctxLoading) return <div className="p-6 text-[var(--text-secondary)]">Loading...</div>;
   if (!selectedPropertyId) return <div className="p-6 text-center text-[var(--text-secondary)]">Property Required</div>;

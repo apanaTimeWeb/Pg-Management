@@ -11,7 +11,7 @@ import { Expense } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
 import { OwnerFinanceCards } from '@/app/owner/finance/OwnerFinance_components/OwnerFinanceCards';
 import { OwnerFinanceCharts } from '@/app/owner/finance/OwnerFinance_components/OwnerFinanceCharts';
 import { OwnerFinanceTabs } from '@/app/owner/finance/OwnerFinance_components/OwnerFinanceTabs';
-import { useTableSync } from '@/hooks/useTableSync';
+import { useTableSync } from '@/lib/hooks/useTableSync';
 
 export function OwnerFinanceMain() {
   const user = typeof window !== 'undefined' ? getSession() : null;

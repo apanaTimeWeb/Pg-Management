@@ -1,5 +1,5 @@
 // DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerFinance.ts]
-import { useManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
+import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 // [DATA HOOK] ManagerUseManagerFinance
 // Responsibility: Loads invoices, computes rent stats, handles mark-paid and pagination with URL-agnostic local state.
 // Data Flow: ManagerPropertyContext → api.finance → local state → ManagerFinancePage
@@ -20,7 +20,7 @@ export function ManagerUseManagerFinance(): UseManagerFinanceReturn {
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<ManagerFinanceFilter>('all');
-  const { currentPage, setCurrentPage } = useManagerUrlPagination(1);
+  const { currentPage, setCurrentPage } = ManagerUseManagerUrlPagination(1);
   const user = typeof window !== 'undefined' ? getSession() : null;
 
   const loadData = () => {

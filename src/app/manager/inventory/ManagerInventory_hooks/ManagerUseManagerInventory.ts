@@ -1,5 +1,5 @@
 // DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerInventory.ts]
-import { useManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
+import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 // [DATA HOOK] ManagerUseManagerInventory
 // Responsibility: Manages inventory items, kitchen requests, and stock batches for the selected property.
 // Data Flow: ManagerPropertyContext → api + stockRequestsApi → local state → ManagerInventoryMain
@@ -21,7 +21,7 @@ export function ManagerUseManagerInventory(selectedPropertyId: string | null, ct
   const [purchasedQty, setPurchasedQty] = useState<{ [key: string]: string }>({});
   const [purchaseDate, setPurchaseDate] = useState<{ [key: string]: string }>({});
   
-  const { currentPage, setCurrentPage } = useManagerUrlPagination(1);
+  const { currentPage, setCurrentPage } = ManagerUseManagerUrlPagination(1);
   const itemsPerPage = 10;
 
   const loadData = () => {

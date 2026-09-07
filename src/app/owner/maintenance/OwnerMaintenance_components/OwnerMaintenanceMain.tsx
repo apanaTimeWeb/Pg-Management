@@ -6,8 +6,8 @@ import { useState, useEffect } from 'react';
 import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
 import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { IndianRupee } from 'lucide-react';
-import { Pagination } from '@/components/shared/Pagination';
-import { useTableSync } from '@/hooks/useTableSync';
+import { Pagination } from '@/components/ui/Pagination';
+import { useTableSync } from '@/lib/hooks/useTableSync';
 
 export function OwnerMaintenanceMain() {
   const { properties } = useOwnerPropertyContext();

@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { Navbar } from '@/components/public/Navbar';
-import { authApi as api } from '@/app/owner-request/owner-request_lib/owner-request_api/Owner-requestAuth';
+import { Navbar } from '@/app/(public)/_components/Navbar';
+import { authApi as api } from '@/app/owner-request/owner-request_lib/owner-request_api/OwnerRequestAuth';
 import { CheckCircle2 } from 'lucide-react';
 
 export default function OwnerRequestPage() {

@@ -2,7 +2,7 @@
 
 import { CheckCircle2, AlertCircle } from 'lucide-react';
 import { format } from 'date-fns';
-import { Pagination } from '@/components/shared/Pagination';
+import { Pagination } from '@/components/ui/Pagination';
 
 export interface OwnerPayrollTableProps {
   paginatedData: any[];

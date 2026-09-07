@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the ManagerDashboardMain component.
 'use client';
 
-import { useManagerDashboard } from '@/app/manager/dashboard/ManagerDashboard_hooks/ManagerUseManagerDashboard';
+import { ManagerUseManagerDashboard } from '@/app/manager/dashboard/ManagerDashboard_hooks/ManagerUseManagerDashboard';
 import { ManagerDashboardHeader } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardHeader';
 import { ManagerDashboardStatsGrid } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardStatsGrid';
 import { ManagerDashboardMealAlerts } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardMealAlerts';
@@ -22,7 +22,7 @@ export function ManagerDashboardMain() {
     ctxLoading,
     properties,
     user
-  } = useManagerDashboard();
+  } = ManagerUseManagerDashboard();
 
   if (ctxLoading || loading) {
     return <div className="p-6 animate-pulse text-slate-400">Loading operational dashboard...</div>;

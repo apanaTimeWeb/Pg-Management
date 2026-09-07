@@ -4,7 +4,7 @@
 import { Search, Plus, Lock, AlertTriangle } from 'lucide-react';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
-import { useManagerEnquiries } from '@/app/manager/enquiries/ManagerEnquiries_hooks/ManagerUseManagerEnquiries';
+import { ManagerUseManagerEnquiries } from '@/app/manager/enquiries/ManagerEnquiries_hooks/ManagerUseManagerEnquiries';
 import { EnquiryStatus } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
 import { ManagerEnquiriesKanban } from '@/app/manager/enquiries/ManagerEnquiries_components/ManagerEnquiriesKanban';
 import { ManagerEnquiriesLost } from '@/app/manager/enquiries/ManagerEnquiries_components/ManagerEnquiriesLost';
@@ -20,7 +20,7 @@ export function ManagerEnquiriesMain() {
     currentPage, setCurrentPage, itemsPerPage,
     activeEnquiries, lostEnquiries,
     handleAdd, handleStatusChange, handleConvertToCheckin, handleRoomAvailable, handleRentOffer
-  } = useManagerEnquiries(selectedPropertyId, ctxLoading, user?.id);
+  } = ManagerUseManagerEnquiries(selectedPropertyId, ctxLoading, user?.id);
 
   if (ctxLoading || loading) return <div className="p-6 animate-pulse text-[var(--text-secondary)]">Loading...</div>;
 

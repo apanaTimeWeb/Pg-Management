@@ -10,7 +10,7 @@ import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPrope
 import { ArrowLeft, User, Phone, Mail, Building, CreditCard, Activity, CheckCircle, ShieldAlert, LogOut, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { studentOperationsApi } from '@/app/student/student_lib/student_api/StudentOperations';
-import { BillUploadModal } from '@/components/shared/BillUploadModal';
+import { OwnerBillUploadModal } from './OwnerBillUploadModal';
 import { financeApi } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
 
 export function OwnerStudentsDetailsMain({ params }: { params: Promise<{ id: string }> }) {
@@ -81,7 +81,7 @@ export function OwnerStudentsDetailsMain({ params }: { params: Promise<{ id: str
 
   return (
     <div className="max-w-5xl mx-auto space-y-6 pb-20">
-      <BillUploadModal
+      <OwnerBillUploadModal
         isOpen={isBillModalOpen}
         onClose={() => {
           setIsBillModalOpen(false);

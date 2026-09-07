@@ -10,8 +10,8 @@ import { Users, CheckCircle2, XCircle, Search, Building } from 'lucide-react';
 import { attendanceApi, StaffAttendance } from '@/app/owner/owner_lib/owner_api/OwnerAttendance';
 import { TeamMember } from '@/app/owner/owner_lib/owner_api/OwnerTeam';
 import { format } from 'date-fns';
-import { Pagination } from '@/components/shared/Pagination';
-import { useTableSync } from '@/hooks/useTableSync';
+import { Pagination } from '@/components/ui/Pagination';
+import { useTableSync } from '@/lib/hooks/useTableSync';
 
 export function OwnerAttendanceMain() {
   const user = typeof window !== 'undefined' ? getSession() : null;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { SuperAdminOwnerRequestsTableProps } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_types/SuperAdminOwnerRequests.types';
-import { StatusBadge } from '@/config/statusBadgeConfig';
+import { StatusBadge } from '@/components/ui/statusBadgeConfig';
 import { FileText, CheckCircle, PauseCircle, XCircle } from 'lucide-react';
-import { Pagination } from '@/components/shared/Pagination';
+import { Pagination } from '@/components/ui/Pagination';
 
 // RESPONSIBILITY: Renders the data table and pagination. Iterates over requests array.
 

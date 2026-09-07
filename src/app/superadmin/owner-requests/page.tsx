@@ -6,7 +6,7 @@ import { SuperAdminOwnerRequestsTable } from '@/app/superadmin/owner-requests/Su
 import { SuperAdminOwnerRequestsReviewModal } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_components/SuperAdminOwnerRequestsReviewModal';
 import { SuperadminUseSuperAdminOwnerRequestsData } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_hooks/SuperadminUseSuperAdminOwnerRequestsData';
 import { SuperadminUseSuperAdminOwnerRequestsActions } from '@/app/superadmin/owner-requests/SuperAdminOwnerRequests_hooks/SuperadminUseSuperAdminOwnerRequestsActions';
-import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
+import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 
 // RESPONSIBILITY: Entry wrapper. Composes UI components and passes state.
 

@@ -8,8 +8,8 @@ import { LayoutDashboard, Utensils, Shield, Sparkles, Wrench, ListTodo, LogOut, 
 import { getSession, clearSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
 import { StaffProvider, useStaffContext } from '@/app/staff/staff_components/StaffContext';
 import { useStaffI18n, DictKey } from '@/app/staff/StaffI18n';
-import { ForcePasswordChangeModal } from '@/components/shared/ForcePasswordChangeModal';
-import { ThemeToggle } from '@/components/public/ThemeToggle';
+import { StaffForcePasswordChangeModal } from './StaffForcePasswordChangeModal';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const NAV_ITEMS = [
   { key: 'dashboard', href: '/staff/dashboard', icon: LayoutDashboard },
@@ -46,7 +46,7 @@ function StaffLayoutInner({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-page flex flex-col md:flex-row">
-      <ForcePasswordChangeModal 
+      <StaffForcePasswordChangeModal 
         user={user} 
         onSuccess={() => setForcePasswordChange(false)} 
       />

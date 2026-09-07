@@ -5,8 +5,8 @@ import { useSearchParams } from 'next/navigation';
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { Lock } from 'lucide-react';
-import { useManagerCheckinData } from '@/app/manager/check-in/ManagerCheckin_hooks/ManagerUseManagerCheckinData';
-import { useManagerCheckinForm } from '@/app/manager/check-in/ManagerCheckin_hooks/ManagerUseManagerCheckinForm';
+import { ManagerUseManagerCheckinData } from '@/app/manager/check-in/ManagerCheckin_hooks/ManagerUseManagerCheckinData';
+import { ManagerUseManagerCheckinForm } from '@/app/manager/check-in/ManagerCheckin_hooks/ManagerUseManagerCheckinForm';
 import { ManagerCheckinProgress } from '@/app/manager/check-in/ManagerCheckin_components/ManagerCheckinProgress';
 import { ManagerCheckinForm } from '@/app/manager/check-in/ManagerCheckin_components/ManagerCheckinForm';
 
@@ -19,9 +19,9 @@ export function ManagerCheckinMain() {
   const { 
     step, setStep, formData, setFormData, errors, setErrors, isSubmitting, 
     handleNext, handlePrev, handleCommit, router 
-  } = useManagerCheckinForm(enquiryId, null, selectedPropertyId, user?.id);
+  } = ManagerUseManagerCheckinForm(enquiryId, null, selectedPropertyId, user?.id);
 
-  const { vacantBeds, compatibilityScore, enquiryData } = useManagerCheckinData(
+  const { vacantBeds, compatibilityScore, enquiryData } = ManagerUseManagerCheckinData(
     selectedPropertyId, step, enquiryId, formData.room.bedId, formData.compatibility
   );
 

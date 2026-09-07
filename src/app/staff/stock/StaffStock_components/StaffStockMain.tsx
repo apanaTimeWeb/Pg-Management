@@ -6,7 +6,7 @@ import { useStaffContext } from '@/app/staff/staff_components/StaffContext';
 import { authApi as api } from '@/app/staff/staff_lib/staff_api/StaffAuth';
 import { Package, Plus, Search, Edit2, Trash2, Check, X } from 'lucide-react';
 import { StockItem, stockBatchesApi, StockBatch } from '@/app/staff/staff_lib/staff_api/StaffStock';
-import { Pagination } from '@/components/shared/Pagination';
+import { Pagination } from '@/components/ui/Pagination';
 
 export function StaffStockMain() {
   const { propertyId, loading: ctxLoading } = useStaffContext();

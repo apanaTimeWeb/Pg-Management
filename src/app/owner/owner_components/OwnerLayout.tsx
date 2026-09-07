@@ -13,8 +13,8 @@ import {
 import { getSession, clearSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 import { useOwnerI18n, DictKey } from '@/app/owner/OwnerI18n';
-import { ForcePasswordChangeModal } from '@/components/shared/ForcePasswordChangeModal';
-import { ThemeToggle } from '@/components/public/ThemeToggle';
+import { OwnerForcePasswordChangeModal } from './OwnerForcePasswordChangeModal';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const NAV_ITEMS = [
   { key: 'dashboard', href: '/owner/dashboard', icon: LayoutDashboard },
@@ -49,7 +49,7 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-page flex flex-col md:flex-row">
-      <ForcePasswordChangeModal 
+      <OwnerForcePasswordChangeModal 
         user={user} 
         onSuccess={() => setForcePasswordChange(false)} 
       />

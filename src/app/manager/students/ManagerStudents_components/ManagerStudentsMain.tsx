@@ -4,14 +4,14 @@
 import { useState } from 'react';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { Plus } from 'lucide-react';
-import { AddStudentModal } from '@/app/manager/manager_components/ManagerAddStudentModal';
-import { useManagerStudents } from '@/app/manager/students/ManagerStudents_hooks/ManagerUseManagerStudents';
+import { ManagerAddStudentModal } from '@/app/manager/manager_components/ManagerAddStudentModal';
+import { ManagerUseManagerStudents } from '@/app/manager/students/ManagerStudents_hooks/ManagerUseManagerStudents';
 import { ManagerStudentsTable } from '@/app/manager/students/ManagerStudents_components/ManagerStudentsTable';
 
 export function ManagerStudentsMain() {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
   const [showAddModal, setShowAddModal] = useState(false);
-  const { students, fetchStudents } = useManagerStudents(selectedPropertyId, ctxLoading);
+  const { students, fetchStudents } = ManagerUseManagerStudents(selectedPropertyId, ctxLoading);
 
   if (ctxLoading) return <div className="p-6 text-[var(--text-secondary)]">Loading...</div>;
   if (!selectedPropertyId) return <div className="p-6 text-center text-[var(--text-secondary)]">Property Required</div>;
@@ -34,7 +34,7 @@ export function ManagerStudentsMain() {
       <ManagerStudentsTable students={students} />
 
       {showAddModal && selectedPropertyId && (
-        <AddStudentModal
+        <ManagerAddStudentModal
           propertyId={selectedPropertyId}
           onClose={() => setShowAddModal(false)}
           onSuccess={() => {

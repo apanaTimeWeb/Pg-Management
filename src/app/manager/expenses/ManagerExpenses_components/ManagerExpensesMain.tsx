@@ -4,7 +4,7 @@
 import { AlertCircle, Loader2 } from 'lucide-react';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
-import { useManagerExpenses } from '@/app/manager/expenses/ManagerExpenses_hooks/ManagerUseManagerExpenses';
+import { ManagerUseManagerExpenses } from '@/app/manager/expenses/ManagerExpenses_hooks/ManagerUseManagerExpenses';
 import { ManagerExpensesHeader } from '@/app/manager/expenses/ManagerExpenses_components/ManagerExpensesHeader';
 import { ManagerExpensesList } from '@/app/manager/expenses/ManagerExpenses_components/ManagerExpensesList';
 import { ManagerExpensesModal } from '@/app/manager/expenses/ManagerExpenses_components/ManagerExpensesModal';
@@ -20,7 +20,7 @@ export function ManagerExpensesMain() {
     form,
     currentPage, setCurrentPage, itemsPerPage,
     handleSubmit
-  } = useManagerExpenses(selectedPropertyId, propsLoading, user?.id);
+  } = ManagerUseManagerExpenses(selectedPropertyId, propsLoading, user?.id);
 
   if (propsLoading || loading) {
     return (

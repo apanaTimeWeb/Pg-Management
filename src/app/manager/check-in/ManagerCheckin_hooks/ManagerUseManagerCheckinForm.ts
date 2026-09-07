@@ -7,14 +7,14 @@ import { useState, useEffect } from 'react';
 import type { ManagerCheckinFormData } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
 import { CheckinStep1Schema, CheckinStep3Schema } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
 import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
-import { useToast } from '@/components/shared/ToastContext';
+import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 
 export function ManagerUseManagerCheckinForm(enquiryId: string, initialEnquiryData: any, selectedPropertyId: string | null, userId: string | undefined) {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const { showToast } = useToast();
+  
   const router = useRouter();
 
   const [formData, setFormData] = useState<ManagerCheckinFormData>({
@@ -86,7 +86,7 @@ export function ManagerUseManagerCheckinForm(enquiryId: string, initialEnquiryDa
       managerId: userId,
       propertyId: selectedPropertyId
     });
-    showToast('Check-in completed successfully', 'success');
+    toast.success('Check-in completed successfully');
     setIsSubmitting(false);
     handleNext(); 
   };

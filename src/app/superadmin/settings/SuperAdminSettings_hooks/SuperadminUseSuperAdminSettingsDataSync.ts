@@ -3,11 +3,11 @@
 
 import { useState } from 'react';
 import { settingsApi } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminSettings';
-import { useToast } from '@/components/shared/ToastContext';
+import { toast } from 'sonner';
 
 export function SuperadminUseSuperAdminSettingsDataSync() {
   const [isImporting, setIsImporting] = useState(false);
-  const { showToast } = useToast();
+  
 
   const handleExport = () => {
     const data = settingsApi.exportDatabase();
@@ -22,7 +22,7 @@ export function SuperadminUseSuperAdminSettingsDataSync() {
     
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showToast('Database exported successfully', 'success');
+    toast.success('Database exported successfully');
   };
 
   const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,19 +41,19 @@ export function SuperadminUseSuperAdminSettingsDataSync() {
       if (content) {
         const success = settingsApi.importDatabase(content);
         if (success) {
-          showToast('Database imported successfully. Reloading...', 'success');
+          toast.success('Database imported successfully. Reloading...');
           setTimeout(() => {
             window.location.reload();
           }, 1500);
         } else {
-          showToast('Failed to import database. Invalid format.', 'error');
+          toast.error('Failed to import database. Invalid format.');
         }
       }
       setIsImporting(false);
     };
     
     reader.onerror = () => {
-      showToast('Error reading file', 'error');
+      toast.error('Error reading file');
       setIsImporting(false);
     };
     

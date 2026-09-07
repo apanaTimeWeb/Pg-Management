@@ -6,12 +6,12 @@ import { SessionUser } from '@/lib/types';
 import { Lock, AlertTriangle, Key } from 'lucide-react';
 import { getSession } from '@/app/login/login_lib/login_auth/LoginSession';
 
-interface ForcePasswordChangeModalProps {
+interface OwnerForcePasswordChangeModalProps {
   user: SessionUser | null;
   onSuccess: () => void;
 }
 
-export function ForcePasswordChangeModal({ user, onSuccess }: ForcePasswordChangeModalProps) {
+export function OwnerForcePasswordChangeModal({ user, onSuccess }: OwnerForcePasswordChangeModalProps) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');

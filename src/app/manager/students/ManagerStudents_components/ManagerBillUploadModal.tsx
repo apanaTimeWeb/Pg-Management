@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { X, Upload, IndianRupee } from 'lucide-react';
 
-interface BillUploadModalProps {
+interface ManagerBillUploadModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (amount: number, imageUrl: string) => void;
   invoiceTitle: string;
 }
 
-export function BillUploadModal({ isOpen, onClose, onSubmit, invoiceTitle }: BillUploadModalProps) {
+export function ManagerBillUploadModal({ isOpen, onClose, onSubmit, invoiceTitle }: ManagerBillUploadModalProps) {
   const [amount, setAmount] = useState('');
   const [loading, setLoading] = useState(false);
 

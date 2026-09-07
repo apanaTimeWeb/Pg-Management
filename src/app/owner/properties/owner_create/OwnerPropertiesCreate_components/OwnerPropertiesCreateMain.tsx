@@ -8,7 +8,7 @@ import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
 import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
 import { AlertCircle, ArrowLeft, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
-import { useToast } from '@/components/shared/ToastContext';
+import { toast } from 'sonner';
 import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPropertyContext';
 
 import { OwnerPropertiesCreateBasicInfo } from '@/app/owner/properties/owner_create/OwnerPropertiesCreate_components/OwnerPropertiesCreateBasicInfo';
@@ -19,7 +19,7 @@ import { OwnerPropertiesCreatePhotos } from '@/app/owner/properties/owner_create
 
 export function OwnerPropertiesCreateMain() {
   const router = useRouter();
-  const { showToast } = useToast();
+  
   const { refreshProperties } = useOwnerPropertyContext();
   const user = typeof window !== 'undefined' ? getSession() : null;
   
@@ -32,7 +32,7 @@ export function OwnerPropertiesCreateMain() {
         const details = api.owners.getOwner360(user.ownerId);
         if (!details || !details.subscription || details.subscription.status !== 'active' || details.subscription.planId === 'none') {
           router.push('/owner/subscription');
-          showToast('Please purchase a subscription plan to create a PG.', 'error');
+          toast.error('Please purchase a subscription plan to create a PG.');
         }
       } catch (err) {
       }
@@ -131,7 +131,7 @@ export function OwnerPropertiesCreateMain() {
         tripleRoomsCount: formData.tripleRoomsCount
       });
 
-      showToast('Property branch created successfully!', 'success');
+      toast.success('Property branch created successfully!');
       await new Promise(resolve => setTimeout(resolve, 500));
       refreshProperties();
       router.push(`/owner/properties/${newProp.id}`);

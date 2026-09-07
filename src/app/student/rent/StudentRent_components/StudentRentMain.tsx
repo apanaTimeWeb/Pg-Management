@@ -7,8 +7,8 @@ import { useStudentContext } from '@/app/student/student_components/StudentConte
 import { getSession } from '@/app/student/student_lib/student_auth/StudentSession';
 import { IndianRupee, CheckCircle, Download, FileText, Printer, Clock } from 'lucide-react';
 import { formatINR, formatDateOnly } from '@/lib/utils/formatters';
-import { useToast } from '@/components/shared/ToastContext';
-import { Pagination } from '@/components/shared/Pagination';
+import { toast } from 'sonner';
+import { Pagination } from '@/components/ui/Pagination';
 
 export function StudentRentMain() {
   const { profile } = useStudentContext();
@@ -17,7 +17,7 @@ export function StudentRentMain() {
   const [showPayModal, setShowPayModal] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-  const { showToast } = useToast();
+  
 
   const loadData = () => {
     if (profile) {
@@ -33,7 +33,7 @@ export function StudentRentMain() {
     if (!session || !profile || !showPayModal) return;
     const totalAmount = showPayModal.amount + (showPayModal.electricityBillAmount || 0);
     studentOperationsApi.payInvoice(showPayModal.id, profile.id, totalAmount, session.id);
-    showToast('Payment successful! (Mock) +10 PG Score', 'success');
+    toast.success('Payment successful! (Mock) +10 PG Score');
     setShowPayModal(null);
     loadData();
     window.location.reload(); // Refresh to update global profile context dues

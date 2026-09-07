@@ -5,7 +5,7 @@
 import { useState, useEffect } from 'react';
 import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
 import { getSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
-import { useToast } from '@/components/shared/ToastContext';
+import { toast } from 'sonner';
 import { Play } from 'lucide-react';
 import { subMonths, addMonths } from 'date-fns';
 import { db } from '@/lib/storage/db';
@@ -15,11 +15,11 @@ import { useOwnerPropertyContext } from '@/app/owner/owner_components/OwnerPrope
 import { OwnerPayrollStats } from '@/app/owner/payroll/OwnerPayroll_components/OwnerPayrollStats';
 import { OwnerPayrollTable } from '@/app/owner/payroll/OwnerPayroll_components/OwnerPayrollTable';
 import { OwnerPayrollPaymentModal } from '@/app/owner/payroll/OwnerPayroll_components/OwnerPayrollPaymentModal';
-import { useTableSync } from '@/hooks/useTableSync';
+import { useTableSync } from '@/lib/hooks/useTableSync';
 
 export function OwnerPayrollMain() {
   const user = typeof window !== 'undefined' ? getSession() : null;
-  const { showToast } = useToast();
+  
   const { selectedPropertyId, setSelectedPropertyId, properties } = useOwnerPropertyContext();
 
   const [loading, setLoading] = useState(true);
@@ -80,11 +80,11 @@ export function OwnerPayrollMain() {
           paymentMode: paymentForm.mode as any,
           transactionId: paymentForm.transactionId
         });
-        showToast(`Payment recorded for ${selectedStaff.staff.name}`, 'success');
+        toast.success(`Payment recorded for ${selectedStaff.staff.name}`);
         setPaymentModalOpen(false);
         loadPayrollData();
       } catch (err: any) {
-        showToast(err.message || 'Failed to record payment.', 'error');
+        toast.error(err.message || 'Failed to record payment.');
       } finally {
         setProcessingPayment(false);
       }
@@ -94,7 +94,7 @@ export function OwnerPayrollMain() {
   const handleSetupDreamHappy = async () => {
     if (!user?.id) return;
     setLoading(true);
-    showToast('Setting up Dream and Happy PGs...', 'success');
+    toast.success('Setting up Dream and Happy PGs...');
     
     setTimeout(() => {
       try {
@@ -144,11 +144,11 @@ export function OwnerPayrollMain() {
             });
           }
         } catch (e: any) {
-          showToast(`Failed to create ${d.name}: ${e.message}`, 'error');
+          toast.error(`Failed to create ${d.name}: ${e.message}`);
         }
       });
       
-      showToast('Dream & Happy PGs setup complete!', 'success');
+      toast.success('Dream & Happy PGs setup complete!');
       setSelectedPropertyId('all');
       setRoleFilter('all');
       setTimeout(() => { window.location.reload(); }, 800);

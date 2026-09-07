@@ -1,5 +1,5 @@
 // DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerExpenses.ts]
-import { useManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
+import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 // [DATA HOOK] ManagerUseManagerExpenses
 // Responsibility: Fetches expense list and handles add/delete expense mutations with toast feedback.
 // Data Flow: ManagerPropertyContext → api.finance.listExpenses → local state → ManagerExpensesMain
@@ -9,12 +9,12 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { authApi as api } from '@/app/manager/manager_lib/manager_api/ManagerAuth';
-import { useToast } from '@/components/shared/ToastContext';
+import { toast } from 'sonner';
 import type { ExpenseFormData } from '@/app/manager/expenses/ManagerExpenses_types/ManagerExpenses.types';
 import { ExpenseFormSchema } from '@/app/manager/expenses/ManagerExpenses_types/ManagerExpenses.types';
 
 export function ManagerUseManagerExpenses(selectedPropertyId: string | null, propsLoading: boolean, userId: string | undefined) {
-  const { showToast } = useToast();
+  
 
   const [loading, setLoading] = useState(true);
   const [expenses, setExpenses] = useState<any[]>([]);
@@ -52,7 +52,7 @@ export function ManagerUseManagerExpenses(selectedPropertyId: string | null, pro
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [propsLoading, selectedPropertyId, userId]);
 
-  const { currentPage, setCurrentPage } = useManagerUrlPagination(1);
+  const { currentPage, setCurrentPage } = ManagerUseManagerUrlPagination(1);
   const itemsPerPage = 10;
 
   // Reset pagination to page 1 whenever the selected property changes.
@@ -80,7 +80,7 @@ export function ManagerUseManagerExpenses(selectedPropertyId: string | null, pro
       amount: Number(data.amount),
       description: data.description,
     }, userId);
-    showToast('Expense logged successfully', 'success');
+    toast.success('Expense logged successfully');
     setIsSubmitting(false);
     onModalClose();
     loadExpenses();

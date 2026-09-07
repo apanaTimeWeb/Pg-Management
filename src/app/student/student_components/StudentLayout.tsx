@@ -8,7 +8,7 @@ import { Home, IndianRupee, Utensils, MessageSquareWarning, FileText, Bell, LogO
 import { getSession, clearSession } from '@/app/student/student_lib/student_auth/StudentSession';
 import { StudentProvider, useStudentContext } from '@/app/student/student_components/StudentContext';
 import { useStudentI18n, DictKey } from '@/app/student/StudentI18n';
-import { ThemeToggle } from '@/components/public/ThemeToggle';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const NAV_ITEMS = [
   { key: 'dashboard', href: '/student/dashboard', icon: Home },

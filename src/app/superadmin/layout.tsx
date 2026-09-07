@@ -1,6 +1,5 @@
 'use client';
 import { SuperAdminRequireSuperAdmin } from '@/app/superadmin/SuperAdmin_components/SuperAdminRequireSuperAdmin';
-import { ToastProvider } from '@/components/shared/ToastContext';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
@@ -137,8 +136,7 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
   return (
     <SuperAdminRequireSuperAdmin>
       <SuperadminI18nProvider>
-        <ToastProvider>
-          <SuperAdminLayoutInner 
+                  <SuperAdminLayoutInner 
             children={children} 
             adminName={adminName} 
             isMobileMenuOpen={isMobileMenuOpen} 
@@ -147,8 +145,7 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
             handleLogout={handleLogout} 
             pathname={pathname} 
           />
-        </ToastProvider>
-      </SuperadminI18nProvider>
+              </SuperadminI18nProvider>
     </SuperAdminRequireSuperAdmin>
   );
 }

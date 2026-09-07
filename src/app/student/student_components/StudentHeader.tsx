@@ -5,7 +5,7 @@ import { Bell } from 'lucide-react';
 import { getSession } from '@/app/student/student_lib/student_auth/StudentSession';
 import Link from 'next/link';
 import { useStudentI18n } from '@/app/student/StudentI18n';
-import { ThemeToggle } from '@/components/public/ThemeToggle';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 export function StudentHeader() {
   const session = typeof window !== 'undefined' ? getSession() : null;

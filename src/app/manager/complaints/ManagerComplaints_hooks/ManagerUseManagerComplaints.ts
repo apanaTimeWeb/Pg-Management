@@ -1,5 +1,5 @@
 // DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerComplaints.ts]
-import { useManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
+import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
 // [DATA HOOK] ManagerUseManagerComplaints
 // Responsibility: Fetches complaints, manages resolve modal state, and handles complaint status mutations.
 // Data Flow: ManagerPropertyContext → api.managerOperations.listComplaints → local state → ManagerComplaintsMain
@@ -17,7 +17,7 @@ export function ManagerUseManagerComplaints(selectedPropertyId: string | null, c
   const [complaints, setComplaints] = useState<ManagerComplaintData[]>([]);
   const [activeTab, setActiveTab] = useState<'active' | 'log'>('active');
   const [resolvingComplaint, setResolvingComplaint] = useState<ManagerComplaintData | null>(null);
-  const { currentPage, setCurrentPage } = useManagerUrlPagination(1);
+  const { currentPage, setCurrentPage } = ManagerUseManagerUrlPagination(1);
   const itemsPerPage = 10;
 
   // RHF for the resolve modal — replaces repairCost/resolutionNotes useState
