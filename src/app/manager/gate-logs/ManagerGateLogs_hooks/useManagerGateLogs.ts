@@ -42,7 +42,7 @@ export function useManagerGateLogs(): UseManagerGateLogsReturn {
     loadData();
   };
 
-  const sortedLogs = [...logs].sort((a,b) => new Date((b as Record<string, unknown>).timestamp).getTime() - new Date(a.timestamp).getTime());
+  const sortedLogs = [...logs].sort((a,b) => new Date((b as any).timestamp).getTime() - new Date((a as any).timestamp).getTime());
   const totalPages = Math.ceil(sortedLogs.length / itemsPerPage);
   const paginatedData = sortedLogs.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   return {

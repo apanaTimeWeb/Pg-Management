@@ -62,8 +62,8 @@ export function ManagerComplaintsMain() {
           resolvingComplaint={resolvingComplaint}
           onClose={onCloseResolveModal}
 
-          resolveForm={resolveForm}
-          handleResolveSubmit={handleResolveSubmit}
+          resolveForm={resolveForm as any}
+          handleResolveSubmit={handleResolveSubmit as any}
         />
       )}
     </div>

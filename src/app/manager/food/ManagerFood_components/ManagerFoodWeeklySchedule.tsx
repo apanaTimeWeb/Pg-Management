@@ -23,13 +23,12 @@ export function ManagerFoodWeeklySchedule({ menu }: ManagerFoodWeeklySchedulePro
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
           {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day) => {
 
-            const rawValue = (menu as unknown)[day] || '';
+            const rawValue = (menu as any)[day] || '';
             let dayData = { breakfast: '', lunch: '', dinner: rawValue };
             try {
               const parsed = JSON.parse(rawValue);
               if (parsed.breakfast !== undefined) dayData = parsed;
-
-            } catch (e: Record<string, unknown>) {}
+            } catch (e: any) {}
             return (
               <div key={day} className="bg-card border border rounded-[var(--radius-lg,12px)] p-5 shadow-sm hover:shadow-md hover:border-primary/50 motion-safe:transition-all relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[var(--primary)] to-transparent opacity-[0.03] group-hover:opacity-[0.06] rounded-bl-full pointer-events-none transition-opacity"></div>

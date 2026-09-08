@@ -40,14 +40,11 @@ export function ManagerInventoryMain() {
         <ManagerInventoryRequests 
           requests={paginatedRequests}
           purchasedQty={purchasedQty}
-
-          setPurchasedQty={setPurchasedQty}
+          setPurchasedQty={setPurchasedQty as any}
           purchaseDate={purchaseDate}
-
-          setPurchaseDate={setPurchaseDate}
+          setPurchaseDate={setPurchaseDate as any}
           purchaseCost={purchaseCost}
-
-          setPurchaseCost={setPurchaseCost}
+          setPurchaseCost={setPurchaseCost as any}
           handleMarkPurchased={handleMarkPurchased}
         />
       )}
@@ -56,8 +53,7 @@ export function ManagerInventoryMain() {
           inventory={inventory}
           handleUpdateQty={handleUpdateQty}
           formData={formData}
-
-          setFormData={setFormData}
+          setFormData={setFormData as any}
           handleAdd={handleAdd}
         />
       )}
