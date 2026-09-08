@@ -1,12 +1,12 @@
 // RESPONSIBILITY: Provides business logic and state management for the Student Dashboard.
-// DATA FLOW: API -> StudentUseStudentDashboard -> StudentDashboardMain
+// DATA FLOW: API -> useStudentDashboard -> StudentDashboardMain
 
 import { useState, useEffect } from 'react';
 
 import { useStudentContext } from '@/app/student/student_components/StudentContext';
 import { studentOperationsApi } from '@/app/student/student_lib/student_api/StudentOperations';
 
-export function StudentUseStudentDashboard() {
+export function useStudentDashboard() {
   const { profile, loading } = useStudentContext();
   const [menu, setMenu] = useState<any>(null);
   const [notices, setNotices] = useState<any[]>([]);

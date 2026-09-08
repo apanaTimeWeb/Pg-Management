@@ -1,14 +1,14 @@
 'use client';
 
 // RESPONSIBILITY: Renders the Student Profile UI layer.
-// DATA FLOW: StudentUseStudentProfile.ts -> StudentProfileMain.tsx
+// DATA FLOW: useStudentProfile.ts -> StudentProfileMain.tsx
 
 import { User, Shield, Star, Award, TrendingUp, TrendingDown } from 'lucide-react';
 
-import { StudentUseStudentProfile } from '@/app/student/profile/StudentProfile_components/StudentUseStudentProfile';
+import { useStudentProfile } from '@/app/student/profile/StudentProfile_hooks/useStudentProfile';
 
 export function StudentProfileMain() {
-  const { profile, session, formData, setFormData, handleSubmit } = StudentUseStudentProfile();
+  const { profile, session, formData, setFormData, handleSubmit } = useStudentProfile();
 
   if (!profile) return <div className="p-4 motion-safe:animate-pulse">Loading...</div>;
 

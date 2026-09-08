@@ -1,5 +1,5 @@
 // RESPONSIBILITY: Provides business logic and state management for the Student Profile.
-// DATA FLOW: API -> StudentUseStudentProfile -> StudentProfileMain
+// DATA FLOW: API -> useStudentProfile -> StudentProfileMain
 
 import { useState, useEffect } from 'react';
 
@@ -7,7 +7,7 @@ import { studentOperationsApi } from '@/app/student/student_lib/student_api/Stud
 import { useStudentContext } from '@/app/student/student_components/StudentContext';
 import { getSession } from '@/app/student/student_lib/student_auth/StudentSession';
 
-export function StudentUseStudentProfile() {
+export function useStudentProfile() {
   const { profile } = useStudentContext();
   const session = typeof window !== 'undefined' ? getSession() : null;
   const [formData, setFormData] = useState({ phone: '', parentName: '', parentPhone: '' });
