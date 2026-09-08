@@ -92,8 +92,7 @@ export const stockRequestsApi = {
 
     // Update Live Stock
     const liveStock = stockApi.getByProperty(existing.propertyId);
-// @ts-expect-error
-    const existingItem = liveStock.find((item: unknown) => item.name.toLowerCase() === existing.itemName.toLowerCase());
+    const existingItem = liveStock.find((item: any) => item.name.toLowerCase() === existing.itemName.toLowerCase());
     
     if (existingItem) {
       stockApi.update(existingItem.id, {

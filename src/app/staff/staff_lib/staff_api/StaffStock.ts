@@ -23,14 +23,13 @@ export const stockApi = {
       .filter(i => i.propertyId === propertyId)
       .sort((a, b) => a.name.localeCompare(b.name));
   },
-  
+
   add: (data: Omit<StockItem, 'id' | 'updatedAt'>) => {
-// @ts-expect-error
-    const newItem: StockItem = {
+    const newItem = {
       ...data,
       id: createId('stk'),
       updatedAt: new Date().toISOString()
-    };
+    } as StockItem;
     db.insert(STORAGE_KEYS.INVENTORY || 'spg_inventory', newItem);
     return newItem;
   },
@@ -38,7 +37,6 @@ export const stockApi = {
   update: (id: string, updates: Partial<Omit<StockItem, 'id' | 'propertyId'>>) => {
     const existing = db.getById<StockItem>(STORAGE_KEYS.INVENTORY || 'spg_inventory', id);
     if (!existing) throw new Error('Stock item not found');
-    
     const updated = {
       ...existing,
       ...updates,
@@ -49,7 +47,7 @@ export const stockApi = {
   },
 
   delete: (id: string) => {
-    db.remove(STORAGE_KEYS.INVENTORY || 'spg_inventory', id); // Fix: use remove instead of delete
+    db.remove(STORAGE_KEYS.INVENTORY || 'spg_inventory', id);
   }
 };
 
@@ -78,13 +76,12 @@ export const stockBatchesApi = {
   },
 
   addBatch: (data: Omit<StockBatch, 'id' | 'status' | 'receivedAt'>) => {
-// @ts-expect-error
-    const newBatch: StockBatch = {
+    const newBatch = {
       ...data,
       id: createId('sbat'),
       status: 'unopened',
       receivedAt: new Date().toISOString()
-    };
+    } as StockBatch;
     db.insert(STORAGE_KEYS.STOCK_BATCHES || 'spg_stock_batches', newBatch);
     return newBatch;
   },

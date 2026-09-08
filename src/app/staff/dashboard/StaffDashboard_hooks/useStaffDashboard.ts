@@ -1,5 +1,5 @@
 // RESPONSIBILITY: Provides business logic and state management for the Staff Dashboard.
-// DATA FLOW: API -> StaffUseStaffDashboard -> StaffDashboardMain
+// DATA FLOW: API -> useStaffDashboard -> StaffDashboardMain
 
 import { useState, useEffect } from 'react';
 
@@ -16,7 +16,7 @@ import type { StockRequest } from '@/app/staff/staff_lib/staff_api/StaffStockReq
 import type { StockItem } from '@/app/staff/staff_lib/staff_api/StaffStock';
 import type { FoodMenu } from '@/app/staff/staff_lib/staff_api/StaffFood';
 
-export function StaffUseStaffDashboard() {
+export function useStaffDashboard() {
   const { staffRole, propertyId, loading } = useStaffContext();
   const user = typeof window !== 'undefined' ? getSession() : null;
   const [menu, setMenu] = useState<FoodMenu | null>(null);

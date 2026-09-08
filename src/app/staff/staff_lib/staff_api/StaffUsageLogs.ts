@@ -1,6 +1,5 @@
 
 import { db } from '@/lib/storage/db';
-import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
 
 import type { BaseEntity } from '@/lib/types/contract';
@@ -25,12 +24,11 @@ export const usageLogsApi = {
   },
 
   create: (data: Omit<UsageLog, 'id' | 'createdAt'>) => {
-// @ts-expect-error
-    const newLog: UsageLog = {
+    const newLog = {
       ...data,
       id: createId('usg'),
       createdAt: new Date().toISOString()
-    };
+    } as UsageLog;
     db.insert('spg_usage_logs', newLog);
     return newLog;
   }

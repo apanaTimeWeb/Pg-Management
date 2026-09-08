@@ -47,10 +47,10 @@ export const mealsApi = {
         });
       }
     } else {
-      const newStatus: MealStatus = {
+      const newStatus = {
+
         id: createId('msl'),
         propertyId,
-// @ts-expect-error
         date: today,
         mealType,
         status: 'ready',
@@ -59,7 +59,7 @@ export const mealsApi = {
         createdBy: actorId,
         updatedBy: actorId,
         isDeleted: false
-      };
+      } as MealStatus;
       db.insert(STORAGE_KEYS.MEAL_STATUS, newStatus);
     }
   },
@@ -76,10 +76,10 @@ export const mealsApi = {
         updatedBy: actorId
       });
     } else {
-      const newStatus: MealStatus = {
+      const newStatus = {
+
         id: createId('msl'),
         propertyId,
-// @ts-expect-error
         date: today,
         mealType,
         status: 'announced',
@@ -88,7 +88,7 @@ export const mealsApi = {
         createdBy: actorId,
         updatedBy: actorId,
         isDeleted: false
-      };
+      } as MealStatus;
       db.insert(STORAGE_KEYS.MEAL_STATUS, newStatus);
     }
 

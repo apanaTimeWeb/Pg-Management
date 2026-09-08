@@ -6,7 +6,7 @@
 import { Utensils, ListTodo, Package, AlertTriangle, Send, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 
-import { StaffUseStaffDashboard } from '@/app/staff/dashboard/StaffDashboard_components/StaffUseStaffDashboard';
+import { useStaffDashboard } from '@/app/staff/dashboard/StaffDashboard_hooks/useStaffDashboard';
 import { STAFF_ROUTES } from '@/app/staff/staff_url_config';
 
 export function StaffDashboardMain() {
@@ -31,7 +31,7 @@ export function StaffDashboardMain() {
     handleLogUsage,
     todayMenu,
     isMonthEnd
-  } = StaffUseStaffDashboard();
+  } = useStaffDashboard();
 
   if (loading) return <div className="p-6 motion-safe:animate-pulse">Loading dashboard...</div>;
 
@@ -165,8 +165,7 @@ export function StaffDashboardMain() {
                   <label className="text-xs font-bold text-secondary mb-1 block">Meal Type</label>
                   <select 
                     value={usageMeal}
-// @ts-expect-error
-                    onChange={(e: unknown) => setUsageMeal((e.target as any).value)}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setUsageMeal(e.target.value as any)}
                     className="w-full bg-input border border-border rounded-md px-3 py-2 text-sm focus:border-primary outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-page"
                   >
                     <option value="Breakfast">Breakfast</option>
