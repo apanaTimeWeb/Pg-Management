@@ -89,46 +89,48 @@
 /* ── 2. LIGHT MODE VARIABLES (:root) ──────────────────────── */
 :root {
   /* Brand */
-  --primary:        #EAB308;   /* Yellow-500 */
-  --primary-hover:  #CA8A04;   /* Yellow-600 */
-  --primary-subtle: #FEF9C3;   /* Yellow-100 */
+  --primary:        #D97706;   /* Amber-600 — richer gold, better contrast on white */
+  --primary-hover:  #B45309;   /* Amber-700 */
+  --primary-subtle: #FEF3C7;   /* Amber-100 */
 
-  /* Surface Elevation Scale */
-  --bg-page:     #F4F4F5;   /* Zinc-100  – root page */
-  --bg-card:     #FFFFFF;   /* White     – cards, tables */
-  --bg-sidebar:  #FAFAFA;   /* Near-white – sidebar */
-  --bg-header:   #FFFFFF;   /* White     – top header */
-  --bg-input:    #FFFFFF;   /* White     – inputs */
-  --bg-floating: #FFFFFF;   /* White     – inputs, code blocks */
-  --bg-overlay:  #F0F0F0;   /* Light gray – modals / dialogs */
-  --bg-popover:  #E8E8EA;   /* Lighter   – dropdowns / tooltips */
+  /* ── Surface Elevation Scale ──────────────────────────────
+     Warm off-white palette — avoids the sterile gray feel,
+     gives cards real visual lift above the page.          */
+  --bg-page:     #F5F4F1;   /* Warm Zinc — grounded page bg        */
+  --bg-card:     #FFFFFF;   /* Pure white — cards pop cleanly       */
+  --bg-sidebar:  #FFFEF9;   /* Warm near-white — soft separation    */
+  --bg-header:   #FFFFFF;   /* White header                         */
+  --bg-input:    #FAFAF8;   /* Slightly warm — distinguishes inputs */
+  --bg-floating: #FFFFFF;   /* Floating surfaces                    */
+  --bg-overlay:  #F0EFE9;   /* Modal background — warm muted        */
+  --bg-popover:  #ECEAE3;   /* Dropdown background — distinct warm  */
 
-  /* Borders */
-  --border:       #E4E4E7;   /* Zinc-200 */
-  --border-focus: #EAB308;   /* Primary gold */
+  /* Borders — warm tinted instead of cold zinc */
+  --border:       #E5E2D9;   /* Warm Zinc-200 — elegant separation */
+  --border-focus: #D97706;   /* Amber gold — crisp focus ring */
 
-  /* Text */
-  --text-primary:   #09090B;   /* Zinc-950 – nearly black */
-  --text-secondary: #52525B;   /* Zinc-600 */
-  --text-disabled:  #A1A1AA;   /* Zinc-400 */
+  /* Text — warm near-black palette */
+  --text-primary:   #1C1917;   /* Stone-900 — warm readable black */
+  --text-secondary: #78716C;   /* Stone-500 — muted warm gray     */
+  --text-disabled:  #C4BDB5;   /* Stone-300 — subtle disabled     */
 
   /* Skeletons */
-  --skeleton-base:      #E4E4E7;
-  --skeleton-highlight: #F4F4F5;
+  --skeleton-base:      #EAE8E1;
+  --skeleton-highlight: #F5F4F1;
 
-  /* Status — LIGHT-MODE FRIENDLY backgrounds (muted tints) */
-  --success:    #16A34A;   /* Green-600 (darker = better contrast on white) */
+  /* ── Status — LIGHT MODE (vibrant text on soft pastels) ── */
+  --success:    #15803D;   /* Green-700 — strong on white */
   --success-bg: #DCFCE7;   /* Green-100 */
-  --warning:    #D97706;   /* Amber-600 */
+  --warning:    #B45309;   /* Amber-700 — strong on white */
   --warning-bg: #FEF3C7;   /* Amber-100 */
-  --danger:     #DC2626;   /* Red-600 */
+  --danger:     #B91C1C;   /* Red-700 — strong on white */
   --danger-bg:  #FEE2E2;   /* Red-100 */
-  --info:       #2563EB;   /* Blue-600 */
+  --info:       #1D4ED8;   /* Blue-700 — strong on white */
   --info-bg:    #DBEAFE;   /* Blue-100 */
-  --purple:     #9333EA;   /* Purple-600 */
-  --purple-bg:  #F3E8FF;   /* Purple-100 */
+  --purple:     #7C3AED;   /* Violet-600 */
+  --purple-bg:  #EDE9FE;   /* Violet-100 */
 
-  /* Payment Modes — LIGHT-MODE FRIENDLY */
+  /* ── Payment Modes — LIGHT MODE ─────────────────────────── */
   --pay-cash:    #0F766E;   /* Teal-700 */
   --pay-cash-bg: #CCFBF1;   /* Teal-100 */
   --pay-upi:     #0E7490;   /* Cyan-700 */
@@ -142,59 +144,61 @@
 /* ── 3. DARK MODE VARIABLES (.dark) ───────────────────────── */
 .dark {
   /* Brand — PREMIUM GOLD */
-  --primary:        #FACC15;              /* Yellow-400 — vivid gold */
+  --primary:        #FACC15;              /* Yellow-400 — vivid gold on black */
   --primary-hover:  #EAB308;              /* Yellow-500 */
-  --primary-subtle: rgba(250,204,21,0.15);
+  --primary-subtle: rgba(250,204,21,0.12);/* Subtle gold tint */
 
-  /* Surface Elevation Scale (Rule 30) — subtle brightness steps */
-  --bg-page:     #050505;   /* Soft Black  – darkest layer (Layer 0) */
-  --bg-card:     #111111;   /* Dark Raised – cards, panels (Layer 1) */
-  --bg-sidebar:  #050505;   /* Same as page */
-  --bg-header:   #111111;   /* Same as card */
-  --bg-input:    #1A1A1A;   /* Deep Gray   (Layer 2) */
-  --bg-floating: #1A1A1A;   /* Inputs, code blocks (Layer 2) */
-  --bg-overlay:  #242424;   /* Modals, dialogs (Layer 3) */
-  --bg-popover:  #2E2E2E;   /* Dropdowns, tooltips (Layer 4) */
+  /* ── Surface Elevation Scale — 5-step depth ladder ────────
+     Each step is +0x0E brighter (14 units) for clear depth.
+     This mirrors Linear / Vercel's approach.               */
+  --bg-page:     #0A0A0A;   /* Layer 0 — darkest root bg           */
+  --bg-card:     #141414;   /* Layer 1 — cards, panels, tables     */
+  --bg-sidebar:  #0D0D0D;   /* Sidebar — slightly off from page    */
+  --bg-header:   #141414;   /* Header — same as card (elevated)    */
+  --bg-input:    #1C1C1C;   /* Layer 2 — inputs, code blocks       */
+  --bg-floating: #1C1C1C;   /* Layer 2 — floating surfaces         */
+  --bg-overlay:  #262626;   /* Layer 3 — modals, dialogs, drawers  */
+  --bg-popover:  #323232;   /* Layer 4 — dropdowns, tooltips       */
 
-  /* Borders */
-  --border:       #27272A;   /* Zinc-800 */
-  --border-focus: #FACC15;   /* Primary gold */
+  /* Borders — subtle warm-tinted */
+  --border:       #2A2A2A;   /* Slightly warm dark border */
+  --border-focus: #FACC15;   /* Gold focus ring */
 
-  /* Text */
-  --text-primary:   #FAFAFA;   /* Zinc-50 — near white */
-  --text-secondary: #A1A1AA;   /* Zinc-400 */
-  --text-disabled:  #52525B;   /* Zinc-600 */
+  /* Text — cool-white for premium feel */
+  --text-primary:   #F4F4F5;   /* Zinc-100 — near white, not blinding */
+  --text-secondary: #A1A1AA;   /* Zinc-400 — readable muted         */
+  --text-disabled:  #52525B;   /* Zinc-600 — clearly disabled       */
 
   /* Skeletons */
-  --skeleton-base:      #1A1A1A;
-  --skeleton-highlight: #2A2A2A;
+  --skeleton-base:      #1C1C1C;
+  --skeleton-highlight: #2E2E2E;
 
-  /* Status — DARK-MODE VIVID (high contrast on dark bg) */
-  --success:    #22C55E;   /* Green-500 */
-  --success-bg: #052e16;   /* Green-950 */
-  --warning:    #F59E0B;   /* Amber-400 */
-  --warning-bg: #1c0a00;   /* Deepest Amber */
-  --danger:     #EF4444;   /* Red-500 */
-  --danger-bg:  #1a0000;   /* Deep Red */
+  /* ── Status — DARK MODE (vivid on dark) ─────────────────── */
+  --success:    #4ADE80;   /* Green-400 — vivid on dark bg */
+  --success-bg: #052E16;   /* Green-950 */
+  --warning:    #FBBF24;   /* Amber-400 */
+  --warning-bg: #1C1000;   /* Deep amber bg */
+  --danger:     #F87171;   /* Red-400 — vivid on dark bg */
+  --danger-bg:  #1A0000;   /* Deep red bg */
   --info:       #60A5FA;   /* Blue-400 */
-  --info-bg:    #0c1a3a;   /* Deep Blue */
+  --info-bg:    #0C1A3A;   /* Deep blue bg */
   --purple:     #C084FC;   /* Purple-400 */
-  --purple-bg:  #1e0040;   /* Deep Purple */
+  --purple-bg:  #200040;   /* Deep purple bg */
 
-  /* Payment Modes — DARK-MODE VIVID */
+  /* ── Payment Modes — DARK MODE ──────────────────────────── */
   --pay-cash:    #5EEAD4;   /* Teal-300 */
-  --pay-cash-bg: #0a2922;   /* Deep Teal */
+  --pay-cash-bg: #0A2922;   /* Deep Teal */
   --pay-upi:     #67E8F9;   /* Cyan-300 */
-  --pay-upi-bg:  #082830;   /* Deep Cyan */
+  --pay-upi-bg:  #08282E;   /* Deep Cyan */
   --pay-card:    #94A3B8;   /* Slate-400 */
-  --pay-card-bg: #0f172a;   /* Slate-900 */
+  --pay-card-bg: #0F172A;   /* Slate-900 */
   --pay-bank:    #38BDF8;   /* Sky-400 */
-  --pay-bank-bg: #082030;   /* Deep Sky */
+  --pay-bank-bg: #08202E;   /* Deep Sky */
 }
 
 /* ── 4. BASE STYLES ───────────────────────────────────────── */
 html {
-  font-size: 14px;           /* Design system base: 14px */
+  font-size: 14px;
   scroll-behavior: smooth;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -208,7 +212,7 @@ body {
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
-/* ── 5. UNIVERSAL FOCUS RING (WCAG AA — Rule 13) ─────────── */
+/* ── 5. UNIVERSAL FOCUS RING (WCAG AA) ───────────────────── */
 *:focus-visible {
   outline: none;
   box-shadow:
@@ -216,17 +220,89 @@ body {
     0 0 0 4px var(--primary);
 }
 
-/* ── 6. BASE INTERACTIVE TRANSITIONS ────────────────────────
-   Only applied via motion-safe in JSX per Rule 29.
-   Here we define base transitions on raw elements for
-   cases where Tailwind utility classes aren't used.       */
-@media (prefers-reduced-motion: no-preference) {
-  button, a {
-    transition: all 200ms ease-in-out;
-  }
+/* ── 6. CARD DEPTH SYSTEM ─────────────────────────────────── */
+
+/* Light mode: cards elevated via shadow */
+.card-elevated {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 1px 2px rgba(0,0,0,0.04),
+    0 4px 12px rgba(0,0,0,0.06);
 }
 
-/* ── 7. PREMIUM SCROLLBARS (Rule 12 / Section 12) ─────────── */
+/* Dark mode override: elevation via brightness + border */
+.dark .card-elevated {
+  box-shadow: none;
+  border-color: var(--border);
+}
+
+/* ── 7. PREMIUM HEADER / SIDEBAR ─────────────────────────── */
+.glass-header {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background-color: color-mix(in srgb, var(--bg-header) 90%, transparent);
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-shadow {
+  border-right: 1px solid var(--border);
+}
+
+/* Light mode sidebar gets a faint warm shadow */
+.sidebar-shadow {
+  box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+}
+
+.dark .sidebar-shadow {
+  box-shadow: none;
+}
+
+/* ── 8. TABLE STYLES ─────────────────────────────────────── */
+
+/* Table header: faint gold wash */
+.table-header {
+  background: rgba(217, 119, 6, 0.04);
+  border-bottom: 2px solid var(--border);
+}
+.dark .table-header {
+  background: rgba(250, 204, 21, 0.04);
+}
+
+/* Row hover */
+.table-row-hover:hover {
+  background: rgba(217, 119, 6, 0.05);
+}
+.dark .table-row-hover:hover {
+  background: rgba(250, 204, 21, 0.06);
+}
+
+/* ── 9. KPI CARD GRADIENT (Design §5a) ───────────────────── */
+.kpi-gradient {
+  background: linear-gradient(
+    160deg,
+    rgba(217, 119, 6, 0.07) 0%,
+    rgba(255, 255, 255, 0.00) 70%
+  );
+}
+.dark .kpi-gradient {
+  background: linear-gradient(
+    160deg,
+    rgba(250, 204, 21, 0.08) 0%,
+    rgba(255, 255, 255, 0.00) 70%
+  );
+}
+
+/* ── 10. ACTIVE NAV GOLD GLOW (sidebar active items) ──────── */
+.nav-active-glow {
+  box-shadow: 0 0 16px rgba(250, 204, 21, 0.12);
+}
+.dark .nav-active-glow {
+  box-shadow: 0 0 18px rgba(250, 204, 21, 0.18);
+}
+
+/* ── 11. PREMIUM SCROLLBARS ─────────────────────────────── */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -237,40 +313,21 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--border);
   border-radius: var(--radius-full);
-  transition: background 200ms ease;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-secondary);
 }
 
-/* ── 8. SELECTION COLOR ────────────────────────────────────── */
+/* ── 12. TEXT SELECTION ────────────────────────────────────── */
 ::selection {
-  background-color: rgba(250, 204, 21, 0.3);
+  background-color: rgba(217, 119, 6, 0.2);
   color: var(--text-primary);
 }
-
-/* ── 9. PREMIUM KPI CARD GRADIENT (Design §5a) ────────────── */
-.kpi-gradient {
-  background: linear-gradient(
-    180deg,
-    rgba(250, 204, 21, 0.08) 0%,
-    rgba(255, 255, 255, 0.02) 100%
-  );
+.dark ::selection {
+  background-color: rgba(250, 204, 21, 0.25);
 }
 
-/* ── 10. TABLE GOLD ROW HOVER (Design §5b) ────────────────── */
-.table-row-hover:hover {
-  background: rgba(250, 204, 21, 0.06);
-}
-
-/* ── 11. GLASS HEADER EFFECT (Rule §12 Glassmorphism) ─────── */
-.glass-header {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background-color: color-mix(in srgb, var(--bg-header) 85%, transparent);
-}
-
-/* ── 12. SKELETON SHIMMER (Rule §28) ─────────────────────── */
+/* ── 13. SKELETON SHIMMER ────────────────────────────────── */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes skeleton-shimmer {
     0%   { background-position: -200% 0; }
@@ -289,7 +346,6 @@ body {
   }
 }
 
-/* Reduced motion fallback — no animation, just flat color */
 @media (prefers-reduced-motion: reduce) {
   .skeleton-shimmer {
     background: var(--skeleton-base);
@@ -297,31 +353,32 @@ body {
   }
 }
 
-/* ── 13. MOTION ACCESSIBILITY (WCAG 2.2 — Rule 29) ────────── */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration:       0.01ms !important;
-    animation-iteration-count: 1     !important;
-    transition-duration:      0.01ms !important;
-    scroll-behavior:           auto  !important;
+/* ── 14. BASE TRANSITIONS (motion-safe) ──────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  button, a {
+    transition: all 200ms ease-in-out;
   }
 }
 
-/* ── 14. PRINT STYLES (Section 14) ────────────────────────── */
-@media print {
-  /* Hide nav chrome */
-  .no-print {
-    display: none !important;
+/* ── 15. MOTION ACCESSIBILITY — WCAG 2.2 (Rule 29) ────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration:        0.01ms !important;
+    animation-iteration-count: 1      !important;
+    transition-duration:       0.01ms !important;
+    scroll-behavior:           auto   !important;
   }
+}
 
-  /* Force white/black for printing */
+/* ── 16. PRINT STYLES ─────────────────────────────────────── */
+@media print {
+  .no-print { display: none !important; }
   body {
     background-color: #ffffff !important;
-    color:            #000000 !important;
+    color: #000000 !important;
   }
-
   * {
-    box-shadow:  none !important;
+    box-shadow: none !important;
     text-shadow: none !important;
   }
 }
