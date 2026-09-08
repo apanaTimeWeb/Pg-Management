@@ -35,8 +35,7 @@ export function ManagerBroadcastsMain() {
     if (!user || !selectedPropertyId) return;
     api.managerOperations.createBroadcast({
       ...formData,      audience: formData.audience as unknown,
-      // @ts-expect-error
-      
+
       propertyId: selectedPropertyId,
       managerId: user.id
     });
@@ -88,21 +87,21 @@ export function ManagerBroadcastsMain() {
               <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-input text-xs text-primary font-medium">                {(b as Record<string, unknown>).audience === 'all' && <Users className="w-3.5 h-3.5 text-primary" />}                {(b as Record<string, unknown>).audience === 'floor' && <Building className="w-3.5 h-3.5 text-success" />}                {(b as Record<string, unknown>).audience === 'defaulters' && <AlertTriangle className="w-3.5 h-3.5 text-danger" />}                Target: {(b as Record<string, unknown>).audience === 'floor' ? (b as Record<string, unknown>).targetFloor : (b as Record<string, unknown>).audience === 'defaulters' ? 'Defaulters' : 'All Students'}
               </div>
             </div>
-          // @ts-expect-error
+
           ))}
           {broadcasts.length === 0 && (
-            // @ts-expect-error
+
             <div className="text-center p-8 text-secondary bg-card rounded-[var(--radius-lg,12px)] border border">
-              // @ts-expect-error
+
               No previous broadcasts.
             </div>
-          // @ts-expect-error
+
           )}
           {totalPages > 1 && (
             <div className="mt-4">
               <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
             </div>
-          // @ts-expect-error
+
           )}
         </div>
       </div>

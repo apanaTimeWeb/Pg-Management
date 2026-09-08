@@ -41,7 +41,7 @@ export function useManagerGateLogs(): UseManagerGateLogsReturn {
     });
     loadData();
   };
-  // @ts-expect-error
+
   const sortedLogs = [...logs].sort((a,b) => new Date((b as Record<string, unknown>).timestamp).getTime() - new Date(a.timestamp).getTime());
   const totalPages = Math.ceil(sortedLogs.length / itemsPerPage);
   const paginatedData = sortedLogs.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);

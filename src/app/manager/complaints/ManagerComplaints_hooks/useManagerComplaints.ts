@@ -22,7 +22,7 @@ export function useManagerComplaints(selectedPropertyId: string | null, ctxLoadi
   const itemsPerPage = 10;
   // RHF for the resolve modal â€” replaces repairCost/resolutionNotes useState
   const resolveForm = useForm<ComplaintResolveFormData>({
-    // @ts-expect-error
+
     resolver: zodResolver(ComplaintResolveSchema) as unknown,
     defaultValues: { repairCost: '', resolutionNotes: '' },
   });
@@ -49,12 +49,7 @@ export function useManagerComplaints(selectedPropertyId: string | null, ctxLoadi
   };
   // RHF handleSubmit â€” receives validated data, no manual parsing needed
   const handleResolveSubmit = resolveForm.handleSubmit((data: ComplaintResolveFormData) => {
-    // @ts-expect-error
-    
 
-    
-
-    
     if (!resolvingComplaint) return;
     const cost = parseFloat(data.repairCost || '0') || 0;
     api.managerOperations.resolveComplaintWithCost(resolvingComplaint.id, cost, data.resolutionNotes || '', 'manager');
@@ -67,9 +62,6 @@ export function useManagerComplaints(selectedPropertyId: string | null, ctxLoadi
   };
   const activeComplaints = complaints.filter(c => c.status !== 'Resolved');
   const resolvedComplaints = complaints.filter(c => c.status === 'Resolved').sort((a,b) => new Date((b as Record<string, unknown>).resolvedAt || (b as Record<string, unknown>).updatedAt).getTime() - new Date(a.resolvedAt || a.updatedAt).getTime());
-// @ts-expect-error
-
-
 
   const currentList = activeTab === 'active' ? activeComplaints : resolvedComplaints;
   const totalPages = Math.ceil(currentList.length / itemsPerPage);

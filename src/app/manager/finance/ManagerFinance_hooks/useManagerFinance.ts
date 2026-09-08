@@ -32,21 +32,12 @@ export function useManagerFinance(): UseManagerFinanceReturn {
     const students = api.managerOperations.listStudents(selectedPropertyId) || [];
     // Map student names
     const enrichedInvoices = allInvoices.map((inv) => {      const studentData = students.find((t: unknown) => t.profile.id === inv.studentId);
-      // @ts-expect-error
-      
 
-      
-
-      
       return {
         ...inv,
         studentName: studentData?.user?.name || 'Unknown',
         roomBed: 'Unknown'
       };    }).sort((a, b) => new Date((b as Record<string, unknown>).createdAt).getTime() - new Date(a.createdAt).getTime());
-
-// @ts-expect-error
-
-
 
     setInvoices(enrichedInvoices);
     const dashStats = api.managerDashboard.getStats(selectedPropertyId);
@@ -87,10 +78,6 @@ export function useManagerFinance(): UseManagerFinanceReturn {
   return {
     invoices,    stats,
     loading,
-    
-// @ts-expect-error
-
-    
 
     filter,
     setFilter,

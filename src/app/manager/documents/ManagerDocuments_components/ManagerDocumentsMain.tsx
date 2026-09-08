@@ -45,14 +45,14 @@ export function ManagerDocumentsMain() {
           <tbody className="divide-y divide-[var(--border)]">
             {paginatedData.map(d => (              <tr key={String((d as Record<string, unknown>).id)} className="hover:bg-page motion-safe:transition-colors">                <td className="p-4 font-medium text-primary">{d.uploaderId?.slice(0,8) || d.studentId?.slice(0,8) || 'student'}...</td>                <td className="p-4 text-secondary uppercase text-xs">{String((d as Record<string, unknown>).type) || d.documentType || 'Aadhaar'}</td>
                 <td className="p-4">                  <span className={`px-2 py-1 rounded text-xs font-bold ${d.status === 'verified' ? 'bg-[rgba(16,185,129,0.1)] text-success' : 'bg-warning-bg text-warning'}`}>                    {d.status || 'pending'}
-                  // @ts-expect-error
+
                   </span>
-                // @ts-expect-error
+
                 </td>
                 <td className="p-4 flex justify-end">
-                  // @ts-expect-error
+
                   <button className="p-2 hover:bg-input rounded border border-transparent hover:border text-secondary hover:text-primary motion-safe:transition-colors">
-                    // @ts-expect-error
+
                     <Download className="w-4 h-4" />
                   </button>
                 </td>

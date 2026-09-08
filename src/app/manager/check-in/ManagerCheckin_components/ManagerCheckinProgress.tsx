@@ -17,8 +17,8 @@ export function ManagerCheckinProgress({ step }: Props) {
               isActive ? 'border-primary bg-primary-subtle text-primary' : 
               isPassed ? 'border-success bg-success text-white' : 
               'border bg-input text-secondary'
-            }`}>              <Icon className="w-4 h-4" />
-            // @ts-expect-error
+            }`}>
+              <Icon className="w-4 h-4" />
             </div>
             <span className={`text-[10px] font-medium hidden sm:block ${isActive ? 'text-primary' : 'text-secondary'}`}>
               {s.title}

@@ -8,7 +8,7 @@ import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 
 import type { FoodMenu } from '@/app/staff/staff_lib/staff_api/StaffFood';
-// @ts-expect-error
+
 import type { UseManagerFoodReturn } from '@/app/manager/food/ManagerFood_types/ManagerFooString((d as Record<string, unknown>).type)s';
 export function useManagerFood(): UseManagerFoodReturn {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();

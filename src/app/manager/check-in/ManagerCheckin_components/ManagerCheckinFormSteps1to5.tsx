@@ -108,20 +108,20 @@ export function ManagerCheckinFormSteps1to5({ step, formData, setFormData, error
       )}
       {step === 5 && (
         <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
-          // @ts-expect-error
+
           <h2 className="text-xl font-bold text-primary flex items-center gap-2"><HeartHandshake className="text-primary" /> Roommate Compatibility</h2>
-          // @ts-expect-error
+
           <div className="bg-success-bg border border-success rounded-xl p-4 flex items-center justify-between">
             <div>
-              // @ts-expect-error
+
               <h3 className="font-bold text-primary">Compatibility Score</h3>
               <p className="text-xs text-secondary">Based on lifestyle preferences vs occupying roommate.</p>
             </div>
             <div className="w-14 h-14 rounded-full bg-success-bg border-2 border-success flex items-center justify-center font-bold text-lg text-success">
               {compatibilityScore || '--'}%
-            // @ts-expect-error
+
             </div>
-          // @ts-expect-error
+
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
              <div>

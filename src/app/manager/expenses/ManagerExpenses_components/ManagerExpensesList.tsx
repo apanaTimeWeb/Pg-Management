@@ -41,25 +41,25 @@ export function ManagerExpensesList({
               </thead>
               <tbody className="divide-y divide-[var(--border)]">
                 {paginatedData.map((exp) => (                  <tr key={(exp as unknown).id} className="hover:bg-page motion-safe:transition-colors">
-                    // @ts-expect-error
+
                     <td className="p-4 whitespace-nowrap text-secondary">                      {formatDateOnly((exp as unknown).date)}
                     </td>
-                    // @ts-expect-error
+
                     <td className="p-4">
                       <span className="font-medium text-primary">{(exp as unknown).description}</span>
                     </td>
-                    // @ts-expect-error
+
                     <td className="p-4">
                       <span className="px-2.5 py-1 bg-card border border rounded-full text-xs text-secondary">
                         {categoryLabels[(exp as unknown).category] || (exp as unknown).category}
                       </span>
-                    // @ts-expect-error
+
                     </td>
                     <td className="p-4 text-right">
                       <span className="font-bold text-danger flex items-center justify-end gap-1">
                         <IndianRupee className="w-3.5 h-3.5" /> {(exp as unknown).amount.toLocaleString('en-IN')}
                       </span>
-                    // @ts-expect-error
+
                     </td>
                   </tr>
                 ))}

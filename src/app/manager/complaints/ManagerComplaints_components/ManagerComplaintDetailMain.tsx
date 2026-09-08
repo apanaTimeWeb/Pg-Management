@@ -20,7 +20,7 @@ export default function ManagerComplaintDetailMain() {
     if (id && user && selectedPropertyId) {
       // Use API layer instead of direct localStorage
       const allComplaints = api.managerOperations.listComplaints(selectedPropertyId);
-      // @ts-expect-error
+
       const c = allComplaints.find((x: unknown) => x.id === id);
       setComplaint(c);
       // Mock timeline 
@@ -52,45 +52,41 @@ export default function ManagerComplaintDetailMain() {
         <div className="w-full md:w-2/3 p-6 md:border-r border">
           <div className="flex items-start justify-between mb-6">
             <div>              <h1 className="text-2xl font-bold text-primary">{complaint.title || complaint.category}</h1>              <div className="text-sm text-secondary mt-1">Student ID: {complaint.studentId} â€¢ Room {complaint.roomNumber || '-'}</div>
-            // @ts-expect-error
+
             </div>
-            // @ts-expect-error
+
             <span className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 ${              complaint.status === 'Resolved' ? 'bg-[rgba(16,185,129,0.1)] text-success' :              complaint.status === 'In Progress' ? 'bg-[rgba(99,102,241,0.1)] text-primary' :
               'bg-danger-bg text-danger'
             }`}>              {complaint.status === 'Resolved' ? <CheckCircle className="w-3.5 h-3.5"/> : complaint.status === 'In Progress' ? <Clock className="w-3.5 h-3.5"/> : <AlertCircle className="w-3.5 h-3.5"/>}              {complaint.status}
-            // @ts-expect-error
+
             </span>
-          // @ts-expect-error
+
           </div>
           <div className="bg-input p-4 rounded-lg text-primary text-sm mb-8 border border">            {complaint.description}
           </div>
-          // @ts-expect-error
+
           <h3 className="font-bold text-primary mb-4">Timeline</h3>
-          // @ts-expect-error
+
           <div className="space-y-4">
             {timeline.map((item, i) => (              <div key={item.id} className="flex gap-4">
                 <div className="mt-1">                  {item.type === 'status' && <AlertCircle className="w-5 h-5 text-secondary" />}                  {item.type === 'assign' && <UserPlus className="w-5 h-5 text-primary" />}                  {item.type === 'note' && <MessageSquare className="w-5 h-5 text-secondary" />}
                 </div>
-                // @ts-expect-error
+
                 <div>                  <p className="text-sm text-primary">{item.text}</p>                  <span className="text-xs text-secondary">{new Date(item.time).toLocaleString()}</span>
                 </div>
               </div>
             ))}
-          
-          // @ts-expect-error
-          
-          
-          // @ts-expect-error
-          
-          // @ts-expect-error
+
+
+
           </div>
-          // @ts-expect-error
+
           <form onSubmit={handleAddNote} className="mt-6 flex gap-2">
             <input type="text" value={note} onChange={e=>setNote(e.target.value)} placeholder="Add internal note..." className="flex-1 bg-input border border rounded px-3 py-2 text-sm text-primary focus:outline-none focus:border-primary" />
             <button type="submit" className="px-4 py-2 bg-card border border text-primary rounded font-medium hover:bg-input">Add</button>
-          // @ts-expect-error
+
           </form>
-        // @ts-expect-error
+
         </div>
         <div className="w-full md:w-1/3 p-6 bg-[rgba(99,102,241,0.02)]">
           <h3 className="font-bold text-primary mb-4">Assign Staff</h3>

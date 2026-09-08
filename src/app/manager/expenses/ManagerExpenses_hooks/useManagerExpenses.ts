@@ -22,7 +22,7 @@ export function useManagerExpenses(selectedPropertyId: string | null, propsLoadi
   const [isSubmitting, setIsSubmitting] = useState(false);
   // React Hook Form with Zod resolver â€” replaces all manual useState + validation
   const form = useForm<ExpenseFormData>({
-    // @ts-expect-error
+
     resolver: zodResolver(ExpenseFormSchema) as unknown,
     defaultValues: {
       category: 'maintenance',
@@ -61,18 +61,13 @@ export function useManagerExpenses(selectedPropertyId: string | null, propsLoadi
     setIsModalOpen(false);
   };
   // RHF-compatible submit handler â€” receives validated data directly, no manual checks needed
-  // @ts-expect-error
+
   const handleSubmit = form.handleSubmit(async (data: ExpenseFormData) => {
     if (!userId || !selectedPropertyId) return;
     setIsSubmitting(true);
     api.finance.createExpense({
       propertyId: selectedPropertyId,      category: data.category as unknown,
-      // @ts-expect-error
-      
 
-      
-
-      
       amount: Number(data.amount),
       description: data.description,
     }, userId);

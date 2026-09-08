@@ -14,13 +14,13 @@ export function useManagerAttendanceData(selectedPropertyId: string | null, ctxL
     if (!ctxLoading && selectedPropertyId) {
       const rawStudents = api.managerOperations.listStudents(selectedPropertyId) as unknown as ManagerAttendanceStudent[];
       const mapped = rawStudents.map((s) => ({
-        // @ts-expect-error
+
         id: s.profile.id,
-        // @ts-expect-error
+
         userId: s.profile.userId,
-        // @ts-expect-error
+
         name: s.user.name,
-        // @ts-expect-error
+
         phone: s.user.phone,
         roomNumber: s.roomNumber
       }));

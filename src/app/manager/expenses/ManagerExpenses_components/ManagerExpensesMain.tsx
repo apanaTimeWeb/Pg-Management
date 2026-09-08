@@ -48,16 +48,14 @@ export function ManagerExpensesMain() {
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear();
   const currentMonthExpenses = expenses.filter(e => {    const d = new Date(e.date);
-    // @ts-expect-error
-    
+
     return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
   });  const groceryExpenses = currentMonthExpenses.filter(e => String((e as Record<string, unknown>).category) === 'kitchen_stock' || (e as any).category === 'groceries').reduce((acc, e) => (acc as number) + Number((e as Record<string, unknown>).amount), 0);  const costPerStudent = studentCount > 0 ? (groceryExpenses / studentCount) : 0;
   
   const sortedExpenses = [...expenses].sort((a: any, b: any) => new Date((b as Record<string, unknown>).date).getTime() - new Date(a.date).getTime());
-  // @ts-expect-error
-  
+
   const totalPages = Math.ceil(sortedExpenses.length / itemsPerPage);
-  // @ts-expect-error
+
   const paginatedData = sortedExpenses.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   return (
     <div className="space-y-6 pb-20">
@@ -65,7 +63,7 @@ export function ManagerExpensesMain() {
         costPerStudent={costPerStudent}
         studentCount={studentCount}
         setIsModalOpen={onModalOpen}
-      // @ts-expect-error
+
       />
       <ManagerExpensesList 
         expenses={expenses}
@@ -83,7 +81,7 @@ export function ManagerExpensesMain() {
         handleSubmit={handleSubmit}
         categoryLabels={categoryLabels}
       />
-    // @ts-expect-error
+
     </div>
   );
 }

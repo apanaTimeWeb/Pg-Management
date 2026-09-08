@@ -69,7 +69,7 @@ export function ManagerCheckinFormSteps6to10({ step, formData, setFormData, vaca
                 <li>Any damages to the premises will be deducted from the deposit.</li>
               </ul>
               <div className="mt-8 pt-8 border-t border-gray-300 grid grid-cols-2 gap-8">
-                // @ts-expect-error
+
                 <div>
                   <div className="border-b border-gray-400 h-10 w-48"></div>
                   <div className="mt-2 text-xs uppercase font-bold text-gray-500">Authorized Signatory</div>
@@ -137,6 +137,6 @@ export function ManagerCheckinFormSteps6to10({ step, formData, setFormData, vaca
         </div>
       )}
     </>
-  // @ts-expect-error
+
   );
 }

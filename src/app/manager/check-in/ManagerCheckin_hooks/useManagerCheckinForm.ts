@@ -31,9 +31,9 @@ export function useManagerCheckinForm(enquiryId: string, initialEnquiryData: unk
     if (initialEnquiryData) {
       setFormData(prev => ({
         ...prev,
-        // @ts-expect-error
+
         personal: { ...prev.personal, name: initialEnquiryData.name, phone: initialEnquiryData.phone, email: initialEnquiryData.email || '' },
-        // @ts-expect-error
+
         deposit: { ...prev.deposit, rentAmount: initialEnquiryData.budget ? initialEnquiryData.budget.toString() : '' }
       }));
     }
@@ -42,24 +42,12 @@ export function useManagerCheckinForm(enquiryId: string, initialEnquiryData: unk
     // Per-step Zod validation â€” replaces manual if-else field checks
     if (step === 1) {
       const result = CheckinStep1Schema.safeParse({        name: (formData as unknown as Record<string, unknown>).personal.name.trim(),        phone: formData.personal.phone.trim(),
-      // @ts-expect-error
-      
-
-      
-
-      
 
       });
       if (!result.success) {
         const fieldErrors: Record<string, string> = {};
         result.error.issues.forEach((e: { path: (string | number)[]; message: string }) => {
           if (e.path[0]) fieldErrors[String(e.path[0])] = e.message;
-        // @ts-expect-error
-        
-
-        
-
-        
 
         });
         setErrors(fieldErrors);
@@ -74,8 +62,6 @@ export function useManagerCheckinForm(enquiryId: string, initialEnquiryData: unk
         result.error.issues.forEach((e: { path: (string | number)[]; message: string }) => {
           if (e.path[0]) fieldErrors[String(e.path[0])] = e.message;
         });
-        
-// @ts-expect-error
 
         setErrors(fieldErrors);
 
@@ -96,7 +82,6 @@ export function useManagerCheckinForm(enquiryId: string, initialEnquiryData: unk
       managerId: userId,
       propertyId: selectedPropertyId
     });
-// @ts-expect-error
 
     toast.success('Check-in completed successfully');
 

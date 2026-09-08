@@ -13,7 +13,7 @@ interface ManagerGateLogsFormProps {
 }
 export function ManagerGateLogsForm({ handleAdd }: ManagerGateLogsFormProps) {
   const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<GateLogFormData>({
-    // @ts-expect-error
+
     resolver: zodResolver(GateLogFormSchema) as unknown,
     defaultValues: { studentId: '', type: 'entry', isLate: false },
   });

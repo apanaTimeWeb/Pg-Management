@@ -66,24 +66,24 @@ export function ManagerInventoryLive({ inventory, handleUpdateQty, formData, set
           <form onSubmit={handleAdd} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-secondary mb-1">Item Name</label>
-              // @ts-expect-error
+
               <input type="text" required value={String(formData.name || '')} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-input border border rounded p-2 text-sm text-primary" placeholder="e.g. Light Bulbs" />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-secondary mb-1">Qty</label>
-                // @ts-expect-error
+
                 <input type="number" required value={String(formData.quantity || '')} onChange={e => setFormData({...formData, quantity: parseInt(e.target.value) || 0})} className="w-full bg-input border border rounded p-2 text-sm text-primary" placeholder="0" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-secondary mb-1">Min Threshold</label>
-                // @ts-expect-error
+
                 <input type="number" required value={String(formData.threshold || '')} onChange={e => setFormData({...formData, threshold: parseInt(e.target.value) || 0})} className="w-full bg-input border border rounded p-2 text-sm text-primary" placeholder="0" />
               </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-secondary mb-1">Category</label>
-              // @ts-expect-error
+
               <select value={String(formData.category || '')} onChange={e => setFormData({...formData, category: e.target.value})} className="w-full bg-input border border rounded p-2 text-sm text-primary">
                 <option>Maintenance</option>
                 <option>Cleaning</option>

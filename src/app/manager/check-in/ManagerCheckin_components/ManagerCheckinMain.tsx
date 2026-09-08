@@ -19,16 +19,15 @@ export function ManagerCheckinMain() {
     step, setStep, formData, setFormData, errors, setErrors, isSubmitting, 
     handleNext, handlePrev, handleCommit, router 
   } = useManagerCheckinForm(enquiryId, null, selectedPropertyId, user?.id);
-  const { vacantBeds, compatibilityScore, enquiryData } = useManagerCheckinData(    selectedPropertyId, step, enquiryId, formData.room.bedId, formData.compatibility
+  const { vacantBeds, compatibilityScore, enquiryData } = useManagerCheckinData(    selectedPropertyId, step, enquiryId, formData.room.bedId, formData.compatibility
   );
-  // Sync initial enquiry data if fetched  if (enquiryData && formData.personal.name === '') {
+  // Sync initial enquiry data if fetched
+  if (enquiryData && formData.personal.name === '') {
     setFormData(prev => ({
-      ...prev,      personal: { ...prev.personal, name: enquiryData.name, phone: enquiryData.phone, email: enquiryData.email || '' },      deposit: { ...prev.deposit, rentAmount: enquiryData.budget ? enquiryData.budget.toString() : '' }
+      ...prev,      personal: { ...prev.personal, name: enquiryData.name, phone: enquiryData.phone, email: enquiryData.email || '' },      deposit: { ...prev.deposit, rentAmount: enquiryData.budget ? enquiryData.budget.toString() : '' }
     }));
   }
-// @ts-expect-error
-
-  // @ts-expect-error
+
   if (ctxLoading) return <div className="p-6 text-secondary">Loading wizard...</div>;
   if (!selectedPropertyId) {
 
