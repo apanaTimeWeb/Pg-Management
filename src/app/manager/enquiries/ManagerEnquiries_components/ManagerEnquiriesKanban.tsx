@@ -2,19 +2,19 @@
 import { Phone, IndianRupee, MessageCircle, Mail, UserPlus } from 'lucide-react';
 
 import type { Enquiry, EnquiryStatus } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
-interface Props {
+interface ManagerEnquiriesKanbanProps {
   activeEnquiries: Enquiry[];
   columns: { id: EnquiryStatus, label: string }[];
   setWaMenuEnquiry: (enq: Enquiry) => void;
   handleStatusChange: (id: string, status: EnquiryStatus) => void;
   handleConvertToCheckin: (enquiryId: string) => void;
 }
-export function ManagerEnquiriesKanban({ activeEnquiries, columns, setWaMenuEnquiry, handleStatusChange, handleConvertToCheckin }: Props) {
+export function ManagerEnquiriesKanban({ activeEnquiries, columns, setWaMenuEnquiry, handleStatusChange, handleConvertToCheckin }: ManagerEnquiriesKanbanProps) {
   const renderCardContactActions = (enq: Enquiry) => (
     <div className="flex items-center gap-2 mt-2 pt-2 border-t border">
       <button 
         onClick={() => setWaMenuEnquiry(enq)}
-        className="flex-1 flex items-center justify-center gap-1.5 py-1.5 bg-emerald-500/10 text-emerald-600 rounded border border-emerald-500/20 hover:bg-emerald-500/20 motion-safe:transition-colors text-xs font-bold"
+        className="flex-1 flex items-center justify-center gap-1.5 py-1.5 bg-[#25D366]/10 text-[#25D366] rounded border border-[#25D366]/20 hover:bg-[#25D366]/20 motion-safe:transition-colors text-xs font-bold"
       >
         <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
       </button>
@@ -60,7 +60,7 @@ export function ManagerEnquiriesKanban({ activeEnquiries, columns, setWaMenuEnqu
                       {(enq.budget || 0) > 0 && (
                         <div className="flex items-center gap-2 text-xs text-secondary">
                           <IndianRupee className="w-3.5 h-3.5" />
-                          <span>₹{(enq.budget || 0).toLocaleString()}</span>
+                          <span>₹{(enq.budget || 0).toLocaleString('en-IN')}</span>
                         </div>
                       )}
                     </div>

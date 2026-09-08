@@ -1,11 +1,10 @@
-// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerCheckinFormSteps1to5 component.
 import { User, FileText, Users, BedDouble, HeartHandshake } from 'lucide-react';
 
 import { InputError } from '@/components/ui/InputError';
 
 import type { ManagerCheckinFormData } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
-interface Props {
+interface ManagerCheckinFormSteps1to5Props {
   step: number;
   formData: ManagerCheckinFormData;
   setFormData: React.Dispatch<React.SetStateAction<ManagerCheckinFormData>>;
@@ -14,7 +13,7 @@ interface Props {
   vacantBeds: unknown[];
   compatibilityScore: number | null;
 }
-export function ManagerCheckinFormSteps1to5({ step, formData, setFormData, errors, setErrors, vacantBeds, compatibilityScore }: Props) {
+export function ManagerCheckinFormSteps1to5({ step, formData, setFormData, errors, setErrors, vacantBeds, compatibilityScore }: ManagerCheckinFormSteps1to5Props) {
   if (step > 5) return null;
   return (
     <>
@@ -93,13 +92,18 @@ export function ManagerCheckinFormSteps1to5({ step, formData, setFormData, error
                 No vacant beds available in this property.
               </div>
             ) : (
-              vacantBeds.map((bed) => (
-                <button                  key={beString((d as Record<string, unknown>).id)}                  onClick={() => setFormData({...formData, room: { bedId: beString((d as Record<string, unknown>).id) }})}
-                  className={`p-4 rounded-xl border text-left motion-safe:transition-all ${                    formData.room.bedId === beString((d as Record<string, unknown>).id) 
+              vacantBeds.map((bed: any) => (
+                <button
+                  key={bed.id}
+                  onClick={() => setFormData({...formData, room: { bedId: bed.id }})}
+                  className={`p-4 rounded-xl border text-left motion-safe:transition-all ${
+                    formData.room.bedId === bed.id 
                       ? 'border-primary bg-primary-subtle' 
                       : 'border hover:border-primary-hover bg-input'
                   }`}
-                >                  <div className="font-bold text-primary">Room {bed.roomNumber}</div>                  <div className="text-sm text-secondary">Bed {bed.code}</div>
+                >
+                  <div className="font-bold text-primary">Room {bed.roomNumber}</div>
+                  <div className="text-sm text-secondary">Bed {bed.code}</div>
                 </button>
               ))
             )}

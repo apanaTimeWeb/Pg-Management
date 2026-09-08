@@ -6,7 +6,7 @@ import { IndianRupee, Loader2 } from 'lucide-react';
 
 import type { UseFormReturn } from 'react-hook-form';
 import type { ExpenseFormData } from '@/app/manager/expenses/ManagerExpenses_types/ManagerExpenses.types';
-interface Props {
+interface ManagerExpensesModalProps {
   isModalOpen: boolean;
   onModalClose: () => void;
   isSubmitting: boolean;
@@ -16,7 +16,7 @@ interface Props {
 }
 export function ManagerExpensesModal({
   isModalOpen, onModalClose, isSubmitting, form, handleSubmit, categoryLabels
-}: Props) {
+}: ManagerExpensesModalProps) {
   if (!isModalOpen) return null;
   const { register, formState: { errors } } = form;
   return (

@@ -1,17 +1,16 @@
-// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerCheckinFormSteps6to10 component.
 import { Wallet, FileCheck, Key, Utensils, CheckCircle, Lock } from 'lucide-react';
 
 import type { ManagerCheckinFormData } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-interface Props {
+interface ManagerCheckinFormSteps6to10Props {
   step: number;
   formData: ManagerCheckinFormData;
   setFormData: React.Dispatch<React.SetStateAction<ManagerCheckinFormData>>;
   vacantBeds: unknown[];
   router: AppRouterInstance;
 }
-export function ManagerCheckinFormSteps6to10({ step, formData, setFormData, vacantBeds, router }: Props) {
+export function ManagerCheckinFormSteps6to10({ step, formData, setFormData, vacantBeds, router }: ManagerCheckinFormSteps6to10Props) {
   if (step < 6) return null;
   return (
     <>
@@ -60,8 +59,8 @@ export function ManagerCheckinFormSteps6to10({ step, formData, setFormData, vaca
             </div>
             <div className="space-y-4 text-sm leading-relaxed text-gray-800">              <p>This Rental Agreement is made and entered into on <strong>{new Date().toLocaleDateString('en-IN')}</strong>, by and between the Property Management and <strong>{formData.personal.name || '[Student Name]'}</strong> (hereinafter referred to as the "Student").</p>
               <h3 className="font-bold text-base mt-4">1. Premises</h3>
-              <p>The Student agrees to lease the bed assigned in Room {(vacantBeds.find((b) =>(b as Record<string, unknown>).id===formData.room.bedId) as unknown)?.roomNumber || '[Room Number]'} under the standard occupancy terms.</p>
-              <h3 className="font-bold text-base mt-4">2. Rent & Deposit</h3>              <p>The agreed monthly rent is ₹{formData.deposit.rentAmount || '0'}. Rent must be paid on or before the agreed rent cycle date every month. {formData.deposit.type === 'zero_deposit' ? `A Zero Deposit model has been opted via ${formData.deposit.loanPartner}.` : 'A standard security deposit is required before move-in.'}</p>
+              <p>The Student agrees to lease the bed assigned in Room {((vacantBeds.find((b: any) => b.id === formData.room.bedId)) as any)?.roomNumber || '[Room Number]'} under the standard occupancy terms.</p>
+              <h3 className="font-bold text-base mt-4">2. Rent & Deposit</h3>              <p>The agreed monthly rent is ₹{Number(formData.deposit.rentAmount || 0).toLocaleString('en-IN')}. Rent must be paid on or before the agreed rent cycle date every month. {formData.deposit.type === 'zero_deposit' ? `A Zero Deposit model has been opted via ${formData.deposit.loanPartner}.` : 'A standard security deposit is required before move-in.'}</p>
               <h3 className="font-bold text-base mt-4">3. House Rules & Notice</h3>
               <ul className="list-disc pl-5 space-y-1">
                 <li>Student must serve the mandatory notice period before vacating.</li>
@@ -123,7 +122,7 @@ export function ManagerCheckinFormSteps6to10({ step, formData, setFormData, vaca
           </div>
           <h2 className="text-2xl font-bold text-primary">Check-in Complete!</h2>
           <p className="text-secondary mb-6 max-w-md">
-            {formData.personal.name} has been successfully onboarded to Room {(vacantBeds.find((b) =>(b as Record<string, unknown>).id===formData.room.bedId) as unknown)?.roomNumber || '-'}. 
+            {formData.personal.name} has been successfully onboarded to Room {((vacantBeds.find((b: any) => b.id === formData.room.bedId)) as any)?.roomNumber || '-'}. 
             Parent link created and mess wallet initialized.
           </p>
           <div className="flex gap-4">

@@ -1,1 +1,3 @@
-export const MANAGER_ATTENDANCE_URL = '/manager/attendance';
+export const ManagerAttendanceUrls = {
+  index: '/manager/attendance'
+};

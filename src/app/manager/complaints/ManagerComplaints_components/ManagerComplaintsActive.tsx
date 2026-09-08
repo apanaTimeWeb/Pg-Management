@@ -2,7 +2,7 @@
 import { Clock, AlertCircle, CheckCircle } from 'lucide-react';
 
 import type { ManagerComplaintData } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';
-interface Props {
+interface ManagerComplaintsActiveProps {
   paginatedData: ManagerComplaintData[];
   activeComplaintsCount: number;
   handleStartWork: (id: string) => void;
@@ -10,7 +10,7 @@ interface Props {
 }
 export function ManagerComplaintsActive({ 
   paginatedData, activeComplaintsCount, handleStartWork, setResolvingComplaint 
-}: Props) {
+}: ManagerComplaintsActiveProps) {
   return (
     <div className="space-y-4">
       {paginatedData.map(c => (

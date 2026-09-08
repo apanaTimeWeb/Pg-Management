@@ -216,7 +216,7 @@ export const managerCheckinApi = {
     
     if (data.enquiryId) {
       
-      managerEnquiriesApi.updateStatus(data.enquiryId, 'converted', actorId);
+      managerEnquiriesApi.updateEnquiryStatus(data.enquiryId, 'converted', actorId);
     }
     // 9. Audit Log
     db.insert(STORAGE_KEYS.AUDIT_LOGS, {

@@ -2,14 +2,14 @@
 import { Search, BedDouble, CheckCircle, XCircle, Clock, Users } from 'lucide-react';
 
 import type { ManagerAttendanceStudent, ManagerAttendanceRecord } from '@/app/manager/attendance/ManagerAttendance_types/ManagerAttendance.types';
-interface Props {
+interface ManagerAttendanceTableProps {
   paginatedData: ManagerAttendanceStudent[];
   attendance: ManagerAttendanceRecord[];
   searchQuery: string;
   setSearchQuery: (val: string) => void;
   handleMark: (studentId: string, status: 'Present' | 'Absent' | 'On Leave') => void;
 }
-export function ManagerAttendanceTable({ paginatedData, attendance, searchQuery, setSearchQuery, handleMark }: Props) {
+export function ManagerAttendanceTable({ paginatedData, attendance, searchQuery, setSearchQuery, handleMark }: ManagerAttendanceTableProps) {
   const getStatusColor = (status: string) => {
     if (status === 'Present') return 'bg-success-bg text-success border-success';
     if (status === 'Absent') return 'bg-danger-bg text-danger border-danger';

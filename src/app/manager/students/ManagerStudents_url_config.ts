@@ -1,1 +1,3 @@
-export const MANAGER_STUDENTS_URL = '/manager/students';
+export const ManagerStudentsUrls = {
+  index: '/manager/students'
+};

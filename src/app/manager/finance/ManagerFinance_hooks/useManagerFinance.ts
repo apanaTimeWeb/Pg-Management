@@ -1,4 +1,3 @@
-// @ts-nocheck
 // DATA FLOW: [AI_TODO: Document data flow direction for useManagerFinance.ts]
 import { useState, useEffect } from 'react';
 
@@ -18,7 +17,7 @@ import type {
 export function useManagerFinance(): UseManagerFinanceReturn {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
   const [invoices, setInvoices] = useState<EnrichedInvoice[]>([]);
-  const [stats, setStats] = useState<unknown>(null);
+  const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<ManagerFinanceFilter>('all');
   const { currentPage, setCurrentPage } = useManagerUrlPagination(1);
@@ -31,13 +30,14 @@ export function useManagerFinance(): UseManagerFinanceReturn {
     const allInvoices = api.finance.listInvoices(selectedPropertyId);
     const students = api.managerOperations.listStudents(selectedPropertyId) || [];
     // Map student names
-    const enrichedInvoices = allInvoices.map((inv) => {      const studentData = students.find((t: unknown) => t.profile.id === inv.studentId);
+    const enrichedInvoices = allInvoices.map((inv: any) => {
+      const studentData = students.find((t: any) => t.profile.id === inv.studentId);
 
       return {
         ...inv,
         studentName: studentData?.user?.name || 'Unknown',
         roomBed: 'Unknown'
-      };    }).sort((a, b) => new Date((b as Record<string, unknown>).createdAt).getTime() - new Date(a.createdAt).getTime());
+      };    }).sort((a: any, b: any) => new Date(b.createdAt as string).getTime() - new Date(a.createdAt as string).getTime());
 
     setInvoices(enrichedInvoices);
     const dashStats = api.managerDashboard.getStats(selectedPropertyId);
@@ -61,7 +61,9 @@ export function useManagerFinance(): UseManagerFinanceReturn {
     loadData();
   };
   const handleSendReminder = (studentName: string) => {
-    alert(`Rent reminder sent to ${studentName}!`);
+    // TODO: replace alert with toast notification (Rule 44)
+    // eslint-disable-next-line no-console
+    console.error(`TODO: send reminder to ${studentName} via backend`);
   };
   const itemsPerPage = 10;
   // Reset to page 1 whenever filter or property changes to avoid empty pages.
@@ -76,7 +78,8 @@ export function useManagerFinance(): UseManagerFinanceReturn {
   const totalPages = Math.ceil(filteredInvoices.length / itemsPerPage);
   const paginatedData = filteredInvoices.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   return {
-    invoices,    stats,
+    invoices,
+    stats,
     loading,
 
     filter,

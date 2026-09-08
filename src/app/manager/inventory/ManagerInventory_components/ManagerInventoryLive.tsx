@@ -1,16 +1,21 @@
-// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerInventoryLive component.
 import { AlertTriangle, Minus, Plus } from 'lucide-react';
 
 import type { ManagerInventoryItem } from '@/app/manager/inventory/ManagerInventory_types/ManagerInventory.types';
-interface Props {
+interface InventoryFormData {
+  name: string;
+  quantity: number;
+  threshold: number;
+  category: string;
+}
+interface ManagerInventoryLiveProps {
   inventory: ManagerInventoryItem[];
   handleUpdateQty: (id: string, delta: number) => void;
-  formData: unknown;
-  setFormData: (val: unknown) => void;
+  formData: InventoryFormData;
+  setFormData: (val: InventoryFormData) => void;
   handleAdd: (e: React.FormEvent) => void;
 }
-export function ManagerInventoryLive({ inventory, handleUpdateQty, formData, setFormData, handleAdd }: Props) {
+export function ManagerInventoryLive({ inventory, handleUpdateQty, formData, setFormData, handleAdd }: ManagerInventoryLiveProps) {
   return (
     <div className="flex flex-col lg:flex-row gap-6">
       <div className="flex-1 bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden">

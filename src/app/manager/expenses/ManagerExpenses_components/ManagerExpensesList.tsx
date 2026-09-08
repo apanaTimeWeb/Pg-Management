@@ -1,10 +1,9 @@
-// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerExpensesList component.
 import { Receipt, IndianRupee } from 'lucide-react';
 
 import { formatDateOnly } from '@/lib/utils/formatters';
 import { Pagination } from '@/components/ui/Pagination';
-interface Props {
+interface ManagerExpensesListProps {
   expenses: unknown[];
   paginatedData: unknown[];
   categoryLabels: Record<string, string>;
@@ -14,7 +13,7 @@ interface Props {
 }
 export function ManagerExpensesList({
   expenses, paginatedData, categoryLabels, currentPage, totalPages, setCurrentPage
-}: Props) {
+}: ManagerExpensesListProps) {
   return (
     <>
       <div className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm">
@@ -40,26 +39,23 @@ export function ManagerExpensesList({
                 </tr>
               </thead>
               <tbody className="divide-y divide-[var(--border)]">
-                {paginatedData.map((exp) => (                  <tr key={(exp as unknown).id} className="hover:bg-page motion-safe:transition-colors">
-
-                    <td className="p-4 whitespace-nowrap text-secondary">                      {formatDateOnly((exp as unknown).date)}
+                {paginatedData.map((exp: any) => (
+                  <tr key={exp.id} className="hover:bg-page motion-safe:transition-colors">
+                    <td className="p-4 whitespace-nowrap text-secondary">
+                      {formatDateOnly(exp.date)}
                     </td>
-
                     <td className="p-4">
-                      <span className="font-medium text-primary">{(exp as unknown).description}</span>
+                      <span className="font-medium text-primary">{exp.description}</span>
                     </td>
-
                     <td className="p-4">
                       <span className="px-2.5 py-1 bg-card border border rounded-full text-xs text-secondary">
-                        {categoryLabels[(exp as unknown).category] || (exp as unknown).category}
+                        {categoryLabels[exp.category] || exp.category}
                       </span>
-
                     </td>
                     <td className="p-4 text-right">
                       <span className="font-bold text-danger flex items-center justify-end gap-1">
-                        <IndianRupee className="w-3.5 h-3.5" /> {(exp as unknown).amount.toLocaleString('en-IN')}
+                        <IndianRupee className="w-3.5 h-3.5" /> {Number(exp.amount || 0).toLocaleString('en-IN')}
                       </span>
-
                     </td>
                   </tr>
                 ))}

@@ -1,1 +1,3 @@
-export const MANAGER_ENQUIRIES_URL = '/manager/enquiries';
+export const ManagerEnquiriesUrls = {
+  index: '/manager/enquiries'
+};

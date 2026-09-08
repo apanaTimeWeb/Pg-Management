@@ -22,7 +22,6 @@ const ManagerPropertyContext = createContext<ManagerPropertyContextType>({
 });
 
 export const ManagerPropertyProvider = ({ children }: { children: React.ReactNode }) => {
-  console.log('ManagerPropertyProvider render');
   const [properties, setProperties] = useState<unknown[]>([]);
   const [selectedPropertyId, setPropertyId] = useState<string>('');
   const [loading, setLoading] = useState(true);
@@ -43,15 +42,12 @@ export const ManagerPropertyProvider = ({ children }: { children: React.ReactNod
     if (user?.role === 'manager' && user.assignedPropertyIds && user.assignedPropertyIds.length > 0) {
       const allProps = api.properties.listAll();
       const assignedProps = allProps.filter((p) => user.assignedPropertyIds?.includes((p as { id: string }).id));
-      console.log('ManagerPropertyContext matched props:', { allProps, assignedProps, user });
       setProperties(assignedProps);
       if (assignedProps.length > 0) {
         setPropertyId((assignedProps[0] as { id: string }).id);
       }
     } else {
-      console.log('ManagerPropertyContext failed condition:', { role: user?.role, assigned: user?.assignedPropertyIds });
     }
-    console.log('ManagerPropertyContext setting loading to false');
     setLoading(false);
   }, [user]);
 

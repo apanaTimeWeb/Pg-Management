@@ -1,11 +1,11 @@
 // RESPONSIBILITY: Renders the ManagerAttendanceSummary component.
 import { format } from 'date-fns';
-interface Props {
+interface ManagerAttendanceSummaryProps {
   presentCount: number;
   absentCount: number;
   pendingCount: number;
 }
-export function ManagerAttendanceSummary({ presentCount, absentCount, pendingCount }: Props) {
+export function ManagerAttendanceSummary({ presentCount, absentCount, pendingCount }: ManagerAttendanceSummaryProps) {
   return (
     <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
       <div>

@@ -1,1 +1,3 @@
-export const MANAGER_INVENTORY_URL = '/manager/inventory';
+export const ManagerInventoryUrls = {
+  index: '/manager/inventory'
+};

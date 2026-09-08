@@ -3,7 +3,7 @@ import { BedDouble, ChevronRight, User, Users } from 'lucide-react';
 import Link from 'next/link';
 
 import type { ManagerRoomData } from '@/app/manager/rooms/ManagerRooms_types/ManagerRooms.types';
-interface Props {
+interface ManagerRoomsTableProps {
   loading: boolean;
   filteredRooms: ManagerRoomData[];
   currentPage: number;
@@ -13,7 +13,7 @@ interface Props {
 }
 export function ManagerRoomsTable({ 
   loading, filteredRooms, currentPage, itemsPerPage, totalPages, setCurrentPage 
-}: Props) {
+}: ManagerRoomsTableProps) {
   if (loading) {
     return <div className="motion-safe:animate-pulse h-64 bg-card border border rounded-[var(--radius-lg,12px)]"></div>;
   }
@@ -76,7 +76,7 @@ export function ManagerRoomsTable({
                   </td>
                   <td className="px-6 py-4">
                     <div className="text-primary font-bold text-sm">
-                      ₹{(room.rentPerBed || 0).toLocaleString()}
+                      ₹{(room.rentPerBed || 0).toLocaleString('en-IN')}
                     </div>
                     <div className="text-[11px] text-secondary mt-0.5">/ month</div>
                   </td>

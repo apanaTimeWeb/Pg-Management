@@ -1,1 +1,3 @@
-export const MANAGER_DASHBOARD_URL = '/manager/dashboard';
+export const ManagerDashboardUrls = {
+  index: '/manager/dashboard'
+};

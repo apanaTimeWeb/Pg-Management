@@ -1,5 +1,5 @@
 // DATA FLOW: [AI_TODO: Document data flow direction for useManagerGateLogs.ts]
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { useManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/useManagerUrlPagination';
 // [DATA HOOK] useManagerGateLogs
@@ -16,16 +16,17 @@ export function useManagerGateLogs(): UseManagerGateLogsReturn {
   const { currentPage, setCurrentPage } = useManagerUrlPagination(1);
   const itemsPerPage = 10;
   const user = useManagerSession();
-  const loadData = () => {
+  const loadData = useCallback(() => {
     if (!ctxLoading && selectedPropertyId) {
       setLogs(api.managerOperations.listGateLogs(selectedPropertyId) as unknown as GateLog[]);
     }
-  };
+  }, [ctxLoading, selectedPropertyId]);
+
   // Re-fetch gate logs when property changes or context finishes loading.
   useEffect(() => {
     loadData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedPropertyId, ctxLoading]);
+    // Dependency explicitly includes loadData which covers ctxLoading and selectedPropertyId
+  }, [loadData]);
   // Reset pagination to page 1 whenever the active property changes.
   useEffect(() => {
     setCurrentPage(1);

@@ -18,7 +18,7 @@ export interface Enquiry extends BaseEntity {
   referredByStudentId?: string;
 }
 export const managerEnquiriesApi = {
-  listByProperty: (propertyId: string): Enquiry[] => {
+  fetchEnquiries: (propertyId: string): Enquiry[] => {
     if (!propertyId) return [];
     // Auto-seed to ensure page isn't empty for demo
     const existing = db.getAll<Enquiry>(STORAGE_KEYS.ENQUIRIES).filter(e => e.propertyId === propertyId);
@@ -40,10 +40,10 @@ export const managerEnquiriesApi = {
              .filter(e => e.propertyId === propertyId && !e.isDeleted)
              .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   },
-  getById: (id: string): Enquiry | null => {
+  fetchEnquiry: (id: string): Enquiry | null => {
     return db.getById<Enquiry>(STORAGE_KEYS.ENQUIRIES, id) || null;
   },
-  create: (data: Partial<Enquiry> & { propertyId: string, assignedManagerId?: string }): Enquiry => {
+  createEnquiry: (data: Partial<Enquiry> & { propertyId: string, assignedManagerId?: string }): Enquiry => {
     const newEnquiry: Enquiry = {
       id: createId('enq'),
       propertyId: (data as Record<string, unknown>).propertyId as string,
@@ -77,7 +77,7 @@ export const managerEnquiriesApi = {
     });
     return newEnquiry;
   },
-  updateStatus: (id: string, status: EnquiryStatus, managerId: string, lossReason?: string) => {
+  updateEnquiryStatus: (id: string, status: EnquiryStatus, managerId: string, lossReason?: string) => {
     const enq = db.getById<Enquiry>(STORAGE_KEYS.ENQUIRIES, id);
     if (!enq) return;
     const updateData: unknown = { 

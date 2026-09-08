@@ -7,7 +7,7 @@ import { CheckCircle, X, IndianRupee } from 'lucide-react';
 import type { UseFormReturn } from 'react-hook-form';
 import type { ManagerComplaintData } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';
 import type { ComplaintResolveFormData } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';
-interface Props {
+interface ManagerComplaintsResolveModalProps {
   resolvingComplaint: ManagerComplaintData;
   onClose: () => void;
   resolveForm: UseFormReturn<ComplaintResolveFormData>;
@@ -15,7 +15,7 @@ interface Props {
 }
 export function ManagerComplaintsResolveModal({
   resolvingComplaint, onClose, resolveForm, handleResolveSubmit
-}: Props) {
+}: ManagerComplaintsResolveModalProps) {
   const { register, formState: { errors } } = resolveForm;
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">

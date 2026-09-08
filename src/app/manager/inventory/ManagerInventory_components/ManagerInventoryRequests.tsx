@@ -2,7 +2,7 @@
 import { CheckCircle, Clock, ShoppingCart } from 'lucide-react';
 
 import type { ManagerKitchenRequest } from '@/app/manager/inventory/ManagerInventory_types/ManagerInventory.types';
-interface Props {
+interface ManagerInventoryRequestsProps {
   requests: ManagerKitchenRequest[];
   purchasedQty: { [key: string]: string };
   setPurchasedQty: (val: unknown) => void;
@@ -17,7 +17,7 @@ export function ManagerInventoryRequests({
   purchaseDate, setPurchaseDate,
   purchaseCost, setPurchaseCost,
   handleMarkPurchased
-}: Props) {
+}: ManagerInventoryRequestsProps) {
   if (requests.length === 0) {
     return (
       <div className="text-center p-12 text-secondary bg-card border border rounded-3xl">

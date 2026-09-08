@@ -1,4 +1,3 @@
-// @ts-nocheck
 // DATA FLOW: [AI_TODO: Document data flow direction for useManagerCheckinForm.ts]
 // [FORM HOOK] useManagerCheckinForm
 // Responsibility: Manages the 10-step check-in wizard state, per-step Zod validation, and final commit.
@@ -31,24 +30,22 @@ export function useManagerCheckinForm(enquiryId: string, initialEnquiryData: unk
     if (initialEnquiryData) {
       setFormData(prev => ({
         ...prev,
-
-        personal: { ...prev.personal, name: initialEnquiryData.name, phone: initialEnquiryData.phone, email: initialEnquiryData.email || '' },
-
-        deposit: { ...prev.deposit, rentAmount: initialEnquiryData.budget ? initialEnquiryData.budget.toString() : '' }
+        personal: { ...prev.personal, name: (initialEnquiryData as any).name || '', phone: (initialEnquiryData as any).phone || '', email: (initialEnquiryData as any).email || '' },
+        deposit: { ...prev.deposit, rentAmount: (initialEnquiryData as any).budget ? (initialEnquiryData as any).budget.toString() : '' }
       }));
     }
   }, [initialEnquiryData]);
   const handleNext = () => {
     // Per-step Zod validation â€” replaces manual if-else field checks
     if (step === 1) {
-      const result = CheckinStep1Schema.safeParse({        name: (formData as unknown as Record<string, unknown>).personal.name.trim(),        phone: formData.personal.phone.trim(),
-
+      const result = CheckinStep1Schema.safeParse({        
+        name: formData.personal.name.trim(),        
+        phone: formData.personal.phone.trim(),
       });
       if (!result.success) {
         const fieldErrors: Record<string, string> = {};
-        result.error.issues.forEach((e: { path: (string | number)[]; message: string }) => {
+        result.error.issues.forEach((e: any) => {
           if (e.path[0]) fieldErrors[String(e.path[0])] = e.message;
-
         });
         setErrors(fieldErrors);
         return;
@@ -59,10 +56,9 @@ export function useManagerCheckinForm(enquiryId: string, initialEnquiryData: unk
       });
       if (!result.success) {
         const fieldErrors: Record<string, string> = {};
-        result.error.issues.forEach((e: { path: (string | number)[]; message: string }) => {
+        result.error.issues.forEach((e: any) => {
           if (e.path[0]) fieldErrors[String(e.path[0])] = e.message;
         });
-
         setErrors(fieldErrors);
 
         return;

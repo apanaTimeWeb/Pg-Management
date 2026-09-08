@@ -1,1 +1,3 @@
-export const MANAGER_COMPLAINTS_URL = '/manager/complaints';
+export const ManagerComplaintsUrls = {
+  index: '/manager/complaints'
+};

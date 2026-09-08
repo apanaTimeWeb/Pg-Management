@@ -1,1 +1,3 @@
-export const MANAGER_ROOMS_URL = '/manager/rooms';
+export const ManagerRoomsUrls = {
+  index: '/manager/rooms'
+};

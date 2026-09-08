@@ -1,4 +1,3 @@
-// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerComplaintDetailMain component.
 'use client';
 import { useState, useEffect } from 'react';
@@ -11,8 +10,8 @@ import { useManagerSession } from '@/app/manager/manager_components/manager_hook
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 export default function ManagerComplaintDetailMain() {
   const { id } = useParams() as { id: string };
-  const [complaint, setComplaint] = useState<unknown>(null);
-  const [timeline, setTimeline] = useState<unknown[]>([]);
+  const [complaint, setComplaint] = useState<any>(null);
+  const [timeline, setTimeline] = useState<any[]>([]);
   const [note, setNote] = useState('');
   const user = useManagerSession();
   const { selectedPropertyId } = useManagerPropertyContext();
@@ -21,7 +20,7 @@ export default function ManagerComplaintDetailMain() {
       // Use API layer instead of direct localStorage
       const allComplaints = api.managerOperations.listComplaints(selectedPropertyId);
 
-      const c = allComplaints.find((x: unknown) => x.id === id);
+      const c = allComplaints.find((x: any) => x.id === id);
       setComplaint(c);
       // Mock timeline 
       if (c) {

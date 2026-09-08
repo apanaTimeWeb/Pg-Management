@@ -4,7 +4,7 @@ import { MessageCircle, Mail } from 'lucide-react';
 import { Pagination } from '@/components/ui/Pagination';
 
 import type { Enquiry, EnquiryStatus } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
-interface Props {
+interface ManagerEnquiriesLostProps {
   paginatedLostEnquiries: Enquiry[];
   lostEnquiries: Enquiry[];
   currentPage: number;
@@ -16,12 +16,12 @@ interface Props {
 export function ManagerEnquiriesLost({
   paginatedLostEnquiries, lostEnquiries, currentPage, totalPages,
   setCurrentPage, setWaMenuEnquiry, handleStatusChange
-}: Props) {
+}: ManagerEnquiriesLostProps) {
   const renderCardContactActions = (enq: Enquiry) => (
     <div className="flex items-center gap-2 mt-2 pt-2 border-t border">
       <button 
         onClick={() => setWaMenuEnquiry(enq)}
-        className="flex-1 flex items-center justify-center gap-1.5 py-1.5 bg-emerald-500/10 text-emerald-600 rounded border border-emerald-500/20 hover:bg-emerald-500/20 motion-safe:transition-colors text-xs font-bold"
+        className="flex-1 flex items-center justify-center gap-1.5 py-1.5 bg-[#25D366]/10 text-[#25D366] rounded border border-[#25D366]/20 hover:bg-[#25D366]/20 motion-safe:transition-colors text-xs font-bold"
       >
         <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
       </button>

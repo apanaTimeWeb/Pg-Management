@@ -1,4 +1,3 @@
-// @ts-nocheck
 // DATA FLOW: [AI_TODO: Document data flow direction for useManagerCheckinData.ts]
 // [DATA HOOK] useManagerCheckinData
 // Responsibility: Provides wizard step-dependent data (vacant beds, compatibility score, enquiry prefill).
@@ -14,7 +13,7 @@ export function useManagerCheckinData(selectedPropertyId: string | null, step: n
   useEffect(() => {
     if (enquiryId && selectedPropertyId) {
 
-      const enq = api.managerEnquiries.getById(enquiryId);
+      const enq = api.managerEnquiries.fetchEnquiry(enquiryId);
       if (enq && enq.propertyId === selectedPropertyId) {
         setEnquiryData(enq);
       }
@@ -30,7 +29,8 @@ export function useManagerCheckinData(selectedPropertyId: string | null, step: n
   }, [step, selectedPropertyId]);
   // Calculate compatibility score only at step 5 when a bed has been selected.
   useEffect(() => {
-    if (step === 5 && formDataRoomBedId) {      const bed = vacantBeds.find(b => (b as Record<string, unknown>).id === formDataRoomBedId);
+    if (step === 5 && formDataRoomBedId) {
+      const bed = vacantBeds.find((b: any) => b.id === formDataRoomBedId) as any;
       if (bed) {
         const score = api.managerCheckin.getCompatibilityScore(bed.roomId, null, compatibility);
 

@@ -1,1 +1,3 @@
-export const MANAGER_EXPENSES_URL = '/manager/expenses';
+export const ManagerExpensesUrls = {
+  index: '/manager/expenses'
+};

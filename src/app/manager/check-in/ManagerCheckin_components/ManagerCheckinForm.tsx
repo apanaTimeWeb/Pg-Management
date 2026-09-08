@@ -6,7 +6,7 @@ import { ManagerCheckinFormSteps6to10 } from '@/app/manager/check-in/ManagerChec
 
 import type { ManagerCheckinFormData } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-interface Props {
+interface ManagerCheckinFormProps {
   step: number;
   formData: ManagerCheckinFormData;
   setFormData: React.Dispatch<React.SetStateAction<ManagerCheckinFormData>>;
@@ -23,7 +23,7 @@ interface Props {
 export function ManagerCheckinForm({
   step, formData, setFormData, errors, setErrors, vacantBeds, compatibilityScore, router,
   isSubmitting, handlePrev, handleNext, handleCommit
-}: Props) {
+}: ManagerCheckinFormProps) {
   return (
     <>
       <div className="bg-card border border rounded-[var(--radius-xl,16px)] p-6 shadow-sm min-h-[400px]">

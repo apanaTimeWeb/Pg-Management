@@ -1,1 +1,3 @@
-export const MANAGER_DOCUMENTS_URL = '/manager/documents';
+export const ManagerDocumentsUrls = {
+  index: '/manager/documents'
+};

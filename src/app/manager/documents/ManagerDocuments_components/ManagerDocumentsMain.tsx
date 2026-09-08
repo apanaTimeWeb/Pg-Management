@@ -1,4 +1,3 @@
-// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerDocumentsMain component.
 'use client';
 import { useState, useEffect } from 'react';
@@ -43,16 +42,17 @@ export function ManagerDocumentsMain() {
             </tr>
           </thead>
           <tbody className="divide-y divide-[var(--border)]">
-            {paginatedData.map(d => (              <tr key={String((d as Record<string, unknown>).id)} className="hover:bg-page motion-safe:transition-colors">                <td className="p-4 font-medium text-primary">{d.uploaderId?.slice(0,8) || d.studentId?.slice(0,8) || 'student'}...</td>                <td className="p-4 text-secondary uppercase text-xs">{String((d as Record<string, unknown>).type) || d.documentType || 'Aadhaar'}</td>
-                <td className="p-4">                  <span className={`px-2 py-1 rounded text-xs font-bold ${d.status === 'verified' ? 'bg-[rgba(16,185,129,0.1)] text-success' : 'bg-warning-bg text-warning'}`}>                    {d.status || 'pending'}
-
+            {paginatedData.map((d: any) => (
+              <tr key={String(d.id)} className="hover:bg-page motion-safe:transition-colors">
+                <td className="p-4 font-medium text-primary">{String(d.uploaderId || d.studentId || 'student').slice(0,8)}...</td>
+                <td className="p-4 text-secondary uppercase text-xs">{String(d.type || d.documentType || 'Aadhaar')}</td>
+                <td className="p-4">
+                  <span className={`px-2 py-1 rounded text-xs font-bold ${d.status === 'verified' ? 'bg-success-bg text-success' : 'bg-warning-bg text-warning'}`}>
+                    {d.status || 'pending'}
                   </span>
-
                 </td>
                 <td className="p-4 flex justify-end">
-
                   <button className="p-2 hover:bg-input rounded border border-transparent hover:border text-secondary hover:text-primary motion-safe:transition-colors">
-
                     <Download className="w-4 h-4" />
                   </button>
                 </td>

@@ -1,14 +1,13 @@
-// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerCheckinProgress component.
 import { MANAGER_CHECKIN_WIZARD_STEPS } from '@/app/manager/check-in/ManagerCheckin_utils/ManagerCheckin.constants';
-interface Props {
+interface ManagerCheckinProgressProps {
   step: number;
 }
-export function ManagerCheckinProgress({ step }: Props) {
+export function ManagerCheckinProgress({ step }: ManagerCheckinProgressProps) {
   return (
     <div className="flex items-center justify-between overflow-x-auto pb-4 scrollbar-hide">
       {MANAGER_CHECKIN_WIZARD_STEPS.map((s) => {
-        const Icon = s.icon;
+        const Icon = s.icon as any;
         const isActive = s.id === step;
         const isPassed = s.id < step;
         return (

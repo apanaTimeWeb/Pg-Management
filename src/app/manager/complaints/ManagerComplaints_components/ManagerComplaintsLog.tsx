@@ -2,11 +2,11 @@
 import { IndianRupee } from 'lucide-react';
 
 import type { ManagerComplaintData } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';
-interface Props {
+interface ManagerComplaintsLogProps {
   paginatedData: ManagerComplaintData[];
   resolvedComplaintsCount: number;
 }
-export function ManagerComplaintsLog({ paginatedData, resolvedComplaintsCount }: Props) {
+export function ManagerComplaintsLog({ paginatedData, resolvedComplaintsCount }: ManagerComplaintsLogProps) {
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-12 gap-4 px-4 py-2 text-xs font-bold text-secondary uppercase tracking-wider bg-card sticky top-0 z-10">

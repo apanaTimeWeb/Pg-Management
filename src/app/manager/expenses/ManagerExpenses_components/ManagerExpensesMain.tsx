@@ -1,4 +1,3 @@
-// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerExpensesMain component.
 'use client';
 import { AlertCircle, Loader2 } from 'lucide-react';
@@ -47,12 +46,14 @@ export function ManagerExpensesMain() {
   };
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear();
-  const currentMonthExpenses = expenses.filter(e => {    const d = new Date(e.date);
-
+  const currentMonthExpenses = expenses.filter((e: any) => {
+    const d = new Date(e.date);
     return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
-  });  const groceryExpenses = currentMonthExpenses.filter(e => String((e as Record<string, unknown>).category) === 'kitchen_stock' || (e as any).category === 'groceries').reduce((acc, e) => (acc as number) + Number((e as Record<string, unknown>).amount), 0);  const costPerStudent = studentCount > 0 ? (groceryExpenses / studentCount) : 0;
+  });
+  const groceryExpenses: number = currentMonthExpenses.filter((e: any) => e.category === 'kitchen_stock' || e.category === 'groceries').reduce((acc: number, e: any) => acc + Number(e.amount || 0), 0);
+  const costPerStudent = studentCount > 0 ? (groceryExpenses / studentCount) : 0;
   
-  const sortedExpenses = [...expenses].sort((a: any, b: any) => new Date((b as Record<string, unknown>).date).getTime() - new Date(a.date).getTime());
+  const sortedExpenses = [...expenses].sort((a: any, b: any) => new Date(b.date as string).getTime() - new Date(a.date as string).getTime());
 
   const totalPages = Math.ceil(sortedExpenses.length / itemsPerPage);
 

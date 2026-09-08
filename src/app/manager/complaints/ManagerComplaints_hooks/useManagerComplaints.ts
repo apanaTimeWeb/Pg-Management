@@ -1,4 +1,3 @@
-// @ts-nocheck
 // DATA FLOW: [AI_TODO: Document data flow direction for useManagerComplaints.ts]
 // [DATA HOOK] useManagerComplaints
 // Responsibility: Fetches complaints, manages resolve modal state, and handles complaint status mutations.
@@ -23,7 +22,7 @@ export function useManagerComplaints(selectedPropertyId: string | null, ctxLoadi
   // RHF for the resolve modal â€” replaces repairCost/resolutionNotes useState
   const resolveForm = useForm<ComplaintResolveFormData>({
 
-    resolver: zodResolver(ComplaintResolveSchema) as unknown,
+    resolver: zodResolver(ComplaintResolveSchema),
     defaultValues: { repairCost: '', resolutionNotes: '' },
   });
   const loadData = () => {
@@ -61,7 +60,7 @@ export function useManagerComplaints(selectedPropertyId: string | null, ctxLoadi
     loadData();
   };
   const activeComplaints = complaints.filter(c => c.status !== 'Resolved');
-  const resolvedComplaints = complaints.filter(c => c.status === 'Resolved').sort((a,b) => new Date((b as Record<string, unknown>).resolvedAt || (b as Record<string, unknown>).updatedAt).getTime() - new Date(a.resolvedAt || a.updatedAt).getTime());
+  const resolvedComplaints = complaints.filter(c => c.status === 'Resolved').sort((a: any, b: any) => new Date(b.resolvedAt || b.updatedAt || 0).getTime() - new Date(a.resolvedAt || a.updatedAt || 0).getTime());
 
   const currentList = activeTab === 'active' ? activeComplaints : resolvedComplaints;
   const totalPages = Math.ceil(currentList.length / itemsPerPage);

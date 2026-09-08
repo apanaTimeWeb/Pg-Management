@@ -2,13 +2,13 @@
 import { Plus } from 'lucide-react';
 
 import { formatINR } from '@/lib/utils/formatters';
-interface Props {
+interface ManagerExpensesHeaderProps {
   groceryExpenses: number;
   costPerStudent: number;
   studentCount: number;
   setIsModalOpen: (open: boolean) => void;
 }
-export function ManagerExpensesHeader({ groceryExpenses, costPerStudent, studentCount, setIsModalOpen }: Props) {
+export function ManagerExpensesHeader({ groceryExpenses, costPerStudent, studentCount, setIsModalOpen }: ManagerExpensesHeaderProps) {
   return (
     <>
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">

@@ -21,7 +21,6 @@ export function ManagerDashboardMain() {
     properties,
     user
   } = useManagerDashboard();
-  console.log('ManagerDashboardMain render ' + JSON.stringify({ ctxLoading, loading, selectedPropertyId }));
   if (ctxLoading || loading) {
     return <div className="p-6 motion-safe:animate-pulse text-slate-400">Loading operational dashboard...</div>;
   }

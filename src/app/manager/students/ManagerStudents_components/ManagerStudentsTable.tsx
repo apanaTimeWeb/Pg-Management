@@ -3,10 +3,10 @@ import Link from 'next/link';
 import { ChevronRight, IndianRupee } from 'lucide-react';
 
 import type { ManagerStudentData } from '@/app/manager/students/ManagerStudents_types/ManagerStudents.types';
-interface Props {
+interface ManagerStudentsTableProps {
   students: ManagerStudentData[];
 }
-export function ManagerStudentsTable({ students }: Props) {
+export function ManagerStudentsTable({ students }: ManagerStudentsTableProps) {
   return (
     <div className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden">
       <table className="w-full text-left text-sm">

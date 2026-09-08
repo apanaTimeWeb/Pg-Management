@@ -1,1 +1,3 @@
-export const MANAGER_BROADCASTS_URL = '/manager/broadcasts';
+export const ManagerBroadcastsUrls = {
+  index: '/manager/broadcasts'
+};

@@ -1,6 +1,6 @@
 // RESPONSIBILITY: Renders the ManagerRoomsFilters component.
 import { Search, Filter } from 'lucide-react';
-interface Props {
+interface ManagerRoomsFiltersProps {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   showFilters: boolean;
@@ -15,7 +15,7 @@ export function ManagerRoomsFilters({
   showFilters, setShowFilters, 
   filterSharing, setFilterSharing, 
   filterStatus, setFilterStatus 
-}: Props) {
+}: ManagerRoomsFiltersProps) {
   return (
     <div className="flex flex-col sm:flex-row gap-4 bg-card p-4 border border rounded-[var(--radius-md,8px)] relative">
       <div className="flex-1 relative">

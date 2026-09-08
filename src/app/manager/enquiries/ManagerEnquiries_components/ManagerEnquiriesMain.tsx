@@ -15,10 +15,10 @@ export function ManagerEnquiriesMain() {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
   const {
     loading, showAddModal, setShowAddModal, searchQuery, setSearchQuery,
-    activeTab, setActiveTab, waMenuEnquiry, setWaMenuEnquiry, formData, setFormData,
+    activeTab, setActiveTab, waMenuEnquiry, setWaMenuEnquiry,
     currentPage, setCurrentPage, itemsPerPage,
-    activeEnquiries, lostEnquiries,
-    handleAdd, handleStatusChange, handleConvertToCheckin, handleRoomAvailable, handleRentOffer
+    activeEnquiries, lostEnquiries, lossPromptEnquiryId, setLossPromptEnquiryId,
+    handleCreateEnquiry, handleStatusChange, handleConvertToCheckin, handleRoomAvailable, handleRentOffer
   } = useManagerEnquiries(selectedPropertyId, ctxLoading, user?.id);
   if (ctxLoading || loading) return <div className="p-6 motion-safe:animate-pulse text-secondary">Loading...</div>;
   if (!selectedPropertyId) {
@@ -119,11 +119,12 @@ export function ManagerEnquiriesMain() {
         setWaMenuEnquiry={setWaMenuEnquiry}
         showAddModal={showAddModal}
         setShowAddModal={setShowAddModal}
-        formData={formData}
-        setFormData={setFormData}
-        handleAdd={handleAdd}
+        handleCreateEnquiry={handleCreateEnquiry}
         handleRoomAvailable={handleRoomAvailable}
         handleRentOffer={handleRentOffer}
+        lossPromptEnquiryId={lossPromptEnquiryId}
+        setLossPromptEnquiryId={setLossPromptEnquiryId}
+        handleStatusChange={handleStatusChange}
       />
     </div>
   );

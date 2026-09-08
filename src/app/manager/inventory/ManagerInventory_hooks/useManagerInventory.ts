@@ -16,7 +16,7 @@ export function useManagerInventory(selectedPropertyId: string | null, ctxLoadin
   const [requests, setRequests] = useState<ManagerKitchenRequest[]>([]);
   const [batches, setBatches] = useState<StockBatch[]>([]);
   const [activeTab, setActiveTab] = useState<ManagerInventoryTab>('requests');
-  const [formData, setFormData] = useState({ name: '', quantity: '', threshold: '', category: 'Groceries' });
+  const [formData, setFormData] = useState({ name: '', quantity: 0, threshold: 0, category: 'Groceries' });
   const [purchaseCost, setPurchaseCost] = useState<{ [key: string]: string }>({});
   const [purchasedQty, setPurchasedQty] = useState<{ [key: string]: string }>({});
   const [purchaseDate, setPurchaseDate] = useState<{ [key: string]: string }>({});
@@ -54,12 +54,12 @@ export function useManagerInventory(selectedPropertyId: string | null, ctxLoadin
     api.managerOperations.addInventoryItem({
       propertyId: selectedPropertyId,
       name: formData.name,
-      quantity: parseInt(formData.quantity) || 0,
-      threshold: parseInt(formData.threshold) || 0,
+      quantity: formData.quantity || 0,
+      threshold: formData.threshold || 0,
       category: formData.category,
       managerId: userId
     });
-    setFormData({ name: '', quantity: '', threshold: '', category: 'Groceries' });
+    setFormData({ name: '', quantity: 0, threshold: 0, category: 'Groceries' });
     loadData();
   };
 

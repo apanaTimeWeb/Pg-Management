@@ -24,7 +24,7 @@ export function useManagerRooms(selectedPropertyId: string | null, ctxLoading: b
       return {
         ...r,
         bedsCount: beds.length,
-        vacantCount: beds.filter((b) => (b as Record<string, unknown>).status === 'available').length
+        vacantCount: beds.filter((b: any) => (b as Record<string, unknown>).status === 'available').length
       };
     });
     setRooms(enhanced);

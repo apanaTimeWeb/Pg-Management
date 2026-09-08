@@ -1,9 +1,9 @@
 // RESPONSIBILITY: Renders the ManagerInventoryBatches component.
 import type { StockBatch } from '@/app/staff/staff_lib/staff_api/StaffStock';
-interface Props {
+interface ManagerInventoryBatchesProps {
   batches: StockBatch[];
 }
-export function ManagerInventoryBatches({ batches }: Props) {
+export function ManagerInventoryBatches({ batches }: ManagerInventoryBatchesProps) {
   return (
     <div className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm">
       <div className="p-6 border-b border bg-[rgba(99,102,241,0.02)] flex justify-between items-center">

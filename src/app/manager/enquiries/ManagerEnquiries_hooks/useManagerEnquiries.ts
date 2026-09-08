@@ -1,33 +1,56 @@
-// @ts-nocheck
 // DATA FLOW: ManagerPropertyContext → api.managerEnquiries → local state → ManagerEnquiriesMain
 // [DATA HOOK] useManagerEnquiries
 // Responsibility: Manages enquiry Kanban board state, form state, and status transitions.
 import { useState, useEffect, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import { toast } from 'sonner';
 
 import { useManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/useManagerUrlPagination';
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
+import { ManagerCheckInUrls } from '@/app/manager/check-in/ManagerCheckIn_url_config';
 
 import type { Enquiry, EnquiryStatus } from '@/app/manager/manager_lib/manager_api/managerEnquiries';
 import type { EnquiryFormData, EnquiriesTab } from '@/app/manager/enquiries/ManagerEnquiries_types/ManagerEnquiries.types';
 
 export function useManagerEnquiries(selectedPropertyId: string | null, ctxLoading: boolean, userId: string | undefined) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  
   const [enquiries, setEnquiries] = useState<Enquiry[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeTab, setActiveTab] = useState<EnquiriesTab>('pipeline');
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
+  const [debouncedSearch, setDebouncedSearch] = useState(searchQuery);
+  const [activeTab, setActiveTab] = useState<EnquiriesTab>((searchParams.get('tab') as EnquiriesTab) || 'pipeline');
   const [waMenuEnquiry, setWaMenuEnquiry] = useState<Enquiry | null>(null);
-  const [formData, setFormData] = useState<EnquiryFormData>({
-    name: '', phone: '', email: '', expectedMoveIn: '', budget: '', notes: ''
-  });
+  const [lossPromptEnquiryId, setLossPromptEnquiryId] = useState<string | null>(null);
+
+  // Debounce search query
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchQuery);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  // Sync to URL
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (debouncedSearch) params.set('q', debouncedSearch);
+    else params.delete('q');
+    
+    if (activeTab !== 'pipeline') params.set('tab', activeTab);
+    else params.delete('tab');
+    
+    router.replace(`${pathname}?${params.toString()}`);
+  }, [debouncedSearch, activeTab, pathname, router, searchParams]);
 
   // Fetches enquiry list for the selected property.
   const loadData = useCallback(() => {
     if (ctxLoading || !selectedPropertyId) return;
     setLoading(true);
-    const data = api.managerEnquiries.listByProperty(selectedPropertyId);
+    const data = api.managerEnquiries.fetchEnquiries(selectedPropertyId);
     setEnquiries(data);
     setLoading(false);
   }, [ctxLoading, selectedPropertyId]);
@@ -37,34 +60,31 @@ export function useManagerEnquiries(selectedPropertyId: string | null, ctxLoadin
     loadData();
   }, [loadData]);
 
-  const handleAdd = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleCreateEnquiry = (data: EnquiryFormData) => {
     if (!userId || !selectedPropertyId) return;
-    api.managerEnquiries.create({
-      ...formData,
+    api.managerEnquiries.createEnquiry({
+      ...data,
       propertyId: selectedPropertyId,
       assignedManagerId: userId,
-      budget: parseInt(formData.budget) || 0
+      budget: parseInt(data.budget || '0') || 0
     });
     setShowAddModal(false);
-    setFormData({ name: '', phone: '', email: '', expectedMoveIn: '', budget: '', notes: '' });
     loadData();
   };
 
-  const handleStatusChange = (id: string, status: EnquiryStatus) => {
+  const handleStatusChange = (id: string, status: EnquiryStatus, lossReason?: string) => {
     if (!userId) return;
-    let lossReason = undefined;
-    if (status === 'lost') {
-      const reason = window.prompt('Why was this lead lost? (e.g. Budget, No Beds, Location)');
-      if (reason === null) return;
-      lossReason = reason || 'Unspecified';
+    if (status === 'lost' && !lossReason) {
+      setLossPromptEnquiryId(id);
+      return;
     }
-    api.managerEnquiries.updateStatus(id, status, userId, lossReason);
+    api.managerEnquiries.updateEnquiryStatus(id, status, userId, lossReason);
+    setLossPromptEnquiryId(null);
     loadData();
   };
 
   const handleConvertToCheckin = (enquiryId: string) => {
-    router.push(`/manager/check-in?enquiryId=${enquiryId}`);
+    router.push(`${ManagerCheckInUrls.index}?enquiryId=${enquiryId}`);
   };
 
   const openWhatsAppMsg = (phone: string, text: string) => {
@@ -84,7 +104,7 @@ export function useManagerEnquiries(selectedPropertyId: string | null, ctxLoadin
   const handleRentOffer = () => {
     if (!waMenuEnquiry) return;
     const msg = `Hello ${waMenuEnquiry.name}, we are running a special discount offer on rent right now! Check out the attached image for details. Let us know if you're interested.`;
-    alert("WhatsApp will now open with the text. Please manually attach your Offer Image in the chat window!");
+    toast.info("WhatsApp will now open. Please manually attach your Offer Image in the chat window!");
     openWhatsAppMsg(waMenuEnquiry.phone, msg);
     setWaMenuEnquiry(null);
   };
@@ -96,20 +116,20 @@ export function useManagerEnquiries(selectedPropertyId: string | null, ctxLoadin
   // Reset to page 1 whenever search query, property, or active tab changes to avoid empty pages.
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery, selectedPropertyId, activeTab, setCurrentPage]);
+  }, [debouncedSearch, selectedPropertyId, activeTab, setCurrentPage]);
 
   const filteredEnquiries = enquiries.filter(e => 
-    e.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    e.phone.includes(searchQuery)
+    e.name.toLowerCase().includes(debouncedSearch.toLowerCase()) || 
+    e.phone.includes(debouncedSearch)
   );
   const activeEnquiries = filteredEnquiries.filter(e => e.status !== 'lost' && e.status !== 'converted');
   const lostEnquiries = filteredEnquiries.filter(e => e.status === 'lost');
 
   return {
     enquiries, loading, showAddModal, setShowAddModal, searchQuery, setSearchQuery,
-    activeTab, setActiveTab, waMenuEnquiry, setWaMenuEnquiry, formData, setFormData,
+    activeTab, setActiveTab, waMenuEnquiry, setWaMenuEnquiry,
     currentPage, setCurrentPage, itemsPerPage,
-    activeEnquiries, lostEnquiries,
-    handleAdd, handleStatusChange, handleConvertToCheckin, handleRoomAvailable, handleRentOffer
+    activeEnquiries, lostEnquiries, lossPromptEnquiryId, setLossPromptEnquiryId,
+    handleCreateEnquiry, handleStatusChange, handleConvertToCheckin, handleRoomAvailable, handleRentOffer
   };
 }

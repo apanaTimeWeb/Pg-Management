@@ -15,7 +15,6 @@ import type { StockRequest } from '@/app/staff/staff_lib/staff_api/StaffStockReq
 import type { ManagerDashboardStats, UseManagerDashboardReturn } from '@/app/manager/dashboard/ManagerDashboard_types/ManagerDashboard.types';
 
 export function useManagerDashboard(): UseManagerDashboardReturn {
-  console.log('useManagerDashboard render');
   // Store user in state so SSR hydration triggers a re-render with the real session.
   const [user, setUser] = useState<SessionUser | null>(null);
   const { properties, selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
@@ -28,12 +27,10 @@ export function useManagerDashboard(): UseManagerDashboardReturn {
   // Load session client-side only (localStorage is not available on server).
   useEffect(() => {
     const s = getSession();
-    console.log('useManagerDashboard useEffect set user', s);
     setUser(s);
   }, []);
 
   const loadData = useCallback(() => {
-    console.log('loadData called', { ctxLoading, selectedPropertyId, user });
     if (!selectedPropertyId) {
       setLoading(false);
       return;
@@ -41,15 +38,11 @@ export function useManagerDashboard(): UseManagerDashboardReturn {
     setLoading(true);
     try {
       setStats(api.managerDashboard.getStats(selectedPropertyId) as ManagerDashboardStats);
-      console.log('loadData got stats');
       setKitchenRequests(api.stockRequests.getByProperty(selectedPropertyId).filter((r: StockRequest) => ['pending'].includes(r.status)));
-      console.log('loadData got kitchenRequests');
       setReadyMeals(mealsApi.getAllTodayStatuses(selectedPropertyId).filter((m: MealStatus) => m.status === 'ready'));
-      console.log('loadData got readyMeals');
       if (user) {
         setIsPresent(attendanceApi.getTodayStatus(selectedPropertyId, user.id));
       }
-      console.log('loadData finished');
     } catch (e) {
       console.error('loadData error', e);
     }
@@ -58,7 +51,6 @@ export function useManagerDashboard(): UseManagerDashboardReturn {
 
   // Re-fetch all KPI data when the selected property changes or context finishes loading.
   useEffect(() => {
-    console.log('useEffect triggered', { selectedPropertyId, ctxLoading });
     if (!ctxLoading && selectedPropertyId) loadData();
   }, [selectedPropertyId, ctxLoading, loadData]);
 

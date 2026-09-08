@@ -1,1 +1,3 @@
-export const MANAGER_FOOD_URL = '/manager/food';
+export const ManagerFoodUrls = {
+  index: '/manager/food'
+};

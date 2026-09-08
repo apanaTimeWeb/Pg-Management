@@ -42,7 +42,6 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
   const { properties, selectedPropertyId, setSelectedPropertyId } = useManagerPropertyContext();
   const { lang, setLang, t } = useManagerI18n();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  console.log('ManagerLayout render ' + JSON.stringify({ selectedPropertyId, propCount: properties.length }));
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
@@ -108,13 +107,13 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
             const label = item.label || t(item.key as DictKey);
             return (
               <Link key={item.key} href={item.href} onClick={() => setIsMobileMenuOpen(false)}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg motion-safe:transition-colors text-[13px] font-medium
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg motion-safe:transition-all text-[13px] font-bold
                   ${pathname.startsWith(item.href)
-                    ? 'bg-primary text-white' 
-                    : 'text-secondary hover:bg-input hover:text-primary'
+                    ? 'bg-primary-subtle border-l-[3px] border-l-primary text-primary nav-active-glow' 
+                    : 'text-secondary hover:bg-input hover:text-primary border-l-[3px] border-l-transparent'
                   }`}
               >
-                <item.icon className={`w-4 h-4 ${pathname.startsWith(item.href) ? 'text-white' : 'text-secondary'}`} />
+                <item.icon className={`w-4 h-4 ${pathname.startsWith(item.href) ? 'text-primary' : 'text-secondary'}`} />
                 {label}
               </Link>
             );

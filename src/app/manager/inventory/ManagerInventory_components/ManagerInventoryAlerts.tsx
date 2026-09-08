@@ -4,7 +4,7 @@ import { AlertTriangle, CheckCircle } from 'lucide-react';
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
 
 import type { ManagerInventoryItem, ManagerKitchenRequest } from '@/app/manager/inventory/ManagerInventory_types/ManagerInventory.types';
-interface Props {
+interface ManagerInventoryAlertsProps {
   alertCount: number;
   expiryAlerts: ManagerInventoryItem[];
   lowStockAlerts: ManagerInventoryItem[];
@@ -15,7 +15,7 @@ interface Props {
 }
 export function ManagerInventoryAlerts({
   alertCount, expiryAlerts, lowStockAlerts, requests, selectedPropertyId, userId, loadData
-}: Props) {
+}: ManagerInventoryAlertsProps) {
   if (alertCount === 0) {
     return (
       <div className="bg-card border border rounded-[var(--radius-lg,12px)] p-10 text-center">

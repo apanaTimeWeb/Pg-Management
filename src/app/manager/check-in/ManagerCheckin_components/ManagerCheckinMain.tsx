@@ -1,4 +1,3 @@
-// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerCheckinMain component.
 'use client';
 import { useSearchParams } from 'next/navigation';
@@ -24,7 +23,9 @@ export function ManagerCheckinMain() {
   // Sync initial enquiry data if fetched
   if (enquiryData && formData.personal.name === '') {
     setFormData(prev => ({
-      ...prev,      personal: { ...prev.personal, name: enquiryData.name, phone: enquiryData.phone, email: enquiryData.email || '' },      deposit: { ...prev.deposit, rentAmount: enquiryData.budget ? enquiryData.budget.toString() : '' }
+      ...prev,
+      personal: { ...prev.personal, name: (enquiryData as any).name, phone: (enquiryData as any).phone, email: (enquiryData as any).email || '' },
+      deposit: { ...prev.deposit, rentAmount: (enquiryData as any).budget ? (enquiryData as any).budget.toString() : '' }
     }));
   }
 

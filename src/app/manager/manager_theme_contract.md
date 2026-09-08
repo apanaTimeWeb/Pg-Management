@@ -1,89 +1,80 @@
-﻿# Manager Module — Theme Contract
+# Manager Module — Theme Contract
 
-> This document defines the visual design rules for every component in the `manager` module.
-> No component may deviate from this contract. Any new UI must reference this file first.
-
----
-
-## Color Palette (Core 5)
-
-| Token | CSS Variable | Usage |
-|-------|-------------|-------|
-| Primary | `var(--primary)` | Action buttons, active nav items, key CTAs |
-| Surface | `var(--surface)` | Card backgrounds, table rows, modal backgrounds |
-| Border | `var(--border)` | Dividers, table borders, input borders |
-| Muted | `var(--muted)` | Secondary text, placeholder text, disabled states |
-| Danger | `var(--danger)` | Destructive actions, overdue/critical badges |
-
-**Rules:**
-- ❌ NO gradients in ERP dashboard components (Rule: no-gradients-in-dashboard)
-- ❌ NO hardcoded hex/rgb colors — always use CSS variables
-- ❌ NO Tailwind arbitrary values like `text-[#123]` or `bg-[rgb(...)]`
-- ✅ Status badges may use semantic color pairs (success/warning/danger/info) only from the design token set
+> Defines the visual design tokens every `manager/` component depends on.
+> Cross-reference with `globals.css` and `web_global_design.md` before adding any new UI.
 
 ---
 
-## Typography
+## CSS Variables This Module Depends On
 
-| Role | Class / Token | Size |
-|------|--------------|------|
-| Page title | `text-2xl font-bold` | 24px |
-| Section heading | `text-lg font-semibold` | 18px |
-| Table header | `text-xs font-medium uppercase tracking-wide` | 12px |
-| Body text | `text-sm` | 14px |
-| Muted / caption | `text-xs text-muted` | 12px |
+| Token | CSS Variable | Tailwind Class | Usage |
+|-------|-------------|----------------|-------|
+| Primary Brand | `var(--primary)` | `text-primary`, `bg-primary` | CTAs, focus rings, active nav indicator |
+| Primary Hover | `var(--primary-hover)` | `bg-primary-hover` | Button hover state |
+| Primary Subtle | `var(--primary-subtle)` | `bg-primary-subtle` | Active nav bg, KPI card tint |
+| Page Background | `var(--bg-page)` | `bg-page` | Root page canvas |
+| Card Background | `var(--bg-card)` | `bg-card` | Cards, panels, table rows |
+| Sidebar Background | `var(--bg-sidebar)` | `bg-sidebar` | Sidebar shell |
+| Header Background | `var(--bg-header)` | `bg-header` | Top navigation bar |
+| Input Background | `var(--bg-input)` | `bg-input` | Form inputs, search boxes, selects |
+| Overlay Background | `var(--bg-overlay)` | `bg-overlay` | Modal backdrops |
+| Popover Background | `var(--bg-popover)` | `bg-popover` | Dropdowns, tooltips |
+| Border | `var(--border)` | `border-border` | All dividers, input borders, card edges |
+| Focus Border | `var(--border-focus)` | `border-border-focus` | Focus ring color |
+| Primary Text | `var(--text-primary)` | `text-primary` | Main readable text |
+| Secondary Text | `var(--text-secondary)` | `text-secondary` | Muted labels, captions, placeholders |
+| Disabled Text | `var(--text-disabled)` | `text-disabled` | Disabled inputs, ghost states |
+| Success | `var(--success)` / `var(--success-bg)` | `text-success`, `bg-success-bg` | Paid, active, checked-in |
+| Warning | `var(--warning)` / `var(--warning-bg)` | `text-warning`, `bg-warning-bg` | Pending, partial, expiring |
+| Danger | `var(--danger)` / `var(--danger-bg)` | `text-danger`, `bg-danger-bg` | Overdue, error, destructive |
+| Info | `var(--info)` / `var(--info-bg)` | `text-info`, `bg-info-bg` | Notices, informational badges |
+| Skeleton Base | `var(--skeleton-base)` | `bg-skeleton-base` | Loading skeleton blocks |
+| Skeleton Highlight | `var(--skeleton-highlight)` | — | Shimmer animation highlight |
 
 ---
 
-## Spacing System
+## Forbidden Patterns
 
-- Card padding: `p-4` (16px) or `p-6` (24px) for dashboards
-- Table row height: `py-3 px-4`
-- Section gap: `gap-4` or `gap-6`
-- Page content max-width: `max-w-7xl mx-auto px-4`
+- ❌ `bg-[var(--bg-card)]` — use `bg-card` Tailwind token instead
+- ❌ `bg-[#1A1A2E]` or any hardcoded hex — define in `globals.css` first
+- ❌ `bg-muted`, `text-destructive`, `text-muted-foreground`, `text-primary-foreground` — these are **shadcn** tokens, NOT this project's tokens
+- ❌ `--surface`, `--muted` — these CSS variables do NOT exist in `globals.css`
+- ❌ `rounded-[var(--radius-md,8px)]` — use `rounded-md` mapped via tailwind config
+- ❌ Generic spinner `<Loader2 animate-spin>` for page loading — use `skeleton-shimmer` class
 
 ---
 
-## Component Patterns
+## Active Nav Pattern (Design §3)
 
-### Cards
 ```tsx
-<div className="bg-surface border border-border rounded-lg p-4 shadow-sm">
+className={`... ${isActive
+  ? 'bg-primary-subtle border-l-[3px] border-l-primary text-primary nav-active-glow font-bold'
+  : 'text-secondary hover:bg-input border-l-[3px] border-l-transparent'
+}`}
 ```
 
-### Status Badges
-```tsx
-// Use semantic variant props — never raw color classes
-<Badge variant="success" | "warning" | "danger" | "info" | "default" />
-```
+---
 
-### Action Buttons
-```tsx
-// Primary action
-<button className="btn-primary">Save</button>
-// Destructive
-<button className="btn-danger">Delete</button>
-// Ghost/secondary
-<button className="btn-ghost">Cancel</button>
-```
+## Card Elevation Pattern
 
-### Tables
-- Always wrapped in `overflow-x-auto`
-- Headers: `text-muted text-xs uppercase`
-- Striped rows: `even:bg-surface/50`
+```tsx
+<div className="card-elevated p-6">  {/* uses .card-elevated from globals.css */}
+```
 
 ---
 
-## Animation Rules
-- Transitions: `transition-colors duration-150` for hover states
-- Modals: fade-in with `opacity-0 → opacity-100` over `200ms`
-- Loading skeletons: pulse animation via `animate-pulse`
-- ❌ NO spring/bounce animations in data tables
+## Skeleton Loading Pattern (Design §28)
+
+```tsx
+<div className="h-8 bg-skeleton-base rounded-lg skeleton-shimmer" />
+```
 
 ---
 
-## Responsive Breakpoints
-- Mobile-first: default styles for mobile
-- `md:` for tablet (768px+)
-- `lg:` for desktop (1024px+)
-- Tables collapse to card-list on mobile using `hidden md:table-cell`
+## Status Badge Pattern
+
+```tsx
+<span className="px-2 py-0.5 rounded-full text-xs font-bold bg-success-bg text-success">Active</span>
+<span className="px-2 py-0.5 rounded-full text-xs font-bold bg-danger-bg text-danger">Overdue</span>
+<span className="px-2 py-0.5 rounded-full text-xs font-bold bg-warning-bg text-warning">Pending</span>
+```

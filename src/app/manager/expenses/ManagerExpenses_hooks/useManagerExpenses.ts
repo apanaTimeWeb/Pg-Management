@@ -1,4 +1,3 @@
-// @ts-nocheck
 // DATA FLOW: [AI_TODO: Document data flow direction for useManagerExpenses.ts]
 // [DATA HOOK] useManagerExpenses
 // Responsibility: Fetches expense list and handles add/delete expense mutations with toast feedback.
@@ -16,14 +15,14 @@ import { ExpenseFormSchema } from '@/app/manager/expenses/ManagerExpenses_types/
 import type { ExpenseFormData } from '@/app/manager/expenses/ManagerExpenses_types/ManagerExpenses.types';
 export function useManagerExpenses(selectedPropertyId: string | null, propsLoading: boolean, userId: string | undefined) {
   const [loading, setLoading] = useState(true);
-  const [expenses, setExpenses] = useState<unknown[]>([]);
+  const [expenses, setExpenses] = useState<any[]>([]);
   const [studentCount, setStudentCount] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   // React Hook Form with Zod resolver â€” replaces all manual useState + validation
   const form = useForm<ExpenseFormData>({
 
-    resolver: zodResolver(ExpenseFormSchema) as unknown,
+    resolver: zodResolver(ExpenseFormSchema),
     defaultValues: {
       category: 'maintenance',
       amount: '',
@@ -66,8 +65,8 @@ export function useManagerExpenses(selectedPropertyId: string | null, propsLoadi
     if (!userId || !selectedPropertyId) return;
     setIsSubmitting(true);
     api.finance.createExpense({
-      propertyId: selectedPropertyId,      category: data.category as unknown,
-
+      propertyId: selectedPropertyId,
+      category: data.category,
       amount: Number(data.amount),
       description: data.description,
     }, userId);

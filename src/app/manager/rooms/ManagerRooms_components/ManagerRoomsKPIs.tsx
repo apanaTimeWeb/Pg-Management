@@ -2,10 +2,10 @@
 import { Hash, BedDouble, CheckCircle2, AlertCircle } from 'lucide-react';
 
 import type { ManagerRoomData } from '@/app/manager/rooms/ManagerRooms_types/ManagerRooms.types';
-interface Props {
+interface ManagerRoomsKPIsProps {
   rooms: ManagerRoomData[];
 }
-export function ManagerRoomsKPIs({ rooms }: Props) {
+export function ManagerRoomsKPIs({ rooms }: ManagerRoomsKPIsProps) {
   const totalRooms = rooms.length;
   const totalBeds = rooms.reduce((acc, r) => acc + r.bedsCount, 0);
   const vacantBeds = rooms.reduce((acc, r) => acc + r.vacantCount, 0);
