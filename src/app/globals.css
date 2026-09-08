@@ -1,215 +1,235 @@
 @import "tailwindcss";
 
+/* ============================================================
+   SMART PG — GLOBAL DESIGN SYSTEM  (globals.css)
+   Follows: web_global_design.md — Luxury Premium Gold Theme
+   ============================================================ */
+
+/* ── 1. TAILWIND TOKEN BRIDGE ─────────────────────────────── */
 @theme {
-  /* Core Colors */
-  --color-primary: var(--primary);
-  --color-primary-hover: var(--primary-hover);
+  /* ── Brand / Primary ─────────────────────────────────────── */
+  --color-primary:        var(--primary);
+  --color-primary-hover:  var(--primary-hover);
   --color-primary-subtle: var(--primary-subtle);
-  --color-bg-page: var(--bg-page);
-  --color-bg-card: var(--bg-card);
-  --color-bg-sidebar: var(--bg-sidebar);
-  --color-bg-header: var(--bg-header);
-  --color-bg-input: var(--bg-input);
-  
-  /* Elevation Layers (Rule 30) */
-  --color-bg-floating: var(--bg-floating);
-  --color-bg-overlay: var(--bg-overlay);
-  --color-bg-popover: var(--bg-popover);
-  
-  --color-border: var(--border);
-  --color-border-focus: var(--border-focus);
-  
-  /* Text Colors */
-  --color-text-primary: var(--text-primary);
+
+  /* ── Surface Elevation Scale (Rule 30) ───────────────────── */
+  --color-page:           var(--bg-page);
+  --color-card:           var(--bg-card);
+  --color-sidebar:        var(--bg-sidebar);
+  --color-header:         var(--bg-header);
+  --color-input:          var(--bg-input);
+  --color-floating:       var(--bg-floating);
+  --color-overlay:        var(--bg-overlay);
+  --color-popover:        var(--bg-popover);
+
+  /* Legacy aliases kept for backwards-compat */
+  --color-bg-page:        var(--bg-page);
+  --color-bg-card:        var(--bg-card);
+  --color-bg-sidebar:     var(--bg-sidebar);
+  --color-bg-header:      var(--bg-header);
+  --color-bg-input:       var(--bg-input);
+  --color-bg-floating:    var(--bg-floating);
+  --color-bg-overlay:     var(--bg-overlay);
+  --color-bg-popover:     var(--bg-popover);
+
+  /* ── Borders ─────────────────────────────────────────────── */
+  --color-border:         var(--border);
+  --color-border-focus:   var(--border-focus);
+
+  /* ── Text ────────────────────────────────────────────────── */
+  --color-primary-text:   var(--text-primary);
+  --color-secondary:      var(--text-secondary);
+  --color-disabled:       var(--text-disabled);
+
+  /* Legacy aliases */
+  --color-text-primary:   var(--text-primary);
   --color-text-secondary: var(--text-secondary);
-  --color-text-disabled: var(--text-disabled);
-  
-  /* Skeletons */
-  --color-skeleton-base: var(--skeleton-base);
+  --color-text-disabled:  var(--text-disabled);
+
+  /* ── Skeleton ─────────────────────────────────────────────── */
+  --color-skeleton-base:      var(--skeleton-base);
   --color-skeleton-highlight: var(--skeleton-highlight);
 
-  /* Status Colors (Rule 4) */
-  --color-success: var(--success);
+  /* ── Status Colors ───────────────────────────────────────── */
+  --color-success:    var(--success);
   --color-success-bg: var(--success-bg);
-  --color-warning: var(--warning);
+  --color-warning:    var(--warning);
   --color-warning-bg: var(--warning-bg);
-  --color-danger: var(--danger);
-  --color-danger-bg: var(--danger-bg);
-  --color-info: var(--info);
-  --color-info-bg: var(--info-bg);
-  --color-purple: var(--purple);
-  --color-purple-bg: var(--purple-bg);
-  
-  /* Payment Modes (Rule 1) */
-  --color-pay-cash: var(--pay-cash);
-  --color-pay-cash-bg: var(--pay-cash-bg);
-  --color-pay-upi: var(--pay-upi);
-  --color-pay-upi-bg: var(--pay-upi-bg);
-  --color-pay-card: var(--pay-card);
-  --color-pay-card-bg: var(--pay-card-bg);
-  --color-pay-bank: var(--pay-bank);
-  --color-pay-bank-bg: var(--pay-bank-bg);
+  --color-danger:     var(--danger);
+  --color-danger-bg:  var(--danger-bg);
+  --color-info:       var(--info);
+  --color-info-bg:    var(--info-bg);
+  --color-purple:     var(--purple);
+  --color-purple-bg:  var(--purple-bg);
 
-  /* Border Radii */
-  --radius-sm: var(--radius-sm);
-  --radius-md: var(--radius-md);
-  --radius-lg: var(--radius-lg);
-  --radius-xl: var(--radius-xl);
-  --radius-full: var(--radius-full);
-}
+  /* ── Payment Mode Colors ─────────────────────────────────── */
+  --color-pay-cash:     var(--pay-cash);
+  --color-pay-cash-bg:  var(--pay-cash-bg);
+  --color-pay-upi:      var(--pay-upi);
+  --color-pay-upi-bg:   var(--pay-upi-bg);
+  --color-pay-card:     var(--pay-card);
+  --color-pay-card-bg:  var(--pay-card-bg);
+  --color-pay-bank:     var(--pay-bank);
+  --color-pay-bank-bg:  var(--pay-bank-bg);
 
-:root {
-  /* LIGHT MODE */
-  --primary: #EAB308;
-  --primary-hover: #CA8A04;
-  --primary-subtle: #FEF9C3;
-  
-  /* Layers */
-  --bg-page: #F4F4F5;
-  --bg-card: #FFFFFF;
-  --bg-sidebar: #FAFAFA;
-  --bg-header: #FFFFFF;
-  --bg-input: #FFFFFF;
-  
-  /* Elevation */
-  --bg-floating: #FFFFFF;
-  --bg-overlay: #FAFAFA;
-  --bg-popover: #F4F4F5;
-  
-  --border: #E4E4E7;
-  --border-focus: #EAB308;
-  
-  --text-primary: #000000;
-  --text-secondary: #52525B;
-  --text-disabled: #A1A1AA;
-  
-  --skeleton-base: #E4E4E7;
-  --skeleton-highlight: #F4F4F5;
-  
-  /* Status */
-  --success: #22C55E;
-  --success-bg: #064E3B;
-  --warning: #F59E0B;
-  --warning-bg: #451A03;
-  --danger: #EF4444;
-  --danger-bg: #450A0A;
-  --info: #3B82F6;
-  --info-bg: #1E3A5F;
-  --purple: #C084FC;
-  --purple-bg: #3B0764;
-  
-  /* Payment */
-  --pay-cash: #5EEAD4;
-  --pay-cash-bg: #134E4A;
-  --pay-upi: #67E8F9;
-  --pay-upi-bg: #164E63;
-  --pay-card: #94A3B8;
-  --pay-card-bg: #1E293B;
-  --pay-bank: #38BDF8;
-  --pay-bank-bg: #0C4A6E;
-
-  /* Border Radii */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
+  /* ── Border Radii ────────────────────────────────────────── */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
   --radius-full: 999px;
+
+  /* ── Motion Duration Tokens (Rule 29) ────────────────────── */
+  --duration-fast:   150ms;
+  --duration-base:   200ms;
+  --duration-slow:   300ms;
+  --duration-xslow:  500ms;
 }
 
-.dark {
-  /* DARK MODE (Luxury Premium Gold Theme) */
-  --primary: #FACC15;
-  --primary-hover: #EAB308;
-  --primary-subtle: rgba(250, 204, 21, 0.15);
-  
-  /* Layers */
-  --bg-page: #050505;
-  --bg-card: #111111;
-  --bg-sidebar: #050505;
-  --bg-header: #111111;
-  --bg-input: #1A1A1A;
-  
-  /* Elevation (Rule 30) */
-  --bg-floating: #1A1A1A;
-  --bg-overlay: #242424;
-  --bg-popover: #2E2E2E;
-  
-  --border: #27272A;
-  --border-focus: #FACC15;
-  
-  --text-primary: #FFFFFF;
-  --text-secondary: #A1A1AA;
-  --text-disabled: #52525B;
-  
-  --skeleton-base: #111111;
-  --skeleton-highlight: #1A1A1A;
+/* ── 2. LIGHT MODE VARIABLES (:root) ──────────────────────── */
+:root {
+  /* Brand */
+  --primary:        #EAB308;   /* Yellow-500 */
+  --primary-hover:  #CA8A04;   /* Yellow-600 */
+  --primary-subtle: #FEF9C3;   /* Yellow-100 */
 
-  /* Status */
-  --success: #22C55E;
-  --success-bg: #064E3B;
-  --warning: #F59E0B;
-  --warning-bg: #451A03;
-  --danger: #EF4444;
-  --danger-bg: #450A0A;
-  --info: #3B82F6;
-  --info-bg: #1E3A5F;
-  --purple: #C084FC;
-  --purple-bg: #3B0764;
-  
-  /* Payment */
-  --pay-cash: #5EEAD4;
-  --pay-cash-bg: #134E4A;
-  --pay-upi: #67E8F9;
-  --pay-upi-bg: #164E63;
-  --pay-card: #94A3B8;
-  --pay-card-bg: #1E293B;
-  --pay-bank: #38BDF8;
-  --pay-bank-bg: #0C4A6E;
+  /* Surface Elevation Scale */
+  --bg-page:     #F4F4F5;   /* Zinc-100  – root page */
+  --bg-card:     #FFFFFF;   /* White     – cards, tables */
+  --bg-sidebar:  #FAFAFA;   /* Near-white – sidebar */
+  --bg-header:   #FFFFFF;   /* White     – top header */
+  --bg-input:    #FFFFFF;   /* White     – inputs */
+  --bg-floating: #FFFFFF;   /* White     – inputs, code blocks */
+  --bg-overlay:  #F0F0F0;   /* Light gray – modals / dialogs */
+  --bg-popover:  #E8E8EA;   /* Lighter   – dropdowns / tooltips */
+
+  /* Borders */
+  --border:       #E4E4E7;   /* Zinc-200 */
+  --border-focus: #EAB308;   /* Primary gold */
+
+  /* Text */
+  --text-primary:   #09090B;   /* Zinc-950 – nearly black */
+  --text-secondary: #52525B;   /* Zinc-600 */
+  --text-disabled:  #A1A1AA;   /* Zinc-400 */
+
+  /* Skeletons */
+  --skeleton-base:      #E4E4E7;
+  --skeleton-highlight: #F4F4F5;
+
+  /* Status — LIGHT-MODE FRIENDLY backgrounds (muted tints) */
+  --success:    #16A34A;   /* Green-600 (darker = better contrast on white) */
+  --success-bg: #DCFCE7;   /* Green-100 */
+  --warning:    #D97706;   /* Amber-600 */
+  --warning-bg: #FEF3C7;   /* Amber-100 */
+  --danger:     #DC2626;   /* Red-600 */
+  --danger-bg:  #FEE2E2;   /* Red-100 */
+  --info:       #2563EB;   /* Blue-600 */
+  --info-bg:    #DBEAFE;   /* Blue-100 */
+  --purple:     #9333EA;   /* Purple-600 */
+  --purple-bg:  #F3E8FF;   /* Purple-100 */
+
+  /* Payment Modes — LIGHT-MODE FRIENDLY */
+  --pay-cash:    #0F766E;   /* Teal-700 */
+  --pay-cash-bg: #CCFBF1;   /* Teal-100 */
+  --pay-upi:     #0E7490;   /* Cyan-700 */
+  --pay-upi-bg:  #CFFAFE;   /* Cyan-100 */
+  --pay-card:    #475569;   /* Slate-600 */
+  --pay-card-bg: #E2E8F0;   /* Slate-200 */
+  --pay-bank:    #0369A1;   /* Sky-700 */
+  --pay-bank-bg: #E0F2FE;   /* Sky-100 */
+}
+
+/* ── 3. DARK MODE VARIABLES (.dark) ───────────────────────── */
+.dark {
+  /* Brand — PREMIUM GOLD */
+  --primary:        #FACC15;              /* Yellow-400 — vivid gold */
+  --primary-hover:  #EAB308;              /* Yellow-500 */
+  --primary-subtle: rgba(250,204,21,0.15);
+
+  /* Surface Elevation Scale (Rule 30) — subtle brightness steps */
+  --bg-page:     #050505;   /* Soft Black  – darkest layer (Layer 0) */
+  --bg-card:     #111111;   /* Dark Raised – cards, panels (Layer 1) */
+  --bg-sidebar:  #050505;   /* Same as page */
+  --bg-header:   #111111;   /* Same as card */
+  --bg-input:    #1A1A1A;   /* Deep Gray   (Layer 2) */
+  --bg-floating: #1A1A1A;   /* Inputs, code blocks (Layer 2) */
+  --bg-overlay:  #242424;   /* Modals, dialogs (Layer 3) */
+  --bg-popover:  #2E2E2E;   /* Dropdowns, tooltips (Layer 4) */
+
+  /* Borders */
+  --border:       #27272A;   /* Zinc-800 */
+  --border-focus: #FACC15;   /* Primary gold */
+
+  /* Text */
+  --text-primary:   #FAFAFA;   /* Zinc-50 — near white */
+  --text-secondary: #A1A1AA;   /* Zinc-400 */
+  --text-disabled:  #52525B;   /* Zinc-600 */
+
+  /* Skeletons */
+  --skeleton-base:      #1A1A1A;
+  --skeleton-highlight: #2A2A2A;
+
+  /* Status — DARK-MODE VIVID (high contrast on dark bg) */
+  --success:    #22C55E;   /* Green-500 */
+  --success-bg: #052e16;   /* Green-950 */
+  --warning:    #F59E0B;   /* Amber-400 */
+  --warning-bg: #1c0a00;   /* Deepest Amber */
+  --danger:     #EF4444;   /* Red-500 */
+  --danger-bg:  #1a0000;   /* Deep Red */
+  --info:       #60A5FA;   /* Blue-400 */
+  --info-bg:    #0c1a3a;   /* Deep Blue */
+  --purple:     #C084FC;   /* Purple-400 */
+  --purple-bg:  #1e0040;   /* Deep Purple */
+
+  /* Payment Modes — DARK-MODE VIVID */
+  --pay-cash:    #5EEAD4;   /* Teal-300 */
+  --pay-cash-bg: #0a2922;   /* Deep Teal */
+  --pay-upi:     #67E8F9;   /* Cyan-300 */
+  --pay-upi-bg:  #082830;   /* Deep Cyan */
+  --pay-card:    #94A3B8;   /* Slate-400 */
+  --pay-card-bg: #0f172a;   /* Slate-900 */
+  --pay-bank:    #38BDF8;   /* Sky-400 */
+  --pay-bank-bg: #082030;   /* Deep Sky */
+}
+
+/* ── 4. BASE STYLES ───────────────────────────────────────── */
+html {
+  font-size: 14px;           /* Design system base: 14px */
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   background-color: var(--bg-page);
   color: var(--text-primary);
+  min-height: 100vh;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
-/* Premium Scrollbars (Rule 12) */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: var(--radius-full);
-}
-
-/* Universal Focus Outline (Rule 13) */
+/* ── 5. UNIVERSAL FOCUS RING (WCAG AA — Rule 13) ─────────── */
 *:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--bg-page), 0 0 0 4px var(--primary);
+  box-shadow:
+    0 0 0 2px var(--bg-page),
+    0 0 0 4px var(--primary);
 }
 
-/* Base interactive transitions */
-button, a, input, select, textarea, .card, tr {
-  transition: all 200ms ease-in-out;
-}
-
-/* Motion Accessibility - Enterprise Compliance (Rule 29) */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+/* ── 6. BASE INTERACTIVE TRANSITIONS ────────────────────────
+   Only applied via motion-safe in JSX per Rule 29.
+   Here we define base transitions on raw elements for
+   cases where Tailwind utility classes aren't used.       */
+@media (prefers-reduced-motion: no-preference) {
+  button, a {
+    transition: all 200ms ease-in-out;
   }
 }
 
-/* Custom Premium Scrollbars */
+/* ── 7. PREMIUM SCROLLBARS (Rule 12 / Section 12) ─────────── */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -217,36 +237,91 @@ button, a, input, select, textarea, .card, tr {
 ::-webkit-scrollbar-thumb {
   background: var(--border);
   border-radius: var(--radius-full);
+  transition: background 200ms ease;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-secondary);
 }
 
-/* Motion Accessibility (prefers-reduced-motion) */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+/* ── 8. SELECTION COLOR ────────────────────────────────────── */
+::selection {
+  background-color: rgba(250, 204, 21, 0.3);
+  color: var(--text-primary);
+}
+
+/* ── 9. PREMIUM KPI CARD GRADIENT (Design §5a) ────────────── */
+.kpi-gradient {
+  background: linear-gradient(
+    180deg,
+    rgba(250, 204, 21, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+}
+
+/* ── 10. TABLE GOLD ROW HOVER (Design §5b) ────────────────── */
+.table-row-hover:hover {
+  background: rgba(250, 204, 21, 0.06);
+}
+
+/* ── 11. GLASS HEADER EFFECT (Rule §12 Glassmorphism) ─────── */
+.glass-header {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background-color: color-mix(in srgb, var(--bg-header) 85%, transparent);
+}
+
+/* ── 12. SKELETON SHIMMER (Rule §28) ─────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes skeleton-shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position:  200% 0; }
+  }
+
+  .skeleton-shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--skeleton-base)      25%,
+      var(--skeleton-highlight) 50%,
+      var(--skeleton-base)      75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
   }
 }
 
-/* Print Styles */
+/* Reduced motion fallback — no animation, just flat color */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shimmer {
+    background: var(--skeleton-base);
+    animation: none;
+  }
+}
+
+/* ── 13. MOTION ACCESSIBILITY (WCAG 2.2 — Rule 29) ────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration:       0.01ms !important;
+    animation-iteration-count: 1     !important;
+    transition-duration:      0.01ms !important;
+    scroll-behavior:           auto  !important;
+  }
+}
+
+/* ── 14. PRINT STYLES (Section 14) ────────────────────────── */
 @media print {
-  /* Hide sidebar, header, action bars, toast */
+  /* Hide nav chrome */
   .no-print {
     display: none !important;
   }
-  
-  /* Print Typography */
+
+  /* Force white/black for printing */
   body {
-    background-color: white !important;
-    color: black !important;
+    background-color: #ffffff !important;
+    color:            #000000 !important;
   }
-  
+
   * {
-    box-shadow: none !important;
+    box-shadow:  none !important;
     text-shadow: none !important;
   }
 }
