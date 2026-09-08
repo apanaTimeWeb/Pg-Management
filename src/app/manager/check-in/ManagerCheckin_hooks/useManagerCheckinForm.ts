@@ -1,15 +1,17 @@
 // @ts-nocheck
-// DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerCheckinForm.ts]
-// [FORM HOOK] ManagerUseManagerCheckinForm
+// DATA FLOW: [AI_TODO: Document data flow direction for useManagerCheckinForm.ts]
+// [FORM HOOK] useManagerCheckinForm
 // Responsibility: Manages the 10-step check-in wizard state, per-step Zod validation, and final commit.
 // Data Flow: step + formData state â†’ Zod safeParse per-step â†’ api.managerCheckin.commitCheckin â†’ success/error toast
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+
 import { CheckinStep1Schema, CheckinStep3Schema } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
+
 import type { ManagerCheckinFormData } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
-export function ManagerUseManagerCheckinForm(enquiryId: string, initialEnquiryData: unknown, selectedPropertyId: string | null, userId: string | undefined) {
+export function useManagerCheckinForm(enquiryId: string, initialEnquiryData: unknown, selectedPropertyId: string | null, userId: string | undefined) {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});

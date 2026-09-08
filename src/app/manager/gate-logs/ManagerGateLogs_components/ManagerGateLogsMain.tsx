@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the ManagerGateLogsMain component.
 'use client';
 import { Pagination } from '@/components/ui/Pagination';
-import { ManagerUseManagerGateLogs } from '@/app/manager/gate-logs/ManagerGateLogs_hooks/ManagerUseManagerGateLogs';
+import { useManagerGateLogs } from '@/app/manager/gate-logs/ManagerGateLogs_hooks/useManagerGateLogs';
 import { ManagerGateLogsTable } from '@/app/manager/gate-logs/ManagerGateLogs_components/ManagerGateLogsTable';
 import { ManagerGateLogsForm } from '@/app/manager/gate-logs/ManagerGateLogs_components/ManagerGateLogsForm';
 export function ManagerGateLogsMain() {
@@ -14,7 +14,7 @@ export function ManagerGateLogsMain() {
     handleAdd,
     selectedPropertyId,
     ctxLoading
-  } = ManagerUseManagerGateLogs();
+  } = useManagerGateLogs();
   if (ctxLoading || loading) return <div className="p-6 text-secondary">Loading...</div>;
   if (!selectedPropertyId) return <div className="p-6 text-center text-secondary">Property Required</div>;
   return (

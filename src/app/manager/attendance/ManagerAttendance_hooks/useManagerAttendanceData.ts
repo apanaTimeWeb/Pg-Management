@@ -1,11 +1,13 @@
-// DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerAttendanceData.ts]
-// [DATA HOOK] ManagerUseManagerAttendanceData
+// DATA FLOW: [AI_TODO: Document data flow direction for useManagerAttendanceData.ts]
+// [DATA HOOK] useManagerAttendanceData
 // Responsibility: Fetches today's student roster and attendance records for the selected property.
 // Data Flow: ManagerPropertyContext (selectedPropertyId) â†’ api.managerOperations â†’ local state â†’ consumers (ManagerAttendanceMain)
 import { useState, useEffect } from 'react';
+
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
+
 import type { ManagerAttendanceStudent, ManagerAttendanceRecord } from '@/app/manager/attendance/ManagerAttendance_types/ManagerAttendance.types';
-export function ManagerUseManagerAttendanceData(selectedPropertyId: string | null, ctxLoading: boolean) {
+export function useManagerAttendanceData(selectedPropertyId: string | null, ctxLoading: boolean) {
   const [students, setStudents] = useState<ManagerAttendanceStudent[]>([]);
   const [attendance, setAttendance] = useState<ManagerAttendanceRecord[]>([]);
   const loadData = () => {

@@ -3,22 +3,23 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
 import { Lock } from 'lucide-react';
-import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+
+import { useManagerSession } from '@/app/manager/manager_components/manager_hooks/useManagerSession';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
-import { ManagerUseManagerCheckinData } from '@/app/manager/check-in/ManagerCheckin_hooks/ManagerUseManagerCheckinData';
-import { ManagerUseManagerCheckinForm } from '@/app/manager/check-in/ManagerCheckin_hooks/ManagerUseManagerCheckinForm';
+import { useManagerCheckinData } from '@/app/manager/check-in/ManagerCheckin_hooks/useManagerCheckinData';
+import { useManagerCheckinForm } from '@/app/manager/check-in/ManagerCheckin_hooks/useManagerCheckinForm';
 import { ManagerCheckinProgress } from '@/app/manager/check-in/ManagerCheckin_components/ManagerCheckinProgress';
 import { ManagerCheckinForm } from '@/app/manager/check-in/ManagerCheckin_components/ManagerCheckinForm';
 export function ManagerCheckinMain() {
   const searchParams = useSearchParams();
   const enquiryId = searchParams?.get('enquiryId') || '';
-  const user = typeof window !== 'undefined' ? getSession() : null;
+  const user = useManagerSession();
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
   const { 
     step, setStep, formData, setFormData, errors, setErrors, isSubmitting, 
     handleNext, handlePrev, handleCommit, router 
-  } = ManagerUseManagerCheckinForm(enquiryId, null, selectedPropertyId, user?.id);
-  const { vacantBeds, compatibilityScore, enquiryData } = ManagerUseManagerCheckinData(    selectedPropertyId, step, enquiryId, formData.room.bedId, formData.compatibility
+  } = useManagerCheckinForm(enquiryId, null, selectedPropertyId, user?.id);
+  const { vacantBeds, compatibilityScore, enquiryData } = useManagerCheckinData(    selectedPropertyId, step, enquiryId, formData.room.bedId, formData.compatibility
   );
   // Sync initial enquiry data if fetched  if (enquiryData && formData.personal.name === '') {
     setFormData(prev => ({

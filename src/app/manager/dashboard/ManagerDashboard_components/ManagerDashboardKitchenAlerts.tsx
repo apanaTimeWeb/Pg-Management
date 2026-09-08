@@ -1,6 +1,7 @@
 // RESPONSIBILITY: Renders the ManagerDashboardKitchenAlerts component.
 import Link from 'next/link';
 import { AlertTriangle } from 'lucide-react';
+
 import type { StockRequest } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
 interface ManagerDashboardKitchenAlertsProps {
   kitchenRequests: StockRequest[];

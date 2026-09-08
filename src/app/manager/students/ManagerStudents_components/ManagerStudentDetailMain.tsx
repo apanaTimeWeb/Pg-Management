@@ -1,11 +1,12 @@
 // RESPONSIBILITY: Renders the ManagerStudentDetailMain component.
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { ArrowLeft, User, MapPin, Calendar, IndianRupee, LogOut, Utensils, Clock } from 'lucide-react';
 import Link from 'next/link';
+
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
-import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+import { useManagerSession } from '@/app/manager/manager_components/manager_hooks/useManagerSession';
 import { studentOperationsApi } from '@/app/student/student_lib/student_api/StudentOperations';
 import { ManagerBillUploadModal } from '@/app/manager/students/ManagerStudents_components/ManagerBillUploadModal';
 import { financeApi } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
@@ -29,13 +30,13 @@ interface Invoice {
 export default function ManagerStudentDetailMain() {
   const { id } = useParams() as { id: string };
   const router = useRouter();
-  const user = typeof window !== 'undefined' ? getSession() : null;
+  const user = useManagerSession();
   const [student, setStudent] = useState<StudentDetail | null>(null);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   // Bill upload state
   const [isBillModalOpen, setIsBillModalOpen] = useState(false);
   const [selectedInvoiceForBill, setSelectedInvoiceForBill] = useState<Invoice | null>(null);
-  const loadData = () => {
+  const loadData = useCallback(() => {
     if (id) {
 const t = (api.students.getById ? api.students.getById(id) : null) as unknown as StudentDetail;
       setStudent(t);
@@ -45,10 +46,10 @@ const t = (api.students.getById ? api.students.getById(id) : null) as unknown as
         }
       }
     }
-  };
+  }, [id]);
   useEffect(() => {
     loadData();
-  }, [id]);
+  }, [loadData]);
   const handleCheckout = () => {
     if (confirm('Are you sure you want to checkout this student? This will revoke their access and free their bed.')) {
       api.students.checkout((student?.profile?.id || '') || '', user?.id || '');
@@ -154,7 +155,7 @@ const t = (api.students.getById ? api.students.getById(id) : null) as unknown as
                 <div><strong>Duration:</strong> {Math.round((new Date(student.profile.stayEndDate).getTime() - new Date(student.profile.stayStartDate).getTime()) / (1000 * 3600 * 24 * 30))} Months</div>
               </div>
               <div className="relative border-l-2 border ml-3 space-y-6">
-                {invoices.filter(i => i.type === 'Rent' || !i.type).sort((a,b) => new Date(String(a.dueDate)).getTime() - new Date(String(b.dueDate)).getTime()).map((invoice: Invoice, idx: number) => {
+                {invoices.filter(i => i.type === 'Rent' || !i.type).sort((a,b) => new Date(String(a.dueDate)).getTime() - new Date(String(b.dueDate)).getTime()).map((invoice: Invoice) => {
                   const dueTime = new Date(String(invoice.dueDate)).getTime();
                   const nowTime = new Date().getTime();
                   const diffDays = (dueTime - nowTime) / (1000 * 3600 * 24);

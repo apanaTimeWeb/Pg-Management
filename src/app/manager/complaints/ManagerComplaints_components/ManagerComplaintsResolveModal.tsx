@@ -3,6 +3,7 @@
 // Responsibility: Renders the complaint resolution modal wired to React Hook Form (resolveForm).
 // Receives: complaint data, onClose callback, and RHF UseFormReturn.
 import { CheckCircle, X, IndianRupee } from 'lucide-react';
+
 import type { UseFormReturn } from 'react-hook-form';
 import type { ManagerComplaintData } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';
 import type { ComplaintResolveFormData } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';

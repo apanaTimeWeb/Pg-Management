@@ -1,8 +1,8 @@
 // RESPONSIBILITY: Renders the ManagerInventoryMain component.
 'use client';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
-import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
-import { ManagerUseManagerInventory } from '@/app/manager/inventory/ManagerInventory_hooks/ManagerUseManagerInventory';
+import { useManagerSession } from '@/app/manager/manager_components/manager_hooks/useManagerSession';
+import { useManagerInventory } from '@/app/manager/inventory/ManagerInventory_hooks/useManagerInventory';
 import { ManagerInventoryTabs } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryTabs';
 import { ManagerInventoryRequests } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryRequests';
 import { ManagerInventoryLive } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryLive';
@@ -10,7 +10,7 @@ import { ManagerInventoryBatches } from '@/app/manager/inventory/ManagerInventor
 import { ManagerInventoryAlerts } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryAlerts';
 import { Pagination } from '@/components/ui/Pagination';
 export function ManagerInventoryMain() {
-  const user = typeof window !== 'undefined' ? getSession() : null;
+  const user = useManagerSession();
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
   const {
     inventory, requests, batches, activeTab, setActiveTab,
@@ -18,7 +18,7 @@ export function ManagerInventoryMain() {
     currentPage, setCurrentPage, itemsPerPage,
     lowStockAlerts, expiryAlerts, alertCount, pendingCount,
     loadData, handleUpdateQty, handleAdd, handleMarkPurchased
-  } = ManagerUseManagerInventory(selectedPropertyId, ctxLoading, user?.id);
+  } = useManagerInventory(selectedPropertyId, ctxLoading, user?.id);
   if (ctxLoading) return <div className="p-6 text-secondary">Loading...</div>;
   if (!selectedPropertyId) return <div className="p-6 text-center text-secondary">Property Required</div>;
   const currentList = activeTab === 'live' ? inventory : requests;

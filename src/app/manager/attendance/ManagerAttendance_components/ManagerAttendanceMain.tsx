@@ -2,22 +2,23 @@
 'use client';
 import { useState } from 'react';
 import { Building } from 'lucide-react';
-import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
+
+import { useManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/useManagerUrlPagination';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
-import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+import { useManagerSession } from '@/app/manager/manager_components/manager_hooks/useManagerSession';
 import { Pagination } from '@/components/ui/Pagination';
-import { ManagerUseManagerAttendanceData } from '@/app/manager/attendance/ManagerAttendance_hooks/ManagerUseManagerAttendanceData';
-import { ManagerUseManagerAttendanceActions } from '@/app/manager/attendance/ManagerAttendance_hooks/ManagerUseManagerAttendanceActions';
+import { useManagerAttendanceData } from '@/app/manager/attendance/ManagerAttendance_hooks/useManagerAttendanceData';
+import { useManagerAttendanceActions } from '@/app/manager/attendance/ManagerAttendance_hooks/useManagerAttendanceActions';
 import { ManagerAttendanceSummary } from '@/app/manager/attendance/ManagerAttendance_components/ManagerAttendanceSummary';
 import { ManagerAttendanceTable } from '@/app/manager/attendance/ManagerAttendance_components/ManagerAttendanceTable';
 export function ManagerAttendanceMain() {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
-  const user = typeof window !== 'undefined' ? getSession() : null;
+  const user = useManagerSession();
   const [searchQuery, setSearchQuery] = useState('');
-  const { currentPage, setCurrentPage } = ManagerUseManagerUrlPagination(1);
+  const { currentPage, setCurrentPage } = useManagerUrlPagination(1);
   const itemsPerPage = 10;
-  const { students, attendance, loadData } = ManagerUseManagerAttendanceData(selectedPropertyId, ctxLoading);
-  const { handleMark } = ManagerUseManagerAttendanceActions(selectedPropertyId, user?.id, loadData);
+  const { students, attendance, loadData } = useManagerAttendanceData(selectedPropertyId, ctxLoading);
+  const { handleMark } = useManagerAttendanceActions(selectedPropertyId, user?.id, loadData);
   if (ctxLoading) return (
     <div className="p-8 text-center text-secondary motion-safe:animate-pulse">
       Loading student roster...

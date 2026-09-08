@@ -51,7 +51,7 @@ export const ManagerI18nProvider = ({ children }: { children: React.ReactNode })
   useEffect(() => {
     const saved = localStorage.getItem('spg_ui_manager_lang') as Language;
     if (saved === 'en' || saved === 'hi') {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+       
       setLangState(saved);
     }
   }, []);

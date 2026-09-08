@@ -1,6 +1,6 @@
 // @ts-nocheck
-// DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerExpenses.ts]
-// [DATA HOOK] ManagerUseManagerExpenses
+// DATA FLOW: [AI_TODO: Document data flow direction for useManagerExpenses.ts]
+// [DATA HOOK] useManagerExpenses
 // Responsibility: Fetches expense list and handles add/delete expense mutations with toast feedback.
 // Data Flow: ManagerPropertyContext â†’ api.finance.listExpenses â†’ local state â†’ ManagerExpensesMain
 // Forms: React Hook Form + Zod (ExpenseFormSchema) â€” no manual validation logic here.
@@ -8,11 +8,13 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
+
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
-import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
+import { useManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/useManagerUrlPagination';
 import { ExpenseFormSchema } from '@/app/manager/expenses/ManagerExpenses_types/ManagerExpenses.types';
+
 import type { ExpenseFormData } from '@/app/manager/expenses/ManagerExpenses_types/ManagerExpenses.types';
-export function ManagerUseManagerExpenses(selectedPropertyId: string | null, propsLoading: boolean, userId: string | undefined) {
+export function useManagerExpenses(selectedPropertyId: string | null, propsLoading: boolean, userId: string | undefined) {
   const [loading, setLoading] = useState(true);
   const [expenses, setExpenses] = useState<unknown[]>([]);
   const [studentCount, setStudentCount] = useState(0);
@@ -44,7 +46,7 @@ export function ManagerUseManagerExpenses(selectedPropertyId: string | null, pro
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [propsLoading, selectedPropertyId, userId]);
-  const { currentPage, setCurrentPage } = ManagerUseManagerUrlPagination(1);
+  const { currentPage, setCurrentPage } = useManagerUrlPagination(1);
   const itemsPerPage = 10;
   // Reset pagination to page 1 whenever the selected property changes.
   useEffect(() => {

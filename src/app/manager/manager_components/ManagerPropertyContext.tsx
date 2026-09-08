@@ -1,40 +1,60 @@
-// DATA FLOW: [AI_TODO: Document data flow direction for ManagerPropertyContext.tsx]
+// DATA FLOW: getSession() → localStorage → ManagerPropertyContext → all manager pages
 'use client';
 import React, { createContext, useContext, useState, useEffect } from 'react';
+
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+
+import type { SessionUser } from '@/lib/types';
+
 interface ManagerPropertyContextType {
   properties: unknown[];
   selectedPropertyId: string;
   setSelectedPropertyId: (id: string) => void;
   loading: boolean;
 }
+
 const ManagerPropertyContext = createContext<ManagerPropertyContextType>({
   properties: [],
   selectedPropertyId: '',
   setSelectedPropertyId: () => {},
   loading: true
 });
+
 export const ManagerPropertyProvider = ({ children }: { children: React.ReactNode }) => {
-  const user = typeof window !== 'undefined' ? getSession() : null;
+  console.log('ManagerPropertyProvider render');
   const [properties, setProperties] = useState<unknown[]>([]);
   const [selectedPropertyId, setPropertyId] = useState<string>('');
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<SessionUser | null>(null);
+
+  // Read session from localStorage on client mount only (SSR-safe).
   useEffect(() => {
+    const session = getSession();
+    setUser(session);
+  }, []);
+
+  // Load properties once we have the user session.
+  useEffect(() => {
+    if (user === null) {
+      // Not loaded yet — keep loading=true until user state resolves.
+      return;
+    }
     if (user?.role === 'manager' && user.assignedPropertyIds && user.assignedPropertyIds.length > 0) {
-      // Find all properties in the system (or by owner if manager's owner was known, but assignedPropertyIds is direct)
-      // Since manager belongs to an owner, and we want to load just their assigned properties:
       const allProps = api.properties.listAll();
-      // @ts-expect-error
-      const assignedProps = allProps.filter((p: Record<string, unknown>) => user.assignedPropertyIds?.includes(p.id));
+      const assignedProps = allProps.filter((p) => user.assignedPropertyIds?.includes((p as { id: string }).id));
+      console.log('ManagerPropertyContext matched props:', { allProps, assignedProps, user });
       setProperties(assignedProps);
       if (assignedProps.length > 0) {
-        // Default to first property
         setPropertyId((assignedProps[0] as { id: string }).id);
       }
+    } else {
+      console.log('ManagerPropertyContext failed condition:', { role: user?.role, assigned: user?.assignedPropertyIds });
     }
+    console.log('ManagerPropertyContext setting loading to false');
     setLoading(false);
-  }, [user?.id]);
+  }, [user]);
+
   return (
     <ManagerPropertyContext.Provider value={{
       properties,
@@ -46,4 +66,5 @@ export const ManagerPropertyProvider = ({ children }: { children: React.ReactNod
     </ManagerPropertyContext.Provider>
   );
 };
+
 export const useManagerPropertyContext = () => useContext(ManagerPropertyContext);

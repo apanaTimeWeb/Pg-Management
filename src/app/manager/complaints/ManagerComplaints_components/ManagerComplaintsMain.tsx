@@ -2,7 +2,7 @@
 'use client';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { Pagination } from '@/components/ui/Pagination';
-import { ManagerUseManagerComplaints } from '@/app/manager/complaints/ManagerComplaints_hooks/ManagerUseManagerComplaints';
+import { useManagerComplaints } from '@/app/manager/complaints/ManagerComplaints_hooks/useManagerComplaints';
 import { ManagerComplaintsActive } from '@/app/manager/complaints/ManagerComplaints_components/ManagerComplaintsActive';
 import { ManagerComplaintsLog } from '@/app/manager/complaints/ManagerComplaints_components/ManagerComplaintsLog';
 import { ManagerComplaintsResolveModal } from '@/app/manager/complaints/ManagerComplaints_components/ManagerComplaintsResolveModal';
@@ -17,7 +17,7 @@ export function ManagerComplaintsMain() {
     totalPages, paginatedData,
     activeComplaintsCount, resolvedComplaintsCount,
     handleResolveSubmit, handleStartWork
-  } = ManagerUseManagerComplaints(selectedPropertyId, ctxLoading);
+  } = useManagerComplaints(selectedPropertyId, ctxLoading);
   if (ctxLoading) return <div className="p-6 text-secondary">Loading...</div>;
   if (!selectedPropertyId) return <div className="p-6 text-secondary text-center">Property Required</div>;
   return (

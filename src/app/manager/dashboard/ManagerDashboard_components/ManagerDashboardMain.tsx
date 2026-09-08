@@ -1,7 +1,6 @@
-// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerDashboardMain component.
 'use client';
-import { ManagerUseManagerDashboard } from '@/app/manager/dashboard/ManagerDashboard_hooks/ManagerUseManagerDashboard';
+import { useManagerDashboard } from '@/app/manager/dashboard/ManagerDashboard_hooks/useManagerDashboard';
 import { ManagerDashboardHeader } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardHeader';
 import { ManagerDashboardStatsGrid } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardStatsGrid';
 import { ManagerDashboardMealAlerts } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardMealAlerts';
@@ -21,15 +20,14 @@ export function ManagerDashboardMain() {
     ctxLoading,
     properties,
     user
-  } = ManagerUseManagerDashboard();
+  } = useManagerDashboard();
+  console.log('ManagerDashboardMain render ' + JSON.stringify({ ctxLoading, loading, selectedPropertyId }));
   if (ctxLoading || loading) {
     return <div className="p-6 motion-safe:animate-pulse text-slate-400">Loading operational dashboard...</div>;
   }
   if (properties.length === 0 || !selectedPropertyId) {
     return <ManagerDashboardNoProperty />;
-  }  const selectedProp = properties.find((p) => p.id === selectedPropertyId);
-// @ts-expect-error
-
+  }  const selectedProp = properties.find((p) => (p as { id: string }).id === selectedPropertyId);
   return (
     <div className="space-y-8 pb-20">
       <ManagerDashboardHeader 

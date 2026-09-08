@@ -2,6 +2,7 @@ import {
   User, FileText, Users, BedDouble, HeartHandshake, 
   Wallet, FileCheck, Key, Utensils, CheckCircle 
 } from 'lucide-react';
+
 import type { ManagerCheckinStep } from '@/app/manager/check-in/ManagerCheckin_types/ManagerCheckin.types';
 export const MANAGER_CHECKIN_WIZARD_STEPS: ManagerCheckinStep[] = [
   { id: 1, title: 'Personal', icon: User },

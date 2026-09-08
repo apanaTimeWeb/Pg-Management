@@ -1,6 +1,7 @@
 // RESPONSIBILITY: Renders the ManagerRoomsTable component.
 import { BedDouble, ChevronRight, User, Users } from 'lucide-react';
 import Link from 'next/link';
+
 import type { ManagerRoomData } from '@/app/manager/rooms/ManagerRooms_types/ManagerRooms.types';
 interface Props {
   loading: boolean;

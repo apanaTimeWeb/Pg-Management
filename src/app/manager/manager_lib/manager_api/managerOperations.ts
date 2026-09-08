@@ -1,9 +1,10 @@
 // @ts-nocheck
-import type { BaseEntity } from '@/lib/storage/db';
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
 import { financeApi } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
+
+import type { BaseEntity } from '@/lib/storage/db';
 export const managerOperationsApi = {
   // Visitors
   listVisitors: (propertyId: string) => {
@@ -24,14 +25,14 @@ export const managerOperationsApi = {
             // Attendance (Students)
                           listStudents: (propertyId: string) => {
                                 if (!propertyId) return [];
-                                // @ts-expect-error
-                                const profiles = db.getAll<BaseEntity & { propertyId?: string; isDeleted?: boolean; [key: string]: unknown }>(STORAGE_KEYS.STUDENTS).filter(s => s.propertyId === propertyId && s.status === 'active' && !s.isDeleted);
+                                type StudentEntity = BaseEntity & { propertyId: string; isDeleted: boolean; status: string; userId: string; roomId: string; duesAmount: number; pgScore: number; rentAmount: number };
+                                const profiles = db.getAll<StudentEntity>(STORAGE_KEYS.STUDENTS).filter(s => s.propertyId === propertyId && s.status === 'active' && !s.isDeleted);
                                             const users = db.getAll<BaseEntity & { propertyId?: string; isDeleted?: boolean; [key: string]: unknown }>(STORAGE_KEYS.USERS);
                                 const rooms = db.getAll<BaseEntity & { propertyId?: string; isDeleted?: boolean; [key: string]: unknown }>(STORAGE_KEYS.ROOMS);
                                         return profiles.map(p => {
                                           const user = users.find(u => u.id === p.userId);
                                     const room = rooms.find(r => r.id === p.roomId);
-                                                      return { profile: p as unknown as { id: string, userId: string, propertyId: string, duesAmount: number, pgScore: number }, user: { id: user?.id || '', name: (user?.name as string) || 'Unknown', phone: (user?.phone as string) || '', email: (user?.email as string) || '' }, roomNumber: room?.number || room?.roomNumber || '' };
+                                                      return { profile: p, user: { id: user?.id || '', name: (user?.name as string) || 'Unknown', phone: (user?.phone as string) || '', email: (user?.email as string) || '' }, roomNumber: (room?.number as string) || (room?.roomNumber as string) || '' };
                                     });
                 },
                       listStudentAttendanceToday: (propertyId: string) => {

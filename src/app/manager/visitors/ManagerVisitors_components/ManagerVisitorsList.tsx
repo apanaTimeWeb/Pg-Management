@@ -1,5 +1,6 @@
 // RESPONSIBILITY: Renders the ManagerVisitorsList component.
 import { Check, X, LogIn, LogOut } from 'lucide-react';
+
 import type { Visitor } from '@/app/manager/visitors/ManagerVisitors_types/ManagerVisitors.types';
 interface ManagerVisitorsListProps {
   visitors: Visitor[];

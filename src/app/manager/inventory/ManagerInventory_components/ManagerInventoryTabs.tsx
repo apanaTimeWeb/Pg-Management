@@ -1,5 +1,6 @@
 // RESPONSIBILITY: Renders the ManagerInventoryTabs component.
 import { Archive, ShoppingCart, Clock, AlertTriangle } from 'lucide-react';
+
 import type { ManagerInventoryTab } from '@/app/manager/inventory/ManagerInventory_types/ManagerInventory.types';
 interface Props {
   activeTab: ManagerInventoryTab;

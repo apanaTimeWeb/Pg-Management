@@ -8,12 +8,17 @@ import {
   Users, AlertCircle, Utensils, UserPlus, Clock, LogOut, Radio, FileText, Archive, IndianRupee, Receipt,
   Menu, X, ShieldAlert, Building2
 } from 'lucide-react';
-import { getSession, clearSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+
+import { clearSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+import { useManagerSession } from '@/app/manager/manager_components/manager_hooks/useManagerSession';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { useManagerI18n } from '@/app/manager/ManagerI18n';
 import { ManagerForcePasswordChangeModal } from '@/app/manager/manager_components/ManagerForcePasswordChangeModal';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
-import type { DictKey } from '@/app/manager/ManagerI18n';;
+
+import type { DictKey } from '@/app/manager/ManagerI18n';
+
+type MenuItem = { key: string; icon: React.ElementType; href: string; label?: string };
 const MENU_ITEMS = [
   { key: 'dashboard', icon: LayoutDashboard, href: '/manager/dashboard' },
   { key: 'enquiries', icon: MessageSquare, href: '/manager/enquiries' },
@@ -33,14 +38,14 @@ const MENU_ITEMS = [
 ];
 export function ManagerLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const user = typeof window !== 'undefined' ? getSession() : null;
+  const user = useManagerSession();
   const { properties, selectedPropertyId, setSelectedPropertyId } = useManagerPropertyContext();
   const { lang, setLang, t } = useManagerI18n();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  console.log('ManagerLayout render ' + JSON.stringify({ selectedPropertyId, propCount: properties.length }));
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
-  const [forcePasswordChange, setForcePasswordChange] = useState(user?.mustChangePassword || false);
   const handleLogout = (e: React.MouseEvent) => {
     e.preventDefault();
     if(typeof window !== 'undefined'){ 
@@ -52,7 +57,7 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen bg-page flex flex-col md:flex-row text-primary">
       <ManagerForcePasswordChangeModal 
         user={user} 
-        onSuccess={() => setForcePasswordChange(false)} 
+        onSuccess={() => { /* handled internally */ }} 
       />
       {/* Mobile Header */}
       <div className="md:hidden flex items-center justify-between bg-header/90 backdrop-blur-md p-3 border-b border shrink-0 sticky top-0 z-50">
@@ -99,7 +104,7 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
           </button>
         </div>
         <nav className="p-4 space-y-1">
-          {MENU_ITEMS.map((item: any) => {
+          {MENU_ITEMS.map((item: MenuItem) => {
             const label = item.label || t(item.key as DictKey);
             return (
               <Link key={item.key} href={item.href} onClick={() => setIsMobileMenuOpen(false)}
@@ -148,8 +153,7 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
                 onChange={(e) => setSelectedPropertyId(e.target.value)}
               >
                 {properties.map(p => (
-                  // @ts-expect-error
-                  <option key={p.id} value={p.id}>{(p as any).name}</option>
+                  <option key={(p as { id: string }).id} value={(p as { id: string }).id}>{(p as { id: string; name: string }).name}</option>
                 ))}
               </select>
             </div>

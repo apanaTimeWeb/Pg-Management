@@ -1,22 +1,24 @@
 // @ts-nocheck
-// DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerComplaints.ts]
-// [DATA HOOK] ManagerUseManagerComplaints
+// DATA FLOW: [AI_TODO: Document data flow direction for useManagerComplaints.ts]
+// [DATA HOOK] useManagerComplaints
 // Responsibility: Fetches complaints, manages resolve modal state, and handles complaint status mutations.
 // Data Flow: ManagerPropertyContext â†’ api.managerOperations.listComplaints â†’ local state â†’ ManagerComplaintsMain
 // Forms: React Hook Form + Zod (ComplaintResolveSchema) for the resolve modal.
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
+
+import { useManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/useManagerUrlPagination';
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
 import { ComplaintResolveSchema } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';
+
 import type { ManagerComplaintData } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';
 import type { ComplaintResolveFormData } from '@/app/manager/complaints/ManagerComplaints_types/ManagerComplaints.types';
-export function ManagerUseManagerComplaints(selectedPropertyId: string | null, ctxLoading: boolean) {
+export function useManagerComplaints(selectedPropertyId: string | null, ctxLoading: boolean) {
   const [complaints, setComplaints] = useState<ManagerComplaintData[]>([]);
   const [activeTab, setActiveTab] = useState<'active' | 'log'>('active');
   const [resolvingComplaint, setResolvingComplaint] = useState<ManagerComplaintData | null>(null);
-  const { currentPage, setCurrentPage } = ManagerUseManagerUrlPagination(1);
+  const { currentPage, setCurrentPage } = useManagerUrlPagination(1);
   const itemsPerPage = 10;
   // RHF for the resolve modal â€” replaces repairCost/resolutionNotes useState
   const resolveForm = useForm<ComplaintResolveFormData>({

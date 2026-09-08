@@ -3,7 +3,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { FileText, Download } from 'lucide-react';
-import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
+
+import { useManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/useManagerUrlPagination';
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { Pagination } from '@/components/ui/Pagination';
@@ -16,7 +17,7 @@ export function ManagerDocumentsMain() {
     }
   }, [selectedPropertyId, ctxLoading]);
   // Pagination
-  const { currentPage, setCurrentPage } = ManagerUseManagerUrlPagination(1);
+  const { currentPage, setCurrentPage } = useManagerUrlPagination(1);
   const itemsPerPage = 10;
   useEffect(() => {
     setCurrentPage(1);

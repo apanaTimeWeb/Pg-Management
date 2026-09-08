@@ -1,13 +1,13 @@
-// DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerUrlPagination.ts]
+// DATA FLOW: [AI_TODO: Document data flow direction for useManagerUrlPagination.ts]
 'use client';
 /**
- * [DATA HOOK] ManagerUseManagerUrlPagination
+ * [DATA HOOK] useManagerUrlPagination
  * Handles pagination state via URL search parameters (Rule 41).
  * Replaces local useState to ensure shareable views and state persistence.
  */
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { useCallback } from 'react';
-export function ManagerUseManagerUrlPagination(defaultPage = 1) {
+export function useManagerUrlPagination(defaultPage = 1) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();

@@ -1,10 +1,10 @@
 'use client';
 import { useEffect } from 'react';
 import { AlertTriangle } from 'lucide-react';
-export default function ErrorBoundary({ ManagerError, reset }: { ManagerError: Error & { digest?: string }; reset: () => void }) {
+export default function ErrorBoundary({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
-    console.error(ManagerError);
-  }, [ManagerError]);
+    console.error(error);
+  }, [error]);
   return (
     <div className="flex flex-col items-center justify-center min-h-[400px] p-6 text-center animate-in fade-in motion-safe:duration-300">
       <div className="w-16 h-16 bg-danger-bg,rgba(239,68,68,0.1) text-danger,#EF4444 rounded-full flex items-center justify-center mb-4">

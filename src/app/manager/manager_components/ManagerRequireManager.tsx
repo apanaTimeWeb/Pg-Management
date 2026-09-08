@@ -2,6 +2,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+
 import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
 export function ManagerRequireManager({ children }: { children: React.ReactNode }) {
   const router = useRouter();

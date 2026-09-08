@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the ManagerFinanceMain component.
 'use client';
 import { Pagination } from '@/components/ui/Pagination';
-import { ManagerUseManagerFinance } from '@/app/manager/finance/ManagerFinance_hooks/ManagerUseManagerFinance';
+import { useManagerFinance } from '@/app/manager/finance/ManagerFinance_hooks/useManagerFinance';
 import { ManagerFinanceStats } from '@/app/manager/finance/ManagerFinance_components/ManagerFinanceStats';
 import { ManagerFinanceTable } from '@/app/manager/finance/ManagerFinance_components/ManagerFinanceTable';
 export function ManagerFinanceMain() {
@@ -19,7 +19,7 @@ export function ManagerFinanceMain() {
     handleSendReminder,
     selectedPropertyId,
     ctxLoading
-  } = ManagerUseManagerFinance();
+  } = useManagerFinance();
   if (ctxLoading || loading) return <div className="p-6 text-secondary motion-safe:animate-pulse">Loading Rent Management...</div>;
   if (!selectedPropertyId) return <div className="p-6 text-center text-secondary">Property Required</div>;
   return (

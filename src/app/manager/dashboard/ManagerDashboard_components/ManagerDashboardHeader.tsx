@@ -1,20 +1,31 @@
-// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerDashboardHeader component.
 import { CheckCircle2 } from 'lucide-react';
+
+interface ManagerUser {
+  name?: string;
+  id?: string;
+}
+
+interface ManagerProperty {
+  id: string;
+  name?: string;
+}
+
 interface ManagerDashboardHeaderProps {
   user: unknown;
-  selectedProp: Record<string, unknown>;
+  selectedProp: unknown;
   isPresent: boolean;
   handleMarkPresent: () => void;
 }
+
 export function ManagerDashboardHeader({ user, selectedProp, isPresent, handleMarkPresent }: ManagerDashboardHeaderProps) {
+  const typedUser = user as ManagerUser | null;
+  const typedProp = selectedProp as ManagerProperty | undefined;
   return (
     <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
       <div>
-        // @ts-expect-error
-        <h1 className="text-[24px] font-bold text-primary tracking-tight">Welcome back, {(user as unknown)?.name}</h1>
-        // @ts-expect-error
-        <p className="text-sm text-secondary mt-1">Operational Overview for <span className="text-primary font-medium">{(selectedProp as unknown)?.name}</span></p>
+        <h1 className="text-[24px] font-bold text-primary tracking-tight">Welcome back, {typedUser?.name}</h1>
+        <p className="text-sm text-secondary mt-1">Operational Overview for <span className="text-primary font-medium">{typedProp?.name}</span></p>
       </div>
       <div className="flex items-center gap-3 bg-card border border rounded-[var(--radius-md,8px)] p-2 pr-4 shadow-sm">
         {isPresent ? (

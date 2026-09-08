@@ -1,14 +1,15 @@
 // RESPONSIBILITY: Renders the ManagerRoomsMain component.
 'use client';
 import { useState } from 'react';
+
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
-import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
-import { ManagerUseManagerRooms } from '@/app/manager/rooms/ManagerRooms_hooks/ManagerUseManagerRooms';
+import { useManagerSession } from '@/app/manager/manager_components/manager_hooks/useManagerSession';
+import { useManagerRooms } from '@/app/manager/rooms/ManagerRooms_hooks/useManagerRooms';
 import { ManagerRoomsKPIs } from '@/app/manager/rooms/ManagerRooms_components/ManagerRoomsKPIs';
 import { ManagerRoomsFilters } from '@/app/manager/rooms/ManagerRooms_components/ManagerRoomsFilters';
 import { ManagerRoomsTable } from '@/app/manager/rooms/ManagerRooms_components/ManagerRoomsTable';
 export function ManagerRoomsMain() {
-  const user = typeof window !== 'undefined' ? getSession() : null;
+  const user = useManagerSession();
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
   const [showFilters, setShowFilters] = useState(false);
   const itemsPerPage = 10;
@@ -18,7 +19,7 @@ export function ManagerRoomsMain() {
     filterSharing, setFilterSharing,
     filterStatus, setFilterStatus,
     currentPage, setCurrentPage
-  } = ManagerUseManagerRooms(selectedPropertyId, ctxLoading, user?.id);
+  } = useManagerRooms(selectedPropertyId, ctxLoading, user?.id);
   const totalPages = Math.ceil(filteredRooms.length / itemsPerPage);
   if (ctxLoading) {
     return <div className="p-6 motion-safe:animate-pulse">Loading rooms...</div>;

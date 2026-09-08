@@ -1,26 +1,28 @@
 // @ts-nocheck
-// DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerFinance.ts]
+// DATA FLOW: [AI_TODO: Document data flow direction for useManagerFinance.ts]
 import { useState, useEffect } from 'react';
-import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
-// [DATA HOOK] ManagerUseManagerFinance
+
+import { useManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/useManagerUrlPagination';
+// [DATA HOOK] useManagerFinance
 // Responsibility: Loads invoices, computes rent stats, handles mark-paid and pagination with URL-agnostic local state.
 // Data Flow: ManagerPropertyContext → api.finance → local state → ManagerFinancePage
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
-import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+import { useManagerSession } from '@/app/manager/manager_components/manager_hooks/useManagerSession';
+
 import type { 
   ManagerFinanceFilter, 
   EnrichedInvoice, 
   UseManagerFinanceReturn 
 } from '@/app/manager/finance/ManagerFinance_types/ManagerFinance.types';
-export function ManagerUseManagerFinance(): UseManagerFinanceReturn {
+export function useManagerFinance(): UseManagerFinanceReturn {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
   const [invoices, setInvoices] = useState<EnrichedInvoice[]>([]);
   const [stats, setStats] = useState<unknown>(null);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<ManagerFinanceFilter>('all');
-  const { currentPage, setCurrentPage } = ManagerUseManagerUrlPagination(1);
-  const user = typeof window !== 'undefined' ? getSession() : null;
+  const { currentPage, setCurrentPage } = useManagerUrlPagination(1);
+  const user = useManagerSession();
   const loadData = () => {
     if (!selectedPropertyId) return;
     setLoading(true);

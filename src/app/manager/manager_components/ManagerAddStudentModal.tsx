@@ -1,16 +1,17 @@
 // RESPONSIBILITY: Renders the ManagerAddStudentModal component.
 'use client';
 import React, { useState } from 'react';
-import { X, User, Phone, Mail, Home, IndianRupee, Users } from 'lucide-react';
+import { X, User, Home, IndianRupee, Users } from 'lucide-react';
+
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
-import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+import { useManagerSession } from '@/app/manager/manager_components/manager_hooks/useManagerSession';
 interface AddStudentModalProps {
   propertyId: string;
   onClose: () => void;
   onSuccess: () => void;
 }
 export function ManagerAddStudentModal({ propertyId, onClose, onSuccess }: AddStudentModalProps) {
-  const user = typeof window !== 'undefined' ? getSession() : null;
+  const user = useManagerSession();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -66,7 +67,7 @@ export function ManagerAddStudentModal({ propertyId, onClose, onSuccess }: AddSt
       const startDate = new Date();
       const endDate = new Date(startDate);
       endDate.setMonth(endDate.getMonth() + Number(formData.stayDuration));
-      (api.students as unknown as { onboardStudent: Function }).onboardStudent({
+      (api.students as unknown as { onboardStudent: (data: Record<string, unknown>, userId: string) => void }).onboardStudent({
         ...formData,
         propertyId,
         stayStartDate: startDate.toISOString().split('T')[0],

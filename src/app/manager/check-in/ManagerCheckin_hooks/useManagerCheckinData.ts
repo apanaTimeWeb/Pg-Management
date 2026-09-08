@@ -1,11 +1,12 @@
 // @ts-nocheck
-// DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerCheckinData.ts]
-// [DATA HOOK] ManagerUseManagerCheckinData
+// DATA FLOW: [AI_TODO: Document data flow direction for useManagerCheckinData.ts]
+// [DATA HOOK] useManagerCheckinData
 // Responsibility: Provides wizard step-dependent data (vacant beds, compatibility score, enquiry prefill).
 // Data Flow: step + selectedPropertyId + formData â†’ api.managerCheckin â†’ local state â†’ ManagerCheckinMain
 import { useState, useEffect } from 'react';
+
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
-export function ManagerUseManagerCheckinData(selectedPropertyId: string | null, step: number, enquiryId: string, formDataRoomBedId: string, compatibility: unknown) {
+export function useManagerCheckinData(selectedPropertyId: string | null, step: number, enquiryId: string, formDataRoomBedId: string, compatibility: unknown) {
   const [vacantBeds, setVacantBeds] = useState<unknown[]>([]);
   const [compatibilityScore, setCompatibilityScore] = useState<number | null>(null);
   const [enquiryData, setEnquiryData] = useState<unknown>(null);

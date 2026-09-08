@@ -3,15 +3,16 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { Radio, Users, Building, AlertTriangle } from 'lucide-react';
-import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
+
+import { useManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/useManagerUrlPagination';
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
-import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+import { useManagerSession } from '@/app/manager/manager_components/manager_hooks/useManagerSession';
 import { Pagination } from '@/components/ui/Pagination';
-export default function ManagerBroadcastsMain() {
+export function ManagerBroadcastsMain() {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
   const [broadcasts, setBroadcasts] = useState<unknown[]>([]);
-  const user = typeof window !== 'undefined' ? getSession() : null;
+  const user = useManagerSession();
   const [formData, setFormData] = useState({ title: '', message: '', audience: 'all', targetFloor: '' });
   const loadData = () => {
     if (!ctxLoading && selectedPropertyId) {
@@ -22,7 +23,7 @@ export default function ManagerBroadcastsMain() {
     loadData();
   }, [selectedPropertyId, ctxLoading]);
   // Pagination
-  const { currentPage, setCurrentPage } = ManagerUseManagerUrlPagination(1);
+  const { currentPage, setCurrentPage } = useManagerUrlPagination(1);
   const itemsPerPage = 10;
   useEffect(() => {
     setCurrentPage(1);

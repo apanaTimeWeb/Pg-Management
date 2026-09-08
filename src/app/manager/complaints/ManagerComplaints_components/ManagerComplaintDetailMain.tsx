@@ -5,15 +5,16 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { ArrowLeft, Clock, CheckCircle, AlertCircle, UserPlus, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
+
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
-import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+import { useManagerSession } from '@/app/manager/manager_components/manager_hooks/useManagerSession';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 export default function ManagerComplaintDetailMain() {
   const { id } = useParams() as { id: string };
   const [complaint, setComplaint] = useState<unknown>(null);
   const [timeline, setTimeline] = useState<unknown[]>([]);
   const [note, setNote] = useState('');
-  const user = typeof window !== 'undefined' ? getSession() : null;
+  const user = useManagerSession();
   const { selectedPropertyId } = useManagerPropertyContext();
   useEffect(() => {
     if (id && user && selectedPropertyId) {

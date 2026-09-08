@@ -2,14 +2,15 @@
 // RESPONSIBILITY: Renders the ManagerExpensesMain component.
 'use client';
 import { AlertCircle, Loader2 } from 'lucide-react';
+
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
-import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
-import { ManagerUseManagerExpenses } from '@/app/manager/expenses/ManagerExpenses_hooks/ManagerUseManagerExpenses';
+import { useManagerSession } from '@/app/manager/manager_components/manager_hooks/useManagerSession';
+import { useManagerExpenses } from '@/app/manager/expenses/ManagerExpenses_hooks/useManagerExpenses';
 import { ManagerExpensesHeader } from '@/app/manager/expenses/ManagerExpenses_components/ManagerExpensesHeader';
 import { ManagerExpensesList } from '@/app/manager/expenses/ManagerExpenses_components/ManagerExpensesList';
 import { ManagerExpensesModal } from '@/app/manager/expenses/ManagerExpenses_components/ManagerExpensesModal';
 export function ManagerExpensesMain() {
-  const user = typeof window !== 'undefined' ? getSession() : null;
+  const user = useManagerSession();
   const { selectedPropertyId, loading: propsLoading } = useManagerPropertyContext();
   const {
     loading, expenses, studentCount,
@@ -18,7 +19,7 @@ export function ManagerExpensesMain() {
     form,
     currentPage, setCurrentPage, itemsPerPage,
     handleSubmit
-  } = ManagerUseManagerExpenses(selectedPropertyId, propsLoading, user?.id);
+  } = useManagerExpenses(selectedPropertyId, propsLoading, user?.id);
   if (propsLoading || loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">

@@ -1,19 +1,21 @@
-// DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerGateLogs.ts]
+// DATA FLOW: [AI_TODO: Document data flow direction for useManagerGateLogs.ts]
 import { useState, useEffect } from 'react';
-import { ManagerUseManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/ManagerUseManagerUrlPagination';
-// [DATA HOOK] ManagerUseManagerGateLogs
+
+import { useManagerUrlPagination } from '@/app/manager/manager_components/manager_hooks/useManagerUrlPagination';
+// [DATA HOOK] useManagerGateLogs
 // Responsibility: Fetches gate log entries and manages the add-log form state for the selected property.
 // Data Flow: ManagerPropertyContext â†’ api.managerOperations.listGateLogs â†’ local state â†’ ManagerGateLogsPage
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
-import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+import { useManagerSession } from '@/app/manager/manager_components/manager_hooks/useManagerSession';
+
 import type { GateLog, UseManagerGateLogsReturn } from '@/app/manager/gate-logs/ManagerGateLogs_types/ManagerGateLogs.types';
-export function ManagerUseManagerGateLogs(): UseManagerGateLogsReturn {
+export function useManagerGateLogs(): UseManagerGateLogsReturn {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
   const [logs, setLogs] = useState<GateLog[]>([]);
-  const { currentPage, setCurrentPage } = ManagerUseManagerUrlPagination(1);
+  const { currentPage, setCurrentPage } = useManagerUrlPagination(1);
   const itemsPerPage = 10;
-  const user = typeof window !== 'undefined' ? getSession() : null;
+  const user = useManagerSession();
   const loadData = () => {
     if (!ctxLoading && selectedPropertyId) {
       setLogs(api.managerOperations.listGateLogs(selectedPropertyId) as unknown as GateLog[]);

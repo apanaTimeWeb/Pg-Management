@@ -1,5 +1,6 @@
 // RESPONSIBILITY: Renders the ManagerFinanceTable component.
 import { IndianRupee, CheckCircle, Receipt, Bell, User as UserIcon, Calendar } from 'lucide-react';
+
 import type { EnrichedInvoice, ManagerFinanceFilter } from '@/app/manager/finance/ManagerFinance_types/ManagerFinance.types';
 interface ManagerFinanceTableProps {
   invoices: EnrichedInvoice[];

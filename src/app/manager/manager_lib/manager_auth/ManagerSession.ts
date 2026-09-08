@@ -5,7 +5,7 @@ export function getSession(): SessionUser | null {
   if (!data) return null;
   try {
     const user = JSON.parse(data) as SessionUser;
-    // Auto-migrate legacy 'tenant' role to 'student'
+    // Auto-migrate legacy 'tenant' to 'student'
     if (user && (user.role as unknown) === 'tenant') {
       user.role = "student" as unknown as "student";
       localStorage.setItem('spg_current_session', JSON.stringify(user));

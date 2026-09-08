@@ -1,7 +1,10 @@
-import type { BaseEntity } from '@/lib/storage/db';
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { createId } from '@/lib/utils/id';
+
+import type { BaseEntity } from '@/lib/storage/db';
+import { financeApi } from '@/app/owner/owner_lib/owner_api/OwnerFinance';
+
 export const managerDashboardApi = {
   seedMocksIfEmpty: (propertyId: string) => {
     if (!propertyId) return;
@@ -80,11 +83,8 @@ export const managerDashboardApi = {
     const vacantBeds = beds.filter(b => b.status === 'available' || b.status === 'vacant').length;
     const complaints = db.getAll<BaseEntity & { propertyId?: string; isDeleted?: boolean; [key: string]: unknown }>(STORAGE_KEYS.COMPLAINTS).filter(c => c.propertyId === propertyId && !c.isDeleted);
     const openComplaints = complaints.filter(c => c.status !== 'resolved').length;
-    // Simulate overdue rent by checking students dues
-    const overdueStudentsCount = students.filter(t => (t.duesAmount as number) > 0).length;
     const activeSos = db.getAll<BaseEntity & { propertyId?: string; isDeleted?: boolean; [key: string]: unknown }>(STORAGE_KEYS.SOS || 'spg_sos').filter(s => s.propertyId === propertyId && s.status === 'active' && !s.isDeleted).length;
     // Rent Statistics
-    const { financeApi } = require('@/app/owner/owner_lib/owner_api/OwnerFinance');
     financeApi.seedMonthlyInvoices(propertyId); // Ensure current month invoices exist
     const now = new Date();
     const currentMonthStr = `${now.toLocaleString('default', { month: 'long' })} ${now.getFullYear()}`;

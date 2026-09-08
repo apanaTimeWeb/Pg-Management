@@ -1,17 +1,19 @@
-// DATA FLOW: [AI_TODO: Document data flow direction for ManagerUseManagerVisitors.ts]
-// [DATA HOOK] ManagerUseManagerVisitors
+// DATA FLOW: [AI_TODO: Document data flow direction for useManagerVisitors.ts]
+// [DATA HOOK] useManagerVisitors
 // Responsibility: Fetches visitor list and handles approval/rejection/check-in/check-out status updates.
 // Data Flow: ManagerPropertyContext â†’ api.managerOperations.listVisitors â†’ local state â†’ ManagerVisitorsPage
 import { useState, useEffect } from 'react';
+
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
-import { getSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
+import { useManagerSession } from '@/app/manager/manager_components/manager_hooks/useManagerSession';
+
 import type { Visitor, UseManagerVisitorsReturn } from '@/app/manager/visitors/ManagerVisitors_types/ManagerVisitors.types';
-export function ManagerUseManagerVisitors(): UseManagerVisitorsReturn {
+export function useManagerVisitors(): UseManagerVisitorsReturn {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
   const [visitors, setVisitors] = useState<Visitor[]>([]);
   const [loading, setLoading] = useState(true);
-  const user = typeof window !== 'undefined' ? getSession() : null;
+  const user = useManagerSession();
   const loadData = () => {
     if (!ctxLoading && selectedPropertyId) {
       setLoading(true);

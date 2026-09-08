@@ -1,6 +1,8 @@
 // RESPONSIBILITY: Renders the ManagerInventoryAlerts component.
 import { AlertTriangle, CheckCircle } from 'lucide-react';
+
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
+
 import type { ManagerInventoryItem, ManagerKitchenRequest } from '@/app/manager/inventory/ManagerInventory_types/ManagerInventory.types';
 interface Props {
   alertCount: number;
