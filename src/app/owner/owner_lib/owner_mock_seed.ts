@@ -9,7 +9,7 @@
  * Properties: 'prop_1' (Sunrise PG - Boys), 'prop_2' (Moonlight PG - Girls)
  */
 
-const OWNER_SEED_KEY = 'spg_owner_demo_seeded_v3';
+const OWNER_SEED_KEY = 'spg_owner_demo_seeded_v4';
 
 const PROP_1_ID = 'prop_1';
 const PROP_2_ID = 'prop_2';
@@ -48,7 +48,7 @@ function seedIfNeeded(): void {
       id: OWNER_ID,
       role: 'owner',
       name: 'Satya Prakash',
-      email: 'satya@spgplatform.com',
+      email: 'owner@gmail.com',
       mustChangePassword: false,
     };
     localStorage.setItem('spg_current_session', JSON.stringify(session));
@@ -138,12 +138,12 @@ function seedIfNeeded(): void {
   // 5. USERS (students + owner user record)
   // ─────────────────────────────────────────────────
   const owners = [
-    { id: OWNER_ID, userId: OWNER_ID, name: currentSession?.name || 'Satya Prakash', email: currentSession?.email || 'satya@spgplatform.com', phone: '9876543210', companyName: 'SmartPG', planId: 'p2', createdAt: now, updatedAt: now, isDeleted: false }
+    { id: OWNER_ID, userId: OWNER_ID, name: currentSession?.name || 'Satya Prakash', email: currentSession?.email || 'owner@gmail.com', phone: '9876543210', companyName: 'SmartPG', planId: 'p2', createdAt: now, updatedAt: now, isDeleted: false }
   ];
   localStorage.setItem('spg_owners', JSON.stringify(owners));
 
   const users = [
-    { id: OWNER_ID, role: 'owner', name: 'Satya Prakash', email: 'satya@spgplatform.com', phone: '9876543210', password: 'demo123', status: 'Active', ownerId: OWNER_ID, createdAt: now, updatedAt: now, isDeleted: false },
+    { id: OWNER_ID, role: 'owner', name: 'Satya Prakash', email: 'owner@gmail.com', phone: '9876543210', password: 'Owner3@123', status: 'Active', ownerId: OWNER_ID, createdAt: now, updatedAt: now, isDeleted: false },
     { id: 'student_1', role: 'student', name: 'Arjun Mehta', email: 'arjun@example.com', phone: '9001234501', password: 'pass123', status: 'Active', propertyId: PROP_1_ID, ownerId: OWNER_ID, createdAt: '2024-01-01T00:00:00Z', updatedAt: now, isDeleted: false },
     { id: 'student_2', role: 'student', name: 'Rohit Verma', email: 'rohit@example.com', phone: '9001234502', password: 'pass123', status: 'Active', propertyId: PROP_1_ID, ownerId: OWNER_ID, createdAt: '2024-01-15T00:00:00Z', updatedAt: now, isDeleted: false },
     { id: 'student_3', role: 'student', name: 'Karthik Nair', email: 'karthik@example.com', phone: '9001234503', password: 'pass123', status: 'Active', propertyId: PROP_1_ID, ownerId: OWNER_ID, createdAt: '2024-02-01T00:00:00Z', updatedAt: now, isDeleted: false },
