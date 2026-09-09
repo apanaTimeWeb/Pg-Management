@@ -19,7 +19,7 @@ export function StudentDashboardMain() {
   const timeStr = today.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full h-full">
       
       {/* 1. Dashboard Top Banner */}
       <div className="bg-primary text-white rounded-[var(--radius-lg)] p-6 shadow-md relative overflow-hidden">

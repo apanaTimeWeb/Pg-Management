@@ -29,7 +29,7 @@ export function StudentFeedbackMain() {
 
   const renderStars = (category: keyof typeof ratings) => {
     return (
-      <div className="flex gap-2">
+      <div className="flex gap-2 w-full h-full">
         {[1, 2, 3, 4, 5].map((star) => (
           <Star
             key={star}

@@ -163,7 +163,7 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
           </div>
         </header>
         
-        <div className="flex-1 p-4 md:p-6 text-primary overflow-x-hidden">
+        <div className="flex-1 p-4 pb-24 md:p-6 md:pb-6 text-primary overflow-x-hidden w-full">
           {children}
         </div>
       </main>

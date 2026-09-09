@@ -25,7 +25,7 @@ export function StudentLoginMain() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-page px-4">
+    <div className="min-h-screen flex items-center justify-center bg-page px-4 w-full h-full">
       <div className="bg-card border border-border p-8 rounded-lg max-w-md w-full shadow-lg">
         <h1 className="text-2xl font-bold text-primary mb-6 text-center">Student Login</h1>
         
