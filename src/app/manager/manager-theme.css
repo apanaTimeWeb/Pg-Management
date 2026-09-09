@@ -1,7 +1,6 @@
 /* 
  * Manager Module Specific Theme 
- * Based on the requested Deep Purple Color Palette
- * Structured identically to Student theme for consistency
+ * Based on the requested Student Color Palette
  */
 
 .manager-theme {
@@ -14,19 +13,19 @@
   --border-focus: #F5A623;   /* Gold Accent */
 
   /* Backgrounds */
-  --bg-page: 248 249 250;        /* Light */
-  --bg-card: 255 255 255;        /* White */
-  --bg-input: 248 249 250;
-  --bg-sidebar: 255 255 255;
-  --bg-header: 255 255 255;
+  --bg-page: #F8F9FA;        /* Light */
+  --bg-card: #FFFFFF;        /* White */
+  --bg-input: #F8F9FA;
+  --bg-sidebar: #FFFFFF;
+  --bg-header: #FFFFFF;
   
   /* Text Colors */
-  --text-primary: 44 62 80;   /* Dark */
-  --text-secondary: 93 109 126; /* Medium */
-  --text-disabled: 149 165 166;  /* Light */
+  --text-primary: #2C3E50;   /* Dark */
+  --text-secondary: #5D6D7E; /* Medium */
+  --text-disabled: #95A5A6;  /* Light */
   
   /* Borders */
-  --border: 232 218 239;         /* Light Purple for borders */
+  --border: #E8DAEF;         /* Light Purple for borders */
 
   /* Status Colors */
   --success: #27AE60;
@@ -50,66 +49,19 @@
   --pay-upi: #3498DB;
   --pay-card: #8E44AD;
   --pay-bank: #E74C3C;
-
-  /* Tailwind mappings to make utility classes work with opacity */
-  --color-primary: rgb(142 68 173);
-  --color-primary-hover: rgb(155 89 182);
-  --color-page: rgb(248 249 250);
-  --color-card: rgb(255 255 255);
-  --color-sidebar: rgb(255 255 255);
-  --color-header: rgb(255 255 255);
-  --color-input: rgb(248 249 250);
-  --color-border: rgb(232 218 239);
-  --color-primary-text: rgb(44 62 80);
-  --color-secondary: rgb(93 109 126);
 }
 
-/* Dark mode overrides */
+/* Dark mode overrides if needed */
 .dark .manager-theme {
-  --bg-page: 26 18 36;      /* Very dark purple-tinted black */
-  --bg-card: 45 27 54;
-  --bg-input: 58 35 68;
-  --bg-sidebar: 34 20 41;
-  --bg-header: 34 20 41;
+  --bg-page: #1A1224;      /* Very dark purple */
+  --bg-card: #2D1B36;
+  --bg-input: #3A2344;
+  --bg-sidebar: #221429;
+  --bg-header: #221429;
   
-  --text-primary: 255 255 255;
-  --text-secondary: 232 218 239;
-  --text-disabled: 93 109 126;
+  --text-primary: #FFFFFF;
+  --text-secondary: #E8DAEF;
+  --text-disabled: #5D6D7E;
   
-  --border: 74 44 89;
-
-  /* Tailwind mappings for dark mode */
-  --color-page: rgb(26 18 36);
-  --color-card: rgb(45 27 54);
-  --color-sidebar: rgb(34 20 41);
-  --color-header: rgb(34 20 41);
-  --color-input: rgb(58 35 68);
-  --color-border: rgb(74 44 89);
-  --color-primary-text: rgb(255 255 255);
-  --color-secondary: rgb(232 218 239);
-}
-
-/* Base utility classes used across the app */
-.manager-theme .text-primary { color: rgb(var(--text-primary)); }
-.manager-theme .text-secondary { color: rgb(var(--text-secondary)); }
-.manager-theme .bg-page { background-color: rgb(var(--bg-page)); }
-.manager-theme .bg-card { background-color: rgb(var(--bg-card)); }
-.manager-theme .border-border { border-color: rgb(var(--border)); }
-.manager-theme .bg-input { background-color: rgb(var(--input-bg)); }
-
-/* Custom Semantic Colors */
-.manager-theme .text-theme-primary { color: var(--primary); }
-.manager-theme .bg-theme-primary { background-color: var(--primary); }
-.manager-theme .bg-theme-primary-hover { background-color: var(--primary-hover); }
-.manager-theme .text-theme-accent { color: var(--border-focus); }
-.manager-theme .bg-theme-accent { background-color: var(--border-focus); }
-
-/* Custom Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.manager-theme .animate-fade-in {
-  animation: fadeIn 0.3s ease-out forwards;
+  --border: #4A2C59;
 }
