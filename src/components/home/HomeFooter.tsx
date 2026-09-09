@@ -1,71 +1,97 @@
 'use client';
 import Link from 'next/link';
+import { Lock } from 'lucide-react';
 
 export function HomeFooter() {
   return (
-    <footer className="pt-16 pb-8" style={{ background: 'var(--primary-navy)', color: 'var(--bg-medium)' }}>
-      <div className="max-w-[1200px] mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {/* Brand */}
+    <footer className="pt-16 pb-8 px-4" style={{ backgroundColor: 'var(--primary-navy)' }}>
+      <div className="max-w-[1200px] mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12 border-b pb-12" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
+          {/* Brand Col */}
           <div>
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 rounded bg-[var(--primary-white)] flex items-center justify-center">
-                <span className="text-[var(--primary-gold)] font-bold">PG</span>
+              <div className="w-8 h-8 rounded flex items-center justify-center bg-[var(--primary-white)]">
+                <span className="font-bold" style={{ color: 'var(--primary-navy)' }}>PG</span>
               </div>
-              <span className="text-[var(--primary-white)] text-xl font-bold tracking-tight">PG System</span>
+              <span className="text-xl font-bold" style={{ color: 'var(--primary-white)' }}>PG System</span>
             </div>
-            <p className="text-sm leading-relaxed" style={{ color: 'var(--text-light)' }}>
-              Smart PG Management Platform. Digitizing property operations for owners and students across India.
+            <p className="mb-4" style={{ color: 'var(--bg-medium)' }}>
+              Smart PG Management Platform. Made with ❤️ in India
             </p>
+            <div className="space-y-2 text-sm" style={{ color: 'var(--bg-medium)' }}>
+              <p>📞 +91 9876543210</p>
+              <p>✉️ info@pgmgmt.com</p>
+            </div>
           </div>
-
-          {/* Links 1 */}
+          
+          {/* Product Links */}
           <div>
-            <h4 className="font-bold mb-6 text-lg" style={{ color: 'var(--primary-white)', borderBottom: '2px solid var(--primary-teal)', display: 'inline-block', paddingBottom: '4px' }}>Product</h4>
-            <ul className="space-y-3">
-              <li><Link href="#features" className="text-sm hover:text-[var(--primary-gold)] transition-colors" style={{ color: 'var(--bg-medium)' }}>Features</Link></li>
-              <li><Link href="#pricing" className="text-sm hover:text-[var(--primary-gold)] transition-colors" style={{ color: 'var(--bg-medium)' }}>Pricing</Link></li>
-              <li><Link href="#" className="text-sm hover:text-[var(--primary-gold)] transition-colors" style={{ color: 'var(--bg-medium)' }}>Integrations</Link></li>
-              <li><Link href="#" className="text-sm hover:text-[var(--primary-gold)] transition-colors" style={{ color: 'var(--bg-medium)' }}>Changelog</Link></li>
+            <h4 className="font-bold text-lg mb-6 uppercase tracking-wider" style={{ color: 'var(--primary-white)' }}>Product</h4>
+            <ul className="space-y-3 flex flex-col">
+              {['Features', 'Pricing', 'Integrations', 'Changelog', 'Roadmap', 'API Docs', 'Mobile Apps', 'Security', 'Demo'].map((item) => (
+                <Link key={item} href={`/${item.toLowerCase()}`} className="text-sm transition-colors hover:text-[var(--primary-gold)]" style={{ color: 'var(--text-light)' }}>
+                  {item}
+                </Link>
+              ))}
             </ul>
           </div>
 
-          {/* Links 2 */}
+          {/* Company Links */}
           <div>
-            <h4 className="font-bold mb-6 text-lg" style={{ color: 'var(--primary-white)', borderBottom: '2px solid var(--primary-teal)', display: 'inline-block', paddingBottom: '4px' }}>Company</h4>
-            <ul className="space-y-3">
-              <li><Link href="#" className="text-sm hover:text-[var(--primary-gold)] transition-colors" style={{ color: 'var(--bg-medium)' }}>About Us</Link></li>
-              <li><Link href="#" className="text-sm hover:text-[var(--primary-gold)] transition-colors" style={{ color: 'var(--bg-medium)' }}>Careers</Link></li>
-              <li><Link href="#" className="text-sm hover:text-[var(--primary-gold)] transition-colors" style={{ color: 'var(--bg-medium)' }}>Blog</Link></li>
-              <li><Link href="#" className="text-sm hover:text-[var(--primary-gold)] transition-colors" style={{ color: 'var(--bg-medium)' }}>Press</Link></li>
+            <h4 className="font-bold text-lg mb-6 uppercase tracking-wider" style={{ color: 'var(--primary-white)' }}>Company</h4>
+            <ul className="space-y-3 flex flex-col">
+              {['About Us', 'Careers', 'Blog', 'Press', 'Team', 'Testimonials', 'Partners', 'Awards', 'Newsletter'].map((item) => (
+                <Link key={item} href={`/${item.toLowerCase().replace(' ', '-')}`} className="text-sm transition-colors hover:text-[var(--primary-gold)]" style={{ color: 'var(--text-light)' }}>
+                  {item}
+                </Link>
+              ))}
             </ul>
           </div>
 
-          {/* Links 3 */}
+          {/* Support Links */}
           <div>
-            <h4 className="font-bold mb-6 text-lg" style={{ color: 'var(--primary-white)', borderBottom: '2px solid var(--primary-teal)', display: 'inline-block', paddingBottom: '4px' }}>Support</h4>
-            <ul className="space-y-3">
-              <li><Link href="#" className="text-sm hover:text-[var(--primary-gold)] transition-colors" style={{ color: 'var(--bg-medium)' }}>Help Center</Link></li>
-              <li><Link href="#" className="text-sm hover:text-[var(--primary-gold)] transition-colors" style={{ color: 'var(--bg-medium)' }}>Contact</Link></li>
-              <li><Link href="#" className="text-sm hover:text-[var(--primary-gold)] transition-colors" style={{ color: 'var(--bg-medium)' }}>Privacy Policy</Link></li>
-              <li><Link href="#" className="text-sm hover:text-[var(--primary-gold)] transition-colors" style={{ color: 'var(--bg-medium)' }}>Terms of Service</Link></li>
+            <h4 className="font-bold text-lg mb-6 uppercase tracking-wider" style={{ color: 'var(--primary-white)' }}>Support</h4>
+            <ul className="space-y-3 flex flex-col">
+              {['Help Center', 'Contact', 'Privacy', 'Terms', 'Refund Policy', 'FAQ', 'Status', 'Community'].map((item) => (
+                <Link key={item} href={`/${item.toLowerCase().replace(' ', '-')}`} className="text-sm transition-colors hover:text-[var(--primary-gold)]" style={{ color: 'var(--text-light)' }}>
+                  {item}
+                </Link>
+              ))}
             </ul>
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="border-t pt-8 pb-4 flex flex-col md:flex-row justify-between items-center gap-4" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
-          <div className="flex items-center gap-4 text-xl">
-            <span className="text-sm mr-2">📱 Follow Us:</span>
-            <Link href="#" className="hover:text-[var(--primary-gold)] transition-colors">f</Link>
-            <Link href="#" className="hover:text-[var(--primary-gold)] transition-colors">t</Link>
-            <Link href="#" className="hover:text-[var(--primary-gold)] transition-colors">in</Link>
-            <Link href="#" className="hover:text-[var(--primary-gold)] transition-colors">ig</Link>
+        {/* Social & Apps */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8 pb-8 border-b" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
+          <div className="flex items-center gap-4 text-[var(--primary-white)]">
+            <span className="font-medium mr-2">📱 Follow Us:</span>
+            <Link href="#" className="hover:text-[var(--primary-gold)] transition-colors text-sm font-bold">Facebook</Link>
+            <Link href="#" className="hover:text-[var(--primary-gold)] transition-colors text-sm font-bold">Twitter</Link>
+            <Link href="#" className="hover:text-[var(--primary-gold)] transition-colors text-sm font-bold">LinkedIn</Link>
+            <Link href="#" className="hover:text-[var(--primary-gold)] transition-colors text-sm font-bold">Instagram</Link>
+            <Link href="#" className="hover:text-[var(--primary-gold)] transition-colors text-sm font-bold">YouTube</Link>
+            <Link href="#" className="hover:text-[var(--primary-gold)] transition-colors text-sm font-bold">WA</Link>
+            <Link href="#" className="hover:text-[var(--primary-gold)] transition-colors text-sm font-bold">TG</Link>
           </div>
           
-          <p className="text-sm text-center md:text-right" style={{ color: 'var(--text-light)' }}>
-            © {new Date().getFullYear()} PG Management System. All rights reserved. Made with ❤️ in India.
-          </p>
+          <div className="flex items-center gap-4 text-[var(--primary-white)]">
+            <span className="font-medium mr-2">🌐 Download our apps:</span>
+            <Link href="#" className="text-sm font-medium hover:text-[var(--primary-gold)] border border-current px-3 py-1 rounded">iOS App Store</Link>
+            <Link href="#" className="text-sm font-medium hover:text-[var(--primary-gold)] border border-current px-3 py-1 rounded">Google Play Store</Link>
+          </div>
+        </div>
+        
+        {/* Copyright */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm" style={{ color: 'var(--bg-medium)' }}>
+          <div className="text-center md:text-left">
+            <p>© 2024 PG Management System. All rights reserved.</p>
+            <p>Made with ❤️ in India | Version 2.0.1</p>
+          </div>
+          
+          <div className="flex items-center gap-2 font-medium">
+            <Lock className="w-4 h-4 text-green-400" />
+            <span>Your data is secure with bank-grade encryption</span>
+          </div>
         </div>
       </div>
     </footer>

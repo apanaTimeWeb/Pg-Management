@@ -54,6 +54,12 @@ export function HowItWorksSection() {
             </div>
           ))}
         </div>
+        
+        <div className="text-center mt-12">
+          <button className="btn-gold fade-in" style={{ animationDelay: '0.4s' }}>
+            🌟 Get Started Now - It's Free
+          </button>
+        </div>
       </div>
     </section>
   );

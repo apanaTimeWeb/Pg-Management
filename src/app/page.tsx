@@ -4,11 +4,15 @@ import './homepage.css'; // Import the new design system styles
 
 import { HomeHeader } from '@/components/home/HomeHeader';
 import { HeroSection } from '@/components/home/HeroSection';
+import { TrustStatsSection } from '@/components/home/TrustStatsSection';
 import { FeaturesSection } from '@/components/home/FeaturesSection';
 import { HowItWorksSection } from '@/components/home/HowItWorksSection';
 import { RoleSection } from '@/components/home/RoleSection';
 import { TestimonialsSection } from '@/components/home/TestimonialsSection';
 import { PricingSection } from '@/components/home/PricingSection';
+import { IntegrationsSection } from '@/components/home/IntegrationsSection';
+import { FAQSection } from '@/components/home/FAQSection';
+import { BlogSection } from '@/components/home/BlogSection';
 import { CTASection } from '@/components/home/CTASection';
 import { HomeFooter } from '@/components/home/HomeFooter';
 
@@ -19,11 +23,15 @@ export default function LandingPage() {
       
       <main className="flex-grow">
         <HeroSection />
+        <TrustStatsSection />
         <FeaturesSection />
         <HowItWorksSection />
         <RoleSection />
         <TestimonialsSection />
         <PricingSection />
+        <IntegrationsSection />
+        <FAQSection />
+        <BlogSection />
         <CTASection />
       </main>
       

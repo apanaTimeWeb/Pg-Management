@@ -21,6 +21,8 @@ export function HomeHeader() {
           <Link href="#pricing" className="text-[var(--text-dark)] font-medium hover:text-[var(--primary-gold)] transition-colors">Pricing</Link>
           <Link href="#about" className="text-[var(--text-dark)] font-medium hover:text-[var(--primary-gold)] transition-colors">About</Link>
           <Link href="#contact" className="text-[var(--text-dark)] font-medium hover:text-[var(--primary-gold)] transition-colors">Contact</Link>
+          <Link href="#blog" className="text-[var(--text-dark)] font-medium hover:text-[var(--primary-gold)] transition-colors">Blog</Link>
+          <Link href="#faq" className="text-[var(--text-dark)] font-medium hover:text-[var(--primary-gold)] transition-colors">FAQ</Link>
         </nav>
 
         {/* Actions */}
