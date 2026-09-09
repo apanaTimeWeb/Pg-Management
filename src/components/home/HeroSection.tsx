@@ -45,10 +45,12 @@ export function HeroSection() {
         </div>
 
         {/* Mockup / Illustration Placeholder */}
-        <div className="mt-16 max-w-5xl mx-auto rounded-t-[var(--radius-xl)] bg-[var(--primary-white)] shadow-[var(--shadow-xl)] p-2 pb-0 relative overflow-hidden border border-[var(--primary-teal)]" style={{ height: '300px' }}>
-          <div className="w-full h-full bg-[var(--bg-light)] rounded-t-[var(--radius-lg)] border border-b-0 border-[var(--bg-medium)] flex items-center justify-center text-[var(--text-light)]">
-            [Illustration: Dashboard Preview / App Mockup]
-          </div>
+        <div className="mt-16 max-w-5xl mx-auto rounded-t-[var(--radius-xl)] bg-[var(--primary-white)] shadow-[var(--shadow-xl)] p-2 pb-0 relative overflow-hidden border border-[var(--primary-teal)]" style={{ height: 'auto' }}>
+          <img 
+            src="/images/mockup.jpg" 
+            alt="Dashboard Preview" 
+            className="w-full h-auto rounded-t-[var(--radius-lg)] border border-b-0 border-[var(--bg-medium)] block"
+          />
         </div>
       </div>
     </section>
