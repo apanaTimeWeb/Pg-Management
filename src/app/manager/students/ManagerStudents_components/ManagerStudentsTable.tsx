@@ -1,16 +1,16 @@
 // RESPONSIBILITY: Renders the ManagerStudentsTable component.
-import Link from 'next/link';
 import { ChevronRight, IndianRupee } from 'lucide-react';
 
 import type { ManagerStudentData } from '@/app/manager/students/ManagerStudents_types/ManagerStudents.types';
 interface Props {
   students: ManagerStudentData[];
+  onRowClick?: (student: ManagerStudentData) => void;
 }
-export function ManagerStudentsTable({ students }: Props) {
+export function ManagerStudentsTable({ students, onRowClick }: Props) {
   return (
-    <div className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-x-auto shadow-sm">
+    <div className="bg-card border border-border rounded-[var(--radius-lg,12px)] overflow-x-auto shadow-sm">
       <table className="w-full text-left text-sm">
-        <thead className="bg-input/50 border-b border text-secondary text-xs uppercase tracking-wider font-bold">
+        <thead className="bg-input/50 border-b border-border text-secondary text-xs uppercase tracking-wider font-bold">
           <tr>
             <th className="p-4 py-3">Student Info</th>
             <th className="p-4 py-3">Contact</th>
@@ -19,9 +19,13 @@ export function ManagerStudentsTable({ students }: Props) {
             <th className="p-4 py-3 text-right">Action</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-[var(--border)]">
+        <tbody className="divide-y divide-border">
           {students.map(t => (
-            <tr key={t.profile.id} className="hover:bg-input/50 motion-safe:transition-colors group">
+            <tr 
+              key={t.profile.id} 
+              onClick={() => onRowClick?.(t)}
+              className="hover:bg-input/50 motion-safe:transition-colors group cursor-pointer"
+            >
               <td className="p-4">
                 <div className="font-medium text-primary">{t.user?.name || 'Unknown'}</div>
                 <div className="text-xs text-secondary">ID: {t.profile.id.slice(-6)}</div>
@@ -52,9 +56,9 @@ export function ManagerStudentsTable({ students }: Props) {
                 </span>
               </td>
               <td className="p-4 text-right">
-                <Link href={`/manager/students/${t.profile.id}`} className="inline-flex items-center gap-1 text-theme-primary hover:text-theme-primary-hover hover:underline text-xs font-bold bg-theme-primary/10 px-3 py-1.5 rounded-[var(--radius-md,8px)] transition-colors opacity-0 group-hover:opacity-100">
+                <button className="inline-flex items-center gap-1 text-theme-primary hover:text-theme-primary-hover hover:underline text-xs font-bold bg-theme-primary/10 px-3 py-1.5 rounded-[var(--radius-md,8px)] transition-colors opacity-0 group-hover:opacity-100">
                   View Profile <ChevronRight className="w-3 h-3" />
-                </Link>
+                </button>
               </td>
             </tr>
           ))}

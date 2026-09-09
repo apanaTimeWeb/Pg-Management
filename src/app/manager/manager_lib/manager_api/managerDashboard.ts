@@ -94,24 +94,28 @@ export const managerDashboardApi = {
     const pendingRentAmount = allInvoices.filter(i => (i.status as string).toLowerCase() !== 'paid').reduce((acc, curr) => acc + (curr.amount as number), 0);
     const paidStudentIds = new Set(allInvoices.filter(i => (i.status as string).toLowerCase() === 'paid').map(i => i.studentId));
     const pendingStudentIds = new Set(allInvoices.filter(i => (i.status as string).toLowerCase() !== 'paid').map(i => i.studentId));
+    const occupiedBeds = beds.length - vacantBeds;
+    const occupancyRate = beds.length > 0 ? Math.round((occupiedBeds / beds.length) * 100) : 0;
+
     return {
-      activeStudents,
-      vacantBeds,
+      // Row 1
       todayCheckins: 1, // Simulated fixed
+      todayCheckouts: 0,
       openComplaints,
       pendingVisitors: db.getAll<BaseEntity & { propertyId?: string; isDeleted?: boolean; [key: string]: unknown }>(STORAGE_KEYS.VISITORS || 'spg_visitors').filter(v => v.propertyId === propertyId && v.status === 'pending').length || 1, 
-      overdueStudentsCount: pendingStudentIds.size,
-      lateEntries: 2, 
-      lowInventoryItems: 3, 
+      occupiedBeds,
+      // Row 2
+      occupancyRate,
+      rentCollected: totalCollectedRent,
+      rentTarget: totalExpectedRent,
+      housekeepingDone: 8,
+      housekeepingTotal: 12,
+      maintenanceOpen: 3,
+      maintenanceTotal: 5,
+      // General
+      activeStudents,
+      vacantBeds,
       activeSos,
-      rentStats: {
-        totalExpectedRent,
-        totalCollectedRent,
-        pendingRentAmount,
-        studentsPaidCount: paidStudentIds.size,
-        studentsPendingCount: pendingStudentIds.size,
-        totalStudents: activeStudents
-      }
     };
   }
 };

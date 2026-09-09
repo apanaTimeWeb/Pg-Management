@@ -1,13 +1,23 @@
 import type { StockRequest } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
 import type { MealStatus } from '@/app/manager/manager_lib/manager_api/ManagerMeals';
 export interface ManagerDashboardStats {
-  activeStudents: number;
-  vacantBeds: number;
+  // Row 1
   todayCheckins: number;
+  todayCheckouts: number;
   openComplaints: number;
   pendingVisitors: number;
-  overdueStudentsCount: number;
-  lateEntries: number;
+  occupiedBeds: number;
+  // Row 2 Summary
+  occupancyRate: number;
+  rentCollected: number;
+  rentTarget: number;
+  housekeepingDone: number;
+  housekeepingTotal: number;
+  maintenanceOpen: number;
+  maintenanceTotal: number;
+  // General (kept from old)
+  activeStudents: number;
+  vacantBeds: number;
   activeSos: number;
 }
 export interface ManagerDashboardData {

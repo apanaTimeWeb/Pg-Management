@@ -25,7 +25,7 @@ export function useManagerStaff() {
         { id: 'stf-3', name: 'Rajesh Sharma', role: 'Kitchen', phone: '9876543212', shift: '06:00 AM - 02:00 PM', status: 'Inactive' },
         { id: 'stf-4', name: 'Mukesh Bhai', role: 'Maintenance', phone: '9876543213', shift: '09:00 AM - 06:00 PM', status: 'Active' },
       ]);
-      const today = new Date().toISOString().split('T')[0];
+      const today = new Date().toISOString().split('T')[0] || '';
       setAttendance([
         { staffId: 'stf-1', date: today, status: 'Present' },
         { staffId: 'stf-2', date: today, status: 'Present' },
@@ -35,7 +35,7 @@ export function useManagerStaff() {
   }, [selectedPropertyId]);
 
   const markAttendance = (staffId: string, status: 'Present' | 'Absent' | 'On Leave') => {
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split('T')[0] || '';
     setAttendance(prev => {
       const existing = prev.find(a => a.staffId === staffId && a.date === today);
       if (existing) {
