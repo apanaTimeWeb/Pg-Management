@@ -1,6 +1,8 @@
+'use client';
 // RESPONSIBILITY: Renders the OwnerFinanceTabs component. Receives data via props/hooks.
 
-import { Receipt, TrendingDown, FileText } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Receipt, TrendingDown, FileText, Shield, ChevronDown } from 'lucide-react';
 
 import { formatINR, formatDateOnly } from '@/lib/utils/formatters';
 import { Pagination } from '@/components/ui/Pagination';
@@ -9,8 +11,8 @@ import type { Payment, Expense, Invoice } from '@/app/owner/owner_lib/owner_api/
 import type { Dispatch, SetStateAction } from 'react';
 
 export interface OwnerFinanceTabsProps {
-  activeTab: 'payments' | 'invoices' | 'expenses';
-  setActiveTab: Dispatch<SetStateAction<'payments' | 'invoices' | 'expenses'>>;
+  activeTab: 'payments' | 'invoices' | 'expenses' | 'deposits';
+  setActiveTab: Dispatch<SetStateAction<'payments' | 'invoices' | 'expenses' | 'deposits'>>;
   paymentsData: { paginated: Payment[]; totalPages: number };
   expensesData: { paginated: Expense[]; totalPages: number };
   invoicesData: { paginated: Invoice[]; totalPages: number };
@@ -31,9 +33,10 @@ export function OwnerFinanceTabs({
     <div className="bg-card border border-border rounded-lg overflow-hidden">
       <div className="flex border-b border-border">
         {[
-          { id: 'payments', label: 'Recent Income', icon: Receipt },
-          { id: 'expenses', label: 'Recent Expenses', icon: TrendingDown },
-          { id: 'invoices', label: 'All Invoices', icon: FileText },
+          { id: 'payments', label: 'Income', icon: Receipt },
+          { id: 'expenses', label: 'Expenses', icon: TrendingDown },
+          { id: 'invoices', label: 'Invoices', icon: FileText },
+          { id: 'deposits', label: 'Security Deposits', icon: Shield },
         ].map(tab => {
           const Icon = tab.icon;
           return (
@@ -165,6 +168,114 @@ export function OwnerFinanceTabs({
           )}
           </>
         )}
+
+        {activeTab === 'deposits' && (
+          <SecurityDepositsTab />
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── Security Deposits Tab ───────────────────────────────────────────────────
+function SecurityDepositsTab() {
+  const [deposits, setDeposits] = useState<any[]>([]);
+  const [users, setUsers] = useState<any[]>([]);
+  const [filterStatus, setFilterStatus] = useState('all');
+
+  useEffect(() => {
+    const deps: any[] = JSON.parse(localStorage.getItem('spg_deposits') || '[]');
+    const usrs: any[] = JSON.parse(localStorage.getItem('spg_users') || '[]');
+    setDeposits(deps.filter(d => !d.isDeleted));
+    setUsers(usrs);
+  }, []);
+
+  const getStudentName = (id: string) => users.find(u => u.id === id)?.name || id;
+
+  const filtered = filterStatus === 'all' ? deposits : deposits.filter(d => d.status === filterStatus);
+  const totalAmount = deposits.reduce((s, d) => s + d.amount, 0);
+  const activeCount = deposits.filter(d => d.status === 'Active').length;
+  const pendingRefund = deposits.filter(d => d.status === 'Refund Pending').length;
+  const refundedTotal = deposits.filter(d => d.status === 'Refunded').reduce((s, d) => s + (d.refundAmount || 0), 0);
+
+  const statusBadge = (status: string) => {
+    if (status === 'Active') return <span className="text-xs font-semibold px-2 py-0.5 rounded-full text-success bg-success-bg">✅ Active</span>;
+    if (status === 'Refund Pending') return <span className="text-xs font-semibold px-2 py-0.5 rounded-full text-warning bg-warning-bg">⏳ Refund Pending</span>;
+    if (status === 'Refunded') return <span className="text-xs font-semibold px-2 py-0.5 rounded-full text-secondary bg-page border border-border">↩ Refunded</span>;
+    return <span className="text-xs text-secondary">{status}</span>;
+  };
+
+  return (
+    <div className="p-5 space-y-5">
+      {/* Summary Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {[
+          { label: 'Total Collected',  value: `₹${(totalAmount / 1000).toFixed(0)}K`,      color: 'text-[#2D7D9A]' },
+          { label: 'Active Deposits',  value: String(activeCount),                           color: 'text-success' },
+          { label: 'Pending Refunds',  value: String(pendingRefund),                         color: 'text-warning' },
+          { label: 'Refunded',         value: `₹${(refundedTotal / 1000).toFixed(0)}K`,      color: 'text-secondary' },
+        ].map(({ label, value, color }) => (
+          <div key={label} className="bg-page border border-border rounded-xl p-4">
+            <div className={`text-2xl font-bold ${color}`}>{value}</div>
+            <div className="text-xs text-secondary uppercase tracking-wider mt-1">{label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Filter */}
+      <div className="flex items-center gap-2">
+        <span className="text-xs text-secondary font-semibold uppercase tracking-wider">Filter:</span>
+        {['all', 'Active', 'Refund Pending', 'Refunded'].map(s => (
+          <button key={s} onClick={() => setFilterStatus(s)}
+            className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${
+              filterStatus === s ? 'bg-[#2D7D9A] text-white' : 'bg-page border border-border text-secondary hover:text-primary'
+            }`}>
+            {s === 'all' ? 'All' : s}
+          </button>
+        ))}
+      </div>
+
+      {/* Table */}
+      <div className="overflow-x-auto rounded-xl border border-border">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="bg-page border-b border-border">
+              {['Student', 'Deposit Amount', 'Paid Date', 'Status', 'Deductions', 'Refund Amount'].map(h => (
+                <th key={h} className="text-left px-4 py-3 text-[11px] font-semibold text-secondary uppercase tracking-wider whitespace-nowrap">{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.length === 0 ? (
+              <tr><td colSpan={6} className="text-center py-12 text-secondary">No deposits found</td></tr>
+            ) : filtered.map(dep => (
+              <tr key={dep.id} className="border-b border-border hover:bg-page/50 transition-colors">
+                <td className="px-4 py-3 font-medium text-primary">{getStudentName(dep.studentId)}</td>
+                <td className="px-4 py-3 font-bold text-primary">₹{dep.amount.toLocaleString('en-IN')}</td>
+                <td className="px-4 py-3 text-secondary text-xs">{new Date(dep.paidDate).toLocaleDateString('en-IN')}</td>
+                <td className="px-4 py-3">{statusBadge(dep.status)}</td>
+                <td className="px-4 py-3">
+                  {dep.deductions?.length > 0 ? (
+                    <div className="text-xs text-danger">
+                      {dep.deductions.map((d: any, i: number) => (
+                        <div key={i}>-₹{d.amount.toLocaleString('en-IN')} ({d.reason})</div>
+                      ))}
+                    </div>
+                  ) : <span className="text-xs text-secondary">—</span>}
+                </td>
+                <td className="px-4 py-3 font-semibold">
+                  {dep.refundAmount ? (
+                    <span className="text-success">₹{dep.refundAmount.toLocaleString('en-IN')}</span>
+                  ) : dep.status === 'Active' ? (
+                    <span className="text-secondary text-xs">—</span>
+                  ) : (
+                    <span className="text-warning text-xs">Pending</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

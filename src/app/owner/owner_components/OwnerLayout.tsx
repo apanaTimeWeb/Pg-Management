@@ -8,7 +8,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import { 
   LayoutDashboard, Building2, Bed, Users, UserSquare2, 
   Wallet, UtensilsCrossed, FileBarChart, Settings, CreditCard,
-  LogOut, Bell, Building, Menu, X, ShieldAlert, Banknote, Wrench, CalendarCheck
+  LogOut, Bell, Building, Menu, X, ShieldAlert, Banknote, Wrench, CalendarCheck,
+  MessageSquare, Megaphone, Receipt, TrendingUp
 } from 'lucide-react';
 
 import { getSession, clearSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
@@ -32,7 +33,10 @@ const NAV_ITEMS = [
   { key: 'finance', href: '/owner/finance', icon: Wallet },
   { key: 'maintenance', href: '/owner/maintenance', icon: Wrench, label: 'Maintenance Log' },
   { key: 'food', href: '/owner/food', icon: UtensilsCrossed, label: 'Food Menu' },
-  { key: 'reports', href: '/owner/reports', icon: FileBarChart },
+  { key: 'complaints', href: '/owner/complaints', icon: MessageSquare, label: 'Complaints' },
+  { key: 'notices', href: '/owner/notices', icon: Megaphone, label: 'Notices' },
+  { key: 'tax', href: '/owner/tax', icon: Receipt, label: 'Tax & Compliance' },
+  { key: 'reports', href: '/owner/reports', icon: TrendingUp, label: 'Reports & BI' },
   { key: 'settings', href: '/owner/settings', icon: Settings },
   { key: 'subscription', href: '/owner/subscription', icon: CreditCard },
 ];

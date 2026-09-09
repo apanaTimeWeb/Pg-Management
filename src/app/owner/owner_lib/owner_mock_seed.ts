@@ -9,7 +9,7 @@
  * Properties: 'prop_1' (Sunrise PG - Boys), 'prop_2' (Moonlight PG - Girls)
  */
 
-const OWNER_SEED_KEY = 'spg_owner_demo_seeded_v1';
+const OWNER_SEED_KEY = 'spg_owner_demo_seeded_v3';
 
 const PROP_1_ID = 'prop_1';
 const PROP_2_ID = 'prop_2';
@@ -21,9 +21,21 @@ function seedIfNeeded(): void {
   const OWNER_ID = currentSession && currentSession.role === 'owner' ? currentSession.id : 'owner_demo_1';
 
   if (typeof window === 'undefined') return;
+  
+  // Check if properties for THIS owner already exist
+  const existingProps = localStorage.getItem('spg_properties');
+  if (existingProps) {
+    try {
+      const props = JSON.parse(existingProps);
+      if (Array.isArray(props) && props.some((p: any) => p.ownerId === OWNER_ID)) return;
+    } catch (_) {}
+  }
+  
   const isSeeded = localStorage.getItem(OWNER_SEED_KEY);
-  const hasProps = localStorage.getItem('spg_properties');
-  if (isSeeded && hasProps && hasProps.length > 10) return;
+  if (isSeeded) {
+    // Clear old stale seed for different owner
+    localStorage.removeItem(OWNER_SEED_KEY);
+  }
 
   const now = new Date().toISOString();
   const thisMonth = now.slice(0, 7);
@@ -284,6 +296,47 @@ function seedIfNeeded(): void {
     createdAt: now, updatedAt: now, isDeleted: false
   }];
   localStorage.setItem('spg_subscriptions', JSON.stringify(subscription));
+
+  // ─────────────────────────────────────────────────
+  // 17. SECURITY DEPOSITS
+  // ─────────────────────────────────────────────────
+  const deposits = [
+    { id: 'dep_1', propertyId: PROP_1_ID, studentId: 'student_1', amount: 10000, status: 'Active', paidDate: '2024-01-01', refundDate: null, deductions: [], refundAmount: null, createdAt: now, updatedAt: now, isDeleted: false },
+    { id: 'dep_2', propertyId: PROP_1_ID, studentId: 'student_2', amount: 10000, status: 'Active', paidDate: '2024-01-15', refundDate: null, deductions: [], refundAmount: null, createdAt: now, updatedAt: now, isDeleted: false },
+    { id: 'dep_3', propertyId: PROP_1_ID, studentId: 'student_3', amount: 10000, status: 'Active', paidDate: '2024-02-01', refundDate: null, deductions: [], refundAmount: null, createdAt: now, updatedAt: now, isDeleted: false },
+    { id: 'dep_4', propertyId: PROP_1_ID, studentId: 'student_4', amount: 10000, status: 'Active', paidDate: '2024-02-10', refundDate: null, deductions: [{ reason: 'Wall damage', amount: 1500 }], refundAmount: null, createdAt: now, updatedAt: now, isDeleted: false },
+    { id: 'dep_5', propertyId: PROP_1_ID, studentId: 'student_5', amount: 15000, status: 'Active', paidDate: '2024-02-20', refundDate: null, deductions: [], refundAmount: null, createdAt: now, updatedAt: now, isDeleted: false },
+    { id: 'dep_6', propertyId: PROP_1_ID, studentId: 'student_6', amount: 8000, status: 'Refund Pending', paidDate: '2024-03-01', refundDate: null, deductions: [{ reason: 'Pending rent', amount: 500 }, { reason: 'Curtain damage', amount: 300 }], refundAmount: 7200, createdAt: now, updatedAt: now, isDeleted: false },
+    { id: 'dep_7', propertyId: PROP_1_ID, studentId: 'student_7', amount: 8000, status: 'Active', paidDate: '2024-03-05', refundDate: null, deductions: [], refundAmount: null, createdAt: now, updatedAt: now, isDeleted: false },
+    { id: 'dep_8', propertyId: PROP_2_ID, studentId: 'student_8', amount: 8000, status: 'Active', paidDate: '2024-01-20', refundDate: null, deductions: [], refundAmount: null, createdAt: now, updatedAt: now, isDeleted: false },
+    { id: 'dep_9', propertyId: PROP_2_ID, studentId: 'student_9', amount: 8000, status: 'Active', paidDate: '2024-02-05', refundDate: null, deductions: [], refundAmount: null, createdAt: now, updatedAt: now, isDeleted: false },
+    { id: 'dep_10', propertyId: PROP_2_ID, studentId: 'student_10', amount: 8000, status: 'Refunded', paidDate: '2024-02-25', refundDate: '2024-08-10', deductions: [{ reason: 'Cleaning charge', amount: 500 }], refundAmount: 7500, createdAt: now, updatedAt: now, isDeleted: false },
+  ];
+  localStorage.setItem('spg_deposits', JSON.stringify(deposits));
+
+  // ─────────────────────────────────────────────────
+  // 18. AMC CONTRACTS
+  // ─────────────────────────────────────────────────
+  const amcContracts = [
+    { id: 'amc_1', propertyId: PROP_1_ID, vendor: 'ABC AC Services', service: 'AC Maintenance', amount: 50000, startDate: '2024-01-01', endDate: '2024-12-31', status: 'Active', nextServiceDate: '2024-10-01', frequency: 'Monthly', contactPhone: '9000001111', createdAt: now, updatedAt: now, isDeleted: false },
+    { id: 'amc_2', propertyId: PROP_1_ID, vendor: 'XYZ Elevator Co.', service: 'Elevator Service', amount: 30000, startDate: '2024-01-01', endDate: '2024-12-31', status: 'Active', nextServiceDate: '2024-10-15', frequency: 'Quarterly', contactPhone: '9000002222', createdAt: now, updatedAt: now, isDeleted: false },
+    { id: 'amc_3', propertyId: PROP_1_ID, vendor: 'DEF Pest Control', service: 'Pest Control', amount: 12000, startDate: '2024-01-01', endDate: '2024-09-30', status: 'Expiring', nextServiceDate: '2024-09-25', frequency: 'Quarterly', contactPhone: '9000003333', createdAt: now, updatedAt: now, isDeleted: false },
+    { id: 'amc_4', propertyId: PROP_1_ID, vendor: 'GHI Security Systems', service: 'CCTV System', amount: 15000, startDate: '2023-01-01', endDate: '2024-08-31', status: 'Expired', nextServiceDate: null, frequency: 'Annual', contactPhone: '9000004444', createdAt: now, updatedAt: now, isDeleted: false },
+    { id: 'amc_5', propertyId: PROP_2_ID, vendor: 'CleanPro Services', service: 'Deep Cleaning', amount: 18000, startDate: '2024-01-01', endDate: '2024-12-31', status: 'Active', nextServiceDate: '2024-10-20', frequency: 'Monthly', contactPhone: '9000005555', createdAt: now, updatedAt: now, isDeleted: false },
+  ];
+  localStorage.setItem('spg_amc_contracts', JSON.stringify(amcContracts));
+
+  // ─────────────────────────────────────────────────
+  // 19. PREVENTIVE MAINTENANCE SCHEDULE
+  // ─────────────────────────────────────────────────
+  const preventiveSchedule = [
+    { id: 'prev_1', propertyId: PROP_1_ID, asset: 'AC Units', task: 'Filter Cleaning', frequency: 'Monthly', lastDone: thisMonth + '-01', nextDue: new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString().split('T')[0], status: 'Scheduled', createdAt: now, updatedAt: now },
+    { id: 'prev_2', propertyId: PROP_1_ID, asset: 'Elevator', task: 'Full Service', frequency: 'Quarterly', lastDone: '2024-07-15', nextDue: '2024-10-15', status: 'Scheduled', createdAt: now, updatedAt: now },
+    { id: 'prev_3', propertyId: PROP_1_ID, asset: 'Fire Safety System', task: 'Inspection', frequency: 'Monthly', lastDone: thisMonth + '-05', nextDue: new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString().split('T')[0], status: 'Completed', createdAt: now, updatedAt: now },
+    { id: 'prev_4', propertyId: PROP_1_ID, asset: 'Water Tank', task: 'Cleaning', frequency: 'Bi-annual', lastDone: '2024-04-01', nextDue: '2024-10-01', status: 'Due Soon', createdAt: now, updatedAt: now },
+    { id: 'prev_5', propertyId: PROP_2_ID, asset: 'Generator', task: 'Oil Change & Service', frequency: 'Quarterly', lastDone: '2024-06-01', nextDue: '2024-09-01', status: 'Overdue', createdAt: now, updatedAt: now },
+  ];
+  localStorage.setItem('spg_preventive_schedule', JSON.stringify(preventiveSchedule));
 
   // ─────────────────────────────────────────────────
   // MARK SEEDED

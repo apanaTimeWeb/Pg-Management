@@ -21,7 +21,7 @@ export function OwnerFinanceMain() {
 
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState<any>(null);
-  const [activeTab, setActiveTab] = useState<'payments' | 'invoices' | 'expenses'>('payments');
+  const [activeTab, setActiveTab] = useState<'payments' | 'invoices' | 'expenses' | 'deposits'>('payments');
   
   const { page: currentPage, setPage: setCurrentPage } = useTableSync();
   const itemsPerPage = 10;
@@ -124,7 +124,7 @@ export function OwnerFinanceMain() {
           <p className="text-sm text-secondary">Track enterprise-grade financial metrics, revenue, and expenses.</p>
         </div>
         <div className="flex items-center gap-3">
-          <button className="px-4 py-2 bg-card border border-border text-primary rounded-md text-sm font-medium hover:border-primary motion-safe:transition-colors flex items-center gap-2">
+          <button className="px-5 py-2.5 bg-primary text-white rounded-lg text-sm font-bold hover:bg-primary-hover shadow-md transition-all flex items-center gap-2">
             <TrendingDown className="w-4 h-4" /> Record Expense
           </button>
         </div>
@@ -137,25 +137,53 @@ export function OwnerFinanceMain() {
         isProfitable={isProfitable}
       />
 
-      <OwnerFinanceCharts 
-        trendOptions={trendOptions}
-        trendSeries={trendSeries}
-        expenseSeries={expenseSeries}
-        expensePieOptions={expensePieOptions}
-      />
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
+        {/* Main Content Area (Tabs) */}
+        <div className="xl:col-span-8 space-y-6">
+          <OwnerFinanceTabs 
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+// @ts-expect-error
+            paymentsData={paymentsData}
+// @ts-expect-error
+            expensesData={expensesData}
+// @ts-expect-error
+            invoicesData={invoicesData}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
 
-      <OwnerFinanceTabs 
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-// @ts-expect-error
-        paymentsData={paymentsData}
-// @ts-expect-error
-        expensesData={expensesData}
-// @ts-expect-error
-        invoicesData={invoicesData}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+        {/* Side Panel (Charts & Info) */}
+        <div className="xl:col-span-4 space-y-6">
+          <OwnerFinanceCharts 
+            trendOptions={trendOptions}
+            trendSeries={trendSeries}
+            expenseSeries={expenseSeries}
+            expensePieOptions={expensePieOptions}
+          />
+          
+          {/* Additional Side Panel Info */}
+          <div className="bg-gradient-to-br from-[#1a3a4a] to-[#0d1f2a] rounded-xl p-6 shadow-md text-white">
+            <h3 className="text-sm font-bold text-white/90 uppercase tracking-widest mb-4 flex items-center gap-2">
+              Banking Info
+            </h3>
+            <div className="space-y-3">
+              <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm border border-white/10">
+                <div className="text-xs font-bold text-white/60 mb-1">Primary Settlement Account</div>
+                <div className="text-sm font-semibold tracking-wider">HDFC Bank •••• 4521</div>
+              </div>
+              <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm border border-white/10">
+                <div className="text-xs font-bold text-white/60 mb-1">UPI ID for Collection</div>
+                <div className="text-sm font-semibold">smartpg@hdfcbank</div>
+              </div>
+            </div>
+            <p className="text-xs text-white/60 leading-relaxed mt-4">
+              All digital payments collected via the Student App are settled to this account within T+1 working days.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -121,7 +121,7 @@ export function OwnerFoodMain() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6 pb-20">
+    <div className="space-y-6 pb-20">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -136,7 +136,7 @@ export function OwnerFoodMain() {
             onChange={(e) => {
               if (setSelectedPropertyId) setSelectedPropertyId(e.target.value);
             }}
-            className="bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:border-primary outline-none min-w-[200px]"
+            className="bg-input border border-border rounded-md px-3 py-2 text-sm text-primary focus:border-primary outline-none min-w-[200px] font-medium"
           >
             {properties.map(p => (
               <option key={p.id} value={p.id}>{(p as any).name}</option>
@@ -148,56 +148,95 @@ export function OwnerFoodMain() {
       {loading ? (
         <div className="motion-safe:animate-pulse h-[400px] bg-card rounded-lg border border-border"></div>
       ) : (
-        <>
-          {successMsg && (
-            <div className="p-4 bg-success-bg border border-[rgba(16,185,129,0.2)] rounded-md flex items-center gap-3 text-success animate-fade-in">
-              <CheckCircle2 className="w-5 h-5 shrink-0" />
-              <span className="font-medium text-sm">{successMsg}</span>
-            </div>
-          )}
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
+          <div className="xl:col-span-8 2xl:col-span-9 space-y-6">
+            {successMsg && (
+              <div className="p-4 bg-success-bg border border-[rgba(16,185,129,0.2)] rounded-md flex items-center gap-3 text-success animate-fade-in shadow-sm">
+                <CheckCircle2 className="w-5 h-5 shrink-0" />
+                <span className="font-bold text-sm">{successMsg}</span>
+              </div>
+            )}
 
-          {/* Empty State */}
-          {!hasMenu && !isEditing && (
-            <div className="flex flex-col items-center justify-center py-20 bg-card border border-border rounded-lg text-center shadow-sm">
-              <UtensilsCrossed className="w-16 h-16 text-primary opacity-50 mb-4" />
-              <h3 className="text-xl font-bold text-primary mb-2">No Menu Found</h3>
-              <p className="text-secondary text-sm max-w-sm mb-6">
-                You haven't created a food menu for this property yet. Managers and Kitchen staff cannot see any menu.
+            {/* Empty State */}
+            {!hasMenu && !isEditing && (
+              <div className="flex flex-col items-center justify-center py-20 bg-card border border-border rounded-xl text-center shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-20 h-20 bg-primary-subtle rounded-full flex items-center justify-center mb-6">
+                  <UtensilsCrossed className="w-10 h-10 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold text-primary mb-2">No Menu Found</h3>
+                <p className="text-secondary text-sm max-w-sm mb-8">
+                  You haven't created a food menu for this property yet. Managers and Kitchen staff cannot see any menu.
+                </p>
+                <button 
+                  onClick={() => setIsEditing(true)}
+                  className="bg-primary text-white px-8 py-3 rounded-lg text-sm font-bold hover:bg-primary-hover motion-safe:transition-colors flex items-center gap-2 shadow-md hover:shadow-lg"
+                >
+                  <PlusCircle className="w-5 h-5" />
+                  Add Your Food Menu
+                </button>
+              </div>
+            )}
+
+            {/* Form View */}
+            {isEditing && (
+              <OwnerFoodMenuForm
+                menu={menu}
+                hasMenu={hasMenu}
+                saving={saving}
+                parseDay={parseDay}
+                onMealChange={handleMealChange}
+                onMonthEndChange={(val) => setMenu(prev => ({ ...prev, monthEndSpecial: val }))}
+                onFillDummy={handleFillDummyData}
+                onSave={handleSave}
+                onCancel={() => setIsEditing(false)}
+              />
+            )}
+
+            {/* Read-only View */}
+            {hasMenu && !isEditing && (
+              <OwnerFoodMenuReadView
+                menu={menu}
+                parseDay={parseDay}
+                onEdit={() => setIsEditing(true)}
+              />
+            )}
+          </div>
+
+          {/* Right Side Panel */}
+          <div className="xl:col-span-4 2xl:col-span-3 space-y-6">
+            <div className="bg-card border border-border rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <h3 className="text-sm font-bold text-primary uppercase tracking-widest mb-4 flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-success" /> Kitchen Insights
+              </h3>
+              <div className="space-y-4">
+                <div className="bg-success-bg p-4 rounded-lg border border-[rgba(16,185,129,0.2)]">
+                  <div className="text-xs text-success font-bold uppercase tracking-wider mb-1">Active Meal Subscribers</div>
+                  <div className="text-2xl font-black text-primary">84<span className="text-sm font-medium text-secondary ml-1">/ 100</span></div>
+                </div>
+                
+                <div className="p-4 rounded-lg border border-border">
+                  <div className="text-xs text-secondary font-bold uppercase tracking-wider mb-1">Est. Monthly Cost</div>
+                  <div className="text-xl font-bold text-primary">₹1,24,000</div>
+                </div>
+
+                <div className="p-4 rounded-lg border border-border">
+                  <div className="text-xs text-secondary font-bold uppercase tracking-wider mb-1">Kitchen Staff</div>
+                  <div className="flex items-center gap-2 mt-2">
+                    <div className="w-8 h-8 rounded-full bg-[#2D7D9A]/20 flex items-center justify-center text-[#2D7D9A] font-bold text-xs">SK</div>
+                    <div className="text-sm font-medium text-primary">Suresh (Head Cook)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-[var(--primary)] to-indigo-900 rounded-xl p-6 shadow-md text-white">
+              <h3 className="text-sm font-bold text-white/90 uppercase tracking-widest mb-3">Notice</h3>
+              <p className="text-sm text-white/80 leading-relaxed">
+                Changes to the menu will instantly reflect on the Manager App and Student App for this PG branch. 
               </p>
-              <button 
-                onClick={() => setIsEditing(true)}
-                className="bg-primary text-white px-6 py-3 rounded-md text-sm font-bold hover:bg-primary-hover motion-safe:transition-colors flex items-center gap-2"
-              >
-                <PlusCircle className="w-5 h-5" />
-                Add Your Food Menu
-              </button>
             </div>
-          )}
-
-          {/* Form View */}
-          {isEditing && (
-            <OwnerFoodMenuForm
-              menu={menu}
-              hasMenu={hasMenu}
-              saving={saving}
-              parseDay={parseDay}
-              onMealChange={handleMealChange}
-              onMonthEndChange={(val) => setMenu(prev => ({ ...prev, monthEndSpecial: val }))}
-              onFillDummy={handleFillDummyData}
-              onSave={handleSave}
-              onCancel={() => setIsEditing(false)}
-            />
-          )}
-
-          {/* Read-only View */}
-          {hasMenu && !isEditing && (
-            <OwnerFoodMenuReadView
-              menu={menu}
-              parseDay={parseDay}
-              onEdit={() => setIsEditing(true)}
-            />
-          )}
-        </>
+          </div>
+        </div>
       )}
     </div>
   );

@@ -6,7 +6,8 @@
 import { useState, useEffect } from 'react';
 import { 
   Building2, BarChart, TrendingUp, TrendingDown,
-  PieChart, Filter, Activity
+  PieChart, Filter, Activity, AlertTriangle, Zap,
+  MessageSquare, Bell, Users, ArrowRight, Shield, Megaphone
 } from 'lucide-react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -117,10 +118,111 @@ export function OwnerDashboardMain() {
 
   return (
     <div className="pb-20 space-y-10 animate-in fade-in motion-safe:duration-300">
-      
+
       {/* --------------------------------------------------------------------- */}
-      {/* SECTION 1: EXECUTIVE FINANCIAL SUMMARY                                */}
+      {/* SECTION 0: BUSINESS HEALTH + ALERTS + QUICK ACTIONS                   */}
       {/* --------------------------------------------------------------------- */}
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Business Health Score */}
+        <div className="bg-gradient-to-br from-[#1a3a4a] to-[#0d1f2a] border border-[#2D7D9A]/30 rounded-3xl p-6 flex flex-col justify-between">
+          <div className="flex items-center gap-2 mb-4">
+            <Shield className="w-5 h-5 text-[#F5A623]" />
+            <h2 className="text-sm font-bold text-white/80 uppercase tracking-widest">Business Health</h2>
+          </div>
+          {(() => {
+            const occ = propMetrics.occupancyPercent || 0;
+            const open = propMetrics.openComplaints || 0;
+            const pending = globalMetrics.pendingRent || 0;
+            const score = Math.max(0, Math.min(100, Math.round(occ * 0.5 + (open === 0 ? 30 : open < 3 ? 20 : 10) + (pending === 0 ? 20 : pending < 10000 ? 15 : 5))));
+            const grade = score >= 85 ? { label: 'Excellent', color: '#27AE60' } : score >= 70 ? { label: 'Good', color: '#2D7D9A' } : score >= 55 ? { label: 'Fair', color: '#F5A623' } : { label: 'Needs Attention', color: '#E74C3C' };
+            return (
+              <>
+                <div className="flex items-end gap-3 mb-4">
+                  <div className="text-7xl font-black" style={{ color: grade.color }}>{score}</div>
+                  <div className="text-white/60 text-sm pb-2 font-medium">/100</div>
+                </div>
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-bold" style={{ backgroundColor: `${grade.color}20`, color: grade.color }}>
+                  <Zap className="w-3.5 h-3.5" /> {grade.label}
+                </div>
+                <div className="mt-4 space-y-2">
+                  <div className="flex justify-between text-xs text-white/60"><span>Occupancy</span><span className="text-white font-medium">{occ}%</span></div>
+                  <div className="w-full bg-white/10 rounded-full h-1.5"><div className="h-1.5 rounded-full bg-[#2D7D9A]" style={{ width: `${occ}%` }} /></div>
+                </div>
+              </>
+            );
+          })()}
+        </div>
+
+        {/* Important Alerts */}
+        <div className="bg-card border border-border rounded-3xl p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <Bell className="w-5 h-5 text-danger" />
+            <h2 className="text-sm font-bold text-primary uppercase tracking-widest">Important Alerts</h2>
+          </div>
+          <div className="space-y-3">
+            {propMetrics.openComplaints > 0 && (
+              <Link href="/owner/complaints" className="flex items-start gap-3 p-3 bg-danger-bg border border-danger/30 rounded-xl hover:border-danger transition-colors group">
+                <AlertTriangle className="w-4 h-4 text-danger mt-0.5 shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-semibold text-primary">{propMetrics.openComplaints} Open Complaints</div>
+                  <div className="text-xs text-secondary">Tenant issues need attention</div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-secondary group-hover:text-danger transition-colors" />
+              </Link>
+            )}
+            {propMetrics.pendingRent > 0 && (
+              <Link href="/owner/finance" className="flex items-start gap-3 p-3 bg-warning-bg border border-warning/30 rounded-xl hover:border-warning transition-colors group">
+                <AlertTriangle className="w-4 h-4 text-warning mt-0.5 shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-semibold text-primary">₹{propMetrics.pendingRent.toLocaleString('en-IN')} Pending Rent</div>
+                  <div className="text-xs text-secondary">Collect overdue payments</div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-secondary group-hover:text-warning transition-colors" />
+              </Link>
+            )}
+            {propMetrics.vacantBeds > 0 && (
+              <Link href="/owner/rooms" className="flex items-start gap-3 p-3 bg-[rgba(45,125,154,0.1)] border border-[#2D7D9A]/30 rounded-xl hover:border-[#2D7D9A] transition-colors group">
+                <Building2 className="w-4 h-4 text-[#2D7D9A] mt-0.5 shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-semibold text-primary">{propMetrics.vacantBeds} Vacant Beds</div>
+                  <div className="text-xs text-secondary">Fill to improve revenue</div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-secondary group-hover:text-[#2D7D9A] transition-colors" />
+              </Link>
+            )}
+            {propMetrics.openComplaints === 0 && propMetrics.pendingRent === 0 && propMetrics.vacantBeds === 0 && (
+              <div className="text-center py-8 text-success"><div className="text-3xl mb-2">✅</div><div className="font-semibold">All clear!</div><div className="text-xs text-secondary mt-1">No urgent issues</div></div>
+            )}
+          </div>
+        </div>
+
+        {/* Quick Actions */}
+        <div className="bg-card border border-border rounded-3xl p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <Zap className="w-5 h-5 text-[#F5A623]" />
+            <h2 className="text-sm font-bold text-primary uppercase tracking-widest">Quick Actions</h2>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {[
+              { label: 'Add Student', href: '/owner/students', icon: Users, color: 'text-[#2D7D9A]', bg: 'bg-[rgba(45,125,154,0.1)]' },
+              { label: 'View Finance', href: '/owner/finance', icon: BarChart, color: 'text-success', bg: 'bg-success-bg' },
+              { label: 'Complaints', href: '/owner/complaints', icon: MessageSquare, color: 'text-warning', bg: 'bg-warning-bg' },
+              { label: 'Notices', href: '/owner/notices', icon: Megaphone, color: 'text-primary', bg: 'bg-primary-subtle' },
+              { label: 'Reports', href: '/owner/reports', icon: Activity, color: 'text-[#2D7D9A]', bg: 'bg-[rgba(45,125,154,0.1)]' },
+              { label: 'Tax & Compliance', href: '/owner/tax', icon: Shield, color: 'text-success', bg: 'bg-success-bg' },
+            ].map(({ label, href, icon: Icon, color, bg }) => (
+              <Link key={href} href={href} className="flex flex-col items-center gap-2 p-3 rounded-xl border border-border hover:border-primary/40 transition-all hover:shadow-sm group text-center">
+                <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${bg} group-hover:scale-110 transition-transform`}>
+                  <Icon className={`w-5 h-5 ${color}`} />
+                </div>
+                <span className="text-xs font-semibold text-secondary group-hover:text-primary transition-colors leading-tight">{label}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
       <section>
         <div className="mb-6">
           <h1 className="text-3xl font-black text-primary tracking-tight">Executive Summary</h1>

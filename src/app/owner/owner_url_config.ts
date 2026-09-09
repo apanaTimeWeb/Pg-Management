@@ -15,6 +15,9 @@ export const OWNER_URLS = {
   ATTENDANCE: '/owner/attendance',
   FOOD: '/owner/food',
   REPORTS: '/owner/reports',
+  COMPLAINTS: '/owner/complaints',
+  NOTICES: '/owner/notices',
+  TAX: '/owner/tax',
   SETTINGS: '/owner/settings',
   SUBSCRIPTION: '/owner/subscription',
   
