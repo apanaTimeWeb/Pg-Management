@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+
 import { CreditCard, Map, MessageCircle, Cloud, Mail, BarChart, Lock, Smartphone } from 'lucide-react';
 
 export function IntegrationsSection() {
@@ -48,10 +48,6 @@ export function IntegrationsSection() {
             <span className="text-2xl">✅</span> 20+ Countries
           </div>
         </div>
-
-        <Link href="/integrations" className="inline-flex items-center gap-2 font-medium text-[var(--primary-teal)] hover:text-[var(--primary-navy)] transition-colors fade-in">
-          📲 Explore All Integrations &rarr;
-        </Link>
       </div>
     </section>
   );
