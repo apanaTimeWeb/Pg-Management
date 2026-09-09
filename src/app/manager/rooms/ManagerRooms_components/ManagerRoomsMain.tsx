@@ -1,6 +1,7 @@
 // RESPONSIBILITY: Renders the ManagerRoomsMain component.
 'use client';
 import { useState } from 'react';
+import { BedDouble, ArrowRightLeft, LayoutGrid } from 'lucide-react';
 
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { useManagerSession } from '@/app/manager/manager_components/manager_hooks/useManagerSession';
@@ -25,11 +26,22 @@ export function ManagerRoomsMain() {
     return <div className="p-6 motion-safe:animate-pulse">Loading rooms...</div>;
   }
   return (
-    <div className="space-y-6 pb-20">
+    <div className="space-y-6 pb-20 manager-theme animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-[22px] font-bold text-primary">Rooms Directory</h1>
-          <p className="text-sm text-secondary">View and manage rooms for your assigned property.</p>
+          <h1 className="text-[24px] font-bold text-primary flex items-center gap-2 tracking-tight">
+            <LayoutGrid className="w-6 h-6 text-theme-primary" />
+            Room Allocation & Directory
+          </h1>
+          <p className="text-sm text-secondary">Manage room structures, allocations, and transfers.</p>
+        </div>
+        <div className="flex gap-2">
+          <button className="flex items-center gap-2 bg-theme-primary text-white px-4 py-2.5 rounded-[var(--radius-md,8px)] hover:bg-theme-primary-hover font-bold text-sm shadow-sm transition-colors">
+            <BedDouble className="w-4 h-4" /> Allocate Room
+          </button>
+          <button className="flex items-center gap-2 bg-input border hover:border-theme-primary text-primary px-4 py-2.5 rounded-[var(--radius-md,8px)] font-bold text-sm shadow-sm transition-colors">
+            <ArrowRightLeft className="w-4 h-4" /> Transfer
+          </button>
         </div>
       </div>
       <ManagerRoomsKPIs rooms={rooms} />

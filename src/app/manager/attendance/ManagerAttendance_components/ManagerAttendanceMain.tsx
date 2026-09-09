@@ -41,7 +41,7 @@ export function ManagerAttendanceMain() {
   const absentCount = attendance.filter(a => a.status === 'Absent').length;
   const pendingCount = students.length - attendance.length;
   return (
-    <div className="space-y-6 pb-20">
+    <div className="space-y-6 pb-20 manager-theme animate-fade-in">
       <ManagerAttendanceSummary 
         presentCount={presentCount} 
         absentCount={absentCount} 

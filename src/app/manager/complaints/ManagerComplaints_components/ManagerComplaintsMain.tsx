@@ -3,6 +3,7 @@
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { Pagination } from '@/components/ui/Pagination';
 import { useManagerComplaints } from '@/app/manager/complaints/ManagerComplaints_hooks/useManagerComplaints';
+import { ManagerComplaintsKPIs } from '@/app/manager/complaints/ManagerComplaints_components/ManagerComplaintsKPIs';
 import { ManagerComplaintsActive } from '@/app/manager/complaints/ManagerComplaints_components/ManagerComplaintsActive';
 import { ManagerComplaintsLog } from '@/app/manager/complaints/ManagerComplaints_components/ManagerComplaintsLog';
 import { ManagerComplaintsResolveModal } from '@/app/manager/complaints/ManagerComplaints_components/ManagerComplaintsResolveModal';
@@ -21,11 +22,14 @@ export function ManagerComplaintsMain() {
   if (ctxLoading) return <div className="p-6 text-secondary">Loading...</div>;
   if (!selectedPropertyId) return <div className="p-6 text-secondary text-center">Property Required</div>;
   return (
-    <div className="space-y-6 pb-20">
+    <div className="space-y-6 pb-20 manager-theme animate-fade-in">
       <div>
-        <h1 className="text-[24px] font-bold text-primary">Maintenance & Complaints</h1>
+        <h1 className="text-[24px] font-bold text-primary tracking-tight">Maintenance & Complaints</h1>
         <p className="text-sm text-secondary">Manage student issues and track repair costs.</p>
       </div>
+      
+      <ManagerComplaintsKPIs activeCount={activeComplaintsCount} resolvedCount={resolvedComplaintsCount} />
+
       <div className="flex border-b border gap-6">
         <button 
           onClick={() => setActiveTab('active')} 

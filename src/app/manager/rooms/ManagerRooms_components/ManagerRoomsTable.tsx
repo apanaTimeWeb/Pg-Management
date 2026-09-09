@@ -1,5 +1,5 @@
 // RESPONSIBILITY: Renders the ManagerRoomsTable component.
-import { BedDouble, ChevronRight, User, Users } from 'lucide-react';
+import { BedDouble, ChevronRight, User, Users, MapPin } from 'lucide-react';
 import Link from 'next/link';
 
 import type { ManagerRoomData } from '@/app/manager/rooms/ManagerRooms_types/ManagerRooms.types';
@@ -30,87 +30,65 @@ export function ManagerRoomsTable({
   }
   const paginatedRooms = filteredRooms.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   return (
-    <div className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm">
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm text-left">
-          <thead className="bg-[rgba(99,102,241,0.03)] text-[11px] uppercase tracking-wider text-secondary border-b border">
-            <tr>
-              <th className="px-6 py-4 font-semibold">Room Identity</th>
-              <th className="px-6 py-4 font-semibold">Configuration</th>
-              <th className="px-6 py-4 font-semibold">Rent (Per Bed)</th>
-              <th className="px-6 py-4 font-semibold">Vacancy Status</th>
-              <th className="px-6 py-4 font-semibold text-right">Action</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-[var(--border)]">
-            {paginatedRooms.map((room) => {
+    <>
+      <div className="space-y-8">
+        {Array.from(new Set(paginatedRooms.map(r => r.floor || 'Unknown'))).sort().map(floor => (
+        <div key={floor} className="bg-card border border rounded-[var(--radius-xl,16px)] overflow-hidden shadow-sm">
+          <div className="bg-input/50 px-6 py-3 border-b border flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-theme-primary" />
+            <h3 className="text-sm font-bold text-primary uppercase tracking-wider">Floor {floor}</h3>
+          </div>
+          <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {paginatedRooms.filter(r => (r.floor || 'Unknown') === floor).map((room) => {
               const safeSharing = room.sharing || 1;
               const occupiedBeds = safeSharing - room.vacantCount;
               const percent = Math.round((occupiedBeds / safeSharing) * 100);
+              const isMaintenance = room.status === 'maintenance';
+              
               return (
-                <tr key={room.id} className="hover:bg-[rgba(99,102,241,0.02)] motion-safe:transition-colors group">
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-[var(--radius-md,8px)] bg-input border border flex items-center justify-center shrink-0 shadow-sm">
-                        <span className="font-bold text-primary text-lg">{room.number || '-'}</span>
+                <div key={room.id} className={`border rounded-[var(--radius-lg,12px)] p-4 relative group hover:shadow-md transition-all ${isMaintenance ? 'bg-danger-bg border-danger/20' : 'bg-page hover:border-theme-primary'}`}>
+                  {isMaintenance && (
+                    <div className="absolute -top-2 -right-2 bg-danger text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm">Maintenance</div>
+                  )}
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-10 h-10 rounded-[var(--radius-md,8px)] flex items-center justify-center font-bold text-lg shadow-sm border ${isMaintenance ? 'bg-danger/10 text-danger border-danger/20' : 'bg-card text-theme-primary border-border'}`}>
+                        {room.number}
                       </div>
                       <div>
-                        <div className="font-bold text-primary text-base">
-                          Room {room.number || 'Unnamed'}
+                        <div className="font-bold text-primary">Room {room.number}</div>
+                        <div className="text-xs text-secondary flex items-center gap-1">
+                          {safeSharing === 1 ? <User className="w-3 h-3" /> : <Users className="w-3 h-3" />}
+                          {safeSharing} Sharing • ₹{(room.rentPerBed || 0).toLocaleString()}
                         </div>
-                        <div className="text-[11px] text-secondary mt-0.5 flex flex-col gap-0.5">
-                          <span>📍 Floor {room.floor}</span>
-                        </div>
                       </div>
                     </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-[rgba(99,102,241,0.1)] text-primary flex items-center justify-center shrink-0">
-                        {room.sharing === 1 ? <User className="w-4 h-4" /> : <Users className="w-4 h-4" />}
-                      </div>
-                      <span className="text-primary font-medium text-sm">
-                        {room.sharing === 1 ? 'Single Bed' : room.sharing === 2 ? 'Double Sharing' : room.sharing === 3 ? 'Triple Sharing' : `${room.sharing} Sharing`}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="text-primary font-bold text-sm">
-                      ₹{(room.rentPerBed || 0).toLocaleString()}
-                    </div>
-                    <div className="text-[11px] text-secondary mt-0.5">/ month</div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex flex-col gap-2 w-36">
-                      <div className="flex items-center justify-between">
-                        {room.status === 'maintenance' ? (
-                          <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-danger-bg text-danger border border-[rgba(239,68,68,0.2)] uppercase tracking-wider">Maint.</span>
-                        ) : room.vacantCount > 0 ? (
-                          <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-success-bg text-success border border-[rgba(16,185,129,0.2)] uppercase tracking-wider">Available</span>
-                        ) : (
-                          <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-danger-bg text-danger border border-[rgba(239,68,68,0.2)] uppercase tracking-wider">Occupied</span>
-                        )}
-                        <span className="text-[10px] text-secondary font-medium">{occupiedBeds}/{safeSharing} beds</span>
-                      </div>
-                      <div className="w-full bg-input rounded-full h-1.5 overflow-hidden border border">
-                        <div className={`h-full rounded-full motion-safe:transition-all duration-500 ${percent === 100 ? 'bg-danger' : 'bg-primary'}`} style={{ width: `${percent}%` }}></div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-right">
                     <Link 
                       href={`/manager/rooms/${room.id}`}
-                      className="inline-flex items-center justify-center p-2 rounded-md hover:bg-primary-subtle text-secondary hover:text-primary motion-safe:transition-colors"
+                      className="text-secondary hover:text-theme-primary bg-input hover:bg-theme-primary/10 p-1.5 rounded-md transition-colors"
                     >
                       <ChevronRight className="w-4 h-4" />
                     </Link>
-                  </td>
-                </tr>
-              )
+                  </div>
+                  
+                  <div className="mt-4 pt-4 border-t border-dashed">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-xs font-bold text-secondary">Occupancy</span>
+                      <span className={`text-xs font-bold px-2 py-0.5 rounded ${isMaintenance ? 'bg-danger-bg text-danger' : room.vacantCount > 0 ? 'bg-success-bg text-success' : 'bg-danger-bg text-danger'}`}>
+                        {occupiedBeds}/{safeSharing} Beds
+                      </span>
+                    </div>
+                    <div className="w-full bg-input rounded-full h-1.5 overflow-hidden">
+                      <div className={`h-full rounded-full transition-all duration-500 ${isMaintenance ? 'bg-danger' : percent === 100 ? 'bg-danger' : 'bg-theme-primary'}`} style={{ width: `${percent}%` }}></div>
+                    </div>
+                  </div>
+                </div>
+              );
             })}
-          </tbody>
-        </table>
-      </div>
+          </div>
+        </div>
+      ))}
+    </div>
       {totalPages > 1 && (
         <div className="p-4 border-t border bg-[rgba(99,102,241,0.01)] flex items-center justify-between">
           <span className="text-sm text-secondary">
@@ -134,6 +112,6 @@ export function ManagerRoomsTable({
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

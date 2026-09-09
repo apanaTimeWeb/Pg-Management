@@ -1,0 +1,91 @@
+/* MANAGER THEME */
+.manager-theme {
+  --primary: 39 174 96; /* #27AE60 Deep Green */
+  --primary-light: 46 204 113; /* #2ECC71 Light Green */
+  --accent: 245 166 35; /* #F5A623 Gold Accent */
+  
+  --bg-page: 248 249 250; /* #F8F9FA Light */
+  --bg-card: 255 255 255; /* #FFFFFF White */
+  --bg-tint: 232 248 240; /* #E8F8F0 Green Tint */
+  --bg-light-green: 213 245 227; /* #D5F5E3 Light Green */
+  
+  --danger: 231 76 60; /* #E74C3C Danger */
+  --warning: 243 156 18; /* #F39C12 Warning */
+  --info: 52 152 219; /* #3498DB Info */
+  --purple: 142 68 173; /* #8E44AD Purple */
+
+  /* Text Colors */
+  --text-primary: 33 37 41;
+  --text-secondary: 108 117 125;
+  --text-white: 255 255 255;
+
+  /* UI Elements */
+  --border: 222 226 230;
+  --input-bg: 248 249 250;
+  
+  /* Standard Utility mappings */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+}
+
+.dark .manager-theme {
+  /* Dark mode variants */
+  --bg-page: 18 24 20;
+  --bg-card: 28 36 31;
+  --bg-tint: 39 174 96; /* Use deep green as tint but with low opacity */
+  --bg-light-green: 46 204 113;
+  
+  --text-primary: 248 249 250;
+  --text-secondary: 173 181 189;
+  
+  --border: 44 56 49;
+  --input-bg: 24 32 27;
+}
+
+/* Base utility classes used across the app */
+.manager-theme .text-primary { color: rgb(var(--text-primary)); }
+.manager-theme .text-secondary { color: rgb(var(--text-secondary)); }
+.manager-theme .bg-page { background-color: rgb(var(--bg-page)); }
+.manager-theme .bg-card { background-color: rgb(var(--bg-card)); }
+.manager-theme .border-border { border-color: rgb(var(--border)); }
+.manager-theme .bg-input { background-color: rgb(var(--input-bg)); }
+
+/* Custom Semantic Colors */
+.manager-theme .text-theme-primary { color: rgb(var(--primary)); }
+.manager-theme .bg-theme-primary { background-color: rgb(var(--primary)); }
+.manager-theme .bg-theme-primary-hover { background-color: rgb(var(--primary-light)); }
+.manager-theme .text-theme-accent { color: rgb(var(--accent)); }
+.manager-theme .bg-theme-accent { background-color: rgb(var(--accent)); }
+
+/* Statuses */
+.manager-theme .text-success { color: rgb(var(--primary)); }
+.manager-theme .bg-success-bg { background-color: rgba(var(--primary), 0.1); }
+.manager-theme .border-success { border-color: rgb(var(--primary)); }
+
+.manager-theme .text-warning { color: rgb(var(--warning)); }
+.manager-theme .bg-warning-bg { background-color: rgba(var(--warning), 0.1); }
+.manager-theme .border-warning { border-color: rgb(var(--warning)); }
+
+.manager-theme .text-danger { color: rgb(var(--danger)); }
+.manager-theme .bg-danger-bg { background-color: rgba(var(--danger), 0.1); }
+.manager-theme .border-danger { border-color: rgb(var(--danger)); }
+
+.manager-theme .text-info { color: rgb(var(--info)); }
+.manager-theme .bg-info-bg { background-color: rgba(var(--info), 0.1); }
+.manager-theme .border-info { border-color: rgb(var(--info)); }
+
+/* Extra specific backgrounds for Manager palette */
+.manager-theme .bg-tint { background-color: rgba(var(--primary), 0.05); }
+.manager-theme .bg-light-green { background-color: rgba(var(--primary-light), 0.1); }
+
+/* Custom Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.manager-theme .animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}

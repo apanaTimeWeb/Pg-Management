@@ -17,24 +17,26 @@ import { ManagerForcePasswordChangeModal } from '@/app/manager/manager_component
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 import type { DictKey } from '@/app/manager/ManagerI18n';
+import '../manager-theme.css';
 
 type MenuItem = { key: string; icon: React.ElementType; href: string; label?: string };
 const MENU_ITEMS = [
   { key: 'dashboard', icon: LayoutDashboard, href: '/manager/dashboard' },
-  { key: 'enquiries', icon: MessageSquare, href: '/manager/enquiries' },
-  { key: 'checkin', icon: ClipboardCheck, href: '/manager/check-in' },
-  { key: 'rooms', icon: BedDouble, href: '/manager/rooms' },
   { key: 'students', icon: Users, href: '/manager/students' },
+  { key: 'rooms', icon: BedDouble, href: '/manager/rooms' },
+  { key: 'checkin', icon: ClipboardCheck, href: '/manager/check-in' },
   { key: 'complaints', icon: AlertCircle, href: '/manager/complaints' },
-  { key: 'food', icon: Utensils, href: '/manager/food', label: 'Food Menu' },
+  { key: 'daily-ops', icon: FileText, href: '/manager/daily-operations', label: 'Daily Ops' },
   { key: 'visitors', icon: UserPlus, href: '/manager/visitors' },
-  { key: 'attendance', icon: Clock, href: '/manager/attendance' },
-  { key: 'gate-logs', icon: LogOut, href: '/manager/gate-logs' },
+  { key: 'leaves', icon: Clock, href: '/manager/leaves', label: 'Leaves' },
   { key: 'broadcasts', icon: Radio, href: '/manager/broadcasts' },
-  { key: 'documents', icon: FileText, href: '/manager/documents' },
+  { key: 'attendance', icon: Clock, href: '/manager/attendance' },
+  { key: 'housekeeping', icon: ClipboardCheck, href: '/manager/housekeeping', label: 'Housekeeping' },
   { key: 'inventory', icon: Archive, href: '/manager/inventory' },
   { key: 'finance', icon: IndianRupee, href: '/manager/finance' },
-  { key: 'expenses', icon: Receipt, href: '/manager/expenses', label: 'Expenses' }
+  { key: 'reports', icon: FileText, href: '/manager/reports', label: 'Reports' },
+  { key: 'staff', icon: Users, href: '/manager/staff', label: 'Staff' },
+  { key: 'settings', icon: Menu, href: '/manager/settings', label: 'Settings' }
 ];
 export function ManagerLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -54,7 +56,7 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
     }
   };
   return (
-    <div className="min-h-screen bg-page flex flex-col md:flex-row text-primary">
+    <div className="manager-theme min-h-screen bg-page flex flex-col md:flex-row text-primary">
       <ManagerForcePasswordChangeModal 
         user={user} 
         onSuccess={() => { /* handled internally */ }} 

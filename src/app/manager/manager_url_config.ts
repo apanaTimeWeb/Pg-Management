@@ -17,6 +17,12 @@ export const MANAGER_URLS = {
   STUDENTS: '/manager/students',
   VISITORS: '/manager/visitors',
   LOGIN: '/manager/login',
+  DAILY_OPS: '/manager/daily-operations',
+  LEAVES: '/manager/leaves',
+  HOUSEKEEPING: '/manager/housekeeping',
+  REPORTS: '/manager/reports',
+  STAFF: '/manager/staff',
+  SETTINGS: '/manager/settings',
   // API Routes (Prefixes)
   API_BASE: '/api/v1/manager',
 };

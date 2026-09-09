@@ -7,6 +7,9 @@ import { ManagerDashboardMealAlerts } from '@/app/manager/dashboard/ManagerDashb
 import { ManagerDashboardKitchenAlerts } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardKitchenAlerts';
 import { ManagerDashboardQuickActions } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardQuickActions';
 import { ManagerDashboardNoProperty } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardNoProperty';
+import { ManagerDashboardTasks } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardTasks';
+import { ManagerDashboardActivity } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardActivity';
+import { ManagerDashboardPerformance } from '@/app/manager/dashboard/ManagerDashboard_components/ManagerDashboardPerformance';
 export function ManagerDashboardMain() {
   const {
     stats,
@@ -29,7 +32,7 @@ export function ManagerDashboardMain() {
     return <ManagerDashboardNoProperty />;
   }  const selectedProp = properties.find((p) => (p as { id: string }).id === selectedPropertyId);
   return (
-    <div className="space-y-8 pb-20">
+    <div className="space-y-6 pb-20 manager-theme animate-fade-in">
       <ManagerDashboardHeader 
         user={user}
         selectedProp={selectedProp}
@@ -37,12 +40,25 @@ export function ManagerDashboardMain() {
         handleMarkPresent={handleMarkPresent}
       />
       <ManagerDashboardStatsGrid stats={stats} />
-      <ManagerDashboardMealAlerts 
-        readyMeals={readyMeals}
-        handleAnnounceMeal={handleAnnounceMeal}
-      />
-      <ManagerDashboardKitchenAlerts kitchenRequests={kitchenRequests} />
-      <ManagerDashboardQuickActions />
+      
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 space-y-6">
+          <ManagerDashboardQuickActions />
+          <ManagerDashboardActivity />
+        </div>
+        <div className="space-y-6">
+          <ManagerDashboardTasks />
+          <ManagerDashboardPerformance />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+        <ManagerDashboardMealAlerts 
+          readyMeals={readyMeals}
+          handleAnnounceMeal={handleAnnounceMeal}
+        />
+        <ManagerDashboardKitchenAlerts kitchenRequests={kitchenRequests} />
+      </div>
     </div>
   );
 }

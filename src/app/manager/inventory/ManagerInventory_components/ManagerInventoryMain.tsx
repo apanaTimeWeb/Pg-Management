@@ -8,7 +8,9 @@ import { ManagerInventoryRequests } from '@/app/manager/inventory/ManagerInvento
 import { ManagerInventoryLive } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryLive';
 import { ManagerInventoryBatches } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryBatches';
 import { ManagerInventoryAlerts } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryAlerts';
+import { ManagerInventoryKPIs } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryKPIs';
 import { Pagination } from '@/components/ui/Pagination';
+import { ClipboardList } from 'lucide-react';
 export function ManagerInventoryMain() {
   const user = useManagerSession();
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
@@ -25,11 +27,18 @@ export function ManagerInventoryMain() {
   const totalPages = Math.ceil(currentList.length / itemsPerPage);
   const paginatedRequests = requests.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   return (
-    <div className="space-y-6 pb-20">
-      <div>
-        <h1 className="text-[24px] font-bold text-primary">Inventory & Kitchen Requests</h1>
-        <p className="text-sm text-secondary">Manage live stock and fulfill cook requests.</p>
+    <div className="space-y-6 pb-20 manager-theme animate-fade-in">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-[24px] font-bold text-primary flex items-center gap-2 tracking-tight">
+            <ClipboardList className="w-6 h-6 text-theme-primary" />
+            Inventory & Kitchen Requests
+          </h1>
+          <p className="text-sm text-secondary">Manage live stock, fulfill cook requests, and track batches.</p>
+        </div>
       </div>
+      
+      <ManagerInventoryKPIs pendingCount={pendingCount} alertCount={alertCount} totalItems={inventory.length} />
       <ManagerInventoryTabs 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 

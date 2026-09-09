@@ -12,40 +12,40 @@ export function ManagerRoomsKPIs({ rooms }: Props) {
   const filledBeds = totalBeds - vacantBeds;
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div className="bg-card border border rounded-[var(--radius-md,8px)] p-4 shadow-sm flex items-center justify-between">
+      <div className="bg-card border border rounded-[var(--radius-lg,12px)] p-5 shadow-sm flex items-center justify-between group hover:border-theme-primary transition-colors">
         <div>
-          <p className="text-xs text-secondary font-medium">Total Rooms</p>
-          <p className="text-xl font-bold text-primary">{totalRooms}</p>
+          <p className="text-xs text-secondary font-bold uppercase tracking-wider mb-1">Total Rooms</p>
+          <p className="text-2xl font-black text-primary">{totalRooms}</p>
         </div>
-        <div className="w-10 h-10 rounded-full bg-[rgba(99,102,241,0.1)] flex items-center justify-center text-primary">
-          <Hash className="w-5 h-5" />
+        <div className="w-12 h-12 rounded-full bg-theme-primary/10 flex items-center justify-center text-theme-primary group-hover:scale-110 transition-transform">
+          <Hash className="w-6 h-6" />
         </div>
       </div>
-      <div className="bg-card border border rounded-[var(--radius-md,8px)] p-4 shadow-sm flex items-center justify-between">
+      <div className="bg-card border border rounded-[var(--radius-lg,12px)] p-5 shadow-sm flex items-center justify-between group hover:border-info transition-colors">
         <div>
-          <p className="text-xs text-secondary font-medium">Total Beds</p>
-          <p className="text-xl font-bold text-primary">{totalBeds}</p>
+          <p className="text-xs text-secondary font-bold uppercase tracking-wider mb-1">Total Beds</p>
+          <p className="text-2xl font-black text-primary">{totalBeds}</p>
         </div>
-        <div className="w-10 h-10 rounded-full bg-[rgba(99,102,241,0.1)] flex items-center justify-center text-primary">
-          <BedDouble className="w-5 h-5" />
+        <div className="w-12 h-12 rounded-full bg-info-bg flex items-center justify-center text-info group-hover:scale-110 transition-transform">
+          <BedDouble className="w-6 h-6" />
         </div>
       </div>
-      <div className="bg-card border border rounded-[var(--radius-md,8px)] p-4 shadow-sm flex items-center justify-between">
+      <div className="bg-card border border rounded-[var(--radius-lg,12px)] p-5 shadow-sm flex items-center justify-between group hover:border-success transition-colors">
         <div>
-          <p className="text-xs text-secondary font-medium">Occupied Beds</p>
-          <p className="text-xl font-bold text-primary">{filledBeds}</p>
+          <p className="text-xs text-secondary font-bold uppercase tracking-wider mb-1">Occupied Beds</p>
+          <p className="text-2xl font-black text-primary">{filledBeds}</p>
         </div>
-        <div className="w-10 h-10 rounded-full bg-[rgba(16,185,129,0.1)] flex items-center justify-center text-success">
-          <CheckCircle2 className="w-5 h-5" />
+        <div className="w-12 h-12 rounded-full bg-success-bg flex items-center justify-center text-success group-hover:scale-110 transition-transform">
+          <CheckCircle2 className="w-6 h-6" />
         </div>
       </div>
-      <div className="bg-card border border rounded-[var(--radius-md,8px)] p-4 shadow-sm flex items-center justify-between">
+      <div className="bg-card border border rounded-[var(--radius-lg,12px)] p-5 shadow-sm flex items-center justify-between group hover:border-danger transition-colors">
         <div>
-          <p className="text-xs text-secondary font-medium">Vacant Beds</p>
-          <p className="text-xl font-bold text-primary">{vacantBeds}</p>
+          <p className="text-xs text-secondary font-bold uppercase tracking-wider mb-1">Vacant Beds</p>
+          <p className="text-2xl font-black text-primary">{vacantBeds}</p>
         </div>
-        <div className="w-10 h-10 rounded-full bg-[rgba(239,68,68,0.1)] flex items-center justify-center text-danger">
-          <AlertCircle className="w-5 h-5" />
+        <div className="w-12 h-12 rounded-full bg-danger-bg flex items-center justify-center text-danger group-hover:scale-110 transition-transform">
+          <AlertCircle className="w-6 h-6" />
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { ArrowLeft, User, MapPin, Calendar, IndianRupee, LogOut, Utensils, Clock } from 'lucide-react';
+import { ArrowLeft, User, MapPin, Calendar, IndianRupee, LogOut, Utensils, Clock, ShieldCheck, FileText, Smartphone } from 'lucide-react';
 import Link from 'next/link';
 
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
@@ -64,7 +64,7 @@ const t = (api.students.getById ? api.students.getById(id) : null) as unknown as
   };
   if (!student) return <div className="p-6 text-secondary">Loading...</div>;
   return (
-    <div className="space-y-6 pb-20 max-w-4xl mx-auto">
+    <div className="space-y-6 pb-20 max-w-5xl mx-auto manager-theme animate-fade-in">
       <ManagerBillUploadModal
         isOpen={isBillModalOpen}
         onClose={() => {
@@ -78,67 +78,93 @@ const t = (api.students.getById ? api.students.getById(id) : null) as unknown as
         <ArrowLeft className="w-4 h-4" /> Back to Students
       </Link>
       <div className="bg-card border border rounded-[var(--radius-xl,16px)] overflow-hidden shadow-sm">
-        <div className="p-8 bg-[rgba(99,102,241,0.02)] border-b border flex items-center gap-6">
-          <div className="w-20 h-20 rounded-full bg-primary-subtle border-2 border-primary flex items-center justify-center text-primary text-2xl font-bold">
+        {/* Header Profile Section */}
+        <div className="p-8 bg-gradient-to-r from-theme-primary/10 to-transparent border-b border flex flex-col md:flex-row md:items-center gap-6 relative">
+          <div className="absolute top-4 right-4 bg-success-bg text-success px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-sm border border-success/20">
+            <ShieldCheck className="w-3.5 h-3.5" /> KYC Verified
+          </div>
+          <div className="w-24 h-24 rounded-full bg-card border-4 border-white shadow-md flex items-center justify-center text-theme-primary text-3xl font-bold">
             {student.user?.name?.charAt(0) || 'U'}
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-2xl font-bold text-primary">{student.user?.name || 'Unknown'}</h1>
-            <div className="flex items-center gap-4 mt-2 text-sm text-secondary">
-              <span className="flex items-center gap-1"><User className="w-4 h-4"/> ID: {student.profile?.userId?.slice(0,6)}</span>
-              <span className="flex items-center gap-1"><MapPin className="w-4 h-4"/> Bed: {student.profile?.bedId || '-'}</span>
-              <span className="flex items-center gap-1"><Calendar className="w-4 h-4"/> Joined: {new Date(student.profile?.createdAt).toLocaleDateString()}</span>
+            <div className="flex flex-wrap items-center gap-4 mt-3 text-sm text-secondary">
+              <span className="flex items-center gap-1.5 bg-input/50 px-3 py-1.5 rounded-[var(--radius-md,8px)]"><User className="w-4 h-4 text-theme-primary"/> ID: {student.profile?.userId?.slice(0,6)}</span>
+              <span className="flex items-center gap-1.5 bg-input/50 px-3 py-1.5 rounded-[var(--radius-md,8px)]"><MapPin className="w-4 h-4 text-warning"/> Bed: {student.profile?.bedId || '-'}</span>
+              <span className="flex items-center gap-1.5 bg-input/50 px-3 py-1.5 rounded-[var(--radius-md,8px)]"><Calendar className="w-4 h-4 text-info"/> Joined: {new Date(student.profile?.createdAt).toLocaleDateString()}</span>
             </div>
           </div>
           {student.profile?.status !== 'checked_out' && (
             <button 
               onClick={handleCheckout}
-              className="ml-auto flex items-center gap-2 bg-danger-bg text-danger px-4 py-2 rounded-lg font-bold hover:bg-red-100 motion-safe:transition-colors border border-danger/20"
+              className="mt-4 md:mt-0 flex items-center justify-center gap-2 bg-danger-bg text-danger px-5 py-2.5 rounded-[var(--radius-md,8px)] font-bold hover:bg-danger/20 motion-safe:transition-colors border border-danger/20"
             >
               <LogOut className="w-4 h-4" /> Checkout Student
             </button>
           )}
         </div>
+
+        {/* 360 View Grid */}
         <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="space-y-4">
-            <h3 className="font-bold text-primary border-b border pb-2">Contact Info</h3>
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="text-secondary">Phone</div>
-              <div className="font-medium text-primary">{student.user?.phone || '-'}</div>
-              <div className="text-secondary">Email</div>
-              <div className="font-medium text-primary">{student.user?.email || '-'}</div>
-            </div>
-          </div>
-          <div className="space-y-4">
-            <h3 className="font-bold text-primary border-b border pb-2">Parent Info</h3>
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="text-secondary">Parent Name</div>
-              <div className="font-medium text-primary">{student.profile.parentName || '-'}</div>
-              <div className="text-secondary">Parent Phone</div>
-              <div className="font-medium text-primary">{student.profile.parentPhone || '-'}</div>
-            </div>
-          </div>
-          <div className="space-y-4">
-            <h3 className="font-bold text-primary border-b border pb-2">Financials</h3>
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="text-secondary">Monthly Rent</div>
-              <div className="font-medium text-primary flex items-center gap-1"><IndianRupee className="w-3.5 h-3.5"/> {student.profile.rentAmount || 0}</div>
-              <div className="text-secondary">Current Dues</div>
-              <div className={`font-medium flex items-center gap-1 ${(student.profile.duesAmount || 0) > 0 ? 'text-danger' : 'text-success'}`}>
-                <IndianRupee className="w-3.5 h-3.5"/> {student.profile.duesAmount || 0}
+          <div className="bg-input/30 p-5 rounded-[var(--radius-lg,12px)] border border-transparent hover:border-border transition-colors">
+            <h3 className="font-bold text-primary mb-4 flex items-center gap-2">
+              <Smartphone className="w-4 h-4 text-theme-primary" /> Contact Information
+            </h3>
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between items-center border-b border-dashed pb-2">
+                <span className="text-secondary">Phone</span>
+                <span className="font-bold text-primary">{student.user?.phone || '-'}</span>
               </div>
-              <div className="text-secondary">Mess Facility</div>
-              <div className="font-medium text-primary flex items-center gap-1">
-                <Utensils className="w-3.5 h-3.5"/> {student.profile.hasMessFacility ? 'Yes (Included)' : 'No'}
+              <div className="flex justify-between items-center border-b border-dashed pb-2">
+                <span className="text-secondary">Email</span>
+                <span className="font-bold text-primary">{student.user?.email || '-'}</span>
+              </div>
+              <div className="flex justify-between items-center pb-2">
+                <span className="text-secondary">Emergency Contact</span>
+                <span className="font-bold text-primary">{student.profile.parentName || '-'} ({student.profile.parentPhone || '-'})</span>
               </div>
             </div>
           </div>
-          <div className="space-y-4">
-            <h3 className="font-bold text-primary border-b border pb-2">Behavior & Scoring</h3>
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="text-secondary">PG Score</div>
-              <div className={`font-bold ${(student.profile.pgScore || 0) >= 80 ? 'text-success' : 'text-warning'}`}>{student.profile.pgScore}/100</div>
+
+          <div className="bg-input/30 p-5 rounded-[var(--radius-lg,12px)] border border-transparent hover:border-border transition-colors">
+            <h3 className="font-bold text-primary mb-4 flex items-center gap-2">
+              <IndianRupee className="w-4 h-4 text-success" /> Financials & Facilities
+            </h3>
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between items-center border-b border-dashed pb-2">
+                <span className="text-secondary">Monthly Rent</span>
+                <span className="font-bold text-primary">₹{student.profile.rentAmount || 0}</span>
+              </div>
+              <div className="flex justify-between items-center border-b border-dashed pb-2">
+                <span className="text-secondary">Current Dues</span>
+                <span className={`font-black ${(student.profile.duesAmount || 0) > 0 ? 'text-danger bg-danger-bg px-2 py-0.5 rounded' : 'text-success bg-success-bg px-2 py-0.5 rounded'}`}>
+                  ₹{student.profile.duesAmount || 0}
+                </span>
+              </div>
+              <div className="flex justify-between items-center pb-2">
+                <span className="text-secondary">Mess Facility</span>
+                <span className="font-bold text-primary flex items-center gap-1">
+                  {student.profile.hasMessFacility ? (
+                    <><Utensils className="w-3.5 h-3.5 text-warning"/> Subscribed</>
+                  ) : 'Not Opted'}
+                </span>
+              </div>
             </div>
+          </div>
+          
+          <div className="bg-input/30 p-5 rounded-[var(--radius-lg,12px)] border border-transparent hover:border-border transition-colors md:col-span-2 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className={`w-14 h-14 rounded-full flex items-center justify-center border-4 ${(student.profile.pgScore || 0) >= 80 ? 'border-success text-success bg-success-bg' : 'border-warning text-warning bg-warning-bg'}`}>
+                <span className="font-bold">{student.profile.pgScore || 0}</span>
+              </div>
+              <div>
+                <h3 className="font-bold text-primary text-lg">Trust Score</h3>
+                <p className="text-xs text-secondary mt-1">Based on behavior, payment history, and rule adherence.</p>
+              </div>
+            </div>
+            <button className="text-sm font-bold text-theme-primary hover:text-theme-primary-hover px-4 py-2 bg-theme-primary/10 rounded-[var(--radius-md,8px)] transition-colors">
+              View Detailed Report
+            </button>
           </div>
         </div>
         {/* Rent Schedule Section */}
