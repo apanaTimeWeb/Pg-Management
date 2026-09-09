@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export function HomeHeader() {
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm" style={{ backgroundColor: 'var(--primary-white)' }}>
+    <header className="sticky top-0 z-50 shadow-sm border-b" style={{ backgroundColor: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)', borderColor: 'rgba(0,0,0,0.05)' }}>
       <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-4 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-2">

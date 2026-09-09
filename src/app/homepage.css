@@ -29,21 +29,21 @@
   --text-light: #95A5A6;
   --text-white: #FFFFFF;
   
-  /* Shadows */
-  --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
-  --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
-  --shadow-lg: 0 8px 16px rgba(0,0,0,0.15);
-  --shadow-xl: 0 12px 24px rgba(0,0,0,0.2);
+  /* Shadows (Soft & Layered SaaS Style) */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
   
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, #1A3A5C, #2D7D9A);
   --gradient-hero: linear-gradient(135deg, #1A3A5C 0%, #2D7D9A 50%, #1A3A5C 100%);
   --gradient-gold: linear-gradient(135deg, #F5A623, #F7DC6F);
   
-  /* Border Radius */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
+  /* Border Radius (Soft modern look) */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
   --radius-xl: 24px;
   
   /* Spacing */
@@ -155,13 +155,15 @@
 .home-theme .home-card {
   background: var(--primary-white);
   border-radius: var(--radius-md);
-  padding: 24px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  transition: all 0.3s ease;
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--bg-medium);
+  transition: all 0.2s ease-in-out;
 }
 .home-theme .home-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+  transform: scale(1.02) translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(0,0,0,0.05);
 }
 
 /* Section Headers */
@@ -196,9 +198,9 @@
 
 /* Hover Effects */
 .home-theme .hover-lift {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .home-theme .hover-lift:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+  transform: scale(1.02) translateY(-4px);
+  box-shadow: var(--shadow-xl);
 }
