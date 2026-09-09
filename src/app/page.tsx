@@ -10,7 +10,6 @@ import { HowItWorksSection } from '@/components/home/HowItWorksSection';
 import { RoleSection } from '@/components/home/RoleSection';
 import { TestimonialsSection } from '@/components/home/TestimonialsSection';
 import { PricingSection } from '@/components/home/PricingSection';
-import { IntegrationsSection } from '@/components/home/IntegrationsSection';
 import { FAQSection } from '@/components/home/FAQSection';
 import { BlogSection } from '@/components/home/BlogSection';
 import { CTASection } from '@/components/home/CTASection';
@@ -29,7 +28,6 @@ export default function LandingPage() {
         <RoleSection />
         <TestimonialsSection />
         <PricingSection />
-        <IntegrationsSection />
         <FAQSection />
         <BlogSection />
         <CTASection />
