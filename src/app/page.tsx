@@ -1,102 +1,34 @@
 'use client';
 
-import Link from 'next/link';
-import { CheckCircle, Shield, Users, Bed, CreditCard, Bell, Bot, PenTool } from 'lucide-react';
+import './homepage.css'; // Import the new design system styles
 
-import { Navbar } from '@/app/(public)/_components/Navbar';
-import { Footer } from '@/app/(public)/_components/Footer';
+import { HomeHeader } from '@/components/home/HomeHeader';
+import { HeroSection } from '@/components/home/HeroSection';
+import { FeaturesSection } from '@/components/home/FeaturesSection';
+import { HowItWorksSection } from '@/components/home/HowItWorksSection';
+import { RoleSection } from '@/components/home/RoleSection';
+import { TestimonialsSection } from '@/components/home/TestimonialsSection';
+import { PricingSection } from '@/components/home/PricingSection';
+import { CTASection } from '@/components/home/CTASection';
+import { HomeFooter } from '@/components/home/HomeFooter';
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-page flex flex-col">
-      <Navbar />
+    <div className="home-theme flex flex-col min-h-screen font-sans" style={{ background: 'var(--bg-light)' }}>
+      <HomeHeader />
       
       <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="max-w-7xl mx-auto px-4 py-20 md:py-32 text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold text-primary tracking-tight mb-6 leading-tight">
-            PG ko digital banao. <br className="hidden md:block" />
-            <span className="text-primary">Rent, mess, safety</span> — ek system.
-          </h1>
-          <p className="text-lg md:text-xl text-secondary max-w-2xl mx-auto mb-10">
-            World-class Hostel Operating System designed for India. No more excel sheets, no more WhatsApp groups. Just one platform to manage your entire property empire.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/owner-request" className="w-full sm:w-auto bg-primary text-white px-8 py-4 rounded-xl font-bold hover:bg-indigo-700 motion-safe:transition-all shadow-lg hover:shadow-indigo-500/25 motion-safe:hover:-translate-y-1">
-              Start as PG Owner
-            </Link>
-          </div>
-        </section>
-
-        {/* Roles Grid */}
-        <section className="max-w-7xl mx-auto px-4 py-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-primary">Everything for Everyone</h2>
-            <p className="text-secondary mt-4">One system. 4 Isolated Roles.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { role: 'Owner', desc: 'Financials & properties', color: 'bg-indigo-100 text-indigo-800 border-indigo-200 dark:bg-indigo-500/20 dark:text-indigo-400 dark:border-indigo-500/30' },
-              { role: 'Manager', desc: 'Daily operations & students', color: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-500/20 dark:text-blue-400 dark:border-blue-500/30' },
-              { role: 'Staff', desc: 'Cooks, guards, cleaners', color: 'bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-500/20 dark:text-orange-400 dark:border-orange-500/30' },
-              { role: 'Student', desc: 'Rent, mess & complaints', color: 'bg-purple-100 text-purple-800 border-purple-200 dark:bg-purple-500/20 dark:text-purple-400 dark:border-purple-500/30' }
-            ].map((r, idx) => (
-              <div key={idx} className="p-6 rounded-2xl border border bg-card shadow-sm flex flex-col items-start motion-safe:transition-all hover:shadow-md motion-safe:hover:-translate-y-1">
-                <div className={`px-3 py-1 rounded-full text-xs font-bold border ${r.color} mb-4`}>{r.role}</div>
-                <h3 className="font-bold text-lg text-primary">{r.desc}</h3>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* USPs Grid */}
-        <section id="features" className="max-w-7xl mx-auto px-4 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { icon: <CreditCard />, title: 'Pay-per-day Mess', desc: 'Students only pay for the meals they eat.' },
-              { icon: <Bell />, title: 'SOS & Safety', desc: '1-click emergency alerts directly to manager.' },
-              { icon: <Bed />, title: 'Vacant Bed Listing', desc: 'Share your availability publicly and get leads.' },
-              { icon: <PenTool />, title: 'eSign Agreements', desc: 'Paperless rent agreements generated automatically.' },
-              { icon: <Bot />, title: 'AI Matching', desc: 'Find the perfect roommate with AI suggestions.' }
-            ].map((f, i) => (
-              <div key={(f as any).id || (f as any).name || f.title || i} className="flex gap-4 p-6 bg-card rounded-2xl border border shadow-sm hover:shadow-md transition-shadow">
-                <div className="text-primary shrink-0">{f.icon}</div>
-                <div>
-                  <h4 className="font-bold text-primary mb-2">{f.title}</h4>
-                  <p className="text-secondary text-sm">{f.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* How it works */}
-        <section id="how-it-works" className="bg-card border border py-20 mt-16 rounded-[var(--radius-xl,16px)] mx-4 lg:mx-auto max-w-7xl mb-8 shadow-sm">
-          <div className="px-4 text-center">
-            <h2 className="text-3xl font-bold mb-12 text-primary">How it works</h2>
-            <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-4">
-              <div className="flex-1">
-                <div className="w-12 h-12 bg-page rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold border border text-primary">1</div>
-                <h3 className="font-bold text-primary">Request</h3>
-                <p className="text-secondary text-sm mt-2">Fill the owner request form</p>
-              </div>
-              <div className="hidden md:block w-8 h-px bg-border"></div>
-              <div className="flex-1">
-                <div className="w-12 h-12 bg-page rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold border border text-primary">2</div>
-                <h3 className="font-bold text-primary">Approval</h3>
-                <p className="text-secondary text-sm mt-2">SuperAdmin creates your account</p>
-              </div>
-              <div className="hidden md:block w-8 h-px bg-border"></div>
-              <div className="flex-1">
-                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold shadow-lg shadow-indigo-500/50 text-white">3</div>
-                <h3 className="font-bold text-primary">Go Live</h3>
-                <p className="text-secondary text-sm mt-2">Add PGs, Staff & Students</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <HeroSection />
+        <FeaturesSection />
+        <HowItWorksSection />
+        <RoleSection />
+        <TestimonialsSection />
+        <PricingSection />
+        <CTASection />
       </main>
-      <Footer />
+      
+      <HomeFooter />
+
       {/* DEBUG BUTTON TO RESET LOCAL STORAGE */}
       <div className="fixed bottom-4 left-4 z-50">
         <button 

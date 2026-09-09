@@ -1,0 +1,204 @@
+/* src/app/homepage.css */
+/* 
+  Home Page Design System 
+  Note: We use prefix .home-theme to scope the CSS variables 
+  so they don't leak into the global scope.
+*/
+
+.home-theme {
+  /* Primary Colors */
+  --primary-navy: #1A3A5C;
+  --primary-teal: #2D7D9A;
+  --primary-gold: #F5A623;
+  --primary-white: #FFFFFF;
+  
+  /* Secondary Colors */
+  --secondary-red: #E74C3C;
+  --secondary-green: #27AE60;
+  --secondary-orange: #F39C12;
+  --secondary-purple: #8E44AD;
+  
+  /* Backgrounds */
+  --bg-light: #F8F9FA;
+  --bg-medium: #ECF0F1;
+  --bg-dark: #DFE6E9;
+  
+  /* Text Colors */
+  --text-dark: #2C3E50;
+  --text-medium: #5D6D7E;
+  --text-light: #95A5A6;
+  --text-white: #FFFFFF;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
+  --shadow-lg: 0 8px 16px rgba(0,0,0,0.15);
+  --shadow-xl: 0 12px 24px rgba(0,0,0,0.2);
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #1A3A5C, #2D7D9A);
+  --gradient-hero: linear-gradient(135deg, #1A3A5C 0%, #2D7D9A 50%, #1A3A5C 100%);
+  --gradient-gold: linear-gradient(135deg, #F5A623, #F7DC6F);
+  
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  font-family: var(--font-family);
+}
+
+/* Primary Button */
+.home-theme .btn-primary {
+  background: var(--primary-teal);
+  color: var(--primary-white);
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.home-theme .btn-primary:hover {
+  background: var(--primary-navy);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(45,125,154,0.3);
+}
+
+/* Gold CTA Button */
+.home-theme .btn-gold {
+  background: var(--primary-gold);
+  color: var(--primary-white);
+  padding: 14px 32px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.home-theme .btn-gold:hover {
+  background: #E09600;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(245,166,35,0.3);
+}
+
+/* Outline Button */
+.home-theme .btn-outline {
+  background: transparent;
+  color: var(--primary-teal);
+  border: 2px solid var(--primary-teal);
+  padding: 10px 22px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.home-theme .btn-outline:hover {
+  background: var(--primary-teal);
+  color: var(--primary-white);
+}
+
+/* Navy Button */
+.home-theme .btn-navy {
+  background: var(--primary-navy);
+  color: var(--primary-white);
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.home-theme .btn-navy:hover {
+  background: var(--primary-teal);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(26,58,92,0.3);
+}
+
+/* Outline Button White (for dark backgrounds) */
+.home-theme .btn-outline-white {
+  background: transparent;
+  color: var(--primary-white);
+  border: 2px solid var(--primary-white);
+  padding: 14px 32px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.home-theme .btn-outline-white:hover {
+  background: var(--primary-white);
+  color: var(--primary-navy);
+}
+
+/* Card Styles */
+.home-theme .home-card {
+  background: var(--primary-white);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+.home-theme .home-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+
+/* Section Headers */
+.home-theme .section-header {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--primary-navy);
+  text-align: center;
+  margin-bottom: 12px;
+}
+.home-theme .section-subheader {
+  font-size: 18px;
+  color: var(--text-medium);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 48px;
+}
+
+/* Fade In Animation */
+.home-theme .fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover Effects */
+.home-theme .hover-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.home-theme .hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+}
