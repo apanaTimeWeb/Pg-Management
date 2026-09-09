@@ -88,6 +88,21 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
           </button>
         </div>
         <nav className="p-4 space-y-1">
+          <div className="md:hidden px-4 pb-4 border-b border-border mb-2">
+            <label className="text-xs font-bold text-secondary mb-2 block">Switch Property</label>
+            <div className="flex items-center gap-2 bg-input border border-border rounded-md px-3 py-2">
+              <Building2 className="w-4 h-4 text-secondary shrink-0" />
+              <select 
+                className="bg-transparent text-sm font-medium text-primary outline-none cursor-pointer w-full"
+                value={selectedPropertyId}
+                onChange={(e) => setSelectedPropertyId(e.target.value)}
+              >
+                {properties.map(p => (
+                  <option key={(p as { id: string }).id} value={(p as { id: string }).id}>{(p as { id: string; name: string }).name}</option>
+                ))}
+              </select>
+            </div>
+          </div>
           {MENU_ITEMS.map((item: MenuItem) => {
             const label = item.label || t(item.key as DictKey);
             return (
