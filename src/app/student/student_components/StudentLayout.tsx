@@ -4,21 +4,30 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Home, IndianRupee, Utensils, MessageSquareWarning, FileText, Bell, LogOut, User, Menu, X, ShieldAlert } from 'lucide-react';
+import { Home, IndianRupee, Utensils, MessageSquareWarning, FileText, Bell, LogOut, User, Menu, X, ShieldAlert, Bed, Users, CalendarOff, CheckSquare, MessageCircle, HistoryIcon, Settings, Star } from 'lucide-react';
 
 import { getSession, clearSession } from '@/app/student/student_lib/student_auth/StudentSession';
 import { StudentProvider, useStudentContext } from '@/app/student/student_components/StudentContext';
 import { useStudentI18n } from '@/app/student/StudentI18n';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import '../student-theme.css';
 
 import type { DictKey } from '@/app/student/StudentI18n';
 
 const NAV_ITEMS = [
   { key: 'dashboard', href: '/student/dashboard', icon: Home },
-  { key: 'payRent', href: '/student/rent', icon: IndianRupee },
-  { key: 'mess', href: '/student/mess', icon: Utensils },
-  { key: 'complaints', href: '/student/complaints', icon: MessageSquareWarning },
   { key: 'profile', href: '/student/profile', icon: User },
+  { key: 'room', href: '/student/room', icon: Bed },
+  { key: 'payRent', href: '/student/rent', icon: IndianRupee },
+  { key: 'documents', href: '/student/documents', icon: FileText },
+  { key: 'complaints', href: '/student/complaints', icon: MessageSquareWarning },
+  { key: 'mess', href: '/student/mess', icon: Utensils },
+  { key: 'visitors', href: '/student/visitors', icon: Users },
+  { key: 'leaves', href: '/student/leaves', icon: CalendarOff },
+  { key: 'attendance', href: '/student/attendance', icon: CheckSquare },
+  { key: 'communication', href: '/student/communication', icon: MessageCircle },
+  { key: 'history', href: '/student/history', icon: HistoryIcon },
+  { key: 'settings', href: '/student/settings', icon: Settings },
 ];
 
 function StudentLayoutInner({ children }: { children: React.ReactNode }) {
@@ -45,7 +54,7 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
   if (loading) return null;
 
   return (
-    <div className="min-h-screen bg-page flex flex-col md:flex-row">
+    <div className="student-theme min-h-screen bg-page flex flex-col md:flex-row">
       {/* Mobile Header */}
       <div className="md:hidden flex items-center justify-between bg-header/90 backdrop-blur-md p-3 border-b border-border shrink-0 sticky top-0 z-50">
         <div className="flex items-center gap-2">
@@ -77,7 +86,7 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
       )}
 
       {/* Sidebar */}
-      <aside className={`hidden md:flex w-64 bg-card border-r border-border flex-col sticky top-0 h-screen shrink-0 ${isMobileMenuOpen ? 'flex absolute z-50 w-64 h-screen left-0' : 'hidden'}`}>
+      <aside className={`w-64 bg-card border-r border-border flex-col sticky top-0 h-screen shrink-0 z-50 ${isMobileMenuOpen ? 'flex absolute left-0 shadow-2xl' : 'hidden md:flex'}`}>
         <div className="p-6 border-b border-border flex justify-between items-center bg-card">
           <div className="flex items-center gap-2 font-black text-xl text-primary">
             <ShieldAlert className="text-primary w-7 h-7" />
@@ -115,11 +124,8 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
             <Link href="/student/notices" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 rounded-md text-secondary hover:bg-input hover:text-primary text-sm font-medium">
               <Bell className="w-5 h-5"/> Notices
             </Link>
-            <Link href="/student/documents" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 rounded-md text-secondary hover:bg-input hover:text-primary text-sm font-medium">
-              <FileText className="w-5 h-5"/> {t('documents' as DictKey)}
-            </Link>
-            <Link href="/student/sos" onClick={() => setIsMobileMenuOpen(false)} className="flex justify-center w-full px-4 py-3 mt-2 bg-destructive text-white rounded-md font-bold shadow hover:bg-destructive/90 border border-destructive/50 motion-safe:transition-colors">
-              EMERGENCY SOS
+            <Link href="/student/feedback" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 rounded-md text-secondary hover:bg-input hover:text-primary text-sm font-medium">
+              <Star className="w-5 h-5"/> Feedback
             </Link>
           </div>
         </div>
@@ -179,6 +185,11 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
           ))}
         </div>
       </div>
+
+      {/* Global Floating Emergency SOS */}
+      <Link href="/student/sos" className="fixed bottom-24 md:bottom-8 right-4 md:right-8 z-50 w-14 h-14 bg-danger text-white rounded-full flex items-center justify-center shadow-lg shadow-danger/30 border-2 border-white hover:bg-danger-hover motion-safe:transition-transform hover:scale-105 active:scale-95 group">
+        <ShieldAlert className="w-6 h-6 group-hover:animate-pulse" />
+      </Link>
     </div>
   );
 }

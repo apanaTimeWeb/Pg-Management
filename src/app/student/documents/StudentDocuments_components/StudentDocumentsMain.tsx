@@ -1,127 +1,147 @@
-// RESPONSIBILITY: Renders the StudentDocumentsMain component.
 'use client';
 
-import { useState } from 'react';
-import { FileText, Download, CheckCircle, X, ExternalLink } from 'lucide-react';
+// RESPONSIBILITY: Renders the Student Documents & Agreement UI.
 
+import { FileText, Download, Upload, CheckCircle, Clock, BookOpen, FileSignature } from 'lucide-react';
 import { useStudentContext } from '@/app/student/student_components/StudentContext';
-import { getSession } from '@/app/student/student_lib/student_auth/StudentSession';
 
 export function StudentDocumentsMain() {
   const { profile } = useStudentContext();
-  const session = typeof window !== 'undefined' ? getSession() : null;
-  const [showAgreement, setShowAgreement] = useState(false);
-
-  if (!profile) return <div className="p-4">Loading...</div>;
-
-  const docs = [
-    { id: 1, name: 'PG Agreement Document', type: 'PDF', status: 'Verified' },
-    { id: 2, name: 'Aadhar Card (Front/Back)', type: 'Image', status: 'Verified' },
-    { id: 3, name: 'College/Company ID', type: 'Image', status: 'Pending Verification' },
-  ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full">
       <div>
-        <h1 className="text-[24px] font-bold text-primary">My Documents</h1>
-        <p className="text-sm text-secondary">Your uploaded KYC and agreement documents.</p>
+        <h1 className="text-[24px] font-black text-primary flex items-center gap-2">
+          📄 Agreement & Documents
+        </h1>
+        <p className="text-sm text-secondary mt-1">Manage your lease agreement, KYC documents, and PG rules.</p>
       </div>
 
-      <div className="bg-card border border-border rounded-lg overflow-hidden">
-        <div className="p-6 border-b border-border bg-input">
-          <h2 className="font-bold text-lg text-primary flex items-center gap-2">
-            <FileText className="w-5 h-5 text-primary" />
-            Uploaded Documents
-          </h2>
-        </div>
-        <div className="divide-y divide-[var(--border)]">
-          {docs.map(d => (
-            <div key={d.id} className="p-4 md:p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:bg-input motion-safe:transition-colors">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-input rounded flex items-center justify-center shrink-0 border border-border">
-                  <FileText className="w-6 h-6 text-secondary" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-primary">{d.name}</h3>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="text-xs font-medium text-secondary bg-page px-2 py-0.5 rounded">{d.type}</span>
-                    <span className={`text-xs font-bold flex items-center gap-1 ${d.status === 'Verified' ? 'text-success' : 'text-warning'}`}>
-                      {d.status === 'Verified' && <CheckCircle className="w-3 h-3" />}
-                      {d.status}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <button 
-                onClick={() => {
-                  if(d.id === 1) setShowAgreement(true);
-                  else alert('Download started');
-                }}
-                className="text-sm font-medium text-primary flex items-center gap-2 hover:underline w-full md:w-auto justify-center md:justify-end py-2 md:py-0 border md:border-0 border-border rounded mt-2 md:mt-0"
-              >
-                {d.id === 1 ? <><ExternalLink className="w-4 h-4" /> View Agreement</> : <><Download className="w-4 h-4" /> Download</>}
-              </button>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {showAgreement && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="bg-white text-black font-serif w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded shadow-2xl relative">
-            <div className="sticky top-0 bg-gray-100 border-b border-gray-300 p-3 flex justify-between items-center z-10">
-              <h2 className="font-bold text-gray-800 flex items-center gap-2"><FileText className="w-4 h-4"/> Digital Agreement Viewer</h2>
-              <button onClick={() => setShowAgreement(false)} className="text-gray-500 hover:text-black">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            
-            <div className="p-8 md:p-12">
-              <div className="text-center mb-6 border-b-2 border-black pb-4">
-                <h1 className="text-2xl font-bold uppercase tracking-widest">Rental Agreement</h1>
-                <p className="text-sm text-gray-600 mt-1">Smart PG Management Systems</p>
-              </div>
-              
-              <div className="space-y-4 text-sm leading-relaxed text-gray-800">
-                <p>
-                  This Rental Agreement is made and entered into on <strong>{profile.agreementTimestamp ? new Date(profile.agreementTimestamp).toLocaleDateString('en-IN') : 'N/A'}</strong>, by and between the Property Management and <strong>{session?.name || '[Student Name]'}</strong> (hereinafter referred to as the "Student").
-                </p>
-                <h3 className="font-bold text-base mt-4">1. Premises</h3>
-                <p>The Student agrees to lease the bed assigned in Room {profile.roomNumber} under the standard occupancy terms.</p>
-                
-                <h3 className="font-bold text-base mt-4">2. Rent & Deposit</h3>
-                <p>The agreed monthly rent is ₹{profile.rentAmount || '0'}. Rent must be paid on or before the agreed rent cycle date every month. A standard security deposit was collected before move-in.</p>
-                
-                <h3 className="font-bold text-base mt-4">3. House Rules & Notice</h3>
-                <ul className="list-disc pl-5 space-y-1">
-                  <li>Student must serve the mandatory notice period before vacating.</li>
-                  <li>Visitors are allowed strictly within visiting hours.</li>
-                  <li>Any damages to the premises will be deducted from the deposit.</li>
-                </ul>
-                
-                <div className="mt-8 pt-8 border-t border-gray-300 grid grid-cols-2 gap-8">
-                  <div>
-                    <div className="border-b border-gray-400 h-10 w-48 flex items-end">
-                      <span className="italic font-bold text-gray-800">Smart PG Management</span>
-                    </div>
-                    <div className="mt-2 text-xs uppercase font-bold text-gray-500">Authorized Signatory</div>
-                  </div>
-                  <div>
-                    {profile.agreementAccepted ? (
-                      <div className="h-10 text-success font-bold italic flex items-end">
-                        Digitally Accepted ({new Date(profile.agreementTimestamp || 0).toLocaleDateString('en-IN')})
-                      </div>
-                    ) : (
-                      <div className="border-b border-gray-400 h-10 w-48 text-red-500 italic flex items-end text-sm">Not Signed</div>
-                    )}
-                    <div className="mt-2 text-xs uppercase font-bold text-gray-500">Student Signature</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        {/* Lease Agreement */}
+        <div className="md:col-span-2 bg-card border border-border rounded-[var(--radius-lg)] p-6 shadow-sm">
+          <h3 className="font-black text-primary text-lg mb-4 flex items-center gap-2 border-b border-border pb-3">
+            <FileSignature className="w-5 h-5 text-primary" /> Digital Lease Agreement
+          </h3>
+          <div className="flex flex-col sm:flex-row items-center gap-6 bg-primary-subtle border border-primary/20 rounded-[var(--radius-md)] p-5">
+             <div className="w-20 h-24 bg-white rounded shadow border border-border flex items-center justify-center shrink-0">
+               <FileText className="w-10 h-10 text-primary" />
+             </div>
+             <div className="flex-1 text-center sm:text-left">
+               <div className="font-bold text-primary text-lg">Lease Agreement 2024-25</div>
+               <div className="text-sm text-secondary mb-3">Digitally signed on: {profile?.createdAt ? new Date((profile as any).createdAt).toLocaleDateString() : '01/08/2024'}</div>
+               <div className="flex flex-wrap justify-center sm:justify-start gap-3">
+                 <button className="px-4 py-2 bg-primary text-white text-sm font-bold rounded-[var(--radius-md)] shadow hover:bg-primary-hover transition-colors flex items-center gap-2">
+                   <FileText className="w-4 h-4" /> View Agreement
+                 </button>
+                 <button className="px-4 py-2 bg-white text-primary border border-primary/30 text-sm font-bold rounded-[var(--radius-md)] hover:bg-page transition-colors flex items-center gap-2">
+                   <Download className="w-4 h-4" /> Download PDF
+                 </button>
+               </div>
+             </div>
           </div>
         </div>
-      )}
+
+        {/* Rules & Regulations */}
+        <div className="bg-card border border-border rounded-[var(--radius-lg)] p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <h3 className="font-black text-primary text-lg mb-4 flex items-center gap-2 border-b border-border pb-3">
+              <BookOpen className="w-5 h-5 text-info" /> PG Rule Book
+            </h3>
+            <p className="text-sm text-secondary mb-4">Read the official rules and regulations regarding timings, visitors, and discipline.</p>
+          </div>
+          <button className="w-full px-4 py-3 bg-info-bg text-info font-bold rounded-[var(--radius-md)] border border-info/30 hover:bg-info/10 transition-colors flex items-center justify-center gap-2">
+             <Download className="w-4 h-4" /> Download Rule Book
+          </button>
+        </div>
+
+        {/* KYC Documents */}
+        <div className="md:col-span-3 bg-card border border-border rounded-[var(--radius-lg)] p-6 shadow-sm">
+          <h3 className="font-black text-primary text-lg mb-4 flex items-center gap-2 border-b border-border pb-3">
+            📋 KYC Documents
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+             {/* Aadhar Card */}
+             <div className="border border-border rounded-[var(--radius-md)] p-4 flex flex-col justify-between hover:border-primary transition-colors">
+               <div>
+                 <div className="flex justify-between items-start mb-2">
+                   <div className="w-10 h-10 bg-primary-subtle text-primary rounded-[var(--radius-md)] flex items-center justify-center">
+                     <FileText className="w-5 h-5" />
+                   </div>
+                   <span className="bg-success-bg text-success text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                     <CheckCircle className="w-3 h-3" /> Verified
+                   </span>
+                 </div>
+                 <div className="font-bold text-primary text-sm mb-1">Aadhar Card</div>
+                 <div className="text-xs text-secondary mb-4">Uploaded on 01/08/2024</div>
+               </div>
+               <button className="w-full py-1.5 text-xs font-bold text-primary bg-input rounded hover:bg-border transition-colors">
+                 View Document
+               </button>
+             </div>
+             
+             {/* ID Card */}
+             <div className="border border-border rounded-[var(--radius-md)] p-4 flex flex-col justify-between hover:border-primary transition-colors">
+               <div>
+                 <div className="flex justify-between items-start mb-2">
+                   <div className="w-10 h-10 bg-primary-subtle text-primary rounded-[var(--radius-md)] flex items-center justify-center">
+                     <FileText className="w-5 h-5" />
+                   </div>
+                   <span className="bg-success-bg text-success text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                     <CheckCircle className="w-3 h-3" /> Verified
+                   </span>
+                 </div>
+                 <div className="font-bold text-primary text-sm mb-1">College/Work ID</div>
+                 <div className="text-xs text-secondary mb-4">Uploaded on 01/08/2024</div>
+               </div>
+               <button className="w-full py-1.5 text-xs font-bold text-primary bg-input rounded hover:bg-border transition-colors">
+                 View Document
+               </button>
+             </div>
+
+             {/* Police Verification */}
+             <div className="border border-border rounded-[var(--radius-md)] p-4 flex flex-col justify-between border-dashed bg-page">
+               <div>
+                 <div className="flex justify-between items-start mb-2">
+                   <div className="w-10 h-10 bg-input text-secondary rounded-[var(--radius-md)] flex items-center justify-center">
+                     <Upload className="w-5 h-5" />
+                   </div>
+                   <span className="bg-warning-bg text-warning text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                     <Clock className="w-3 h-3" /> Pending
+                   </span>
+                 </div>
+                 <div className="font-bold text-primary text-sm mb-1">Police Verification</div>
+                 <div className="text-xs text-secondary mb-4">Action required</div>
+               </div>
+               <button className="w-full py-1.5 text-xs font-bold text-white bg-primary rounded hover:bg-primary-hover transition-colors shadow">
+                 Upload Now
+               </button>
+             </div>
+
+             {/* Passport Photo */}
+             <div className="border border-border rounded-[var(--radius-md)] p-4 flex flex-col justify-between hover:border-primary transition-colors">
+               <div>
+                 <div className="flex justify-between items-start mb-2">
+                   <div className="w-10 h-10 bg-primary-subtle text-primary rounded-[var(--radius-md)] flex items-center justify-center">
+                     <FileText className="w-5 h-5" />
+                   </div>
+                   <span className="bg-success-bg text-success text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                     <CheckCircle className="w-3 h-3" /> Verified
+                   </span>
+                 </div>
+                 <div className="font-bold text-primary text-sm mb-1">Passport Photo</div>
+                 <div className="text-xs text-secondary mb-4">Uploaded on 01/08/2024</div>
+               </div>
+               <button className="w-full py-1.5 text-xs font-bold text-primary bg-input rounded hover:bg-border transition-colors">
+                 View Photo
+               </button>
+             </div>
+
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 }

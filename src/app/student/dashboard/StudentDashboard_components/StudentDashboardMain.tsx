@@ -4,7 +4,7 @@
 // DATA FLOW: useStudentDashboard.ts -> StudentDashboardMain.tsx
 
 import Link from 'next/link';
-import { IndianRupee, MapPin, Bell, Utensils, Zap, TriangleAlert } from 'lucide-react';
+import { IndianRupee, MapPin, Bell, Utensils, TriangleAlert, Home, MessageSquareWarning, ArrowRight, User, Plus, DoorOpen, CalendarOff, FileText } from 'lucide-react';
 
 import { useStudentDashboard } from '@/app/student/dashboard/StudentDashboard_hooks/useStudentDashboard';
 import { STUDENT_ROUTES } from '@/app/student/student_url_config';
@@ -14,132 +14,186 @@ export function StudentDashboardMain() {
 
   if (loading || !profile) return <div className="p-4 md:p-6 motion-safe:animate-pulse">Loading dashboard...</div>;
 
+  const today = new Date();
+  const dateStr = today.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const timeStr = today.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
   return (
     <div className="space-y-6">
       
-      {/* Top Banner / Room Info */}
+      {/* 1. Dashboard Top Banner */}
       <div className="bg-primary text-white rounded-[var(--radius-lg)] p-6 shadow-md relative overflow-hidden">
-        <div className="absolute top-0 right-0 p-8 opacity-10"><MapPin className="w-32 h-32" /></div>
+        <div className="absolute top-0 right-0 p-8 opacity-10"><Home className="w-32 h-32" /></div>
         <div className="relative z-10">
-          <p className="text-white/80 font-medium mb-1">Your Accommodation - {profile.propertyName || 'PG'}</p>
-          <h2 className="text-3xl font-black mb-4">Room {profile.roomNumber || '-'} <span className="text-xl font-normal text-white/80 ml-2">Bed {profile.bedCode || '-'}</span></h2>
-          <div className="inline-flex items-center gap-2 bg-white/20 px-3 py-1.5 rounded-[var(--radius-sm)] text-sm font-bold backdrop-blur-sm">
-            PG Score: {profile.pgScore || 0}/100
+          <p className="text-white/90 text-lg font-medium mb-1">🧑‍🎓 Good Morning, {profile.name || 'Student'}! 👋</p>
+          <div className="flex items-center gap-2 text-sm text-white/80 mb-4">
+            <span>📅 {dateStr}</span> | <span>⏰ {timeStr}</span>
+          </div>
+          <div className="inline-flex items-center gap-2 bg-white/20 px-4 py-2 rounded-[var(--radius-sm)] text-sm font-bold backdrop-blur-sm shadow-sm border border-white/10">
+            🏠 {profile.propertyName || 'Green Valley PG'} - Room {profile.roomNumber || '-'}, Bed {profile.bedCode || '-'}
           </div>
         </div>
       </div>
 
-      <div className={`grid ${profile.hasMessFacility ? 'grid-cols-2' : 'grid-cols-1'} gap-4`}>
-        {/* Dues */}
-        <Link href={STUDENT_ROUTES.RENT} className="bg-gradient-to-br from-bg-card to-bg-page border border-border rounded-[var(--radius-lg)] p-5 flex flex-col justify-between hover:border-primary motion-safe:hover:-translate-y-1 motion-safe:transition-all shadow-sm group relative overflow-hidden">
-          <div className="absolute -right-4 -top-4 w-20 h-20 bg-danger-bg rounded-[var(--radius-full)] blur-2xl opacity-40 motion-safe:group-hover:scale-150 motion-safe:transition-transform motion-safe:duration-[700ms]"></div>
-          <div className="text-secondary font-medium mb-3 flex items-center gap-1.5 relative z-10"><IndianRupee className="w-5 h-5 text-danger"/> Rent & Invoices</div>
-          <div className={`text-3xl font-black relative z-10 ${profile.duesAmount > 0 ? 'text-danger' : 'text-success'}`}>
-            ₹{profile.duesAmount || 0}
-            <div className="text-sm font-medium text-secondary mt-1">{profile.duesAmount > 0 ? 'Pending Dues' : 'Cleared'}</div>
+      {/* 2. Rent Status Card */}
+      <div className="bg-gradient-to-br from-bg-card to-bg-page border border-border rounded-[var(--radius-lg)] p-5 flex flex-col sm:flex-row sm:items-center justify-between hover:border-primary motion-safe:hover:-translate-y-1 motion-safe:transition-all shadow-sm group relative overflow-hidden">
+        <div className="absolute -right-4 -top-4 w-20 h-20 bg-danger-bg rounded-[var(--radius-full)] blur-2xl opacity-40 group-hover:scale-150 transition-transform duration-[700ms]"></div>
+        <div className="flex items-start sm:items-center gap-4 relative z-10 mb-4 sm:mb-0">
+          <div className="p-3 bg-danger-bg rounded-[var(--radius-md)] text-danger">
+            <IndianRupee className="w-6 h-6" />
           </div>
-          <div className="mt-4 relative z-10">
-            {profile.duesAmount > 0 ? (
-              <span className="inline-flex items-center justify-center w-full bg-primary text-white text-sm font-bold py-2.5 rounded-[var(--radius-md)] shadow hover:bg-primary-hover motion-safe:transition-colors">
-                Pay Rent Now &rarr;
-              </span>
-            ) : (
-              <span className="inline-flex items-center justify-center w-full bg-input text-primary text-sm font-bold py-2.5 rounded-[var(--radius-md)] hover:bg-border motion-safe:transition-colors">
-                View History &rarr;
-              </span>
-            )}
-          </div>
-        </Link>
-        
-        {/* Mess Subscription Status (Only show if subscribed) */}
-        {profile.hasMessFacility && (
-          <div className="bg-gradient-to-br from-bg-card to-bg-page border border-border rounded-[var(--radius-lg)] p-5 flex flex-col justify-between hover:border-primary motion-safe:hover:-translate-y-1 motion-safe:transition-all shadow-sm group relative overflow-hidden">
-            <div className="absolute -right-4 -top-4 w-20 h-20 bg-yellow-500/10 rounded-[var(--radius-full)] blur-2xl opacity-80 motion-safe:group-hover:scale-150 motion-safe:transition-transform motion-safe:duration-[700ms]"></div>
-            <div className="text-secondary font-medium mb-3 flex items-center gap-1.5 relative z-10"><Utensils className="w-5 h-5 text-yellow-500"/> Mess Facility</div>
-            <div className="text-2xl font-black text-primary relative z-10">
-              Subscribed
+          <div>
+            <div className="text-secondary font-bold text-sm mb-1 uppercase tracking-wider">💳 Rent Status</div>
+            <div className={`text-2xl font-black ${profile.duesAmount > 0 ? 'text-danger' : 'text-success'}`}>
+              ₹{profile.duesAmount > 0 ? profile.duesAmount : '0'}
             </div>
-            <div className="text-sm text-secondary font-medium mt-3 relative z-10">
-              Charges included in rent
+            <div className="text-sm font-medium text-secondary mt-1">
+              {profile.duesAmount > 0 ? (
+                <span className="flex items-center gap-1">
+                  <span className="inline-block w-2 h-2 rounded-full bg-warning"></span> Pending | Due: 10th Sep 2024 (⏰ 4 days left)
+                </span>
+              ) : 'All cleared for this month!'}
             </div>
           </div>
-        )}
-      </div>
-
-      {/* SOS Button */}
-      <Link href={STUDENT_ROUTES.SOS} className="block w-full bg-destructive text-white text-center py-4 rounded-[var(--radius-lg)] font-black text-lg shadow-lg hover:bg-destructive/90 motion-safe:transition-all motion-safe:active:scale-95 flex items-center justify-center gap-2 border border-destructive/50 focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:outline-none">
-        <TriangleAlert className="w-6 h-6 text-red-400" /> EMERGENCY SOS
-      </Link>
-
-      <div className={`grid ${profile.hasMessFacility ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'} gap-6`}>
-        {/* Today's Menu (Only if subscribed) */}
-        {profile.hasMessFacility && (
-          <div className="bg-card border border-border rounded-[var(--radius-lg)] p-5 shadow-sm">
-            <h3 className="font-bold text-primary flex items-center gap-2 mb-4">
-              <Utensils className="w-5 h-5 text-primary"/> Today's Menu
-            </h3>
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between items-center p-3 bg-input rounded-[var(--radius-md)]">
-                <span className="text-secondary">Breakfast</span>
-                <span className="font-medium text-primary">{menu?.breakfast || 'TBD'}</span>
-              </div>
-              <div className="flex justify-between items-center p-3 bg-input rounded-[var(--radius-md)]">
-                <span className="text-secondary">Lunch</span>
-                <span className="font-medium text-primary">{menu?.lunch || 'TBD'}</span>
-              </div>
-              <div className="flex justify-between items-center p-3 bg-input rounded-[var(--radius-md)]">
-                <span className="text-secondary">Dinner</span>
-                <span className="font-medium text-primary">{menu?.dinner || 'TBD'}</span>
-              </div>
-            </div>
-            <Link href={STUDENT_ROUTES.MESS} className="block mt-4 text-center text-sm font-bold text-primary py-2 border border-primary rounded-[var(--radius-md)] hover:bg-primary-subtle motion-safe:transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none">
-              Manage Meals
+        </div>
+        {profile.duesAmount > 0 && (
+          <div className="relative z-10 w-full sm:w-auto">
+            <Link href={STUDENT_ROUTES.RENT} className="inline-flex items-center justify-center w-full sm:w-auto bg-primary text-white text-sm font-bold px-6 py-3 rounded-[var(--radius-md)] shadow hover:bg-primary-hover transition-colors">
+              Pay Now <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </div>
         )}
+      </div>
 
-        {/* Notices */}
-        <div className="bg-card border border-border rounded-[var(--radius-lg)] p-5 shadow-sm">
-          <h3 className="font-bold text-primary flex items-center gap-2 mb-4">
-            <Bell className="w-5 h-5 text-primary"/> Recent Notices
-          </h3>
-          <div className="space-y-3">
-            {notices.map((n: any) => (
-              <div key={n.id} className="p-3 border-l-2 border-primary bg-input rounded-r-[var(--radius-md)] text-sm">
-                <div className="font-bold text-primary">{n.title}</div>
-                <div className="text-secondary mt-1 truncate">{n.message}</div>
-                <div className="text-[10px] text-secondary mt-2">{new Date(n.createdAt).toLocaleDateString()}</div>
-              </div>
-            ))}
-            {notices.length === 0 && <p className="text-sm text-secondary">No recent notices.</p>}
-          </div>
-          <Link href={STUDENT_ROUTES.NOTICES} className="inline-block mt-4 text-sm font-bold text-primary hover:underline focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded-[var(--radius-sm)]">
-            View All &rarr;
+      {/* 3. Horizontal Quick Actions */}
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+        {[
+          { label: 'My Room', icon: Home, link: STUDENT_ROUTES.ROOM, subtext: 'View →', color: 'text-info', bg: 'bg-info-bg' },
+          { label: 'Rent', icon: IndianRupee, link: STUDENT_ROUTES.RENT, subtext: 'History', color: 'text-success', bg: 'bg-success-bg' },
+          { label: 'Complaints', icon: MessageSquareWarning, link: STUDENT_ROUTES.COMPLAINTS, subtext: '(2 Open)', color: 'text-danger', bg: 'bg-danger-bg' },
+          { label: "Today's Menu", icon: Utensils, link: STUDENT_ROUTES.MESS, subtext: 'View', color: 'text-warning', bg: 'bg-warning-bg' },
+          { label: 'Notices', icon: Bell, link: STUDENT_ROUTES.NOTICES, subtext: '(3 New)', color: 'text-purple', bg: 'bg-purple-bg' },
+        ].map((action, idx) => (
+          <Link key={idx} href={action.link} className="bg-card border border-border p-4 rounded-[var(--radius-md)] flex flex-col items-center justify-center text-center hover:border-primary hover:shadow-sm transition-all group">
+            <div className={`p-2 rounded-full ${action.bg} ${action.color} mb-3 group-hover:scale-110 transition-transform`}>
+              <action.icon className="w-5 h-5" />
+            </div>
+            <div className="font-bold text-primary text-sm mb-1">{action.label}</div>
+            <div className="text-xs text-secondary font-medium">{action.subtext}</div>
           </Link>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* 4. Today's Menu */}
+        <div className="bg-card border border-border rounded-[var(--radius-lg)] p-5 shadow-sm">
+          <h3 className="font-black text-primary text-lg border-b border-border pb-3 mb-4 flex items-center gap-2">
+            🍳 Today's Menu
+          </h3>
+          <div className="space-y-4">
+            <div>
+              <div className="text-xs font-bold text-secondary uppercase tracking-wider mb-2">Breakfast (8-9:30 AM)</div>
+              <div className="flex items-center gap-2 text-primary font-medium bg-input p-3 rounded-[var(--radius-md)]">
+                🍛 {menu?.breakfast || 'Poha + Tea'}
+              </div>
+            </div>
+            <div>
+              <div className="text-xs font-bold text-secondary uppercase tracking-wider mb-2">Lunch (12-2 PM)</div>
+              <div className="flex items-center gap-2 text-primary font-medium bg-input p-3 rounded-[var(--radius-md)]">
+                🍚 {menu?.lunch || 'Dal + Rice + Sabji'}
+              </div>
+            </div>
+            <div>
+              <div className="text-xs font-bold text-secondary uppercase tracking-wider mb-2">Dinner (8-10 PM)</div>
+              <div className="flex items-center gap-2 text-primary font-medium bg-input p-3 rounded-[var(--radius-md)]">
+                🫓 {menu?.dinner || 'Roti + Paneer + Salad'}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 5. Quick Actions Links */}
+        <div className="bg-card border border-border rounded-[var(--radius-lg)] p-5 shadow-sm">
+          <h3 className="font-black text-primary text-lg border-b border-border pb-3 mb-4 flex items-center gap-2">
+            📌 Quick Actions
+          </h3>
+          <div className="space-y-2">
+            <Link href={STUDENT_ROUTES.NEW_COMPLAINT || STUDENT_ROUTES.COMPLAINTS} className="flex items-center justify-between p-3 rounded-[var(--radius-md)] hover:bg-input transition-colors group">
+              <span className="flex items-center gap-3 font-medium text-primary"><Plus className="w-5 h-5 text-secondary" /> Raise Complaint</span>
+            </Link>
+            <Link href={STUDENT_ROUTES.VISITORS} className="flex items-center justify-between p-3 rounded-[var(--radius-md)] hover:bg-input transition-colors group">
+              <span className="flex items-center gap-3 font-medium text-primary"><DoorOpen className="w-5 h-5 text-secondary" /> Visitor Request</span>
+            </Link>
+            <Link href={STUDENT_ROUTES.LEAVES} className="flex items-center justify-between p-3 rounded-[var(--radius-md)] hover:bg-input transition-colors group">
+              <span className="flex items-center gap-3 font-medium text-primary"><CalendarOff className="w-5 h-5 text-secondary" /> Leave Request</span>
+            </Link>
+            <Link href={STUDENT_ROUTES.MESS} className="flex items-center justify-between p-3 rounded-[var(--radius-md)] hover:bg-input transition-colors group">
+              <span className="flex items-center gap-3 font-medium text-primary"><Utensils className="w-5 h-5 text-secondary" /> Meal Opt-Out</span>
+            </Link>
+            <Link href={STUDENT_ROUTES.DOCUMENTS} className="flex items-center justify-between p-3 rounded-[var(--radius-md)] hover:bg-input transition-colors group">
+              <span className="flex items-center gap-3 font-medium text-primary"><FileText className="w-5 h-5 text-secondary" /> View Agreement</span>
+            </Link>
+            <Link href={STUDENT_ROUTES.RENT} className="flex items-center justify-between p-3 rounded-[var(--radius-md)] hover:bg-input transition-colors group">
+              <span className="flex items-center gap-3 font-medium text-primary"><IndianRupee className="w-5 h-5 text-secondary" /> Pay Rent</span>
+            </Link>
+          </div>
         </div>
       </div>
 
-      {/* Refer a Friend Banner */}
-      <div className="bg-gradient-to-r from-[#10B981] to-[#14B8A6] text-white rounded-[var(--radius-lg)] p-6 shadow-md relative overflow-hidden">
-        <div className="relative z-10">
-          <h3 className="text-xl font-black mb-1">🎁 Refer a Friend & Get 20% Off!</h3>
-          <p className="text-sm text-emerald-50 mb-4 max-w-md">
-            Refer a friend to our PG. When they move in, you get a 20% flat discount on your next month's rent.
-          </p>
-          {profile.pendingReferralRewards > 0 && (
-            <div className="mb-4 inline-flex items-center gap-2 bg-white text-emerald-600 px-3 py-1.5 rounded-[var(--radius-full)] text-xs font-bold shadow-sm">
-              🎉 You have {profile.pendingReferralRewards} pending 20% Off rewards!
+      {/* 6. Monthly Activity Summary */}
+      <div className="bg-card border border-border rounded-[var(--radius-lg)] p-5 shadow-sm">
+        <h3 className="font-black text-primary text-lg mb-4">📊 Monthly Activity Summary</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="p-4 bg-input rounded-[var(--radius-md)] text-center">
+            <div className="text-2xl font-black text-success mb-1">28/30</div>
+            <div className="text-xs font-bold text-secondary uppercase tracking-wider">Present</div>
+          </div>
+          <div className="p-4 bg-input rounded-[var(--radius-md)] text-center">
+            <div className="text-2xl font-black text-info mb-1">85%</div>
+            <div className="text-xs font-bold text-secondary uppercase tracking-wider">Attendance</div>
+          </div>
+          <div className="p-4 bg-input rounded-[var(--radius-md)] text-center">
+            <div className="text-2xl font-black text-warning mb-1">3</div>
+            <div className="text-xs font-bold text-secondary uppercase tracking-wider">Leaves</div>
+          </div>
+          <div className="p-4 bg-input rounded-[var(--radius-md)] text-center">
+            <div className="text-2xl font-black text-purple mb-1 flex items-center justify-center gap-1">4.8 ⭐</div>
+            <div className="text-xs font-bold text-secondary uppercase tracking-wider">Rating</div>
+          </div>
+        </div>
+      </div>
+
+      {/* 7. Recent Updates */}
+      <div className="bg-card border border-border rounded-[var(--radius-lg)] p-5 shadow-sm">
+        <h3 className="font-black text-primary text-lg mb-4 border-b border-border pb-3">📝 Recent Updates</h3>
+        <div className="space-y-4">
+          <div className="flex items-start gap-3">
+            <Bell className="w-5 h-5 text-warning shrink-0 mt-0.5" />
+            <div>
+              <div className="font-medium text-primary">Notice: Water supply will be off tomorrow 10-11 AM</div>
+              <div className="text-xs text-secondary mt-1">Today at 5:00 PM</div>
             </div>
-          )}
-          <div className="bg-white/10 rounded-[var(--radius-lg)] p-4 backdrop-blur-sm border border-white/20">
-            <h4 className="text-sm font-bold mb-3">Submit Friend's Details</h4>
-            <form onSubmit={handleReferralSubmit} className="flex flex-col sm:flex-row gap-3">
-              <input name="name" required type="text" placeholder="Friend's Name" className="flex-1 bg-white/20 border border-white/30 text-white placeholder-emerald-100 px-3 py-2 rounded-[var(--radius-md)] focus:outline-none focus:border-white text-sm" />
-              <input name="phone" required type="tel" placeholder="Friend's Phone" onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }} className="flex-1 bg-white/20 border border-white/30 text-white placeholder-emerald-100 px-3 py-2 rounded-[var(--radius-md)] focus:outline-none focus:border-white text-sm" />
-              <button type="submit" className="bg-white text-emerald-600 font-bold px-4 py-2 rounded-[var(--radius-md)] shadow hover:bg-emerald-50 motion-safe:transition-colors whitespace-nowrap text-sm focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none">
-                Submit Referral
-              </button>
-            </form>
+          </div>
+          <div className="flex items-start gap-3">
+            <Bell className="w-5 h-5 text-success shrink-0 mt-0.5" />
+            <div>
+              <div className="font-medium text-primary">Your complaint #234 has been resolved</div>
+              <div className="text-xs text-secondary mt-1">Today at 2:30 PM</div>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <Bell className="w-5 h-5 text-info shrink-0 mt-0.5" />
+            <div>
+              <div className="font-medium text-primary">Visitor request approved for Saturday</div>
+              <div className="text-xs text-secondary mt-1">Today at 11:00 AM</div>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <Bell className="w-5 h-5 text-danger shrink-0 mt-0.5" />
+            <div>
+              <div className="font-medium text-primary">Rent reminder: Due in 4 days</div>
+              <div className="text-xs text-secondary mt-1">Today at 9:00 AM</div>
+            </div>
           </div>
         </div>
       </div>

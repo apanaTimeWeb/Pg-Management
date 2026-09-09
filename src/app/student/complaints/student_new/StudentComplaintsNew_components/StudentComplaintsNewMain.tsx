@@ -1,80 +1,101 @@
-// RESPONSIBILITY: Renders the StudentComplaintsNewMain component.
 'use client';
+
+// RESPONSIBILITY: Renders the New Complaint Form.
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { ImagePlus, AlertCircle, Send } from 'lucide-react';
 
 import { studentOperationsApi } from '@/app/student/student_lib/student_api/StudentOperations';
 import { useStudentContext } from '@/app/student/student_components/StudentContext';
-import { getSession } from '@/app/student/student_lib/student_auth/StudentSession';
 
 export function StudentComplaintsNewMain() {
   const router = useRouter();
   const { profile } = useStudentContext();
-  const session = typeof window !== 'undefined' ? getSession() : null;
-  const [formData, setFormData] = useState({ category: 'Electrical', title: '', description: '', priority: 'Medium', photoUrl: '' });
+  const [formData, setFormData] = useState({
+    category: '',
+    title: '',
+    description: '',
+    priority: 'Medium'
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!profile || !session) return;
+    if (!profile) return;
     studentOperationsApi.createComplaint({
-      ...(formData as any),
-      propertyId: profile.propertyId,
-      studentId: profile.id,
-      roomNumber: profile.roomNumber,
-    }, session.id);
-    alert('Complaint raised successfully.');
+      propertyId: (profile as any).propertyId,
+      category: formData.category,
+      description: formData.description,
+      priority: formData.priority,
+      title: formData.title
+    }, (profile as any).id);
+    toast.success('Complaint raised successfully!');
     router.push('/student/complaints');
   };
 
   return (
-    <div className="space-y-6 max-w-2xl mx-auto">
+    <div className="space-y-6 w-full">
       <div>
-        <h1 className="text-[24px] font-bold text-primary">Raise Complaint</h1>
-        <p className="text-sm text-secondary">Report an issue in your room or property.</p>
+        <h1 className="text-[24px] font-black text-primary">Raise a New Complaint</h1>
+        <p className="text-sm text-secondary">Provide details about the issue you are facing.</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-card border border-border rounded-2xl p-6 md:p-8 space-y-6 shadow-sm">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-sm font-bold text-secondary mb-2 uppercase tracking-wider">Category</label>
-            <select value={(formData as any).category} onChange={e=>setFormData({...(formData as any), category: e.target.value})} className="w-full bg-page border border-border px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary transition-shadow">
-              <option>Electrical</option>
-              <option>Plumbing</option>
-              <option>Cleaning</option>
-              <option>Internet/Wi-Fi</option>
-              <option>Others</option>
-            </select>
+      <form onSubmit={handleSubmit} className="bg-card border border-border rounded-[var(--radius-lg)] p-6 shadow-sm space-y-6">
+        <div>
+          <label className="block text-xs font-bold text-secondary uppercase mb-2">Category</label>
+          <select required value={formData.category} onChange={e=>setFormData({...formData, category: e.target.value})} className="w-full bg-input border border-border px-4 py-3 rounded-[var(--radius-md)] text-sm text-primary focus:outline-none focus:border-primary">
+            <option value="">Select Category</option>
+            <option value="Electrical">Electrical (Bulb, Fan, AC)</option>
+            <option value="Plumbing">Plumbing (Tap, Flush, Leakage)</option>
+            <option value="Cleaning">Cleaning & Hygiene</option>
+            <option value="Food/Mess">Food / Mess Issue</option>
+            <option value="Internet">Wi-Fi / Internet</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-xs font-bold text-secondary uppercase mb-2">Complaint Title</label>
+          <input required type="text" placeholder="Short description of the issue" value={formData.title} onChange={e=>setFormData({...formData, title: e.target.value})} className="w-full bg-input border border-border px-4 py-3 rounded-[var(--radius-md)] text-sm text-primary focus:outline-none focus:border-primary" />
+        </div>
+
+        <div>
+          <label className="block text-xs font-bold text-secondary uppercase mb-2">Priority Level</label>
+          <div className="flex gap-4">
+            {['Low', 'Medium', 'High'].map(p => (
+              <label key={p} className={`flex-1 flex items-center justify-center gap-2 p-3 border rounded-[var(--radius-md)] cursor-pointer transition-colors ${formData.priority === p ? 'border-primary bg-primary-subtle text-primary font-bold' : 'border-border text-secondary hover:bg-input'}`}>
+                <input type="radio" name="priority" value={p} checked={formData.priority === p} onChange={e=>setFormData({...formData, priority: e.target.value})} className="hidden" />
+                {p}
+              </label>
+            ))}
           </div>
-          
-          <div>
-            <label className="block text-sm font-bold text-secondary mb-2 uppercase tracking-wider">Priority</label>
-            <select value={(formData as any).priority} onChange={e=>setFormData({...(formData as any), priority: e.target.value})} className="w-full bg-page border border-border px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary transition-shadow">
-              <option>Low</option>
-              <option>Medium</option>
-              <option>High</option>
-            </select>
-          </div>
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-secondary mb-2 uppercase tracking-wider">Issue Title</label>
-          <input required type="text" value={(formData as any).title} onChange={e=>setFormData({...(formData as any), title: e.target.value})} placeholder="e.g., Fan not working" className="w-full bg-page border border-border px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary transition-shadow" />
+          <label className="block text-xs font-bold text-secondary uppercase mb-2">Detailed Description</label>
+          <textarea required rows={4} placeholder="Explain the issue in detail..." value={formData.description} onChange={e=>setFormData({...formData, description: e.target.value})} className="w-full bg-input border border-border px-4 py-3 rounded-[var(--radius-md)] text-sm text-primary focus:outline-none focus:border-primary resize-none"></textarea>
         </div>
 
-        <div>
-          <label className="block text-sm font-bold text-secondary mb-2 uppercase tracking-wider">Description</label>
-          <textarea required rows={4} value={(formData as any).description} onChange={e=>setFormData({...(formData as any), description: e.target.value})} placeholder="Describe the problem in detail..." className="w-full bg-page border border-border px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary resize-none transition-shadow" />
+        <div className="border-2 border-dashed border-border rounded-[var(--radius-md)] p-6 text-center hover:border-primary transition-colors cursor-pointer bg-page">
+          <ImagePlus className="w-8 h-8 text-secondary mx-auto mb-2" />
+          <div className="font-bold text-primary text-sm">Upload Photo (Optional)</div>
+          <div className="text-xs text-secondary mt-1">PNG, JPG up to 5MB</div>
+          <input type="file" className="hidden" accept="image/*" />
         </div>
 
-        <div>
-          <label className="block text-sm font-bold text-secondary mb-2 uppercase tracking-wider">Photo URL (Optional)</label>
-          <input type="url" value={(formData as any).photoUrl} onChange={e=>setFormData({...(formData as any), photoUrl: e.target.value})} placeholder="https://..." className="w-full bg-page border border-border px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-primary transition-shadow" />
+        <div className="bg-info-bg border border-info/20 rounded-[var(--radius-md)] p-4 flex gap-3 text-sm text-info">
+          <AlertCircle className="w-5 h-5 shrink-0" />
+          <p>Most complaints are resolved within 24-48 hours. Please be patient.</p>
         </div>
 
-        <div className="pt-6 border-t border-border flex justify-end gap-4 mt-8">
-          <button type="button" onClick={() => router.back()} className="px-6 py-3 bg-page border border-border text-primary rounded-xl font-bold text-sm hover:bg-input motion-safe:transition-colors">Cancel</button>
-          <button type="submit" className="px-8 py-3 bg-primary text-white rounded-xl font-bold text-sm shadow-lg shadow-primary-subtle hover:-translate-y-0.5 transition-transform">Submit Complaint</button>
+        <div className="pt-4 flex gap-3">
+          <button type="button" onClick={() => router.back()} className="flex-1 py-3 px-4 bg-input text-primary font-bold rounded-[var(--radius-md)] hover:bg-border transition-colors">
+            Cancel
+          </button>
+          <button type="submit" className="flex-1 py-3 px-4 bg-primary text-white font-bold rounded-[var(--radius-md)] shadow-md hover:bg-primary-hover transition-colors flex items-center justify-center gap-2">
+            <Send className="w-4 h-4" /> Submit Complaint
+          </button>
         </div>
       </form>
     </div>

@@ -1,0 +1,69 @@
+/* 
+ * Student Module Specific Theme 
+ * Based on the requested Student Color Palette
+ */
+
+.student-theme {
+  /* Primary Colors */
+  --primary: #8E44AD;        /* Deep Purple */
+  --primary-hover: #9B59B6;  /* Light Purple */
+  --primary-subtle: #F4ECF7; /* Purple Tint */
+
+  /* Accent/Highlight Colors mapped to Gold */
+  --border-focus: #F5A623;   /* Gold Accent */
+
+  /* Backgrounds */
+  --bg-page: #F8F9FA;        /* Light */
+  --bg-card: #FFFFFF;        /* White */
+  --bg-input: #F8F9FA;
+  --bg-sidebar: #FFFFFF;
+  --bg-header: #FFFFFF;
+  
+  /* Text Colors */
+  --text-primary: #2C3E50;   /* Dark */
+  --text-secondary: #5D6D7E; /* Medium */
+  --text-disabled: #95A5A6;  /* Light */
+  
+  /* Borders */
+  --border: #E8DAEF;         /* Light Purple for borders */
+
+  /* Status Colors */
+  --success: #27AE60;
+  --success-bg: rgba(39, 174, 96, 0.1);
+  --success-text: #27AE60;
+
+  --danger: #E74C3C;
+  --danger-bg: rgba(231, 76, 60, 0.1);
+  --danger-text: #E74C3C;
+
+  --warning: #F39C12;
+  --warning-bg: rgba(243, 156, 18, 0.1);
+  --warning-text: #F39C12;
+
+  --info: #3498DB;
+  --info-bg: rgba(52, 152, 219, 0.1);
+  --info-text: #3498DB;
+  
+  /* Payment */
+  --pay-cash: #27AE60;
+  --pay-upi: #3498DB;
+  --pay-card: #8E44AD;
+  --pay-bank: #E74C3C;
+}
+
+/* Dark mode overrides if needed */
+.dark .student-theme {
+  /* If the user wants a dark mode version of the purple theme, we can invert appropriately, 
+     but keeping the branding colors. */
+  --bg-page: #1A1224;      /* Very dark purple */
+  --bg-card: #2D1B36;
+  --bg-input: #3A2344;
+  --bg-sidebar: #221429;
+  --bg-header: #221429;
+  
+  --text-primary: #FFFFFF;
+  --text-secondary: #E8DAEF;
+  --text-disabled: #5D6D7E;
+  
+  --border: #4A2C59;
+}

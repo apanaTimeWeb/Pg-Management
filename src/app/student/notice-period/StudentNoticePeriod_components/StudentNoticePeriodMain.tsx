@@ -42,7 +42,7 @@ export function StudentNoticePeriodMain() {
   };
 
   return (
-    <div className="space-y-6 max-w-2xl mx-auto">
+    <div className="space-y-6 w-full">
       <div>
         <h1 className="text-[24px] font-bold text-primary">Notice Period</h1>
         <p className="text-sm text-secondary">Submit your 30-day move-out notice.</p>

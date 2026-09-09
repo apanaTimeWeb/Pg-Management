@@ -16,7 +16,15 @@ const en = {
   welcome: 'Welcome',
   payRent: 'Pay Rent',
   raiseComplaint: 'Raise Complaint',
-  recentActivity: 'Recent Activity'
+  recentActivity: 'Recent Activity',
+  room: 'Room',
+  visitors: 'Visitors',
+  leaves: 'Leaves',
+  attendance: 'Attendance',
+  communication: 'Communication',
+  history: 'History',
+  settings: 'Settings',
+  feedback: 'Feedback'
 };
 
 const hi = {
@@ -30,7 +38,15 @@ const hi = {
   welcome: 'स्वागत है',
   payRent: 'किराया दें',
   raiseComplaint: 'शिकायत दर्ज करें',
-  recentActivity: 'हाल की गतिविधि'
+  recentActivity: 'हाल की गतिविधि',
+  room: 'कमरा (Room)',
+  visitors: 'आगंतुक (Visitors)',
+  leaves: 'छुट्टियां (Leaves)',
+  attendance: 'उपस्थिति (Attendance)',
+  communication: 'संचार (Communication)',
+  history: 'इतिहास (History)',
+  settings: 'सेटिंग्स (Settings)',
+  feedback: 'प्रतिक्रिया (Feedback)'
 };
 
 const dictionaries = { en, hi };
