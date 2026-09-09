@@ -1,47 +1,92 @@
-/* MANAGER THEME */
+/* 
+ * Manager Module Specific Theme 
+ * Based on the requested Deep Purple Color Palette
+ * Structured identically to Student theme for consistency
+ */
+
 .manager-theme {
-  --primary: 39 174 96; /* #27AE60 Deep Green */
-  --primary-light: 46 204 113; /* #2ECC71 Light Green */
-  --accent: 245 166 35; /* #F5A623 Gold Accent */
-  
-  --bg-page: 248 249 250; /* #F8F9FA Light */
-  --bg-card: 255 255 255; /* #FFFFFF White */
-  --bg-tint: 232 248 240; /* #E8F8F0 Green Tint */
-  --bg-light-green: 213 245 227; /* #D5F5E3 Light Green */
-  
-  --danger: 231 76 60; /* #E74C3C Danger */
-  --warning: 243 156 18; /* #F39C12 Warning */
-  --info: 52 152 219; /* #3498DB Info */
-  --purple: 142 68 173; /* #8E44AD Purple */
+  /* Primary Colors */
+  --primary: #8E44AD;        /* Deep Purple */
+  --primary-hover: #9B59B6;  /* Light Purple */
+  --primary-subtle: #F4ECF7; /* Purple Tint */
 
+  /* Accent/Highlight Colors mapped to Gold */
+  --border-focus: #F5A623;   /* Gold Accent */
+
+  /* Backgrounds */
+  --bg-page: 248 249 250;        /* Light */
+  --bg-card: 255 255 255;        /* White */
+  --bg-input: 248 249 250;
+  --bg-sidebar: 255 255 255;
+  --bg-header: 255 255 255;
+  
   /* Text Colors */
-  --text-primary: 33 37 41;
-  --text-secondary: 108 117 125;
-  --text-white: 255 255 255;
-
-  /* UI Elements */
-  --border: 222 226 230;
-  --input-bg: 248 249 250;
+  --text-primary: 44 62 80;   /* Dark */
+  --text-secondary: 93 109 126; /* Medium */
+  --text-disabled: 149 165 166;  /* Light */
   
-  /* Standard Utility mappings */
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 1rem;
-  --radius-full: 9999px;
+  /* Borders */
+  --border: 232 218 239;         /* Light Purple for borders */
+
+  /* Status Colors */
+  --success: #27AE60;
+  --success-bg: rgba(39, 174, 96, 0.1);
+  --success-text: #27AE60;
+
+  --danger: #E74C3C;
+  --danger-bg: rgba(231, 76, 60, 0.1);
+  --danger-text: #E74C3C;
+
+  --warning: #F39C12;
+  --warning-bg: rgba(243, 156, 18, 0.1);
+  --warning-text: #F39C12;
+
+  --info: #3498DB;
+  --info-bg: rgba(52, 152, 219, 0.1);
+  --info-text: #3498DB;
+  
+  /* Payment */
+  --pay-cash: #27AE60;
+  --pay-upi: #3498DB;
+  --pay-card: #8E44AD;
+  --pay-bank: #E74C3C;
+
+  /* Tailwind mappings to make utility classes work with opacity */
+  --color-primary: rgb(142 68 173);
+  --color-primary-hover: rgb(155 89 182);
+  --color-page: rgb(248 249 250);
+  --color-card: rgb(255 255 255);
+  --color-sidebar: rgb(255 255 255);
+  --color-header: rgb(255 255 255);
+  --color-input: rgb(248 249 250);
+  --color-border: rgb(232 218 239);
+  --color-primary-text: rgb(44 62 80);
+  --color-secondary: rgb(93 109 126);
 }
 
+/* Dark mode overrides */
 .dark .manager-theme {
-  /* Dark mode variants */
-  --bg-page: 18 24 20;
-  --bg-card: 28 36 31;
-  --bg-tint: 39 174 96; /* Use deep green as tint but with low opacity */
-  --bg-light-green: 46 204 113;
+  --bg-page: 26 18 36;      /* Very dark purple-tinted black */
+  --bg-card: 45 27 54;
+  --bg-input: 58 35 68;
+  --bg-sidebar: 34 20 41;
+  --bg-header: 34 20 41;
   
-  --text-primary: 248 249 250;
-  --text-secondary: 173 181 189;
+  --text-primary: 255 255 255;
+  --text-secondary: 232 218 239;
+  --text-disabled: 93 109 126;
   
-  --border: 44 56 49;
-  --input-bg: 24 32 27;
+  --border: 74 44 89;
+
+  /* Tailwind mappings for dark mode */
+  --color-page: rgb(26 18 36);
+  --color-card: rgb(45 27 54);
+  --color-sidebar: rgb(34 20 41);
+  --color-header: rgb(34 20 41);
+  --color-input: rgb(58 35 68);
+  --color-border: rgb(74 44 89);
+  --color-primary-text: rgb(255 255 255);
+  --color-secondary: rgb(232 218 239);
 }
 
 /* Base utility classes used across the app */
@@ -53,32 +98,11 @@
 .manager-theme .bg-input { background-color: rgb(var(--input-bg)); }
 
 /* Custom Semantic Colors */
-.manager-theme .text-theme-primary { color: rgb(var(--primary)); }
-.manager-theme .bg-theme-primary { background-color: rgb(var(--primary)); }
-.manager-theme .bg-theme-primary-hover { background-color: rgb(var(--primary-light)); }
-.manager-theme .text-theme-accent { color: rgb(var(--accent)); }
-.manager-theme .bg-theme-accent { background-color: rgb(var(--accent)); }
-
-/* Statuses */
-.manager-theme .text-success { color: rgb(var(--primary)); }
-.manager-theme .bg-success-bg { background-color: rgba(var(--primary), 0.1); }
-.manager-theme .border-success { border-color: rgb(var(--primary)); }
-
-.manager-theme .text-warning { color: rgb(var(--warning)); }
-.manager-theme .bg-warning-bg { background-color: rgba(var(--warning), 0.1); }
-.manager-theme .border-warning { border-color: rgb(var(--warning)); }
-
-.manager-theme .text-danger { color: rgb(var(--danger)); }
-.manager-theme .bg-danger-bg { background-color: rgba(var(--danger), 0.1); }
-.manager-theme .border-danger { border-color: rgb(var(--danger)); }
-
-.manager-theme .text-info { color: rgb(var(--info)); }
-.manager-theme .bg-info-bg { background-color: rgba(var(--info), 0.1); }
-.manager-theme .border-info { border-color: rgb(var(--info)); }
-
-/* Extra specific backgrounds for Manager palette */
-.manager-theme .bg-tint { background-color: rgba(var(--primary), 0.05); }
-.manager-theme .bg-light-green { background-color: rgba(var(--primary-light), 0.1); }
+.manager-theme .text-theme-primary { color: var(--primary); }
+.manager-theme .bg-theme-primary { background-color: var(--primary); }
+.manager-theme .bg-theme-primary-hover { background-color: var(--primary-hover); }
+.manager-theme .text-theme-accent { color: var(--border-focus); }
+.manager-theme .bg-theme-accent { background-color: var(--border-focus); }
 
 /* Custom Animations */
 @keyframes fadeIn {

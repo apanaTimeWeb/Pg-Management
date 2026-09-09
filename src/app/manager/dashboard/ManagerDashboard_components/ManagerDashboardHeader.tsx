@@ -27,7 +27,7 @@ export function ManagerDashboardHeader({ user, selectedProp, isPresent, handleMa
         <h1 className="text-[24px] font-bold text-primary tracking-tight">Welcome back, {typedUser?.name}</h1>
         <p className="text-sm text-secondary mt-1">Operational Overview for <span className="text-primary font-medium">{typedProp?.name}</span></p>
       </div>
-      <div className="flex items-center gap-3 bg-card border border rounded-[var(--radius-md,8px)] p-2 pr-4 shadow-sm">
+      <div className="flex items-center gap-3 bg-card border border-border rounded-[var(--radius-md)] p-2 pr-4 shadow-sm">
         {isPresent ? (
           <>
             <div className="w-10 h-10 rounded bg-success-bg text-success flex items-center justify-center">

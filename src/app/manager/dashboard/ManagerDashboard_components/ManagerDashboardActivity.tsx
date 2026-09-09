@@ -9,8 +9,8 @@ export function ManagerDashboardActivity() {
   ];
 
   return (
-    <div className="bg-card border border rounded-[var(--radius-lg,12px)] p-5 h-full">
-      <h3 className="text-lg font-semibold text-primary mb-4">Recent Activity</h3>
+    <div className="bg-card border border-border rounded-[var(--radius-lg)] p-5 h-full shadow-sm">
+      <h3 className="font-black text-primary text-lg border-b border-border pb-3 mb-4 flex items-center gap-2">Recent Activity</h3>
       <div className="space-y-0 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent">
         {activities.map((item, i) => {
           const Icon = item.icon;

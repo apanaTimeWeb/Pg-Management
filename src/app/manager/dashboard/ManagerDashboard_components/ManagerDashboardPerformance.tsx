@@ -8,8 +8,8 @@ export function ManagerDashboardPerformance() {
   ];
 
   return (
-    <div className="bg-card border border rounded-[var(--radius-lg,12px)] p-5 h-full flex flex-col justify-between">
-      <h3 className="text-lg font-semibold text-primary mb-4">Weekly Performance</h3>
+    <div className="bg-card border border-border rounded-[var(--radius-lg)] p-5 h-full flex flex-col justify-between shadow-sm">
+      <h3 className="font-black text-primary text-lg border-b border-border pb-3 mb-4 flex items-center gap-2">Weekly Performance</h3>
       <div className="space-y-4 flex-1 flex flex-col justify-center">
         {metrics.map((m, i) => (
           <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-input/50 border border-transparent">
@@ -24,7 +24,7 @@ export function ManagerDashboardPerformance() {
           </div>
         ))}
       </div>
-      <div className="mt-4 pt-4 border-t border text-center">
+      <div className="mt-4 pt-4 border-t border-border text-center">
         <p className="text-xs text-secondary">
           Performance compared to previous week
         </p>

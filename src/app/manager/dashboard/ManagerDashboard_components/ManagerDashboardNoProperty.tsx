@@ -5,7 +5,7 @@ import { clearSession } from '@/app/manager/manager_lib/manager_auth/ManagerSess
 export function ManagerDashboardNoProperty() {
   return (
     <div className="h-[80vh] flex flex-col items-center justify-center text-center max-w-md mx-auto">
-      <div className="w-20 h-20 rounded-full bg-card flex items-center justify-center mb-6 border border">
+      <div className="w-20 h-20 rounded-full bg-card flex items-center justify-center mb-6 border border-border">
         <Lock className="w-10 h-10 text-secondary" />
       </div>
       <h2 className="text-2xl font-bold text-primary mb-2">No Property Assigned</h2>

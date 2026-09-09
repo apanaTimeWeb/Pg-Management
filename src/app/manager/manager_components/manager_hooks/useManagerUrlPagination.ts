@@ -14,8 +14,10 @@ export function useManagerUrlPagination(defaultPage = 1) {
   const currentPage = Number(searchParams.get('page')) || defaultPage;
   const setCurrentPage = useCallback(
     (page: number | ((prev: number) => number)) => {
-      const params = new URLSearchParams(searchParams.toString());
       const newPage = typeof page === 'function' ? page(currentPage) : page;
+      if (newPage === currentPage) return; // Prevent infinite re-render loop
+      
+      const params = new URLSearchParams(searchParams.toString());
       if (newPage > 1) {
         params.set('page', newPage.toString());
       } else {

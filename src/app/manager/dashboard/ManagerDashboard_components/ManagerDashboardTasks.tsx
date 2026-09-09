@@ -9,9 +9,9 @@ export function ManagerDashboardTasks() {
   ];
 
   return (
-    <div className="bg-card border border rounded-[var(--radius-lg,12px)] p-5 h-full">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-primary">Today's Tasks</h3>
+    <div className="bg-card border border-border rounded-[var(--radius-lg)] p-5 h-full shadow-sm">
+      <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
+        <h3 className="font-black text-primary text-lg flex items-center gap-2">Today's Tasks</h3>
         <span className="bg-theme-primary/10 text-theme-primary text-xs font-bold px-2 py-1 rounded-full">
           {tasks.filter(t => t.status === 'pending').length} Pending
         </span>

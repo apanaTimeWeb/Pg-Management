@@ -8,7 +8,7 @@ interface Props {
 }
 export function ManagerStudentsTable({ students }: Props) {
   return (
-    <div className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm">
+    <div className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-x-auto shadow-sm">
       <table className="w-full text-left text-sm">
         <thead className="bg-input/50 border-b border text-secondary text-xs uppercase tracking-wider font-bold">
           <tr>
