@@ -34,8 +34,8 @@ export default function SuperAdminDashboardPage() {
   return (
     <div className="home-theme space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       
-      {/* Premium Header - Matching Homepage */}
-      <div className="home-card relative overflow-hidden bg-[var(--primary-navy)] p-8 text-white">
+      {/* Premium Header - Matching Homepage Hero */}
+      <div className="relative overflow-hidden rounded-2xl p-8 text-white" style={{ background: 'var(--gradient-hero)' }}>
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
             <h1 className="text-3xl font-bold tracking-tight mb-2" style={{ color: 'var(--primary-white)' }}>Platform Overview</h1>

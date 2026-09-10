@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 import { authApi as api } from '@/app/staff/staff_lib/staff_api/StaffAuth';
 import { getSession, setSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
-import '../../../../../homepage.css';
+import '@/app/homepage.css';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 export function StaffFirstLoginMain() {

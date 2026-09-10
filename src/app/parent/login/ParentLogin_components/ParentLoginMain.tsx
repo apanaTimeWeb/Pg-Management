@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 import { authApi as api } from '@/app/parent/parent_lib/parent_api/ParentAuth';
 import { setSession } from '@/app/parent/parent_lib/parent_auth/ParentSession';
-import '../../../../../homepage.css';
+import '@/app/homepage.css';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 export function ParentLoginMain() {

@@ -28,7 +28,7 @@ export const staffOperationsApi = {
     }
   },
   getLiveOrders: (propertyId: string) => {
-    return db.getAll<any>(STORAGE_KEYS.MEAL_ORDERS || 'spg_meal_orders').filter(o => o.propertyId === propertyId && o.status !== 'Served' && !o.isDeleted);
+    return db.getAll<any>(STORAGE_KEYS.MEAL_ORDERS || 'spg_meal_orders').filter(o => o.propertyId === propertyId && !o.isDeleted);
   },
   updateOrderStatus: (orderId: string, status: string, staffId: string) => {
     db.update<any>(STORAGE_KEYS.MEAL_ORDERS || 'spg_meal_orders', orderId, { status, updatedAt: new Date().toISOString(), updatedBy: staffId });

@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 import { authApi as api } from '@/app/student/student_lib/student_api/StudentAuth';
 import { setSession } from '@/app/student/student_lib/student_auth/StudentSession';
-import '../../../../../homepage.css';
+import '@/app/homepage.css';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 export function StudentLoginMain() {

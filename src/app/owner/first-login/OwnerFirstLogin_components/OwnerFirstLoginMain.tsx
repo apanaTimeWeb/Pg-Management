@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 import { authApi as api } from '@/app/owner/owner_lib/owner_api/OwnerAuth';
 import { getSession, setSession } from '@/app/owner/owner_lib/owner_auth/OwnerSession';
-import '../../../../../homepage.css';
+import '@/app/homepage.css';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 export function OwnerFirstLoginMain() {

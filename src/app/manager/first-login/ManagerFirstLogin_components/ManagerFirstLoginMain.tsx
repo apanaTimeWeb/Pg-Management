@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 import { api } from '@/app/manager/manager_lib/manager_api/ManagerApi';
 import { getSession, setSession } from '@/app/manager/manager_lib/manager_auth/ManagerSession';
-import '../../../../../homepage.css';
+import '@/app/homepage.css';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 export function ManagerFirstLoginMain() {
