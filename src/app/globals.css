@@ -88,10 +88,10 @@
 
 /* ── 2. LIGHT MODE VARIABLES (:root) ──────────────────────── */
 :root {
-  /* Brand - Matched to homepage.css */
-  --primary:        #2D7D9A;   /* Primary Teal */
-  --primary-hover:  #1A3A5C;   /* Primary Navy (darker) */
-  --primary-subtle: #E6F0F4;   /* Very light Teal */
+  /* Brand - Highlight Colors (Buttons, Icons, Active States) */
+  --primary:        #F5A623;   /* Homepage Gold - highly visible highlight */
+  --primary-hover:  #D97706;   /* Darker Gold/Amber for hover */
+  --primary-subtle: #FEF3C7;   /* Amber-100 */
 
   /* ── Surface Elevation Scale ──────────────────────────────
      Cool/Neutral palette — giving a professional SaaS feel */
@@ -106,12 +106,12 @@
 
   /* Borders */
   --border:       #E2E8F0;   /* Slate 200 */
-  --border-focus: #2D7D9A;   /* Teal focus ring */
+  --border-focus: #F5A623;   /* Gold focus ring */
 
-  /* Text */
-  --text-primary:   #2C3E50;   /* --text-dark from homepage */
-  --text-secondary: #5D6D7E;   /* --text-medium from homepage */
-  --text-disabled:  #95A5A6;   /* --text-light from homepage */
+  /* Text - Structural text using Navy to match Homepage */
+  --text-primary:   #1A3A5C;   /* Primary Navy */
+  --text-secondary: #5D6D7E;   /* Medium Blue/Gray */
+  --text-disabled:  #95A5A6;   /* Light Blue/Gray */
 
   /* Skeletons */
   --skeleton-base:      #E2E8F0;
@@ -142,10 +142,10 @@
 
 /* ── 3. DARK MODE VARIABLES (.dark) ───────────────────────── */
 .dark {
-  /* Brand - Adapted for dark mode */
-  --primary:        #3FA6C8;              /* Lighter Teal for dark mode */
-  --primary-hover:  #2D7D9A;              /* Regular Teal */
-  --primary-subtle: rgba(45, 125, 154, 0.15); /* Subtle Teal tint */
+  /* Brand - Highlight Colors (Buttons, Icons) */
+  --primary:        #FACC15;              /* Yellow-400 — vivid gold on black */
+  --primary-hover:  #EAB308;              /* Yellow-500 */
+  --primary-subtle: rgba(250,204,21,0.12);/* Subtle gold tint */
 
   /* ── Surface Elevation Scale — 5-step depth ladder ────────
      Each step is +0x0E brighter (14 units) for clear depth.
@@ -161,7 +161,7 @@
 
   /* Borders — subtle cool-tinted */
   --border:       #2A303C;   /* Slightly cool dark border */
-  --border-focus: #3FA6C8;   /* Teal focus ring */
+  --border-focus: #FACC15;   /* Gold focus ring */
 
   /* Text — cool-white for premium feel */
   --text-primary:   #F8F9FA;   
