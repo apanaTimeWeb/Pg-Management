@@ -88,65 +88,64 @@
 
 /* ── 2. LIGHT MODE VARIABLES (:root) ──────────────────────── */
 :root {
-  /* Brand */
-  --primary:        #D97706;   /* Amber-600 — richer gold, better contrast on white */
-  --primary-hover:  #B45309;   /* Amber-700 */
-  --primary-subtle: #FEF3C7;   /* Amber-100 */
+  /* Brand - Matched to homepage.css */
+  --primary:        #2D7D9A;   /* Primary Teal */
+  --primary-hover:  #1A3A5C;   /* Primary Navy (darker) */
+  --primary-subtle: #E6F0F4;   /* Very light Teal */
 
   /* ── Surface Elevation Scale ──────────────────────────────
-     Warm off-white palette — avoids the sterile gray feel,
-     gives cards real visual lift above the page.          */
-  --bg-page:     #F5F4F1;   /* Warm Zinc — grounded page bg        */
-  --bg-card:     #FFFFFF;   /* Pure white — cards pop cleanly       */
-  --bg-sidebar:  #FFFEF9;   /* Warm near-white — soft separation    */
-  --bg-header:   #FFFFFF;   /* White header                         */
-  --bg-input:    #FAFAF8;   /* Slightly warm — distinguishes inputs */
-  --bg-floating: #FFFFFF;   /* Floating surfaces                    */
-  --bg-overlay:  #F0EFE9;   /* Modal background — warm muted        */
-  --bg-popover:  #ECEAE3;   /* Dropdown background — distinct warm  */
+     Cool/Neutral palette — giving a professional SaaS feel */
+  --bg-page:     #F8F9FA;   /* Matches --bg-light from homepage */
+  --bg-card:     #FFFFFF;   /* Pure white */
+  --bg-sidebar:  #FFFFFF;   /* Pure white sidebar */
+  --bg-header:   #FFFFFF;   /* White header */
+  --bg-input:    #F8F9FA;   /* Slightly off-white */
+  --bg-floating: #FFFFFF;   /* Floating surfaces */
+  --bg-overlay:  #ECF0F1;   /* Matches --bg-medium */
+  --bg-popover:  #FFFFFF;   /* Dropdown background */
 
-  /* Borders — warm tinted instead of cold zinc */
-  --border:       #E5E2D9;   /* Warm Zinc-200 — elegant separation */
-  --border-focus: #D97706;   /* Amber gold — crisp focus ring */
+  /* Borders */
+  --border:       #E2E8F0;   /* Slate 200 */
+  --border-focus: #2D7D9A;   /* Teal focus ring */
 
-  /* Text — warm near-black palette */
-  --text-primary:   #1C1917;   /* Stone-900 — warm readable black */
-  --text-secondary: #78716C;   /* Stone-500 — muted warm gray     */
-  --text-disabled:  #C4BDB5;   /* Stone-300 — subtle disabled     */
+  /* Text */
+  --text-primary:   #2C3E50;   /* --text-dark from homepage */
+  --text-secondary: #5D6D7E;   /* --text-medium from homepage */
+  --text-disabled:  #95A5A6;   /* --text-light from homepage */
 
   /* Skeletons */
-  --skeleton-base:      #EAE8E1;
-  --skeleton-highlight: #F5F4F1;
+  --skeleton-base:      #E2E8F0;
+  --skeleton-highlight: #F1F5F9;
 
-  /* ── Status — LIGHT MODE (vibrant text on soft pastels) ── */
-  --success:    #15803D;   /* Green-700 — strong on white */
-  --success-bg: #DCFCE7;   /* Green-100 */
-  --warning:    #B45309;   /* Amber-700 — strong on white */
-  --warning-bg: #FEF3C7;   /* Amber-100 */
-  --danger:     #B91C1C;   /* Red-700 — strong on white */
-  --danger-bg:  #FEE2E2;   /* Red-100 */
-  --info:       #1D4ED8;   /* Blue-700 — strong on white */
-  --info-bg:    #DBEAFE;   /* Blue-100 */
-  --purple:     #7C3AED;   /* Violet-600 */
-  --purple-bg:  #EDE9FE;   /* Violet-100 */
+  /* ── Status — LIGHT MODE ── */
+  --success:    #27AE60;   /* Secondary Green from homepage */
+  --success-bg: #E8F8F0;   
+  --warning:    #F5A623;   /* Primary Gold from homepage */
+  --warning-bg: #FEF6E8;   
+  --danger:     #E74C3C;   /* Secondary Red from homepage */
+  --danger-bg:  #FDEDED;   
+  --info:       #2D7D9A;   /* Teal */
+  --info-bg:    #E6F0F4;   
+  --purple:     #8E44AD;   /* Secondary Purple */
+  --purple-bg:  #F4EAF7;   
 
   /* ── Payment Modes — LIGHT MODE ─────────────────────────── */
-  --pay-cash:    #0F766E;   /* Teal-700 */
-  --pay-cash-bg: #CCFBF1;   /* Teal-100 */
-  --pay-upi:     #0E7490;   /* Cyan-700 */
-  --pay-upi-bg:  #CFFAFE;   /* Cyan-100 */
-  --pay-card:    #475569;   /* Slate-600 */
-  --pay-card-bg: #E2E8F0;   /* Slate-200 */
-  --pay-bank:    #0369A1;   /* Sky-700 */
-  --pay-bank-bg: #E0F2FE;   /* Sky-100 */
+  --pay-cash:    #27AE60;   
+  --pay-cash-bg: #E8F8F0;   
+  --pay-upi:     #2D7D9A;   
+  --pay-upi-bg:  #E6F0F4;   
+  --pay-card:    #8E44AD;   
+  --pay-card-bg: #F4EAF7;   
+  --pay-bank:    #1A3A5C;   
+  --pay-bank-bg: #E3E8EC;   
 }
 
 /* ── 3. DARK MODE VARIABLES (.dark) ───────────────────────── */
 .dark {
-  /* Brand — PREMIUM GOLD */
-  --primary:        #FACC15;              /* Yellow-400 — vivid gold on black */
-  --primary-hover:  #EAB308;              /* Yellow-500 */
-  --primary-subtle: rgba(250,204,21,0.12);/* Subtle gold tint */
+  /* Brand - Adapted for dark mode */
+  --primary:        #3FA6C8;              /* Lighter Teal for dark mode */
+  --primary-hover:  #2D7D9A;              /* Regular Teal */
+  --primary-subtle: rgba(45, 125, 154, 0.15); /* Subtle Teal tint */
 
   /* ── Surface Elevation Scale — 5-step depth ladder ────────
      Each step is +0x0E brighter (14 units) for clear depth.
@@ -160,40 +159,40 @@
   --bg-overlay:  #262626;   /* Layer 3 — modals, dialogs, drawers  */
   --bg-popover:  #323232;   /* Layer 4 — dropdowns, tooltips       */
 
-  /* Borders — subtle warm-tinted */
-  --border:       #2A2A2A;   /* Slightly warm dark border */
-  --border-focus: #FACC15;   /* Gold focus ring */
+  /* Borders — subtle cool-tinted */
+  --border:       #2A303C;   /* Slightly cool dark border */
+  --border-focus: #3FA6C8;   /* Teal focus ring */
 
   /* Text — cool-white for premium feel */
-  --text-primary:   #F4F4F5;   /* Zinc-100 — near white, not blinding */
-  --text-secondary: #A1A1AA;   /* Zinc-400 — readable muted         */
-  --text-disabled:  #52525B;   /* Zinc-600 — clearly disabled       */
+  --text-primary:   #F8F9FA;   
+  --text-secondary: #94A3B8;   
+  --text-disabled:  #64748B;   
 
   /* Skeletons */
-  --skeleton-base:      #1C1C1C;
-  --skeleton-highlight: #2E2E2E;
+  --skeleton-base:      #1E293B;
+  --skeleton-highlight: #334155;
 
-  /* ── Status — DARK MODE (vivid on dark) ─────────────────── */
-  --success:    #4ADE80;   /* Green-400 — vivid on dark bg */
-  --success-bg: #052E16;   /* Green-950 */
-  --warning:    #FBBF24;   /* Amber-400 */
-  --warning-bg: #1C1000;   /* Deep amber bg */
-  --danger:     #F87171;   /* Red-400 — vivid on dark bg */
-  --danger-bg:  #1A0000;   /* Deep red bg */
-  --info:       #60A5FA;   /* Blue-400 */
-  --info-bg:    #0C1A3A;   /* Deep blue bg */
-  --purple:     #C084FC;   /* Purple-400 */
-  --purple-bg:  #200040;   /* Deep purple bg */
+  /* ── Status — DARK MODE ─────────────────── */
+  --success:    #4ADE80;   
+  --success-bg: #052E16;   
+  --warning:    #F5A623;   
+  --warning-bg: #1C1000;   
+  --danger:     #F87171;   
+  --danger-bg:  #1A0000;   
+  --info:       #3FA6C8;   
+  --info-bg:    #0C2E3C;   
+  --purple:     #C084FC;   
+  --purple-bg:  #200040;   
 
   /* ── Payment Modes — DARK MODE ──────────────────────────── */
-  --pay-cash:    #5EEAD4;   /* Teal-300 */
-  --pay-cash-bg: #0A2922;   /* Deep Teal */
-  --pay-upi:     #67E8F9;   /* Cyan-300 */
-  --pay-upi-bg:  #08282E;   /* Deep Cyan */
-  --pay-card:    #94A3B8;   /* Slate-400 */
-  --pay-card-bg: #0F172A;   /* Slate-900 */
-  --pay-bank:    #38BDF8;   /* Sky-400 */
-  --pay-bank-bg: #08202E;   /* Deep Sky */
+  --pay-cash:    #4ADE80;   
+  --pay-cash-bg: #052E16;   
+  --pay-upi:     #3FA6C8;   
+  --pay-upi-bg:  #0C2E3C;   
+  --pay-card:    #A78BFA;   
+  --pay-card-bg: #2E1065;   
+  --pay-bank:    #60A5FA;   
+  --pay-bank-bg: #1E3A8A;   
 }
 
 /* ── 4. BASE STYLES ───────────────────────────────────────── */
@@ -250,7 +249,7 @@ body {
   border-right: 1px solid var(--border);
 }
 
-/* Light mode sidebar gets a faint warm shadow */
+/* Light mode sidebar gets a faint shadow */
 .sidebar-shadow {
   box-shadow: 2px 0 8px rgba(0,0,0,0.04);
 }
@@ -261,45 +260,45 @@ body {
 
 /* ── 8. TABLE STYLES ─────────────────────────────────────── */
 
-/* Table header: faint gold wash */
+/* Table header: faint primary wash */
 .table-header {
-  background: rgba(217, 119, 6, 0.04);
+  background: rgba(45, 125, 154, 0.04);
   border-bottom: 2px solid var(--border);
 }
 .dark .table-header {
-  background: rgba(250, 204, 21, 0.04);
+  background: rgba(63, 166, 200, 0.04);
 }
 
 /* Row hover */
 .table-row-hover:hover {
-  background: rgba(217, 119, 6, 0.05);
+  background: rgba(45, 125, 154, 0.05);
 }
 .dark .table-row-hover:hover {
-  background: rgba(250, 204, 21, 0.06);
+  background: rgba(63, 166, 200, 0.06);
 }
 
 /* ── 9. KPI CARD GRADIENT (Design §5a) ───────────────────── */
 .kpi-gradient {
   background: linear-gradient(
     160deg,
-    rgba(217, 119, 6, 0.07) 0%,
+    rgba(45, 125, 154, 0.07) 0%,
     rgba(255, 255, 255, 0.00) 70%
   );
 }
 .dark .kpi-gradient {
   background: linear-gradient(
     160deg,
-    rgba(250, 204, 21, 0.08) 0%,
+    rgba(63, 166, 200, 0.08) 0%,
     rgba(255, 255, 255, 0.00) 70%
   );
 }
 
-/* ── 10. ACTIVE NAV GOLD GLOW (sidebar active items) ──────── */
+/* ── 10. ACTIVE NAV PRIMARY GLOW (sidebar active items) ──────── */
 .nav-active-glow {
-  box-shadow: 0 0 16px rgba(250, 204, 21, 0.12);
+  box-shadow: 0 0 16px rgba(45, 125, 154, 0.12);
 }
 .dark .nav-active-glow {
-  box-shadow: 0 0 18px rgba(250, 204, 21, 0.18);
+  box-shadow: 0 0 18px rgba(63, 166, 200, 0.18);
 }
 
 /* ── 11. PREMIUM SCROLLBARS ─────────────────────────────── */
@@ -320,11 +319,11 @@ body {
 
 /* ── 12. TEXT SELECTION ────────────────────────────────────── */
 ::selection {
-  background-color: rgba(217, 119, 6, 0.2);
+  background-color: rgba(45, 125, 154, 0.2);
   color: var(--text-primary);
 }
 .dark ::selection {
-  background-color: rgba(250, 204, 21, 0.25);
+  background-color: rgba(63, 166, 200, 0.25);
 }
 
 /* ── 13. SKELETON SHIMMER ────────────────────────────────── */

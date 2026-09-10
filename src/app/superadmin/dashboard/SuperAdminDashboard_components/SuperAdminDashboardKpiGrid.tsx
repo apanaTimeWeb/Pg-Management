@@ -21,21 +21,22 @@ export const SuperAdminDashboardKpiGrid: React.FC<SuperAdminDashboardKpiGridProp
       {kpis.map((kpi, i) => (
         <div
           key={(kpi as any).id || (kpi as any).name || (kpi as any).title || i}
-          className="card bg-card border border p-5 rounded-[var(--radius-lg,12px)] shadow-sm flex flex-col justify-between min-h-[120px] group motion-safe:hover:-translate-y-1 hover:shadow-md motion-safe:transition-all"
+          className="card bg-card border border p-5 rounded-2xl shadow-sm flex flex-col justify-between min-h-[120px] group motion-safe:hover:-translate-y-1 hover:shadow-md hover:border-[var(--primary)] motion-safe:transition-all relative overflow-hidden"
         >
-          <div>
+          <div className="absolute top-0 right-0 w-16 h-16 rounded-bl-full opacity-10 bg-gradient-to-br from-transparent to-current text-[var(--primary)]"></div>
+          <div className="relative z-10">
             <div className="flex items-center gap-3 mb-4">
-              <div className={`w-10 h-10 rounded-[var(--radius-md,8px)] flex items-center justify-center ${kpi.bg} bg-opacity-20`}>
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${kpi.bg} bg-opacity-20`}>
                 <kpi.icon className={`w-6 h-6 ${kpi.color}`} />
               </div>
               <span className="text-[11px] font-bold text-secondary tracking-wider">
                 {kpi.label}
               </span>
             </div>
-            <div className="text-[28px] font-bold text-primary leading-none">{kpi.value}</div>
+            <div className="text-3xl font-extrabold text-primary leading-none tracking-tight">{kpi.value}</div>
           </div>
           {kpi.trend && (
-            <div className={`text-xs mt-4 font-medium ${kpi.trendUp === true ? 'text-success' : kpi.trendUp === false ? 'text-danger' : 'text-secondary'}`}>
+            <div className={`text-xs mt-4 font-semibold ${kpi.trendUp === true ? 'text-success' : kpi.trendUp === false ? 'text-danger' : 'text-secondary'}`}>
               {kpi.trendUp === true ? '↑ ' : kpi.trendUp === false ? '↓ ' : ''}{kpi.trend}
             </div>
           )}
