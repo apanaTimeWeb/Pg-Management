@@ -1,5 +1,5 @@
-import { AlertTriangle, CheckCircle, Truck } from 'lucide-react';
-
+import React from 'react';
+import { Truck, CheckCircle, Store } from 'lucide-react';
 import { Pagination } from '@/components/ui/Pagination';
 
 export function StaffCookIncomingTab({
@@ -22,48 +22,109 @@ export function StaffCookIncomingTab({
   setIncomingPage: (page: number) => void;
 }) {
   return (
-    <div className="space-y-4">
-      <div className="bg-primary-bg border border-primary border-opacity-20 rounded-xl p-4 mb-6">
-        <h3 className="font-bold text-primary mb-1 flex items-center gap-2"><AlertTriangle className="w-4 h-4"/> Verify Deliveries</h3>
-        <p className="text-sm text-primary opacity-80">The manager has purchased these items. Please check the packets, enter their expiry dates, and add them to your live stock.</p>
+    <div className="space-y-6">
+      
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        {/* Incoming Deliveries */}
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex flex-col">
+          <div className="p-5 border-b border-gray-100 bg-[#F8F9FA] flex justify-between items-center">
+             <h3 className="font-bold text-gray-800 flex items-center gap-2">
+               <Truck className="w-5 h-5 text-[#8E44AD]" /> Incoming Deliveries
+             </h3>
+             <span className="bg-[#8E44AD] text-white text-xs px-2 py-1 rounded-full font-bold">{incomingDeliveries.length} Pending</span>
+          </div>
+          <div className="p-0 flex-1 overflow-x-auto">
+             <table className="w-full text-sm text-left">
+              <thead className="bg-[#F8F9FA] text-gray-600 border-b border-gray-100">
+                <tr>
+                  <th className="px-4 py-3 font-bold">Item</th>
+                  <th className="px-4 py-3 font-bold">Qty</th>
+                  <th className="px-4 py-3 font-bold">Expiry Date</th>
+                  <th className="px-4 py-3 font-bold text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {paginatedIncomingDeliveries.map(req => (
+                   <tr key={req.id} className="hover:bg-gray-50">
+                     <td className="px-4 py-3 font-medium text-gray-800">{req.itemName}</td>
+                     <td className="px-4 py-3 text-gray-600">{req.quantityRequested} {req.unit}</td>
+                     <td className="px-4 py-3">
+                       <input 
+                         type="date" 
+                         value={expiryDates[req.id] || ''}
+                         onChange={(e) => setExpiryDates({...expiryDates, [req.id]: e.target.value})}
+                         className="border border-gray-200 rounded p-1 text-xs outline-none focus:border-[#3498DB]" 
+                       />
+                     </td>
+                     <td className="px-4 py-3 text-right">
+                       <button onClick={() => handleVerifyReceipt(req.id, req.quantityRequested, req.unit)} className="bg-[#27AE60] text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-green-600 flex items-center gap-1 inline-flex">
+                         <CheckCircle className="w-3 h-3"/> Receive
+                       </button>
+                     </td>
+                   </tr>
+                ))}
+                {incomingDeliveries.length === 0 && (
+                   <tr className="hover:bg-gray-50">
+                     <td colSpan={4} className="px-4 py-8 text-center text-gray-500">No incoming deliveries at the moment</td>
+                   </tr>
+                )}
+              </tbody>
+             </table>
+          </div>
+          {incomingTotalPages > 1 && (
+            <div className="p-4 border-t border-gray-100">
+              <Pagination currentPage={incomingPage} totalPages={incomingTotalPages} onPageChange={setIncomingPage} />
+            </div>
+          )}
+        </div>
+
+        {/* Vendor Management */}
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex flex-col">
+          <div className="p-5 border-b border-gray-100 bg-[#F8F9FA] flex justify-between items-center">
+             <h3 className="font-bold text-gray-800 flex items-center gap-2">
+               <Store className="w-5 h-5 text-[#3498DB]" /> Vendor Management
+             </h3>
+             <button className="text-xs bg-white border border-gray-200 px-3 py-1.5 rounded-lg font-bold text-[#3498DB] hover:bg-blue-50">
+               + Add Vendor
+             </button>
+          </div>
+          <div className="p-0 flex-1 overflow-x-auto">
+             <table className="w-full text-sm text-left">
+              <thead className="bg-[#F8F9FA] text-gray-600 border-b border-gray-100">
+                <tr>
+                  <th className="px-4 py-3 font-bold">Vendor</th>
+                  <th className="px-4 py-3 font-bold">Category</th>
+                  <th className="px-4 py-3 font-bold">Rating</th>
+                  <th className="px-4 py-3 font-bold text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                 <tr className="hover:bg-gray-50">
+                   <td className="px-4 py-3 font-medium text-gray-800">Ram General</td>
+                   <td className="px-4 py-3 text-gray-600">Grains</td>
+                   <td className="px-4 py-3 font-bold text-[#F39C12]">4.5 ⭐</td>
+                   <td className="px-4 py-3 text-right">
+                     <button className="text-[#3498DB] hover:underline font-medium text-xs mr-3">View</button>
+                     <button className="bg-[#3498DB] text-white px-2 py-1 rounded-md text-xs font-bold hover:bg-blue-600">Order</button>
+                   </td>
+                 </tr>
+                 <tr className="hover:bg-gray-50">
+                   <td className="px-4 py-3 font-medium text-gray-800">Sharma Store</td>
+                   <td className="px-4 py-3 text-gray-600">Veg</td>
+                   <td className="px-4 py-3 font-bold text-[#F39C12]">4.8 ⭐</td>
+                   <td className="px-4 py-3 text-right">
+                     <button className="text-[#3498DB] hover:underline font-medium text-xs mr-3">View</button>
+                     <button className="bg-[#3498DB] text-white px-2 py-1 rounded-md text-xs font-bold hover:bg-blue-600">Order</button>
+                   </td>
+                 </tr>
+              </tbody>
+             </table>
+          </div>
+        </div>
+
       </div>
 
-      {paginatedIncomingDeliveries.map(req => (
-        <div key={req.id} className="bg-card border border-border rounded-2xl p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <h3 className="text-lg font-bold text-primary">{req.itemName}</h3>
-            <p className="text-sm font-medium text-secondary">Purchased: <span className="text-primary">{req.purchasedQuantity || req.quantityRequested} {req.unit}</span></p>
-            {req.purchaseDate && <p className="text-xs text-secondary">Date: {new Date(req.purchaseDate).toLocaleDateString()}</p>}
-          </div>
-
-          <div className="flex items-center gap-3 bg-input p-2 rounded-xl border border-border">
-            <div className="flex flex-col">
-              <label className="text-[10px] uppercase font-bold text-secondary mb-1 ml-1">Expiry Date (From Packet)</label>
-              <input 
-                type="date"
-                value={expiryDates[req.id] || ''}
-                onChange={e => setExpiryDates({...expiryDates, [req.id]: e.target.value})}
-                className="bg-card border border-border rounded-lg p-2 text-sm text-primary"
-              />
-            </div>
-            <button 
-              onClick={() => handleVerifyReceipt(req.id, req.purchasedQuantity || req.quantityRequested, req.unit)}
-              className="bg-success text-white px-4 py-2 mt-4 rounded-lg text-sm font-bold hover:bg-green-600 motion-safe:transition-colors flex items-center gap-2 whitespace-nowrap"
-            >
-              <CheckCircle className="w-4 h-4" /> Verify & Add
-            </button>
-          </div>
-        </div>
-      ))}
-
-      {incomingDeliveries.length === 0 && (
-        <div className="text-center p-12 text-secondary bg-card border border-border rounded-3xl">
-          <Truck className="w-12 h-12 mx-auto mb-3 opacity-20" />
-          <p className="font-medium text-lg">No incoming deliveries</p>
-          <p className="text-sm mt-1">Check back later when the manager completes purchases.</p>
-        </div>
-      )}
-      {incomingTotalPages > 1 && <Pagination currentPage={incomingPage} totalPages={incomingTotalPages} onPageChange={setIncomingPage} />}
     </div>
   );
 }

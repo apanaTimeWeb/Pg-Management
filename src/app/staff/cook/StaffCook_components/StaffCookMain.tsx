@@ -1,11 +1,8 @@
 // RESPONSIBILITY: Renders the StaffCookMain component.
 'use client';
 
-// RESPONSIBILITY: Renders the StaffCookMain component.
-'use client';
-
 import { useState, useEffect } from 'react';
-import { CheckCircle, Utensils, ShoppingCart, Truck, Archive, AlertTriangle } from 'lucide-react';
+import { CheckCircle, LayoutDashboard, Utensils, Users, Archive, ShoppingCart, ChefHat, Sparkles, ShieldCheck, MessageSquare, FileBarChart, Settings } from 'lucide-react';
 
 import { useStaffContext } from '@/app/staff/staff_components/StaffContext';
 import { getSession } from '@/app/staff/staff_lib/staff_auth/StaffSession';
@@ -15,14 +12,28 @@ import { authApi as api } from '@/app/staff/staff_lib/staff_api/StaffAuth';
 import { mealsApi } from '@/app/staff/staff_lib/staff_api/StaffMeals';
 import { stockRequestsApi } from '@/app/staff/staff_lib/staff_api/StaffStockRequests';
 import { attendanceApi } from '@/app/owner/owner_lib/owner_api/OwnerAttendance';
-import { Pagination } from '@/components/ui/Pagination';
 
+// Existing Tabs
 import { StaffCookLiveMealsTab } from './StaffCookLiveMealsTab';
 import { StaffCookRequestTab } from './StaffCookRequestTab';
 import { StaffCookIncomingTab } from './StaffCookIncomingTab';
 import { StaffCookLiveStockTab } from './StaffCookLiveStockTab';
 
+// New Tabs
+import { StaffCookDashboardTab } from './StaffCookDashboardTab';
+import { StaffCookMealAttendanceTab } from './StaffCookMealAttendanceTab';
+import { StaffCookMealPrepTab } from './StaffCookMealPrepTab';
+import { StaffCookSpecialReqTab } from './StaffCookSpecialReqTab';
+import { StaffCookHygieneTab } from './StaffCookHygieneTab';
+import { StaffCookFeedbackTab } from './StaffCookFeedbackTab';
+import { StaffCookReportsTab } from './StaffCookReportsTab';
+import { StaffCookSettingsTab } from './StaffCookSettingsTab';
+
 import type { MealStatusType, MealType } from '@/app/staff/staff_lib/staff_api/StaffMeals';
+
+type TabKey = 
+  'dashboard' | 'menu' | 'attendance' | 'inventory' | 'purchase' | 
+  'meal_prep' | 'special_req' | 'hygiene' | 'feedback' | 'reporting' | 'settings';
 
 export function StaffCookMain() {
   const { propertyId } = useStaffContext();
@@ -37,7 +48,7 @@ export function StaffCookMain() {
   const [todayMenu, setTodayMenu] = useState<any>(null);
   const [isPresent, setIsPresent] = useState(false);
   
-  const [activeTab, setActiveTab] = useState<'orders' | 'request' | 'incoming' | 'stock'>('orders');
+  const [activeTab, setActiveTab] = useState<TabKey>('dashboard');
   
   const [formData, setFormData] = useState({ itemName: '', quantityRequested: '', unit: 'kg' });
   const [expiryDates, setExpiryDates] = useState<{ [key: string]: string }>({});
@@ -100,7 +111,7 @@ export function StaffCookMain() {
     
     setFormData({ itemName: '', quantityRequested: '', unit: 'kg' });
     alert('Request sent to manager!');
-    setActiveTab('incoming');
+    setActiveTab('purchase');
     loadData();
   };
 
@@ -127,103 +138,101 @@ export function StaffCookMain() {
   const paginatedStock = liveStock.slice((stockPage - 1) * itemsPerPage, stockPage * itemsPerPage);
   const stockTotalPages = Math.ceil(liveStock.length / itemsPerPage);
 
+  const tabs: { key: TabKey; label: string; icon: React.ReactNode }[] = [
+    { key: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
+    { key: 'menu', label: 'Menu Management', icon: <Utensils className="w-4 h-4" /> },
+    { key: 'attendance', label: 'Meal Attendance', icon: <Users className="w-4 h-4" /> },
+    { key: 'inventory', label: 'Kitchen Inventory', icon: <Archive className="w-4 h-4" /> },
+    { key: 'purchase', label: 'Purchase Requests', icon: <ShoppingCart className="w-4 h-4" /> },
+    { key: 'meal_prep', label: 'Meal Preparation', icon: <ChefHat className="w-4 h-4" /> },
+    { key: 'special_req', label: 'Special Requests', icon: <Sparkles className="w-4 h-4" /> },
+    { key: 'hygiene', label: 'Hygiene & Safety', icon: <ShieldCheck className="w-4 h-4" /> },
+    { key: 'feedback', label: 'Mess Feedback', icon: <MessageSquare className="w-4 h-4" /> },
+    { key: 'reporting', label: 'Reporting', icon: <FileBarChart className="w-4 h-4" /> },
+    { key: 'settings', label: 'Settings', icon: <Settings className="w-4 h-4" /> },
+  ];
+
   return (
-    <div className="space-y-6 pb-20">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div>
-          <h1 className="text-[22px] font-bold text-primary">Cook Dashboard</h1>
-          <p className="text-sm text-secondary">Manage meals, orders, and kitchen stock</p>
-        </div>
+    <div className="space-y-6 pb-20 max-w-[1600px] mx-auto">
+      <div className="flex gap-2 p-2 bg-white rounded-xl w-full overflow-x-auto shadow-sm border border-gray-100 items-center">
+        {tabs.map((tab) => (
+          <button 
+            key={tab.key}
+            onClick={() => setActiveTab(tab.key)} 
+            className={`flex items-center gap-2 px-4 py-2.5 font-bold text-sm rounded-lg motion-safe:transition-all whitespace-nowrap
+              ${activeTab === tab.key 
+                ? 'bg-[#F39C12] text-white shadow-md' 
+                : 'text-gray-600 hover:bg-[#FEF9E7] hover:text-[#D35400]'
+              }`}
+          >
+            {tab.icon} {tab.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="min-h-[500px]">
+        {activeTab === 'dashboard' && (
+          <StaffCookDashboardTab todayMenu={todayMenu} liveStock={liveStock} orders={orders} />
+        )}
         
-        <div className="flex items-center gap-3 bg-card border border-border rounded-md p-2 pr-4 shadow-sm">
-          {isPresent ? (
-            <>
-              <div className="w-10 h-10 rounded bg-success-bg text-success flex items-center justify-center">
-                <CheckCircle className="w-5 h-5" />
-              </div>
-              <div>
-                <p className="text-xs font-bold text-secondary uppercase">Attendance</p>
-                <p className="text-sm font-bold text-success">Marked Present ✅</p>
-              </div>
-            </>
-          ) : (
-            <>
-              <button 
-                onClick={handleMarkPresent}
-                className="bg-primary text-white hover:bg-primary-hover px-6 py-2.5 rounded-md font-bold text-sm motion-safe:transition-colors shadow-sm"
-              >
-                Mark Attendance for Today
-              </button>
-            </>
-          )}
-        </div>
+        {activeTab === 'menu' && (
+          <StaffCookLiveMealsTab
+            todayMenu={todayMenu}
+            mealStatuses={mealStatuses}
+            handleMarkMealReady={handleMarkMealReady}
+            orders={orders}
+            paginatedOrders={paginatedOrders}
+            handleMarkServed={handleMarkServed}
+            ordersPage={ordersPage}
+            ordersTotalPages={ordersTotalPages}
+            setOrdersPage={setOrdersPage}
+          />
+        )}
+        
+        {activeTab === 'attendance' && <StaffCookMealAttendanceTab />}
+        
+        {activeTab === 'inventory' && (
+          <StaffCookLiveStockTab
+            liveStock={liveStock}
+            paginatedStock={paginatedStock}
+            stockPage={stockPage}
+            stockTotalPages={stockTotalPages}
+            setStockPage={setStockPage}
+          />
+        )}
+        
+        {activeTab === 'purchase' && (
+          <div className="space-y-6">
+            <StaffCookRequestTab
+              formData={formData}
+              setFormData={setFormData}
+              handleRequestStock={handleRequestStock}
+              pendingRequests={pendingRequests}
+              paginatedPendingRequests={paginatedPendingRequests}
+              requestsPage={requestsPage}
+              requestsTotalPages={requestsTotalPages}
+              setRequestsPage={setRequestsPage}
+            />
+            <StaffCookIncomingTab
+              incomingDeliveries={incomingDeliveries}
+              paginatedIncomingDeliveries={paginatedIncomingDeliveries}
+              expiryDates={expiryDates}
+              setExpiryDates={setExpiryDates}
+              handleVerifyReceipt={handleVerifyReceipt}
+              incomingPage={incomingPage}
+              incomingTotalPages={incomingTotalPages}
+              setIncomingPage={setIncomingPage}
+            />
+          </div>
+        )}
+        
+        {activeTab === 'meal_prep' && <StaffCookMealPrepTab />}
+        {activeTab === 'special_req' && <StaffCookSpecialReqTab />}
+        {activeTab === 'hygiene' && <StaffCookHygieneTab />}
+        {activeTab === 'feedback' && <StaffCookFeedbackTab />}
+        {activeTab === 'reporting' && <StaffCookReportsTab />}
+        {activeTab === 'settings' && <StaffCookSettingsTab />}
       </div>
-
-      <div className="flex gap-2 p-1 bg-input rounded-lg w-full overflow-x-auto hide-scrollbar border border-border">
-        <button onClick={() => setActiveTab('orders')} className={`flex items-center gap-2 px-5 py-3 font-semibold text-sm border-b-2 motion-safe:transition-colors whitespace-nowrap ${activeTab === 'orders' ? 'border-primary text-primary' : 'border-transparent text-secondary hover:text-primary'}`}>
-          <Utensils className="w-4 h-4" /> Live Meals
-        </button>
-        <button onClick={() => setActiveTab('request')} className={`flex items-center gap-2 px-5 py-3 font-semibold text-sm border-b-2 motion-safe:transition-colors whitespace-nowrap ${activeTab === 'request' ? 'border-primary text-primary' : 'border-transparent text-secondary hover:text-primary'}`}>
-          <ShoppingCart className="w-4 h-4" /> Request Groceries
-        </button>
-        <button onClick={() => setActiveTab('incoming')} className={`flex items-center gap-2 px-5 py-3 font-semibold text-sm border-b-2 motion-safe:transition-colors whitespace-nowrap ${activeTab === 'incoming' ? 'border-primary text-primary' : 'border-transparent text-secondary hover:text-primary'}`}>
-          <Truck className="w-4 h-4" /> Incoming Deliveries
-          {incomingCount > 0 && <span className="bg-danger text-white text-[10px] px-2 py-0.5 rounded-full">{incomingCount}</span>}
-        </button>
-        <button onClick={() => setActiveTab('stock')} className={`flex items-center gap-2 px-5 py-3 font-semibold text-sm border-b-2 motion-safe:transition-colors whitespace-nowrap ${activeTab === 'stock' ? 'border-primary text-primary' : 'border-transparent text-secondary hover:text-primary'}`}>
-          <Archive className="w-4 h-4" /> Live Kitchen Stock
-        </button>
-      </div>
-
-      {activeTab === 'orders' && (
-        <StaffCookLiveMealsTab
-          todayMenu={todayMenu}
-          mealStatuses={mealStatuses}
-          handleMarkMealReady={handleMarkMealReady}
-          orders={orders}
-          paginatedOrders={paginatedOrders}
-          handleMarkServed={handleMarkServed}
-          ordersPage={ordersPage}
-          ordersTotalPages={ordersTotalPages}
-          setOrdersPage={setOrdersPage}
-        />
-      )}
-
-      {activeTab === 'request' && (
-        <StaffCookRequestTab
-          formData={formData}
-          setFormData={setFormData}
-          handleRequestStock={handleRequestStock}
-          pendingRequests={pendingRequests}
-          paginatedPendingRequests={paginatedPendingRequests}
-          requestsPage={requestsPage}
-          requestsTotalPages={requestsTotalPages}
-          setRequestsPage={setRequestsPage}
-        />
-      )}
-
-      {activeTab === 'incoming' && (
-        <StaffCookIncomingTab
-          incomingDeliveries={incomingDeliveries}
-          paginatedIncomingDeliveries={paginatedIncomingDeliveries}
-          expiryDates={expiryDates}
-          setExpiryDates={setExpiryDates}
-          handleVerifyReceipt={handleVerifyReceipt}
-          incomingPage={incomingPage}
-          incomingTotalPages={incomingTotalPages}
-          setIncomingPage={setIncomingPage}
-        />
-      )}
-
-      {activeTab === 'stock' && (
-        <StaffCookLiveStockTab
-          liveStock={liveStock}
-          paginatedStock={paginatedStock}
-          stockPage={stockPage}
-          stockTotalPages={stockTotalPages}
-          setStockPage={setStockPage}
-        />
-      )}
     </div>
   );
 }
