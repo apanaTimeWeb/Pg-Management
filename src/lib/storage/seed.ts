@@ -9,7 +9,7 @@ export function runSeed() {
   if (typeof window === 'undefined') return;
   
   const isSeeded = localStorage.getItem(STORAGE_KEYS.IS_SEEDED);
-  if (isSeeded === 'v16') {
+  if (isSeeded === 'v17') {
     return;
   }
 
@@ -407,6 +407,6 @@ export function runSeed() {
   }));
   db.replaceAll<BaseEntity>('spg_tasks', (tasks) as unknown as BaseEntity[]);
 
-  localStorage.setItem(STORAGE_KEYS.IS_SEEDED, 'v16');
-  console.log('✅ LocalStorage Seeded with Demo Accounts + Cook Data (v16)');
+  localStorage.setItem(STORAGE_KEYS.IS_SEEDED, 'v17');
+  console.log('✅ LocalStorage Seeded with Demo Accounts + Cook Data (v17)');
 }
