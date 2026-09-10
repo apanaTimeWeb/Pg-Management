@@ -88,45 +88,44 @@
 
 /* ── 2. LIGHT MODE VARIABLES (:root) ──────────────────────── */
 :root {
-  /* Brand - Highlight Colors (Buttons, Icons, Active States) */
-  --primary:        #F5A623;   /* Homepage Gold - highly visible highlight */
-  --primary-hover:  #D97706;   /* Darker Gold/Amber for hover */
-  --primary-subtle: #FEF3C7;   /* Amber-100 */
+  /* Brand - Matching Homepage --primary-teal and --primary-navy */
+  --primary:        #2D7D9A;   /* Homepage Teal (Main Buttons) */
+  --primary-hover:  #1A3A5C;   /* Homepage Navy (Button Hover) */
+  --primary-subtle: #E6F0F4;   /* Very light Teal for active states */
 
-  /* ── Surface Elevation Scale ──────────────────────────────
-     Cool/Neutral palette — giving a professional SaaS feel */
-  --bg-page:     #F8F9FA;   /* Matches --bg-light from homepage */
-  --bg-card:     #FFFFFF;   /* Pure white */
-  --bg-sidebar:  #FFFFFF;   /* Pure white sidebar */
-  --bg-header:   #FFFFFF;   /* White header */
-  --bg-input:    #F8F9FA;   /* Slightly off-white */
-  --bg-floating: #FFFFFF;   /* Floating surfaces */
-  --bg-overlay:  #ECF0F1;   /* Matches --bg-medium */
-  --bg-popover:  #FFFFFF;   /* Dropdown background */
+  /* ── Surface Elevation Scale (Matches homepage backgrounds) */
+  --bg-page:     #F8F9FA;   /* Homepage --bg-light */
+  --bg-card:     #FFFFFF;   /* Homepage --primary-white */
+  --bg-sidebar:  #FFFFFF;   /* Homepage --primary-white */
+  --bg-header:   #FFFFFF;   /* Homepage --primary-white */
+  --bg-input:    #F8F9FA;   /* Homepage --bg-light */
+  --bg-floating: #FFFFFF;   
+  --bg-overlay:  #ECF0F1;   /* Homepage --bg-medium */
+  --bg-popover:  #FFFFFF;   
 
-  /* Borders */
-  --border:       #E2E8F0;   /* Slate 200 */
-  --border-focus: #F5A623;   /* Gold focus ring */
+  /* Borders & Focus (Matching homepage style) */
+  --border:       #ECF0F1;   /* Homepage --bg-medium */
+  --border-focus: #2D7D9A;   /* Teal focus ring */
 
-  /* Text - Structural text using Navy to match Homepage */
-  --text-primary:   #1A3A5C;   /* Primary Navy */
-  --text-secondary: #5D6D7E;   /* Medium Blue/Gray */
-  --text-disabled:  #95A5A6;   /* Light Blue/Gray */
+  /* Text - Matching Homepage Text Colors */
+  --text-primary:   #1A3A5C;   /* Homepage --primary-navy (Headings) */
+  --text-secondary: #5D6D7E;   /* Homepage --text-medium */
+  --text-disabled:  #95A5A6;   /* Homepage --text-light */
 
   /* Skeletons */
-  --skeleton-base:      #E2E8F0;
-  --skeleton-highlight: #F1F5F9;
+  --skeleton-base:      #DFE6E9; /* Homepage --bg-dark */
+  --skeleton-highlight: #ECF0F1; /* Homepage --bg-medium */
 
-  /* ── Status — LIGHT MODE ── */
-  --success:    #27AE60;   /* Secondary Green from homepage */
+  /* ── Status — LIGHT MODE (Matches homepage secondary colors) ── */
+  --success:    #27AE60;   /* Homepage --secondary-green */
   --success-bg: #E8F8F0;   
-  --warning:    #F5A623;   /* Primary Gold from homepage */
+  --warning:    #F5A623;   /* Homepage --primary-gold */
   --warning-bg: #FEF6E8;   
-  --danger:     #E74C3C;   /* Secondary Red from homepage */
+  --danger:     #E74C3C;   /* Homepage --secondary-red */
   --danger-bg:  #FDEDED;   
-  --info:       #2D7D9A;   /* Teal */
+  --info:       #2D7D9A;   /* Homepage --primary-teal */
   --info-bg:    #E6F0F4;   
-  --purple:     #8E44AD;   /* Secondary Purple */
+  --purple:     #8E44AD;   /* Homepage --secondary-purple */
   --purple-bg:  #F4EAF7;   
 
   /* ── Payment Modes — LIGHT MODE ─────────────────────────── */
@@ -142,10 +141,10 @@
 
 /* ── 3. DARK MODE VARIABLES (.dark) ───────────────────────── */
 .dark {
-  /* Brand - Highlight Colors (Buttons, Icons) */
-  --primary:        #FACC15;              /* Yellow-400 — vivid gold on black */
-  --primary-hover:  #EAB308;              /* Yellow-500 */
-  --primary-subtle: rgba(250,204,21,0.12);/* Subtle gold tint */
+  /* Brand - Adapted for dark mode */
+  --primary:        #3FA6C8;              /* Lighter Teal for dark mode */
+  --primary-hover:  #2D7D9A;              /* Regular Teal */
+  --primary-subtle: rgba(45, 125, 154, 0.15); /* Subtle Teal tint */
 
   /* ── Surface Elevation Scale — 5-step depth ladder ────────
      Each step is +0x0E brighter (14 units) for clear depth.
@@ -161,7 +160,7 @@
 
   /* Borders — subtle cool-tinted */
   --border:       #2A303C;   /* Slightly cool dark border */
-  --border-focus: #FACC15;   /* Gold focus ring */
+  --border-focus: #3FA6C8;   /* Teal focus ring */
 
   /* Text — cool-white for premium feel */
   --text-primary:   #F8F9FA;   
