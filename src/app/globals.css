@@ -72,12 +72,12 @@
   --color-pay-bank:     var(--pay-bank);
   --color-pay-bank-bg:  var(--pay-bank-bg);
 
-  /* ── Border Radii ────────────────────────────────────────── */
-  --radius-sm:   4px;
-  --radius-md:   8px;
-  --radius-lg:   12px;
-  --radius-xl:   16px;
-  --radius-full: 999px;
+  /* ── Border Radii (Matching homepage.css soft modern look) ─ */
+  --radius-sm:   12px;
+  --radius-md:   16px;
+  --radius-lg:   20px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
 
   /* ── Motion Duration Tokens (Rule 29) ────────────────────── */
   --duration-fast:   150ms;

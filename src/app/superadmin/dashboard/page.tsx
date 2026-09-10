@@ -32,27 +32,24 @@ export default function SuperAdminDashboardPage() {
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="home-theme space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       
-      {/* Premium Header */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[var(--primary)] to-[var(--primary-hover)] p-8 text-white shadow-lg">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl -mr-20 -mt-20"></div>
-        <div className="absolute bottom-0 left-20 w-40 h-40 bg-[var(--warning)] opacity-10 rounded-full blur-2xl -mb-10"></div>
-        
+      {/* Premium Header - Matching Homepage */}
+      <div className="home-card relative overflow-hidden bg-[var(--primary-navy)] p-8 text-white">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight mb-2">Platform Overview</h1>
-            <p className="text-white/80 max-w-xl text-sm leading-relaxed">
+            <h1 className="text-3xl font-bold tracking-tight mb-2" style={{ color: 'var(--primary-white)' }}>Platform Overview</h1>
+            <p className="max-w-xl text-sm leading-relaxed" style={{ color: 'var(--bg-medium)' }}>
               Welcome back, SuperAdmin. Network occupancy is up by 2.1% this week. Revenue generation is stable. Review the KPIs and manage incoming PG owner requests below.
             </p>
           </div>
           <div className="flex gap-3 shrink-0">
-            <Link href="/superadmin/create-owner" className="flex items-center gap-2 bg-white text-[var(--primary-hover)] px-5 py-2.5 rounded-lg font-bold text-sm shadow-md hover:bg-gray-50 transition-all hover:-translate-y-0.5">
-              <PlusCircle className="w-4 h-4" />
+            <Link href="/superadmin/create-owner" className="btn-gold shadow-md hover:-translate-y-0.5">
+              <PlusCircle className="w-4 h-4 mr-2" />
               New Owner
             </Link>
-            <button className="flex items-center gap-2 bg-white/20 text-white px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-white/30 backdrop-blur-sm transition-all hover:-translate-y-0.5 border border-white/20">
-              <Server className="w-4 h-4" />
+            <button className="btn-outline-white shadow-sm hover:-translate-y-0.5">
+              <Server className="w-4 h-4 mr-2" />
               System Status
             </button>
           </div>
