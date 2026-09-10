@@ -57,29 +57,32 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="min-h-screen bg-page flex flex-col md:flex-row">
+    <div className="min-h-screen flex flex-col md:flex-row" style={{ background: 'var(--bg-page)' }}>
       <OwnerForcePasswordChangeModal 
         user={user} 
         onSuccess={() => setForcePasswordChange(false)} 
       />
       
-      {/* Mobile Header */}
-      <div className="md:hidden flex items-center justify-between bg-header/90 backdrop-blur-md p-3 border-b border-border shrink-0 sticky top-0 z-50">
+      {/* Mobile Header - Gradient matching homepage */}
+      <div
+        className="md:hidden flex items-center justify-between p-3 shrink-0 sticky top-0 z-50 shadow-md"
+        style={{ background: 'linear-gradient(135deg, #1A3A5C 0%, #2D7D9A 100%)' }}
+      >
         <div className="flex items-center gap-2">
-          <button onClick={() => setIsMobileMenuOpen(true)} className="text-primary p-1">
+          <button onClick={() => setIsMobileMenuOpen(true)} className="text-white p-1">
             <Menu className="w-6 h-6" />
           </button>
-          <div className="flex items-center gap-1 font-bold text-primary">
-            <Building className="text-primary w-5 h-5 hidden sm:block" />
-            <span className="hidden sm:block">SmartPG Owner</span>
+          <div className="flex items-center gap-1 font-bold text-white">
+            <Building className="text-[#F5A623] w-5 h-5 hidden sm:block" />
+            <span className="hidden sm:block">Smart<span style={{ color: '#F5A623' }}>PG</span></span>
           </div>
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <div className="text-xs font-medium text-secondary max-w-[80px] truncate">
+          <div className="text-xs font-medium text-white/80 max-w-[80px] truncate">
             {user?.name || 'Owner'}
           </div>
-          <button onClick={handleLogout} className="text-xs bg-danger-bg text-danger px-2 py-1.5 rounded-md font-bold flex items-center gap-1">
+          <button onClick={handleLogout} className="text-xs bg-white/15 text-white border border-white/25 px-2 py-1.5 rounded-lg font-bold flex items-center gap-1">
             <LogOut className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -93,31 +96,46 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar - Clean white with teal active items */}
       <aside className={`
-        fixed inset-y-0 left-0 z-50 w-64 bg-sidebar border-r border-border overflow-y-auto shrink-0
+        fixed inset-y-0 left-0 z-50 w-64 overflow-y-auto shrink-0
         transform transition-transform motion-safe:duration-300 motion-safe:ease-in-out
         ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
         md:relative md:translate-x-0 md:sticky md:top-0 md:h-screen
-      `}>
-        <div className="flex items-center justify-between p-6 border-b border-border shrink-0">
-          <div className="flex items-center gap-2 font-bold text-xl text-primary">
-            <Building className="text-primary w-7 h-7" />
-            <span>SmartPG Owner</span>
+      `} style={{ background: 'var(--bg-sidebar)', borderRight: '1px solid var(--border)' }}>
+        {/* Sidebar Header */}
+        <div
+          className="flex items-center justify-between px-5 py-4 shrink-0"
+          style={{ background: 'linear-gradient(135deg, #1A3A5C 0%, #2D7D9A 100%)' }}
+        >
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 bg-white/15 rounded-lg flex items-center justify-center border border-white/20">
+              <Building className="text-[#F5A623] w-4 h-4" />
+            </div>
+            <span className="font-bold text-white text-base">Smart<span style={{ color: '#F5A623' }}>PG</span> <span className="font-normal text-white/60 text-sm">Owner</span></span>
           </div>
-          <button className="md:hidden text-secondary" onClick={() => setIsMobileMenuOpen(false)}>
+          <button className="md:hidden text-white/70 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>
             <X className="w-5 h-5" />
           </button>
         </div>
-        <nav className="p-4 space-y-1">
+        {/* Nav section label */}
+        <div className="px-4 pt-4 pb-2">
+          <span className="text-[10px] font-bold tracking-widest uppercase text-secondary">Menu</span>
+        </div>
+        <nav className="px-3 pb-8 space-y-0.5">
           {NAV_ITEMS.map((item: any) => {
             const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
             const label = item.label || t(item.key as DictKey);
             return (
               <Link key={item.href} href={item.href} onClick={() => setIsMobileMenuOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium motion-safe:transition-colors ${isActive ? 'bg-primary-subtle text-primary border-l-4 border-primary' : 'text-secondary hover:bg-page hover:text-primary'}`}
+                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold motion-safe:transition-all ${
+                  isActive
+                    ? 'text-white shadow-md'
+                    : 'text-secondary hover:bg-page hover:text-primary'
+                }`}
+                style={isActive ? { background: '#2D7D9A' } : {}}
               >
-                <item.icon className="w-5 h-5" />
+                <item.icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-secondary'}`} />
                 {label}
               </Link>
             );
@@ -127,33 +145,32 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col min-w-0">
-        <header className="hidden md:flex h-16 bg-header border-b border-border items-center px-6 justify-between shrink-0 sticky top-0 z-20 backdrop-blur-md bg-opacity-80">
-          <h2 className="text-lg font-semibold text-primary capitalize">
-            {pathname.split('/')[2]?.replace('-', ' ') || 'Dashboard'}
+        {/* Desktop Header - gradient matching homepage */}
+        <header
+          className="hidden md:flex h-16 items-center px-6 justify-between shrink-0 sticky top-0 z-20 shadow-md"
+          style={{ background: 'linear-gradient(135deg, #1A3A5C 0%, #2D7D9A 100%)' }}
+        >
+          <h2 className="text-base font-bold text-white capitalize tracking-wide">
+            {pathname.split('/')[2]?.replace(/-/g, ' ') || 'Dashboard'}
           </h2>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <ThemeToggle />
             {/* Language Switcher */}
-            <div className="flex items-center bg-input border border-border rounded-md overflow-hidden text-xs font-bold">
+            <div className="flex items-center bg-white/10 border border-white/20 rounded-lg overflow-hidden text-xs font-bold">
               <button 
                 onClick={() => setLang('en')}
-                className={`px-3 py-1.5 motion-safe:transition-colors ${lang === 'en' ? 'bg-primary text-white' : 'text-secondary hover:text-primary'}`}
-              >
-                EN
-              </button>
+                className={`px-3 py-1.5 transition-colors ${lang === 'en' ? 'bg-white/25 text-white' : 'text-white/60 hover:text-white'}`}
+              >EN</button>
               <button 
                 onClick={() => setLang('hi')}
-                className={`px-3 py-1.5 motion-safe:transition-colors ${lang === 'hi' ? 'bg-primary text-white' : 'text-secondary hover:text-primary'}`}
-              >
-                हिं
-              </button>
+                className={`px-3 py-1.5 transition-colors ${lang === 'hi' ? 'bg-white/25 text-white' : 'text-white/60 hover:text-white'}`}
+              >हिं</button>
             </div>
-
             {/* Property Switcher */}
-            <div className="flex items-center gap-2 bg-input border border-border rounded-md px-3 py-1.5">
-              <Building2 className="w-4 h-4 text-secondary shrink-0" />
+            <div className="flex items-center gap-2 bg-white/10 border border-white/20 rounded-lg px-3 py-1.5">
+              <Building2 className="w-4 h-4 text-white/70 shrink-0" />
               <select 
-                className="bg-transparent text-sm font-medium text-primary outline-none cursor-pointer w-full max-w-[150px] truncate"
+                className="bg-transparent text-sm font-semibold text-white outline-none cursor-pointer w-full max-w-[130px] truncate"
                 value={selectedPropertyId}
                 onChange={(e) => setSelectedPropertyId(e.target.value)}
               >
@@ -163,17 +180,17 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
                 ))}
               </select>
             </div>
-
-            <div className="text-sm text-secondary">
-              Owner: <strong className="text-primary">{user?.name}</strong>
+            <div className="text-xs text-white/70">
+              👤 <strong className="text-white">{user?.name}</strong>
             </div>
-            <button onClick={handleLogout} className="text-sm bg-page border border-border px-4 py-2 rounded-md text-danger font-medium hover:bg-danger-bg hover:text-danger motion-safe:transition-all">
+            <button onClick={handleLogout} className="flex items-center gap-1.5 text-xs font-bold bg-white/15 text-white border border-white/25 hover:bg-white/25 px-3 py-1.5 rounded-lg transition-all">
+              <LogOut className="w-3.5 h-3.5" />
               {t('logout')}
             </button>
           </div>
         </header>
         
-        <div className="flex-1 p-4 md:p-6 text-primary overflow-x-hidden">
+        <div className="flex-1 p-4 md:p-6 overflow-x-hidden" style={{ color: 'var(--text-primary)' }}>
           {children}
         </div>
       </main>

@@ -154,16 +154,18 @@ export function StaffCookMain() {
 
   return (
     <div className="space-y-6 pb-20 max-w-[1600px] mx-auto">
-      <div className="flex gap-2 p-2 bg-white rounded-xl w-full overflow-x-auto shadow-sm border border-gray-100 items-center">
+      {/* Tab Bar - Matching homepage Teal palette */}
+      <div className="flex gap-1.5 p-1.5 rounded-2xl w-full overflow-x-auto border shadow-sm items-center" style={{ background: 'var(--bg-card)', borderColor: 'var(--border)' }}>
         {tabs.map((tab) => (
           <button 
             key={tab.key}
             onClick={() => setActiveTab(tab.key)} 
-            className={`flex items-center gap-2 px-4 py-2.5 font-bold text-sm rounded-lg motion-safe:transition-all whitespace-nowrap
+            className={`flex items-center gap-2 px-4 py-2.5 font-bold text-sm rounded-xl motion-safe:transition-all whitespace-nowrap
               ${activeTab === tab.key 
-                ? 'bg-[#F39C12] text-white shadow-md' 
-                : 'text-gray-600 hover:bg-[#FEF9E7] hover:text-[#D35400]'
+                ? 'text-white shadow-md' 
+                : 'text-secondary hover:bg-[#E6F0F4] hover:text-[#2D7D9A]'
               }`}
+            style={activeTab === tab.key ? { background: '#2D7D9A' } : {}}
           >
             {tab.icon} {tab.label}
           </button>
