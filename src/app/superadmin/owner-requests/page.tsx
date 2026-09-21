@@ -16,15 +16,15 @@ export default function SuperAdminOwnerRequestsPage() {
   const actionsHook = SuperadminUseSuperAdminOwnerRequestsActions(dataHook.refetch);
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div className="space-y-6 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[var(--border)] pb-6">
         <div>
-          <h1 className="text-[22px] font-bold text-primary">Owner Requests</h1>
-          <p className="text-secondary text-[14px]">Manage incoming inquiries for new PGs.</p>
+          <h1 className="text-3xl font-bold tracking-tight text-[var(--text-primary)]">Owner Requests</h1>
+          <p className="text-[var(--text-secondary)] text-sm mt-1">Manage incoming inquiries for new PGs.</p>
         </div>
       </div>
 
-      <div className="bg-card border border rounded-[var(--radius-lg,12px)] shadow-sm">
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl shadow-sm overflow-hidden">
         <SuperAdminOwnerRequestsFilters 
           filter={dataHook.filter}
           setFilter={dataHook.setFilter}

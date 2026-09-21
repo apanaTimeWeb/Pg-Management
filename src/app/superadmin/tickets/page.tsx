@@ -31,10 +31,11 @@ export default function TicketsPage() {
   } = SuperadminUseSuperAdminTicketsActions(refetch);
 
   return (
-    <div className="space-y-6 pb-20">
+    <div className="space-y-6 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <SuperAdminTicketsHeader onCreateClick={() => setCreateModal(true)} />
       
-      <SuperAdminTicketsTable 
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl shadow-sm overflow-hidden">
+        <SuperAdminTicketsTable 
         tickets={tickets}
         owners={owners}
         loading={loading}
@@ -45,6 +46,7 @@ export default function TicketsPage() {
         onPageChange={setCurrentPage}
         onStatusChange={handleStatusChange}
       />
+      </div>
 
       <SuperAdminTicketsCreateModal 
         isOpen={createModal}

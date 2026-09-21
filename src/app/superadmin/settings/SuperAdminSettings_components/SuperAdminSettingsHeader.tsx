@@ -5,9 +5,9 @@ import type { SuperAdminSettingsHeaderProps } from '@/app/superadmin/settings/Su
 
 export const SuperAdminSettingsHeader: React.FC<SuperAdminSettingsHeaderProps> = () => {
   return (
-    <div>
-      <h1 className="text-[22px] font-bold text-primary">Platform Settings</h1>
-      <p className="text-secondary text-sm">Configure core behaviors for the SmartPG network.</p>
+    <div className="border-b border-[var(--border)] pb-6">
+      <h1 className="text-3xl font-bold tracking-tight text-[var(--text-primary)]">Platform Settings</h1>
+      <p className="text-[var(--text-secondary)] text-sm mt-1">Configure core behaviors for the SmartPG network.</p>
     </div>
   );
 };

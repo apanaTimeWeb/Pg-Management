@@ -24,10 +24,10 @@ export default function AuditLogsPage() {
   if (loading) return null; // Let loading.tsx handle it
 
   return (
-    <div className="space-y-6 pb-20">
+    <div className="space-y-6 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <SuperAdminAuditLogsHeader />
 
-      <div className="bg-card border border rounded-[var(--radius-lg,12px)] shadow-sm">
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl shadow-sm overflow-hidden">
         <SuperAdminAuditLogsFilters 
           search={search} 
           setSearch={setSearch} 

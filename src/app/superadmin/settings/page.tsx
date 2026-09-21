@@ -15,7 +15,7 @@ export default function PlatformSettingsPage() {
   if (loading || !settings) return null; // Let loading.tsx handle it
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 pb-20">
+    <div className="max-w-4xl mx-auto space-y-6 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <SuperAdminSettingsHeader />
 
       <SuperAdminSettingsForm 

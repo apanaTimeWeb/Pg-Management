@@ -8,10 +8,10 @@ export const SuperAdminSettingsForm: React.FC<SuperAdminSettingsFormProps> = ({ 
   return (
     <form onSubmit={handleSave} className="space-y-6">
       {/* Security & Access */}
-      <div className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm">
-        <div className="bg-page border-b border p-4 flex items-center gap-2">
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl overflow-hidden shadow-sm">
+        <div className="bg-[var(--bg-page)] border-b border-[var(--border)] p-4 flex items-center gap-2">
           <ShieldAlert className="w-5 h-5 text-primary" />
-          <h2 className="font-bold text-primary">Security & Operations</h2>
+          <h2 className="font-bold text-[var(--text-primary)]">Security & Operations</h2>
         </div>
         <div className="p-6 space-y-4">
           <label className="flex items-center gap-3 p-3 border border rounded-[var(--radius-md,8px)] hover:bg-page motion-safe:transition-colors cursor-pointer">
@@ -43,10 +43,10 @@ export const SuperAdminSettingsForm: React.FC<SuperAdminSettingsFormProps> = ({ 
       </div>
 
       {/* Defaults */}
-      <div className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm">
-        <div className="bg-page border-b border p-4 flex items-center gap-2">
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl overflow-hidden shadow-sm">
+        <div className="bg-[var(--bg-page)] border-b border-[var(--border)] p-4 flex items-center gap-2">
           <Clock className="w-5 h-5 text-primary" />
-          <h2 className="font-bold text-primary">System Defaults</h2>
+          <h2 className="font-bold text-[var(--text-primary)]">System Defaults</h2>
         </div>
         <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
@@ -72,10 +72,10 @@ export const SuperAdminSettingsForm: React.FC<SuperAdminSettingsFormProps> = ({ 
       </div>
 
       {/* Communication */}
-      <div className="bg-card border border rounded-[var(--radius-lg,12px)] overflow-hidden shadow-sm">
-        <div className="bg-page border-b border p-4 flex items-center gap-2">
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl overflow-hidden shadow-sm">
+        <div className="bg-[var(--bg-page)] border-b border-[var(--border)] p-4 flex items-center gap-2">
           <Smartphone className="w-5 h-5 text-primary" />
-          <h2 className="font-bold text-primary">Communication & Support</h2>
+          <h2 className="font-bold text-[var(--text-primary)]">Communication & Support</h2>
         </div>
         <div className="p-6 space-y-6">
           <div>
@@ -102,14 +102,14 @@ export const SuperAdminSettingsForm: React.FC<SuperAdminSettingsFormProps> = ({ 
         </div>
       </div>
 
-      <div className="flex items-center justify-between pt-4 border-t border">
-        <div className="flex items-center gap-2 text-secondary text-sm">
+      <div className="flex items-center justify-between pt-6 border-t border-[var(--border)] mt-8">
+        <div className="flex items-center gap-2 text-[var(--text-secondary)] text-sm">
           <Info className="w-4 h-4" /> Changes take effect instantly across the network.
         </div>
         <button 
           type="submit" 
           disabled={saving} 
-          className="flex items-center gap-2 bg-primary text-white px-6 py-2.5 rounded-[var(--radius-md,8px)] font-medium hover:bg-primary-hover motion-safe:transition-colors disabled:opacity-50 shadow-sm"
+          className="flex items-center gap-2 bg-[#4F46E5] text-white px-6 py-2.5 rounded-xl font-semibold hover:bg-[#4338CA] transition-colors disabled:opacity-50 shadow-sm focus:ring-2 focus:ring-[#4F46E5] focus:outline-none"
         >
           <Save className="w-4 h-4" /> {saving ? 'Saving...' : 'Save Settings'}
         </button>

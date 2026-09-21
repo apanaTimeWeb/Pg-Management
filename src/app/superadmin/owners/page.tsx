@@ -17,21 +17,21 @@ export default function SuperAdminOwnersDirectoryPage() {
   };
 
   return (
-    <div className="space-y-6 pb-20">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div className="space-y-6 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[var(--border)] pb-6">
         <div>
-          <h1 className="text-[22px] font-bold text-primary">PG Owners Directory</h1>
-          <p className="text-secondary text-sm">Manage registered owners and their platform usage.</p>
+          <h1 className="text-3xl font-bold tracking-tight text-[var(--text-primary)]">PG Owners Directory</h1>
+          <p className="text-[var(--text-secondary)] text-sm mt-1">Manage registered owners and their platform usage.</p>
         </div>
         <Link 
           href="/superadmin/create-owner" 
-          className="bg-primary text-white px-4 py-2 rounded-[var(--radius-md,8px)] text-sm font-medium hover:bg-primary-hover motion-safe:transition-colors shadow-sm"
+          className="inline-flex items-center gap-2 bg-[#4F46E5] text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-[#4338CA] transition-all shadow-sm focus:ring-2 focus:ring-[#4F46E5] focus:outline-none"
         >
           + Add New Owner
         </Link>
       </div>
 
-      <div className="bg-card border border rounded-[var(--radius-lg,12px)] shadow-sm">
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl shadow-sm overflow-hidden">
         <SuperAdminOwnersFilters 
           statusFilter={dataHook.statusFilter}
           setStatusFilter={dataHook.setStatusFilter}

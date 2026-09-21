@@ -17,10 +17,10 @@ export const SuperAdminOwnersTable: React.FC<SuperAdminOwnersTableProps> = ({
   onRowClick
 }) => {
   return (
-    <div className="bg-card border border rounded-[var(--radius-lg,12px)] shadow-sm">
-      <div className="overflow-x-auto max-h-[60vh] custom-scrollbar">
+    <>
+      <div className="overflow-x-auto max-h-[65vh] custom-scrollbar">
         <table className="w-full text-sm text-left">
-          <thead className="bg-card border-b border text-secondary uppercase text-[12px] sticky top-0 z-10 shadow-sm shadow-black/5">
+          <thead className="bg-[var(--bg-page)] text-[var(--text-secondary)] uppercase text-xs sticky top-0 z-10 shadow-sm border-b border-[var(--border)]">
             <tr>
               <th className="px-6 py-4 font-semibold">Owner Info</th>
               <th className="px-6 py-4 font-semibold">Plan</th>
@@ -50,7 +50,7 @@ export const SuperAdminOwnersTable: React.FC<SuperAdminOwnersTableProps> = ({
                 <tr 
                   key={o.id} 
                   onClick={() => onRowClick(o.id)} 
-                  className="h-12 even:bg-black/5 dark:even:bg-white/[0.02] hover:bg-primary-subtle motion-safe:transition-colors group cursor-pointer"
+                  className="h-12 even:bg-[var(--bg-page)] hover:bg-[var(--primary-subtle)] transition-colors group cursor-pointer"
                 >
                   <td className="px-6 py-4">
                     <div className="font-bold text-primary truncate max-w-[200px]">{o.name}</div>
@@ -94,6 +94,6 @@ export const SuperAdminOwnersTable: React.FC<SuperAdminOwnersTableProps> = ({
           onPageChange={onPageChange} 
         />
       )}
-    </div>
+    </>
   );
 };
