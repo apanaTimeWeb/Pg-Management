@@ -88,108 +88,106 @@
 
 /* ── 2. LIGHT MODE VARIABLES (:root) ──────────────────────── */
 :root {
-  /* Brand - Matching Homepage --primary-teal and --primary-navy */
-  --primary:        #2D7D9A;   /* Homepage Teal (Main Buttons) */
-  --primary-hover:  #1A3A5C;   /* Homepage Navy (Button Hover) */
-  --primary-subtle: #E6F0F4;   /* Very light Teal for active states */
+  /* Brand - Deep Navy / Indigo */
+  --primary:        #172554;   /* Primary */
+  --primary-hover:  #1E3A8A;   /* Primary Hover */
+  --primary-subtle: #EEF2FF;   /* Primary Soft */
 
-  /* ── Surface Elevation Scale (Matches homepage backgrounds) */
-  --bg-page:     #F8F9FA;   /* Homepage --bg-light */
-  --bg-card:     #FFFFFF;   /* Homepage --primary-white */
-  --bg-sidebar:  #FFFFFF;   /* Homepage --primary-white */
-  --bg-header:   #FFFFFF;   /* Homepage --primary-white */
-  --bg-input:    #F8F9FA;   /* Homepage --bg-light */
+  /* ── Surface Elevation Scale */
+  --bg-page:     #F8FAFC;   /* Background */
+  --bg-card:     #FFFFFF;   /* Surface */
+  --bg-sidebar:  #FFFFFF;
+  --bg-header:   #FFFFFF;
+  --bg-input:    #F8FAFC;
   --bg-floating: #FFFFFF;   
-  --bg-overlay:  #ECF0F1;   /* Homepage --bg-medium */
+  --bg-overlay:  #F1F5F9;   /* Secondary Surface */
   --bg-popover:  #FFFFFF;   
 
-  /* Borders & Focus (Matching homepage style) */
-  --border:       #ECF0F1;   /* Homepage --bg-medium */
-  --border-focus: #2D7D9A;   /* Teal focus ring */
+  /* Borders & Focus */
+  --border:       #E2E8F0;   /* Border */
+  --border-focus: #4F46E5;   /* Accent */
 
-  /* Text - Matching Homepage Text Colors */
-  --text-primary:   #1A3A5C;   /* Homepage --primary-navy (Headings) */
-  --text-secondary: #5D6D7E;   /* Homepage --text-medium */
-  --text-disabled:  #95A5A6;   /* Homepage --text-light */
+  /* Text */
+  --text-primary:   #0F172A;   /* Main Text */
+  --text-secondary: #64748B;   /* Secondary Text */
+  --text-disabled:  #94A3B8;   /* Muted Text */
 
   /* Skeletons */
-  --skeleton-base:      #DFE6E9; /* Homepage --bg-dark */
-  --skeleton-highlight: #ECF0F1; /* Homepage --bg-medium */
+  --skeleton-base:      #E2E8F0; 
+  --skeleton-highlight: #F1F5F9; 
 
-  /* ── Status — LIGHT MODE (Matches homepage secondary colors) ── */
-  --success:    #27AE60;   /* Homepage --secondary-green */
-  --success-bg: #E8F8F0;   
-  --warning:    #F5A623;   /* Homepage --primary-gold */
-  --warning-bg: #FEF6E8;   
-  --danger:     #E74C3C;   /* Homepage --secondary-red */
-  --danger-bg:  #FDEDED;   
-  --info:       #2D7D9A;   /* Homepage --primary-teal */
-  --info-bg:    #E6F0F4;   
-  --purple:     #8E44AD;   /* Homepage --secondary-purple */
-  --purple-bg:  #F4EAF7;   
+  /* ── Status — LIGHT MODE ── */
+  --success:    #16A34A;
+  --success-bg: #F0FDF4;   
+  --warning:    #D97706;
+  --warning-bg: #FFFBEB;   
+  --danger:     #DC2626;
+  --danger-bg:  #FEF2F2;   
+  --info:       #0284C7;
+  --info-bg:    #F0F9FF;   
+  --purple:     #4F46E5;
+  --purple-bg:  #EEF2FF;   
 
   /* ── Payment Modes — LIGHT MODE ─────────────────────────── */
-  --pay-cash:    #27AE60;   
-  --pay-cash-bg: #E8F8F0;   
-  --pay-upi:     #2D7D9A;   
-  --pay-upi-bg:  #E6F0F4;   
-  --pay-card:    #8E44AD;   
-  --pay-card-bg: #F4EAF7;   
-  --pay-bank:    #1A3A5C;   
-  --pay-bank-bg: #E3E8EC;   
+  --pay-cash:    #16A34A;   
+  --pay-cash-bg: #F0FDF4;   
+  --pay-upi:     #0284C7;   
+  --pay-upi-bg:  #F0F9FF;   
+  --pay-card:    #4F46E5;   
+  --pay-card-bg: #EEF2FF;   
+  --pay-bank:    #172554;   
+  --pay-bank-bg: #E2E8F0;   
 }
 
 /* ── 3. DARK MODE VARIABLES (.dark) ───────────────────────── */
 .dark {
   /* Brand - Adapted for dark mode */
-  --primary:        #3FA6C8;              /* Lighter Teal for dark mode */
-  --primary-hover:  #2D7D9A;              /* Regular Teal */
-  --primary-subtle: rgba(45, 125, 154, 0.15); /* Subtle Teal tint */
+  --primary:        #4F46E5;   
+  --primary-hover:  #6366F1;   
+  --primary-subtle: rgba(79, 70, 229, 0.15); 
 
-  /* ── Surface Elevation Scale — 5-step depth ladder ────────
-     Each step is +0x0E brighter (14 units) for clear depth.
-     This mirrors Linear / Vercel's approach.               */
-  --bg-page:     #0A0A0A;   /* Layer 0 — darkest root bg           */
-  --bg-card:     #141414;   /* Layer 1 — cards, panels, tables     */
-  --bg-sidebar:  #0D0D0D;   /* Sidebar — slightly off from page    */
-  --bg-header:   #141414;   /* Header — same as card (elevated)    */
-  --bg-input:    #1C1C1C;   /* Layer 2 — inputs, code blocks       */
-  --bg-floating: #1C1C1C;   /* Layer 2 — floating surfaces         */
-  --bg-overlay:  #262626;   /* Layer 3 — modals, dialogs, drawers  */
-  --bg-popover:  #323232;   /* Layer 4 — dropdowns, tooltips       */
+  /* ── Surface Elevation Scale */
+  --bg-page:     #0F172A;   
+  --bg-card:     #1E293B;   
+  --bg-sidebar:  #0F172A;   
+  --bg-header:   #1E293B;   
+  --bg-input:    #334155;   
+  --bg-floating: #1E293B;   
+  --bg-overlay:  #334155;   
+  --bg-popover:  #475569;   
 
-  /* Borders — subtle cool-tinted */
-  --border:       #2A303C;   /* Slightly cool dark border */
-  --border-focus: #3FA6C8;   /* Teal focus ring */
+  /* Borders */
+  --border:       #334155;   
+  --border-focus: #818CF8;   
 
-  /* Text — cool-white for premium feel */
-  --text-primary:   #F8F9FA;   
+  /* Text */
+  --text-primary:   #F8FAFC;   
   --text-secondary: #94A3B8;   
   --text-disabled:  #64748B;   
 
   /* Skeletons */
-  --skeleton-base:      #1E293B;
-  --skeleton-highlight: #334155;
+  --skeleton-base:      #334155;
+  --skeleton-highlight: #475569;
 
   /* ── Status — DARK MODE ─────────────────── */
-  --success:    #4ADE80;   
+  --success:    #22C55E;   
   --success-bg: #052E16;   
-  --warning:    #F5A623;   
-  --warning-bg: #1C1000;   
-  --danger:     #F87171;   
-  --danger-bg:  #1A0000;   
-  --info:       #3FA6C8;   
-  --info-bg:    #0C2E3C;   
-  --purple:     #C084FC;   
-  --purple-bg:  #200040;   
+  --warning:    #F59E0B;   
+  --warning-bg: #451A03;   
+  --danger:     #EF4444;   
+  --danger-bg:  #450A0A;   
+  --info:       #38BDF8;   
+  --info-bg:    #082F49;   
+  --purple:     #818CF8;   
+  --purple-bg:  #1E1B4B;   
 
   /* ── Payment Modes — DARK MODE ──────────────────────────── */
-  --pay-cash:    #4ADE80;   
+  --pay-cash:    #22C55E;   
   --pay-cash-bg: #052E16;   
-  --pay-upi:     #3FA6C8;   
-  --pay-upi-bg:  #0C2E3C;   
-  --pay-card:    #A78BFA;   
-  --pay-card-bg: #2E1065;   
+  --pay-upi:     #38BDF8;   
+  --pay-upi-bg:  #082F49;   
+  --pay-card:    #818CF8;   
+  --pay-card-bg: #1E1B4B;   
   --pay-bank:    #60A5FA;   
   --pay-bank-bg: #1E3A8A;   
 }

@@ -1,5 +1,4 @@
-import type { OwnerRequest } from '@/app/superadmin/superadmin_lib/superadmin_api/SuperadminOwnerRequests';
-import type { BaseEntity } from '@/lib/types/models';
+import type { BaseEntity } from '@/lib/storage/db';
 
 export interface AuditLog extends BaseEntity {
   action: string;
@@ -9,23 +8,23 @@ export interface AuditLog extends BaseEntity {
   details: string;
 }
 
-export interface OwnersByPlan {
-  plan: string;
-  count: number;
-}
-
 export interface SuperAdminDashboardData {
-  activeOwnersCount: number;
-  pendingRequestsCount: number;
-  activePropertiesCount: number;
-  totalStudentsCount: number;
-  mrr: number; // in rupees
+  totalOwners: number;
+  totalProperties: number;
+  totalRooms: number;
+  totalBeds: number;
+  totalStudents: number;
+  occupiedBeds: number;
+  vacantBeds: number;
+  maintenanceBeds: number;
   occupancyPercentage: number;
+  activePropertiesCount: number;
   openTicketsCount: number;
-  expiringPlansCount: number;
-  latestRequests: OwnerRequest[];
-  recentAuditLogs: AuditLog[];
-  ownersByPlan: OwnersByPlan[];
+  pendingTicketsCount: number;
+  resolvedTicketsCount: number;
+  recentActivity: AuditLog[];
+  recentOwners: any[];
+  recentProperties: any[];
 }
 
 export interface SuperAdminDashboardKpiGridProps {
@@ -33,9 +32,10 @@ export interface SuperAdminDashboardKpiGridProps {
 }
 
 export interface SuperAdminDashboardLatestRequestsTableProps {
-  requests: OwnerRequest[];
+  requests: any[];
 }
 
 export interface SuperAdminDashboardAcquisitionChartProps {
   data: unknown[];
 }
+
