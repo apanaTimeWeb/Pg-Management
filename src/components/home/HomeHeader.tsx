@@ -1,46 +1,53 @@
 'use client';
 import Link from 'next/link';
+import { Shield, Smartphone, LogIn, UserPlus, Menu } from 'lucide-react';
 
 export function HomeHeader() {
   return (
-    <header className="sticky top-0 z-50 shadow-sm border-b" style={{ backgroundColor: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)', borderColor: 'rgba(0,0,0,0.05)' }}>
-      <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-4 flex items-center justify-between">
+    <header className="sticky top-0 z-50 transition-all duration-300 border-b border-[var(--border)] bg-[var(--bg-page)]/80 backdrop-blur-xl">
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-4 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded bg-[var(--primary-navy)] flex items-center justify-center">
-              <span className="text-[var(--primary-gold)] font-bold">PG</span>
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--primary)] to-indigo-600 flex items-center justify-center shadow-lg shadow-[var(--primary)]/20 group-hover:scale-105 transition-transform">
+              <Shield className="w-5 h-5 text-white" />
             </div>
-            <span className="text-[var(--primary-navy)] text-xl font-bold tracking-tight">PG System</span>
+            <span className="text-[var(--text-primary)] text-2xl font-bold tracking-tight">SmartPG</span>
           </Link>
         </div>
 
         {/* Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
-          <Link href="#features" className="text-[var(--text-dark)] font-medium hover:text-[var(--primary-gold)] transition-colors">Features</Link>
-          <Link href="#pricing" className="text-[var(--text-dark)] font-medium hover:text-[var(--primary-gold)] transition-colors">Pricing</Link>
-          <Link href="#about" className="text-[var(--text-dark)] font-medium hover:text-[var(--primary-gold)] transition-colors">About</Link>
-          <Link href="#contact" className="text-[var(--text-dark)] font-medium hover:text-[var(--primary-gold)] transition-colors">Contact</Link>
-          <Link href="#blog" className="text-[var(--text-dark)] font-medium hover:text-[var(--primary-gold)] transition-colors">Blog</Link>
-          <Link href="#faq" className="text-[var(--text-dark)] font-medium hover:text-[var(--primary-gold)] transition-colors">FAQ</Link>
+        <nav className="hidden md:flex items-center gap-8 bg-[var(--bg-overlay)] px-6 py-2 rounded-full border border-[var(--border)] shadow-sm">
+          {['Features', 'Pricing', 'About', 'Contact', 'Blog'].map((item) => (
+            <Link 
+              key={item} 
+              href={`#${item.toLowerCase()}`} 
+              className="text-sm font-semibold text-[var(--text-secondary)] hover:text-[var(--primary)] transition-colors"
+            >
+              {item}
+            </Link>
+          ))}
         </nav>
 
         {/* Actions */}
-        <div className="hidden md:flex items-center gap-4">
-          <Link href="/demo" className="text-[var(--text-dark)] font-medium hover:text-[var(--primary-gold)] transition-colors">
-            📱 Demo
+        <div className="hidden md:flex items-center gap-3">
+          <Link href="/demo" className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-[var(--text-primary)] hover:text-[var(--primary)] hover:bg-[var(--primary)]/10 rounded-lg transition-colors">
+            <Smartphone className="w-4 h-4" />
+            Demo
           </Link>
-          <Link href="/login" className="btn-outline">
-            🔐 Login
+          <Link href="/login" className="flex items-center gap-2 px-5 py-2 text-sm font-semibold text-[var(--text-primary)] border-2 border-[var(--border)] rounded-xl hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all">
+            <LogIn className="w-4 h-4" />
+            Login
           </Link>
-          <Link href="/owner-request" className="btn-primary">
-            📝 Register
+          <Link href="/owner-request" className="flex items-center gap-2 px-5 py-2 text-sm font-bold text-white bg-gradient-to-r from-[var(--primary)] to-indigo-600 rounded-xl hover:shadow-lg hover:shadow-[var(--primary)]/30 hover:-translate-y-0.5 transition-all">
+            <UserPlus className="w-4 h-4" />
+            Register
           </Link>
         </div>
 
-        {/* Mobile menu button (placeholder) */}
-        <button className="md:hidden text-[var(--primary-navy)]">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        {/* Mobile menu button */}
+        <button className="md:hidden p-2 text-[var(--text-primary)] bg-[var(--bg-overlay)] rounded-lg border border-[var(--border)]">
+          <Menu className="w-6 h-6" />
         </button>
       </div>
     </header>
