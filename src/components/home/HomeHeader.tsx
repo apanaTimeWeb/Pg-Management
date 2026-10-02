@@ -18,30 +18,30 @@ export function HomeHeader() {
 
         {/* Navigation */}
         <nav className="hidden md:flex items-center gap-8 bg-[var(--bg-overlay)] px-6 py-2 rounded-full border border-[var(--border)] shadow-sm">
-          {['Features', 'Pricing', 'About', 'Contact', 'Blog'].map((item) => (
+          {[
+            { label: 'Platform', href: '#features' },
+            { label: 'Pricing', href: '#pricing' },
+            { label: 'FAQ', href: '#faq' }
+          ].map((item) => (
             <Link 
-              key={item} 
-              href={`#${item.toLowerCase()}`} 
+              key={item.label} 
+              href={item.href} 
               className="text-sm font-semibold text-[var(--text-secondary)] hover:text-[var(--primary)] transition-colors"
             >
-              {item}
+              {item.label}
             </Link>
           ))}
         </nav>
 
         {/* Actions */}
-        <div className="hidden md:flex items-center gap-3">
-          <Link href="/demo" className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-[var(--text-primary)] hover:text-[var(--primary)] hover:bg-[var(--primary)]/10 rounded-lg transition-colors">
-            <Smartphone className="w-4 h-4" />
-            Demo
-          </Link>
-          <Link href="/login" className="flex items-center gap-2 px-5 py-2 text-sm font-semibold text-[var(--text-primary)] border-2 border-[var(--border)] rounded-xl hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all">
+        <div className="hidden md:flex items-center gap-4">
+          <Link href="/login" className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] hover:text-[var(--primary)] transition-all">
             <LogIn className="w-4 h-4" />
-            Login
+            Sign In
           </Link>
-          <Link href="/owner-request" className="flex items-center gap-2 px-5 py-2 text-sm font-bold text-white bg-gradient-to-r from-[var(--primary)] to-indigo-600 rounded-xl hover:shadow-lg hover:shadow-[var(--primary)]/30 hover:-translate-y-0.5 transition-all">
+          <Link href="/owner-request" className="flex items-center gap-2 px-5 py-2 text-sm font-bold text-white bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl hover:shadow-lg hover:shadow-indigo-500/30 hover:-translate-y-0.5 transition-all">
             <UserPlus className="w-4 h-4" />
-            Register
+            Get Started
           </Link>
         </div>
 
