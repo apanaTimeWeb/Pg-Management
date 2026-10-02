@@ -20,8 +20,8 @@ export default function UnifiedLogin() {
   const router = useRouter();
   
   const [selectedRole, setSelectedRole] = useState(DEMO_ACCOUNTS[0]!);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState(DEMO_ACCOUNTS[0]!.email);
+  const [password, setPassword] = useState(DEMO_ACCOUNTS[0]!.password);
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   
@@ -33,6 +33,8 @@ export default function UnifiedLogin() {
 
   const handleRoleSelect = (acc: typeof DEMO_ACCOUNTS[0]) => {
     setSelectedRole(acc);
+    setEmail(acc.email);
+    setPassword(acc.password);
     setError('');
   };
   
