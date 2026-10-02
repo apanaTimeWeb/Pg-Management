@@ -73,6 +73,32 @@ export function SuperadminUseSuperAdminDashboardData() {
         };
       });
 
+      // MRR: sum all payments made this month
+      const allPayments = db.getAll<any>(STORAGE_KEYS.PAYMENTS);
+      const currentMonth = new Date().getMonth();
+      const currentYear = new Date().getFullYear();
+      const mrr = allPayments
+        .filter(p => {
+          if (!p.paidAt || p.isDeleted) return false;
+          const d = new Date(p.paidAt);
+          return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
+        })
+        .reduce((sum: number, p: any) => sum + (p.amount || 0), 0);
+
+      // Pending owner requests
+      const allOwnerRequests = db.getAll<any>(STORAGE_KEYS.OWNER_REQUESTS || 'owner_requests');
+      const pendingRequests = allOwnerRequests.filter(r => !r.isDeleted && r.status === 'Pending');
+      const pendingRequestsCount = pendingRequests.length;
+
+      // Expiring plans (owners whose plan expires in next 30 days)
+      const thirtyDaysLater = new Date();
+      thirtyDaysLater.setDate(thirtyDaysLater.getDate() + 30);
+      const expiringPlansCount = allOwners.filter(o => {
+        if (!o.planExpiresAt) return false;
+        const expiry = new Date(o.planExpiresAt);
+        return expiry <= thirtyDaysLater && expiry >= new Date();
+      }).length;
+
       setData({
         totalOwners,
         totalProperties,
@@ -87,9 +113,13 @@ export function SuperadminUseSuperAdminDashboardData() {
         openTicketsCount,
         pendingTicketsCount,
         resolvedTicketsCount,
+        mrr,
+        pendingRequestsCount,
+        expiringPlansCount,
         recentActivity,
         recentOwners,
-        recentProperties
+        recentProperties,
+        pendingRequests: pendingRequests.slice(0, 5),
       });
     } catch (err) {
       console.error("Dashboard calculation failed", err);

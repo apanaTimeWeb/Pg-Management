@@ -22,9 +22,13 @@ export interface SuperAdminDashboardData {
   openTicketsCount: number;
   pendingTicketsCount: number;
   resolvedTicketsCount: number;
+  mrr: number;
+  pendingRequestsCount: number;
+  expiringPlansCount: number;
   recentActivity: AuditLog[];
   recentOwners: any[];
   recentProperties: any[];
+  pendingRequests: any[];
 }
 
 export interface SuperAdminDashboardKpiGridProps {

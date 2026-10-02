@@ -66,15 +66,18 @@ export default function SuperAdminDashboardPage() {
       <SuperAdminDashboardKpiGrid data={data} />
 
       {/* 5. Secondary KPI Row */}
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
         {[
-          { label: 'Active Properties', value: data.activePropertiesCount },
-          { label: 'Vacant Beds', value: data.vacantBeds },
-          { label: 'Active Students', value: data.totalStudents },
+          { label: 'Active Properties', value: data.activePropertiesCount, color: '' },
+          { label: 'Vacant Beds', value: data.vacantBeds, color: '' },
+          { label: 'Active Students', value: data.totalStudents, color: '' },
+          { label: 'Monthly Revenue', value: `₹${(data.mrr || 0).toLocaleString('en-IN')}`, color: 'text-[var(--success)]' },
+          { label: 'Pending Requests', value: data.pendingRequestsCount ?? 0, color: 'text-[var(--warning)]' },
+          { label: 'Expiring Plans', value: data.expiringPlansCount ?? 0, color: 'text-[var(--danger)]' },
         ].map((item, i) => (
           <div key={i} className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4 flex items-center justify-between shadow-sm">
             <span className="text-sm font-medium text-[var(--text-secondary)]">{item.label}</span>
-            <span className="text-lg font-bold text-[var(--text-primary)]">{item.value}</span>
+            <span className={`text-lg font-bold ${item.color || 'text-[var(--text-primary)]'}`}>{item.value}</span>
           </div>
         ))}
       </div>
@@ -241,6 +244,47 @@ export default function SuperAdminDashboardPage() {
           </div>
 
         </div>
+
+          {/* Pending Owner Requests */}
+          {(data.pendingRequests?.length ?? 0) > 0 && (
+            <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl shadow-sm overflow-hidden flex flex-col">
+              <div className="p-6 border-b border-[var(--border)] flex justify-between items-center">
+                <h3 className="font-bold text-lg text-[var(--text-primary)] flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[var(--warning)] animate-pulse inline-block"></span>
+                  Pending Owner Requests
+                </h3>
+                <Link href="/superadmin/owner-requests" className="text-sm font-medium text-[var(--primary)] hover:underline flex items-center gap-1">
+                  View All <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm text-left whitespace-nowrap">
+                  <thead className="bg-[var(--bg-page)] text-[var(--text-secondary)] uppercase text-xs">
+                    <tr>
+                      <th className="px-6 py-4 font-semibold">Name</th>
+                      <th className="px-6 py-4 font-semibold">Business</th>
+                      <th className="px-6 py-4 font-semibold">City</th>
+                      <th className="px-6 py-4 font-semibold">Beds</th>
+                      <th className="px-6 py-4 font-semibold text-right">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[var(--border)]">
+                    {data.pendingRequests.map((req: any) => (
+                      <tr key={req.id} className="hover:bg-[var(--bg-page)] transition-colors">
+                        <td className="px-6 py-4 font-medium text-[var(--text-primary)]">{req.name}</td>
+                        <td className="px-6 py-4 text-[var(--text-secondary)]">{req.businessName}</td>
+                        <td className="px-6 py-4 text-[var(--text-secondary)]">{req.city}</td>
+                        <td className="px-6 py-4 text-[var(--text-secondary)]">{req.bedCount}</td>
+                        <td className="px-6 py-4 text-right">
+                          <Link href="/superadmin/owner-requests" className="text-[var(--primary)] font-medium hover:underline">Review</Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
 
         {/* Right Sidebar */}
         <div className="space-y-6 xl:col-span-1">
