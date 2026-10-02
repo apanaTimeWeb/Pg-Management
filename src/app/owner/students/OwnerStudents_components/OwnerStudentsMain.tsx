@@ -18,12 +18,16 @@ import { STORAGE_KEYS } from '@/lib/storage/keys';
 import { Pagination } from '@/components/ui/Pagination';
 import { useTableSync } from '@/lib/hooks/useTableSync';
 
+import { OwnerStudentsAddModal } from './OwnerStudentsAddModal';
+import { Plus } from 'lucide-react';
+
 export function OwnerStudentsMain() {
   const user = typeof window !== 'undefined' ? getSession() : null;
   const { properties, selectedPropertyId } = useOwnerPropertyContext();
 
   const [students, setStudents] = useState<StudentMember[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showAddModal, setShowAddModal] = useState(false);
   const { page: currentPage, setPage: setCurrentPage, search: searchQuery, setSearch: setSearchQuery, debouncedSearch } = useTableSync();
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'on_notice' | 'checked_out'>('all');
   const [duesFilter, setDuesFilter] = useState<'all' | 'has_dues'>('all');
@@ -31,15 +35,17 @@ export function OwnerStudentsMain() {
 
   const [showFilters, setShowFilters] = useState(false);
 
-  useEffect(() => {
+  const loadData = () => {
     if (!user) return;
     setLoading(true);
-    // Auto seed mocks if empty for demo purposes
     studentsApi.seedMocksIfEmpty(user.id);
-    
     const data = studentsApi.listByOwner(user.id);
     setStudents(data);
     setLoading(false);
+  };
+
+  useEffect(() => {
+    loadData();
   }, [user?.id]);
 
   const filteredStudents = students.filter(t => {
@@ -92,7 +98,23 @@ export function OwnerStudentsMain() {
           <h1 className="text-[22px] font-bold text-primary">Students Directory</h1>
           <p className="text-sm text-secondary">Manage your students across all properties.</p>
         </div>
+        <button 
+          onClick={() => setShowAddModal(true)}
+          className="flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-xl font-bold hover:bg-primary-hover transition-colors shadow-sm hover:shadow-primary/20"
+        >
+          <Plus className="w-5 h-5" />
+          Add Student
+        </button>
       </div>
+
+      <OwnerStudentsAddModal
+        ownerId={user?.id || ''}
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        onSuccess={() => {
+          loadData();
+        }}
+      />
 
       <div className="bg-card p-4 border border-border rounded-md relative">
         <div className="flex gap-4">

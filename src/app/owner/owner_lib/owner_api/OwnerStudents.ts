@@ -63,6 +63,65 @@ export const studentsApi = {
       });
   },
 
+  create: (data: any, ownerId: string) => {
+    // 1. Check if email already exists
+    const users = db.getAll<any>(STORAGE_KEYS.USERS);
+    if (users.some((u: any) => u.email === data.email && !u.isDeleted)) {
+      throw new Error('A user with this email already exists.');
+    }
+
+    // 2. Create User
+    const userId = 'usr_' + Date.now();
+    const newUser = {
+      id: userId,
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      password: data.password || 'Student@123',
+      role: 'student',
+      status: 'Active',
+      ownerId: ownerId,
+      propertyId: data.propertyId,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      createdBy: ownerId,
+      updatedBy: ownerId,
+      isDeleted: false
+    };
+    db.insert(STORAGE_KEYS.USERS, newUser);
+
+    // 3. Create Student Profile
+    const profileId = 'stu_' + Date.now();
+    const newProfile = {
+      id: profileId,
+      userId: userId,
+      propertyId: data.propertyId,
+      roomId: data.roomId || null,
+      bedId: data.bedId || null,
+      status: 'active',
+      rentAmount: Number(data.rentAmount) || 8000,
+      depositAmount: Number(data.depositAmount) || 10000,
+      duesAmount: 0,
+      pgScore: 100,
+      moveInDate: data.moveInDate || new Date().toISOString().slice(0,10),
+      walletBalance: 0,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    db.insert(STORAGE_KEYS.STUDENTS, newProfile);
+
+    // 4. Update Bed Status if assigned
+    if (data.bedId) {
+      db.update(STORAGE_KEYS.BEDS, data.bedId, {
+        status: 'occupied',
+        studentId: profileId,
+        updatedAt: new Date().toISOString()
+      });
+    }
+
+    return { user: newUser, profile: newProfile };
+  },
+
   getById: (id: string) => {
     const profile = db.getById<any>(STORAGE_KEYS.STUDENTS, id);
     const user = db.getById<any>(STORAGE_KEYS.USERS, profile?.userId || id) || {};
