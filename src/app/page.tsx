@@ -143,7 +143,7 @@ export default function LandingPage() {
                 { title: 'Owners', icon: Building2, desc: 'Portfolio view, financial reports, and macro-level controls.' },
                 { title: 'Managers', icon: Users, desc: 'Daily operations, resident onboarding, and rent collection.' },
                 { title: 'Students', icon: Smartphone, desc: 'Mobile app for rent payments, gate passes, and complaints.' },
-                { title: 'Staff', icon: ChefHat, desc: 'Task lists, meal tracking, and inventory updates.' }
+                { title: 'Cooks & Staff', icon: ChefHat, desc: 'Daily menu planning, meal headcounts, and kitchen inventory management.' }
               ].map((role, i) => (
                 <div key={i} className="flex flex-col items-center p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:-translate-y-2 transition-transform duration-300">
                   <div className="w-16 h-16 rounded-full bg-indigo-500/20 flex items-center justify-center mb-6">
