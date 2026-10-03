@@ -1,4 +1,4 @@
-import { SuperadminBackupsMain } from '@/app/frontend_superadmin/SuperAdmin_components/SuperadminBackupsMain';
+import { SuperadminBackupsMain } from '@/app/frontend_superadmin/backups/SuperAdminBackups_components/SuperadminBackupsMain';
 
 export const metadata = {
   title: 'System Backups & Restore | SuperAdmin',

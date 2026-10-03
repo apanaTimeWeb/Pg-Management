@@ -1,4 +1,4 @@
-import { SuperadminGlobalConfigMain } from '@/app/frontend_superadmin/SuperAdmin_components/SuperadminGlobalConfigMain';
+import { SuperadminGlobalConfigMain } from '@/app/frontend_superadmin/settings/SuperAdminSettings_components/SuperadminGlobalConfigMain';
 
 export const metadata = {
   title: 'Global Configuration | SuperAdmin',

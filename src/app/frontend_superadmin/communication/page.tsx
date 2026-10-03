@@ -1,4 +1,4 @@
-import { SuperadminCommunicationMain } from '@/app/frontend_superadmin/SuperAdmin_components/SuperadminCommunicationMain';
+import { SuperadminCommunicationMain } from '@/app/frontend_superadmin/communication/SuperAdminCommunication_components/SuperadminCommunicationMain';
 
 export const metadata = {
   title: 'Communication Center | SuperAdmin',

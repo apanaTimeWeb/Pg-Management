@@ -1,4 +1,4 @@
-import { SuperadminAuditSecurityMain } from '@/app/frontend_superadmin/SuperAdmin_components/SuperadminAuditSecurityMain';
+import { SuperadminAuditSecurityMain } from '@/app/frontend_superadmin/audit-logs/SuperAdminAuditLogs_components/SuperadminAuditSecurityMain';
 
 export const metadata = {
   title: 'Audit & Security | SuperAdmin',

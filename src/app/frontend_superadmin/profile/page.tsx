@@ -1,4 +1,4 @@
-import { SuperadminProfileMain } from '@/app/frontend_superadmin/SuperAdmin_components/SuperadminProfileMain';
+import { SuperadminProfileMain } from '@/app/frontend_superadmin/profile/SuperAdminProfile_components/SuperadminProfileMain';
 
 export const metadata = {
   title: 'SuperAdmin Profile | SmartPG',

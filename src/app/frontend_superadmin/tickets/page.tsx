@@ -1,4 +1,4 @@
-import { SuperadminSupportHelpdeskMain } from '@/app/frontend_superadmin/SuperAdmin_components/SuperadminSupportHelpdeskMain';
+import { SuperadminSupportHelpdeskMain } from '@/app/frontend_superadmin/tickets/SuperAdminTickets_components/SuperadminSupportHelpdeskMain';
 
 export const metadata = {
   title: 'Support & Helpdesk | SuperAdmin',

@@ -1,4 +1,4 @@
-import { SuperadminFeatureFlagsMain } from '@/app/frontend_superadmin/SuperAdmin_components/SuperadminFeatureFlagsMain';
+import { SuperadminFeatureFlagsMain } from '@/app/frontend_superadmin/feature-flags/SuperAdminFeatureFlags_components/SuperadminFeatureFlagsMain';
 
 export const metadata = {
   title: 'Feature Flags & Version | SuperAdmin',

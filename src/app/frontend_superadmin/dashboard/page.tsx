@@ -1,4 +1,4 @@
-import { SuperadminDashboardMain } from '@/app/frontend_superadmin/SuperAdmin_components/SuperadminDashboardMain';
+import { SuperadminDashboardMain } from '@/app/frontend_superadmin/dashboard/SuperAdminDashboard_components/SuperadminDashboardMain';
 
 export const metadata = {
   title: 'Dashboard | SuperAdmin',

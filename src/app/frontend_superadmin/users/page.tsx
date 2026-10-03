@@ -1,4 +1,4 @@
-import { SuperadminUserManagementMain } from '@/app/frontend_superadmin/SuperAdmin_components/SuperadminUserManagementMain';
+import { SuperadminUserManagementMain } from '@/app/frontend_superadmin/users/SuperAdminUsers_components/SuperadminUserManagementMain';
 
 export const metadata = {
   title: 'User Management | SuperAdmin',
