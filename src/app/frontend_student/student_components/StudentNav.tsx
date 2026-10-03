@@ -8,11 +8,11 @@ import { Home, IndianRupee, Utensils, MessageSquareWarning, FileText, Bell, LogO
 import { clearSession } from '@/app/frontend_student/student_lib/student_auth/StudentSession';
 
 const links = [
-  { href: '/student/dashboard', label: 'Home', icon: Home },
-  { href: '/student/rent', label: 'Rent', icon: IndianRupee },
-  { href: '/student/mess', label: 'Mess', icon: Utensils },
-  { href: '/student/complaints', label: 'Support', icon: MessageSquareWarning },
-  { href: '/student/profile', label: 'Profile', icon: User },
+  { href: '/frontend_student/frontend_student_dashboard', label: 'Home', icon: Home },
+  { href: '/frontend_student/frontend_student_rent', label: 'Rent', icon: IndianRupee },
+  { href: '/frontend_student/frontend_student_mess', label: 'Mess', icon: Utensils },
+  { href: '/frontend_student/frontend_student_complaints', label: 'Support', icon: MessageSquareWarning },
+  { href: '/frontend_student/frontend_student_profile', label: 'Profile', icon: User },
 ];
 
 export function StudentNav() {

@@ -23,22 +23,22 @@ import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import type { DictKey } from '@/app/frontend_owner/OwnerI18n';
 
 const NAV_ITEMS = [
-  { key: 'dashboard', href: '/owner/dashboard', icon: LayoutDashboard },
-  { key: 'properties', href: '/owner/properties', icon: Building2 },
-  { key: 'rooms', href: '/owner/rooms', icon: Bed },
-  { key: 'team', href: '/owner/team', icon: Users },
-  { key: 'attendance', href: '/owner/attendance', icon: CalendarCheck, label: 'Staff Attendance' },
-  { key: 'payroll', href: '/owner/payroll', icon: Banknote },
-  { key: 'students', href: '/owner/students', icon: UserSquare2 },
-  { key: 'finance', href: '/owner/finance', icon: Wallet },
-  { key: 'maintenance', href: '/owner/maintenance', icon: Wrench, label: 'Maintenance Log' },
-  { key: 'food', href: '/owner/food', icon: UtensilsCrossed, label: 'Food Menu' },
-  { key: 'complaints', href: '/owner/complaints', icon: MessageSquare, label: 'Complaints' },
-  { key: 'notices', href: '/owner/notices', icon: Megaphone, label: 'Notices' },
-  { key: 'tax', href: '/owner/tax', icon: Receipt, label: 'Tax & Compliance' },
-  { key: 'reports', href: '/owner/reports', icon: TrendingUp, label: 'Reports & BI' },
-  { key: 'settings', href: '/owner/settings', icon: Settings },
-  { key: 'subscription', href: '/owner/subscription', icon: CreditCard },
+  { key: 'dashboard', href: '/frontend_owner/frontend_owner_dashboard', icon: LayoutDashboard },
+  { key: 'properties', href: '/frontend_owner/frontend_owner_properties', icon: Building2 },
+  { key: 'rooms', href: '/frontend_owner/frontend_owner_rooms', icon: Bed },
+  { key: 'team', href: '/frontend_owner/frontend_owner_team', icon: Users },
+  { key: 'attendance', href: '/frontend_owner/frontend_owner_attendance', icon: CalendarCheck, label: 'Staff Attendance' },
+  { key: 'payroll', href: '/frontend_owner/frontend_owner_payroll', icon: Banknote },
+  { key: 'students', href: '/frontend_owner/frontend_owner_students', icon: UserSquare2 },
+  { key: 'finance', href: '/frontend_owner/frontend_owner_finance', icon: Wallet },
+  { key: 'maintenance', href: '/frontend_owner/frontend_owner_maintenance', icon: Wrench, label: 'Maintenance Log' },
+  { key: 'food', href: '/frontend_owner/frontend_owner_food', icon: UtensilsCrossed, label: 'Food Menu' },
+  { key: 'complaints', href: '/frontend_owner/frontend_owner_complaints', icon: MessageSquare, label: 'Complaints' },
+  { key: 'notices', href: '/frontend_owner/frontend_owner_notices', icon: Megaphone, label: 'Notices' },
+  { key: 'tax', href: '/frontend_owner/frontend_owner_tax', icon: Receipt, label: 'Tax & Compliance' },
+  { key: 'reports', href: '/frontend_owner/frontend_owner_reports', icon: TrendingUp, label: 'Reports & BI' },
+  { key: 'settings', href: '/frontend_owner/frontend_owner_settings', icon: Settings },
+  { key: 'subscription', href: '/frontend_owner/frontend_owner_subscription', icon: CreditCard },
 ];
 
 export function OwnerLayout({ children }: { children: React.ReactNode }) {

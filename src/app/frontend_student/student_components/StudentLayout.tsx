@@ -15,19 +15,19 @@ import '../student-theme.css';
 import type { DictKey } from '@/app/frontend_student/StudentI18n';
 
 const NAV_ITEMS = [
-  { key: 'dashboard', href: '/student/dashboard', icon: Home },
-  { key: 'profile', href: '/student/profile', icon: User },
-  { key: 'room', href: '/student/room', icon: Bed },
-  { key: 'payRent', href: '/student/rent', icon: IndianRupee },
-  { key: 'documents', href: '/student/documents', icon: FileText },
-  { key: 'complaints', href: '/student/complaints', icon: MessageSquareWarning },
-  { key: 'mess', href: '/student/mess', icon: Utensils },
-  { key: 'visitors', href: '/student/visitors', icon: Users },
-  { key: 'leaves', href: '/student/leaves', icon: CalendarOff },
-  { key: 'attendance', href: '/student/attendance', icon: CheckSquare },
-  { key: 'communication', href: '/student/communication', icon: MessageCircle },
-  { key: 'history', href: '/student/history', icon: HistoryIcon },
-  { key: 'settings', href: '/student/settings', icon: Settings },
+  { key: 'dashboard', href: '/frontend_student/frontend_student_dashboard', icon: Home },
+  { key: 'profile', href: '/frontend_student/frontend_student_profile', icon: User },
+  { key: 'room', href: '/frontend_student/frontend_student_room', icon: Bed },
+  { key: 'payRent', href: '/frontend_student/frontend_student_rent', icon: IndianRupee },
+  { key: 'documents', href: '/frontend_student/frontend_student_documents', icon: FileText },
+  { key: 'complaints', href: '/frontend_student/frontend_student_complaints', icon: MessageSquareWarning },
+  { key: 'mess', href: '/frontend_student/frontend_student_mess', icon: Utensils },
+  { key: 'visitors', href: '/frontend_student/frontend_student_visitors', icon: Users },
+  { key: 'leaves', href: '/frontend_student/frontend_student_leaves', icon: CalendarOff },
+  { key: 'attendance', href: '/frontend_student/frontend_student_attendance', icon: CheckSquare },
+  { key: 'communication', href: '/frontend_student/frontend_student_communication', icon: MessageCircle },
+  { key: 'history', href: '/frontend_student/frontend_student_history', icon: HistoryIcon },
+  { key: 'settings', href: '/frontend_student/frontend_student_settings', icon: Settings },
 ];
 
 function StudentLayoutInner({ children }: { children: React.ReactNode }) {
