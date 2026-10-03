@@ -124,10 +124,16 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
     {
       label: 'SUPPORT & OPERATIONS',
       items: [
-        { key: 'ownerRequests', name: 'Partner Requests', href: '/frontend_superadmin/superadmin_owner_requests', icon: UserPlus },
-        { key: 'createOwner', name: 'Provision Partner', href: '/frontend_superadmin/superadmin_create_owner', icon: PlusSquare },
         { key: 'tickets', name: 'Helpdesk & Support', href: '/frontend_superadmin/superadmin_tickets', icon: Ticket },
         { key: 'communication', name: 'Communications Hub', href: '/frontend_superadmin/superadmin_communication', icon: MessageSquare },
+        { key: 'marketing', name: 'Marketing & Leads', href: '/frontend_superadmin/superadmin_marketing', icon: BarChart3 },
+        { key: 'affiliates', name: 'Affiliates Program', href: '/frontend_superadmin/superadmin_affiliates', icon: Users },
+      ]
+    },
+    {
+      label: 'DEVELOPER & API',
+      items: [
+        { key: 'integrations', name: 'API & Integrations', href: '/frontend_superadmin/superadmin_integrations', icon: Server },
       ]
     },
     {
