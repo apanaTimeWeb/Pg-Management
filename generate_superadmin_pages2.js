@@ -1,8 +1,22 @@
-'use client';
+const fs = require('fs');
+const path = require('path');
+
+// Target directories for SuperAdmin pages batch 2
+const superAdminPages = [
+  { path: 'src/app/frontend_superadmin/superadmin_plans/page.tsx', title: 'Subscription Plans', icon: 'Package', desc: 'Manage active subscriptions, billing cycles, and automated workflows.' },
+  { path: 'src/app/frontend_superadmin/superadmin_billing/page.tsx', title: 'Financial Operations', icon: 'CreditCard', desc: 'Monitor platform revenue, settlement reports, and payment gateways.' },
+  { path: 'src/app/frontend_superadmin/superadmin_tickets/page.tsx', title: 'Helpdesk & Support', icon: 'Ticket', desc: 'Centralized support ticketing system for PG Owners.' },
+  { path: 'src/app/frontend_superadmin/superadmin_communication/page.tsx', title: 'Communications Hub', icon: 'MessageSquare', desc: 'Broadcast messages, platform updates, and email/SMS logs.' },
+  { path: 'src/app/frontend_superadmin/superadmin_marketing/page.tsx', title: 'Marketing & Leads', icon: 'BarChart3', desc: 'Track sales leads, promotional campaigns, and conversions.' },
+  { path: 'src/app/frontend_superadmin/superadmin_affiliates/page.tsx', title: 'Affiliates Program', icon: 'Users', desc: 'Manage referral partners, affiliate commissions, and payouts.' },
+  { path: 'src/app/frontend_superadmin/superadmin_integrations/page.tsx', title: 'API & Integrations', icon: 'Server', desc: 'Configure third-party APIs, webhooks, and developer access.' },
+];
+
+const generateSuperAdminTemplate = (title, icon, desc) => `\'use client\';
 
 import React, { useState } from 'react';
 import { 
-  Search, Filter, Plus, Download, Eye, Edit3, Trash2, MessageSquare, 
+  Search, Filter, Plus, Download, Eye, Edit3, Trash2, ${icon}, 
   AlertCircle, RefreshCw, SlidersHorizontal, Settings
 } from 'lucide-react';
 
@@ -12,7 +26,7 @@ const MOCK_DATA = [
   { id: 'SA-003', name: 'Beta Gateway Config', type: 'System', status: 'Pending', metric: '--', date: '12 Oct 2026' },
 ];
 
-export default function SuperAdminCommunicationsHubPage() {
+export default function SuperAdmin${title.replace(/[^a-zA-Z0-9]/g, '')}Page() {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('Overview');
 
@@ -36,11 +50,11 @@ export default function SuperAdminCommunicationsHubPage() {
         <div>
           <h1 className="text-3xl font-black text-primary flex items-center gap-3">
             <div className="p-2 bg-indigo-100 rounded-lg text-indigo-600">
-              <MessageSquare className="w-7 h-7"/>
+              <${icon} className="w-7 h-7"/>
             </div>
-            Communications Hub
+            ${title}
           </h1>
-          <p className="text-[var(--text-disabled)] text-sm mt-2 font-medium">Broadcast messages, platform updates, and email/SMS logs.</p>
+          <p className="text-[var(--text-disabled)] text-sm mt-2 font-medium">${desc}</p>
         </div>
         
         <div className="flex items-center gap-3">
@@ -59,11 +73,11 @@ export default function SuperAdminCommunicationsHubPage() {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-5 py-3 text-sm font-bold transition-all whitespace-nowrap relative ${
+            className={\`px-5 py-3 text-sm font-bold transition-all whitespace-nowrap relative \${
               activeTab === tab 
               ? 'text-indigo-600' 
               : 'text-secondary hover:text-primary'
-            }`}
+            }\`}
           >
             {tab}
             {activeTab === tab && (
@@ -126,7 +140,7 @@ export default function SuperAdminCommunicationsHubPage() {
                   </td>
                   <td className="p-5 text-sm font-medium text-secondary">{item.date}</td>
                   <td className="p-5">
-                    <span className={`px-3 py-1 border rounded-lg text-[11px] font-black uppercase tracking-wide ${getStatusBadge(item.status)}`}>
+                    <span className={\`px-3 py-1 border rounded-lg text-[11px] font-black uppercase tracking-wide \${getStatusBadge(item.status)}\`}>
                       {item.status}
                     </span>
                   </td>
@@ -153,3 +167,15 @@ export default function SuperAdminCommunicationsHubPage() {
     </div>
   );
 }
+`;
+
+superAdminPages.forEach(page => {
+  const absolutePath = path.join(__dirname, page.path);
+  const dirPath = path.dirname(absolutePath);
+  
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+  }
+
+  fs.writeFileSync(absolutePath, generateSuperAdminTemplate(page.title, page.icon, page.desc), 'utf8');
+});
