@@ -39,106 +39,106 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
     {
       label: 'OVERVIEW',
       items: [
-        { key: 'dashboard', name: 'Dashboard', href: '/frontend_superadmin/superadmin_dashboard', icon: LayoutDashboard },
-        { key: 'analytics', name: 'Reports & Analytics', href: '/frontend_superadmin/superadmin_analytics', icon: BarChart3 },
+        { key: 'dashboard', name: 'Executive Dashboard', href: '/frontend_superadmin/superadmin_dashboard', icon: LayoutDashboard },
+        { key: 'analytics', name: 'Intelligence & Analytics', href: '/frontend_superadmin/superadmin_analytics', icon: BarChart3 },
       ]
     },
     {
-      label: 'MANAGEMENT',
+      label: 'ORGANIZATION MANAGEMENT',
       items: [
         { 
           key: 'pgs', 
-          name: 'PG Management', 
+          name: 'Property Portfolio', 
           href: '/frontend_superadmin/superadmin_pgs', 
           icon: Building2,
           subItems: [
-            { key: 'pgs_pending', name: 'Pending Approval', href: '/frontend_superadmin/superadmin_pgs?tab=pending' },
-            { key: 'pgs_suspended', name: 'Suspended PGs', href: '/frontend_superadmin/superadmin_pgs?tab=suspended' },
-            { key: 'pgs_archived', name: 'Archived', href: '/frontend_superadmin/superadmin_pgs?tab=archived' },
-            { key: 'pgs_add', name: 'Add New PG', href: '/frontend_superadmin/superadmin_pgs?tab=add' }
+            { key: 'pgs_pending', name: 'Pending Onboarding', href: '/frontend_superadmin/superadmin_pgs?tab=pending' },
+            { key: 'pgs_suspended', name: 'Suspended Accounts', href: '/frontend_superadmin/superadmin_pgs?tab=suspended' },
+            { key: 'pgs_archived', name: 'Archived Entities', href: '/frontend_superadmin/superadmin_pgs?tab=archived' },
+            { key: 'pgs_add', name: 'Onboard Property', href: '/frontend_superadmin/superadmin_pgs?tab=add' }
           ]
         },
         { 
           key: 'owners', 
-          name: 'Admin / Owners', 
+          name: 'Access & Roles', 
           href: '/frontend_superadmin/superadmin_owners', 
           icon: Shield,
           subItems: [
-            { key: 'owners_pending', name: 'Pending Admins', href: '/frontend_superadmin/superadmin_owners?tab=pending' },
-            { key: 'owners_create', name: 'Create Admin / Owner', href: '/frontend_superadmin/superadmin_owners?tab=create' },
-            { key: 'owners_permissions', name: 'Admin Permissions', href: '/frontend_superadmin/superadmin_owners?tab=permissions' }
+            { key: 'owners_pending', name: 'Approval Queue', href: '/frontend_superadmin/superadmin_owners?tab=pending' },
+            { key: 'owners_create', name: 'Provision Administrator', href: '/frontend_superadmin/superadmin_owners?tab=create' },
+            { key: 'owners_permissions', name: 'Role-Based Access (RBAC)', href: '/frontend_superadmin/superadmin_owners?tab=permissions' }
           ]
         },
         { 
           key: 'users', 
-          name: 'User Management', 
+          name: 'Identity Management', 
           href: '/frontend_superadmin/superadmin_users', 
           icon: Users,
           subItems: [
-            { key: 'users_students', name: 'Students', href: '/frontend_superadmin/superadmin_users?tab=students' },
-            { key: 'users_managers', name: 'Managers', href: '/frontend_superadmin/superadmin_users?tab=managers' },
-            { key: 'users_cooks', name: 'Cooks', href: '/frontend_superadmin/superadmin_users?tab=cooks' },
-            { key: 'users_pending', name: 'Pending Users', href: '/frontend_superadmin/superadmin_users?tab=pending' },
-            { key: 'users_suspended', name: 'Suspended Users', href: '/frontend_superadmin/superadmin_users?tab=suspended' },
+            { key: 'users_students', name: 'Tenants / Residents', href: '/frontend_superadmin/superadmin_users?tab=students' },
+            { key: 'users_managers', name: 'Property Managers', href: '/frontend_superadmin/superadmin_users?tab=managers' },
+            { key: 'users_cooks', name: 'Facility Staff', href: '/frontend_superadmin/superadmin_users?tab=cooks' },
+            { key: 'users_pending', name: 'Pending Verification', href: '/frontend_superadmin/superadmin_users?tab=pending' },
+            { key: 'users_suspended', name: 'Restricted Accounts', href: '/frontend_superadmin/superadmin_users?tab=suspended' },
           ]
         },
       ]
     },
     {
-      label: 'BUSINESS & FINANCE',
+      label: 'COMMERCE & BILLING',
       items: [
         { 
           key: 'plans', 
-          name: 'Subscriptions & Plans', 
+          name: 'Subscription Plans', 
           href: '/frontend_superadmin/superadmin_plans', 
           icon: Package,
           subItems: [
             { key: 'plans_subscriptions', name: 'Active Subscriptions', href: '/frontend_superadmin/superadmin_plans?tab=subscriptions' },
-            { key: 'plans_workflow', name: 'Workflow', href: '/frontend_superadmin/superadmin_plans?tab=workflow' }
+            { key: 'plans_workflow', name: 'Automated Workflows', href: '/frontend_superadmin/superadmin_plans?tab=workflow' }
           ]
         },
         { 
           key: 'billing', 
-          name: 'Billing & Payments', 
+          name: 'Financial Operations', 
           href: '/frontend_superadmin/superadmin_billing', 
           icon: CreditCard,
           subItems: [
-            { key: 'billing_transactions', name: 'Transactions', href: '/frontend_superadmin/superadmin_billing?tab=transactions' },
-            { key: 'billing_settlements', name: 'Settlements', href: '/frontend_superadmin/superadmin_billing?tab=settlements' },
-            { key: 'billing_gateways', name: 'Payment Gateways', href: '/frontend_superadmin/superadmin_billing?tab=gateways' }
+            { key: 'billing_transactions', name: 'Transaction Ledger', href: '/frontend_superadmin/superadmin_billing?tab=transactions' },
+            { key: 'billing_settlements', name: 'Settlement Reports', href: '/frontend_superadmin/superadmin_billing?tab=settlements' },
+            { key: 'billing_gateways', name: 'Payment Gateways Config', href: '/frontend_superadmin/superadmin_billing?tab=gateways' }
           ]
         },
         { 
           key: 'masterData', 
-          name: 'Master Data', 
+          name: 'Master Data Config', 
           href: '/frontend_superadmin/superadmin_master_data', 
           icon: Database,
           subItems: [
-            { key: 'master_roomTypes', name: 'Room Types', href: '/frontend_superadmin/superadmin_master_data?tab=roomTypes' },
-            { key: 'master_bedTypes', name: 'Bed Types', href: '/frontend_superadmin/superadmin_master_data?tab=bedTypes' },
-            { key: 'master_facilities', name: 'Facilities', href: '/frontend_superadmin/superadmin_master_data?tab=facilities' }
+            { key: 'master_roomTypes', name: 'Room Inventories', href: '/frontend_superadmin/superadmin_master_data?tab=roomTypes' },
+            { key: 'master_bedTypes', name: 'Bed Configurations', href: '/frontend_superadmin/superadmin_master_data?tab=bedTypes' },
+            { key: 'master_facilities', name: 'Facility Amenities', href: '/frontend_superadmin/superadmin_master_data?tab=facilities' }
           ]
         },
       ]
     },
     {
-      label: 'REQUESTS & SUPPORT',
+      label: 'SUPPORT & OPERATIONS',
       items: [
-        { key: 'ownerRequests', name: 'Owner Requests', href: '/frontend_superadmin/superadmin_owner_requests', icon: UserPlus },
-        { key: 'createOwner', name: 'Create Owner/PG', href: '/frontend_superadmin/superadmin_create_owner', icon: PlusSquare },
-        { key: 'tickets', name: 'Support & Helpdesk', href: '/frontend_superadmin/superadmin_tickets', icon: Ticket },
-        { key: 'communication', name: 'Communication', href: '/frontend_superadmin/superadmin_communication', icon: MessageSquare },
+        { key: 'ownerRequests', name: 'Partner Requests', href: '/frontend_superadmin/superadmin_owner_requests', icon: UserPlus },
+        { key: 'createOwner', name: 'Provision Partner', href: '/frontend_superadmin/superadmin_create_owner', icon: PlusSquare },
+        { key: 'tickets', name: 'Helpdesk & Support', href: '/frontend_superadmin/superadmin_tickets', icon: Ticket },
+        { key: 'communication', name: 'Communications Hub', href: '/frontend_superadmin/superadmin_communication', icon: MessageSquare },
       ]
     },
     {
-      label: 'SYSTEM & SECURITY',
+      label: 'SYSTEM & COMPLIANCE',
       items: [
-        { key: 'featureFlags', name: 'Feature Flags', href: '/frontend_superadmin/superadmin_feature_flags', icon: ToggleLeft },
-        { key: 'auditLogs', name: 'Audit & Security', href: '/frontend_superadmin/superadmin_audit_logs', icon: ShieldCheck },
-        { key: 'settings', name: 'Global Config', href: '/frontend_superadmin/superadmin_settings', icon: Settings },
-        { key: 'systemManagement', name: 'System Mgmt', href: '/frontend_superadmin/superadmin_system_management', icon: Server },
-        { key: 'dataManagement', name: 'Data Management', href: '/frontend_superadmin/superadmin_data_management', icon: Database },
-        { key: 'backups', name: 'Backups', href: '/frontend_superadmin/superadmin_backups', icon: Database },
+        { key: 'featureFlags', name: 'Feature Toggles', href: '/frontend_superadmin/superadmin_feature_flags', icon: ToggleLeft },
+        { key: 'auditLogs', name: 'Audit & Compliance Logs', href: '/frontend_superadmin/superadmin_audit_logs', icon: ShieldCheck },
+        { key: 'settings', name: 'Environment Settings', href: '/frontend_superadmin/superadmin_settings', icon: Settings },
+        { key: 'systemManagement', name: 'Infrastructure Health', href: '/frontend_superadmin/superadmin_system_management', icon: Server },
+        { key: 'dataManagement', name: 'Data Governance', href: '/frontend_superadmin/superadmin_data_management', icon: Database },
+        { key: 'backups', name: 'Disaster Recovery', href: '/frontend_superadmin/superadmin_backups', icon: Database },
       ]
     }
   ];
