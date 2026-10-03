@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 type ComplaintStatus = 'Submitted' | 'Received' | 'Under Review' | 'Assigned' | 'In Progress' | 'Resolved' | 'Closed';
 type ComplaintCategory = 'Room' | 'Electrical' | 'Plumbing' | 'Water' | 'Furniture' | 'Cleaning' | 'Internet' | 'Food' | 'Laundry' | 'Common Area' | 'Other';
 type Priority = 'Low' | 'Medium' | 'High' | 'Urgent';
+type RequestMode = 'Complaint' | 'Maintenance';
 
 interface Complaint {
   id: string;
@@ -24,6 +25,7 @@ interface Complaint {
   technician?: string;
   resolutionNotes?: string;
   attachments?: number;
+  mode?: RequestMode;
 }
 
 const DUMMY_COMPLAINTS: Complaint[] = [
@@ -31,13 +33,26 @@ const DUMMY_COMPLAINTS: Complaint[] = [
     id: 'CMP-2041',
     category: 'Electrical',
     room: 'Room 204',
-    description: 'Ceiling fan is making a very loud noise and spinning very slowly.',
-    priority: 'High',
+    description: 'Ceiling fan is making a loud noise and spinning very slowly. It is getting very hot in the room.',
+    priority: 'Urgent',
     status: 'Assigned',
     date: 'Today, 09:30 AM',
     lastUpdated: '2 hours ago',
     technician: 'Ramesh (Electrician)',
-    attachments: 1
+    attachments: 1,
+    mode: 'Maintenance'
+  },
+  {
+    id: 'CMP-2038',
+    category: 'Water',
+    room: 'Room 204',
+    description: 'Hot water is not coming in the morning. Cold water only throughout the day.',
+    priority: 'High',
+    status: 'In Progress',
+    date: 'Today, 07:00 AM',
+    lastUpdated: '1 hour ago',
+    technician: 'Suresh (Plumber)',
+    mode: 'Maintenance'
   },
   {
     id: 'CMP-2035',
