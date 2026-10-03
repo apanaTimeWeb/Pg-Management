@@ -45,6 +45,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
     {
       label: 'SYSTEM',
       items: [
+        { key: 'users', name: 'User Management', href: '/superadmin/users', icon: Users },
         { key: 'plans', name: 'Subscriptions & Plans', href: '/superadmin/plans', icon: Package },
         { key: 'billing', name: 'Billing & Payments', href: '/superadmin/billing', icon: CreditCard },
         { key: 'analytics', name: 'Reports & Analytics', href: '/superadmin/analytics', icon: BarChart3 },
