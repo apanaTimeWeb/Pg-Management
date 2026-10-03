@@ -1,48 +1,9 @@
-'use client';
+import { SuperadminAuditSecurityMain } from '@/app/superadmin/SuperAdmin_components/SuperadminAuditSecurityMain';
 
-import React from 'react';
+export const metadata = {
+  title: 'Audit & Security | SuperAdmin',
+};
 
-import { SuperadminUseSuperAdminAuditLogsData } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_hooks/SuperadminUseSuperAdminAuditLogsData';
-import { SuperAdminAuditLogsHeader } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_components/SuperAdminAuditLogsHeader';
-import { SuperAdminAuditLogsFilters } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_components/SuperAdminAuditLogsFilters';
-import { SuperAdminAuditLogsTimeline } from '@/app/superadmin/audit-logs/SuperAdminAuditLogs_components/SuperAdminAuditLogsTimeline';
-
-export default function AuditLogsPage() {
-  const {
-    loading,
-    search,
-    setSearch,
-    roleFilter,
-    setRoleFilter,
-    currentPage,
-    setCurrentPage,
-    totalPages,
-    paginatedData,
-    filters
-  } = SuperadminUseSuperAdminAuditLogsData();
-
-  if (loading) return null; // Let loading.tsx handle it
-
-  return (
-    <div className="space-y-6 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <SuperAdminAuditLogsHeader />
-
-      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl shadow-sm overflow-hidden">
-        <SuperAdminAuditLogsFilters 
-          search={search} 
-          setSearch={setSearch} 
-          roleFilter={roleFilter} 
-          setRoleFilter={setRoleFilter} 
-          filters={filters} 
-        />
-
-        <SuperAdminAuditLogsTimeline 
-          logs={paginatedData} 
-          currentPage={currentPage} 
-          totalPages={totalPages} 
-          setCurrentPage={setCurrentPage} 
-        />
-      </div>
-    </div>
-  );
+export default function SuperadminAuditSecurityPage() {
+  return <SuperadminAuditSecurityMain />;
 }

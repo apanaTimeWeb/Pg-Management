@@ -3,7 +3,7 @@ import { SuperAdminRequireSuperAdmin } from '@/app/superadmin/SuperAdmin_compone
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { LayoutDashboard, FileText, UserPlus, Users, Package, BarChart3, ToggleLeft, Ticket, History, Settings, Menu, X, ShieldAlert, LogOut, ChevronDown, User, Search, Bell, AlertCircle, LifeBuoy, Database, Server } from 'lucide-react';
+import { LayoutDashboard, FileText, UserPlus, Users, Package, BarChart3, ToggleLeft, Ticket, History, Settings, Menu, X, ShieldAlert, LogOut, ChevronDown, User, Search, Bell, AlertCircle, LifeBuoy, Database, Server, ShieldCheck } from 'lucide-react';
 import { getSession, clearSession } from '@/app/superadmin/superadmin_lib/superadmin_auth/SuperadminSession';
 import { SuperadminI18nProvider, useSuperadminI18n } from '@/app/superadmin/SuperadminI18n';
 import type { DictKey } from '@/app/superadmin/SuperadminI18n';
@@ -48,7 +48,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
         { key: 'plans', name: 'Plans', href: '/superadmin/plans', icon: Package },
         { key: 'analytics', name: 'Analytics', href: '/superadmin/analytics', icon: BarChart3 },
         { key: 'tickets', name: 'Support / Tickets', href: '/superadmin/tickets', icon: Ticket },
-        { key: 'auditLogs', name: 'Audit Logs', href: '/superadmin/audit-logs', icon: History },
+        { key: 'auditLogs', name: 'Audit & Security', href: '/superadmin/audit-logs', icon: ShieldCheck },
         { key: 'featureFlags', name: 'Feature Flags', href: '/superadmin/feature-flags', icon: ToggleLeft },
         { key: 'settings', name: 'Settings', href: '/superadmin/settings', icon: Settings },
         { key: 'systemManagement', name: 'System Mgmt', href: '/superadmin/system-management', icon: Server },
