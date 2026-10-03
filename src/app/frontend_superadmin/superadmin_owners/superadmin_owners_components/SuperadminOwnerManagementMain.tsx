@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { UserPlus, Shield, Users, Clock, Search, Filter, Eye, Edit, ShieldAlert, PowerOff, Key, History, MoreVertical, CheckCircle, XCircle, Mail, KeySquare, ChevronRight, Lock } from 'lucide-react';
+import { UserPlus, Shield, Users, Clock, Search, Filter, Eye, Edit, ShieldAlert, PowerOff, Key, History, MoreVertical, CheckCircle, XCircle, Mail, KeySquare, ChevronRight, Lock, Trash2 } from 'lucide-react';
 
 export function SuperadminOwnerManagementMain() {
   const [activeTab, setActiveTab] = useState('all');
@@ -131,11 +131,12 @@ export function SuperadminOwnerManagementMain() {
                         <td className="py-4 px-4 text-right">
                           <div className="flex items-center justify-end gap-2">
                             <button onClick={() => setSelectedOwner(own)} className="p-1.5 text-theme-primary hover:bg-primary-subtle rounded-lg transition-colors tooltip" title="View Profile"><Eye className="w-4 h-4" /></button>
+                            <button className="p-1.5 text-info hover:bg-info-bg rounded-lg transition-colors tooltip" title="Edit Admin"><Edit className="w-4 h-4" /></button>
+                            <button className="p-1.5 text-danger hover:bg-danger-bg rounded-lg transition-colors tooltip" title="Delete Admin"><Trash2 className="w-4 h-4" /></button>
                             <div className="relative group/menu">
                               <button className="p-1.5 text-secondary hover:bg-bg-page rounded-lg transition-colors"><MoreVertical className="w-4 h-4" /></button>
                               <div className="absolute right-0 mt-2 w-48 bg-card border border-border/50 rounded-xl shadow-xl opacity-0 invisible group-hover/menu:opacity-100 group-hover/menu:visible transition-all z-50">
                                 <div className="p-2 space-y-1 text-left">
-                                  <button className="w-full text-left px-3 py-2 text-sm font-bold text-primary hover:bg-bg-page rounded-lg flex items-center gap-2"><Edit className="w-4 h-4 text-info"/> Edit Admin</button>
                                   {own.status !== 'Active' && <button className="w-full text-left px-3 py-2 text-sm font-bold text-primary hover:bg-bg-page rounded-lg flex items-center gap-2"><CheckCircle className="w-4 h-4 text-success"/> Activate</button>}
                                   {own.status === 'Active' && <button className="w-full text-left px-3 py-2 text-sm font-bold text-primary hover:bg-bg-page rounded-lg flex items-center gap-2"><ShieldAlert className="w-4 h-4 text-danger"/> Suspend</button>}
                                   <button className="w-full text-left px-3 py-2 text-sm font-bold text-primary hover:bg-bg-page rounded-lg flex items-center gap-2"><Key className="w-4 h-4 text-warning"/> Reset Password</button>
@@ -189,13 +190,15 @@ export function SuperadminOwnerManagementMain() {
                  <div className="space-y-6">
                     <div className="bg-bg-page border border-border/50 p-6 rounded-3xl">
                        <h4 className="text-xs font-bold text-secondary uppercase tracking-wider mb-4">Quick Administrative Actions</h4>
-                       <div className="grid grid-cols-2 gap-4">
+                       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                          <button className="flex flex-col items-center gap-2 p-4 bg-card border border-info/30 rounded-2xl hover:bg-info-bg text-info font-bold text-sm"><Edit className="w-5 h-5"/> Edit Profile</button>
                           {selectedOwner.status !== 'Active' && <button className="flex flex-col items-center gap-2 p-4 bg-card border border-success/30 rounded-2xl hover:bg-success-bg text-success font-bold text-sm"><CheckCircle className="w-5 h-5"/> Activate</button>}
-                          {selectedOwner.status === 'Active' && <button className="flex flex-col items-center gap-2 p-4 bg-card border border-danger/30 rounded-2xl hover:bg-danger-bg text-danger font-bold text-sm"><ShieldAlert className="w-5 h-5"/> Suspend</button>}
-                          <button className="flex flex-col items-center gap-2 p-4 bg-card border border-warning/30 rounded-2xl hover:bg-warning-bg text-warning font-bold text-sm"><Key className="w-5 h-5"/> Reset Password</button>
-                          <button className="flex flex-col items-center gap-2 p-4 bg-card border border-danger/30 rounded-2xl hover:bg-danger-bg text-danger font-bold text-sm"><PowerOff className="w-5 h-5"/> Force Logout</button>
-                          <button className="flex flex-col items-center gap-2 p-4 bg-card border border-purple/30 rounded-2xl hover:bg-purple-bg text-purple font-bold text-sm"><Mail className="w-5 h-5"/> Verify Contact</button>
-                          <button className="flex flex-col items-center gap-2 p-4 bg-card border border-info/30 rounded-2xl hover:bg-info-bg text-info font-bold text-sm"><History className="w-5 h-5"/> View Activity</button>
+                          {selectedOwner.status === 'Active' && <button className="flex flex-col items-center gap-2 p-4 bg-card border border-warning/30 rounded-2xl hover:bg-warning-bg text-warning font-bold text-sm"><ShieldAlert className="w-5 h-5"/> Suspend</button>}
+                          <button className="flex flex-col items-center gap-2 p-4 bg-card border border-danger/30 rounded-2xl hover:bg-danger-bg text-danger font-bold text-sm"><Trash2 className="w-5 h-5"/> Delete Admin</button>
+                          <button className="flex flex-col items-center gap-2 p-4 bg-card border border-purple/30 rounded-2xl hover:bg-purple-bg text-purple font-bold text-sm"><Key className="w-5 h-5"/> Reset Password</button>
+                          <button className="flex flex-col items-center gap-2 p-4 bg-card border border-secondary/30 rounded-2xl hover:bg-bg-page text-secondary font-bold text-sm"><PowerOff className="w-5 h-5"/> Force Logout</button>
+                          <button className="flex flex-col items-center gap-2 p-4 bg-card border border-success/30 rounded-2xl hover:bg-success-bg text-success font-bold text-sm"><Mail className="w-5 h-5"/> Verify Contact</button>
+                          <button className="flex flex-col items-center gap-2 p-4 bg-card border border-theme-primary/30 rounded-2xl hover:bg-primary-subtle text-theme-primary font-bold text-sm"><History className="w-5 h-5"/> View Activity</button>
                        </div>
                     </div>
                  </div>
