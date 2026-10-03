@@ -4,6 +4,12 @@ export const metadata = {
   title: 'Audit & Security | SuperAdmin',
 };
 
+import { Suspense } from 'react';
+
 export default function SuperadminAuditSecurityPage() {
-  return <SuperadminAuditSecurityMain />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SuperadminAuditSecurityMain />
+    </Suspense>
+  );
 }
