@@ -123,10 +123,26 @@ export function ManagerCheckinMain() {
       )}
 
       {activeTab === 'checkout_wizard' && (
-        <div className="bg-card border border rounded-[var(--radius-xl,16px)] p-6 shadow-sm flex flex-col items-center justify-center py-20 text-center">
-          <LogOut className="w-16 h-16 text-danger mb-4 opacity-50" />
-          <h2 className="text-xl font-bold text-primary mb-2">Check-out Wizard</h2>
-          <p className="text-secondary max-w-md">The multi-step check-out wizard (Notice -&gt; Rent Calc -&gt; Damage Assessment -&gt; Deposit -&gt; Inventory) is coming soon in the next release.</p>
+        <div className="bg-card border border-[var(--border)] rounded-[var(--radius-xl,16px)] p-6 shadow-sm">
+          <h2 className="text-xl font-bold text-primary mb-6">Check-out Processing</h2>
+          <div className="space-y-4 max-w-md">
+            <div>
+              <label className="block text-sm font-medium text-secondary mb-1">Select Resident to Check-out</label>
+              <select className="w-full px-4 py-2 bg-input border border-border rounded-lg text-sm text-primary focus:border-primary outline-none">
+                <option value="">Select Resident...</option>
+                <option value="stu1">Rahul Kumar - Room 101</option>
+                <option value="stu2">Amit Sharma - Room 205</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-secondary mb-1">Damage Deductions (₹)</label>
+              <input type="number" defaultValue={0} className="w-full px-4 py-2 bg-input border border-border rounded-lg text-sm text-primary focus:border-primary outline-none" />
+            </div>
+            <button className="w-full py-2.5 bg-danger text-white rounded-lg font-medium hover:bg-danger/90 transition-colors mt-4">
+              Process Check-out
+            </button>
+            <p className="text-xs text-secondary text-center mt-4">Multi-step wizard (Notice -{'>'} Rent Calc -{'>'} Inventory) will be added in a future release.</p>
+          </div>
         </div>
       )}
     </div>

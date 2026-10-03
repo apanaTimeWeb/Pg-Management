@@ -1,1 +1,2 @@
-export default function Page() { return <div className="p-6 manager-theme animate-fade-in"><h1 className="text-[24px] font-bold text-primary">Coming Soon</h1><p className="text-secondary">This module is under development.</p></div>; }
+import { ManagerHousekeepingMain } from './ManagerHousekeepingMain';
+export default function Page() { return <div className="p-6 manager-theme animate-fade-in"><ManagerHousekeepingMain /></div>; }
