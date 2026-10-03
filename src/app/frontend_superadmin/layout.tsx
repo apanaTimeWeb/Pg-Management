@@ -19,6 +19,13 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
   const [isSupportOpen, setIsSupportOpen] = useState(false);
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({
+    'users': true
+  });
+
+  const toggleExpanded = (key: string) => {
+    setExpandedMenus(prev => ({ ...prev, [key]: !prev[key] }));
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -40,7 +47,20 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
       items: [
         { key: 'pgs', name: 'PG Management', href: '/frontend_superadmin/superadmin_pgs', icon: Building2 },
         { key: 'owners', name: 'Admin / Owners', href: '/frontend_superadmin/superadmin_owners', icon: Shield },
-        { key: 'users', name: 'User Management', href: '/frontend_superadmin/superadmin_users', icon: Users },
+        { 
+          key: 'users', 
+          name: 'User Management', 
+          href: '/frontend_superadmin/superadmin_users', 
+          icon: Users,
+          subItems: [
+            { key: 'users_all', name: 'All Users', href: '/frontend_superadmin/superadmin_users?tab=all' },
+            { key: 'users_students', name: 'Students', href: '/frontend_superadmin/superadmin_users?tab=students' },
+            { key: 'users_managers', name: 'Managers', href: '/frontend_superadmin/superadmin_users?tab=managers' },
+            { key: 'users_cooks', name: 'Cooks', href: '/frontend_superadmin/superadmin_users?tab=cooks' },
+            { key: 'users_pending', name: 'Pending Users', href: '/frontend_superadmin/superadmin_users?tab=pending' },
+            { key: 'users_suspended', name: 'Suspended Users', href: '/frontend_superadmin/superadmin_users?tab=suspended' },
+          ]
+        },
       ]
     },
     {
@@ -116,20 +136,50 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
               <div className="space-y-1">
                 {group.items.map((item) => {
                   const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+                  const hasSubItems = item.subItems && item.subItems.length > 0;
+                  const isExpanded = expandedMenus[item.key] || false;
+                  
                   return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all group focus:outline-none focus:ring-2 focus:ring-[#4F46E5] ${
-                        isActive
-                          ? 'bg-[#4F46E5] text-white shadow-sm'
-                          : 'text-slate-300 hover:bg-[#1E3A8A] hover:text-white'
-                      }`}
-                    >
-                      <item.icon className={`w-[18px] h-[18px] shrink-0 ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-white transition-colors'}`} />
-                      <span className="truncate">{item.key ? (t(item.key as DictKey) || item.name) : item.name}</span>
-                    </Link>
+                    <div key={item.key || item.href}>
+                      <div className="flex items-center">
+                        <Link
+                          href={item.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={`flex-1 flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all group focus:outline-none focus:ring-2 focus:ring-[#4F46E5] ${
+                            isActive
+                              ? 'bg-[#4F46E5] text-white shadow-sm'
+                              : 'text-slate-300 hover:bg-[#1E3A8A] hover:text-white'
+                          }`}
+                        >
+                          <item.icon className={`w-[18px] h-[18px] shrink-0 ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-white transition-colors'}`} />
+                          <span className="truncate">{item.key ? (t(item.key as DictKey) || item.name) : item.name}</span>
+                        </Link>
+                        {hasSubItems && (
+                          <button
+                            onClick={(e) => { e.preventDefault(); toggleExpanded(item.key); }}
+                            className={`p-2 ml-1 rounded-lg transition-colors ${isActive ? 'text-white hover:bg-white/20' : 'text-slate-400 hover:text-white hover:bg-[#1E3A8A]'}`}
+                          >
+                            <ChevronDown className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                          </button>
+                        )}
+                      </div>
+                      
+                      {/* Sub Items */}
+                      {hasSubItems && isExpanded && (
+                        <div className="mt-1 ml-4 pl-4 border-l border-[#1E3A8A]/50 space-y-1">
+                          {item.subItems.map((subItem: any) => (
+                            <Link
+                              key={subItem.key || subItem.href}
+                              href={subItem.href}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className="flex items-center px-3 py-2 rounded-lg text-[13px] font-medium text-slate-400 hover:text-white hover:bg-[#1E3A8A] transition-colors"
+                            >
+                              <span className="truncate">{t(subItem.key as DictKey) || subItem.name}</span>
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   );
                 })}
               </div>

@@ -1,10 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Users, Search, Filter, Download, UserPlus, Eye, Edit, ShieldAlert, PowerOff, Key, History, MoreVertical, GraduationCap, ChefHat, UserCircle, MapPin, CheckCircle, XCircle, Building } from 'lucide-react';
 
 export function SuperadminUserManagementMain() {
-  const [activeTab, setActiveTab] = useState('all');
+  const searchParams = useSearchParams();
+  const tabQuery = searchParams.get('tab');
+  const [activeTab, setActiveTab] = useState(tabQuery || 'all');
+
+  useEffect(() => {
+    if (tabQuery) setActiveTab(tabQuery);
+  }, [tabQuery]);
+
   const [selectedUser, setSelectedUser] = useState<any | null>(null);
 
   const tabs = [
