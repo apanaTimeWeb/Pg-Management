@@ -4,6 +4,12 @@ export const metadata = {
   title: 'Reports & Analytics | SuperAdmin',
 };
 
+import { Suspense } from 'react';
+
 export default function SuperadminAnalyticsPage() {
-  return <SuperadminAnalyticsMain />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SuperadminAnalyticsMain />
+    </Suspense>
+  );
 }
