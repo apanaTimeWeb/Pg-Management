@@ -153,7 +153,7 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
                 )}
               </div>
             );
-          })}}
+          })}
         </nav>
       </aside>
       {/* Main Content */}
