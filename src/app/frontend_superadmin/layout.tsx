@@ -186,7 +186,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
               <div className="space-y-1">
                 {group.items.map((item) => {
                   const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
-                  const hasSubItems = item.subItems && item.subItems.length > 0;
+                  const hasSubItems = (item as any).subItems && (item as any).subItems.length > 0;
                   const isExpanded = expandedMenus[item.key] || false;
                   
                   return (
@@ -194,30 +194,34 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
                       <div className="flex items-center">
                         <Link
                           href={item.href}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className={`flex-1 flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all group focus:outline-none focus:ring-2 focus:ring-[#4F46E5] ${
+                          onClick={(e) => { 
+                            setIsMobileMenuOpen(false); 
+                            if (hasSubItems) {
+                              // If it has subItems, also toggle expansion
+                              toggleExpanded(item.key);
+                            }
+                          }}
+                          className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all group focus:outline-none focus:ring-2 focus:ring-[#4F46E5] ${
                             isActive
                               ? 'bg-[#4F46E5] text-white shadow-sm'
                               : 'text-slate-300 hover:bg-[#1E3A8A] hover:text-white'
                           }`}
                         >
-                          <item.icon className={`w-[18px] h-[18px] shrink-0 ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-white transition-colors'}`} />
-                          <span className="truncate">{item.key ? (t(item.key as DictKey) || item.name) : item.name}</span>
+                          <div className="flex items-center gap-3 truncate">
+                            <item.icon className={`w-[18px] h-[18px] shrink-0 ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-white transition-colors'}`} />
+                            <span className="truncate">{item.key ? (t(item.key as DictKey) || item.name) : item.name}</span>
+                          </div>
+                          
+                          {hasSubItems && (
+                            <ChevronDown className={`w-4 h-4 shrink-0 transition-transform ${isExpanded ? 'rotate-180' : ''} ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-white'}`} />
+                          )}
                         </Link>
-                        {hasSubItems && (
-                          <button
-                            onClick={(e) => { e.preventDefault(); toggleExpanded(item.key); }}
-                            className={`p-2 ml-1 rounded-lg transition-colors ${isActive ? 'text-white hover:bg-white/20' : 'text-slate-400 hover:text-white hover:bg-[#1E3A8A]'}`}
-                          >
-                            <ChevronDown className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
-                          </button>
-                        )}
                       </div>
                       
                       {/* Sub Items */}
                       {hasSubItems && isExpanded && (
                         <div className="mt-1 ml-4 pl-4 border-l border-[#1E3A8A]/50 space-y-1">
-                          {item.subItems.map((subItem: any) => {
+                          {(item as any).subItems.map((subItem: any) => {
                             const currentUrl = pathname + (searchParams.toString() ? `?${searchParams.toString()}` : '');
                             const isSubActive = currentUrl === subItem.href || currentUrl.startsWith(subItem.href + '&');
                             return (
