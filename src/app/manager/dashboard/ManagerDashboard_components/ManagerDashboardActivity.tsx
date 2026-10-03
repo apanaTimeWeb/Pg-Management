@@ -1,33 +1,39 @@
-import { UserPlus, Wallet, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { History, UserPlus, FileText, CheckCircle2 } from 'lucide-react';
 
 export function ManagerDashboardActivity() {
   const activities = [
-    { id: 1, text: 'Rahul Kumar completed check-in for Room 101', time: '10 mins ago', icon: CheckCircle2, color: 'text-success', bg: 'bg-success-bg' },
-    { id: 2, text: 'New complaint logged: AC not working in Room 204', time: '1 hour ago', icon: AlertCircle, color: 'text-danger', bg: 'bg-danger-bg' },
-    { id: 3, text: 'Rent payment of ₹5,000 received from Amit Singh', time: '3 hours ago', icon: Wallet, color: 'text-theme-primary', bg: 'bg-theme-primary/10' },
-    { id: 4, text: 'Visitor approved for Student Rohan (Room 302)', time: '5 hours ago', icon: UserPlus, color: 'text-info', bg: 'bg-info-bg' },
+    { id: 1, type: 'registration', text: 'Rahul Sharma registered as new student.', time: '10 mins ago', icon: UserPlus, color: 'text-info', bg: 'bg-info/10' },
+    { id: 2, type: 'payment', text: 'Rent payment of ₹8,000 received from Room 201.', time: '1 hour ago', icon: CheckCircle2, color: 'text-success', bg: 'bg-success/10' },
+    { id: 3, type: 'complaint', text: 'New plumbing complaint logged for Room 105.', time: '3 hours ago', icon: FileText, color: 'text-danger', bg: 'bg-danger/10' },
   ];
 
   return (
-    <div className="bg-card border border-border rounded-[var(--radius-lg)] p-5 h-full shadow-sm">
-      <h3 className="font-black text-primary text-lg border-b border-border pb-3 mb-4 flex items-center gap-2">Recent Activity</h3>
-      <div className="space-y-0 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent">
-        {activities.map((item, i) => {
-          const Icon = item.icon;
-          return (
-            <div key={item.id} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active pb-6 last:pb-0">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-card shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-sm z-10 bg-card">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${item.bg}`}>
-                  <Icon className={`w-4 h-4 ${item.color}`} />
-                </div>
-              </div>
-              <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-input/50 p-3 rounded-[var(--radius-md,8px)] border border border-transparent hover:border-border transition-colors">
-                <p className="text-sm font-medium text-primary mb-1">{item.text}</p>
-                <span className="text-xs font-bold text-secondary">{item.time}</span>
-              </div>
+    <div className="h-full flex flex-col relative z-10">
+      <div className="absolute top-0 right-0 p-4 opacity-5"><History className="w-32 h-32 text-secondary" /></div>
+      
+      <div className="flex items-center justify-between border-b border-border/50 pb-4 mb-4 relative z-10">
+        <h3 className="font-black text-primary text-lg flex items-center gap-2">
+          <div className="p-1.5 bg-secondary/10 rounded-lg text-secondary"><History className="w-5 h-5" /></div>
+          Recent Activity Logs
+        </h3>
+        <button className="text-sm font-bold text-theme-primary hover:text-theme-primary-hover transition-colors">View All</button>
+      </div>
+      
+      <div className="space-y-4 flex-1 overflow-y-auto pr-2 relative z-10">
+        {activities.map(activity => (
+          <div key={activity.id} className="flex items-start gap-4 p-4 rounded-2xl hover:bg-bg-page/50 transition-colors group cursor-pointer border border-transparent hover:border-border/50">
+            <div className={`p-3 rounded-xl mt-0.5 shadow-sm transition-transform group-hover:scale-110 shrink-0 ${activity.bg} ${activity.color}`}>
+               <activity.icon className="w-5 h-5" />
             </div>
-          );
-        })}
+            
+            <div className="flex-1">
+              <p className="text-sm font-bold text-primary group-hover:text-theme-primary transition-colors">
+                {activity.text}
+              </p>
+              <p className="text-xs text-secondary mt-1 font-medium">{activity.time}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

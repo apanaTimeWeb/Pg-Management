@@ -58,17 +58,17 @@ export function ManagerDashboardMain() {
         </div>
 
         {/* Tasks / Complaints - Spans 2 cols */}
-        <div className="md:col-span-2 lg:col-span-2 bg-card border border-border/50 rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+        <div className="md:col-span-2 lg:col-span-2">
           <ManagerDashboardTasks />
         </div>
 
         {/* Performance Summary - Spans 2 cols */}
-        <div className="md:col-span-2 lg:col-span-2 bg-card border border-border/50 rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+        <div className="md:col-span-2 lg:col-span-2 bg-card border border-border/50 rounded-3xl shadow-sm overflow-hidden p-6 relative">
           <ManagerDashboardPerformance />
         </div>
 
         {/* Recent Activity - Full width at bottom */}
-        <div className="md:col-span-3 lg:col-span-4 bg-card border border-border/50 rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+        <div className="md:col-span-3 lg:col-span-4 bg-card border border-border/50 rounded-3xl shadow-sm overflow-hidden p-6 relative">
           <ManagerDashboardActivity />
         </div>
       </div>

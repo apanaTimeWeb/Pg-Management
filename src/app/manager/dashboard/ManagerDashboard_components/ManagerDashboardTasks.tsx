@@ -1,4 +1,4 @@
-import { CheckCircle2, Clock, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { CheckCircle2, Clock, AlertTriangle } from 'lucide-react';
 
 export function ManagerDashboardTasks() {
   const tasks = [
@@ -9,36 +9,50 @@ export function ManagerDashboardTasks() {
   ];
 
   return (
-    <div className="h-full flex flex-col p-6">
-      <div className="flex items-center justify-between border-b border-border/50 pb-4 mb-4">
-        <h3 className="font-bold text-primary text-lg flex items-center gap-2">
-          <CheckCircle2 className="w-5 h-5 text-theme-primary" />
+    <div className="h-full flex flex-col p-6 bg-card border border-border/50 rounded-3xl shadow-sm relative overflow-hidden">
+      <div className="absolute top-0 right-0 p-4 opacity-5"><CheckCircle2 className="w-32 h-32 text-theme-primary" /></div>
+      
+      <div className="flex items-center justify-between border-b border-border/50 pb-4 mb-4 relative z-10">
+        <h3 className="font-black text-primary text-lg flex items-center gap-2">
+          <div className="p-1.5 bg-theme-primary/10 rounded-lg text-theme-primary"><CheckCircle2 className="w-5 h-5" /></div>
           Today's Tasks
         </h3>
-        <span className="bg-theme-primary/10 text-theme-primary text-xs font-black px-2.5 py-1 rounded-lg">
+        <span className="bg-theme-primary/10 text-theme-primary text-xs font-black px-3 py-1.5 rounded-lg shadow-sm border border-theme-primary/20">
           {tasks.filter(t => t.status === 'pending').length} Pending
         </span>
       </div>
-      <div className="space-y-3 flex-1 overflow-y-auto pr-2">
+      
+      <div className="space-y-3 flex-1 overflow-y-auto pr-2 relative z-10">
         {tasks.map(task => (
-          <div key={task.id} className="flex items-start gap-3 p-3.5 rounded-xl hover:bg-bg-page/50 motion-safe:transition-all group cursor-pointer border border-transparent hover:border-border/50 hover:shadow-sm">
-            {task.status === 'completed' ? (
-              <CheckCircle2 className="w-5 h-5 text-success shrink-0 mt-0.5" />
-            ) : task.type === 'urgent' ? (
-              <AlertTriangle className="w-5 h-5 text-danger shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-            ) : (
-              <Clock className="w-5 h-5 text-warning shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-            )}
+          <div key={task.id} className="flex items-start gap-3 p-4 bg-bg-page border border-border/50 rounded-2xl hover:bg-card hover:border-theme-primary/30 hover:shadow-md transition-all group cursor-pointer relative overflow-hidden">
+            {task.type === 'urgent' && task.status === 'pending' && <div className="absolute top-0 left-0 w-1 h-full bg-danger"></div>}
+            {task.type === 'normal' && task.status === 'pending' && <div className="absolute top-0 left-0 w-1 h-full bg-warning"></div>}
+            {task.status === 'completed' && <div className="absolute top-0 left-0 w-1 h-full bg-success"></div>}
+            
+            <div className={`p-2 rounded-xl mt-0.5 shadow-sm transition-transform group-hover:scale-110 shrink-0 ${
+               task.status === 'completed' ? 'bg-success/10 text-success' :
+               task.type === 'urgent' ? 'bg-danger/10 text-danger' : 'bg-warning/10 text-warning'
+            }`}>
+               {task.status === 'completed' ? (
+                 <CheckCircle2 className="w-4 h-4" />
+               ) : task.type === 'urgent' ? (
+                 <AlertTriangle className="w-4 h-4" />
+               ) : (
+                 <Clock className="w-4 h-4" />
+               )}
+            </div>
+            
             <div>
               <p className={`text-sm font-bold ${task.status === 'completed' ? 'line-through text-secondary' : 'text-primary group-hover:text-theme-primary transition-colors'}`}>
                 {task.title}
               </p>
-              <p className="text-xs text-secondary mt-1 font-medium">{task.time}</p>
+              <p className="text-xs text-secondary mt-1 font-medium bg-bg-page inline-block px-2 py-0.5 rounded border border-border/50">{task.time}</p>
             </div>
           </div>
         ))}
       </div>
-      <button className="w-full mt-4 text-sm font-bold text-theme-primary bg-theme-primary/5 hover:bg-theme-primary/10 py-2.5 rounded-xl transition-colors">
+      
+      <button className="w-full mt-4 text-sm font-bold text-theme-primary bg-theme-primary/10 border border-theme-primary/20 hover:bg-theme-primary hover:text-white py-3 rounded-xl transition-colors shadow-sm relative z-10">
         View All Tasks
       </button>
     </div>

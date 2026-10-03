@@ -10,7 +10,7 @@ import { ManagerInventoryBatches } from '@/app/manager/inventory/ManagerInventor
 import { ManagerInventoryAlerts } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryAlerts';
 import { ManagerInventoryKPIs } from '@/app/manager/inventory/ManagerInventory_components/ManagerInventoryKPIs';
 import { Pagination } from '@/components/ui/Pagination';
-import { ClipboardList } from 'lucide-react';
+import { Package } from 'lucide-react';
 export function ManagerInventoryMain() {
   const user = useManagerSession();
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
@@ -28,13 +28,21 @@ export function ManagerInventoryMain() {
   const paginatedRequests = requests.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   return (
     <div className="space-y-6 pb-20 manager-theme animate-fade-in">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-[24px] font-bold text-primary flex items-center gap-2 tracking-tight">
-            <ClipboardList className="w-6 h-6 text-theme-primary" />
-            Inventory & Kitchen Requests
-          </h1>
-          <p className="text-sm text-secondary">Manage live stock, fulfill cook requests, and track batches.</p>
+      {/* Header Banner */}
+      <div className="bg-gradient-to-r from-warning to-amber-600 text-white rounded-3xl p-8 shadow-lg relative overflow-hidden group mb-6">
+        <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-700">
+          <Package className="w-40 h-40" />
+        </div>
+        <div className="absolute -left-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+        <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
+              <Package className="w-8 h-8" /> Inventory & Kitchen
+            </h1>
+            <p className="text-white/80 font-medium max-w-xl">
+              Manage live stock, fulfill cook requests, track batches, and control wastage.
+            </p>
+          </div>
         </div>
       </div>
       

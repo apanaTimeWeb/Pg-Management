@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the ManagerStudentsMain component.
 'use client';
 import { useState } from 'react';
-import { Plus, Search, Filter } from 'lucide-react';
+import { Plus, Search, Filter, Users } from 'lucide-react';
 
 import { useManagerPropertyContext } from '@/app/manager/manager_components/ManagerPropertyContext';
 import { ManagerAddStudentModal } from '@/app/manager/manager_components/ManagerAddStudentModal';
@@ -34,17 +34,28 @@ export function ManagerStudentsMain() {
 
   return (
     <div className="space-y-6 pb-20 manager-theme animate-fade-in">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-          <h1 className="text-2xl font-black text-primary tracking-tight">Student Management</h1>
-          <p className="text-sm text-secondary mt-1">Manage residents, rent, and KYC.</p>
+      {/* Header Banner */}
+      <div className="bg-gradient-to-r from-theme-primary to-theme-primary-hover text-white rounded-3xl p-8 shadow-lg relative overflow-hidden group mb-6">
+        <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-700">
+          <Users className="w-40 h-40" />
         </div>
-        <button 
-          onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 bg-theme-primary text-white px-5 py-2.5 rounded-[var(--radius-md,8px)] hover:bg-theme-primary-hover motion-safe:transition-colors text-sm font-bold shadow-sm"
-        >
-          <Plus className="w-4 h-4" /> Add New Student
-        </button>
+        <div className="absolute -left-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+        <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
+              <Users className="w-8 h-8" /> Student Management
+            </h1>
+            <p className="text-white/80 font-medium max-w-xl">
+              Manage all residents, track their rent status, and handle KYC documentation.
+            </p>
+          </div>
+          <button 
+            onClick={() => setShowAddModal(true)}
+            className="bg-white text-theme-primary px-6 py-3 rounded-xl font-bold shadow-md hover:bg-white/90 transition-colors flex items-center gap-2 w-fit"
+          >
+            <Plus className="w-5 h-5" /> Add New Student
+          </button>
+        </div>
       </div>
 
       <div className="bg-card border border-border rounded-[var(--radius-lg,12px)] p-4 flex flex-col md:flex-row gap-4">

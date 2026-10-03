@@ -1,4 +1,4 @@
-import { Users, LogIn, LogOut, MessageSquare, BedDouble } from 'lucide-react';
+import { Users, LogIn, LogOut, MessageSquare, BedDouble, TrendingUp } from 'lucide-react';
 import type { ManagerDashboardStats } from '@/app/manager/dashboard/ManagerDashboard_types/ManagerDashboard.types';
 
 interface Props {
@@ -8,49 +8,67 @@ interface Props {
 export function ManagerDashboardStatsGrid({ stats }: Props) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-      {/* 5 Stats Cards as requested: Check-in Today, Check-out, Pending Complaints, Visitors, Occupied Beds */}
       <StatCard 
-        icon={<LogIn className="w-5 h-5 text-success" />} 
+        icon={LogIn} 
+        color="text-success" 
+        bg="bg-success/10"
         label="Check-in Today" 
         value={stats?.todayCheckins || 0} 
+        trend="Scheduled"
       />
       <StatCard 
-        icon={<LogOut className="w-5 h-5 text-warning" />} 
+        icon={LogOut} 
+        color="text-warning" 
+        bg="bg-warning/10"
         label="Check-out Today" 
         value={stats?.todayCheckouts || 0} 
+        trend="Pending"
       />
       <StatCard 
-        icon={<MessageSquare className="w-5 h-5 text-danger" />} 
+        icon={MessageSquare} 
+        color="text-danger" 
+        bg="bg-danger/10"
         label="Pending Complaints" 
         value={stats?.openComplaints || 0} 
+        trend="Requires action"
       />
       <StatCard 
-        icon={<Users className="w-5 h-5 text-info" />} 
+        icon={Users} 
+        color="text-info" 
+        bg="bg-info/10"
         label="Pending Visitors" 
         value={stats?.pendingVisitors || 0} 
+        trend="Approvals needed"
       />
       <StatCard 
-        icon={<BedDouble className="w-5 h-5 text-theme-primary" />} 
+        icon={BedDouble} 
+        color="text-theme-primary" 
+        bg="bg-theme-primary/10"
         label="Occupied Beds" 
         value={stats?.occupiedBeds || 0} 
+        trend="Active residents"
       />
     </div>
   );
 }
 
-function StatCard({ icon, label, value }: { icon: React.ReactNode, label: string, value: number }) {
+function StatCard({ icon: Icon, color, bg, label, value, trend }: { icon: any, color: string, bg: string, label: string, value: number, trend: string }) {
   return (
-    <div className="relative overflow-hidden bg-card border border-border/40 rounded-2xl p-5 flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-      {/* Subtle background glow */}
-      <div className="absolute -inset-4 bg-gradient-to-br from-theme-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      
-      <div className="flex items-center justify-between mb-4 relative z-10">
-        <span className="text-sm font-bold text-secondary uppercase tracking-wider">{label}</span>
-        <div className="p-2.5 rounded-xl bg-gradient-to-br from-white/10 to-transparent border border-border/50 shadow-sm backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
-          {icon}
-        </div>
+    <div className="bg-card border border-border/50 p-6 rounded-3xl shadow-sm hover:border-theme-primary/30 hover:shadow-md transition-all group flex flex-col justify-between relative overflow-hidden">
+      <div className={`absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform ${color}`}><Icon className="w-16 h-16"/></div>
+      <div>
+         <div className="flex justify-between items-start mb-4 relative z-10">
+            <div className={`p-3 rounded-xl ${bg} ${color} group-hover:scale-110 transition-transform`}>
+               <Icon className="w-5 h-5" />
+            </div>
+            <TrendingUp className="w-4 h-4 text-secondary/50" />
+         </div>
+         <div className="relative z-10">
+            <h3 className="text-3xl font-black text-primary mb-1">{value}</h3>
+            <p className="text-sm font-bold text-secondary tracking-tight">{label}</p>
+            <p className="text-[10px] font-bold text-secondary/70 uppercase mt-1">{trend}</p>
+         </div>
       </div>
-      <div className="text-3xl font-black text-primary relative z-10">{value}</div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { TrendingUp, TrendingDown } from 'lucide-react';
+import { TrendingUp, TrendingDown, Activity } from 'lucide-react';
 
 export function ManagerDashboardPerformance() {
   const metrics = [
@@ -8,26 +8,29 @@ export function ManagerDashboardPerformance() {
   ];
 
   return (
-    <div className="bg-card border border-border rounded-[var(--radius-lg)] p-5 h-full flex flex-col justify-between shadow-sm">
-      <h3 className="font-black text-primary text-lg border-b border-border pb-3 mb-4 flex items-center gap-2">Weekly Performance</h3>
-      <div className="space-y-4 flex-1 flex flex-col justify-center">
+    <div className="h-full flex flex-col relative z-10">
+      <div className="absolute top-0 right-0 p-4 opacity-5"><Activity className="w-32 h-32 text-purple" /></div>
+      
+      <div className="flex items-center justify-between border-b border-border/50 pb-4 mb-4 relative z-10">
+        <h3 className="font-black text-primary text-lg flex items-center gap-2">
+          <div className="p-1.5 bg-purple/10 rounded-lg text-purple"><Activity className="w-5 h-5" /></div>
+          Weekly Performance
+        </h3>
+      </div>
+      
+      <div className="space-y-4 flex-1 flex flex-col justify-center relative z-10">
         {metrics.map((m, i) => (
-          <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-input/50 border border-transparent">
-            <span className="text-sm font-medium text-secondary">{m.label}</span>
-            <div className="flex items-center gap-3">
-              <span className="text-lg font-bold text-primary">{m.value}</span>
-              <div className={`flex items-center gap-1 text-xs font-bold px-2 py-1 rounded-full ${m.isUp ? 'bg-success-bg text-success' : 'bg-danger-bg text-danger'}`}>
-                {m.isUp ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+          <div key={i} className="flex items-center justify-between p-4 rounded-2xl bg-bg-page border border-border/50 hover:border-purple/30 hover:shadow-md transition-all group">
+            <span className="text-sm font-bold text-secondary group-hover:text-primary transition-colors">{m.label}</span>
+            <div className="flex items-center gap-4">
+              <span className="text-xl font-black text-primary">{m.value}</span>
+              <div className={`flex items-center gap-1 text-xs font-black px-2 py-1 rounded-lg border shadow-sm ${m.isUp ? 'bg-success/10 text-success border-success/20' : 'bg-danger/10 text-danger border-danger/20'}`}>
+                {m.isUp ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
                 {m.trend}
               </div>
             </div>
           </div>
         ))}
-      </div>
-      <div className="mt-4 pt-4 border-t border-border text-center">
-        <p className="text-xs text-secondary">
-          Performance compared to previous week
-        </p>
       </div>
     </div>
   );
