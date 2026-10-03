@@ -1,4 +1,4 @@
-import { StudentHistoryMain } from '@/app/frontend_student/student_history/StudentHistory_components/StudentHistoryMain';
+import { StudentHistoryMain } from '@/app/frontend_student/student_history/student_history_components/StudentHistoryMain';
 
 export const metadata = {
   title: 'Stay History | Student Portal',

@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the ManagerAttendanceTable component.
 import { Search, BedDouble, CheckCircle, XCircle, Clock, Users } from 'lucide-react';
 
-import type { ManagerAttendanceStudent, ManagerAttendanceRecord } from '@/app/frontend_manager/manager_attendance/ManagerAttendance_types/ManagerAttendance.types';
+import type { ManagerAttendanceStudent, ManagerAttendanceRecord } from '@/app/frontend_manager/manager_attendance/manager_attendance_types/ManagerAttendance.types';
 interface Props {
   paginatedData: ManagerAttendanceStudent[];
   attendance: ManagerAttendanceRecord[];

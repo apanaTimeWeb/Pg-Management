@@ -1,5 +1,5 @@
 'use client';
-import { useManagerReports } from '../ManagerReports_hooks/useManagerReports';
+import { useManagerReports } from '../manager_reports_hooks/useManagerReports';
 import { BedDouble, Wallet, AlertTriangle } from 'lucide-react';
 
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';

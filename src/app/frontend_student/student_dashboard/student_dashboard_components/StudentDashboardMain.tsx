@@ -6,7 +6,7 @@
 import Link from 'next/link';
 import { IndianRupee, MapPin, Bell, Utensils, TriangleAlert, Home, MessageSquareWarning, ArrowRight, User, Plus, DoorOpen, CalendarOff, FileText } from 'lucide-react';
 
-import { useStudentDashboard } from '@/app/frontend_student/student_dashboard/StudentDashboard_hooks/useStudentDashboard';
+import { useStudentDashboard } from '@/app/frontend_student/student_dashboard/student_dashboard_hooks/useStudentDashboard';
 import { STUDENT_ROUTES } from '@/app/frontend_student/student_url_config';
 
 export function StudentDashboardMain() {

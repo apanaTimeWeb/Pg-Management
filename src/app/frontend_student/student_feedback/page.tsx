@@ -1,4 +1,4 @@
-import { StudentFeedbackMain } from '@/app/frontend_student/student_feedback/StudentFeedback_components/StudentFeedbackMain';
+import { StudentFeedbackMain } from '@/app/frontend_student/student_feedback/student_feedback_components/StudentFeedbackMain';
 
 export const metadata = {
   title: 'Feedback & Ratings | Student Portal',

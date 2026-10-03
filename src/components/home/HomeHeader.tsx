@@ -35,7 +35,7 @@ export function HomeHeader() {
 
         {/* Actions */}
         <div className="hidden md:flex items-center gap-4">
-          <Link href="/login" className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-secondary hover:text-[var(--primary)] transition-all">
+          <Link href="/frontend_login" className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-secondary hover:text-[var(--primary)] transition-all">
             <LogIn className="w-4 h-4" />
             Sign In
           </Link>

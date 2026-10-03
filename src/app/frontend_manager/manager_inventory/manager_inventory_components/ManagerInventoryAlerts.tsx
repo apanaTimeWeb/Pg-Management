@@ -3,7 +3,7 @@ import { AlertTriangle, CheckCircle } from 'lucide-react';
 
 import { api } from '@/app/frontend_manager/manager_lib/manager_api/ManagerApi';
 
-import type { ManagerInventoryItem, ManagerKitchenRequest } from '@/app/frontend_manager/manager_inventory/ManagerInventory_types/ManagerInventory.types';
+import type { ManagerInventoryItem, ManagerKitchenRequest } from '@/app/frontend_manager/manager_inventory/manager_inventory_types/ManagerInventory.types';
 interface Props {
   alertCount: number;
   expiryAlerts: ManagerInventoryItem[];

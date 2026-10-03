@@ -2,7 +2,7 @@
 import React from 'react';
 import { Check } from 'lucide-react';
 
-import type { SuperAdminPlansCardProps } from '@/app/frontend_superadmin/superadmin_plans/SuperAdminPlans_types/SuperAdminPlans.types';
+import type { SuperAdminPlansCardProps } from '@/app/frontend_superadmin/superadmin_plans/superadmin_plans_types/SuperAdminPlans.types';
 
 export const SuperAdminPlansCard: React.FC<SuperAdminPlansCardProps> = ({ plan, onEditClick }) => {
   return (

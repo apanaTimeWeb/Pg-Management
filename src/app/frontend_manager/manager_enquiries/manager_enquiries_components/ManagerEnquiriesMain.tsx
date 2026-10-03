@@ -4,10 +4,10 @@ import { Search, Plus, Lock, AlertTriangle } from 'lucide-react';
 
 import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
 import { useManagerSession } from '@/app/frontend_manager/manager_components/manager_hooks/useManagerSession';
-import { useManagerEnquiries } from '@/app/frontend_manager/manager_enquiries/ManagerEnquiries_hooks/useManagerEnquiries';
-import { ManagerEnquiriesKanban } from '@/app/frontend_manager/manager_enquiries/ManagerEnquiries_components/ManagerEnquiriesKanban';
-import { ManagerEnquiriesLost } from '@/app/frontend_manager/manager_enquiries/ManagerEnquiries_components/ManagerEnquiriesLost';
-import { ManagerEnquiriesModals } from '@/app/frontend_manager/manager_enquiries/ManagerEnquiries_components/ManagerEnquiriesModals';
+import { useManagerEnquiries } from '@/app/frontend_manager/manager_enquiries/manager_enquiries_hooks/useManagerEnquiries';
+import { ManagerEnquiriesKanban } from '@/app/frontend_manager/manager_enquiries/manager_enquiries_components/ManagerEnquiriesKanban';
+import { ManagerEnquiriesLost } from '@/app/frontend_manager/manager_enquiries/manager_enquiries_components/ManagerEnquiriesLost';
+import { ManagerEnquiriesModals } from '@/app/frontend_manager/manager_enquiries/manager_enquiries_components/ManagerEnquiriesModals';
 
 import type { EnquiryStatus } from '@/app/frontend_manager/manager_lib/manager_api/managerEnquiries';
 export function ManagerEnquiriesMain() {

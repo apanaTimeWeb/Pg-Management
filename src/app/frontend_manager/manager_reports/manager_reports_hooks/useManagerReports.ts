@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
-import type { OccupancyStats, FinancialStats, Defaulter } from '../ManagerReports_types/Reports.types';
+import type { OccupancyStats, FinancialStats, Defaulter } from '../manager_reports_types/Reports.types';
 
 export function useManagerReports() {
   const { selectedPropertyId } = useManagerPropertyContext();

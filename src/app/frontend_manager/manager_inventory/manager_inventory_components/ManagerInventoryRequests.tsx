@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the ManagerInventoryRequests component.
 import { CheckCircle, Clock, ShoppingCart } from 'lucide-react';
 
-import type { ManagerKitchenRequest } from '@/app/frontend_manager/manager_inventory/ManagerInventory_types/ManagerInventory.types';
+import type { ManagerKitchenRequest } from '@/app/frontend_manager/manager_inventory/manager_inventory_types/ManagerInventory.types';
 interface Props {
   requests: ManagerKitchenRequest[];
   purchasedQty: { [key: string]: string };

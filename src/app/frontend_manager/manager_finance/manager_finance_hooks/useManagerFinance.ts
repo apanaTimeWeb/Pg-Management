@@ -14,7 +14,7 @@ import type {
   ManagerFinanceFilter, 
   EnrichedInvoice, 
   UseManagerFinanceReturn 
-} from '@/app/frontend_manager/manager_finance/ManagerFinance_types/ManagerFinance.types';
+} from '@/app/frontend_manager/manager_finance/manager_finance_types/ManagerFinance.types';
 export function useManagerFinance(): UseManagerFinanceReturn {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
   const [invoices, setInvoices] = useState<EnrichedInvoice[]>([]);

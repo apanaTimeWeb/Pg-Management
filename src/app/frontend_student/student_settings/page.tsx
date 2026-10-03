@@ -1,4 +1,4 @@
-import { StudentSettingsMain } from '@/app/frontend_student/student_settings/StudentSettings_components/StudentSettingsMain';
+import { StudentSettingsMain } from '@/app/frontend_student/student_settings/student_settings_components/StudentSettingsMain';
 
 export const metadata = {
   title: 'Settings | Student Portal',

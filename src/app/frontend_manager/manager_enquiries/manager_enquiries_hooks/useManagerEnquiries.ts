@@ -9,7 +9,7 @@ import { useManagerUrlPagination } from '@/app/frontend_manager/manager_componen
 import { api } from '@/app/frontend_manager/manager_lib/manager_api/ManagerApi';
 
 import type { Enquiry, EnquiryStatus } from '@/app/frontend_manager/manager_lib/manager_api/managerEnquiries';
-import type { EnquiryFormData, EnquiriesTab } from '@/app/frontend_manager/manager_enquiries/ManagerEnquiries_types/ManagerEnquiries.types';
+import type { EnquiryFormData, EnquiriesTab } from '@/app/frontend_manager/manager_enquiries/manager_enquiries_types/ManagerEnquiries.types';
 
 export function useManagerEnquiries(selectedPropertyId: string | null, ctxLoading: boolean, userId: string | undefined) {
   const router = useRouter();

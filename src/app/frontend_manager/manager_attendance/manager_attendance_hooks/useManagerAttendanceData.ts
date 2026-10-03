@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 
 import { api } from '@/app/frontend_manager/manager_lib/manager_api/ManagerApi';
 
-import type { ManagerAttendanceStudent, ManagerAttendanceRecord } from '@/app/frontend_manager/manager_attendance/ManagerAttendance_types/ManagerAttendance.types';
+import type { ManagerAttendanceStudent, ManagerAttendanceRecord } from '@/app/frontend_manager/manager_attendance/manager_attendance_types/ManagerAttendance.types';
 export function useManagerAttendanceData(selectedPropertyId: string | null, ctxLoading: boolean) {
   const [students, setStudents] = useState<ManagerAttendanceStudent[]>([]);
   const [attendance, setAttendance] = useState<ManagerAttendanceRecord[]>([]);

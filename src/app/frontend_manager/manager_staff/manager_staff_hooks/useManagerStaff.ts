@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
-import type { StaffMember, StaffAttendance } from '../ManagerStaff_types/Staff.types';
+import type { StaffMember, StaffAttendance } from '../manager_staff_types/Staff.types';
 
 export function useManagerStaff() {
   const { selectedPropertyId } = useManagerPropertyContext();

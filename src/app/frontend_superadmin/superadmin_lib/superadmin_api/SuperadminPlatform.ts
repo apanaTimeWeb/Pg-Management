@@ -1,4 +1,4 @@
-import { MOCK_DASHBOARD_STATS } from '../frontend_superadmin_mock_data';
+import { MOCK_DASHBOARD_STATS } from '../superadmin_mock_data';
 
 export const platformApi = {
   getDashboardStats: () => {

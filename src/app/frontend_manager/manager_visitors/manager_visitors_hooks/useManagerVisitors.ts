@@ -8,7 +8,7 @@ import { api } from '@/app/frontend_manager/manager_lib/manager_api/ManagerApi';
 import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
 import { useManagerSession } from '@/app/frontend_manager/manager_components/manager_hooks/useManagerSession';
 
-import type { Visitor, UseManagerVisitorsReturn } from '@/app/frontend_manager/manager_visitors/ManagerVisitors_types/ManagerVisitors.types';
+import type { Visitor, UseManagerVisitorsReturn } from '@/app/frontend_manager/manager_visitors/manager_visitors_types/ManagerVisitors.types';
 export function useManagerVisitors(): UseManagerVisitorsReturn {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
   const [visitors, setVisitors] = useState<Visitor[]>([]);

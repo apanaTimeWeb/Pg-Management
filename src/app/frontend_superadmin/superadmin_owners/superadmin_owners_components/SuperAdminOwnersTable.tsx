@@ -6,7 +6,7 @@ import { StatusBadge } from '@/components/ui/statusBadgeConfig';
 import { formatINR } from '@/lib/utils/formatters';
 import { Pagination } from '@/components/ui/Pagination';
 
-import type { SuperAdminOwnersTableProps } from '@/app/frontend_superadmin/superadmin_owners/SuperAdminOwners_types/SuperAdminOwners.types';
+import type { SuperAdminOwnersTableProps } from '@/app/frontend_superadmin/superadmin_owners/superadmin_owners_types/SuperAdminOwners.types';
 
 export const SuperAdminOwnersTable: React.FC<SuperAdminOwnersTableProps> = ({
   owners,

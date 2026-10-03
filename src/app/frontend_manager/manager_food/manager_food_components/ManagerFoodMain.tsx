@@ -1,8 +1,8 @@
 // RESPONSIBILITY: Renders the ManagerFoodMain component.
 'use client';
-import { useManagerFood } from '@/app/frontend_manager/manager_food/ManagerFood_hooks/useManagerFood';
-import { ManagerFoodEmptyState } from '@/app/frontend_manager/manager_food/ManagerFood_components/ManagerFoodEmptyState';
-import { ManagerFoodWeeklySchedule } from '@/app/frontend_manager/manager_food/ManagerFood_components/ManagerFoodWeeklySchedule';
+import { useManagerFood } from '@/app/frontend_manager/manager_food/manager_food_hooks/useManagerFood';
+import { ManagerFoodEmptyState } from '@/app/frontend_manager/manager_food/manager_food_components/ManagerFoodEmptyState';
+import { ManagerFoodWeeklySchedule } from '@/app/frontend_manager/manager_food/manager_food_components/ManagerFoodWeeklySchedule';
 export function ManagerFoodMain() {
   const { loading, menu, selectedPropertyId, ctxLoading } = useManagerFood();
   if (ctxLoading || loading) {

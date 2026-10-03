@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Users, Search, Filter, Download, UserPlus, Eye, Edit, ShieldAlert, PowerOff, Key, History, MoreVertical, GraduationCap, ChefHat, UserCircle, MapPin, CheckCircle, XCircle } from 'lucide-react';
+import { Users, Search, Filter, Download, UserPlus, Eye, Edit, ShieldAlert, PowerOff, Key, History, MoreVertical, GraduationCap, ChefHat, UserCircle, MapPin, CheckCircle, XCircle, Building } from 'lucide-react';
 
 export function SuperadminUserManagementMain() {
   const [activeTab, setActiveTab] = useState('all');

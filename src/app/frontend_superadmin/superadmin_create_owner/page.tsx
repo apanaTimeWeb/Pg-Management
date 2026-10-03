@@ -2,7 +2,7 @@
 
 import React, { Suspense } from 'react';
 
-import { SuperAdminCreateOwnerForm } from '@/app/frontend_superadmin/superadmin_create_owner/SuperAdminCreateOwner_components/SuperAdminCreateOwnerForm';
+import { SuperAdminCreateOwnerForm } from '@/app/frontend_superadmin/superadmin_create_owner/superadmin_create_owner_components/SuperAdminCreateOwnerForm';
 
 export default function CreateOwnerPage() {
   return (

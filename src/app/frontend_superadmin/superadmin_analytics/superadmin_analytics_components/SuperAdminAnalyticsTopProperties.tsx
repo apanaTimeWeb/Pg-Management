@@ -2,7 +2,7 @@
 import React from 'react';
 import { Building2 } from 'lucide-react';
 
-import type { SuperAdminAnalyticsTopPropertiesProps } from '@/app/frontend_superadmin/superadmin_analytics/SuperAdminAnalytics_types/SuperAdminAnalytics.types';
+import type { SuperAdminAnalyticsTopPropertiesProps } from '@/app/frontend_superadmin/superadmin_analytics/superadmin_analytics_types/SuperAdminAnalytics.types';
 
 export const SuperAdminAnalyticsTopProperties: React.FC<SuperAdminAnalyticsTopPropertiesProps> = () => {
   return (

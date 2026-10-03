@@ -7,10 +7,10 @@ import { useManagerUrlPagination } from '@/app/frontend_manager/manager_componen
 import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
 import { useManagerSession } from '@/app/frontend_manager/manager_components/manager_hooks/useManagerSession';
 import { Pagination } from '@/components/ui/Pagination';
-import { useManagerAttendanceData } from '@/app/frontend_manager/manager_attendance/ManagerAttendance_hooks/useManagerAttendanceData';
-import { useManagerAttendanceActions } from '@/app/frontend_manager/manager_attendance/ManagerAttendance_hooks/useManagerAttendanceActions';
-import { ManagerAttendanceSummary } from '@/app/frontend_manager/manager_attendance/ManagerAttendance_components/ManagerAttendanceSummary';
-import { ManagerAttendanceTable } from '@/app/frontend_manager/manager_attendance/ManagerAttendance_components/ManagerAttendanceTable';
+import { useManagerAttendanceData } from '@/app/frontend_manager/manager_attendance/manager_attendance_hooks/useManagerAttendanceData';
+import { useManagerAttendanceActions } from '@/app/frontend_manager/manager_attendance/manager_attendance_hooks/useManagerAttendanceActions';
+import { ManagerAttendanceSummary } from '@/app/frontend_manager/manager_attendance/manager_attendance_components/ManagerAttendanceSummary';
+import { ManagerAttendanceTable } from '@/app/frontend_manager/manager_attendance/manager_attendance_components/ManagerAttendanceTable';
 export function ManagerAttendanceMain() {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
   const user = useManagerSession();

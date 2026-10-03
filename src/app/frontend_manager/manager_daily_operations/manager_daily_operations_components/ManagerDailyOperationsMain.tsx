@@ -1,5 +1,5 @@
 'use client';
-import { useManagerDailyOperations } from '../ManagerDailyOperations_hooks/useManagerDailyOperations';
+import { useManagerDailyOperations } from '../manager_daily_operations_hooks/useManagerDailyOperations';
 import { ManagerDailyOperationsStats } from './ManagerDailyOperationsStats';
 import { ManagerDailyOperationsHousekeeping } from './ManagerDailyOperationsHousekeeping';
 import { ManagerDailyOperationsMaintenance } from './ManagerDailyOperationsMaintenance';

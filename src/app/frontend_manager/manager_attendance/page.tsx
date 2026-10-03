@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { ManagerAttendanceMain } from '@/app/frontend_manager/manager_attendance/ManagerAttendance_components/ManagerAttendanceMain';
+import { ManagerAttendanceMain } from '@/app/frontend_manager/manager_attendance/manager_attendance_components/ManagerAttendanceMain';
 export default function ManagerAttendancePage() {
   return (
     <Suspense fallback={<div className="p-6 text-secondary">Loading...</div>}>

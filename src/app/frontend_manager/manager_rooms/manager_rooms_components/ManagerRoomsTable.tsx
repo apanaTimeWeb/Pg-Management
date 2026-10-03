@@ -2,7 +2,7 @@
 import { BedDouble, ChevronRight, User, Users, MapPin } from 'lucide-react';
 import Link from 'next/link';
 
-import type { ManagerRoomData } from '@/app/frontend_manager/manager_rooms/ManagerRooms_types/ManagerRooms.types';
+import type { ManagerRoomData } from '@/app/frontend_manager/manager_rooms/manager_rooms_types/ManagerRooms.types';
 interface Props {
   loading: boolean;
   filteredRooms: ManagerRoomData[];

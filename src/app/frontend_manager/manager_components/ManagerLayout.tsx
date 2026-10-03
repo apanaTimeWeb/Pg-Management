@@ -17,7 +17,7 @@ import { ManagerForcePasswordChangeModal } from '@/app/frontend_manager/manager_
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 import type { DictKey } from '@/app/frontend_manager/ManagerI18n';
-import '../frontend_manager-theme.css';
+import '../manager-theme.css';
 
 type MenuItem = { key: string; icon: React.ElementType; href: string; label?: string };
 export function ManagerLayout({ children }: { children: React.ReactNode }) {

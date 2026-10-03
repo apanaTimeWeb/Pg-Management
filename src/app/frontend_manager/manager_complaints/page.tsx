@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { ManagerComplaintsMain } from '@/app/frontend_manager/manager_complaints/ManagerComplaints_components/ManagerComplaintsMain';
+import { ManagerComplaintsMain } from '@/app/frontend_manager/manager_complaints/manager_complaints_components/ManagerComplaintsMain';
 export default function ManagerComplaintsPage() {
   return (
     <Suspense fallback={<div className="p-6 text-secondary">Loading...</div>}>

@@ -3,7 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { CheckCircle } from 'lucide-react';
 
-import type { SuperAdminCreateOwnerSuccessProps } from '@/app/frontend_superadmin/superadmin_create_owner/SuperAdminCreateOwner_types/SuperAdminCreateOwner.types';
+import type { SuperAdminCreateOwnerSuccessProps } from '@/app/frontend_superadmin/superadmin_create_owner/superadmin_create_owner_types/SuperAdminCreateOwner.types';
 
 export const SuperAdminCreateOwnerSuccess: React.FC<SuperAdminCreateOwnerSuccessProps> = ({ credentials }) => {
   return (

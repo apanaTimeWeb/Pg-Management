@@ -3,8 +3,8 @@
 
 import { useState, useEffect } from 'react';
 import { MOCK_REQUESTS } from '@/app/frontend_superadmin/superadmin_lib/superadmin_mock_data';
-import { ITEMS_PER_PAGE } from '@/app/frontend_superadmin/superadmin_owner_requests/SuperAdminOwnerRequests_utils/SuperAdminOwnerRequests.constants';
-import type { OwnerRequest, OwnerRequestStatus } from '@/app/frontend_superadmin/superadmin_owner_requests/SuperAdminOwnerRequests_types/SuperAdminOwnerRequests.types';
+import { ITEMS_PER_PAGE } from '@/app/frontend_superadmin/superadmin_owner_requests/superadmin_owner_requests_utils/SuperAdminOwnerRequests.constants';
+import type { OwnerRequest, OwnerRequestStatus } from '@/app/frontend_superadmin/superadmin_owner_requests/superadmin_owner_requests_types/SuperAdminOwnerRequests.types';
 
 export const SuperadminUseSuperAdminOwnerRequestsData = () => {
   const [requests] = useState<OwnerRequest[]>(MOCK_REQUESTS as unknown as OwnerRequest[]);

@@ -11,9 +11,9 @@ import { toast } from 'sonner';
 
 import { api } from '@/app/frontend_manager/manager_lib/manager_api/ManagerApi';
 import { useManagerUrlPagination } from '@/app/frontend_manager/manager_components/manager_hooks/useManagerUrlPagination';
-import { ExpenseFormSchema } from '@/app/frontend_manager/manager_expenses/ManagerExpenses_types/ManagerExpenses.types';
+import { ExpenseFormSchema } from '@/app/frontend_manager/manager_expenses/manager_expenses_types/ManagerExpenses.types';
 
-import type { ExpenseFormData } from '@/app/frontend_manager/manager_expenses/ManagerExpenses_types/ManagerExpenses.types';
+import type { ExpenseFormData } from '@/app/frontend_manager/manager_expenses/manager_expenses_types/ManagerExpenses.types';
 export function useManagerExpenses(selectedPropertyId: string | null, propsLoading: boolean, userId: string | undefined) {
   const [loading, setLoading] = useState(true);
   const [expenses, setExpenses] = useState<unknown[]>([]);

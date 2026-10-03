@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the SuperAdminAnalyticsHeader component.
 import React from 'react';
 
-import type { SuperAdminAnalyticsHeaderProps } from '@/app/frontend_superadmin/superadmin_analytics/SuperAdminAnalytics_types/SuperAdminAnalytics.types';
+import type { SuperAdminAnalyticsHeaderProps } from '@/app/frontend_superadmin/superadmin_analytics/superadmin_analytics_types/SuperAdminAnalytics.types';
 
 export const SuperAdminAnalyticsHeader: React.FC<SuperAdminAnalyticsHeaderProps> = () => {
   return (

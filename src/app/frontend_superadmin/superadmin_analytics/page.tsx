@@ -1,4 +1,4 @@
-import { SuperadminAnalyticsMain } from '@/app/frontend_superadmin/superadmin_analytics/SuperAdminAnalytics_components/SuperadminAnalyticsMain';
+import { SuperadminAnalyticsMain } from '@/app/frontend_superadmin/superadmin_analytics/superadmin_analytics_components/SuperadminAnalyticsMain';
 
 export const metadata = {
   title: 'Reports & Analytics | SuperAdmin',

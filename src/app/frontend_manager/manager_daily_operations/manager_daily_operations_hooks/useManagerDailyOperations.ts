@@ -5,7 +5,7 @@ import type {
   MaintenanceTask, 
   RoomInspection, 
   DailyOperationsStats 
-} from '../ManagerDailyOperations_types/DailyOperations.types';
+} from '../manager_daily_operations_types/DailyOperations.types';
 
 export function useManagerDailyOperations() {
   const { selectedPropertyId } = useManagerPropertyContext();

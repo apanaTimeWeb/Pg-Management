@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the ManagerGateLogsTable component.
 import { LogIn, LogOut, AlertTriangle } from 'lucide-react';
 
-import type { GateLog } from '@/app/frontend_manager/manager_gate_logs/ManagerGateLogs_types/ManagerGateLogs.types';
+import type { GateLog } from '@/app/frontend_manager/manager_gate_logs/manager_gate_logs_types/ManagerGateLogs.types';
 interface ManagerGateLogsTableProps {
   paginatedData: GateLog[];
 }

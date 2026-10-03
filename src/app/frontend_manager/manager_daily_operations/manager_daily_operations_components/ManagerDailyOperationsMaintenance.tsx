@@ -1,5 +1,5 @@
 import { CheckCircle2, Circle } from 'lucide-react';
-import type { MaintenanceTask } from '../ManagerDailyOperations_types/DailyOperations.types';
+import type { MaintenanceTask } from '../manager_daily_operations_types/DailyOperations.types';
 
 interface Props {
   tasks: MaintenanceTask[];

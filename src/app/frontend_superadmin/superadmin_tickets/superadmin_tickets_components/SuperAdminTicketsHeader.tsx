@@ -2,7 +2,7 @@
 import React from 'react';
 import { Plus } from 'lucide-react';
 
-import type { SuperAdminTicketsHeaderProps } from '@/app/frontend_superadmin/superadmin_tickets/SuperAdminTickets_types/SuperAdminTickets.types';
+import type { SuperAdminTicketsHeaderProps } from '@/app/frontend_superadmin/superadmin_tickets/superadmin_tickets_types/SuperAdminTickets.types';
 
 export const SuperAdminTicketsHeader: React.FC<SuperAdminTicketsHeaderProps> = ({ onCreateClick }) => {
   return (

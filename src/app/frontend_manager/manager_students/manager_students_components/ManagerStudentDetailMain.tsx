@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { api } from '@/app/frontend_manager/manager_lib/manager_api/ManagerApi';
 import { useManagerSession } from '@/app/frontend_manager/manager_components/manager_hooks/useManagerSession';
 import { studentOperationsApi } from '@/app/frontend_student/student_lib/student_api/StudentOperations';
-import { ManagerBillUploadModal } from '@/app/frontend_manager/manager_students/ManagerStudents_components/ManagerBillUploadModal';
+import { ManagerBillUploadModal } from '@/app/frontend_manager/manager_students/manager_students_components/ManagerBillUploadModal';
 import { financeApi } from '@/app/frontend_owner/owner_lib/owner_api/OwnerFinance';
 interface StudentProfile {
   id: string; userId?: string; bedId?: string; createdAt: string; status?: string;

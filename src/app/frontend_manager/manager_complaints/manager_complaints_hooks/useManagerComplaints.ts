@@ -10,10 +10,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useManagerUrlPagination } from '@/app/frontend_manager/manager_components/manager_hooks/useManagerUrlPagination';
 import { api } from '@/app/frontend_manager/manager_lib/manager_api/ManagerApi';
-import { ComplaintResolveSchema } from '@/app/frontend_manager/manager_complaints/ManagerComplaints_types/ManagerComplaints.types';
+import { ComplaintResolveSchema } from '@/app/frontend_manager/manager_complaints/manager_complaints_types/ManagerComplaints.types';
 
-import type { ManagerComplaintData } from '@/app/frontend_manager/manager_complaints/ManagerComplaints_types/ManagerComplaints.types';
-import type { ComplaintResolveFormData } from '@/app/frontend_manager/manager_complaints/ManagerComplaints_types/ManagerComplaints.types';
+import type { ManagerComplaintData } from '@/app/frontend_manager/manager_complaints/manager_complaints_types/ManagerComplaints.types';
+import type { ComplaintResolveFormData } from '@/app/frontend_manager/manager_complaints/manager_complaints_types/ManagerComplaints.types';
 export function useManagerComplaints(selectedPropertyId: string | null, ctxLoading: boolean) {
   const [complaints, setComplaints] = useState<ManagerComplaintData[]>([]);
   const [activeTab, setActiveTab] = useState<'active' | 'log'>('active');

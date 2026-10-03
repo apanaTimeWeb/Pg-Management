@@ -5,10 +5,10 @@ import { Plus, Search, Filter, Users } from 'lucide-react';
 
 import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
 import { ManagerAddStudentModal } from '@/app/frontend_manager/manager_components/ManagerAddStudentModal';
-import { useManagerStudents } from '@/app/frontend_manager/manager_students/ManagerStudents_hooks/useManagerStudents';
-import { ManagerStudentsTable } from '@/app/frontend_manager/manager_students/ManagerStudents_components/ManagerStudentsTable';
-import { ManagerStudentDrawer } from '@/app/frontend_manager/manager_students/ManagerStudents_components/ManagerStudentDrawer';
-import type { ManagerStudentData } from '@/app/frontend_manager/manager_students/ManagerStudents_types/ManagerStudents.types';
+import { useManagerStudents } from '@/app/frontend_manager/manager_students/manager_students_hooks/useManagerStudents';
+import { ManagerStudentsTable } from '@/app/frontend_manager/manager_students/manager_students_components/ManagerStudentsTable';
+import { ManagerStudentDrawer } from '@/app/frontend_manager/manager_students/manager_students_components/ManagerStudentDrawer';
+import type { ManagerStudentData } from '@/app/frontend_manager/manager_students/manager_students_types/ManagerStudents.types';
 
 export function ManagerStudentsMain() {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();

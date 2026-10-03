@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 
 import { ownersApi } from '@/app/frontend_owner/owner_lib/owner_api/owners';
 
-import type { Owner360Data } from '@/app/frontend_superadmin/superadmin_owners/SuperAdminOwners_types/SuperAdminOwners.types';
+import type { Owner360Data } from '@/app/frontend_superadmin/superadmin_owners/superadmin_owners_types/SuperAdminOwners.types';
 
 export function SuperadminUseSuperAdminOwnerProfileData(id: string) {
   const router = useRouter();

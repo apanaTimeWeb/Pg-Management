@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the SuperAdminAuditLogsHeader component.
 import React from 'react';
 
-import type { SuperAdminAuditLogsHeaderProps } from '@/app/frontend_superadmin/superadmin_audit_logs/SuperAdminAuditLogs_types/SuperAdminAuditLogs.types';
+import type { SuperAdminAuditLogsHeaderProps } from '@/app/frontend_superadmin/superadmin_audit_logs/superadmin_audit_logs_types/SuperAdminAuditLogs.types';
 
 export const SuperAdminAuditLogsHeader: React.FC<SuperAdminAuditLogsHeaderProps> = () => {
   return (

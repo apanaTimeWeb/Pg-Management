@@ -1,4 +1,4 @@
-import { ParentLoginMain } from '@/app/frontend_parent/parent_login/ParentLogin_components/ParentLoginMain';
+import { ParentLoginMain } from '@/app/frontend_parent/parent_login/parent_login_components/ParentLoginMain';
 
 export const metadata = {
   title: 'Parent Login - Smart PG',

@@ -2,7 +2,7 @@
 import { MessageCircle, Home, Tag } from 'lucide-react';
 
 import type { Enquiry } from '@/app/frontend_manager/manager_lib/manager_api/managerEnquiries';
-import type { EnquiryFormData } from '@/app/frontend_manager/manager_enquiries/ManagerEnquiries_types/ManagerEnquiries.types';
+import type { EnquiryFormData } from '@/app/frontend_manager/manager_enquiries/manager_enquiries_types/ManagerEnquiries.types';
 interface Props {
   waMenuEnquiry: Enquiry | null;
   setWaMenuEnquiry: (enq: Enquiry | null) => void;

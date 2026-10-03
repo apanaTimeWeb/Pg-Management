@@ -4,7 +4,7 @@ import { Shield } from 'lucide-react';
 
 import { InputError } from '@/components/ui/InputError';
 
-import type { SuperAdminCreateOwnerFieldProps } from '@/app/frontend_superadmin/superadmin_create_owner/SuperAdminCreateOwner_types/SuperAdminCreateOwner.types';
+import type { SuperAdminCreateOwnerFieldProps } from '@/app/frontend_superadmin/superadmin_create_owner/superadmin_create_owner_types/SuperAdminCreateOwner.types';
 
 export const SuperAdminCreateOwnerAccessFields: React.FC<SuperAdminCreateOwnerFieldProps> = ({ formData, setFormData, errors }) => {
   return (

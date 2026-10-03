@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the ManagerStudentsTable component.
 import { ChevronRight, IndianRupee } from 'lucide-react';
 
-import type { ManagerStudentData } from '@/app/frontend_manager/manager_students/ManagerStudents_types/ManagerStudents.types';
+import type { ManagerStudentData } from '@/app/frontend_manager/manager_students/manager_students_types/ManagerStudents.types';
 interface Props {
   students: ManagerStudentData[];
   onRowClick?: (student: ManagerStudentData) => void;

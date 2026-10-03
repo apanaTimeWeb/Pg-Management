@@ -2,7 +2,7 @@
 import React from 'react';
 import { Building2, FileText, Ticket } from 'lucide-react';
 
-import type { Owner360Data } from '@/app/frontend_superadmin/superadmin_owners/SuperAdminOwners_types/SuperAdminOwners.types';
+import type { Owner360Data } from '@/app/frontend_superadmin/superadmin_owners/superadmin_owners_types/SuperAdminOwners.types';
 
 export const SuperAdminOwnerProfileMain: React.FC<{ data: Owner360Data }> = ({ data }) => {
   const { subscription, properties, recentPayments, tickets } = data;

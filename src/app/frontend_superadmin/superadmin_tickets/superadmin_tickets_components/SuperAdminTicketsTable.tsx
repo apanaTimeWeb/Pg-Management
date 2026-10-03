@@ -4,7 +4,7 @@ import { Search } from 'lucide-react';
 
 import { StatusBadge } from '@/components/ui/statusBadgeConfig';
 import { Pagination } from '@/components/ui/Pagination';
-import { type SuperAdminTicketsTableProps, type SuperAdminTicket } from '@/app/frontend_superadmin/superadmin_tickets/SuperAdminTickets_types/SuperAdminTickets.types';
+import { type SuperAdminTicketsTableProps, type SuperAdminTicket } from '@/app/frontend_superadmin/superadmin_tickets/superadmin_tickets_types/SuperAdminTickets.types';
 
 const PriorityBadge = ({ p }: { p: string }) => {
   const color = p === 'High' ? 'text-danger' : p === 'Medium' ? 'text-warning' : 'text-success';

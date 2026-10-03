@@ -4,7 +4,7 @@ import { User, FileText, Users, BedDouble, HeartHandshake } from 'lucide-react';
 
 import { InputError } from '@/components/ui/InputError';
 
-import type { ManagerCheckinFormData } from '@/app/frontend_manager/manager_check_in/ManagerCheckin_types/ManagerCheckin.types';
+import type { ManagerCheckinFormData } from '@/app/frontend_manager/manager_check_in/manager_check_in_types/ManagerCheckin.types';
 interface Props {
   step: number;
   formData: ManagerCheckinFormData;

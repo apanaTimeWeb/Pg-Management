@@ -2,11 +2,11 @@
 
 import React from 'react';
 
-import { SuperAdminOwnerRequestsFilters } from '@/app/frontend_superadmin/superadmin_owner_requests/SuperAdminOwnerRequests_components/SuperAdminOwnerRequestsFilters';
-import { SuperAdminOwnerRequestsTable } from '@/app/frontend_superadmin/superadmin_owner_requests/SuperAdminOwnerRequests_components/SuperAdminOwnerRequestsTable';
-import { SuperAdminOwnerRequestsReviewModal } from '@/app/frontend_superadmin/superadmin_owner_requests/SuperAdminOwnerRequests_components/SuperAdminOwnerRequestsReviewModal';
-import { SuperadminUseSuperAdminOwnerRequestsData } from '@/app/frontend_superadmin/superadmin_owner_requests/SuperAdminOwnerRequests_hooks/SuperadminUseSuperAdminOwnerRequestsData';
-import { SuperadminUseSuperAdminOwnerRequestsActions } from '@/app/frontend_superadmin/superadmin_owner_requests/SuperAdminOwnerRequests_hooks/SuperadminUseSuperAdminOwnerRequestsActions';
+import { SuperAdminOwnerRequestsFilters } from '@/app/frontend_superadmin/superadmin_owner_requests/superadmin_owner_requests_components/SuperAdminOwnerRequestsFilters';
+import { SuperAdminOwnerRequestsTable } from '@/app/frontend_superadmin/superadmin_owner_requests/superadmin_owner_requests_components/SuperAdminOwnerRequestsTable';
+import { SuperAdminOwnerRequestsReviewModal } from '@/app/frontend_superadmin/superadmin_owner_requests/superadmin_owner_requests_components/SuperAdminOwnerRequestsReviewModal';
+import { SuperadminUseSuperAdminOwnerRequestsData } from '@/app/frontend_superadmin/superadmin_owner_requests/superadmin_owner_requests_hooks/SuperadminUseSuperAdminOwnerRequestsData';
+import { SuperadminUseSuperAdminOwnerRequestsActions } from '@/app/frontend_superadmin/superadmin_owner_requests/superadmin_owner_requests_hooks/SuperadminUseSuperAdminOwnerRequestsActions';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 
 // RESPONSIBILITY: Entry wrapper. Composes UI components and passes state.

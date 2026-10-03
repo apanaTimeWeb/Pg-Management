@@ -9,10 +9,10 @@ import { getSession } from '@/app/frontend_owner/owner_lib/owner_auth/OwnerSessi
 import { roomsApi } from '@/app/frontend_owner/owner_lib/owner_api/OwnerRooms';
 import { bedsApi } from '@/app/frontend_owner/owner_lib/owner_api/OwnerBeds';
 import { useOwnerPropertyContext } from '@/app/frontend_owner/owner_components/OwnerPropertyContext';
-import { OwnerRoomsKPIs } from '@/app/frontend_owner/owner_rooms/OwnerRooms_components/OwnerRoomsKPIs';
-import { OwnerRoomsFilters } from '@/app/frontend_owner/owner_rooms/OwnerRooms_components/OwnerRoomsFilters';
-import { OwnerRoomsTable } from '@/app/frontend_owner/owner_rooms/OwnerRooms_components/OwnerRoomsTable';
-import { OwnerRoomsAddModal } from '@/app/frontend_owner/owner_rooms/OwnerRooms_components/OwnerRoomsAddModal';
+import { OwnerRoomsKPIs } from '@/app/frontend_owner/owner_rooms/owner_rooms_components/OwnerRoomsKPIs';
+import { OwnerRoomsFilters } from '@/app/frontend_owner/owner_rooms/owner_rooms_components/OwnerRoomsFilters';
+import { OwnerRoomsTable } from '@/app/frontend_owner/owner_rooms/owner_rooms_components/OwnerRoomsTable';
+import { OwnerRoomsAddModal } from '@/app/frontend_owner/owner_rooms/owner_rooms_components/OwnerRoomsAddModal';
 
 import type { Room } from '@/app/frontend_owner/owner_lib/owner_api/OwnerRooms';
 

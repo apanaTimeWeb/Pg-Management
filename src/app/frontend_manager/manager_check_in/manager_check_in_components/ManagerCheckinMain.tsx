@@ -7,10 +7,10 @@ import { useState } from 'react';
 
 import { useManagerSession } from '@/app/frontend_manager/manager_components/manager_hooks/useManagerSession';
 import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
-import { useManagerCheckinData } from '@/app/frontend_manager/manager_check_in/ManagerCheckin_hooks/useManagerCheckinData';
-import { useManagerCheckinForm } from '@/app/frontend_manager/manager_check_in/ManagerCheckin_hooks/useManagerCheckinForm';
-import { ManagerCheckinProgress } from '@/app/frontend_manager/manager_check_in/ManagerCheckin_components/ManagerCheckinProgress';
-import { ManagerCheckinForm } from '@/app/frontend_manager/manager_check_in/ManagerCheckin_components/ManagerCheckinForm';
+import { useManagerCheckinData } from '@/app/frontend_manager/manager_check_in/manager_check_in_hooks/useManagerCheckinData';
+import { useManagerCheckinForm } from '@/app/frontend_manager/manager_check_in/manager_check_in_hooks/useManagerCheckinForm';
+import { ManagerCheckinProgress } from '@/app/frontend_manager/manager_check_in/manager_check_in_components/ManagerCheckinProgress';
+import { ManagerCheckinForm } from '@/app/frontend_manager/manager_check_in/manager_check_in_components/ManagerCheckinForm';
 export function ManagerCheckinMain() {
   const searchParams = useSearchParams();
   const enquiryId = searchParams?.get('enquiryId') || '';

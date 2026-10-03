@@ -3,12 +3,12 @@ import React from 'react';
 import Link from 'next/link';
 import { AlertCircle } from 'lucide-react';
 
-import { SuperadminUseSuperAdminCreateOwner } from '@/app/frontend_superadmin/superadmin_create_owner/SuperAdminCreateOwner_hooks/SuperadminUseSuperAdminCreateOwner';
-import { SuperAdminCreateOwnerPersonalFields } from '@/app/frontend_superadmin/superadmin_create_owner/SuperAdminCreateOwner_components/SuperAdminCreateOwnerPersonalFields';
-import { SuperAdminCreateOwnerBusinessFields } from '@/app/frontend_superadmin/superadmin_create_owner/SuperAdminCreateOwner_components/SuperAdminCreateOwnerBusinessFields';
-import { SuperAdminCreateOwnerAccessFields } from '@/app/frontend_superadmin/superadmin_create_owner/SuperAdminCreateOwner_components/SuperAdminCreateOwnerAccessFields';
-import { SuperAdminCreateOwnerPlanFields } from '@/app/frontend_superadmin/superadmin_create_owner/SuperAdminCreateOwner_components/SuperAdminCreateOwnerPlanFields';
-import { SuperAdminCreateOwnerSuccess } from '@/app/frontend_superadmin/superadmin_create_owner/SuperAdminCreateOwner_components/SuperAdminCreateOwnerSuccess';
+import { SuperadminUseSuperAdminCreateOwner } from '@/app/frontend_superadmin/superadmin_create_owner/superadmin_create_owner_hooks/SuperadminUseSuperAdminCreateOwner';
+import { SuperAdminCreateOwnerPersonalFields } from '@/app/frontend_superadmin/superadmin_create_owner/superadmin_create_owner_components/SuperAdminCreateOwnerPersonalFields';
+import { SuperAdminCreateOwnerBusinessFields } from '@/app/frontend_superadmin/superadmin_create_owner/superadmin_create_owner_components/SuperAdminCreateOwnerBusinessFields';
+import { SuperAdminCreateOwnerAccessFields } from '@/app/frontend_superadmin/superadmin_create_owner/superadmin_create_owner_components/SuperAdminCreateOwnerAccessFields';
+import { SuperAdminCreateOwnerPlanFields } from '@/app/frontend_superadmin/superadmin_create_owner/superadmin_create_owner_components/SuperAdminCreateOwnerPlanFields';
+import { SuperAdminCreateOwnerSuccess } from '@/app/frontend_superadmin/superadmin_create_owner/superadmin_create_owner_components/SuperAdminCreateOwnerSuccess';
 
 export const SuperAdminCreateOwnerForm: React.FC = () => {
   const {

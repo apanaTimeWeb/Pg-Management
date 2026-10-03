@@ -1,4 +1,4 @@
-import { StudentRoomMain } from '@/app/frontend_student/student_room/StudentRoom_components/StudentRoomMain';
+import { StudentRoomMain } from '@/app/frontend_student/student_room/student_room_components/StudentRoomMain';
 
 export const metadata = {
   title: 'Room & Accommodation | Student Portal',

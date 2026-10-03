@@ -2,7 +2,7 @@
 import React from 'react';
 import { ShieldAlert, Clock, Smartphone, Info, Save } from 'lucide-react';
 
-import type { SuperAdminSettingsFormProps } from '@/app/frontend_superadmin/superadmin_settings/SuperAdminSettings_types/SuperAdminSettings.types';
+import type { SuperAdminSettingsFormProps } from '@/app/frontend_superadmin/superadmin_settings/superadmin_settings_types/SuperAdminSettings.types';
 
 export const SuperAdminSettingsForm: React.FC<SuperAdminSettingsFormProps> = ({ settings, setSettings, handleSave, saving }) => {
   return (

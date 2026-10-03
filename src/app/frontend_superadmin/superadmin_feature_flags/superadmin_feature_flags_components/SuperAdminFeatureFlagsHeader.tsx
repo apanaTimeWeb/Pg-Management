@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the SuperAdminFeatureFlagsHeader component.
 import React from 'react';
 
-import type { SuperAdminFeatureFlagsHeaderProps } from '@/app/frontend_superadmin/superadmin_feature_flags/SuperAdminFeatureFlags_types/SuperAdminFeatureFlags.types';
+import type { SuperAdminFeatureFlagsHeaderProps } from '@/app/frontend_superadmin/superadmin_feature_flags/superadmin_feature_flags_types/SuperAdminFeatureFlags.types';
 
 export const SuperAdminFeatureFlagsHeader: React.FC<SuperAdminFeatureFlagsHeaderProps> = () => {
   return (

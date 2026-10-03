@@ -66,10 +66,7 @@ export default function UnifiedLogin() {
           const user = api.login({ email, password, expectedRole: apiRole as any });
           setSession(user);
           
-          let dashboardRoute = `/${user.role}/dashboard`;
-          if (user.role === 'staff') {
-             dashboardRoute = '/staff/dashboard';
-          }
+          const dashboardRoute = `/frontend_${user.role}/${user.role}_dashboard`;
           router.push(dashboardRoute);
         } catch (err) {
           setError((err as Error).message || 'Invalid credentials');

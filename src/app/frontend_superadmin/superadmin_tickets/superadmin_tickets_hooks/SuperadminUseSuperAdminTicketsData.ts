@@ -3,8 +3,8 @@
 
 import { useState, useEffect } from 'react';
 import { MOCK_TICKETS, MOCK_OWNERS } from '@/app/frontend_superadmin/superadmin_lib/superadmin_mock_data';
-import { SUPER_ADMIN_TICKETS_ITEMS_PER_PAGE } from '@/app/frontend_superadmin/superadmin_tickets/SuperAdminTickets_utils/SuperAdminTickets.constants';
-import type { SuperAdminTicket, TicketOwnerContext } from '@/app/frontend_superadmin/superadmin_tickets/SuperAdminTickets_types/SuperAdminTickets.types';
+import { SUPER_ADMIN_TICKETS_ITEMS_PER_PAGE } from '@/app/frontend_superadmin/superadmin_tickets/superadmin_tickets_utils/SuperAdminTickets.constants';
+import type { SuperAdminTicket, TicketOwnerContext } from '@/app/frontend_superadmin/superadmin_tickets/superadmin_tickets_types/SuperAdminTickets.types';
 
 export function SuperadminUseSuperAdminTicketsData() {
   const [tickets] = useState<SuperAdminTicket[]>(MOCK_TICKETS as unknown as SuperAdminTicket[]);

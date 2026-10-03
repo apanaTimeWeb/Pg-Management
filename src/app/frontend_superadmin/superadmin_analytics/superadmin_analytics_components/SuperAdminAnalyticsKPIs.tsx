@@ -2,7 +2,7 @@
 import React from 'react';
 import { TrendingUp, Users, Activity, CreditCard, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 
-import type { SuperAdminAnalyticsKPIsProps } from '@/app/frontend_superadmin/superadmin_analytics/SuperAdminAnalytics_types/SuperAdminAnalytics.types';
+import type { SuperAdminAnalyticsKPIsProps } from '@/app/frontend_superadmin/superadmin_analytics/superadmin_analytics_types/SuperAdminAnalytics.types';
 
 export const SuperAdminAnalyticsKPIs: React.FC<SuperAdminAnalyticsKPIsProps> = ({ stats }) => {
   const kpis = [

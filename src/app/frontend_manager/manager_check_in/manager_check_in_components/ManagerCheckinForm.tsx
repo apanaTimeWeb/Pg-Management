@@ -1,10 +1,10 @@
 // RESPONSIBILITY: Renders the ManagerCheckinForm component.
 import { ArrowRight, ArrowLeft, CheckCircle } from 'lucide-react';
 
-import { ManagerCheckinFormSteps1to5 } from '@/app/frontend_manager/manager_check_in/ManagerCheckin_components/ManagerCheckinFormSteps1to5';
-import { ManagerCheckinFormSteps6to10 } from '@/app/frontend_manager/manager_check_in/ManagerCheckin_components/ManagerCheckinFormSteps6to10';
+import { ManagerCheckinFormSteps1to5 } from '@/app/frontend_manager/manager_check_in/manager_check_in_components/ManagerCheckinFormSteps1to5';
+import { ManagerCheckinFormSteps6to10 } from '@/app/frontend_manager/manager_check_in/manager_check_in_components/ManagerCheckinFormSteps6to10';
 
-import type { ManagerCheckinFormData } from '@/app/frontend_manager/manager_check_in/ManagerCheckin_types/ManagerCheckin.types';
+import type { ManagerCheckinFormData } from '@/app/frontend_manager/manager_check_in/manager_check_in_types/ManagerCheckin.types';
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 interface Props {
   step: number;

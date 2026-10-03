@@ -4,7 +4,7 @@ import { Shield, Clock } from 'lucide-react';
 
 import { Pagination } from '@/components/ui/Pagination';
 
-import type { SuperAdminAuditLogsTimelineProps } from '@/app/frontend_superadmin/superadmin_audit_logs/SuperAdminAuditLogs_types/SuperAdminAuditLogs.types';
+import type { SuperAdminAuditLogsTimelineProps } from '@/app/frontend_superadmin/superadmin_audit_logs/superadmin_audit_logs_types/SuperAdminAuditLogs.types';
 
 export const SuperAdminAuditLogsTimeline: React.FC<SuperAdminAuditLogsTimelineProps> = ({ logs, currentPage, totalPages, setCurrentPage }) => {
   return (

@@ -7,9 +7,9 @@ import { toast } from 'sonner';
 
 import { ownerRequestsApi } from '@/app/frontend_superadmin/superadmin_lib/superadmin_api/SuperadminOwnerRequests';
 import { ownersApi } from '@/app/frontend_owner/owner_lib/owner_api/owners';
-import { DEFAULT_CREATE_OWNER_FORM_DATA, PLAN_LIMITS } from '@/app/frontend_superadmin/superadmin_create_owner/SuperAdminCreateOwner_utils/SuperAdminCreateOwner.constants';
+import { DEFAULT_CREATE_OWNER_FORM_DATA, PLAN_LIMITS } from '@/app/frontend_superadmin/superadmin_create_owner/superadmin_create_owner_utils/SuperAdminCreateOwner.constants';
 
-import type { OwnerFormData, OwnerFormErrors, CreatedCredentials } from '@/app/frontend_superadmin/superadmin_create_owner/SuperAdminCreateOwner_types/SuperAdminCreateOwner.types';
+import type { OwnerFormData, OwnerFormErrors, CreatedCredentials } from '@/app/frontend_superadmin/superadmin_create_owner/superadmin_create_owner_types/SuperAdminCreateOwner.types';
 
 
 export function SuperadminUseSuperAdminCreateOwner() {

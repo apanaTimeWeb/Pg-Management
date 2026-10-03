@@ -4,9 +4,9 @@
 import { useState } from 'react';
 
 import { ticketsApi } from '@/app/frontend_superadmin/superadmin_lib/superadmin_api/SuperadminTickets';
-import { DEFAULT_CREATE_TICKET_FORM_DATA } from '@/app/frontend_superadmin/superadmin_tickets/SuperAdminTickets_utils/SuperAdminTickets.constants';
+import { DEFAULT_CREATE_TICKET_FORM_DATA } from '@/app/frontend_superadmin/superadmin_tickets/superadmin_tickets_utils/SuperAdminTickets.constants';
 
-import type { CreateTicketFormData } from '@/app/frontend_superadmin/superadmin_tickets/SuperAdminTickets_types/SuperAdminTickets.types';
+import type { CreateTicketFormData } from '@/app/frontend_superadmin/superadmin_tickets/superadmin_tickets_types/SuperAdminTickets.types';
 
 export function SuperadminUseSuperAdminTicketsActions(refetch: () => void) {
   const [createModal, setCreateModal] = useState(false);

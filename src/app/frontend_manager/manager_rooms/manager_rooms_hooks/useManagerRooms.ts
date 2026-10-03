@@ -7,7 +7,7 @@ import { useManagerUrlPagination } from '@/app/frontend_manager/manager_componen
 // Data Flow: ManagerPropertyContext â†’ api â†’ local state â†’ ManagerRoomsMain
 import { api } from '@/app/frontend_manager/manager_lib/manager_api/ManagerApi';
 
-import type { ManagerRoomData } from '@/app/frontend_manager/manager_rooms/ManagerRooms_types/ManagerRooms.types';
+import type { ManagerRoomData } from '@/app/frontend_manager/manager_rooms/manager_rooms_types/ManagerRooms.types';
 export function useManagerRooms(selectedPropertyId: string | null, ctxLoading: boolean, userId: string | undefined) {
   const [rooms, setRooms] = useState<ManagerRoomData[]>([]);
   const [loading, setLoading] = useState(true);

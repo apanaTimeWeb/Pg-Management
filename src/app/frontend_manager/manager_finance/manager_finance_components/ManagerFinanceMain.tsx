@@ -2,9 +2,9 @@
 'use client';
 import { Pagination } from '@/components/ui/Pagination';
 import { IndianRupee, Download } from 'lucide-react';
-import { useManagerFinance } from '@/app/frontend_manager/manager_finance/ManagerFinance_hooks/useManagerFinance';
-import { ManagerFinanceStats } from '@/app/frontend_manager/manager_finance/ManagerFinance_components/ManagerFinanceStats';
-import { ManagerFinanceTable } from '@/app/frontend_manager/manager_finance/ManagerFinance_components/ManagerFinanceTable';
+import { useManagerFinance } from '@/app/frontend_manager/manager_finance/manager_finance_hooks/useManagerFinance';
+import { ManagerFinanceStats } from '@/app/frontend_manager/manager_finance/manager_finance_components/ManagerFinanceStats';
+import { ManagerFinanceTable } from '@/app/frontend_manager/manager_finance/manager_finance_components/ManagerFinanceTable';
 export function ManagerFinanceMain() {
   const {
     invoices,

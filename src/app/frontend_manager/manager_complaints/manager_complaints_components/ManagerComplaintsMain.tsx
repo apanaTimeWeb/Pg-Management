@@ -3,11 +3,11 @@
 import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
 import { Pagination } from '@/components/ui/Pagination';
 import { AlertCircle } from 'lucide-react';
-import { useManagerComplaints } from '@/app/frontend_manager/manager_complaints/ManagerComplaints_hooks/useManagerComplaints';
-import { ManagerComplaintsKPIs } from '@/app/frontend_manager/manager_complaints/ManagerComplaints_components/ManagerComplaintsKPIs';
-import { ManagerComplaintsActive } from '@/app/frontend_manager/manager_complaints/ManagerComplaints_components/ManagerComplaintsActive';
-import { ManagerComplaintsLog } from '@/app/frontend_manager/manager_complaints/ManagerComplaints_components/ManagerComplaintsLog';
-import { ManagerComplaintsResolveModal } from '@/app/frontend_manager/manager_complaints/ManagerComplaints_components/ManagerComplaintsResolveModal';
+import { useManagerComplaints } from '@/app/frontend_manager/manager_complaints/manager_complaints_hooks/useManagerComplaints';
+import { ManagerComplaintsKPIs } from '@/app/frontend_manager/manager_complaints/manager_complaints_components/ManagerComplaintsKPIs';
+import { ManagerComplaintsActive } from '@/app/frontend_manager/manager_complaints/manager_complaints_components/ManagerComplaintsActive';
+import { ManagerComplaintsLog } from '@/app/frontend_manager/manager_complaints/manager_complaints_components/ManagerComplaintsLog';
+import { ManagerComplaintsResolveModal } from '@/app/frontend_manager/manager_complaints/manager_complaints_components/ManagerComplaintsResolveModal';
 export function ManagerComplaintsMain() {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
   const {

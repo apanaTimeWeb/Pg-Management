@@ -1,5 +1,5 @@
 'use client';
-import { useManagerSettings } from '../ManagerSettings_hooks/useManagerSettings';
+import { useManagerSettings } from '../manager_settings_hooks/useManagerSettings';
 import { User, Bell, Building2, ShieldCheck, Save } from 'lucide-react';
 
 export function ManagerSettingsMain() {

@@ -3,8 +3,8 @@
 
 import { useState, useEffect } from 'react';
 import { MOCK_OWNERS } from '@/app/frontend_superadmin/superadmin_lib/superadmin_mock_data';
-import { ITEMS_PER_PAGE } from '@/app/frontend_superadmin/superadmin_owners/SuperAdminOwners_utils/SuperAdminOwners.constants';
-import type { OwnerDirectoryItem, OwnerStatus } from '@/app/frontend_superadmin/superadmin_owners/SuperAdminOwners_types/SuperAdminOwners.types';
+import { ITEMS_PER_PAGE } from '@/app/frontend_superadmin/superadmin_owners/superadmin_owners_utils/SuperAdminOwners.constants';
+import type { OwnerDirectoryItem, OwnerStatus } from '@/app/frontend_superadmin/superadmin_owners/superadmin_owners_types/SuperAdminOwners.types';
 
 export function SuperadminUseSuperAdminOwnersData() {
   const [owners] = useState<OwnerDirectoryItem[]>(MOCK_OWNERS as unknown as OwnerDirectoryItem[]);

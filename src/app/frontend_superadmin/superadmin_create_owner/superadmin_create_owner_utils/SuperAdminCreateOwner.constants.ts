@@ -1,4 +1,4 @@
-import type { OwnerFormData, PlanLimits } from '@/app/frontend_superadmin/superadmin_create_owner/SuperAdminCreateOwner_types/SuperAdminCreateOwner.types';
+import type { OwnerFormData, PlanLimits } from '@/app/frontend_superadmin/superadmin_create_owner/superadmin_create_owner_types/SuperAdminCreateOwner.types';
 
 export const DEFAULT_CREATE_OWNER_FORM_DATA: OwnerFormData = {
   name: '', 

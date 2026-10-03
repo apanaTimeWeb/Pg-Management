@@ -9,7 +9,7 @@ import { stockRequestsApi } from '@/app/frontend_staff/staff_lib/staff_api/Staff
 import { stockBatchesApi } from '@/app/frontend_staff/staff_lib/staff_api/StaffStock';
 
 import type { StockBatch } from '@/app/frontend_staff/staff_lib/staff_api/StaffStock';
-import type { ManagerInventoryItem, ManagerKitchenRequest, ManagerInventoryTab } from '@/app/frontend_manager/manager_inventory/ManagerInventory_types/ManagerInventory.types';
+import type { ManagerInventoryItem, ManagerKitchenRequest, ManagerInventoryTab } from '@/app/frontend_manager/manager_inventory/manager_inventory_types/ManagerInventory.types';
 
 export function useManagerInventory(selectedPropertyId: string | null, ctxLoading: boolean, userId: string | undefined) {
   const [inventory, setInventory] = useState<ManagerInventoryItem[]>([]);

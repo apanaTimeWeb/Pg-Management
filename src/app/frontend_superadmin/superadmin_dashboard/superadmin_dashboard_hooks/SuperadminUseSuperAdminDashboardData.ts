@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { db } from '@/lib/storage/db';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
-import type { SuperAdminDashboardData, AuditLog } from '@/app/frontend_superadmin/superadmin_dashboard/SuperAdminDashboard_types/SuperAdminDashboard.types';
+import type { SuperAdminDashboardData, AuditLog } from '@/app/frontend_superadmin/superadmin_dashboard/superadmin_dashboard_types/SuperAdminDashboard.types';
 
 export function SuperadminUseSuperAdminDashboardData() {
   const [data, setData] = useState<SuperAdminDashboardData | null>(null);

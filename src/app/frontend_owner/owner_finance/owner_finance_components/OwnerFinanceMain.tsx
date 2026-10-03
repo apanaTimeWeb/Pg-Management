@@ -8,9 +8,9 @@ import { TrendingDown } from 'lucide-react';
 import { useOwnerPropertyContext } from '@/app/frontend_owner/owner_components/OwnerPropertyContext';
 import { getSession } from '@/app/frontend_owner/owner_lib/owner_auth/OwnerSession';
 import { financeApi } from '@/app/frontend_owner/owner_lib/owner_api/OwnerFinance';
-import { OwnerFinanceCards } from '@/app/frontend_owner/owner_finance/OwnerFinance_components/OwnerFinanceCards';
-import { OwnerFinanceCharts } from '@/app/frontend_owner/owner_finance/OwnerFinance_components/OwnerFinanceCharts';
-import { OwnerFinanceTabs } from '@/app/frontend_owner/owner_finance/OwnerFinance_components/OwnerFinanceTabs';
+import { OwnerFinanceCards } from '@/app/frontend_owner/owner_finance/owner_finance_components/OwnerFinanceCards';
+import { OwnerFinanceCharts } from '@/app/frontend_owner/owner_finance/owner_finance_components/OwnerFinanceCharts';
+import { OwnerFinanceTabs } from '@/app/frontend_owner/owner_finance/owner_finance_components/OwnerFinanceTabs';
 import { useTableSync } from '@/lib/hooks/useTableSync';
 
 import type { Expense } from '@/app/frontend_owner/owner_lib/owner_api/OwnerFinance';

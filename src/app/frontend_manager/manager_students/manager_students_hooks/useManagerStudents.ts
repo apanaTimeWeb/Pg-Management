@@ -6,7 +6,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 import { api } from '@/app/frontend_manager/manager_lib/manager_api/ManagerApi';
 
-import type { ManagerStudentData } from '@/app/frontend_manager/manager_students/ManagerStudents_types/ManagerStudents.types';
+import type { ManagerStudentData } from '@/app/frontend_manager/manager_students/manager_students_types/ManagerStudents.types';
 export function useManagerStudents(selectedPropertyId: string | null, ctxLoading: boolean) {
   const [students, setStudents] = useState<ManagerStudentData[]>([]);
   const fetchStudents = useCallback(() => {

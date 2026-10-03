@@ -3,7 +3,7 @@ import React from 'react';
 
 import { BarChart } from '@/components/ui/charts/BarChart';
 
-import type { SuperAdminDashboardAcquisitionChartProps } from '@/app/frontend_superadmin/superadmin_dashboard/SuperAdminDashboard_types/SuperAdminDashboard.types';
+import type { SuperAdminDashboardAcquisitionChartProps } from '@/app/frontend_superadmin/superadmin_dashboard/superadmin_dashboard_types/SuperAdminDashboard.types';
 
 export const SuperAdminDashboardAcquisitionChart: React.FC<SuperAdminDashboardAcquisitionChartProps> = ({ data }) => {
   return (

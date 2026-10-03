@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import type { SuperAdminOwnerRequestsReviewModalProps } from '@/app/frontend_superadmin/superadmin_owner_requests/SuperAdminOwnerRequests_types/SuperAdminOwnerRequests.types';
+import type { SuperAdminOwnerRequestsReviewModalProps } from '@/app/frontend_superadmin/superadmin_owner_requests/superadmin_owner_requests_types/SuperAdminOwnerRequests.types';
 
 // RESPONSIBILITY: Renders the Reject Modal form. Form submit calls onSubmit prop.
 

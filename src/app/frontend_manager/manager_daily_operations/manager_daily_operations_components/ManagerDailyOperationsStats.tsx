@@ -1,5 +1,5 @@
 import { CheckCircle2, Wrench, ClipboardCheck, Users } from 'lucide-react';
-import type { DailyOperationsStats } from '../ManagerDailyOperations_types/DailyOperations.types';
+import type { DailyOperationsStats } from '../manager_daily_operations_types/DailyOperations.types';
 
 export function ManagerDailyOperationsStats({ stats }: { stats: DailyOperationsStats }) {
   const cards = [

@@ -10,7 +10,7 @@ import { getSession, clearSession } from '@/app/frontend_student/student_lib/stu
 import { StudentProvider, useStudentContext } from '@/app/frontend_student/student_components/StudentContext';
 import { useStudentI18n } from '@/app/frontend_student/StudentI18n';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
-import '../frontend_student-theme.css';
+import '../student-theme.css';
 
 import type { DictKey } from '@/app/frontend_student/StudentI18n';
 

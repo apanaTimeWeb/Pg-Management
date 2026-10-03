@@ -1,4 +1,4 @@
-import { StudentLeavesMain } from '@/app/frontend_student/student_leaves/StudentLeaves_components/StudentLeavesMain';
+import { StudentLeavesMain } from '@/app/frontend_student/student_leaves/student_leaves_components/StudentLeavesMain';
 
 export const metadata = {
   title: 'Leave & Outing | Student Portal',

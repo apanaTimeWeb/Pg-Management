@@ -1,6 +1,6 @@
 // @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerCheckinProgress component.
-import { MANAGER_CHECKIN_WIZARD_STEPS } from '@/app/frontend_manager/manager_check_in/ManagerCheckin_utils/ManagerCheckin.constants';
+import { MANAGER_CHECKIN_WIZARD_STEPS } from '@/app/frontend_manager/manager_check_in/manager_check_in_utils/ManagerCheckin.constants';
 interface Props {
   step: number;
 }

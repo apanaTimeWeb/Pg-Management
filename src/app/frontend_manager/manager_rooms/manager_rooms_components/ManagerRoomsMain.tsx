@@ -5,10 +5,10 @@ import { BedDouble, ArrowRightLeft, LayoutGrid } from 'lucide-react';
 
 import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
 import { useManagerSession } from '@/app/frontend_manager/manager_components/manager_hooks/useManagerSession';
-import { useManagerRooms } from '@/app/frontend_manager/manager_rooms/ManagerRooms_hooks/useManagerRooms';
-import { ManagerRoomsKPIs } from '@/app/frontend_manager/manager_rooms/ManagerRooms_components/ManagerRoomsKPIs';
-import { ManagerRoomsFilters } from '@/app/frontend_manager/manager_rooms/ManagerRooms_components/ManagerRoomsFilters';
-import { ManagerRoomsTable } from '@/app/frontend_manager/manager_rooms/ManagerRooms_components/ManagerRoomsTable';
+import { useManagerRooms } from '@/app/frontend_manager/manager_rooms/manager_rooms_hooks/useManagerRooms';
+import { ManagerRoomsKPIs } from '@/app/frontend_manager/manager_rooms/manager_rooms_components/ManagerRoomsKPIs';
+import { ManagerRoomsFilters } from '@/app/frontend_manager/manager_rooms/manager_rooms_components/ManagerRoomsFilters';
+import { ManagerRoomsTable } from '@/app/frontend_manager/manager_rooms/manager_rooms_components/ManagerRoomsTable';
 import { ManagerAddStudentModal } from '@/app/frontend_manager/manager_components/ManagerAddStudentModal';
 
 export function ManagerRoomsMain() {

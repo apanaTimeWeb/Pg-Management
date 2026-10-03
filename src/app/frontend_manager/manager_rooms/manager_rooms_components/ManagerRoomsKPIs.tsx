@@ -1,7 +1,7 @@
 // RESPONSIBILITY: Renders the ManagerRoomsKPIs component.
 import { Hash, BedDouble, CheckCircle2, AlertCircle } from 'lucide-react';
 
-import type { ManagerRoomData } from '@/app/frontend_manager/manager_rooms/ManagerRooms_types/ManagerRooms.types';
+import type { ManagerRoomData } from '@/app/frontend_manager/manager_rooms/manager_rooms_types/ManagerRooms.types';
 interface Props {
   rooms: ManagerRoomData[];
 }

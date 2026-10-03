@@ -4,7 +4,7 @@ import { FileText, CheckCircle, PauseCircle, XCircle } from 'lucide-react';
 import { StatusBadge } from '@/components/ui/statusBadgeConfig';
 import { Pagination } from '@/components/ui/Pagination';
 
-import type { SuperAdminOwnerRequestsTableProps } from '@/app/frontend_superadmin/superadmin_owner_requests/SuperAdminOwnerRequests_types/SuperAdminOwnerRequests.types';
+import type { SuperAdminOwnerRequestsTableProps } from '@/app/frontend_superadmin/superadmin_owner_requests/superadmin_owner_requests_types/SuperAdminOwnerRequests.types';
 
 // RESPONSIBILITY: Renders the data table and pagination. Iterates over requests array.
 

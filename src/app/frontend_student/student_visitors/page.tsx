@@ -1,4 +1,4 @@
-import { StudentVisitorsMain } from '@/app/frontend_student/student_visitors/StudentVisitors_components/StudentVisitorsMain';
+import { StudentVisitorsMain } from '@/app/frontend_student/student_visitors/student_visitors_components/StudentVisitorsMain';
 
 export const metadata = {
   title: 'Visitor Management | Student Portal',

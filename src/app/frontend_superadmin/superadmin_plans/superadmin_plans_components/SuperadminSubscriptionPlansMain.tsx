@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Package, Check, X, Shield, Users, Building, Activity, Copy, Edit, Archive, Play, Pause, ChevronRight, Clock, ShieldCheck, CheckCircle, RefreshCcw, Bell } from 'lucide-react';
+import { Package, Check, X, Shield, Users, Building, Activity, Copy, Edit, Archive, Play, Pause, ChevronRight, Clock, ShieldCheck, CheckCircle, RefreshCcw, Bell, AlertCircle } from 'lucide-react';
 
 export function SuperadminSubscriptionPlansMain() {
   const [activeTab, setActiveTab] = useState('plans');

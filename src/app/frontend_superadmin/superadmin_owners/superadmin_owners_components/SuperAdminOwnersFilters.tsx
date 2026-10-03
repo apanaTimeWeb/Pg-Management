@@ -2,9 +2,9 @@
 import React from 'react';
 import { Search } from 'lucide-react';
 
-import { SUPER_ADMIN_OWNERS_STATUS_FILTERS } from '@/app/frontend_superadmin/superadmin_owners/SuperAdminOwners_utils/SuperAdminOwners.constants';
+import { SUPER_ADMIN_OWNERS_STATUS_FILTERS } from '@/app/frontend_superadmin/superadmin_owners/superadmin_owners_utils/SuperAdminOwners.constants';
 
-import type { SuperAdminOwnersFiltersProps } from '@/app/frontend_superadmin/superadmin_owners/SuperAdminOwners_types/SuperAdminOwners.types';
+import type { SuperAdminOwnersFiltersProps } from '@/app/frontend_superadmin/superadmin_owners/superadmin_owners_types/SuperAdminOwners.types';
 
 export const SuperAdminOwnersFilters: React.FC<SuperAdminOwnersFiltersProps> = ({
   statusFilter,

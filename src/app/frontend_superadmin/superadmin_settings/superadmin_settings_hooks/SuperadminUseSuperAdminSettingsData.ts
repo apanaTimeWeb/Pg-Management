@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 
 import { settingsApi } from '@/app/frontend_superadmin/superadmin_lib/superadmin_api/SuperadminSettings';
 
-import type { SuperAdminSettingsData } from '@/app/frontend_superadmin/superadmin_settings/SuperAdminSettings_types/SuperAdminSettings.types';
+import type { SuperAdminSettingsData } from '@/app/frontend_superadmin/superadmin_settings/superadmin_settings_types/SuperAdminSettings.types';
 
 export function SuperadminUseSuperAdminSettingsData() {
   const [settings, setSettings] = useState<SuperAdminSettingsData | null>({} as SuperAdminSettingsData); // Will be populated by useEffect but no loading screen

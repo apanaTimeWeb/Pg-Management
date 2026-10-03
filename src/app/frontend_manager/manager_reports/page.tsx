@@ -1,4 +1,4 @@
-import { ManagerReportsMain } from './ManagerReports_components/ManagerReportsMain';
+import { ManagerReportsMain } from './manager_reports_components/ManagerReportsMain';
 
 export default function ReportsPage() {
   return <ManagerReportsMain />;

@@ -9,7 +9,7 @@ import { api } from '@/app/frontend_manager/manager_lib/manager_api/ManagerApi';
 import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
 import { useManagerSession } from '@/app/frontend_manager/manager_components/manager_hooks/useManagerSession';
 
-import type { GateLog, UseManagerGateLogsReturn } from '@/app/frontend_manager/manager_gate_logs/ManagerGateLogs_types/ManagerGateLogs.types';
+import type { GateLog, UseManagerGateLogsReturn } from '@/app/frontend_manager/manager_gate_logs/manager_gate_logs_types/ManagerGateLogs.types';
 export function useManagerGateLogs(): UseManagerGateLogsReturn {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
   const [logs, setLogs] = useState<GateLog[]>([]);

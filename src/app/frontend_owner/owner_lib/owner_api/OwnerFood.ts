@@ -17,7 +17,7 @@ export const foodApi = {
     if (existing) {
       db.update(STORAGE_KEYS.MENUS, existing.id, { ...existing, ...menu, propertyId, updatedAt: new Date().toISOString() });
     } else {
-      db.create(STORAGE_KEYS.MENUS, { propertyId, ...menu, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
+      db.insert(STORAGE_KEYS.MENUS, { propertyId, ...menu, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() } as any);
     }
   }
 };

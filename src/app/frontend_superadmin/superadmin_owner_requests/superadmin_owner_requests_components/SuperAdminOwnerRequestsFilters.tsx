@@ -1,9 +1,9 @@
 import React from 'react';
 import { Search } from 'lucide-react';
 
-import { SUPER_ADMIN_OWNER_REQUEST_STATUSES } from '@/app/frontend_superadmin/superadmin_owner_requests/SuperAdminOwnerRequests_utils/SuperAdminOwnerRequests.constants';
+import { SUPER_ADMIN_OWNER_REQUEST_STATUSES } from '@/app/frontend_superadmin/superadmin_owner_requests/superadmin_owner_requests_utils/SuperAdminOwnerRequests.constants';
 
-import type { SuperAdminOwnerRequestsFiltersProps } from '@/app/frontend_superadmin/superadmin_owner_requests/SuperAdminOwnerRequests_types/SuperAdminOwnerRequests.types';
+import type { SuperAdminOwnerRequestsFiltersProps } from '@/app/frontend_superadmin/superadmin_owner_requests/superadmin_owner_requests_types/SuperAdminOwnerRequests.types';
 
 // RESPONSIBILITY: Renders the search bar and status filter pills. No API calls.
 

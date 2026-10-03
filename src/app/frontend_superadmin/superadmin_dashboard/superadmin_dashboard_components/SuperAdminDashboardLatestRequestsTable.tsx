@@ -3,7 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 
-import type { SuperAdminDashboardLatestRequestsTableProps } from '@/app/frontend_superadmin/superadmin_dashboard/SuperAdminDashboard_types/SuperAdminDashboard.types';
+import type { SuperAdminDashboardLatestRequestsTableProps } from '@/app/frontend_superadmin/superadmin_dashboard/superadmin_dashboard_types/SuperAdminDashboard.types';
 
 export const SuperAdminDashboardLatestRequestsTable: React.FC<SuperAdminDashboardLatestRequestsTableProps> = ({ requests }) => {
   return (

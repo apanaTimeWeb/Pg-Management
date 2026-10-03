@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { MOCK_DASHBOARD_STATS } from '@/app/frontend_superadmin/superadmin_lib/superadmin_mock_data';
-import type { SuperAdminAnalyticsStats } from '@/app/frontend_superadmin/superadmin_analytics/SuperAdminAnalytics_types/SuperAdminAnalytics.types';
+import type { SuperAdminAnalyticsStats } from '@/app/frontend_superadmin/superadmin_analytics/superadmin_analytics_types/SuperAdminAnalytics.types';
 
 export function SuperadminUseSuperAdminAnalyticsData() {
   const [stats] = useState<SuperAdminAnalyticsStats>(MOCK_DASHBOARD_STATS as unknown as SuperAdminAnalyticsStats);

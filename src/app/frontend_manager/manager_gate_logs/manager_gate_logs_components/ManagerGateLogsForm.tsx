@@ -5,9 +5,9 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { GateLogFormSchema } from '@/app/frontend_manager/manager_gate_logs/ManagerGateLogs_types/ManagerGateLogs.types';
+import { GateLogFormSchema } from '@/app/frontend_manager/manager_gate_logs/manager_gate_logs_types/ManagerGateLogs.types';
 
-import type { GateLogFormData } from '@/app/frontend_manager/manager_gate_logs/ManagerGateLogs_types/ManagerGateLogs.types';
+import type { GateLogFormData } from '@/app/frontend_manager/manager_gate_logs/manager_gate_logs_types/ManagerGateLogs.types';
 interface ManagerGateLogsFormProps {
   handleAdd: (studentId: string, type: 'entry' | 'exit', isLate: boolean) => void;
 }

@@ -6,7 +6,7 @@
 import { Utensils, ListTodo, Package, AlertTriangle, Send, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 
-import { useStaffDashboard } from '@/app/frontend_staff/staff_dashboard/StaffDashboard_hooks/useStaffDashboard';
+import { useStaffDashboard } from '@/app/frontend_staff/staff_dashboard/staff_dashboard_hooks/useStaffDashboard';
 import { STAFF_ROUTES } from '@/app/frontend_staff/staff_url_config';
 
 export function StaffDashboardMain() {

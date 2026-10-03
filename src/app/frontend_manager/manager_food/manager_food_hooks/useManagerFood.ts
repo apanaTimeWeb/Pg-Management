@@ -9,7 +9,7 @@ import { useManagerPropertyContext } from '@/app/frontend_manager/manager_compon
 
 import type { FoodMenu } from '@/app/frontend_staff/staff_lib/staff_api/StaffFood';
 
-import type { UseManagerFoodReturn } from '@/app/frontend_manager/manager_food/ManagerFood_types/ManagerFood.types';
+import type { UseManagerFoodReturn } from '@/app/frontend_manager/manager_food/manager_food_types/ManagerFood.types';
 export function useManagerFood(): UseManagerFoodReturn {
   const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
   const [loading, setLoading] = useState(true);

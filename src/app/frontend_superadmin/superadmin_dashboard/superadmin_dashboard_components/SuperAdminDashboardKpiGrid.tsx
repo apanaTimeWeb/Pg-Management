@@ -3,7 +3,7 @@ import React from 'react';
 import { Users, Building2, DoorOpen, Bed, UserCircle, Activity } from 'lucide-react';
 import Link from 'next/link';
 
-import type { SuperAdminDashboardKpiGridProps } from '@/app/frontend_superadmin/superadmin_dashboard/SuperAdminDashboard_types/SuperAdminDashboard.types';
+import type { SuperAdminDashboardKpiGridProps } from '@/app/frontend_superadmin/superadmin_dashboard/superadmin_dashboard_types/SuperAdminDashboard.types';
 
 export const SuperAdminDashboardKpiGrid: React.FC<SuperAdminDashboardKpiGridProps> = ({ data }) => {
   const kpis = [

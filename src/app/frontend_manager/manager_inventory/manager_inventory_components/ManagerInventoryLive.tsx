@@ -2,7 +2,7 @@
 // RESPONSIBILITY: Renders the ManagerInventoryLive component.
 import { AlertTriangle, Minus, Plus } from 'lucide-react';
 
-import type { ManagerInventoryItem } from '@/app/frontend_manager/manager_inventory/ManagerInventory_types/ManagerInventory.types';
+import type { ManagerInventoryItem } from '@/app/frontend_manager/manager_inventory/manager_inventory_types/ManagerInventory.types';
 interface Props {
   inventory: ManagerInventoryItem[];
   handleUpdateQty: (id: string, delta: number) => void;

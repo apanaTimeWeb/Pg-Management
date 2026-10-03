@@ -2,13 +2,13 @@
 'use client';
 import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
 import { useManagerSession } from '@/app/frontend_manager/manager_components/manager_hooks/useManagerSession';
-import { useManagerInventory } from '@/app/frontend_manager/manager_inventory/ManagerInventory_hooks/useManagerInventory';
-import { ManagerInventoryTabs } from '@/app/frontend_manager/manager_inventory/ManagerInventory_components/ManagerInventoryTabs';
-import { ManagerInventoryRequests } from '@/app/frontend_manager/manager_inventory/ManagerInventory_components/ManagerInventoryRequests';
-import { ManagerInventoryLive } from '@/app/frontend_manager/manager_inventory/ManagerInventory_components/ManagerInventoryLive';
-import { ManagerInventoryBatches } from '@/app/frontend_manager/manager_inventory/ManagerInventory_components/ManagerInventoryBatches';
-import { ManagerInventoryAlerts } from '@/app/frontend_manager/manager_inventory/ManagerInventory_components/ManagerInventoryAlerts';
-import { ManagerInventoryKPIs } from '@/app/frontend_manager/manager_inventory/ManagerInventory_components/ManagerInventoryKPIs';
+import { useManagerInventory } from '@/app/frontend_manager/manager_inventory/manager_inventory_hooks/useManagerInventory';
+import { ManagerInventoryTabs } from '@/app/frontend_manager/manager_inventory/manager_inventory_components/ManagerInventoryTabs';
+import { ManagerInventoryRequests } from '@/app/frontend_manager/manager_inventory/manager_inventory_components/ManagerInventoryRequests';
+import { ManagerInventoryLive } from '@/app/frontend_manager/manager_inventory/manager_inventory_components/ManagerInventoryLive';
+import { ManagerInventoryBatches } from '@/app/frontend_manager/manager_inventory/manager_inventory_components/ManagerInventoryBatches';
+import { ManagerInventoryAlerts } from '@/app/frontend_manager/manager_inventory/manager_inventory_components/ManagerInventoryAlerts';
+import { ManagerInventoryKPIs } from '@/app/frontend_manager/manager_inventory/manager_inventory_components/ManagerInventoryKPIs';
 import { Pagination } from '@/components/ui/Pagination';
 import { Package } from 'lucide-react';
 export function ManagerInventoryMain() {

@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 
 import { MOCK_OWNERS } from '@/app/frontend_superadmin/superadmin_lib/superadmin_mock_data';
 
-import type { SuperAdminFeatureFlagOwner } from '@/app/frontend_superadmin/superadmin_feature_flags/SuperAdminFeatureFlags_types/SuperAdminFeatureFlags.types';
+import type { SuperAdminFeatureFlagOwner } from '@/app/frontend_superadmin/superadmin_feature_flags/superadmin_feature_flags_types/SuperAdminFeatureFlags.types';
 
 export function SuperadminUseSuperAdminFeatureFlagsData() {
   const [owners, setOwners] = useState<SuperAdminFeatureFlagOwner[]>(MOCK_OWNERS as unknown as SuperAdminFeatureFlagOwner[]);

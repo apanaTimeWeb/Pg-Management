@@ -1,5 +1,5 @@
 'use client';
-import { useManagerStaff } from '../ManagerStaff_hooks/useManagerStaff';
+import { useManagerStaff } from '../manager_staff_hooks/useManagerStaff';
 import { ManagerStaffList } from './ManagerStaffList';
 
 export function ManagerStaffMain() {

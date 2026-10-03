@@ -2,7 +2,7 @@
 import React from 'react';
 import { Database, Download, Upload, AlertTriangle } from 'lucide-react';
 
-import type { SuperAdminSettingsDataSyncProps } from '@/app/frontend_superadmin/superadmin_settings/SuperAdminSettings_types/SuperAdminSettings.types';
+import type { SuperAdminSettingsDataSyncProps } from '@/app/frontend_superadmin/superadmin_settings/superadmin_settings_types/SuperAdminSettings.types';
 
 export const SuperAdminSettingsDataSync: React.FC<SuperAdminSettingsDataSyncProps> = ({ handleExport, handleImport, isImporting }) => {
   return (

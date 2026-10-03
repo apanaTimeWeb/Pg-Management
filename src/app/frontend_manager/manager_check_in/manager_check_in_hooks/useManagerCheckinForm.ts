@@ -7,10 +7,10 @@ import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 
-import { CheckinStep1Schema, CheckinStep3Schema } from '@/app/frontend_manager/manager_check_in/ManagerCheckin_types/ManagerCheckin.types';
+import { CheckinStep1Schema, CheckinStep3Schema } from '@/app/frontend_manager/manager_check_in/manager_check_in_types/ManagerCheckin.types';
 import { api } from '@/app/frontend_manager/manager_lib/manager_api/ManagerApi';
 
-import type { ManagerCheckinFormData } from '@/app/frontend_manager/manager_check_in/ManagerCheckin_types/ManagerCheckin.types';
+import type { ManagerCheckinFormData } from '@/app/frontend_manager/manager_check_in/manager_check_in_types/ManagerCheckin.types';
 export function useManagerCheckinForm(enquiryId: string, initialEnquiryData: unknown, selectedPropertyId: string | null, userId: string | undefined) {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Briefcase } from 'lucide-react';
 
-import type { SuperAdminCreateOwnerFieldProps } from '@/app/frontend_superadmin/superadmin_create_owner/SuperAdminCreateOwner_types/SuperAdminCreateOwner.types';
+import type { SuperAdminCreateOwnerFieldProps } from '@/app/frontend_superadmin/superadmin_create_owner/superadmin_create_owner_types/SuperAdminCreateOwner.types';
 
 export const SuperAdminCreateOwnerBusinessFields: React.FC<SuperAdminCreateOwnerFieldProps> = ({ formData, setFormData }) => {
   return (

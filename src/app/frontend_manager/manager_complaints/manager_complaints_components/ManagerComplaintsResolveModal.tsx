@@ -5,8 +5,8 @@
 import { CheckCircle, X, IndianRupee } from 'lucide-react';
 
 import type { UseFormReturn } from 'react-hook-form';
-import type { ManagerComplaintData } from '@/app/frontend_manager/manager_complaints/ManagerComplaints_types/ManagerComplaints.types';
-import type { ComplaintResolveFormData } from '@/app/frontend_manager/manager_complaints/ManagerComplaints_types/ManagerComplaints.types';
+import type { ManagerComplaintData } from '@/app/frontend_manager/manager_complaints/manager_complaints_types/ManagerComplaints.types';
+import type { ComplaintResolveFormData } from '@/app/frontend_manager/manager_complaints/manager_complaints_types/ManagerComplaints.types';
 interface Props {
   resolvingComplaint: ManagerComplaintData;
   onClose: () => void;

@@ -1,5 +1,5 @@
 import { ShieldAlert, Utensils, Wrench, Broom, CheckCircle2, XCircle, Clock } from 'lucide-react';
-import type { StaffMember, StaffAttendance } from '../ManagerStaff_types/Staff.types';
+import type { StaffMember, StaffAttendance } from '../manager_staff_types/Staff.types';
 
 interface Props {
   staff: StaffMember[];

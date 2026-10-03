@@ -14,9 +14,9 @@ import { payrollApi } from '@/app/frontend_owner/owner_lib/owner_api/OwnerPayrol
 import { db } from '@/lib/storage/db';
 import { createId } from '@/lib/utils/id';
 import { useOwnerPropertyContext } from '@/app/frontend_owner/owner_components/OwnerPropertyContext';
-import { OwnerPayrollStats } from '@/app/frontend_owner/owner_payroll/OwnerPayroll_components/OwnerPayrollStats';
-import { OwnerPayrollTable } from '@/app/frontend_owner/owner_payroll/OwnerPayroll_components/OwnerPayrollTable';
-import { OwnerPayrollPaymentModal } from '@/app/frontend_owner/owner_payroll/OwnerPayroll_components/OwnerPayrollPaymentModal';
+import { OwnerPayrollStats } from '@/app/frontend_owner/owner_payroll/owner_payroll_components/OwnerPayrollStats';
+import { OwnerPayrollTable } from '@/app/frontend_owner/owner_payroll/owner_payroll_components/OwnerPayrollTable';
+import { OwnerPayrollPaymentModal } from '@/app/frontend_owner/owner_payroll/owner_payroll_components/OwnerPayrollPaymentModal';
 import { useTableSync } from '@/lib/hooks/useTableSync';
 
 export function OwnerPayrollMain() {

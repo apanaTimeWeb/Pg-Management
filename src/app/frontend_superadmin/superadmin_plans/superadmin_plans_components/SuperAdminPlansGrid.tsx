@@ -1,9 +1,9 @@
 // RESPONSIBILITY: Renders the SuperAdminPlansGrid component.
 import React from 'react';
 
-import { SuperAdminPlansCard } from '@/app/frontend_superadmin/superadmin_plans/SuperAdminPlans_components/SuperAdminPlansCard';
+import { SuperAdminPlansCard } from '@/app/frontend_superadmin/superadmin_plans/superadmin_plans_components/SuperAdminPlansCard';
 
-import type { SuperAdminPlansGridProps } from '@/app/frontend_superadmin/superadmin_plans/SuperAdminPlans_types/SuperAdminPlans.types';
+import type { SuperAdminPlansGridProps } from '@/app/frontend_superadmin/superadmin_plans/superadmin_plans_types/SuperAdminPlans.types';
 
 export const SuperAdminPlansGrid: React.FC<SuperAdminPlansGridProps> = ({ plans, loading, onEditClick }) => {
   if (loading) {

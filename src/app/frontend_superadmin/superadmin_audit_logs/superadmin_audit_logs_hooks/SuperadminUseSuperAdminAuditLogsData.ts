@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { MOCK_AUDIT_LOGS } from '@/app/frontend_superadmin/superadmin_lib/superadmin_mock_data';
-import type { SuperAdminAuditLog } from '@/app/frontend_superadmin/superadmin_audit_logs/SuperAdminAuditLogs_types/SuperAdminAuditLogs.types';
+import type { SuperAdminAuditLog } from '@/app/frontend_superadmin/superadmin_audit_logs/superadmin_audit_logs_types/SuperAdminAuditLogs.types';
 
 export function SuperadminUseSuperAdminAuditLogsData() {
   const [logs] = useState<SuperAdminAuditLog[]>(MOCK_AUDIT_LOGS as SuperAdminAuditLog[]);

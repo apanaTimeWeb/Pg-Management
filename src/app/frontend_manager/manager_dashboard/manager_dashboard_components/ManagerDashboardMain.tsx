@@ -1,14 +1,14 @@
 // RESPONSIBILITY: Renders the ManagerDashboardMain component.
 'use client';
-import { useManagerDashboard } from '@/app/frontend_manager/manager_dashboard/ManagerDashboard_hooks/useManagerDashboard';
-import { ManagerDashboardHeader } from '@/app/frontend_manager/manager_dashboard/ManagerDashboard_components/ManagerDashboardHeader';
-import { ManagerDashboardStatsGrid } from '@/app/frontend_manager/manager_dashboard/ManagerDashboard_components/ManagerDashboardStatsGrid';
-import { ManagerDashboardSummaryCards } from '@/app/frontend_manager/manager_dashboard/ManagerDashboard_components/ManagerDashboardSummaryCards';
-import { ManagerDashboardTasks } from '@/app/frontend_manager/manager_dashboard/ManagerDashboard_components/ManagerDashboardTasks';
-import { ManagerDashboardActivity } from '@/app/frontend_manager/manager_dashboard/ManagerDashboard_components/ManagerDashboardActivity';
-import { ManagerDashboardPerformance } from '@/app/frontend_manager/manager_dashboard/ManagerDashboard_components/ManagerDashboardPerformance';
-import { ManagerDashboardQuickActions } from '@/app/frontend_manager/manager_dashboard/ManagerDashboard_components/ManagerDashboardQuickActions';
-import { ManagerDashboardNoProperty } from '@/app/frontend_manager/manager_dashboard/ManagerDashboard_components/ManagerDashboardNoProperty';
+import { useManagerDashboard } from '@/app/frontend_manager/manager_dashboard/manager_dashboard_hooks/useManagerDashboard';
+import { ManagerDashboardHeader } from '@/app/frontend_manager/manager_dashboard/manager_dashboard_components/ManagerDashboardHeader';
+import { ManagerDashboardStatsGrid } from '@/app/frontend_manager/manager_dashboard/manager_dashboard_components/ManagerDashboardStatsGrid';
+import { ManagerDashboardSummaryCards } from '@/app/frontend_manager/manager_dashboard/manager_dashboard_components/ManagerDashboardSummaryCards';
+import { ManagerDashboardTasks } from '@/app/frontend_manager/manager_dashboard/manager_dashboard_components/ManagerDashboardTasks';
+import { ManagerDashboardActivity } from '@/app/frontend_manager/manager_dashboard/manager_dashboard_components/ManagerDashboardActivity';
+import { ManagerDashboardPerformance } from '@/app/frontend_manager/manager_dashboard/manager_dashboard_components/ManagerDashboardPerformance';
+import { ManagerDashboardQuickActions } from '@/app/frontend_manager/manager_dashboard/manager_dashboard_components/ManagerDashboardQuickActions';
+import { ManagerDashboardNoProperty } from '@/app/frontend_manager/manager_dashboard/manager_dashboard_components/ManagerDashboardNoProperty';
 
 export function ManagerDashboardMain() {
   const {

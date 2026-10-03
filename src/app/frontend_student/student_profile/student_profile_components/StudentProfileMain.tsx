@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { User, Shield, Star, Award, TrendingUp, TrendingDown, Phone, Mail, MapPin, Home, FileText, CheckCircle, Clock, AlertCircle, Edit, Settings } from 'lucide-react';
 import { STUDENT_ROUTES } from '@/app/frontend_student/student_url_config';
 
-import { useStudentProfile } from '@/app/frontend_student/student_profile/StudentProfile_hooks/useStudentProfile';
+import { useStudentProfile } from '@/app/frontend_student/student_profile/student_profile_hooks/useStudentProfile';
 
 export function StudentProfileMain() {
   const { profile, session, formData, setFormData, handleSubmit } = useStudentProfile();

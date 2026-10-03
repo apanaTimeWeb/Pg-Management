@@ -12,7 +12,7 @@ import { mealsApi } from '@/app/frontend_manager/manager_lib/manager_api/Manager
 import type { SessionUser } from '@/lib/types';
 import type { MealStatus } from '@/app/frontend_manager/manager_lib/manager_api/ManagerMeals';
 import type { StockRequest } from '@/app/frontend_staff/staff_lib/staff_api/StaffStockRequests';
-import type { ManagerDashboardStats, UseManagerDashboardReturn } from '@/app/frontend_manager/manager_dashboard/ManagerDashboard_types/ManagerDashboard.types';
+import type { ManagerDashboardStats, UseManagerDashboardReturn } from '@/app/frontend_manager/manager_dashboard/manager_dashboard_types/ManagerDashboard.types';
 
 export function useManagerDashboard(): UseManagerDashboardReturn {
   console.log('useManagerDashboard render');

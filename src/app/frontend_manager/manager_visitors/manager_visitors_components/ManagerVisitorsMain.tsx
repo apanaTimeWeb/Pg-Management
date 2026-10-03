@@ -1,9 +1,9 @@
 // RESPONSIBILITY: Renders the ManagerVisitorsMain component.
 'use client';
 import { useState } from 'react';
-import { useManagerVisitors } from '@/app/frontend_manager/manager_visitors/ManagerVisitors_hooks/useManagerVisitors';
-import { ManagerVisitorsList } from '@/app/frontend_manager/manager_visitors/ManagerVisitors_components/ManagerVisitorsList';
-import { ManagerVisitorsKPIs } from '@/app/frontend_manager/manager_visitors/ManagerVisitors_components/ManagerVisitorsKPIs';
+import { useManagerVisitors } from '@/app/frontend_manager/manager_visitors/manager_visitors_hooks/useManagerVisitors';
+import { ManagerVisitorsList } from '@/app/frontend_manager/manager_visitors/manager_visitors_components/ManagerVisitorsList';
+import { ManagerVisitorsKPIs } from '@/app/frontend_manager/manager_visitors/manager_visitors_components/ManagerVisitorsKPIs';
 import { UserPlus } from 'lucide-react';
 export function ManagerVisitorsMain() {
   const { visitors, loading, handleStatus, selectedPropertyId, ctxLoading } = useManagerVisitors();

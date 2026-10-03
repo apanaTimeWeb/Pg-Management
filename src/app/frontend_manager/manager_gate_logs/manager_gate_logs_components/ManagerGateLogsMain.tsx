@@ -1,9 +1,9 @@
 // RESPONSIBILITY: Renders the ManagerGateLogsMain component.
 'use client';
 import { Pagination } from '@/components/ui/Pagination';
-import { useManagerGateLogs } from '@/app/frontend_manager/manager_gate_logs/ManagerGateLogs_hooks/useManagerGateLogs';
-import { ManagerGateLogsTable } from '@/app/frontend_manager/manager_gate_logs/ManagerGateLogs_components/ManagerGateLogsTable';
-import { ManagerGateLogsForm } from '@/app/frontend_manager/manager_gate_logs/ManagerGateLogs_components/ManagerGateLogsForm';
+import { useManagerGateLogs } from '@/app/frontend_manager/manager_gate_logs/manager_gate_logs_hooks/useManagerGateLogs';
+import { ManagerGateLogsTable } from '@/app/frontend_manager/manager_gate_logs/manager_gate_logs_components/ManagerGateLogsTable';
+import { ManagerGateLogsForm } from '@/app/frontend_manager/manager_gate_logs/manager_gate_logs_components/ManagerGateLogsForm';
 export function ManagerGateLogsMain() {
   const {
     loading,

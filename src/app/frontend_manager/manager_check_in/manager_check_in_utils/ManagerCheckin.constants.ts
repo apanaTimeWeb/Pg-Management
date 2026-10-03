@@ -3,7 +3,7 @@ import {
   Wallet, FileCheck, Key, Utensils, CheckCircle 
 } from 'lucide-react';
 
-import type { ManagerCheckinStep } from '@/app/frontend_manager/manager_check_in/ManagerCheckin_types/ManagerCheckin.types';
+import type { ManagerCheckinStep } from '@/app/frontend_manager/manager_check_in/manager_check_in_types/ManagerCheckin.types';
 export const MANAGER_CHECKIN_WIZARD_STEPS: ManagerCheckinStep[] = [
   { id: 1, title: 'Personal', icon: User },
   { id: 2, title: 'Documents', icon: FileText },

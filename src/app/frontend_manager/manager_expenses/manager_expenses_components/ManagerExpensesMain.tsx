@@ -5,10 +5,10 @@ import { AlertCircle, Loader2 } from 'lucide-react';
 
 import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
 import { useManagerSession } from '@/app/frontend_manager/manager_components/manager_hooks/useManagerSession';
-import { useManagerExpenses } from '@/app/frontend_manager/manager_expenses/ManagerExpenses_hooks/useManagerExpenses';
-import { ManagerExpensesHeader } from '@/app/frontend_manager/manager_expenses/ManagerExpenses_components/ManagerExpensesHeader';
-import { ManagerExpensesList } from '@/app/frontend_manager/manager_expenses/ManagerExpenses_components/ManagerExpensesList';
-import { ManagerExpensesModal } from '@/app/frontend_manager/manager_expenses/ManagerExpenses_components/ManagerExpensesModal';
+import { useManagerExpenses } from '@/app/frontend_manager/manager_expenses/manager_expenses_hooks/useManagerExpenses';
+import { ManagerExpensesHeader } from '@/app/frontend_manager/manager_expenses/manager_expenses_components/ManagerExpensesHeader';
+import { ManagerExpensesList } from '@/app/frontend_manager/manager_expenses/manager_expenses_components/ManagerExpensesList';
+import { ManagerExpensesModal } from '@/app/frontend_manager/manager_expenses/manager_expenses_components/ManagerExpensesModal';
 export function ManagerExpensesMain() {
   const user = useManagerSession();
   const { selectedPropertyId, loading: propsLoading } = useManagerPropertyContext();

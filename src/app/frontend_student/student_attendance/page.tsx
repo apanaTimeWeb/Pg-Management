@@ -1,4 +1,4 @@
-import { StudentAttendanceMain } from '@/app/frontend_student/student_attendance/StudentAttendance_components/StudentAttendanceMain';
+import { StudentAttendanceMain } from '@/app/frontend_student/student_attendance/student_attendance_components/StudentAttendanceMain';
 
 export const metadata = {
   title: 'Attendance | Student Portal',
