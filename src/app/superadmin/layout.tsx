@@ -15,6 +15,10 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isAlertsOpen, setIsAlertsOpen] = useState(false);
+  const [isSupportOpen, setIsSupportOpen] = useState(false);
+  const [isNotifOpen, setIsNotifOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     setMounted(true);
@@ -168,30 +172,87 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
                 </div>
                 <input
                   type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search PG, Owner, Manager, Cook, Student, Subscription, Invoice, Ticket..."
-                  className="block w-full pl-10 pr-3 py-2 border border-[var(--border)] rounded-full leading-5 bg-[var(--bg-card)] text-[var(--text-primary)] placeholder-[var(--text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm transition-all"
+                  className="block w-full pl-10 pr-3 py-2 border border-[var(--border)] rounded-full leading-5 bg-[var(--bg-card)] text-[var(--text-primary)] placeholder-[var(--text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm transition-all shadow-sm"
                 />
+                {searchQuery && (
+                  <div className="absolute top-full left-0 mt-2 w-full bg-[var(--bg-card)] rounded-xl shadow-xl border border-[var(--border)] p-2 z-50">
+                    <div className="p-3 text-sm text-[var(--text-secondary)] flex items-center justify-center gap-2">
+                      <Search className="w-4 h-4 animate-spin-slow" /> Searching database for "{searchQuery}"...
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             {/* System Alerts */}
-            <button className="hidden sm:flex w-9 h-9 items-center justify-center text-[var(--danger)] hover:bg-[var(--danger-bg)] rounded-full transition-colors relative" aria-label="System Alerts">
-              <AlertCircle className="w-[18px] h-[18px]" />
-              <span className="absolute top-2 right-2 w-2 h-2 bg-[var(--danger)] rounded-full animate-ping"></span>
-            </button>
+            <div className="relative">
+              <button onClick={() => { setIsAlertsOpen(!isAlertsOpen); setIsSupportOpen(false); setIsNotifOpen(false); setIsProfileOpen(false); }} className="hidden sm:flex w-9 h-9 items-center justify-center text-[var(--danger)] hover:bg-[var(--danger-bg)] rounded-full transition-colors relative" aria-label="System Alerts">
+                <AlertCircle className="w-[18px] h-[18px]" />
+                <span className="absolute top-2 right-2 w-2 h-2 bg-[var(--danger)] rounded-full animate-ping"></span>
+              </button>
+              {isAlertsOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setIsAlertsOpen(false)}></div>
+                  <div className="absolute right-0 mt-2 w-72 bg-[var(--bg-card)] rounded-xl shadow-xl border border-[var(--danger)] z-50 overflow-hidden py-1">
+                    <div className="px-4 py-3 border-b border-[var(--border)] bg-[var(--danger-bg)]">
+                      <p className="text-sm font-bold text-[var(--danger)] flex items-center gap-2"><AlertCircle className="w-4 h-4" /> System Alerts</p>
+                    </div>
+                    <div className="p-3 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-overlay)] cursor-pointer">
+                      <p className="font-bold text-[var(--text-primary)]">Database Backup Failed</p>
+                      <p className="text-xs mt-1">Automatic backup failed at 3:00 AM.</p>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
 
             {/* Support */}
-            <button className="hidden sm:flex w-9 h-9 items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-overlay)] rounded-full transition-colors" aria-label="Support">
-              <LifeBuoy className="w-[18px] h-[18px]" />
-            </button>
+            <div className="relative">
+              <button onClick={() => { setIsSupportOpen(!isSupportOpen); setIsAlertsOpen(false); setIsNotifOpen(false); setIsProfileOpen(false); }} className="hidden sm:flex w-9 h-9 items-center justify-center text-[var(--text-secondary)] hover:text-[var(--primary)] hover:bg-[var(--primary-subtle)] rounded-full transition-colors" aria-label="Support">
+                <LifeBuoy className="w-[18px] h-[18px]" />
+              </button>
+              {isSupportOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setIsSupportOpen(false)}></div>
+                  <div className="absolute right-0 mt-2 w-64 bg-[var(--bg-card)] rounded-xl shadow-xl border border-[var(--border)] z-50 overflow-hidden py-1">
+                    <div className="px-4 py-3 border-b border-[var(--border)] bg-[var(--primary-subtle)]">
+                      <p className="text-sm font-bold text-[var(--primary)] flex items-center gap-2"><LifeBuoy className="w-4 h-4" /> Support Hub</p>
+                    </div>
+                    <Link href="/superadmin/tickets" onClick={() => setIsSupportOpen(false)} className="block p-3 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-overlay)]">
+                      <p className="font-bold text-[var(--text-primary)]">Open Helpdesk</p>
+                      <p className="text-xs mt-1">Manage active support tickets</p>
+                    </Link>
+                  </div>
+                </>
+              )}
+            </div>
 
             {/* Notifications */}
-            <button className="w-9 h-9 flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-overlay)] rounded-full transition-colors relative" aria-label="Notifications">
-              <Bell className="w-[18px] h-[18px]" />
-              <span className="absolute top-2 right-2.5 w-2 h-2 bg-[var(--primary)] rounded-full"></span>
-            </button>
+            <div className="relative">
+              <button onClick={() => { setIsNotifOpen(!isNotifOpen); setIsSupportOpen(false); setIsAlertsOpen(false); setIsProfileOpen(false); }} className="w-9 h-9 flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--warning)] hover:bg-[var(--warning-bg)] rounded-full transition-colors relative" aria-label="Notifications">
+                <Bell className="w-[18px] h-[18px]" />
+                <span className="absolute top-2 right-2.5 w-2 h-2 bg-[var(--warning)] rounded-full"></span>
+              </button>
+              {isNotifOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setIsNotifOpen(false)}></div>
+                  <div className="absolute right-0 mt-2 w-72 bg-[var(--bg-card)] rounded-xl shadow-xl border border-[var(--border)] z-50 overflow-hidden py-1">
+                    <div className="px-4 py-3 border-b border-[var(--border)] bg-[var(--warning-bg)]">
+                      <p className="text-sm font-bold text-[var(--warning)] flex items-center gap-2"><Bell className="w-4 h-4" /> Notifications</p>
+                    </div>
+                    <div className="p-3 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-overlay)] cursor-pointer">
+                      <p className="font-bold text-[var(--text-primary)]">New Owner Registered</p>
+                      <p className="text-xs mt-1">Rahul Sharma has requested owner approval.</p>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
 
              {/* Theme Toggle */}
              {mounted && (
