@@ -32,7 +32,7 @@ export function SuperadminGlobalConfigMain() {
               Manage platform-wide configurations, default PG parameters, security policies, and storage limits.
             </p>
           </div>
-          <button className="bg-white text-theme-primary px-6 py-3 rounded-xl font-bold shadow-md hover:bg-white/90 transition-colors flex items-center gap-2 whitespace-nowrap">
+          <button className="bg-white/20 backdrop-blur text-white border border-white/30 px-6 py-3 rounded-xl font-bold shadow-md hover:bg-white/90 transition-colors flex items-center gap-2 whitespace-nowrap">
             <Save className="w-5 h-5" /> Save All Changes
           </button>
         </div>

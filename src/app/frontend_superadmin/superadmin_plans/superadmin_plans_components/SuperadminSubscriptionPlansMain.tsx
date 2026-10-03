@@ -60,7 +60,7 @@ export function SuperadminSubscriptionPlansMain() {
               Configure commercial PG software tiers, manage PG subscriptions, and define feature access limits.
             </p>
           </div>
-          <button onClick={() => setShowCreateModal(true)} className="bg-white text-theme-primary px-6 py-3 rounded-xl font-bold shadow-md hover:bg-white/90 transition-colors flex items-center gap-2 whitespace-nowrap">
+          <button onClick={() => setShowCreateModal(true)} className="bg-white/20 backdrop-blur text-white border border-white/30 px-6 py-3 rounded-xl font-bold shadow-md hover:bg-white/90 transition-colors flex items-center gap-2 whitespace-nowrap">
             <Package className="w-5 h-5" /> Create New Plan
           </button>
         </div>

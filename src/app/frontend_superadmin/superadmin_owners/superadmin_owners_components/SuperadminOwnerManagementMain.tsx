@@ -52,7 +52,7 @@ export function SuperadminOwnerManagementMain() {
               Control the top-level accounts (PG Owners), configure global permissions, and manage onboarding.
             </p>
           </div>
-          <button onClick={() => setActiveTab('create')} className="bg-white text-theme-primary px-6 py-3 rounded-xl font-bold shadow-md hover:bg-white/90 transition-colors flex items-center gap-2 whitespace-nowrap">
+          <button onClick={() => setActiveTab('create')} className="bg-white/20 backdrop-blur text-white border border-white/30 px-6 py-3 rounded-xl font-bold shadow-md hover:bg-white/90 transition-colors flex items-center gap-2 whitespace-nowrap">
             <UserPlus className="w-5 h-5" /> Add New Admin
           </button>
         </div>

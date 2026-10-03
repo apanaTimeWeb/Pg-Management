@@ -62,7 +62,7 @@ export function SuperadminPGManagementMain() {
             <button className="bg-white/20 backdrop-blur text-white border border-white/30 px-6 py-3 rounded-xl font-bold shadow-md hover:bg-white/30 transition-colors flex items-center gap-2">
               <Download className="w-5 h-5" /> Export Data
             </button>
-            <button onClick={() => { setActiveTab('add'); setSelectedPG(null); }} className="bg-white text-theme-primary px-6 py-3 rounded-xl font-bold shadow-md hover:bg-white/90 transition-colors flex items-center gap-2">
+            <button onClick={() => { setActiveTab('add'); setSelectedPG(null); }} className="bg-white/20 backdrop-blur text-white border border-white/30 px-6 py-3 rounded-xl font-bold shadow-md hover:bg-white/90 transition-colors flex items-center gap-2">
               <Plus className="w-5 h-5" /> Add New PG
             </button>
           </div>
