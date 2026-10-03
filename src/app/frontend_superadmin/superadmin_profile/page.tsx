@@ -4,6 +4,12 @@ export const metadata = {
   title: 'SuperAdmin Profile | SmartPG',
 };
 
+import { Suspense } from 'react';
+
 export default function SuperadminProfilePage() {
-  return <SuperadminProfileMain />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SuperadminProfileMain />
+    </Suspense>
+  );
 }

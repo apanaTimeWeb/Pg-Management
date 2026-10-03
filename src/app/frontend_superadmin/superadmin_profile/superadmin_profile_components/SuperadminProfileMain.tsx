@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { User, Mail, Phone, Shield, Key, Smartphone, Clock, Monitor, Bell, Lock, AlertTriangle, CheckCircle, Save, LogOut } from 'lucide-react';
 import { getSession } from '@/app/frontend_superadmin/superadmin_lib/superadmin_auth/SuperadminSession';
 
@@ -11,7 +12,13 @@ export function SuperadminProfileMain() {
     setSession(getSession());
   }, []);
 
-  const [activeTab, setActiveTab] = useState('personal');
+  const searchParams = useSearchParams();
+  const tabQuery = searchParams.get('tab');
+  const [activeTab, setActiveTab] = useState(tabQuery || 'personal');
+
+  useEffect(() => {
+    if (tabQuery) setActiveTab(tabQuery);
+  }, [tabQuery]);
 
   const tabs = [
     { id: 'personal', label: 'Personal Info', icon: User, color: 'text-info' },
@@ -45,30 +52,30 @@ export function SuperadminProfileMain() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="flex flex-col space-y-6">
         
-        {/* 2. Sidebar Navigation */}
-        <div className="bg-card border border-border/50 rounded-3xl p-4 shadow-sm h-fit">
-          <div className="space-y-2">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-bold transition-all ${
-                  activeTab === tab.id 
-                    ? 'bg-primary-subtle text-theme-primary' 
-                    : 'text-secondary hover:bg-bg-page hover:text-primary'
-                }`}
-              >
+        {/* Top Navigation Tabs */}
+        <div className="bg-card border border-border/50 rounded-3xl p-2 shadow-sm flex items-center overflow-x-auto scrollbar-hide">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-3 px-6 py-3 rounded-2xl font-bold transition-all whitespace-nowrap ${
+                activeTab === tab.id 
+                  ? 'bg-primary-subtle text-theme-primary shadow-sm' 
+                  : 'text-secondary hover:bg-bg-page hover:text-primary'
+              }`}
+            >
+              <div className={`p-1.5 rounded-lg ${activeTab === tab.id ? tab.bg : 'bg-transparent'}`}>
                 <tab.icon className={`w-5 h-5 ${activeTab === tab.id ? 'text-theme-primary' : tab.color}`} />
-                {tab.label}
-              </button>
-            ))}
-          </div>
+              </div>
+              {tab.label}
+            </button>
+          ))}
         </div>
 
-        {/* 3. Tab Content Area */}
-        <div className="lg:col-span-3 space-y-6">
+        {/* Tab Content Area */}
+        <div className="w-full space-y-6">
           
           {/* PERSONAL INFO TAB */}
           {activeTab === 'personal' && (
