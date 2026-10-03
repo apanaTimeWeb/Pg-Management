@@ -298,7 +298,11 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
                       <p className="text-xs text-[var(--text-secondary)] truncate">System Administrator</p>
                     </div>
                     <div className="p-1">
-                      <button onClick={handleLogout} className="w-full text-left px-3 py-2 text-sm text-[var(--danger)] hover:bg-[var(--danger-bg)] hover:text-[var(--danger)] font-medium rounded-lg flex items-center gap-2 transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--danger)]">
+                      <Link href="/superadmin/profile" onClick={() => setIsProfileOpen(false)} className="w-full text-left px-3 py-2 text-sm text-[var(--text-primary)] hover:bg-[var(--bg-overlay)] hover:text-[var(--primary)] font-medium rounded-lg flex items-center gap-2 transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--primary)]">
+                        <User className="w-4 h-4" />
+                        My Profile
+                      </Link>
+                      <button onClick={handleLogout} className="w-full text-left px-3 py-2 mt-1 text-sm text-[var(--danger)] hover:bg-[var(--danger-bg)] hover:text-[var(--danger)] font-medium rounded-lg flex items-center gap-2 transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--danger)]">
                         <LogOut className="w-4 h-4" />
                         Logout
                       </button>
