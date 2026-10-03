@@ -62,7 +62,7 @@ export function OwnerForcePasswordChangeModal({ user, onSuccess }: OwnerForcePas
       <div className="bg-card border border rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-in fade-in zoom-in motion-safe:duration-300">
         <div className="p-6 bg-gradient-to-br from-orange-500/10 to-red-500/5 border-b border text-center relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/20 rounded-full blur-3xl"></div>
-          <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm border border-orange-500/30">
+          <div className="w-16 h-16 bg-card/20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm border border-orange-500/30">
             <Lock className="w-8 h-8 text-orange-500" />
           </div>
           <h2 className="text-xl font-bold text-primary">Security Requirement</h2>

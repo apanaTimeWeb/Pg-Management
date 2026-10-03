@@ -28,33 +28,33 @@ export default function NoticesPage() {
             <div className="flex items-center justify-between mb-6">
               <div className="relative w-full max-w-md">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <input type="text" placeholder="Search announcements..." className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-xl focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] outline-none text-sm" />
+                <input type="text" placeholder="Search announcements..." className="w-full pl-10 pr-4 py-2 border border-border rounded-xl focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] outline-none text-sm" />
               </div>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {MOCK_NOTICES.map((notice) => (
-                <div key={notice.id} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow relative">
+                <div key={notice.id} className="bg-card rounded-2xl p-5 border border-border/50 shadow-sm hover:shadow-md transition-shadow relative">
                   <div className="flex justify-between items-start mb-3">
                     <div className="flex items-center gap-3">
                       <div className={`p-3 rounded-xl ${notice.bg} ${notice.color}`}>
                         <notice.icon className="w-5 h-5" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-gray-800 text-sm md:text-base">{notice.title}</h3>
-                        <span className="text-xs font-semibold text-gray-500">{notice.date}</span>
+                        <h3 className="font-bold text-primary text-sm md:text-base">{notice.title}</h3>
+                        <span className="text-xs font-semibold text-[var(--text-disabled)]">{notice.date}</span>
                       </div>
                     </div>
-                    <span className="px-2.5 py-1 bg-gray-100 text-gray-600 rounded-lg text-[10px] font-bold uppercase tracking-wider">
+                    <span className="px-2.5 py-1 bg-[var(--bg-overlay)] text-secondary rounded-lg text-[10px] font-bold uppercase tracking-wider">
                       {notice.type}
                     </span>
                   </div>
                   
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-2">"{notice.content}"</p>
+                  <p className="text-sm text-secondary mb-4 line-clamp-2">"{notice.content}"</p>
                   
                   <div className="pt-4 border-t border-gray-50 flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-xs font-semibold text-gray-500">
-                      <Users className="w-3.5 h-3.5" /> Sent to: <span className="text-gray-800">{notice.audience}</span>
+                    <div className="flex items-center gap-2 text-xs font-semibold text-[var(--text-disabled)]">
+                      <Users className="w-3.5 h-3.5" /> Sent to: <span className="text-primary">{notice.audience}</span>
                     </div>
                     <div className="flex items-center gap-1.5 px-3 py-1 bg-green-50 text-green-700 rounded-full text-xs font-bold border border-green-100 tooltip-trigger" title="Read Status">
                       <Eye className="w-3.5 h-3.5" /> {notice.readStatus} Read
@@ -68,16 +68,16 @@ export default function NoticesPage() {
         
       case 'create':
         return (
-          <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm animate-in fade-in slide-in-from-right-4 duration-300 max-w-3xl mx-auto">
-            <h2 className="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
+          <div className="bg-card rounded-2xl p-6 border border-border/50 shadow-sm animate-in fade-in slide-in-from-right-4 duration-300 max-w-3xl mx-auto">
+            <h2 className="text-lg font-bold text-primary mb-6 flex items-center gap-2">
               <span className="bg-[#F5A623] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">1</span> 
               Draft Notice Content
             </h2>
             <div className="space-y-5">
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Notice Type</label>
+                <label className="block text-sm font-bold text-secondary mb-2">Notice Type</label>
                 <select 
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] outline-none"
+                  className="w-full px-4 py-2.5 rounded-xl border border-border focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] outline-none"
                   value={formData.type}
                   onChange={e => setFormData({...formData, type: e.target.value})}
                 >
@@ -91,21 +91,21 @@ export default function NoticesPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Notice Title</label>
+                <label className="block text-sm font-bold text-secondary mb-2">Notice Title</label>
                 <input 
                   type="text" 
                   placeholder="e.g. Wi-Fi Maintenance Tomorrow" 
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] outline-none"
+                  className="w-full px-4 py-2.5 rounded-xl border border-border focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] outline-none"
                   value={formData.title}
                   onChange={e => setFormData({...formData, title: e.target.value})}
                 />
               </div>
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Message Content</label>
+                <label className="block text-sm font-bold text-secondary mb-2">Message Content</label>
                 <textarea 
                   rows={5} 
                   placeholder="Write your announcement here..." 
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] outline-none resize-none"
+                  className="w-full px-4 py-3 rounded-xl border border-border focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] outline-none resize-none"
                   value={formData.content}
                   onChange={e => setFormData({...formData, content: e.target.value})}
                 ></textarea>
@@ -124,8 +124,8 @@ export default function NoticesPage() {
 
       case 'audience':
         return (
-          <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm animate-in fade-in slide-in-from-right-4 duration-300 max-w-3xl mx-auto">
-            <h2 className="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
+          <div className="bg-card rounded-2xl p-6 border border-border/50 shadow-sm animate-in fade-in slide-in-from-right-4 duration-300 max-w-3xl mx-auto">
+            <h2 className="text-lg font-bold text-primary mb-6 flex items-center gap-2">
               <span className="bg-[#F5A623] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">2</span> 
               Select Target Audience
             </h2>
@@ -139,7 +139,7 @@ export default function NoticesPage() {
               ].map(aud => {
                 const Icon = aud.icon as any;
                 return (
-                  <label key={aud.id} className={`flex items-start gap-4 p-4 border rounded-2xl cursor-pointer transition-all ${formData.audience === aud.id ? 'border-[#F5A623] bg-[#F5A623]/5' : 'border-gray-200 hover:border-gray-300'}`}>
+                  <label key={aud.id} className={`flex items-start gap-4 p-4 border rounded-2xl cursor-pointer transition-all ${formData.audience === aud.id ? 'border-[#F5A623] bg-[#F5A623]/5' : 'border-border hover:border-border'}`}>
                     <input 
                       type="radio" 
                       name="audience" 
@@ -148,19 +148,19 @@ export default function NoticesPage() {
                       onChange={() => setFormData({...formData, audience: aud.id})}
                     />
                     <div>
-                      <h4 className="font-bold text-gray-800 flex items-center gap-2">
-                        <Icon className="w-4 h-4 text-gray-500" /> {aud.id}
+                      <h4 className="font-bold text-primary flex items-center gap-2">
+                        <Icon className="w-4 h-4 text-[var(--text-disabled)]" /> {aud.id}
                       </h4>
-                      <p className="text-xs text-gray-500 mt-1">{aud.desc}</p>
+                      <p className="text-xs text-[var(--text-disabled)] mt-1">{aud.desc}</p>
                     </div>
                   </label>
                 )
               })}
             </div>
-            <div className="pt-4 border-t border-gray-100 flex justify-between">
+            <div className="pt-4 border-t border-border/50 flex justify-between">
               <button 
                 onClick={() => setViewState('create')}
-                className="text-gray-500 font-bold px-4 py-2 hover:bg-gray-50 rounded-xl transition-colors"
+                className="text-[var(--text-disabled)] font-bold px-4 py-2 hover:bg-page rounded-xl transition-colors"
               >
                 Back
               </button>
@@ -176,15 +176,15 @@ export default function NoticesPage() {
 
       case 'preview':
         return (
-          <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm animate-in fade-in slide-in-from-right-4 duration-300 max-w-2xl mx-auto">
-            <h2 className="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
+          <div className="bg-card rounded-2xl p-6 border border-border/50 shadow-sm animate-in fade-in slide-in-from-right-4 duration-300 max-w-2xl mx-auto">
+            <h2 className="text-lg font-bold text-primary mb-6 flex items-center gap-2">
               <span className="bg-[#F5A623] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">3</span> 
               Preview & Publish
             </h2>
             
             {/* The Mocked App Notification Look */}
-            <div className="bg-gray-100 p-6 rounded-2xl mb-8 flex justify-center">
-              <div className="bg-white w-full max-w-sm rounded-2xl shadow-xl overflow-hidden border border-gray-200">
+            <div className="bg-[var(--bg-overlay)] p-6 rounded-2xl mb-8 flex justify-center">
+              <div className="bg-card w-full max-w-sm rounded-2xl shadow-xl overflow-hidden border border-border">
                 <div className="bg-[#1A3A5C] p-4 text-white">
                   <div className="flex items-center gap-2 mb-1">
                     <Megaphone className="w-4 h-4 text-[#F5A623]" />
@@ -193,7 +193,7 @@ export default function NoticesPage() {
                   <h3 className="font-bold text-lg">{formData.title || 'Untitled Notice'}</h3>
                 </div>
                 <div className="p-4">
-                  <p className="text-gray-700 text-sm whitespace-pre-wrap">{formData.content || 'Your message will appear here...'}</p>
+                  <p className="text-secondary text-sm whitespace-pre-wrap">{formData.content || 'Your message will appear here...'}</p>
                   <p className="text-xs text-gray-400 mt-4 text-right">Just now</p>
                 </div>
               </div>
@@ -204,10 +204,10 @@ export default function NoticesPage() {
               <p className="text-xs text-blue-600">This notice will be sent immediately to <strong>{formData.audience}</strong> via In-App Notification and Push Notification.</p>
             </div>
 
-            <div className="pt-4 border-t border-gray-100 flex justify-between">
+            <div className="pt-4 border-t border-border/50 flex justify-between">
               <button 
                 onClick={() => setViewState('audience')}
-                className="text-gray-500 font-bold px-4 py-2 hover:bg-gray-50 rounded-xl transition-colors"
+                className="text-[var(--text-disabled)] font-bold px-4 py-2 hover:bg-page rounded-xl transition-colors"
               >
                 Back
               </button>
@@ -231,11 +231,11 @@ export default function NoticesPage() {
       {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
             <Megaphone className="w-7 h-7 text-[#F5A623]" />
             Notices & Announcements
           </h1>
-          <p className="text-gray-500 text-sm mt-1">Broadcast important information to students and staff.</p>
+          <p className="text-[var(--text-disabled)] text-sm mt-1">Broadcast important information to students and staff.</p>
         </div>
         
         {viewState === 'list' ? (
@@ -251,7 +251,7 @@ export default function NoticesPage() {
         ) : (
           <button 
             onClick={() => setViewState('list')}
-            className="text-gray-500 hover:bg-gray-100 px-4 py-2 rounded-xl font-bold text-sm transition-colors"
+            className="text-[var(--text-disabled)] hover:bg-[var(--bg-overlay)] px-4 py-2 rounded-xl font-bold text-sm transition-colors"
           >
             Cancel
           </button>

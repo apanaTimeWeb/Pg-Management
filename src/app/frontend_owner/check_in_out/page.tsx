@@ -42,26 +42,26 @@ export default function CheckInOutPage() {
       {/* Check-in Modal Overlay */}
       {isCheckinModalOpen && selectedStudent && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-3xl overflow-hidden animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
-            <div className="p-5 border-b border-gray-100 flex items-center justify-between bg-blue-50 shrink-0">
+          <div className="bg-card rounded-2xl shadow-xl w-full max-w-3xl overflow-hidden animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
+            <div className="p-5 border-b border-border/50 flex items-center justify-between bg-blue-50 shrink-0">
               <h2 className="text-xl font-bold flex items-center gap-2 text-blue-800">
                 <LogIn className="w-5 h-5 text-blue-600" /> Process Room Handover & Check-in
               </h2>
-              <button onClick={() => setIsCheckinModalOpen(false)} className="p-1.5 hover:bg-white rounded-lg transition-colors"><X className="w-5 h-5" /></button>
+              <button onClick={() => setIsCheckinModalOpen(false)} className="p-1.5 hover:bg-card rounded-lg transition-colors"><X className="w-5 h-5" /></button>
             </div>
             
-            <div className="p-6 space-y-8 overflow-y-auto bg-white">
+            <div className="p-6 space-y-8 overflow-y-auto bg-card">
               
               {/* Flow Visualizer */}
               <div className="flex items-center justify-between px-4 pb-2">
                 <div className="flex flex-col items-center gap-2 w-1/4">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center ${selectedStudent.docsVerified ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}><FileText className="w-4 h-4"/></div>
-                  <span className="text-[10px] font-bold text-gray-500 uppercase text-center leading-tight">Docs<br/>Verified</span>
+                  <span className="text-[10px] font-bold text-[var(--text-disabled)] uppercase text-center leading-tight">Docs<br/>Verified</span>
                 </div>
                 <div className={`flex-1 h-0.5 mx-2 ${selectedStudent.docsVerified ? 'bg-green-200' : 'bg-gray-200'}`}></div>
                 <div className="flex flex-col items-center gap-2 w-1/4">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center ${selectedStudent.paymentVerified ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}><Wallet className="w-4 h-4"/></div>
-                  <span className="text-[10px] font-bold text-gray-500 uppercase text-center leading-tight">Payment<br/>Verified</span>
+                  <span className="text-[10px] font-bold text-[var(--text-disabled)] uppercase text-center leading-tight">Payment<br/>Verified</span>
                 </div>
                 <div className={`flex-1 h-0.5 mx-2 ${selectedStudent.paymentVerified ? 'bg-blue-200' : 'bg-gray-200'}`}></div>
                 <div className="flex flex-col items-center gap-2 w-1/4">
@@ -84,48 +84,48 @@ export default function CheckInOutPage() {
                 <>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <h3 className="text-sm font-bold text-gray-800 border-b border-gray-100 pb-2 mb-4 flex items-center gap-2">
+                      <h3 className="text-sm font-bold text-primary border-b border-border/50 pb-2 mb-4 flex items-center gap-2">
                         <Bed className="w-4 h-4 text-purple-500" /> Assignment & Keys
                       </h3>
                       <div className="space-y-4">
                         <div>
-                          <label className="block text-xs font-bold text-gray-700 uppercase mb-2">Check-in Date & Time</label>
-                          <input type="datetime-local" className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm font-bold focus:outline-none focus:border-blue-500" />
+                          <label className="block text-xs font-bold text-secondary uppercase mb-2">Check-in Date & Time</label>
+                          <input type="datetime-local" className="w-full px-4 py-2 bg-page border border-border rounded-xl text-sm font-bold focus:outline-none focus:border-blue-500" />
                         </div>
                         <div>
-                          <label className="block text-xs font-bold text-gray-700 uppercase mb-2">Assign Bed / Room</label>
-                          <select className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm font-bold focus:outline-none focus:border-blue-500">
+                          <label className="block text-xs font-bold text-secondary uppercase mb-2">Assign Bed / Room</label>
+                          <select className="w-full px-4 py-2 bg-page border border-border rounded-xl text-sm font-bold focus:outline-none focus:border-blue-500">
                             <option>Room 101 - Bed A</option>
                             <option>Room 205 - Bed B</option>
                           </select>
                         </div>
                         <div className="pt-2">
-                          <label className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors">
-                            <input type="checkbox" className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                            <span className="text-sm font-bold text-gray-800 flex items-center gap-2"><Key className="w-4 h-4 text-yellow-500" /> Physical Room/Cupboard Keys Handed Over</span>
+                          <label className="flex items-center gap-3 p-3 bg-page border border-border rounded-xl cursor-pointer hover:bg-[var(--bg-overlay)] transition-colors">
+                            <input type="checkbox" className="w-5 h-5 rounded border-border text-blue-600 focus:ring-blue-500" />
+                            <span className="text-sm font-bold text-primary flex items-center gap-2"><Key className="w-4 h-4 text-yellow-500" /> Physical Room/Cupboard Keys Handed Over</span>
                           </label>
                         </div>
                       </div>
                     </div>
 
                     <div>
-                      <h3 className="text-sm font-bold text-gray-800 border-b border-gray-100 pb-2 mb-4 flex items-center gap-2">
+                      <h3 className="text-sm font-bold text-primary border-b border-border/50 pb-2 mb-4 flex items-center gap-2">
                         <Zap className="w-4 h-4 text-yellow-500" /> Inventory & Meters
                       </h3>
                       <div className="space-y-4">
                         <div>
-                          <label className="block text-xs font-bold text-gray-700 uppercase mb-2">Initial Electricity Meter Reading</label>
+                          <label className="block text-xs font-bold text-secondary uppercase mb-2">Initial Electricity Meter Reading</label>
                           <div className="relative">
-                            <input type="number" placeholder="0" className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm font-bold focus:outline-none focus:border-blue-500 pr-12" />
+                            <input type="number" placeholder="0" className="w-full px-4 py-2 bg-page border border-border rounded-xl text-sm font-bold focus:outline-none focus:border-blue-500 pr-12" />
                             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-gray-400">kWh</span>
                           </div>
                         </div>
                         
                         <div>
-                          <label className="block text-xs font-bold text-gray-700 uppercase mb-2">Inventory Checked & Assigned</label>
+                          <label className="block text-xs font-bold text-secondary uppercase mb-2">Inventory Checked & Assigned</label>
                           <div className="grid grid-cols-2 gap-2">
                             {['Bed/Frame', 'Mattress', 'Study Table', 'Chair', 'Cupboard', 'Dustbin'].map(item => (
-                              <label key={item} className="flex items-center gap-2 text-sm font-semibold text-gray-600 bg-gray-50 p-2 rounded-lg cursor-pointer hover:bg-gray-100 border border-transparent hover:border-gray-200 transition-colors">
+                              <label key={item} className="flex items-center gap-2 text-sm font-semibold text-secondary bg-page p-2 rounded-lg cursor-pointer hover:bg-[var(--bg-overlay)] border border-transparent hover:border-border transition-colors">
                                 <input type="checkbox" defaultChecked className="rounded text-blue-600 focus:ring-blue-500" /> {item}
                               </label>
                             ))}
@@ -139,12 +139,12 @@ export default function CheckInOutPage() {
 
             </div>
             
-            <div className="p-5 border-t border-gray-100 bg-gray-50 flex justify-end gap-3 shrink-0">
-              <button onClick={() => setIsCheckinModalOpen(false)} className="px-6 py-2.5 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold hover:bg-gray-100 transition-colors">Cancel</button>
+            <div className="p-5 border-t border-border/50 bg-page flex justify-end gap-3 shrink-0">
+              <button onClick={() => setIsCheckinModalOpen(false)} className="px-6 py-2.5 bg-card border border-border text-secondary rounded-xl font-bold hover:bg-[var(--bg-overlay)] transition-colors">Cancel</button>
               <button 
                 disabled={!selectedStudent.docsVerified}
                 onClick={() => { alert('Check-in Complete! Student Profile Activated.'); setIsCheckinModalOpen(false); }} 
-                className={`px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-colors shadow-sm ${selectedStudent.docsVerified ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
+                className={`px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-colors shadow-sm ${selectedStudent.docsVerified ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-gray-300 text-[var(--text-disabled)] cursor-not-allowed'}`}
               >
                 <CheckCircle2 className="w-4 h-4" /> Confirm & Complete Check-in
               </button>
@@ -156,55 +156,55 @@ export default function CheckInOutPage() {
       {/* Check-out Modal Overlay */}
       {isCheckoutModalOpen && selectedStudent && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-3xl overflow-hidden animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
-            <div className="p-5 border-b border-gray-100 flex items-center justify-between bg-orange-50 shrink-0">
+          <div className="bg-card rounded-2xl shadow-xl w-full max-w-3xl overflow-hidden animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
+            <div className="p-5 border-b border-border/50 flex items-center justify-between bg-orange-50 shrink-0">
               <h2 className="text-xl font-bold flex items-center gap-2 text-orange-800">
                 <LogOut className="w-5 h-5 text-orange-600" /> Process Final Check-out
               </h2>
-              <button onClick={() => setIsCheckoutModalOpen(false)} className="p-1.5 hover:bg-white rounded-lg transition-colors"><X className="w-5 h-5" /></button>
+              <button onClick={() => setIsCheckoutModalOpen(false)} className="p-1.5 hover:bg-card rounded-lg transition-colors"><X className="w-5 h-5" /></button>
             </div>
             
-            <div className="p-6 space-y-8 overflow-y-auto bg-white">
+            <div className="p-6 space-y-8 overflow-y-auto bg-card">
               
               {/* Checkout Flow Visualizer */}
               <div className="flex items-center justify-between px-4 pb-2">
                 <div className="flex flex-col items-center gap-2 w-1/4">
                   <div className="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center"><FileWarning className="w-4 h-4"/></div>
-                  <span className="text-[10px] font-bold text-gray-500 uppercase text-center leading-tight">Notice<br/>Approved</span>
+                  <span className="text-[10px] font-bold text-[var(--text-disabled)] uppercase text-center leading-tight">Notice<br/>Approved</span>
                 </div>
                 <div className="flex-1 h-0.5 mx-2 bg-green-200"></div>
                 <div className="flex flex-col items-center gap-2 w-1/4">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center ${selectedStudent.inspection === 'Cleared' ? 'bg-green-100 text-green-600' : 'bg-[#1A3A5C] text-white shadow-md'}`}><Search className="w-4 h-4"/></div>
-                  <span className={`text-[10px] font-bold uppercase text-center leading-tight ${selectedStudent.inspection === 'Cleared' ? 'text-gray-500' : 'text-[#1A3A5C]'}`}>Room<br/>Inspection</span>
+                  <span className={`text-[10px] font-bold uppercase text-center leading-tight ${selectedStudent.inspection === 'Cleared' ? 'text-[var(--text-disabled)]' : 'text-[#1A3A5C]'}`}>Room<br/>Inspection</span>
                 </div>
                 <div className={`flex-1 h-0.5 mx-2 ${selectedStudent.inspection === 'Cleared' ? 'bg-green-200' : 'bg-gray-200'}`}></div>
                 <div className="flex flex-col items-center gap-2 w-1/4">
-                  <div className="w-8 h-8 rounded-full bg-gray-100 border border-gray-200 text-gray-400 flex items-center justify-center"><ShieldCheck className="w-4 h-4"/></div>
+                  <div className="w-8 h-8 rounded-full bg-[var(--bg-overlay)] border border-border text-gray-400 flex items-center justify-center"><ShieldCheck className="w-4 h-4"/></div>
                   <span className="text-[10px] font-bold text-gray-400 uppercase text-center leading-tight">Deposit<br/>Settlement</span>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <h3 className="text-sm font-bold text-gray-800 border-b border-gray-100 pb-2 mb-4 flex items-center gap-2">
+                  <h3 className="text-sm font-bold text-primary border-b border-border/50 pb-2 mb-4 flex items-center gap-2">
                     <Search className="w-4 h-4 text-blue-500" /> Physical Inspection
                   </h3>
                   <div className="space-y-4">
-                    <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl">
+                    <div className="p-3 bg-page border border-border rounded-xl">
                       <label className="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" className="w-5 h-5 mt-0.5 rounded border-gray-300 text-orange-600 focus:ring-orange-500" />
+                        <input type="checkbox" className="w-5 h-5 mt-0.5 rounded border-border text-orange-600 focus:ring-orange-500" />
                         <div>
-                          <span className="text-sm font-bold text-gray-800">Inventory Checked & Intact</span>
-                          <p className="text-[10px] text-gray-500 leading-tight mt-1">Bed, Mattress, Chair, Table verified against initial handover list.</p>
+                          <span className="text-sm font-bold text-primary">Inventory Checked & Intact</span>
+                          <p className="text-[10px] text-[var(--text-disabled)] leading-tight mt-1">Bed, Mattress, Chair, Table verified against initial handover list.</p>
                         </div>
                       </label>
                     </div>
-                    <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl">
+                    <div className="p-3 bg-page border border-border rounded-xl">
                       <label className="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" className="w-5 h-5 mt-0.5 rounded border-gray-300 text-orange-600 focus:ring-orange-500" />
+                        <input type="checkbox" className="w-5 h-5 mt-0.5 rounded border-border text-orange-600 focus:ring-orange-500" />
                         <div>
-                          <span className="text-sm font-bold text-gray-800">Room Keys Returned</span>
-                          <p className="text-[10px] text-gray-500 leading-tight mt-1">Physical keys for room and cupboard handed back to manager.</p>
+                          <span className="text-sm font-bold text-primary">Room Keys Returned</span>
+                          <p className="text-[10px] text-[var(--text-disabled)] leading-tight mt-1">Physical keys for room and cupboard handed back to manager.</p>
                         </div>
                       </label>
                     </div>
@@ -212,21 +212,21 @@ export default function CheckInOutPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-bold text-gray-800 border-b border-gray-100 pb-2 mb-4 flex items-center gap-2">
+                  <h3 className="text-sm font-bold text-primary border-b border-border/50 pb-2 mb-4 flex items-center gap-2">
                     <Zap className="w-4 h-4 text-yellow-500" /> Meter & Damages
                   </h3>
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-xs font-bold text-gray-700 uppercase mb-2">Final Electricity Meter Reading</label>
+                      <label className="block text-xs font-bold text-secondary uppercase mb-2">Final Electricity Meter Reading</label>
                       <div className="relative">
-                        <input type="number" placeholder="Enter reading" className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm font-bold focus:outline-none focus:border-orange-500 pr-12" />
+                        <input type="number" placeholder="Enter reading" className="w-full px-4 py-2 bg-page border border-border rounded-xl text-sm font-bold focus:outline-none focus:border-orange-500 pr-12" />
                         <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-gray-400">kWh</span>
                       </div>
                     </div>
                     
                     <div>
-                      <label className="block text-xs font-bold text-gray-700 uppercase mb-2">Damage Notes / Charges Needed?</label>
-                      <textarea rows={2} placeholder="e.g. Broken mirror, charge ₹500 from deposit" className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-orange-500 resize-none"></textarea>
+                      <label className="block text-xs font-bold text-secondary uppercase mb-2">Damage Notes / Charges Needed?</label>
+                      <textarea rows={2} placeholder="e.g. Broken mirror, charge ₹500 from deposit" className="w-full px-4 py-2 bg-page border border-border rounded-xl text-sm focus:outline-none focus:border-orange-500 resize-none"></textarea>
                     </div>
                   </div>
                 </div>
@@ -242,15 +242,15 @@ export default function CheckInOutPage() {
                 </div>
               )}
               
-              <div className="p-4 bg-gray-50 border border-gray-200 rounded-xl text-center">
-                <p className="text-sm font-bold text-gray-700">Next Step: Security Deposit Settlement</p>
-                <p className="text-xs text-gray-500 mt-1">After confirming this physical check-out, you will need to process their security deposit refund.</p>
+              <div className="p-4 bg-page border border-border rounded-xl text-center">
+                <p className="text-sm font-bold text-secondary">Next Step: Security Deposit Settlement</p>
+                <p className="text-xs text-[var(--text-disabled)] mt-1">After confirming this physical check-out, you will need to process their security deposit refund.</p>
               </div>
 
             </div>
             
-            <div className="p-5 border-t border-gray-100 bg-gray-50 flex justify-end gap-3 shrink-0">
-              <button onClick={() => setIsCheckoutModalOpen(false)} className="px-6 py-2.5 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold hover:bg-gray-100 transition-colors">Cancel</button>
+            <div className="p-5 border-t border-border/50 bg-page flex justify-end gap-3 shrink-0">
+              <button onClick={() => setIsCheckoutModalOpen(false)} className="px-6 py-2.5 bg-card border border-border text-secondary rounded-xl font-bold hover:bg-[var(--bg-overlay)] transition-colors">Cancel</button>
               <button 
                 onClick={() => { alert('Check-out Logged! Redirecting to Security Deposit module for final refund settlement.'); setIsCheckoutModalOpen(false); }} 
                 className="px-6 py-2.5 bg-orange-600 hover:bg-orange-700 text-white rounded-xl font-bold flex items-center gap-2 transition-colors shadow-sm"
@@ -265,38 +265,38 @@ export default function CheckInOutPage() {
       {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
             <LogIn className="w-7 h-7 text-blue-600" />
             Check-in & Check-out Operations
           </h1>
-          <p className="text-gray-500 text-sm mt-1">Manage physical room handovers, inventory checks, and notice periods.</p>
+          <p className="text-[var(--text-disabled)] text-sm mt-1">Manage physical room handovers, inventory checks, and notice periods.</p>
         </div>
       </div>
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex items-center gap-4 border-l-4 border-blue-500">
+        <div className="bg-card p-4 border border-border/50 rounded-2xl shadow-sm flex items-center gap-4 border-l-4 border-blue-500">
           <div className="p-3 bg-blue-50 text-blue-600 rounded-xl"><LogIn className="w-6 h-6" /></div>
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase">Pending Check-ins</p>
-            <h3 className="text-2xl font-black text-gray-800">2</h3>
+            <h3 className="text-2xl font-black text-primary">2</h3>
           </div>
         </div>
-        <div className="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex items-center gap-4">
+        <div className="bg-card p-4 border border-border/50 rounded-2xl shadow-sm flex items-center gap-4">
           <div className="p-3 bg-orange-50 text-orange-600 rounded-xl"><LogOut className="w-6 h-6" /></div>
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase">Pending Check-outs</p>
-            <h3 className="text-xl font-black text-gray-800">2</h3>
+            <h3 className="text-xl font-black text-primary">2</h3>
           </div>
         </div>
-        <div className="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex items-center gap-4">
+        <div className="bg-card p-4 border border-border/50 rounded-2xl shadow-sm flex items-center gap-4">
           <div className="p-3 bg-red-50 text-red-600 rounded-xl"><FileWarning className="w-6 h-6" /></div>
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase">Active Notices</p>
-            <h3 className="text-2xl font-black text-gray-800">2</h3>
+            <h3 className="text-2xl font-black text-primary">2</h3>
           </div>
         </div>
-        <div className="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex items-center gap-4">
+        <div className="bg-card p-4 border border-border/50 rounded-2xl shadow-sm flex items-center gap-4">
           <div className="p-3 bg-green-50 text-green-600 rounded-xl"><Bed className="w-6 h-6" /></div>
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase">Ready to Handover</p>
@@ -306,20 +306,20 @@ export default function CheckInOutPage() {
       </div>
 
       {/* Main Content Area */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden min-h-[500px] flex flex-col">
+      <div className="bg-card rounded-2xl shadow-sm border border-border/50 overflow-hidden min-h-[500px] flex flex-col">
         
         {/* Top Bar: Tabs & Filters */}
-        <div className="p-4 border-b border-gray-100 bg-gray-50/50 flex flex-col lg:flex-row justify-between gap-4 shrink-0">
-          <div className="flex bg-gray-100 p-1 rounded-xl w-full md:w-max">
+        <div className="p-4 border-b border-border/50 bg-page/50 flex flex-col lg:flex-row justify-between gap-4 shrink-0">
+          <div className="flex bg-[var(--bg-overlay)] p-1 rounded-xl w-full md:w-max">
             <button 
               onClick={() => setActiveTab('checkin')}
-              className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-8 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'checkin' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+              className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-8 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'checkin' ? 'bg-card text-blue-600 shadow-sm' : 'text-[var(--text-disabled)] hover:text-secondary'}`}
             >
               <LogIn className="w-4 h-4" /> Check-in Queue
             </button>
             <button 
               onClick={() => setActiveTab('checkout')}
-              className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-8 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'checkout' ? 'bg-white text-orange-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+              className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-8 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'checkout' ? 'bg-card text-orange-600 shadow-sm' : 'text-[var(--text-disabled)] hover:text-secondary'}`}
             >
               <LogOut className="w-4 h-4" /> Check-out & Notices
             </button>
@@ -330,7 +330,7 @@ export default function CheckInOutPage() {
         <div className="flex-1 overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-[900px]">
             <thead>
-              <tr className="bg-gray-50 border-b border-gray-100 text-gray-500 text-xs uppercase tracking-wider font-bold">
+              <tr className="bg-page border-b border-border/50 text-[var(--text-disabled)] text-xs uppercase tracking-wider font-bold">
                 {activeTab === 'checkout' && <th className="p-5 w-24 text-center">Room</th>}
                 <th className="p-5">Student Info</th>
                 <th className="p-5">Assigned Property</th>
@@ -345,12 +345,12 @@ export default function CheckInOutPage() {
                 <tr key={record.id} className="hover:bg-blue-50/20 transition-colors">
                   <td className="p-5">
                     <div className="flex flex-col">
-                      <span className="font-bold text-gray-800 text-sm">{record.name}</span>
-                      <span className="text-xs font-semibold text-gray-500 mt-0.5">{record.phone}</span>
+                      <span className="font-bold text-primary text-sm">{record.name}</span>
+                      <span className="text-xs font-semibold text-[var(--text-disabled)] mt-0.5">{record.phone}</span>
                     </div>
                   </td>
                   <td className="p-5">
-                    <span className="flex items-center gap-1.5 text-sm font-bold text-gray-700"><MapPin className="w-4 h-4 text-blue-500" /> {record.pg}</span>
+                    <span className="flex items-center gap-1.5 text-sm font-bold text-secondary"><MapPin className="w-4 h-4 text-blue-500" /> {record.pg}</span>
                   </td>
                   <td className="p-5 text-center">
                     <div className="flex items-center justify-center gap-3">
@@ -373,15 +373,15 @@ export default function CheckInOutPage() {
               {/* CHECK-OUT QUEUE */}
               {activeTab === 'checkout' && MOCK_CHECKOUTS.map((record) => (
                 <tr key={record.id} className="hover:bg-orange-50/20 transition-colors">
-                  <td className="p-5 text-center"><span className="w-10 h-10 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center font-black text-gray-800 mx-auto">{record.room}</span></td>
+                  <td className="p-5 text-center"><span className="w-10 h-10 rounded-full bg-[var(--bg-overlay)] border border-border flex items-center justify-center font-black text-primary mx-auto">{record.room}</span></td>
                   <td className="p-5">
                     <div className="flex flex-col">
-                      <span className="font-bold text-gray-800 text-sm">{record.name}</span>
-                      <span className="text-xs font-semibold text-gray-500 mt-0.5">Notice: {record.noticeDate}</span>
+                      <span className="font-bold text-primary text-sm">{record.name}</span>
+                      <span className="text-xs font-semibold text-[var(--text-disabled)] mt-0.5">Notice: {record.noticeDate}</span>
                     </div>
                   </td>
                   <td className="p-5">
-                    <span className="flex items-center gap-1.5 text-sm font-bold text-gray-700"><MapPin className="w-4 h-4 text-orange-500" /> {record.pg}</span>
+                    <span className="flex items-center gap-1.5 text-sm font-bold text-secondary"><MapPin className="w-4 h-4 text-orange-500" /> {record.pg}</span>
                   </td>
                   <td className="p-5 text-center">
                     <div className="flex items-center justify-center gap-3">

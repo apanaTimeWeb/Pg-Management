@@ -46,15 +46,15 @@ export default function LeaveOutingPage() {
       {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
             <PlaneTakeoff className="w-7 h-7 text-[#F5A623]" />
             Leave & Outing Management
           </h1>
-          <p className="text-gray-500 text-sm mt-1">Review student requests, track exits, and mark returns securely.</p>
+          <p className="text-[var(--text-disabled)] text-sm mt-1">Review student requests, track exits, and mark returns securely.</p>
         </div>
         
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
+          <button className="flex items-center gap-2 bg-card border border-border text-secondary hover:bg-page px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
             <FileText className="w-4 h-4" /> Export Reports
           </button>
           <button className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
@@ -65,57 +65,57 @@ export default function LeaveOutingPage() {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex items-center gap-4">
+        <div className="bg-card p-4 border border-border/50 rounded-2xl shadow-sm flex items-center gap-4">
           <div className="p-3 bg-yellow-50 text-yellow-600 rounded-xl"><Clock className="w-6 h-6" /></div>
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase">Pending Requests</p>
-            <h3 className="text-2xl font-black text-gray-800">2</h3>
+            <h3 className="text-2xl font-black text-primary">2</h3>
           </div>
         </div>
-        <div className="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex items-center gap-4">
+        <div className="bg-card p-4 border border-border/50 rounded-2xl shadow-sm flex items-center gap-4">
           <div className="p-3 bg-orange-50 text-orange-600 rounded-xl"><ArrowRightCircle className="w-6 h-6" /></div>
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase">Active Outside</p>
-            <h3 className="text-2xl font-black text-gray-800">2</h3>
+            <h3 className="text-2xl font-black text-primary">2</h3>
           </div>
         </div>
-        <div className="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex items-center gap-4">
+        <div className="bg-card p-4 border border-border/50 rounded-2xl shadow-sm flex items-center gap-4">
           <div className="p-3 bg-red-50 text-red-600 rounded-xl"><AlertTriangle className="w-6 h-6" /></div>
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase">Emergency</p>
             <h3 className="text-2xl font-black text-red-600">1</h3>
           </div>
         </div>
-        <div className="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex items-center gap-4">
+        <div className="bg-card p-4 border border-border/50 rounded-2xl shadow-sm flex items-center gap-4">
           <div className="p-3 bg-emerald-50 text-emerald-600 rounded-xl"><CheckCircle2 className="w-6 h-6" /></div>
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase">Returned Today</p>
-            <h3 className="text-2xl font-black text-gray-800">5</h3>
+            <h3 className="text-2xl font-black text-primary">5</h3>
           </div>
         </div>
       </div>
 
       {/* Main Content Dashboard */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden min-h-[600px] flex flex-col">
+      <div className="bg-card rounded-2xl shadow-sm border border-border/50 overflow-hidden min-h-[600px] flex flex-col">
         
         {/* Navigation Tabs */}
-        <div className="p-4 border-b border-gray-100 bg-gray-50/50 flex flex-col md:flex-row justify-between gap-4 shrink-0">
-          <div className="flex bg-gray-100 p-1 rounded-xl w-full md:w-max">
+        <div className="p-4 border-b border-border/50 bg-page/50 flex flex-col md:flex-row justify-between gap-4 shrink-0">
+          <div className="flex bg-[var(--bg-overlay)] p-1 rounded-xl w-full md:w-max">
             <button 
               onClick={() => setActiveTab('pending')}
-              className={`flex-1 md:flex-none px-6 py-2 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 ${activeTab === 'pending' ? 'bg-white text-gray-800 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+              className={`flex-1 md:flex-none px-6 py-2 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 ${activeTab === 'pending' ? 'bg-card text-primary shadow-sm' : 'text-[var(--text-disabled)] hover:text-secondary'}`}
             >
               Pending Approvals <span className="bg-yellow-500 text-white px-1.5 py-0.5 rounded-full text-[10px]">2</span>
             </button>
             <button 
               onClick={() => setActiveTab('active')}
-              className={`flex-1 md:flex-none px-6 py-2 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 ${activeTab === 'active' ? 'bg-white text-gray-800 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+              className={`flex-1 md:flex-none px-6 py-2 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 ${activeTab === 'active' ? 'bg-card text-primary shadow-sm' : 'text-[var(--text-disabled)] hover:text-secondary'}`}
             >
               Active Outside <span className="bg-orange-500 text-white px-1.5 py-0.5 rounded-full text-[10px]">2</span>
             </button>
             <button 
               onClick={() => setActiveTab('history')}
-              className={`flex-1 md:flex-none px-6 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'history' ? 'bg-white text-gray-800 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+              className={`flex-1 md:flex-none px-6 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'history' ? 'bg-card text-primary shadow-sm' : 'text-[var(--text-disabled)] hover:text-secondary'}`}
             >
               History / Returned
             </button>
@@ -128,26 +128,26 @@ export default function LeaveOutingPage() {
               placeholder="Search by student, ID, or destination..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] bg-white"
+              className="w-full pl-9 pr-4 py-2 border border-border rounded-xl text-sm focus:outline-none focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] bg-card"
             />
           </div>
         </div>
 
         {/* Requests Grid */}
-        <div className="p-5 flex-1 overflow-y-auto bg-gray-50/30">
+        <div className="p-5 flex-1 overflow-y-auto bg-page/30">
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
             {filteredRequests.map(req => (
-              <div key={req.id} className="bg-white border border-gray-200 rounded-2xl p-5 hover:border-[#F5A623] transition-colors shadow-sm flex flex-col relative">
+              <div key={req.id} className="bg-card border border-border rounded-2xl p-5 hover:border-[#F5A623] transition-colors shadow-sm flex flex-col relative">
                 
                 {/* Header */}
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex gap-3 items-center">
-                    <div className="w-10 h-10 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center">
-                      <User className="w-5 h-5 text-gray-500" />
+                    <div className="w-10 h-10 rounded-full bg-[var(--bg-overlay)] border border-border flex items-center justify-center">
+                      <User className="w-5 h-5 text-[var(--text-disabled)]" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-800 text-sm">{req.student}</h3>
-                      <p className="text-xs text-gray-500">Room {req.room} • {req.id}</p>
+                      <h3 className="font-bold text-primary text-sm">{req.student}</h3>
+                      <p className="text-xs text-[var(--text-disabled)]">Room {req.room} • {req.id}</p>
                     </div>
                   </div>
                   {getTypeBadge(req.type, req.emergency)}
@@ -159,8 +159,8 @@ export default function LeaveOutingPage() {
                     <MapPin className="w-4 h-4 text-gray-400 shrink-0 mt-0.5" />
                     <div>
                       <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Destination & Reason</p>
-                      <p className="text-sm font-semibold text-gray-700">{req.destination}</p>
-                      <p className="text-xs text-gray-500">"{req.reason}"</p>
+                      <p className="text-sm font-semibold text-secondary">{req.destination}</p>
+                      <p className="text-xs text-[var(--text-disabled)]">"{req.reason}"</p>
                     </div>
                   </div>
                   
@@ -168,14 +168,14 @@ export default function LeaveOutingPage() {
                     <Calendar className="w-4 h-4 text-gray-400 shrink-0 mt-0.5" />
                     <div>
                       <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Requested Duration</p>
-                      <p className="text-xs font-semibold text-gray-700">From: <span className="text-gray-500 font-normal">{req.from}</span></p>
-                      <p className="text-xs font-semibold text-gray-700">Exp. Return: <span className="text-gray-500 font-normal">{req.to}</span></p>
+                      <p className="text-xs font-semibold text-secondary">From: <span className="text-[var(--text-disabled)] font-normal">{req.from}</span></p>
+                      <p className="text-xs font-semibold text-secondary">Exp. Return: <span className="text-[var(--text-disabled)] font-normal">{req.to}</span></p>
                     </div>
                   </div>
                 </div>
 
                 {/* Status & Actions */}
-                <div className="pt-4 border-t border-gray-100 mt-auto">
+                <div className="pt-4 border-t border-border/50 mt-auto">
                   
                   {activeTab === 'pending' && (
                     <div className="flex gap-3">
@@ -213,8 +213,8 @@ export default function LeaveOutingPage() {
           {filteredRequests.length === 0 && (
             <div className="h-full flex flex-col items-center justify-center text-center p-12">
               <PlaneTakeoff className="w-16 h-16 text-gray-200 mb-4" />
-              <h3 className="text-xl font-bold text-gray-800 mb-1">No requests found</h3>
-              <p className="text-gray-500">There are no leave or outing records matching this category.</p>
+              <h3 className="text-xl font-bold text-primary mb-1">No requests found</h3>
+              <p className="text-[var(--text-disabled)]">There are no leave or outing records matching this category.</p>
             </div>
           )}
         </div>

@@ -1,7 +1,7 @@
 'use client';
 import { SuperAdminRequireSuperAdmin } from '@/app/frontend_superadmin/SuperAdmin_components/SuperAdminRequireSuperAdmin';
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { LayoutDashboard, FileText, UserPlus, Users, Package, BarChart3, ToggleLeft, Ticket, History, Settings, Menu, X, ShieldAlert, LogOut, ChevronDown, User, Search, Bell, AlertCircle, LifeBuoy, Database, Server, ShieldCheck, MessageSquare, CreditCard, Shield, Building2, PlusSquare } from 'lucide-react';
 import { getSession, clearSession } from '@/app/frontend_superadmin/superadmin_lib/superadmin_auth/SuperadminSession';
@@ -14,6 +14,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
   const { lang, setLang, t } = useSuperadminI18n();
   const { theme, setTheme } = useTheme();
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isAlertsOpen, setIsAlertsOpen] = useState(false);
@@ -204,7 +205,16 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
                     return (
                       <div key={item.key || item.href} className="mb-1">
                         <button
-                          onClick={() => toggleExpanded(item.key)}
+                          onClick={() => {
+                            if (!isExpanded) {
+                              toggleExpanded(item.key);
+                              if ((item as any).subItems && (item as any).subItems.length > 0) {
+                                router.push((item as any).subItems[0].href);
+                              }
+                            } else {
+                              toggleExpanded(item.key);
+                            }
+                          }}
                           className={`w-full flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold motion-safe:transition-all ${
                             isActive || isExpanded
                               ? 'text-white'

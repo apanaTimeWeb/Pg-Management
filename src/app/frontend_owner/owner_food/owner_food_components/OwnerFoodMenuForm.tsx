@@ -119,7 +119,7 @@ export function OwnerFoodMenuForm({
                 value={menu.monthEndSpecial}
                 onChange={(e) => onMonthEndChange(e.target.value)}
                 placeholder="e.g. Special Chicken Biryani / Mutton / Premium Veg Thali with Dessert"
-                className="w-full max-w-2xl bg-white dark:bg-input border border-border rounded-md p-4 text-sm text-primary focus:border-primary outline-none resize-none h-24 shadow-sm"
+                className="w-full max-w-2xl bg-card dark:bg-input border border-border rounded-md p-4 text-sm text-primary focus:border-primary outline-none resize-none h-24 shadow-sm"
               />
             </div>
           </div>

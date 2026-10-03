@@ -146,7 +146,7 @@ export function OwnerDashboardMain() {
                 </div>
                 <div className="mt-4 space-y-2">
                   <div className="flex justify-between text-xs text-white/60"><span>Occupancy</span><span className="text-white font-medium">{occ}%</span></div>
-                  <div className="w-full bg-white/10 rounded-full h-1.5"><div className="h-1.5 rounded-full bg-[#2D7D9A]" style={{ width: `${occ}%` }} /></div>
+                  <div className="w-full bg-card/10 rounded-full h-1.5"><div className="h-1.5 rounded-full bg-[#2D7D9A]" style={{ width: `${occ}%` }} /></div>
                 </div>
               </>
             );
@@ -233,7 +233,7 @@ export function OwnerDashboardMain() {
           
           {/* NET PROFIT CARD (HERO) */}
           <div className="lg:col-span-3 bg-gradient-to-br from-[var(--primary)] to-indigo-900 rounded-3xl p-8 md:p-10 text-white shadow-2xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl group-hover:opacity-10 transition-opacity duration-700"></div>
+            <div className="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-card opacity-5 rounded-full blur-3xl group-hover:opacity-10 transition-opacity duration-700"></div>
             <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-8">
               <div>
                 <div className="flex items-center gap-3 mb-2 opacity-80">

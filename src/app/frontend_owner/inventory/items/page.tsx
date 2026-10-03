@@ -41,11 +41,11 @@ export default function InventoryItemsPage() {
       {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
             <Package className="w-7 h-7 text-[#F5A623]" />
             Inventory & Stock Management
           </h1>
-          <p className="text-gray-500 text-sm mt-1">Manage PG assets, Kitchen stock, and Student Room handovers.</p>
+          <p className="text-[var(--text-disabled)] text-sm mt-1">Manage PG assets, Kitchen stock, and Student Room handovers.</p>
         </div>
         
         <div className="flex items-center gap-3">
@@ -60,49 +60,49 @@ export default function InventoryItemsPage() {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex items-center gap-4">
+        <div className="bg-card p-4 border border-border/50 rounded-2xl shadow-sm flex items-center gap-4">
           <div className="p-3 bg-blue-50 text-blue-600 rounded-xl"><Box className="w-6 h-6" /></div>
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase">Total Items</p>
-            <h3 className="text-2xl font-black text-gray-800">485</h3>
+            <h3 className="text-2xl font-black text-primary">485</h3>
           </div>
         </div>
-        <div className="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex items-center gap-4">
+        <div className="bg-card p-4 border border-border/50 rounded-2xl shadow-sm flex items-center gap-4">
           <div className="p-3 bg-red-50 text-red-600 rounded-xl"><ShieldAlert className="w-6 h-6" /></div>
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase">Low Stock</p>
             <h3 className="text-2xl font-black text-red-600">12</h3>
           </div>
         </div>
-        <div className="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex items-center gap-4">
+        <div className="bg-card p-4 border border-border/50 rounded-2xl shadow-sm flex items-center gap-4">
           <div className="p-3 bg-orange-50 text-orange-600 rounded-xl"><XOctagon className="w-6 h-6" /></div>
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase">Damaged/Lost</p>
             <h3 className="text-2xl font-black text-orange-600">5</h3>
           </div>
         </div>
-        <div className="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex items-center gap-4">
+        <div className="bg-card p-4 border border-border/50 rounded-2xl shadow-sm flex items-center gap-4">
           <div className="p-3 bg-emerald-50 text-emerald-600 rounded-xl"><DollarSign className="w-6 h-6" /></div>
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase">Stock Value</p>
-            <h3 className="text-xl font-black text-gray-800">₹4.2L</h3>
+            <h3 className="text-xl font-black text-primary">₹4.2L</h3>
           </div>
         </div>
       </div>
 
       {/* Main Content Area */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden min-h-[500px]">
+      <div className="bg-card rounded-2xl shadow-sm border border-border/50 overflow-hidden min-h-[500px]">
         {/* Tabs */}
-        <div className="flex border-b border-gray-100 bg-gray-50/50">
+        <div className="flex border-b border-border/50 bg-page/50">
           <button 
             onClick={() => setActiveTab('master')}
-            className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold transition-colors ${activeTab === 'master' ? 'bg-white text-[#F5A623] border-b-2 border-[#F5A623]' : 'text-gray-500 hover:text-gray-700'}`}
+            className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold transition-colors ${activeTab === 'master' ? 'bg-card text-[#F5A623] border-b-2 border-[#F5A623]' : 'text-[var(--text-disabled)] hover:text-secondary'}`}
           >
             <Box className="w-4 h-4" /> Master Stock List
           </button>
           <button 
             onClick={() => setActiveTab('handover')}
-            className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold transition-colors ${activeTab === 'handover' ? 'bg-white text-[#F5A623] border-b-2 border-[#F5A623]' : 'text-gray-500 hover:text-gray-700'}`}
+            className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold transition-colors ${activeTab === 'handover' ? 'bg-card text-[#F5A623] border-b-2 border-[#F5A623]' : 'text-[var(--text-disabled)] hover:text-secondary'}`}
           >
             <Key className="w-4 h-4" /> Student Room Handover
           </button>
@@ -118,11 +118,11 @@ export default function InventoryItemsPage() {
                   placeholder="Search furniture, electronics, food..." 
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] bg-gray-50"
+                  className="w-full pl-9 pr-4 py-2 border border-border rounded-xl text-sm focus:outline-none focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] bg-page"
                 />
               </div>
               <div className="flex gap-2">
-                <button className="flex items-center gap-2 px-4 py-2 bg-gray-50 border border-gray-200 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-100">
+                <button className="flex items-center gap-2 px-4 py-2 bg-page border border-border text-secondary rounded-xl text-sm font-bold hover:bg-[var(--bg-overlay)]">
                   <Filter className="w-4 h-4" /> Filter Category
                 </button>
               </div>
@@ -131,7 +131,7 @@ export default function InventoryItemsPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-gray-50 border-y border-gray-100 text-gray-500 text-xs uppercase tracking-wider font-bold">
+                  <tr className="bg-page border-y border-border/50 text-[var(--text-disabled)] text-xs uppercase tracking-wider font-bold">
                     <th className="p-4">Item Name & Category</th>
                     <th className="p-4">Group</th>
                     <th className="p-4">Quantity</th>
@@ -143,11 +143,11 @@ export default function InventoryItemsPage() {
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   {filteredStock.map((item) => (
-                    <tr key={item.id} className="hover:bg-gray-50/50 transition-colors">
+                    <tr key={item.id} className="hover:bg-page/50 transition-colors">
                       <td className="p-4">
                         <div className="flex flex-col">
-                          <span className="font-bold text-gray-800">{item.name}</span>
-                          <span className="text-xs font-semibold text-gray-500">{item.category}</span>
+                          <span className="font-bold text-primary">{item.name}</span>
+                          <span className="text-xs font-semibold text-[var(--text-disabled)]">{item.category}</span>
                         </div>
                       </td>
                       <td className="p-4">
@@ -156,14 +156,14 @@ export default function InventoryItemsPage() {
                         </span>
                       </td>
                       <td className="p-4">
-                        <span className="font-black text-gray-800 text-lg">{item.qty}</span>
-                        <span className="text-xs text-gray-500 font-bold ml-1">{item.unit}</span>
+                        <span className="font-black text-primary text-lg">{item.qty}</span>
+                        <span className="text-xs text-[var(--text-disabled)] font-bold ml-1">{item.unit}</span>
                       </td>
                       <td className="p-4">
-                        <span className="text-sm font-bold text-gray-700">₹{item.cost}</span>
+                        <span className="text-sm font-bold text-secondary">₹{item.cost}</span>
                       </td>
                       <td className="p-4">
-                        <div className="flex items-center gap-1.5 text-xs font-medium text-gray-600">
+                        <div className="flex items-center gap-1.5 text-xs font-medium text-secondary">
                           <Truck className="w-3.5 h-3.5 text-gray-400" /> {item.supplier}
                         </div>
                       </td>
@@ -207,15 +207,15 @@ export default function InventoryItemsPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {ROOM_HANDOVER.map((room, idx) => (
-                <div key={idx} className="border border-gray-200 rounded-2xl p-5 hover:shadow-md transition-shadow bg-white relative">
+                <div key={idx} className="border border-border rounded-2xl p-5 hover:shadow-md transition-shadow bg-card relative">
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center font-black text-gray-800">
+                      <div className="w-10 h-10 rounded-full bg-[var(--bg-overlay)] border border-border flex items-center justify-center font-black text-primary">
                         {room.room}
                       </div>
                       <div>
-                        <h3 className="font-bold text-gray-800 text-sm">{room.student}</h3>
-                        <span className="text-xs text-gray-500">Room Handover Status</span>
+                        <h3 className="font-bold text-primary text-sm">{room.student}</h3>
+                        <span className="text-xs text-[var(--text-disabled)]">Room Handover Status</span>
                       </div>
                     </div>
                     {room.status === 'Complete' ? (
@@ -229,13 +229,13 @@ export default function InventoryItemsPage() {
                     )}
                   </div>
                   
-                  <div className="bg-gray-50 rounded-xl p-3 border border-gray-100">
-                    <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Inventory Checked</h4>
+                  <div className="bg-page rounded-xl p-3 border border-border/50">
+                    <h4 className="text-xs font-bold text-[var(--text-disabled)] uppercase tracking-wider mb-2">Inventory Checked</h4>
                     <div className="flex flex-wrap gap-1.5">
                       {['Bed', 'Mattress', 'Chair', 'Table', 'Fan', 'Cupboard', 'Curtain', 'Key'].map(item => (
                         <span 
                           key={item} 
-                          className={`text-[10px] px-2 py-1 rounded-md font-bold border ${room.items.includes(item) ? 'bg-white border-green-200 text-green-700' : 'bg-red-50 border-red-100 text-red-500'}`}
+                          className={`text-[10px] px-2 py-1 rounded-md font-bold border ${room.items.includes(item) ? 'bg-card border-green-200 text-green-700' : 'bg-red-50 border-red-100 text-red-500'}`}
                         >
                           {item}
                         </span>
@@ -243,8 +243,8 @@ export default function InventoryItemsPage() {
                     </div>
                   </div>
 
-                  <div className="mt-4 pt-4 border-t border-gray-100">
-                    <button className="w-full py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 text-sm font-bold rounded-xl transition-colors border border-gray-200">
+                  <div className="mt-4 pt-4 border-t border-border/50">
+                    <button className="w-full py-2 bg-page hover:bg-[var(--bg-overlay)] text-secondary text-sm font-bold rounded-xl transition-colors border border-border">
                       View Digital Signature
                     </button>
                   </div>

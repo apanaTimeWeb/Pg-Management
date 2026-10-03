@@ -76,7 +76,7 @@ export function OwnerFoodMenuReadView({ menu, parseDay, onEdit }: OwnerFoodMenuR
                 <h3 className="text-lg font-bold text-primary mb-2 flex items-center gap-2">
                   🎉 Month End Special
                 </h3>
-                <div className="w-full max-w-2xl bg-white dark:bg-input border border-border rounded-md p-4 text-sm text-primary shadow-sm whitespace-pre-wrap">
+                <div className="w-full max-w-2xl bg-card dark:bg-input border border-border rounded-md p-4 text-sm text-primary shadow-sm whitespace-pre-wrap">
                   {menu.monthEndSpecial}
                 </div>
               </div>

@@ -120,7 +120,16 @@ function NavItemComponent({ item, pathname, isMobileMenuOpen, setIsMobileMenuOpe
     return (
       <div className="mb-1">
         <button
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => {
+            if (!isOpen) {
+              setIsOpen(true);
+              if (item.subItems && item.subItems.length > 0) {
+                router.push(item.subItems[0].href);
+              }
+            } else {
+              setIsOpen(false);
+            }
+          }}
           className={`w-full flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold motion-safe:transition-all ${
             isActive || isOpen
               ? 'text-white'
@@ -146,7 +155,7 @@ function NavItemComponent({ item, pathname, isMobileMenuOpen, setIsMobileMenuOpe
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`flex items-center gap-3 px-4 py-2 rounded-lg text-xs font-semibold motion-safe:transition-all ${
                     isSubActive
-                      ? 'text-[#F5A623] bg-white/5'
+                      ? 'text-[#F5A623] bg-card/5'
                       : 'text-secondary hover:text-primary'
                   }`}
                 >
@@ -246,7 +255,7 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
           style={{ background: 'linear-gradient(135deg, #1A3A5C 0%, #2D7D9A 100%)' }}
         >
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 bg-white/15 rounded-lg flex items-center justify-center border border-white/20">
+            <div className="w-7 h-7 bg-card/15 rounded-lg flex items-center justify-center border border-white/20">
               <Building className="text-[#F5A623] w-4 h-4" />
             </div>
             <span className="font-bold text-white text-base">Smart<span style={{ color: '#F5A623' }}>PG</span> <span className="font-normal text-white/60 text-xs">Admin</span></span>
@@ -282,7 +291,7 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
             <div className="relative">
               <button 
                 onClick={() => setIsPropertyMenuOpen(!isPropertyMenuOpen)}
-                className="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-3 py-2 transition-colors"
+                className="flex items-center gap-2 bg-card/10 hover:bg-card/20 border border-white/20 rounded-xl px-3 py-2 transition-colors"
               >
                 <Building2 className="w-4 h-4 text-[#F5A623]" />
                 <span className="text-sm font-semibold text-white truncate max-w-[150px]">
@@ -294,13 +303,13 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
               {isPropertyMenuOpen && (
                 <>
                   <div className="fixed inset-0 z-10" onClick={() => setIsPropertyMenuOpen(false)} />
-                  <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 z-20 py-2 overflow-hidden">
-                    <div className="px-3 pb-2 mb-2 border-b border-gray-100">
+                  <div className="absolute top-full left-0 mt-2 w-56 bg-card rounded-xl shadow-xl border border-border/50 z-20 py-2 overflow-hidden">
+                    <div className="px-3 pb-2 mb-2 border-b border-border/50">
                       <p className="text-xs font-bold text-gray-400 uppercase">Select Property</p>
                     </div>
                     <button
                       onClick={() => { setSelectedPropertyId('all'); setIsPropertyMenuOpen(false); }}
-                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center justify-between"
+                      className="w-full text-left px-4 py-2 text-sm text-secondary hover:bg-page flex items-center justify-between"
                     >
                       My Properties (All)
                       {selectedPropertyId === 'all' && <Check className="w-4 h-4 text-blue-600" />}
@@ -309,7 +318,7 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
                       <button
                         key={p.id}
                         onClick={() => { setSelectedPropertyId(p.id); setIsPropertyMenuOpen(false); }}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center justify-between"
+                        className="w-full text-left px-4 py-2 text-sm text-secondary hover:bg-page flex items-center justify-between"
                       >
                         {p.name}
                         {selectedPropertyId === p.id && <Check className="w-4 h-4 text-blue-600" />}
@@ -328,18 +337,18 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
               <input
                 type="text"
                 placeholder="Global Search..."
-                className="block w-full pl-10 pr-3 py-2 border border-white/20 rounded-xl leading-5 bg-white/10 text-white placeholder-white/50 focus:outline-none focus:bg-white/20 focus:ring-0 sm:text-sm transition-colors"
+                className="block w-full pl-10 pr-3 py-2 border border-white/20 rounded-xl leading-5 bg-card/10 text-white placeholder-white/50 focus:outline-none focus:bg-card/20 focus:ring-0 sm:text-sm transition-colors"
               />
             </div>
           </div>
 
           {/* Right Side Actions */}
           <div className="flex items-center gap-3">
-            <button className="p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors relative">
+            <button className="p-2 text-white/80 hover:text-white hover:bg-card/10 rounded-full transition-colors relative">
               <Bell className="w-5 h-5" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border border-[#1A3A5C]"></span>
             </button>
-            <button className="p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors">
+            <button className="p-2 text-white/80 hover:text-white hover:bg-card/10 rounded-full transition-colors">
               <MessageSquare className="w-5 h-5" />
             </button>
             
@@ -348,7 +357,7 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
               <span>Quick Add</span>
             </button>
 
-            <div className="h-6 w-px bg-white/20 mx-1"></div>
+            <div className="h-6 w-px bg-card/20 mx-1"></div>
             
             <ThemeToggle />
 
@@ -356,7 +365,7 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
             <div className="relative ml-2">
               <button 
                 onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                className="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl pl-2 pr-3 py-1.5 transition-colors"
+                className="flex items-center gap-2 bg-card/10 hover:bg-card/20 border border-white/20 rounded-xl pl-2 pr-3 py-1.5 transition-colors"
               >
                 <div className="w-6 h-6 rounded-full bg-[#F5A623] flex items-center justify-center text-white text-xs font-bold">
                   {user?.name?.[0] || 'O'}
@@ -368,33 +377,33 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
               {isProfileMenuOpen && (
                 <>
                   <div className="fixed inset-0 z-10" onClick={() => setIsProfileMenuOpen(false)} />
-                  <div className="absolute top-full right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 z-20 py-2 overflow-hidden">
-                    <div className="px-4 py-3 border-b border-gray-100 flex items-center gap-3">
+                  <div className="absolute top-full right-0 mt-2 w-64 bg-card rounded-xl shadow-xl border border-border/50 z-20 py-2 overflow-hidden">
+                    <div className="px-4 py-3 border-b border-border/50 flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-[#F5A623] flex items-center justify-center text-white text-lg font-bold">
                         {user?.name?.[0] || 'O'}
                       </div>
                       <div>
-                        <p className="text-sm font-bold text-gray-800">{user?.name || 'Owner'}</p>
-                        <p className="text-xs text-gray-500">{user?.email || 'owner@example.com'}</p>
+                        <p className="text-sm font-bold text-primary">{user?.name || 'Owner'}</p>
+                        <p className="text-xs text-[var(--text-disabled)]">{user?.email || 'owner@example.com'}</p>
                       </div>
                     </div>
                     
                     <div className="py-2">
-                      <Link href="/frontend_owner/my_profile" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                      <Link href="/frontend_owner/my_profile" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2 text-sm text-secondary hover:bg-page">
                         <User className="w-4 h-4 mr-3 text-gray-400" /> My Profile
                       </Link>
-                      <Link href="/frontend_owner/my_profile?tab=personal" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                      <Link href="/frontend_owner/my_profile?tab=personal" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2 text-sm text-secondary hover:bg-page">
                         <FileText className="w-4 h-4 mr-3 text-gray-400" /> Personal Information
                       </Link>
-                      <Link href="/frontend_owner/my_profile?tab=security" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                      <Link href="/frontend_owner/my_profile?tab=security" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2 text-sm text-secondary hover:bg-page">
                         <ShieldCheck className="w-4 h-4 mr-3 text-gray-400" /> Security (2FA/Password)
                       </Link>
-                      <Link href="/frontend_owner/my_profile?tab=sessions" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                      <Link href="/frontend_owner/my_profile?tab=sessions" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2 text-sm text-secondary hover:bg-page">
                         <HistoryIcon className="w-4 h-4 mr-3 text-gray-400" /> Active Sessions
                       </Link>
                     </div>
                     
-                    <div className="border-t border-gray-100 py-2">
+                    <div className="border-t border-border/50 py-2">
                       <button onClick={handleLogout} className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-medium">
                         <LogOut className="w-4 h-4 mr-3" /> Logout
                       </button>

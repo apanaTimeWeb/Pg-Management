@@ -33,7 +33,7 @@ export default function ComplaintsMaintenancePage() {
       case 'High': return 'text-red-600 bg-red-100 border-red-200';
       case 'Medium': return 'text-orange-600 bg-orange-100 border-orange-200';
       case 'Low': return 'text-green-600 bg-green-100 border-green-200';
-      default: return 'text-gray-600 bg-gray-100 border-gray-200';
+      default: return 'text-secondary bg-[var(--bg-overlay)] border-border';
     }
   };
 
@@ -44,8 +44,8 @@ export default function ComplaintsMaintenancePage() {
       case 'Assign': return 'text-yellow-600 bg-yellow-50 border-yellow-200';
       case 'In Progress': return 'text-orange-600 bg-orange-50 border-orange-200';
       case 'Resolved': return 'text-emerald-600 bg-emerald-50 border-emerald-200';
-      case 'Closed': return 'text-gray-600 bg-gray-100 border-gray-200';
-      default: return 'text-gray-600 bg-gray-100 border-gray-200';
+      case 'Closed': return 'text-secondary bg-[var(--bg-overlay)] border-border';
+      default: return 'text-secondary bg-[var(--bg-overlay)] border-border';
     }
   };
 
@@ -54,11 +54,11 @@ export default function ComplaintsMaintenancePage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
             <Wrench className="w-7 h-7 text-[#F5A623]" />
             Complaints & Maintenance
           </h1>
-          <p className="text-gray-500 text-sm mt-1">Combined operational dashboard for ticketing and repairs.</p>
+          <p className="text-[var(--text-disabled)] text-sm mt-1">Combined operational dashboard for ticketing and repairs.</p>
         </div>
         
         <div className="flex items-center gap-3">
@@ -70,17 +70,17 @@ export default function ComplaintsMaintenancePage() {
 
       <div className="flex flex-1 gap-6 min-h-0 overflow-hidden">
         {/* Left Side: Ticket List */}
-        <div className={`flex-1 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col overflow-hidden transition-all ${selectedTicket ? 'hidden lg:flex lg:w-1/2' : 'w-full'}`}>
-          <div className="p-4 border-b border-gray-100 bg-gray-50/50 flex flex-col gap-3 shrink-0">
+        <div className={`flex-1 bg-card rounded-2xl shadow-sm border border-border/50 flex flex-col overflow-hidden transition-all ${selectedTicket ? 'hidden lg:flex lg:w-1/2' : 'w-full'}`}>
+          <div className="p-4 border-b border-border/50 bg-page/50 flex flex-col gap-3 shrink-0">
             <div className="flex items-center justify-between">
-              <h2 className="font-bold text-gray-800">Active Tickets</h2>
+              <h2 className="font-bold text-primary">Active Tickets</h2>
               <div className="flex gap-2">
-                <button className="p-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 tooltip-trigger"><Filter className="w-4 h-4 text-gray-500" /></button>
+                <button className="p-2 bg-card border border-border rounded-lg hover:bg-page tooltip-trigger"><Filter className="w-4 h-4 text-[var(--text-disabled)]" /></button>
               </div>
             </div>
             <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-              <input type="text" placeholder="Search by ticket ID, room, or student..." className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] bg-white" />
+              <input type="text" placeholder="Search by ticket ID, room, or student..." className="w-full pl-9 pr-4 py-2 border border-border rounded-xl text-sm focus:outline-none focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] bg-card" />
             </div>
           </div>
           
@@ -93,29 +93,29 @@ export default function ComplaintsMaintenancePage() {
                 <div 
                   key={ticket.id} 
                   onClick={() => setSelectedTicket(ticket)}
-                  className={`p-4 rounded-xl border cursor-pointer transition-all ${isSelected ? 'border-[#F5A623] bg-[#F5A623]/5 shadow-sm' : 'border-gray-200 hover:border-[#F5A623] hover:shadow-sm bg-white'}`}
+                  className={`p-4 rounded-xl border cursor-pointer transition-all ${isSelected ? 'border-[#F5A623] bg-[#F5A623]/5 shadow-sm' : 'border-border hover:border-[#F5A623] hover:shadow-sm bg-card'}`}
                 >
                   <div className="flex justify-between items-start mb-2">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-gray-800">{ticket.id}</span>
+                      <span className="font-bold text-primary">{ticket.id}</span>
                       <span className={`px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-md border ${getPriorityColor(ticket.priority)}`}>
                         {ticket.priority}
                       </span>
                     </div>
-                    <span className="text-xs font-semibold text-gray-500">{ticket.date}</span>
+                    <span className="text-xs font-semibold text-[var(--text-disabled)]">{ticket.date}</span>
                   </div>
                   
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xs font-bold text-gray-700 bg-gray-100 px-2 py-1 rounded-md">Room {ticket.room}</span>
-                    <span className="text-xs font-semibold text-gray-600">{ticket.student}</span>
+                    <span className="text-xs font-bold text-secondary bg-[var(--bg-overlay)] px-2 py-1 rounded-md">Room {ticket.room}</span>
+                    <span className="text-xs font-semibold text-secondary">{ticket.student}</span>
                   </div>
                   
-                  <h3 className="text-sm text-gray-600 font-medium line-clamp-2 mb-3">"{ticket.desc}"</h3>
+                  <h3 className="text-sm text-secondary font-medium line-clamp-2 mb-3">"{ticket.desc}"</h3>
                   
-                  <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                  <div className="flex items-center justify-between pt-3 border-t border-border/50">
                     <div className="flex items-center gap-2">
-                      <div className="p-1.5 bg-gray-100 text-gray-500 rounded-lg"><Icon className="w-3.5 h-3.5" /></div>
-                      <span className="text-xs font-bold text-gray-600">{ticket.category}</span>
+                      <div className="p-1.5 bg-[var(--bg-overlay)] text-[var(--text-disabled)] rounded-lg"><Icon className="w-3.5 h-3.5" /></div>
+                      <span className="text-xs font-bold text-secondary">{ticket.category}</span>
                     </div>
                     <span className={`px-2.5 py-1 text-[10px] font-bold uppercase rounded-full border ${getStatusColor(ticket.status)}`}>
                       {ticket.status}
@@ -129,21 +129,21 @@ export default function ComplaintsMaintenancePage() {
 
         {/* Right Side: Ticket Details (Operational Module) */}
         {selectedTicket ? (
-          <div className="flex-1 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col overflow-hidden animate-in fade-in slide-in-from-right-4 duration-300">
+          <div className="flex-1 bg-card rounded-2xl shadow-sm border border-border/50 flex flex-col overflow-hidden animate-in fade-in slide-in-from-right-4 duration-300">
             {/* Header */}
-            <div className="p-4 border-b border-gray-100 flex items-center justify-between shrink-0 bg-gray-50">
+            <div className="p-4 border-b border-border/50 flex items-center justify-between shrink-0 bg-page">
               <div className="flex items-center gap-3">
-                <button onClick={() => setSelectedTicket(null)} className="lg:hidden p-1 bg-white border border-gray-200 rounded-lg mr-1"><ArrowRight className="w-4 h-4 rotate-180" /></button>
+                <button onClick={() => setSelectedTicket(null)} className="lg:hidden p-1 bg-card border border-border rounded-lg mr-1"><ArrowRight className="w-4 h-4 rotate-180" /></button>
                 <div>
-                  <h2 className="text-lg font-bold text-gray-800">{selectedTicket.id}</h2>
-                  <p className="text-xs text-gray-500 font-medium">Room {selectedTicket.room} • {selectedTicket.student}</p>
+                  <h2 className="text-lg font-bold text-primary">{selectedTicket.id}</h2>
+                  <p className="text-xs text-[var(--text-disabled)] font-medium">Room {selectedTicket.room} • {selectedTicket.student}</p>
                 </div>
               </div>
               <div className="flex gap-2">
                 <span className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg border shadow-sm ${getStatusColor(selectedTicket.status)}`}>
                   {selectedTicket.status}
                 </span>
-                <button onClick={() => setSelectedTicket(null)} className="hidden lg:flex p-1.5 text-gray-400 hover:text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">
+                <button onClick={() => setSelectedTicket(null)} className="hidden lg:flex p-1.5 text-gray-400 hover:text-primary hover:bg-gray-200 rounded-lg transition-colors">
                   <X className="w-5 h-5" />
                 </button>
               </div>
@@ -162,11 +162,11 @@ export default function ComplaintsMaintenancePage() {
                     const isCurrent = idx === currentIndex;
                     
                     return (
-                      <div key={step} className="flex flex-col items-center gap-2 bg-white px-2">
+                      <div key={step} className="flex flex-col items-center gap-2 bg-card px-2">
                         <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold transition-colors ${
                           isPassed ? 'bg-green-500 text-white shadow-sm' : 
                           isCurrent ? 'bg-[#F5A623] text-white ring-4 ring-[#F5A623]/20 shadow-md' : 
-                          'bg-gray-100 text-gray-400 border border-gray-200'
+                          'bg-[var(--bg-overlay)] text-gray-400 border border-border'
                         }`}>
                           {isPassed ? <CheckCircle2 className="w-3.5 h-3.5" /> : (idx + 1)}
                         </div>
@@ -181,14 +181,14 @@ export default function ComplaintsMaintenancePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Complaint Details</h3>
-                  <div className="p-4 bg-gray-50 border border-gray-100 rounded-xl">
-                    <p className="text-sm text-gray-700 leading-relaxed font-medium">"{selectedTicket.desc}"</p>
+                  <div className="p-4 bg-page border border-border/50 rounded-xl">
+                    <p className="text-sm text-secondary leading-relaxed font-medium">"{selectedTicket.desc}"</p>
                     
                     <div className="mt-4 flex flex-wrap gap-2">
-                      <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-semibold text-gray-600">
+                      <div className="flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border rounded-lg text-xs font-semibold text-secondary">
                         <Camera className="w-3.5 h-3.5 text-blue-500" /> {selectedTicket.photos} Photos
                       </div>
-                      <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-semibold text-gray-600">
+                      <div className="flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border rounded-lg text-xs font-semibold text-secondary">
                         <MessageSquare className="w-3.5 h-3.5 text-purple-500" /> {selectedTicket.comments} Comments
                       </div>
                     </div>
@@ -199,7 +199,7 @@ export default function ComplaintsMaintenancePage() {
                   <div>
                     <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Assign To Manager/Staff</h3>
                     <select 
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] outline-none text-sm font-semibold text-gray-700 bg-white"
+                      className="w-full px-4 py-2.5 rounded-xl border border-border focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] outline-none text-sm font-semibold text-secondary bg-card"
                       defaultValue={selectedTicket.assignedTo}
                     >
                       <option value="Unassigned">Select Staff Member...</option>
@@ -218,7 +218,7 @@ export default function ComplaintsMaintenancePage() {
                         type="number" 
                         value={selectedTicket.cost} 
                         readOnly
-                        className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] outline-none text-sm font-bold text-gray-700 bg-white" 
+                        className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-border focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] outline-none text-sm font-bold text-secondary bg-card" 
                       />
                     </div>
                   </div>
@@ -226,24 +226,24 @@ export default function ComplaintsMaintenancePage() {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-3 pt-6 border-t border-gray-100">
+              <div className="flex flex-wrap items-center gap-3 pt-6 border-t border-border/50">
                 <button className="flex-1 min-w-[120px] py-2.5 bg-[#1A3A5C] text-white rounded-xl text-sm font-bold hover:bg-[#122a42] transition-colors shadow-sm">
                   Update Status
                 </button>
                 <button className="flex-1 min-w-[120px] py-2.5 bg-green-600 text-white rounded-xl text-sm font-bold hover:bg-green-700 transition-colors shadow-sm flex items-center justify-center gap-2">
                   <CheckCircle2 className="w-4 h-4" /> Mark Resolved
                 </button>
-                <button className="py-2.5 px-4 bg-gray-100 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-200 transition-colors border border-gray-200">
+                <button className="py-2.5 px-4 bg-[var(--bg-overlay)] text-secondary rounded-xl text-sm font-bold hover:bg-gray-200 transition-colors border border-border">
                   Add Comment
                 </button>
               </div>
             </div>
           </div>
         ) : (
-          <div className="hidden lg:flex flex-1 bg-white rounded-2xl border border-gray-100 border-dashed flex-col items-center justify-center text-center p-8">
+          <div className="hidden lg:flex flex-1 bg-card rounded-2xl border border-border/50 border-dashed flex-col items-center justify-center text-center p-8">
             <Wrench className="w-16 h-16 text-gray-200 mb-4" />
-            <h2 className="text-xl font-bold text-gray-800 mb-2">Select a Complaint</h2>
-            <p className="text-gray-500 max-w-sm">Click on any ticket from the list on the left to view details, assign staff, update the status, and track repair costs.</p>
+            <h2 className="text-xl font-bold text-primary mb-2">Select a Complaint</h2>
+            <p className="text-[var(--text-disabled)] max-w-sm">Click on any ticket from the list on the left to view details, assign staff, update the status, and track repair costs.</p>
           </div>
         )}
       </div>

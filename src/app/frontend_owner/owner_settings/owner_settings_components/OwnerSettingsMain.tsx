@@ -176,7 +176,7 @@ export function OwnerSettingsMain() {
             <p className="text-sm text-white/70 leading-relaxed mb-4">
               These settings apply directly to the staff application. Changing rent dates or fine amounts will instantly reflect in the manager portal for this specific branch.
             </p>
-            <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm border border-white/10">
+            <div className="bg-card/10 rounded-lg p-3 backdrop-blur-sm border border-white/10">
               <div className="text-xs font-bold text-white/60 mb-1">Current Logged-in Owner</div>
               <div className="text-sm font-semibold">{user?.name}</div>
             </div>

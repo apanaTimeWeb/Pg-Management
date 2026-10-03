@@ -169,11 +169,11 @@ export function OwnerFinanceMain() {
               Banking Info
             </h3>
             <div className="space-y-3">
-              <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm border border-white/10">
+              <div className="bg-card/10 rounded-lg p-3 backdrop-blur-sm border border-white/10">
                 <div className="text-xs font-bold text-white/60 mb-1">Primary Settlement Account</div>
                 <div className="text-sm font-semibold tracking-wider">HDFC Bank •••• 4521</div>
               </div>
-              <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm border border-white/10">
+              <div className="bg-card/10 rounded-lg p-3 backdrop-blur-sm border border-white/10">
                 <div className="text-xs font-bold text-white/60 mb-1">UPI ID for Collection</div>
                 <div className="text-sm font-semibold">smartpg@hdfcbank</div>
               </div>

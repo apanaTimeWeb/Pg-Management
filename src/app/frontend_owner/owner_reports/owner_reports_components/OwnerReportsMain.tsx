@@ -364,7 +364,7 @@ export function OwnerReportsMain() {
                 { label: 'Profit Margin',    value: `${profitMargin}%` },
                 { label: 'Collection Eff.', value: `${collectionEfficiency}%` },
               ].map(({ label, value }) => (
-                <div key={label} className="bg-white/5 border border-white/10 rounded-xl p-4">
+                <div key={label} className="bg-card/5 border border-white/10 rounded-xl p-4">
                   <div className="text-xl font-black text-white">{value}</div>
                   <div className="text-xs text-white/60 uppercase tracking-wider mt-1">{label}</div>
                 </div>

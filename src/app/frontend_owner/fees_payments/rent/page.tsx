@@ -53,48 +53,48 @@ export default function FeesRentManagementPage() {
       {/* Collect Payment Modal Overlay */}
       {isCollectModalOpen && selectedInvoice && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
-            <div className="p-5 border-b border-gray-100 flex items-center justify-between bg-[#1A3A5C] text-white shrink-0">
+          <div className="bg-card rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
+            <div className="p-5 border-b border-border/50 flex items-center justify-between bg-[#1A3A5C] text-white shrink-0">
               <h2 className="text-xl font-bold flex items-center gap-2">
                 <Wallet className="w-5 h-5 text-green-400" /> Collect Fee Payment
               </h2>
-              <button onClick={() => setIsCollectModalOpen(false)} className="p-1.5 hover:bg-white/10 rounded-lg transition-colors"><X className="w-5 h-5" /></button>
+              <button onClick={() => setIsCollectModalOpen(false)} className="p-1.5 hover:bg-card/10 rounded-lg transition-colors"><X className="w-5 h-5" /></button>
             </div>
             
-            <div className="p-6 space-y-6 overflow-y-auto bg-gray-50/50">
+            <div className="p-6 space-y-6 overflow-y-auto bg-page/50">
               
               {/* Student Info */}
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-bold text-gray-800 text-lg">{selectedInvoice.student}</h3>
-                  <p className="text-sm font-semibold text-gray-500 flex items-center gap-2 mt-1">
+                  <h3 className="font-bold text-primary text-lg">{selectedInvoice.student}</h3>
+                  <p className="text-sm font-semibold text-[var(--text-disabled)] flex items-center gap-2 mt-1">
                     Room {selectedInvoice.room} <span className="text-gray-300">•</span> Invoice ID: {selectedInvoice.id}
                   </p>
                 </div>
                 <div className="text-right">
                   <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Total Due</p>
-                  <h3 className="text-3xl font-black text-gray-800">₹{selectedInvoice.totalDue.toLocaleString()}</h3>
+                  <h3 className="text-3xl font-black text-primary">₹{selectedInvoice.totalDue.toLocaleString()}</h3>
                 </div>
               </div>
 
               {/* Fee Structure Breakdown */}
-              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                <div className="bg-gray-50 px-4 py-2 border-b border-gray-100">
-                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">Fee Structure Breakdown</h4>
+              <div className="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
+                <div className="bg-page px-4 py-2 border-b border-border/50">
+                  <h4 className="text-xs font-bold text-secondary uppercase tracking-wider">Fee Structure Breakdown</h4>
                 </div>
                 <div className="p-4 space-y-3">
-                  <div className="flex justify-between items-center text-sm font-semibold text-gray-700">
+                  <div className="flex justify-between items-center text-sm font-semibold text-secondary">
                     <span>Monthly Rent</span><span>₹{selectedInvoice.rent}</span>
                   </div>
-                  <div className="flex justify-between items-center text-sm font-semibold text-gray-700">
+                  <div className="flex justify-between items-center text-sm font-semibold text-secondary">
                     <span>Mess Charges</span><span>₹{selectedInvoice.mess}</span>
                   </div>
-                  <div className="flex justify-between items-center text-sm font-semibold text-gray-700">
+                  <div className="flex justify-between items-center text-sm font-semibold text-secondary">
                     <span className="flex items-center gap-1.5"><Zap className="w-3.5 h-3.5 text-yellow-500" /> Electricity (Metered)</span><span>₹{selectedInvoice.elec}</span>
                   </div>
                   
                   {selectedInvoice.fine > 0 && (
-                    <div className="flex justify-between items-center text-sm font-bold text-red-600 pt-2 border-t border-gray-100">
+                    <div className="flex justify-between items-center text-sm font-bold text-red-600 pt-2 border-t border-border/50">
                       <span>Late Payment Fine</span>
                       <div className="flex items-center gap-3">
                         <span>₹{selectedInvoice.fine}</span>
@@ -103,7 +103,7 @@ export default function FeesRentManagementPage() {
                     </div>
                   )}
                   {selectedInvoice.discount > 0 && (
-                    <div className="flex justify-between items-center text-sm font-bold text-green-600 pt-2 border-t border-gray-100">
+                    <div className="flex justify-between items-center text-sm font-bold text-green-600 pt-2 border-t border-border/50">
                       <span>Pre-applied Discount</span><span>- ₹{selectedInvoice.discount}</span>
                     </div>
                   )}
@@ -113,9 +113,9 @@ export default function FeesRentManagementPage() {
               {/* Payment Processing */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div className="space-y-4">
-                  <label className="block text-xs font-bold text-gray-700 uppercase">Amount Receiving Now (₹)</label>
+                  <label className="block text-xs font-bold text-secondary uppercase">Amount Receiving Now (₹)</label>
                   <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-800 font-black text-xl">₹</span>
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-primary font-black text-xl">₹</span>
                     <input 
                       type="number" 
                       value={paymentForm.payingNow} 
@@ -131,13 +131,13 @@ export default function FeesRentManagementPage() {
                 </div>
 
                 <div className="space-y-4">
-                  <label className="block text-xs font-bold text-gray-700 uppercase">Payment Method</label>
+                  <label className="block text-xs font-bold text-secondary uppercase">Payment Method</label>
                   <div className="grid grid-cols-2 gap-2">
                     {['UPI', 'Cash', 'Bank Transfer', 'Card'].map(mode => (
                       <button 
                         key={mode}
                         onClick={() => setPaymentForm({...paymentForm, mode})}
-                        className={`py-2 text-sm font-bold rounded-xl border ${paymentForm.mode === mode ? 'bg-[#1A3A5C] text-white border-[#1A3A5C]' : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'}`}
+                        className={`py-2 text-sm font-bold rounded-xl border ${paymentForm.mode === mode ? 'bg-[#1A3A5C] text-white border-[#1A3A5C]' : 'bg-card text-secondary border-border hover:bg-page'}`}
                       >
                         {mode}
                       </button>
@@ -148,15 +148,15 @@ export default function FeesRentManagementPage() {
 
               <div className="pt-2">
                 <label className="flex items-center gap-2 cursor-pointer w-max">
-                  <input type="checkbox" checked={paymentForm.sendReceipt} onChange={(e) => setPaymentForm({...paymentForm, sendReceipt: e.target.checked})} className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500" />
-                  <span className="text-sm font-bold text-gray-700 flex items-center gap-1.5"><Receipt className="w-4 h-4 text-gray-400" /> Send instant receipt to student's app</span>
+                  <input type="checkbox" checked={paymentForm.sendReceipt} onChange={(e) => setPaymentForm({...paymentForm, sendReceipt: e.target.checked})} className="w-4 h-4 text-green-600 border-border rounded focus:ring-green-500" />
+                  <span className="text-sm font-bold text-secondary flex items-center gap-1.5"><Receipt className="w-4 h-4 text-gray-400" /> Send instant receipt to student's app</span>
                 </label>
               </div>
 
             </div>
             
-            <div className="p-5 border-t border-gray-100 bg-white flex justify-end gap-3 shrink-0">
-              <button onClick={() => setIsCollectModalOpen(false)} className="px-6 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-bold hover:bg-gray-200 transition-colors">Cancel</button>
+            <div className="p-5 border-t border-border/50 bg-card flex justify-end gap-3 shrink-0">
+              <button onClick={() => setIsCollectModalOpen(false)} className="px-6 py-2.5 bg-[var(--bg-overlay)] text-secondary rounded-xl font-bold hover:bg-gray-200 transition-colors">Cancel</button>
               <button onClick={() => { alert('Payment Collected & Ledger Updated!'); setIsCollectModalOpen(false); }} className="px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold flex items-center gap-2 transition-colors shadow-sm">
                 <CheckCircle2 className="w-4 h-4" /> Confirm & Update Ledger
               </button>
@@ -168,11 +168,11 @@ export default function FeesRentManagementPage() {
       {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
             <IndianRupee className="w-7 h-7 text-green-600" />
             Fees & Rent Collection
           </h1>
-          <p className="text-gray-500 text-sm mt-1">Generate bulk dues, collect monthly rent, and manage outstanding ledgers.</p>
+          <p className="text-[var(--text-disabled)] text-sm mt-1">Generate bulk dues, collect monthly rent, and manage outstanding ledgers.</p>
         </div>
         
         <div className="flex items-center gap-3">
@@ -184,51 +184,51 @@ export default function FeesRentManagementPage() {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex items-center gap-4">
+        <div className="bg-card p-4 border border-border/50 rounded-2xl shadow-sm flex items-center gap-4">
           <div className="p-3 bg-green-50 text-green-600 rounded-xl"><Wallet className="w-6 h-6" /></div>
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase">Collected (Oct)</p>
-            <h3 className="text-2xl font-black text-gray-800">₹4.2L</h3>
+            <h3 className="text-2xl font-black text-primary">₹4.2L</h3>
           </div>
         </div>
-        <div className="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex items-center gap-4 border-l-4 border-red-400">
+        <div className="bg-card p-4 border border-border/50 rounded-2xl shadow-sm flex items-center gap-4 border-l-4 border-red-400">
           <div className="p-3 bg-red-50 text-red-600 rounded-xl"><AlertTriangle className="w-6 h-6" /></div>
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase">Outstanding Dues</p>
             <h3 className="text-xl font-black text-red-600">₹85,500</h3>
           </div>
         </div>
-        <div className="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex items-center gap-4">
+        <div className="bg-card p-4 border border-border/50 rounded-2xl shadow-sm flex items-center gap-4">
           <div className="p-3 bg-blue-50 text-blue-600 rounded-xl"><CalendarCheck className="w-6 h-6" /></div>
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase">Pending Payments</p>
-            <h3 className="text-2xl font-black text-gray-800">42</h3>
+            <h3 className="text-2xl font-black text-primary">42</h3>
           </div>
         </div>
-        <div className="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex items-center gap-4">
+        <div className="bg-card p-4 border border-border/50 rounded-2xl shadow-sm flex items-center gap-4">
           <div className="p-3 bg-orange-50 text-orange-600 rounded-xl"><Banknote className="w-6 h-6" /></div>
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase">Late Fines</p>
-            <h3 className="text-2xl font-black text-gray-800">₹4,500</h3>
+            <h3 className="text-2xl font-black text-primary">₹4,500</h3>
           </div>
         </div>
       </div>
 
       {/* Main Content Area */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden min-h-[500px] flex flex-col">
+      <div className="bg-card rounded-2xl shadow-sm border border-border/50 overflow-hidden min-h-[500px] flex flex-col">
         
         {/* Top Bar: Tabs & Filters */}
-        <div className="p-4 border-b border-gray-100 bg-gray-50/50 flex flex-col lg:flex-row justify-between gap-4 shrink-0">
-          <div className="flex bg-gray-100 p-1 rounded-xl w-full md:w-max">
+        <div className="p-4 border-b border-border/50 bg-page/50 flex flex-col lg:flex-row justify-between gap-4 shrink-0">
+          <div className="flex bg-[var(--bg-overlay)] p-1 rounded-xl w-full md:w-max">
             <button 
               onClick={() => setActiveTab('pending')}
-              className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'pending' ? 'bg-white text-green-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+              className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'pending' ? 'bg-card text-green-600 shadow-sm' : 'text-[var(--text-disabled)] hover:text-secondary'}`}
             >
               <AlertTriangle className="w-4 h-4" /> Pending / Overdue
             </button>
             <button 
               onClick={() => setActiveTab('history')}
-              className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'history' ? 'bg-white text-green-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+              className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'history' ? 'bg-card text-green-600 shadow-sm' : 'text-[var(--text-disabled)] hover:text-secondary'}`}
             >
               <Receipt className="w-4 h-4" /> Payment History
             </button>
@@ -242,10 +242,10 @@ export default function FeesRentManagementPage() {
                 placeholder="Search student or room..." 
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 bg-white"
+                className="w-full pl-9 pr-4 py-2 border border-border rounded-xl text-sm focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 bg-card"
               />
             </div>
-            <button className="flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-xl w-full sm:w-auto cursor-pointer hover:bg-gray-50 font-bold text-gray-700 text-sm">
+            <button className="flex items-center gap-2 bg-card border border-border px-4 py-2 rounded-xl w-full sm:w-auto cursor-pointer hover:bg-page font-bold text-secondary text-sm">
               <BellRing className="w-4 h-4" /> Send Reminders
             </button>
           </div>
@@ -255,7 +255,7 @@ export default function FeesRentManagementPage() {
         <div className="flex-1 overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-[900px]">
             <thead>
-              <tr className="bg-gray-50 border-b border-gray-100 text-gray-500 text-xs uppercase tracking-wider font-bold">
+              <tr className="bg-page border-b border-border/50 text-[var(--text-disabled)] text-xs uppercase tracking-wider font-bold">
                 <th className="p-5 w-24 text-center">Room</th>
                 <th className="p-5">Student Details</th>
                 {activeTab === 'pending' ? (
@@ -277,20 +277,20 @@ export default function FeesRentManagementPage() {
               
               {/* PENDING DUES */}
               {activeTab === 'pending' && MOCK_DUES.filter(s => s.student.toLowerCase().includes(searchTerm.toLowerCase())).map((record) => (
-                <tr key={record.id} className={`transition-colors ${record.status === 'Overdue' ? 'bg-red-50/20 hover:bg-red-50/40' : 'hover:bg-gray-50/50'}`}>
-                  <td className="p-5 text-center"><span className="w-10 h-10 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center font-black text-gray-800 mx-auto">{record.room}</span></td>
+                <tr key={record.id} className={`transition-colors ${record.status === 'Overdue' ? 'bg-red-50/20 hover:bg-red-50/40' : 'hover:bg-page/50'}`}>
+                  <td className="p-5 text-center"><span className="w-10 h-10 rounded-full bg-[var(--bg-overlay)] border border-border flex items-center justify-center font-black text-primary mx-auto">{record.room}</span></td>
                   <td className="p-5">
                     <div className="flex flex-col">
-                      <span className="font-bold text-gray-800 text-sm flex items-center gap-2">{record.student}</span>
-                      <span className="text-xs font-semibold text-gray-500 mt-0.5">{record.id}</span>
+                      <span className="font-bold text-primary text-sm flex items-center gap-2">{record.student}</span>
+                      <span className="text-xs font-semibold text-[var(--text-disabled)] mt-0.5">{record.id}</span>
                     </div>
                   </td>
                   <td className="p-5">
-                    <span className="font-black text-gray-800 text-xl">₹{record.totalDue.toLocaleString()}</span>
+                    <span className="font-black text-primary text-xl">₹{record.totalDue.toLocaleString()}</span>
                   </td>
                   <td className="p-5 text-center">
                     <div className="flex flex-col items-center gap-1.5">
-                      <span className="text-sm font-bold text-gray-700 flex items-center gap-1.5"><CalendarCheck className="w-4 h-4 text-gray-400" /> {record.dueDate}</span>
+                      <span className="text-sm font-bold text-secondary flex items-center gap-1.5"><CalendarCheck className="w-4 h-4 text-gray-400" /> {record.dueDate}</span>
                       {record.status === 'Overdue' ? (
                         <span className="px-2 py-1 bg-red-100 text-red-700 rounded-md text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 w-max border border-red-200"><AlertTriangle className="w-3 h-3"/> Overdue</span>
                       ) : (
@@ -308,22 +308,22 @@ export default function FeesRentManagementPage() {
 
               {/* PAYMENT HISTORY */}
               {activeTab === 'history' && MOCK_HISTORY.filter(s => s.student.toLowerCase().includes(searchTerm.toLowerCase())).map((record) => (
-                <tr key={record.id} className="hover:bg-gray-50/50 transition-colors">
-                  <td className="p-5 text-center"><span className="w-10 h-10 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center font-black text-gray-800 mx-auto">{record.room}</span></td>
+                <tr key={record.id} className="hover:bg-page/50 transition-colors">
+                  <td className="p-5 text-center"><span className="w-10 h-10 rounded-full bg-[var(--bg-overlay)] border border-border flex items-center justify-center font-black text-primary mx-auto">{record.room}</span></td>
                   <td className="p-5">
                     <div className="flex flex-col">
-                      <span className="font-bold text-gray-800 text-sm flex items-center gap-2">{record.student}</span>
-                      <span className="text-xs font-semibold text-gray-500 mt-0.5">{record.id}</span>
+                      <span className="font-bold text-primary text-sm flex items-center gap-2">{record.student}</span>
+                      <span className="text-xs font-semibold text-[var(--text-disabled)] mt-0.5">{record.id}</span>
                     </div>
                   </td>
                   <td className="p-5">
                     <div className="flex flex-col gap-1">
                       <span className="font-black text-green-600 text-xl">₹{record.amountPaid.toLocaleString()}</span>
-                      <span className="text-xs font-bold text-gray-700 bg-gray-100 px-2 py-1 rounded-md w-max border border-gray-200">{record.mode}</span>
+                      <span className="text-xs font-bold text-secondary bg-[var(--bg-overlay)] px-2 py-1 rounded-md w-max border border-border">{record.mode}</span>
                     </div>
                   </td>
                   <td className="p-5">
-                    <span className="text-sm font-bold text-gray-700">{record.date}</span>
+                    <span className="text-sm font-bold text-secondary">{record.date}</span>
                   </td>
                   <td className="p-5 text-center">
                     <div className="flex flex-col items-center gap-2">
