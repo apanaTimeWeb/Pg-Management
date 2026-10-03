@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import {
   IndianRupee, CreditCard, Smartphone, Globe, CheckCircle2, Download,
   Eye, Clock, AlertCircle, X, ArrowRight, Receipt, FileText, BadgeCheck
@@ -35,7 +36,11 @@ const getTypeColor = (type: string) => {
 };
 
 export function StudentRentMain() {
-  const [activeTab, setActiveTab] = useState<'dues' | 'pay' | 'history'>('dues');
+  const searchParams = useSearchParams();
+  const viewParam = searchParams.get('view');
+  const actionParam = searchParams.get('action');
+  const initialTab = actionParam === 'pay' ? 'pay' : (viewParam === 'history' || viewParam === 'receipts') ? 'history' : viewParam === 'pending' ? 'dues' : 'dues';
+  const [activeTab, setActiveTab] = useState<'dues' | 'pay' | 'history'>(initialTab);
   const [isPayModal, setIsPayModal] = useState(false);
   const [payMethod, setPayMethod] = useState<'upi' | 'card' | 'netbanking' | null>(null);
   const [paymentDone, setPaymentDone] = useState(false);

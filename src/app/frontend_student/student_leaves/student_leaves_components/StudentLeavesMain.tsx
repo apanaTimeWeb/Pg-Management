@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { 
   CalendarOff, Plus, Clock, CheckCircle2, XCircle, AlertCircle,
   MapPin, Phone, Send, X, ArrowRight, LogOut, LogIn, Check
@@ -59,9 +60,13 @@ const getStatusConfig = (status: LeaveStatus) => {
 };
 
 export function StudentLeavesMain() {
+  const searchParams = useSearchParams();
+  const viewParam = searchParams.get('view');
+  const actionParam = searchParams.get('action');
+  const initialTab = viewParam === 'pending' ? 'pending' : viewParam === 'approved' ? 'approved' : viewParam === 'active' ? 'active' : viewParam === 'history' ? 'history' : 'all';
   const [data] = useState<LeaveOuting[]>(DUMMY_DATA);
-  const [activeTab, setActiveTab] = useState<'all' | 'pending' | 'approved' | 'active' | 'history'>('all');
-  const [isNewModal, setIsNewModal] = useState(false);
+  const [activeTab, setActiveTab] = useState<'all' | 'pending' | 'approved' | 'active' | 'history'>(initialTab);
+  const [isNewModal, setIsNewModal] = useState(actionParam === 'new');
   const [requestType, setRequestType] = useState<RequestType>('Leave');
   const [submitted, setSubmitted] = useState(false);
 

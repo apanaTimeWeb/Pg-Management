@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import {
   Utensils, CheckCircle2, Clock, Camera, X, Send, AlertCircle, Calendar,
   Star, BarChart3
@@ -32,8 +33,12 @@ const MEAL_ATTENDANCE = [
 ];
 
 export function StudentMessMain() {
-  const [activeTab, setActiveTab] = useState<'menu' | 'attendance' | 'count' | 'complaint'>('menu');
-  const [menuView, setMenuView] = useState<'today' | 'weekly'>('today');
+  const searchParams = useSearchParams();
+  const viewParam = searchParams.get('view');
+  const initialTab = viewParam === 'attendance' ? 'attendance' : viewParam === 'count' ? 'count' : (viewParam === 'complaints' || viewParam === 'complaint') ? 'complaint' : 'menu';
+  const initialMenuView = viewParam === 'weekly' ? 'weekly' : 'today';
+  const [activeTab, setActiveTab] = useState<'menu' | 'attendance' | 'count' | 'complaint'>(initialTab);
+  const [menuView, setMenuView] = useState<'today' | 'weekly'>(initialMenuView);
   const [complaintCategory, setComplaintCategory] = useState('');
   const [complaintDesc, setComplaintDesc] = useState('');
   const [complaintSubmitted, setComplaintSubmitted] = useState(false);

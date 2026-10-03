@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import {
   ShieldCheck, IndianRupee, CheckCircle2, Clock, AlertCircle,
   Download, FileText, ChevronRight, Calculator, ArrowDown
@@ -25,7 +26,10 @@ const totalDeductions = DEPOSIT_DATA.adjustments.reduce((sum, a) => sum + a.amou
 const refundable = DEPOSIT_DATA.amount - totalDeductions;
 
 export function StudentSecurityDepositMain() {
-  const [activeTab, setActiveTab] = useState<'details' | 'settlement'>('details');
+  const searchParams = useSearchParams();
+  const viewParam = searchParams.get('view');
+  const initialTab = viewParam === 'settlement' ? 'settlement' : 'details';
+  const [activeTab, setActiveTab] = useState<'details' | 'settlement'>(initialTab);
 
   return (
     <div className="w-full max-w-4xl mx-auto pb-12 animate-in fade-in duration-300">

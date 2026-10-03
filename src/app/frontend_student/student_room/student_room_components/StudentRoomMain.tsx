@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import {
   Home, BedDouble, Wifi, Fan, Lightbulb, BookOpen, Sofa, Package,
   Droplets, ArrowRight, Users, User, Phone, AlertCircle, Send, CheckCircle2, XCircle, X
@@ -32,7 +33,10 @@ const ROOM_DATA = {
 };
 
 export function StudentRoomMain() {
-  const [activeTab, setActiveTab] = useState<'room' | 'roommates' | 'change'>('room');
+  const searchParams = useSearchParams();
+  const viewParam = searchParams.get('view');
+  const initialTab = viewParam === 'roommates' ? 'roommates' : viewParam === 'change' ? 'change' : 'room';
+  const [activeTab, setActiveTab] = useState<'room' | 'roommates' | 'change'>(initialTab);
   const [isChangeModalOpen, setIsChangeModalOpen] = useState(false);
   const [reason, setReason] = useState('');
   const [submitted, setSubmitted] = useState(false);

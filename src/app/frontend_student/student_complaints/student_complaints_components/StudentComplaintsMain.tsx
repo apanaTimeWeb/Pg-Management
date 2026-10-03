@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { 
   Wrench, Plus, Search, Filter, AlertTriangle, CheckCircle2, 
   Clock, Check, Camera, Video, XCircle, ArrowRight, UserCircle,
@@ -104,10 +105,14 @@ const getPriorityColor = (priority: Priority) => {
 };
 
 export function StudentComplaintsMain() {
+  const searchParams = useSearchParams();
+  const viewParam = searchParams.get('view');
+  const actionParam = searchParams.get('action');
+  const initialTab = viewParam === 'maintenance' ? 'Active' : viewParam === 'resolved' ? 'Resolved' : viewParam === 'closed' ? 'Closed' : 'All';
   const [complaints, setComplaints] = useState<Complaint[]>(DUMMY_COMPLAINTS);
-  const [activeTab, setActiveTab] = useState<'All' | 'Active' | 'Resolved' | 'Closed'>('All');
+  const [activeTab, setActiveTab] = useState<'All' | 'Active' | 'Resolved' | 'Closed'>(initialTab);
   const [selectedComplaint, setSelectedComplaint] = useState<Complaint | null>(null);
-  const [isNewModalOpen, setIsNewModalOpen] = useState(false);
+  const [isNewModalOpen, setIsNewModalOpen] = useState(actionParam === 'new');
 
   const filteredComplaints = complaints.filter(cmp => {
     if (activeTab === 'Active' && (cmp.status === 'Resolved' || cmp.status === 'Closed')) return false;

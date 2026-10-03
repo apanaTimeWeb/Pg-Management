@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import {
   User, Camera, Phone, Mail, MapPin, Edit2, Save, X, AlertCircle,
   UserCircle, Users, Home, CheckCircle2, Send
@@ -21,7 +22,10 @@ const PROFILE_DATA = {
 };
 
 export function StudentProfileMain() {
-  const [activeTab, setActiveTab] = useState<'personal' | 'guardian' | 'emergency' | 'address'>('personal');
+  const searchParams = useSearchParams();
+  const viewParam = searchParams.get('view');
+  const initialTab = viewParam === 'guardian' ? 'guardian' : viewParam === 'emergency' ? 'emergency' : viewParam === 'address' ? 'address' : 'personal';
+  const [activeTab, setActiveTab] = useState<'personal' | 'guardian' | 'emergency' | 'address'>(initialTab);
   const [editingEmergency, setEditingEmergency] = useState(false);
   const [emergency, setEmergency] = useState(PROFILE_DATA.emergency);
   const [correctionModal, setCorrectionModal] = useState(false);

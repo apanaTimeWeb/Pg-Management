@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import {
   Users, Plus, Clock, CheckCircle2, UserCheck, X, Send, AlertCircle,
   Phone, User, FileText, Calendar, Hourglass, ChevronRight
@@ -58,9 +59,13 @@ const getStatusConfig = (status: VisitorStatus) => {
 };
 
 export function StudentVisitorsMain() {
+  const searchParams = useSearchParams();
+  const viewParam = searchParams.get('view');
+  const actionParam = searchParams.get('action');
+  const initialTab = viewParam === 'pending' ? 'pending' : viewParam === 'approved' ? 'approved' : viewParam === 'history' ? 'past' : 'all';
   const [visitors] = useState<Visitor[]>(DUMMY_VISITORS);
-  const [activeTab, setActiveTab] = useState<'all' | 'pending' | 'approved' | 'past'>('all');
-  const [isNewModalOpen, setIsNewModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<'all' | 'pending' | 'approved' | 'past'>(initialTab);
+  const [isNewModalOpen, setIsNewModalOpen] = useState(actionParam === 'new');
   const [form, setForm] = useState({ name: '', mobile: '', relation: '', purpose: '', date: '', arrival: '', departure: '' });
   const [submitted, setSubmitted] = useState(false);
 

@@ -109,7 +109,9 @@ const getTypeIcon = (type: RequestType) => {
 
 export function StudentRequestsMain() {
   const searchParams = useSearchParams();
-  const [activeTab, setActiveTab] = useState('all');
+  const viewParam = searchParams.get('view');
+  const initialRequestTab = viewParam === 'pending' ? 'pending' : viewParam === 'approved' ? 'approved' : viewParam === 'rejected' ? 'rejected' : viewParam === 'completed' ? 'completed' : 'all';
+  const [activeTab, setActiveTab] = useState(initialRequestTab);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<RequestType | 'All'>('All');
 

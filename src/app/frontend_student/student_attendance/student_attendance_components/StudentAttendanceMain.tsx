@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import {
   CalendarCheck, CheckCircle2, XCircle, Clock, AlertCircle, 
   TrendingUp, ChevronLeft, ChevronRight, AlertTriangle, Send, X
@@ -39,7 +40,10 @@ const late = ATT_CALENDAR.filter(d => d.status === 'LT').length;
 const percentage = Math.round((present / ATT_CALENDAR.length) * 100);
 
 export function StudentAttendanceMain() {
-  const [activeTab, setActiveTab] = useState<'monthly' | 'correction'>('monthly');
+  const searchParams = useSearchParams();
+  const viewParam = searchParams.get('view');
+  const initialTab = viewParam === 'correction' ? 'correction' : 'monthly';
+  const [activeTab, setActiveTab] = useState<'monthly' | 'correction'>(initialTab);
   const [correctionDate, setCorrectionDate] = useState('');
   const [correctionReason, setCorrectionReason] = useState('');
   const [submitted, setSubmitted] = useState(false);

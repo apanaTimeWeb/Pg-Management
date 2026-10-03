@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import {
   FileText, CalendarCheck, Building, Home, BedDouble, IndianRupee,
   ShieldCheck, CheckCircle2, Clock, AlertCircle, Download, Eye,
@@ -48,7 +49,10 @@ const ADMISSION_DATA = {
 };
 
 export function StudentAdmissionMain() {
-  const [activeTab, setActiveTab] = useState<'details' | 'status' | 'agreement'>('details');
+  const searchParams = useSearchParams();
+  const viewParam = searchParams.get('view');
+  const initialTab = viewParam === 'status' ? 'status' : viewParam === 'agreement' ? 'agreement' : 'details';
+  const [activeTab, setActiveTab] = useState<'details' | 'status' | 'agreement'>(initialTab);
   const config = getStatusConfig(ADMISSION_DATA.status);
   const StatusIcon = config.icon;
 
