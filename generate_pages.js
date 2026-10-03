@@ -1,4 +1,45 @@
-'use client';
+const fs = require('fs');
+const path = require('path');
+
+const placeholderFiles = [
+  'src/app/frontend_owner/students/pending/page.tsx',
+  'src/app/frontend_owner/students/notice_period/page.tsx',
+  'src/app/frontend_owner/students/checked_out/page.tsx',
+  'src/app/frontend_owner/students/active/page.tsx',
+  'src/app/frontend_owner/rooms_beds/occupancy/page.tsx',
+  'src/app/frontend_owner/rooms_beds/maintenance/page.tsx',
+  'src/app/frontend_owner/rooms_beds/beds/page.tsx',
+  'src/app/frontend_owner/rooms_beds/available/page.tsx',
+  'src/app/frontend_owner/mess_food/stock/page.tsx',
+  'src/app/frontend_owner/mess_food/meals/page.tsx',
+  'src/app/frontend_owner/inventory/stock_out/page.tsx',
+  'src/app/frontend_owner/inventory/stock_in/page.tsx',
+  'src/app/frontend_owner/inventory/damage_loss/page.tsx',
+  'src/app/frontend_owner/inventory/low_stock/page.tsx',
+  'src/app/frontend_owner/mess_food/menu/page.tsx',
+  'src/app/frontend_owner/fees_payments/dues/page.tsx',
+  'src/app/frontend_owner/fees_payments/payments/page.tsx',
+  'src/app/frontend_owner/fees_payments/receipts/page.tsx',
+  'src/app/frontend_owner/fees_payments/refunds/page.tsx',
+  'src/app/frontend_owner/fees_payments/fines/page.tsx',
+  'src/app/frontend_owner/mess_food/attendance/page.tsx',
+  'src/app/frontend_owner/complaints_maintenance/maintenance/page.tsx',
+  'src/app/frontend_owner/checkin_checkout/transfers/page.tsx',
+  'src/app/frontend_owner/checkin_checkout/history/page.tsx',
+  'src/app/frontend_owner/complaints_maintenance/history/page.tsx',
+  'src/app/frontend_owner/checkin_checkout/checkin/page.tsx',
+  'src/app/frontend_owner/checkin_checkout/checkout/page.tsx',
+  'src/app/frontend_owner/complaints_maintenance/assignments/page.tsx',
+  'src/app/frontend_owner/admissions/applications/page.tsx',
+  'src/app/frontend_owner/admissions/verification/page.tsx',
+  'src/app/frontend_owner/accounts/vendors/page.tsx',
+  'src/app/frontend_owner/accounts/reports/page.tsx',
+  'src/app/frontend_owner/accounts/income/page.tsx',
+  'src/app/frontend_owner/admissions/rejected/page.tsx',
+  'src/app/frontend_owner/admissions/approved/page.tsx'
+];
+
+const generateTemplate = (title) => `\'use client\';
 
 import React, { useState } from 'react';
 import { 
@@ -6,7 +47,7 @@ import {
   Download, Eye, Edit3, Trash2
 } from 'lucide-react';
 
-export default function FinesPage() {
+export default function ${title.replace(/[^a-zA-Z0-9]/g, '')}Page() {
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
@@ -15,8 +56,8 @@ export default function FinesPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-primary">Fines</h1>
-          <p className="text-[var(--text-disabled)] text-sm mt-1">Manage and view all records for fines.</p>
+          <h1 className="text-2xl font-bold text-primary">${title}</h1>
+          <p className="text-[var(--text-disabled)] text-sm mt-1">Manage and view all records for ${title.toLowerCase()}.</p>
         </div>
         
         <div className="flex items-center gap-3">
@@ -101,3 +142,18 @@ export default function FinesPage() {
     </div>
   );
 }
+`;
+
+placeholderFiles.forEach(file => {
+  const absolutePath = path.join(__dirname, file);
+  if (fs.existsSync(absolutePath)) {
+    // Extract a nice title from the directory name
+    const parts = file.split('/');
+    const folderName = parts[parts.length - 2]; // e.g. "notice_period"
+    const parentFolder = parts[parts.length - 3]; // e.g. "students"
+    const title = folderName.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    
+    fs.writeFileSync(absolutePath, generateTemplate(title), 'utf8');
+    console.log(`Generated full list page for: ${absolutePath}`);
+  }
+});
