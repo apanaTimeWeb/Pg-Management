@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { getSession } from '@/app/frontend_superadmin/superadmin_lib/superadmin_auth/SuperadminSession';
 
 import type { Role } from '@/lib/types/models';

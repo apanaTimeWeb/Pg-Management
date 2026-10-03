@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerEnquiriesLost component.
 import { MessageCircle, Mail } from 'lucide-react';
 

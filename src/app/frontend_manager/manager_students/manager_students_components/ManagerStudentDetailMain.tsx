@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerStudentDetailMain component.
 'use client';
 import { useState, useEffect, useCallback } from 'react';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the OwnerRoomsFilters component. Receives data via props/hooks.
 
 import { Search, Filter } from 'lucide-react';

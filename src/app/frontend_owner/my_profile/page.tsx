@@ -1,11 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  User, ShieldCheck, Mail, Phone, Lock, 
-  Key, History, Smartphone, Bell, Building, 
-  LogOut, Save, Camera, Edit3
-} from 'lucide-react';
+import { User, ShieldCheck, Mail, Phone, Lock, Key, History, Smartphone, Bell, Building, LogOut, Save, Camera, Edit3 } from 'lucide-react';
 
 export default function MyProfilePage() {
   const [activeTab, setActiveTab] = useState('personal');

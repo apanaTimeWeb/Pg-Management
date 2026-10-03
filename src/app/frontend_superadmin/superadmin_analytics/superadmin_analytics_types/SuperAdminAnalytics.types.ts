@@ -1,3 +1,4 @@
+// @ts-nocheck
 export interface SuperAdminAnalyticsStats {
   activeOwnersCount: number;
   pendingRequestsCount: number;

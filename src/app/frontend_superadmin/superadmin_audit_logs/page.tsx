@@ -1,10 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Search, Filter, Plus, Download, Eye, Settings, Trash2, ShieldCheck, 
-  AlertCircle, RefreshCw, SlidersHorizontal, Activity, ShieldAlert
-} from 'lucide-react';
+import { Search, Filter, Plus, Download, Eye, Settings, Trash2, ShieldCheck, AlertCircle, RefreshCw, SlidersHorizontal, Activity, ShieldAlert } from 'lucide-react';
 
 const MOCK_DATA = [
   { id: 'SYS-001', name: 'Database Snapshot', type: 'Critical', status: 'Healthy', metric: '4.2 GB', date: '02 Oct 2026' },

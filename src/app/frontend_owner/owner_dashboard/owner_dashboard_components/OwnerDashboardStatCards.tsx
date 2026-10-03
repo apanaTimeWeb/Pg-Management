@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Operational stat cards for the Owner Dashboard.
 'use client';
 

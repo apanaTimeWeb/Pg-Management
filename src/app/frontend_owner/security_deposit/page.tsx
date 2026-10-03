@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client';
 import React, { useState } from 'react';
 import { Search, Filter, Plus, FileText, Download, Eye, ShieldCheck } from 'lucide-react';

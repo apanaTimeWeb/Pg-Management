@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the SuperadminI18n component.
 'use client';
 

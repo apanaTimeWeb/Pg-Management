@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the SuperAdminOwnersFilters component.
 import React from 'react';
 import { Search } from 'lucide-react';

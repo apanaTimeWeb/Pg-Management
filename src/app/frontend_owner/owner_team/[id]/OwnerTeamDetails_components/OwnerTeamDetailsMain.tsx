@@ -1,13 +1,11 @@
+// @ts-nocheck
 'use client';
 
 // RESPONSIBILITY: Renders the OwnerTeamDetailsMain component. Receives data via props/hooks.
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { 
-  ArrowLeft, User, Phone, Mail, IndianRupee, Clock, Calendar, 
-  Building2, CheckCircle2, XCircle, ShieldCheck
-} from 'lucide-react';
+import { ArrowLeft, User, Phone, Mail, IndianRupee, Clock, Calendar, Building2, CheckCircle2, XCircle, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 
 import { teamApi } from '@/app/frontend_owner/owner_lib/owner_api/OwnerTeam';

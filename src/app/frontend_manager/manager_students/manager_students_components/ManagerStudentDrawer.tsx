@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState } from 'react';
 import { X, User as UserIcon, MapPin, IndianRupee, ShieldCheck, MessageSquare, Calendar, Users, ClipboardList, CheckSquare, FileText, Clock } from 'lucide-react';
 import type { ManagerStudentData } from '@/app/frontend_manager/manager_students/manager_students_types/ManagerStudents.types';

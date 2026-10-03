@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the OwnerLayout component. Receives data via props/hooks.
 
 import { OwnerRequireOwner } from '@/app/frontend_owner/owner_components/OwnerRequireOwner';

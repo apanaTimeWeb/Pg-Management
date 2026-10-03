@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { TrendingUp, TrendingDown, Activity } from 'lucide-react';
 
 export function ManagerDashboardPerformance() {

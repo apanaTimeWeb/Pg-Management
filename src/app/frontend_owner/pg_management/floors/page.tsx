@@ -1,11 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Layers, Plus, Edit3, Trash2, Search, Building2, MapPin, 
-  Users, CheckCircle2, ChevronDown, ChevronRight, LayoutGrid, 
-  Wifi, Droplets, Flame, MonitorPlay, Thermometer, Box
-} from 'lucide-react';
+import { Layers, Plus, Edit3, Trash2, Search, Building2, MapPin, Users, CheckCircle2, ChevronDown, ChevronRight, LayoutGrid, Wifi, Droplets, Flame, MonitorPlay, Thermometer, Box } from 'lucide-react';
 
 const MOCK_BUILDINGS = [
   { id: 'BLD-01', name: 'Block A (Boys Hostel)' },

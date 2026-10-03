@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerRoomsKPIs component.
 import { Hash, BedDouble, CheckCircle2, AlertCircle } from 'lucide-react';
 

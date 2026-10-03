@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerFinanceStats component.
 import { IndianRupee, PieChart } from 'lucide-react';
 

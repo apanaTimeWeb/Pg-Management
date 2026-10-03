@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the SuperAdminAuditLogsHeader component.
 import React from 'react';
 

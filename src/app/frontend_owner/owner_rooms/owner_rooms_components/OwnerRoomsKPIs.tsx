@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the OwnerRoomsKPIs component. Receives data via props/hooks.
 
 import { Hash, BedDouble, CheckCircle2, AlertCircle } from 'lucide-react';

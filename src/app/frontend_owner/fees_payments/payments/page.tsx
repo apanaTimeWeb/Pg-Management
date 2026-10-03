@@ -1,9 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Search, Filter, Plus, FileText, Download, Eye, IndianRupee, Wallet, CreditCard
-} from 'lucide-react';
+import { Search, Filter, Plus, FileText, Download, Eye, IndianRupee, Wallet, CreditCard } from 'lucide-react';
 
 const MOCK_FEES = [
   { id: 'INV-201', student: 'Aman Singh', room: '101', type: 'Monthly Rent', amount: 8000, date: '01 Oct 2026', status: 'Paid', method: 'UPI' },

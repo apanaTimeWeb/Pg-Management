@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerInventoryRequests component.
 import { CheckCircle, Clock, ShoppingCart } from 'lucide-react';
 

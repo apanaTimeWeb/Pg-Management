@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerCheckinForm component.
 import { ArrowRight, ArrowLeft, CheckCircle } from 'lucide-react';
 

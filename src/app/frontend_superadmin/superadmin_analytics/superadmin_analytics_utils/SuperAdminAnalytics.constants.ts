@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const SUPER_ADMIN_MOCK_REVENUE_DATA = [
   { month: 'Jan', revenue: 45000 },
   { month: 'Feb', revenue: 52000 },

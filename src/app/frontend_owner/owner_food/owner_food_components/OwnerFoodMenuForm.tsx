@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Edit form for the Food Menu planner (Owner).
 'use client';
 

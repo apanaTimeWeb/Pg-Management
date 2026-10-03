@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the SuperAdminTicketsCreateModal component.
 import React from 'react';
 

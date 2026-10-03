@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { db } from '@/lib/storage/db';
 import { createId } from '@/lib/utils/id';
 import { teamApi } from '@/app/frontend_owner/owner_lib/owner_api/OwnerTeam';

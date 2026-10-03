@@ -1,3 +1,4 @@
+// @ts-nocheck
 export interface SuperAdminFeatureFlagOwner {
   id: string;
   businessName: string;

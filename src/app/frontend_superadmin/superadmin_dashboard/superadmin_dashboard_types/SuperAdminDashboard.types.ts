@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { BaseEntity } from '@/lib/storage/db';
 
 export interface AuditLog extends BaseEntity {

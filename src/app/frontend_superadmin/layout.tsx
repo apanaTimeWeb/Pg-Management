@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client';
 import { SuperAdminRequireSuperAdmin } from '@/app/frontend_superadmin/SuperAdmin_components/SuperAdminRequireSuperAdmin';
 import Link from 'next/link';

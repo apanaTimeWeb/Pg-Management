@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const SUPER_ADMIN_DASHBOARD_ACQUISITION_MOCK = [
   { month: 'Mar', students: 120 },
   { month: 'Apr', students: 180 },

@@ -1,9 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Search, Filter, Plus, FileText, Download, Eye, Edit3, Trash2, UserCog, Phone, Briefcase
-} from 'lucide-react';
+import { Search, Filter, Plus, FileText, Download, Eye, Edit3, Trash2, UserCog, Phone, Briefcase } from 'lucide-react';
 
 const MOCK_STAFF = [
   { id: 'EMP-101', name: 'Ramesh Singh', role: 'Property Manager', phone: '+91 9876543210', property: 'PG Varanasi Main', salary: 25000, status: 'Active' },

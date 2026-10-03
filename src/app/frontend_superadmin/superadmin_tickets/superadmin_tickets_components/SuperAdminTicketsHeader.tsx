@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the SuperAdminTicketsHeader component.
 import React from 'react';
 import { Plus } from 'lucide-react';

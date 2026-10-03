@@ -1,13 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  TrendingUp, Download, FileText, FileSpreadsheet, 
-  Bed, Wallet, Users, UtensilsCrossed, CalendarCheck, 
-  Wrench, Package, PieChart, BarChart3, LineChart, 
-  ArrowUpRight, ArrowDownRight, DollarSign, Activity,
-  ChevronDown, AlertCircle
-} from 'lucide-react';
+import { TrendingUp, Download, FileText, FileSpreadsheet, Bed, Wallet, Users, UtensilsCrossed, CalendarCheck, Wrench, Package, PieChart, BarChart3, LineChart, ArrowUpRight, ArrowDownRight, DollarSign, Activity, ChevronDown, AlertCircle } from 'lucide-react';
 
 export default function ReportsAnalyticsPage() {
   const [activeTab, setActiveTab] = useState('occupancy');

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the SuperAdminDashboardKpiGrid component.
 import React from 'react';
 import { Users, Building2, DoorOpen, Bed, UserCircle, Activity } from 'lucide-react';

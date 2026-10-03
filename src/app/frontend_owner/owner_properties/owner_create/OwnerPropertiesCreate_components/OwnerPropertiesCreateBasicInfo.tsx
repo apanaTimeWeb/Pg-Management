@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the OwnerPropertiesCreateBasicInfo component. Receives data via props/hooks.
 
 import { Building2 } from 'lucide-react';

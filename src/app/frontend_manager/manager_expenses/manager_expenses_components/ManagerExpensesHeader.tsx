@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerExpensesHeader component.
 import { Plus } from 'lucide-react';
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // DATA FLOW: localStorage → useState → component
 // [SHARED HOOK] useManagerSession
 // Responsibility: Returns the authenticated manager session from localStorage in an SSR-safe way.

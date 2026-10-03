@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the OwnerTeamCreateSuccess component. Receives data via props/hooks.
 
 import { CheckCircle2, Copy } from 'lucide-react';

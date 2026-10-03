@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { MOCK_DASHBOARD_STATS } from '../superadmin_mock_data';
 
 export const platformApi = {

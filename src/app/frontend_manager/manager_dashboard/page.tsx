@@ -1,4 +1,6 @@
-import { ManagerDashboardMain } from '@/app/frontend_manager/manager_dashboard/manager_dashboard_components/ManagerDashboardMain';
-export default function ManagerDashboard() {
+import React from 'react';
+import ManagerDashboardMain from './manager_dashboard_components/ManagerDashboardMain';
+
+export default function ManagerDashboardPage() {
   return <ManagerDashboardMain />;
 }

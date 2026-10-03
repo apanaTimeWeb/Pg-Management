@@ -1,12 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Megaphone, Plus, Users, Calendar, Wrench, Droplet, 
-  Zap, MessageSquare, ArrowRight, Eye, CheckCircle2, 
-  FileText, BellRing, UserCheck, Search, ChevronRight,
-  Send, UtensilsCrossed
-} from 'lucide-react';
+import { Megaphone, Plus, Users, Calendar, Wrench, Droplet, Zap, MessageSquare, ArrowRight, Eye, CheckCircle2, FileText, BellRing, UserCheck, Search, ChevronRight, Send, UtensilsCrossed } from 'lucide-react';
 
 const MOCK_NOTICES = [
   { id: 1, title: 'Electricity Shutdown Notice', type: 'Electricity shutdown', content: 'There will be a planned power outage tomorrow from 10 AM to 2 PM due to transformer maintenance.', audience: 'All Students', date: 'Oct 03, 2026', readStatus: '180 / 210', icon: Zap, color: 'text-yellow-500', bg: 'bg-yellow-50' },

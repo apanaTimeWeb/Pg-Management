@@ -1,9 +1,7 @@
 'use client';
 
 import React from 'react';
-import { 
-  MessageSquareWarning, Download, Edit3, Plus, Search, Info, MessageSquareWarning, CalendarOff, Utensils, AlertCircle, CheckCircle2
-} from 'lucide-react';
+import { MessageSquareWarning, Download, Edit3, Plus, Search, Info, CalendarOff, Utensils, AlertCircle, CheckCircle2 } from 'lucide-react';
 
 export default function StudentMyComplaintsPage() {
   

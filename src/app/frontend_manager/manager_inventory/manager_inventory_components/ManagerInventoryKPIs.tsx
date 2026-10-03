@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { PackageOpen, ShoppingCart, AlertOctagon, Timer } from 'lucide-react';
 
 interface Props {

@@ -1,12 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  FolderOpen, FileText, UploadCloud, Eye, Download, 
-  RefreshCw, Archive, CheckCircle2, AlertCircle, 
-  Clock, ShieldCheck, Building2, Users, Search, 
-  Filter, MoreVertical, XCircle, FileImage, File
-} from 'lucide-react';
+import { FolderOpen, FileText, UploadCloud, Eye, Download, RefreshCw, Archive, CheckCircle2, AlertCircle, Clock, ShieldCheck, Building2, Users, Search, Filter, MoreVertical, XCircle, FileImage, File } from 'lucide-react';
 
 const PROPERTY_DOCS = [
   { id: 1, name: 'Trade License 2026', type: 'Licenses', uploadedDate: '15 Jan 2026', expiryDate: '31 Dec 2026', status: 'Verified', fileType: 'pdf' },

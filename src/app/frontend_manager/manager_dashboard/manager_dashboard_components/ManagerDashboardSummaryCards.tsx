@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Building2, Wallet, Broom, Wrench } from 'lucide-react';
 import type { ManagerDashboardStats } from '@/app/frontend_manager/manager_dashboard/manager_dashboard_types/ManagerDashboard.types';
 

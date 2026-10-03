@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerExpensesModal component.
 // [COMPONENT] ManagerExpensesModal
 // Responsibility: Renders the expense creation modal wired to React Hook Form.

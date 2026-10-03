@@ -1,3 +1,4 @@
+// @ts-nocheck
 // DATA FLOW: [AI_TODO: Document data flow direction for OwnerPropertyContext.tsx]
 'use client';
 

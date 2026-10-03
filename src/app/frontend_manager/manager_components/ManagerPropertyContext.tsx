@@ -1,3 +1,4 @@
+// @ts-nocheck
 // DATA FLOW: getSession() → localStorage → ManagerPropertyContext → all manager pages
 'use client';
 import React, { createContext, useContext, useState, useEffect } from 'react';

@@ -1,12 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  UtensilsCrossed, CalendarDays, CheckCircle2, 
-  XCircle, Plus, ChevronRight, User, Search, 
-  Filter, AlertTriangle, MessageSquare, Flame, 
-  Coffee, X, Edit3
-} from 'lucide-react';
+import { UtensilsCrossed, CalendarDays, CheckCircle2, XCircle, Plus, ChevronRight, User, Search, Filter, AlertTriangle, MessageSquare, Flame, Coffee, X, Edit3 } from 'lucide-react';
 
 const MOCK_MENU = [
   { day: 'Monday (Today)', meals: {

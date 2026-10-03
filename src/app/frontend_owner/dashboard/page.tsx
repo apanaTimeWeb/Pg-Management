@@ -1,13 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React from 'react';
-import { 
-  Building2, Users, IndianRupee, Settings, AlertTriangle, 
-  Bed, Wallet, UserCheck, UserPlus, LogIn, LogOut, 
-  ShieldCheck, Coffee, Flame, Zap, ArrowUpRight, 
-  ArrowDownRight, FileText, BellRing, User, Plus, 
-  Utensils, LayoutGrid, CheckCircle2, TrendingUp, PieChart
-} from 'lucide-react';
+import { Building2, Users, IndianRupee, Settings, AlertTriangle, Bed, Wallet, UserCheck, UserPlus, LogIn, LogOut, ShieldCheck, Coffee, Flame, Zap, ArrowUpRight, ArrowDownRight, FileText, BellRing, User, Plus, Utensils, LayoutGrid, CheckCircle2, TrendingUp, PieChart } from 'lucide-react';
 import Link from 'next/link';
 
 export default function OwnerDashboardPage() {

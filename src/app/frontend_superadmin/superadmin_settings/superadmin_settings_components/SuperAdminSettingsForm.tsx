@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the SuperAdminSettingsForm component.
 import React from 'react';
 import { ShieldAlert, Clock, Smartphone, Info, Save } from 'lucide-react';

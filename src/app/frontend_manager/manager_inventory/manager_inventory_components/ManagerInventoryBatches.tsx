@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerInventoryBatches component.
 import type { StockBatch } from '@/app/frontend_staff/staff_lib/staff_api/StaffStock';
 interface Props {

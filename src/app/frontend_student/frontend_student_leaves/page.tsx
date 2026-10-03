@@ -1,9 +1,7 @@
 'use client';
 
 import React from 'react';
-import { 
-  CalendarOff, Download, Edit3, Plus, Search, Info, MessageSquareWarning, CalendarOff, Utensils, AlertCircle, CheckCircle2
-} from 'lucide-react';
+import { CalendarOff, Download, Edit3, Plus, Search, Info, MessageSquareWarning, Utensils, AlertCircle, CheckCircle2 } from 'lucide-react';
 
 export default function StudentLeavesOutingPage() {
   

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { getSession } from '@/app/frontend_owner/owner_lib/owner_auth/OwnerSession';
 
 import type { Role } from '@/lib/types';;

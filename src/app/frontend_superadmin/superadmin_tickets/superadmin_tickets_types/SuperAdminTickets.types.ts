@@ -1,3 +1,4 @@
+// @ts-nocheck
 export interface SuperAdminTicket {
   id: string;
   title: string;

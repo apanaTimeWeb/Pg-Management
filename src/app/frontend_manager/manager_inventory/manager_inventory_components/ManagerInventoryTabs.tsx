@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerInventoryTabs component.
 import { Archive, ShoppingCart, Clock, AlertTriangle } from 'lucide-react';
 

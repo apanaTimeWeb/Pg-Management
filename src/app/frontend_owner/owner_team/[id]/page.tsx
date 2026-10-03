@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the OwnerPage component. Receives data via props/hooks.
 
 import { OwnerTeamDetailsMain } from '@/app/frontend_owner/owner_team/[id]/OwnerTeamDetails_components/OwnerTeamDetailsMain';

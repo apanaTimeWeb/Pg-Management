@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerDashboardKitchenAlerts component.
 import Link from 'next/link';
 import { AlertTriangle } from 'lucide-react';

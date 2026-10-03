@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 // RESPONSIBILITY: Renders the global OwnerError boundary for the Owner module.

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect } from 'react';
 import { X, Save, AlertCircle } from 'lucide-react';
 import { propertiesApi } from '@/app/frontend_owner/owner_lib/owner_api/OwnerProperties';

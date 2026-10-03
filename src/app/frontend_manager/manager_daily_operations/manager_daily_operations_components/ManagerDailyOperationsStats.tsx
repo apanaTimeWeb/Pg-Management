@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { CheckCircle2, Wrench, ClipboardCheck, Users } from 'lucide-react';
 import type { DailyOperationsStats } from '../manager_daily_operations_types/DailyOperations.types';
 

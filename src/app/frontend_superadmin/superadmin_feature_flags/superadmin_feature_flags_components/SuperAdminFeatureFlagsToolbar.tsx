@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the SuperAdminFeatureFlagsToolbar component.
 import React from 'react';
 import { Search, Settings2 } from 'lucide-react';

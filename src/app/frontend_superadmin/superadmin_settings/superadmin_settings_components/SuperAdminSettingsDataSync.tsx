@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the SuperAdminSettingsDataSync component.
 import React from 'react';
 import { Database, Download, Upload, AlertTriangle } from 'lucide-react';

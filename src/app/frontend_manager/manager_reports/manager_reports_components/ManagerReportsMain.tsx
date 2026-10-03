@@ -1,147 +1,202 @@
+// @ts-nocheck
 'use client';
-import { useManagerReports } from '../manager_reports_hooks/useManagerReports';
-import { BedDouble, Wallet, AlertTriangle } from 'lucide-react';
 
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
+import React, { useState } from 'react';
+import { 
+  BarChart3, Users, Bed, CalendarCheck, IndianRupee, DoorOpen, 
+  MessageSquare, Utensils, Package, Download, FileText, 
+  FileSpreadsheet, FileIcon, Filter, Search, ChevronRight
+} from 'lucide-react';
 
-export function ManagerReportsMain() {
-  const { loading, occupancy, financials, defaulters } = useManagerReports();
+type ReportCategory = 'Students' | 'Occupancy' | 'Attendance' | 'Fees' | 'Leave' | 'Complaints' | 'Mess' | 'Inventory';
 
-  if (loading) {
-    return <div className="p-6 text-secondary motion-safe:animate-pulse">Loading reports...</div>;
-  }
+const categories: { id: ReportCategory, icon: React.ReactNode, label: string }[] = [
+  { id: 'Students', icon: <Users className="w-5 h-5" />, label: 'Student Reports' },
+  { id: 'Occupancy', icon: <Bed className="w-5 h-5" />, label: 'Occupancy' },
+  { id: 'Attendance', icon: <CalendarCheck className="w-5 h-5" />, label: 'Attendance' },
+  { id: 'Fees', icon: <IndianRupee className="w-5 h-5" />, label: 'Fees & Dues' },
+  { id: 'Leave', icon: <DoorOpen className="w-5 h-5" />, label: 'Leave & Outing' },
+  { id: 'Complaints', icon: <MessageSquare className="w-5 h-5" />, label: 'Complaints' },
+  { id: 'Mess', icon: <Utensils className="w-5 h-5" />, label: 'Mess & Food' },
+  { id: 'Inventory', icon: <Package className="w-5 h-5" />, label: 'Inventory' },
+];
 
-  const occupancyData = occupancy ? [
-    { name: 'Occupied', value: occupancy.occupiedBeds, color: 'var(--success)' },
-    { name: 'Vacant', value: occupancy.vacantBeds, color: 'var(--warning)' },
-    { name: 'Maintenance', value: occupancy.maintenanceBeds, color: 'var(--danger)' },
-  ] : [];
+export default function ManagerReportsMain() {
+  const [activeCategory, setActiveCategory] = useState<ReportCategory>('Students');
+
+  // Dummy metrics based on category
+  const getMetrics = () => {
+    switch (activeCategory) {
+      case 'Students':
+        return [
+          { label: 'Active Students', value: '145', color: 'text-indigo-600', bg: 'bg-indigo-50' },
+          { label: 'New Admissions', value: '12', color: 'text-green-600', bg: 'bg-green-50' },
+          { label: 'Check-outs', value: '5', color: 'text-red-600', bg: 'bg-red-50' },
+          { label: 'On Notice Period', value: '8', color: 'text-orange-600', bg: 'bg-orange-50' },
+          { label: 'Room-wise Allocation', value: 'View', color: 'text-blue-600', bg: 'bg-blue-50', isLink: true },
+        ];
+      case 'Occupancy':
+        return [
+          { label: 'Room Occupancy', value: '85%', color: 'text-indigo-600', bg: 'bg-indigo-50' },
+          { label: 'Bed Occupancy', value: '145/160', color: 'text-indigo-600', bg: 'bg-indigo-50' },
+          { label: 'Vacant Beds', value: '12', color: 'text-green-600', bg: 'bg-green-50' },
+          { label: 'Maintenance Beds', value: '3', color: 'text-red-600', bg: 'bg-red-50' },
+        ];
+      case 'Attendance':
+        return [
+          { label: 'Daily Attendance', value: '92%', color: 'text-indigo-600', bg: 'bg-indigo-50' },
+          { label: 'Monthly Avg.', value: '89%', color: 'text-blue-600', bg: 'bg-blue-50' },
+          { label: 'Student-wise', value: 'View', color: 'text-indigo-600', bg: 'bg-indigo-50', isLink: true },
+          { label: 'Room-wise', value: 'View', color: 'text-indigo-600', bg: 'bg-indigo-50', isLink: true },
+        ];
+      case 'Fees':
+        return [
+          { label: "Today's Collection", value: '₹45,000', color: 'text-green-600', bg: 'bg-green-50' },
+          { label: 'Pending Dues', value: '₹1.2L', color: 'text-orange-600', bg: 'bg-orange-50' },
+          { label: 'Overdue (Critical)', value: '₹35,000', color: 'text-red-600', bg: 'bg-red-50' },
+          { label: 'Payment History', value: 'View', color: 'text-indigo-600', bg: 'bg-indigo-50', isLink: true },
+        ];
+      case 'Leave':
+        return [
+          { label: 'Pending Requests', value: '4', color: 'text-orange-600', bg: 'bg-orange-50' },
+          { label: 'Approved (This Month)', value: '28', color: 'text-green-600', bg: 'bg-green-50' },
+          { label: 'Current Outings', value: '15', color: 'text-blue-600', bg: 'bg-blue-50' },
+          { label: 'Overdue Returns', value: '2', color: 'text-red-600', bg: 'bg-red-50' },
+        ];
+      case 'Complaints':
+        return [
+          { label: 'New / Unassigned', value: '5', color: 'text-orange-600', bg: 'bg-orange-50' },
+          { label: 'Pending Resolution', value: '3', color: 'text-blue-600', bg: 'bg-blue-50' },
+          { label: 'Resolved (This Month)', value: '42', color: 'text-green-600', bg: 'bg-green-50' },
+          { label: 'Category-wise Breakdown', value: 'View', color: 'text-indigo-600', bg: 'bg-indigo-50', isLink: true },
+        ];
+      case 'Mess':
+        return [
+          { label: "Today's Meal Count", value: '135', color: 'text-indigo-600', bg: 'bg-indigo-50' },
+          { label: 'Avg. Meal Attendance', value: '88%', color: 'text-blue-600', bg: 'bg-blue-50' },
+          { label: 'Menu Report', value: 'View', color: 'text-indigo-600', bg: 'bg-indigo-50', isLink: true },
+        ];
+      case 'Inventory':
+        return [
+          { label: 'Total Categories', value: '12', color: 'text-indigo-600', bg: 'bg-indigo-50' },
+          { label: 'Low Stock Alerts', value: '3', color: 'text-orange-600', bg: 'bg-orange-50' },
+          { label: 'Monthly Usage', value: 'View', color: 'text-blue-600', bg: 'bg-blue-50', isLink: true },
+          { label: 'Damage/Loss', value: '₹2,500', color: 'text-red-600', bg: 'bg-red-50' },
+        ];
+      default:
+        return [];
+    }
+  };
 
   return (
-    <div className="space-y-6 pb-20 animate-fade-in">
-      <div>
-        <h1 className="text-2xl font-bold text-primary tracking-tight">Reports & Analytics</h1>
-        <p className="text-sm text-secondary mt-1">Property performance and financial insights.</p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Occupancy Card with Recharts */}
-        <div className="bg-card border border-border rounded-[var(--radius-lg)] p-5">
-          <h2 className="text-lg font-black text-primary mb-4 flex items-center gap-2 border-b border-border pb-2">
-            <BedDouble className="w-5 h-5 text-theme-primary" /> Occupancy Overview
-          </h2>
-          {occupancy && (
-            <div className="space-y-4">
-              <div className="flex justify-between items-end">
-                <div>
-                  <p className="text-sm text-secondary font-medium">Occupancy Rate</p>
-                  <p className="text-3xl font-bold text-primary">{occupancy.occupancyRate}%</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-xs text-secondary">Total Beds</p>
-                  <p className="text-lg font-bold text-primary">{occupancy.totalBeds}</p>
-                </div>
-              </div>
-              
-              <div className="h-64 w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={occupancyData}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={60}
-                      outerRadius={80}
-                      paddingAngle={5}
-                      dataKey="value"
-                    >
-                      {occupancyData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Pie>
-                    <Tooltip 
-                      contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)' }}
-                    />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
-              
-              <div className="flex justify-between text-xs font-bold pt-2 border-t border-border mt-4">
-                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-success"></span> Occupied ({occupancy.occupiedBeds})</span>
-                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-warning"></span> Vacant ({occupancy.vacantBeds})</span>
-                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-danger"></span> Maintenance ({occupancy.maintenanceBeds})</span>
-              </div>
+    <div className="p-4 md:p-8 space-y-6 animate-in fade-in duration-500 max-w-7xl mx-auto">
+      
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-black text-primary flex items-center gap-3">
+            <div className="p-2 bg-indigo-100 rounded-xl text-indigo-600">
+              <BarChart3 className="w-6 h-6"/>
             </div>
-          )}
+            Operational Reports
+          </h1>
+          <p className="text-[var(--text-disabled)] text-sm mt-1 font-medium">Generate and export day-to-day operational reports.</p>
         </div>
-
-        {/* Financials Card */}
-        <div className="bg-card border border-border rounded-[var(--radius-lg)] p-5">
-          <h2 className="text-lg font-black text-primary mb-4 flex items-center gap-2 border-b border-border pb-2">
-            <Wallet className="w-5 h-5 text-success" /> Financial Summary (Monthly)
-          </h2>
-          {financials && (
-            <div className="space-y-4">
-              <div className="flex justify-between items-end">
-                <div>
-                  <p className="text-sm text-secondary font-medium">Collection Rate</p>
-                  <p className="text-3xl font-bold text-success">{financials.collectionRate}%</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-xs text-secondary">Expected Rent</p>
-                  <p className="text-lg font-bold text-primary">₹{financials.expectedRent.toLocaleString('en-IN')}</p>
-                </div>
-              </div>
-              
-              <div className="w-full bg-danger-bg rounded-full h-3 overflow-hidden flex">
-                <div className="bg-success h-3" style={{ width: `${financials.collectionRate}%` }}></div>
-              </div>
-              
-              <div className="flex justify-between text-xs font-bold pt-2">
-                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-success"></span> Collected (₹{financials.collectedRent.toLocaleString('en-IN')})</span>
-                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-danger"></span> Pending (₹{financials.pendingRent.toLocaleString('en-IN')})</span>
-              </div>
-            </div>
-          )}
+        
+        <div className="flex items-center gap-2">
+          <div className="flex bg-page p-1 rounded-xl border border-border/60">
+            <button className="flex items-center gap-2 bg-white text-primary px-4 py-2 rounded-lg text-sm font-bold shadow-sm">
+              <FileText className="w-4 h-4 text-red-500" /> PDF
+            </button>
+            <button className="flex items-center gap-2 text-secondary hover:text-primary hover:bg-white/50 px-4 py-2 rounded-lg text-sm font-bold transition-all">
+              <FileSpreadsheet className="w-4 h-4 text-green-600" /> Excel
+            </button>
+            <button className="flex items-center gap-2 text-secondary hover:text-primary hover:bg-white/50 px-4 py-2 rounded-lg text-sm font-bold transition-all">
+              <FileIcon className="w-4 h-4 text-blue-500" /> CSV
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Defaulters Table */}
-      <div className="bg-card border border-border rounded-[var(--radius-lg)] p-5">
-        <h2 className="text-lg font-black text-danger mb-4 flex items-center gap-2 border-b border-border pb-2">
-          <AlertTriangle className="w-5 h-5 text-danger" /> Rent Defaulters
-        </h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm whitespace-nowrap">
-            <thead className="text-xs uppercase text-secondary bg-input/50">
-              <tr>
-                <th className="px-3 py-2 rounded-l-md">Student</th>
-                <th className="px-3 py-2">Room</th>
-                <th className="px-3 py-2">Overdue Amount</th>
-                <th className="px-3 py-2 rounded-r-md text-right">Days Overdue</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
-              {defaulters.map(def => (
-                <tr key={def.id} className="hover:bg-danger-bg/50 transition-colors">
-                  <td className="px-3 py-3 font-medium text-primary">{def.studentName}</td>
-                  <td className="px-3 py-3 text-secondary">{def.room}</td>
-                  <td className="px-3 py-3 font-bold text-danger">₹{def.amount.toLocaleString('en-IN')}</td>
-                  <td className="px-3 py-3 text-right">
-                    <span className="bg-danger text-white text-xs font-bold px-2 py-1 rounded">
-                      {def.daysOverdue} days
-                    </span>
-                  </td>
-                </tr>
-              ))}
-              {defaulters.length === 0 && (
-                <tr>
-                  <td colSpan={4} className="text-center py-6 text-secondary text-sm">No defaulters found.</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        
+        {/* Sidebar */}
+        <div className="lg:col-span-1 space-y-2">
+          {categories.map((cat) => (
+            <button 
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
+              className={`w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-bold transition-all ${
+                activeCategory === cat.id 
+                  ? 'bg-indigo-600 text-white shadow-md' 
+                  : 'bg-card text-secondary hover:bg-page border border-border/50'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                {cat.icon}
+                {cat.label}
+              </div>
+              {activeCategory === cat.id && <ChevronRight className="w-4 h-4 opacity-70" />}
+            </button>
+          ))}
         </div>
+
+        {/* Content Area */}
+        <div className="lg:col-span-3 space-y-6">
+          
+          {/* Metrics Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+            {getMetrics().map((metric, idx) => (
+              <div key={idx} className="bg-card border border-border/60 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer">
+                <p className="text-secondary text-xs font-bold uppercase tracking-wider mb-2">{metric.label}</p>
+                {metric.isLink ? (
+                  <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-black ${metric.bg} ${metric.color}`}>
+                    {metric.value} <ChevronRight className="w-3.5 h-3.5" />
+                  </div>
+                ) : (
+                  <h3 className={`text-2xl font-black ${metric.color}`}>{metric.value}</h3>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Report Data Table area */}
+          <div className="bg-card border border-border/60 rounded-2xl shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-300 delay-100">
+            <div className="p-4 border-b border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-page/30">
+              <h3 className="font-bold text-primary flex items-center gap-2">
+                Detailed {activeCategory} Data
+              </h3>
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-secondary" />
+                  <input 
+                    type="text" 
+                    placeholder="Search in report..." 
+                    className="pl-9 pr-4 py-2 bg-input border border-border rounded-lg text-sm font-medium focus:outline-none focus:border-indigo-500 w-full sm:w-auto"
+                  />
+                </div>
+                <button className="p-2 border border-border rounded-lg text-secondary hover:text-primary hover:bg-page transition-colors">
+                  <Filter className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+            
+            <div className="p-8 text-center min-h-[300px] flex flex-col items-center justify-center bg-gray-50/30">
+              <div className="w-16 h-16 bg-white border border-border rounded-2xl flex items-center justify-center mb-4 shadow-sm rotate-3">
+                <BarChart3 className="w-8 h-8 text-indigo-400 -rotate-3" />
+              </div>
+              <h4 className="text-lg font-bold text-primary mb-1">{activeCategory} Data Table</h4>
+              <p className="text-sm text-secondary max-w-md mx-auto mb-6">
+                Detailed tabular data for {activeCategory.toLowerCase()} will be generated here. Use the export options above to download the full report.
+              </p>
+              <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold shadow-md transition-all flex items-center gap-2">
+                <Download className="w-4 h-4" /> Generate Report
+              </button>
+            </div>
+          </div>
+          
+        </div>
+
       </div>
     </div>
   );

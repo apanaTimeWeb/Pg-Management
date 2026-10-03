@@ -1,9 +1,7 @@
 'use client';
 
 import React from 'react';
-import { 
-  IndianRupee, Download, Edit3, Plus, Search, Info, IndianRupee, MapPin, Phone, Mail, Calendar, UploadCloud, CreditCard, Bed, FileText
-} from 'lucide-react';
+import { IndianRupee, Download, Edit3, Plus, Search, Info, MapPin, Phone, Mail, Calendar, UploadCloud, CreditCard, Bed, FileText } from 'lucide-react';
 
 export default function StudentRentDuesPage() {
   

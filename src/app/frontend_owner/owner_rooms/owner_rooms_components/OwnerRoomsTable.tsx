@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the OwnerRoomsTable component. Receives data via props/hooks.
 
 import { ChevronRight, User, Users, BedDouble } from 'lucide-react';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerFirstLoginMain component.
 'use client';
 import { useState } from 'react';

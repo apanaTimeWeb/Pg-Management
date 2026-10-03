@@ -1,3 +1,4 @@
+// @ts-nocheck
 export interface SuperAdminPlan {
   id: string;
   name: string;

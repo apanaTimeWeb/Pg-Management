@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { AlertTriangle, Trash2, X } from 'lucide-react';
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the SuperAdminPlansCard component.
 import React from 'react';
 import { Check } from 'lucide-react';

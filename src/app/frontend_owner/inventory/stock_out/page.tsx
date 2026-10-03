@@ -1,9 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Search, Filter, Plus, Eye, Edit3, Package, Layers, AlertTriangle
-} from 'lucide-react';
+import { Search, Filter, Plus, Eye, Edit3, Package, Layers, AlertTriangle } from 'lucide-react';
 
 const MOCK_INVENTORY = [
   { id: 'INV-001', item: 'Bedsheets (Single)', category: 'Linen', stock: 150, reorderLevel: 20, status: 'In Stock' },

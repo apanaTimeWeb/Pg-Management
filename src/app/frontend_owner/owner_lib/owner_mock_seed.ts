@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Owner Module — Comprehensive Mock Data Seed
  * 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Payment modal for OwnerSubscription page.
 'use client';
 

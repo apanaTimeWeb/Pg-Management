@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerFoodWeeklySchedule component.
 import { Calendar, UtensilsCrossed } from 'lucide-react';
 

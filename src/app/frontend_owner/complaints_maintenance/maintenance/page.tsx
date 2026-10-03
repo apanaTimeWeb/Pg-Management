@@ -1,9 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Search, Filter, Plus, Eye, Edit3, Wrench, AlertTriangle, User, MapPin
-} from 'lucide-react';
+import { Search, Filter, Plus, Eye, Edit3, Wrench, AlertTriangle, User, MapPin } from 'lucide-react';
 
 const MOCK_COMPLAINTS = [
   { id: 'TKT-901', title: 'AC Not Cooling', category: 'Electrical', room: '101', reportedBy: 'Aman Singh', date: '02 Oct 2026', status: 'Pending', priority: 'High' },

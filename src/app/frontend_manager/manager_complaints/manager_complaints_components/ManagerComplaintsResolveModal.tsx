@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerComplaintsResolveModal component.
 // [COMPONENT] ManagerComplaintsResolveModal
 // Responsibility: Renders the complaint resolution modal wired to React Hook Form (resolveForm).

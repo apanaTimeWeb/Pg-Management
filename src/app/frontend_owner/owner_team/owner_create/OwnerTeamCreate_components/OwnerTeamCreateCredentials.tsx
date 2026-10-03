@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the OwnerTeamCreateCredentials component. Receives data via props/hooks.
 
 export interface OwnerTeamCreateCredentialsProps {

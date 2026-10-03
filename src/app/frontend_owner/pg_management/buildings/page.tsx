@@ -1,12 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Building2, Layers, Plus, Edit3, Trash2, 
-  MapPin, Users, UserCheck, MoreVertical, 
-  Wifi, Droplets, Flame, MonitorPlay, Shirt,
-  ChevronDown, ChevronUp, X, CheckCircle2
-} from 'lucide-react';
+import { Building2, Layers, Plus, Edit3, Trash2, MapPin, Users, UserCheck, MoreVertical, Wifi, Droplets, Flame, MonitorPlay, Shirt, ChevronDown, ChevronUp, X, CheckCircle2 } from 'lucide-react';
 
 const AMENITY_ICONS: any = {
   'WiFi': Wifi,

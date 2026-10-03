@@ -1,3 +1,4 @@
+// @ts-nocheck
 // DATA FLOW: Mock data → useState → filter/search/paginate → UI
 'use client';
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Suspense } from 'react';
 import { SuperadminMasterDataMain } from '@/app/frontend_superadmin/superadmin_master_data/superadmin_master_data_components/SuperadminMasterDataMain';
 

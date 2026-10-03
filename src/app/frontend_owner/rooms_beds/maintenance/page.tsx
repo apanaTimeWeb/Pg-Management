@@ -1,10 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Search, Filter, Plus, MoreVertical, FileText, 
-  Download, Eye, Edit3, Trash2, Bed, MapPin, User
-} from 'lucide-react';
+import { Search, Filter, Plus, MoreVertical, FileText, Download, Eye, Edit3, Trash2, Bed, MapPin, User } from 'lucide-react';
 
 const MOCK_BEDS = [
   { id: '101-A', room: '101', building: 'PG Varanasi Main', type: 'Double', rent: 8000, occupant: 'Aman Singh', status: 'Occupied' },

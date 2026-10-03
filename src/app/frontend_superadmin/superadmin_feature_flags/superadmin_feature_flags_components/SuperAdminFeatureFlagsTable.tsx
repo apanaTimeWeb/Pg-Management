@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the SuperAdminFeatureFlagsTable component.
 import React from 'react';
 

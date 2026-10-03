@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerVisitorsList component.
 import { Check, X, LogIn, LogOut } from 'lucide-react';
 

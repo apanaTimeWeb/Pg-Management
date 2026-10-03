@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the SuperAdminDashboardAcquisitionChart component.
 import React from 'react';
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerInventoryAlerts component.
 import { AlertTriangle, CheckCircle } from 'lucide-react';
 

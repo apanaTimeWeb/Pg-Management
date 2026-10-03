@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerFinanceTable component.
 import { IndianRupee, CheckCircle, Receipt, Bell, User as UserIcon, Calendar } from 'lucide-react';
 

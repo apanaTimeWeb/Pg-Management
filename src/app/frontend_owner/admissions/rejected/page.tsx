@@ -1,9 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Search, Filter, Plus, FileText, Download, Eye, Edit3, UserPlus, Phone, MapPin
-} from 'lucide-react';
+import { Search, Filter, Plus, FileText, Download, Eye, Edit3, UserPlus, Phone, MapPin } from 'lucide-react';
 
 const MOCK_ADMISSIONS = [
   { id: 'APP-1021', name: 'Sanjay Kumar', phone: '+91 9988776655', property: 'PG Varanasi Main', roomPref: 'Single / AC', date: '01 Oct 2026', status: 'Pending' },

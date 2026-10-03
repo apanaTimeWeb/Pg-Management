@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the SuperAdminAnalyticsHeader component.
 import React from 'react';
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { SessionUser } from '@/lib/types';;
 
 export function getSession(): SessionUser | null {

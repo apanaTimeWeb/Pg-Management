@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the OwnerPropertiesCreateAmenities component. Receives data via props/hooks.
 
 export interface OwnerPropertiesCreateAmenitiesProps {

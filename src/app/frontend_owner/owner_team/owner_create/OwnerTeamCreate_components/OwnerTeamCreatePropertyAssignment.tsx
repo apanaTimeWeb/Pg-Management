@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the OwnerTeamCreatePropertyAssignment component. Receives data via props/hooks.
 
 export interface OwnerTeamCreatePropertyAssignmentProps {

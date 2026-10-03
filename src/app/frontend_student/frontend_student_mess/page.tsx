@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { 
-  Utensils, Download, Edit3, Plus, Search, Info, MessageSquareWarning, CalendarOff, Utensils, AlertCircle, CheckCircle2
+  Utensils, Download, Edit3, Plus, Search, Info, MessageSquareWarning, CalendarOff, AlertCircle, CheckCircle2
 } from 'lucide-react';
 
 export default function StudentMessFoodPage() {

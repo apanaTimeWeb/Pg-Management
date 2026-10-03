@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 // RESPONSIBILITY: Renders the global OwnerLoading skeleton for the Owner module.

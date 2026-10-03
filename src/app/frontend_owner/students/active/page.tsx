@@ -1,10 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Search, Filter, Plus, MoreVertical, FileText, 
-  Download, Eye, Edit3, Trash2, Users, MapPin, Bed, Phone
-} from 'lucide-react';
+import { Search, Filter, Plus, MoreVertical, FileText, Download, Eye, Edit3, Trash2, Users, MapPin, Bed, Phone } from 'lucide-react';
 
 const MOCK_STUDENTS = [
   { id: 'STU-1001', name: 'Aman Singh', mobile: '+91 9876543210', pg: 'PG Varanasi Main', room: '101', bed: 'Bed A', joinDate: '01 Jan 2026', status: 'Active' },

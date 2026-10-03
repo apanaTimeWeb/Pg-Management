@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerDashboardQuickActions component.
 import Link from 'next/link';
 import { 

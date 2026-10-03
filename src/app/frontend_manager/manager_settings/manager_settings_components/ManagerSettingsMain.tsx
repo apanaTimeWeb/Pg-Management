@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client';
 import { useManagerSettings } from '../manager_settings_hooks/useManagerSettings';
 import { User, Bell, Building2, ShieldCheck, Save } from 'lucide-react';

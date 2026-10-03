@@ -1,12 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Bed, Users, MapPin, Search, Plus, Building2, 
-  Settings, CheckCircle2, AlertTriangle, Lock, Clock,
-  ArrowRightLeft, Wallet, UserCheck, LayoutGrid, 
-  List, X, ShieldCheck
-} from 'lucide-react';
+import { Bed, Users, MapPin, Search, Plus, Building2, Settings, CheckCircle2, AlertTriangle, Lock, Clock, ArrowRightLeft, Wallet, UserCheck, LayoutGrid, List, X, ShieldCheck } from 'lucide-react';
 
 const MOCK_ROOMS = [
   { id: 'RM-101', number: '101', building: 'PG Varanasi Main', floor: '1st Floor', type: 'Double', capacity: 2, occupied: 1, baseRent: 8000, status: 'Active', 

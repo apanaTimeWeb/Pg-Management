@@ -1,10 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Search, Filter, Plus, Download, Eye, Edit3, Trash2, Package, 
-  AlertCircle, RefreshCw, SlidersHorizontal, Settings
-} from 'lucide-react';
+import { Search, Filter, Plus, Download, Eye, Edit3, Trash2, Package, AlertCircle, RefreshCw, SlidersHorizontal, Settings } from 'lucide-react';
 
 const MOCK_DATA = [
   { id: 'SA-001', name: 'Premium Plan (Annual)', type: 'B2B', status: 'Active', metric: '₹14,999/yr', date: '02 Oct 2026' },

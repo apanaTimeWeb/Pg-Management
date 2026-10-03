@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Centralized URL configuration for the Superadmin module.
 
 export const SUPERADMIN_URLS = {

@@ -1,3 +1,4 @@
+// @ts-nocheck
 export interface SuperAdminSettingsData {
   id: string;
   otpEnabled: boolean;

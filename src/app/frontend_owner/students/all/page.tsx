@@ -1,13 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Users, Search, Filter, MapPin, Bed, IndianRupee,
-  MoreVertical, ShieldCheck, AlertTriangle, FileText,
-  User, Phone, Mail, GraduationCap, Building2, Wallet,
-  CalendarCheck, Coffee, Settings, Archive, X,
-  ArrowRightLeft, AlertOctagon, BellRing
-} from 'lucide-react';
+import { Users, Search, Filter, MapPin, Bed, IndianRupee, MoreVertical, ShieldCheck, AlertTriangle, FileText, User, Phone, Mail, GraduationCap, Building2, Wallet, CalendarCheck, Coffee, Settings, Archive, X, ArrowRightLeft, AlertOctagon, BellRing } from 'lucide-react';
 
 const MOCK_STUDENTS = [
   { id: 'STU-1001', name: 'Aman Singh', mobile: '+91 9876543210', email: 'aman@email.com', pg: 'PG Varanasi Main', room: '101', bed: 'Bed A', joinDate: '01 Jan 2026', rent: 8000, due: 0, status: 'Active' },

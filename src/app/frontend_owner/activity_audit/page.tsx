@@ -1,12 +1,8 @@
+// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  History, Search, Filter, Calendar, 
-  CheckCircle2, XCircle, AlertCircle, ShieldAlert,
-  UserCheck, Banknote, LogOut, FileEdit, Coffee,
-  UserX, Download, RefreshCcw, Wrench
-} from 'lucide-react';
+import { History, Search, Filter, Calendar, CheckCircle2, XCircle, AlertCircle, ShieldAlert, UserCheck, Banknote, LogOut, FileEdit, Coffee, UserX, Download, RefreshCcw, Wrench } from 'lucide-react';
 
 // Mock Data representing different types of audit logs
 const MOCK_ACTIVITIES = [

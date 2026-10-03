@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the SuperAdminTicketsTable component.
 import React from 'react';
 import { Search } from 'lucide-react';

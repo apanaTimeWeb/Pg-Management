@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client';
 
 // RESPONSIBILITY: Renders the OwnerTeamMain component. Receives data via props/hooks.

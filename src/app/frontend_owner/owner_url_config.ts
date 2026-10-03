@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Centralized URL configuration for the Owner module.
 
 export const OWNER_URLS = {

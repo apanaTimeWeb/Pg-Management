@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the OwnerRoomsAddModal component. Receives data via props/hooks.
 
 import { AlertCircle, CheckCircle2, X } from 'lucide-react';

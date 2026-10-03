@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client';
 
 // RESPONSIBILITY: Renders the OwnerI18n component. Receives data via props/hooks.

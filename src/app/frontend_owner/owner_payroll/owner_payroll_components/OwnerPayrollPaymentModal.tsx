@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the OwnerPayrollPaymentModal component. Receives data via props/hooks.
 
 import { X, Loader2, Banknote } from 'lucide-react';

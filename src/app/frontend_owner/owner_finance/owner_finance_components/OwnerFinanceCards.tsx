@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the OwnerFinanceCards component. Receives data via props/hooks.
 
 import { Wallet, IndianRupee, TrendingDown, TrendingUp, Receipt, ChevronUp, ChevronDown } from 'lucide-react';

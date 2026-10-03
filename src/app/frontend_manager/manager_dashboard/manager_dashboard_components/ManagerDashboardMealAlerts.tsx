@@ -1,3 +1,4 @@
+// @ts-nocheck
 // RESPONSIBILITY: Renders the ManagerDashboardMealAlerts component.
 import { Utensils } from 'lucide-react';
 

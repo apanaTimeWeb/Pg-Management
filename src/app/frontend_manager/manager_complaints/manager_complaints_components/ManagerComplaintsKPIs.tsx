@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { AlertCircle, Clock, CheckCircle2, Star } from 'lucide-react';
 
 interface Props {

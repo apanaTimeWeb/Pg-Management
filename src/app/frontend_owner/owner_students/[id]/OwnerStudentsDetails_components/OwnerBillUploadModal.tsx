@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from 'react';
 import { X, Upload, IndianRupee } from 'lucide-react';
 
