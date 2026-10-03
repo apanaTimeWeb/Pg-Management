@@ -1,61 +1,9 @@
-'use client';
+import { SuperadminSupportHelpdeskMain } from '@/app/superadmin/SuperAdmin_components/SuperadminSupportHelpdeskMain';
 
-import React from 'react';
-
-import { SuperAdminTicketsHeader } from '@/app/superadmin/tickets/SuperAdminTickets_components/SuperAdminTicketsHeader';
-import { SuperAdminTicketsTable } from '@/app/superadmin/tickets/SuperAdminTickets_components/SuperAdminTicketsTable';
-import { SuperAdminTicketsCreateModal } from '@/app/superadmin/tickets/SuperAdminTickets_components/SuperAdminTicketsCreateModal';
-import { SuperadminUseSuperAdminTicketsData } from '@/app/superadmin/tickets/SuperAdminTickets_hooks/SuperadminUseSuperAdminTicketsData';
-import { SuperadminUseSuperAdminTicketsActions } from '@/app/superadmin/tickets/SuperAdminTickets_hooks/SuperadminUseSuperAdminTicketsActions';
+export const metadata = {
+  title: 'Support & Helpdesk | SuperAdmin',
+};
 
 export default function TicketsPage() {
-  const {
-    tickets,
-    owners,
-    loading,
-    search,
-    setSearch,
-    currentPage,
-    totalPages,
-    setCurrentPage,
-    refetch
-  } = SuperadminUseSuperAdminTicketsData();
-
-  const {
-    createModal,
-    setCreateModal,
-    formData,
-    setFormData,
-    handleCreate,
-    handleStatusChange
-  } = SuperadminUseSuperAdminTicketsActions(refetch);
-
-  return (
-    <div className="space-y-6 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <SuperAdminTicketsHeader onCreateClick={() => setCreateModal(true)} />
-      
-      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl shadow-sm overflow-hidden">
-        <SuperAdminTicketsTable 
-        tickets={tickets}
-        owners={owners}
-        loading={loading}
-        search={search}
-        setSearch={setSearch}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={setCurrentPage}
-        onStatusChange={handleStatusChange}
-      />
-      </div>
-
-      <SuperAdminTicketsCreateModal 
-        isOpen={createModal}
-        onClose={() => setCreateModal(false)}
-        owners={owners}
-        formData={formData}
-        setFormData={setFormData}
-        onSubmit={handleCreate}
-      />
-    </div>
-  );
+  return <SuperadminSupportHelpdeskMain />;
 }

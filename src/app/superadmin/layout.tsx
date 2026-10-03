@@ -47,7 +47,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
       items: [
         { key: 'plans', name: 'Plans', href: '/superadmin/plans', icon: Package },
         { key: 'analytics', name: 'Reports & Analytics', href: '/superadmin/analytics', icon: BarChart3 },
-        { key: 'tickets', name: 'Support / Tickets', href: '/superadmin/tickets', icon: Ticket },
+        { key: 'tickets', name: 'Support & Helpdesk', href: '/superadmin/tickets', icon: Ticket },
         { key: 'auditLogs', name: 'Audit & Security', href: '/superadmin/audit-logs', icon: ShieldCheck },
         { key: 'featureFlags', name: 'Feature Flags', href: '/superadmin/feature-flags', icon: ToggleLeft },
         { key: 'settings', name: 'Settings', href: '/superadmin/settings', icon: Settings },
