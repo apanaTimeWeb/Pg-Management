@@ -7,7 +7,14 @@ import { SuperadminMasterDataFormModal } from './SuperadminMasterDataFormModal';
 import { SuperadminMasterDataDeleteModal } from './SuperadminMasterDataDeleteModal';
 
 export function SuperadminMasterDataMain() {
-  const [activeMaster, setActiveMaster] = useState('pgTypes');
+  const searchParams = useSearchParams();
+  const tabQuery = searchParams.get('tab');
+  const [activeMaster, setActiveMaster] = useState(tabQuery || 'pgTypes');
+  
+  useEffect(() => {
+    setActiveMaster(tabQuery || 'pgTypes');
+  }, [tabQuery]);
+
   const [searchTerm, setSearchTerm] = useState('');
 
   // Modals state
@@ -114,33 +121,9 @@ export function SuperadminMasterDataMain() {
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6 h-[700px]">
-        {/* Sidebar */}
-        <div className="w-full lg:w-72 shrink-0 bg-card border border-border/50 rounded-3xl p-4 shadow-sm flex flex-col h-full overflow-hidden">
-          <div className="relative mb-4">
-            <Search className="w-4 h-4 text-secondary absolute left-3 top-1/2 -translate-y-1/2" />
-            <input type="text" placeholder="Search masters..." className="w-full pl-9 pr-4 py-2 bg-bg-page border border-border/50 rounded-xl text-sm focus:ring-2 focus:ring-theme-primary font-medium" />
-          </div>
-          <div className="flex-1 overflow-y-auto space-y-1 pr-2 scrollbar-hide">
-            {masterList.map((master) => (
-              <button
-                key={master.id}
-                onClick={() => { setActiveMaster(master.id); setSearchTerm(''); }}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-all ${
-                  activeMaster === master.id 
-                    ? 'bg-primary-subtle text-theme-primary shadow-sm border border-theme-primary/20' 
-                    : 'text-secondary hover:bg-bg-page hover:text-primary border border-transparent'
-                }`}
-              >
-                <master.icon className={`w-4 h-4 ${activeMaster === master.id ? 'text-theme-primary' : master.color}`} />
-                {master.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
+      <div className="flex h-[700px]">
         {/* Data Table */}
-        <div className="flex-1 bg-card border border-border/50 rounded-3xl shadow-sm flex flex-col h-full overflow-hidden relative">
+        <div className="flex-1 w-full bg-card border border-border/50 rounded-3xl shadow-sm flex flex-col h-full overflow-hidden relative">
           <div className="p-6 border-b border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-bg-page/50 z-10">
             <div className="flex items-center gap-3">
                <div className="p-2 rounded-xl bg-primary-subtle text-theme-primary"><ActiveIcon className="w-6 h-6" /></div>

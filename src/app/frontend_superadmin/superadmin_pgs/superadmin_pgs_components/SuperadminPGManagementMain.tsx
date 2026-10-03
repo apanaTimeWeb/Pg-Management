@@ -10,7 +10,7 @@ export function SuperadminPGManagementMain() {
   const [activeTab, setActiveTab] = useState(tabQuery || 'all');
 
   useEffect(() => {
-    if (tabQuery) setActiveTab(tabQuery);
+    setActiveTab(tabQuery || 'all');
   }, [tabQuery]);
   const [selectedPG, setSelectedPG] = useState<any | null>(null);
   const [formStep, setFormStep] = useState(1);

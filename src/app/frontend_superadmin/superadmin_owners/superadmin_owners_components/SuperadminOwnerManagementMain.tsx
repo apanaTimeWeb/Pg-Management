@@ -10,7 +10,7 @@ export function SuperadminOwnerManagementMain() {
   const [activeTab, setActiveTab] = useState(tabQuery || 'all');
 
   useEffect(() => {
-    if (tabQuery) setActiveTab(tabQuery);
+    setActiveTab(tabQuery || 'all');
   }, [tabQuery]);
   const [selectedOwner, setSelectedOwner] = useState<any | null>(null);
 
@@ -58,32 +58,10 @@ export function SuperadminOwnerManagementMain() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 min-h-[700px]">
+      <div className="flex min-h-[700px]">
         
-        {/* Sidebar Navigation */}
-        <div className="bg-card border border-border/50 rounded-3xl p-4 shadow-sm h-fit">
-          <div className="space-y-2">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => { setActiveTab(tab.id); setSelectedOwner(null); }}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-bold transition-all ${
-                  activeTab === tab.id 
-                    ? 'bg-primary-subtle text-theme-primary shadow-sm' 
-                    : 'text-secondary hover:bg-bg-page hover:text-primary'
-                }`}
-              >
-                <div className={`p-1.5 rounded-lg ${activeTab === tab.id ? tab.bg : 'bg-transparent'}`}>
-                  <tab.icon className={`w-5 h-5 ${activeTab === tab.id ? 'text-theme-primary' : tab.color}`} />
-                </div>
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
         {/* Tab Content Area */}
-        <div className="lg:col-span-3 space-y-6">
+        <div className="w-full flex-1 space-y-6">
           
           {/* ALL ADMINS TAB */}
           {activeTab === 'all' && !selectedOwner && (

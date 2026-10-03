@@ -10,7 +10,7 @@ export function SuperadminBillingPaymentsMain() {
   const [activeTab, setActiveTab] = useState(tabQuery || 'invoices');
 
   useEffect(() => {
-    if (tabQuery) setActiveTab(tabQuery);
+    setActiveTab(tabQuery || 'invoices');
   }, [tabQuery]);
   const [selectedInvoice, setSelectedInvoice] = useState<any | null>(null);
   const [selectedRefund, setSelectedRefund] = useState<any | null>(null);
@@ -66,33 +66,10 @@ export function SuperadminBillingPaymentsMain() {
       </div>
 
       {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 h-[800px]">
+      <div className="flex h-[800px]">
         
-        {/* Sidebar Navigation */}
-        <div className="w-full lg:col-span-1 bg-card border border-border/50 rounded-3xl p-4 shadow-sm flex flex-col h-full overflow-hidden">
-          <h3 className="text-xs font-bold text-secondary uppercase tracking-wider mb-4 px-2">Billing Sections</h3>
-          <div className="flex-1 overflow-y-auto space-y-2 pr-2 scrollbar-hide">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => { setActiveTab(tab.id); setSelectedInvoice(null); setSelectedRefund(null); }}
-                className={`w-full flex items-center gap-3 px-3 py-3 rounded-2xl text-sm font-bold transition-all ${
-                  activeTab === tab.id 
-                    ? 'bg-primary-subtle text-theme-primary shadow-sm border border-theme-primary/20' 
-                    : 'text-secondary hover:bg-bg-page hover:text-primary border border-transparent'
-                }`}
-              >
-                <div className={`p-1.5 rounded-lg ${activeTab === tab.id ? tab.bg : 'bg-transparent'}`}>
-                  <tab.icon className={`w-5 h-5 ${activeTab === tab.id ? 'text-theme-primary' : tab.color}`} />
-                </div>
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
         {/* Dynamic Content Area */}
-        <div className="w-full lg:col-span-4 bg-card border border-border/50 rounded-3xl shadow-sm flex flex-col h-full overflow-hidden animate-in fade-in slide-in-from-right-8 duration-500 relative">
+        <div className="w-full flex-1 bg-card border border-border/50 rounded-3xl shadow-sm flex flex-col h-full overflow-hidden animate-in fade-in slide-in-from-right-8 duration-500 relative">
           
           {/* INVOICES SECTION */}
           {activeTab === 'invoices' && !selectedInvoice && (
