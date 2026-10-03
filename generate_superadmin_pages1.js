@@ -1,8 +1,19 @@
-'use client';
+const fs = require('fs');
+const path = require('path');
+
+// Target directories for SuperAdmin pages
+const superAdminPages = [
+  { path: 'src/app/frontend_superadmin/superadmin_analytics/page.tsx', title: 'Intelligence & Analytics', icon: 'BarChart3', desc: 'System-wide analytics and platform performance metrics.' },
+  { path: 'src/app/frontend_superadmin/superadmin_pgs/page.tsx', title: 'Property Portfolio', icon: 'Building2', desc: 'Manage onboarded PGs, suspended accounts, and onboarding queue.' },
+  { path: 'src/app/frontend_superadmin/superadmin_owners/page.tsx', title: 'Access & Roles', icon: 'Shield', desc: 'Manage PG owners, RBAC roles, and approval queues.' },
+  { path: 'src/app/frontend_superadmin/superadmin_users/page.tsx', title: 'Identity Management', icon: 'Users', desc: 'Platform-wide user directory (Tenants, Staff, Managers).' }
+];
+
+const generateSuperAdminTemplate = (title, icon, desc) => `\'use client\';
 
 import React, { useState } from 'react';
 import { 
-  Search, Filter, Plus, Download, Eye, Edit3, Trash2, Shield, 
+  Search, Filter, Plus, Download, Eye, Edit3, Trash2, ${icon}, 
   CheckCircle2, XCircle, AlertCircle, RefreshCw, SlidersHorizontal
 } from 'lucide-react';
 
@@ -13,7 +24,7 @@ const MOCK_DATA = [
   { id: 'REC-003', name: 'Gamma Co-Living', type: 'Premium', status: 'Suspended', date: '10 Sep 2026', owner: 'Vikram Patel' },
 ];
 
-export default function SuperAdminAccessRolesPage() {
+export default function SuperAdmin${title.replace(/[^a-zA-Z0-9]/g, '')}Page() {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('All Records');
 
@@ -39,11 +50,11 @@ export default function SuperAdminAccessRolesPage() {
         <div>
           <h1 className="text-3xl font-black text-primary flex items-center gap-3">
             <div className="p-2 bg-blue-100 rounded-lg text-blue-600">
-              <Shield className="w-7 h-7"/>
+              <${icon} className="w-7 h-7"/>
             </div>
-            Access & Roles
+            ${title}
           </h1>
-          <p className="text-[var(--text-disabled)] text-sm mt-2 font-medium">Manage PG owners, RBAC roles, and approval queues.</p>
+          <p className="text-[var(--text-disabled)] text-sm mt-2 font-medium">${desc}</p>
         </div>
         
         <div className="flex items-center gap-3">
@@ -62,11 +73,11 @@ export default function SuperAdminAccessRolesPage() {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-5 py-3 text-sm font-bold transition-all relative ${
+            className={\`px-5 py-3 text-sm font-bold transition-all relative \${
               activeTab === tab 
               ? 'text-blue-600' 
               : 'text-secondary hover:text-primary'
-            }`}
+            }\`}
           >
             {tab}
             {activeTab === tab && (
@@ -129,7 +140,7 @@ export default function SuperAdminAccessRolesPage() {
                   </td>
                   <td className="p-5 text-sm font-medium text-secondary">{item.date}</td>
                   <td className="p-5">
-                    <span className={`px-3 py-1 border rounded-lg text-[11px] font-black uppercase tracking-wide ${getStatusBadge(item.status)}`}>
+                    <span className={\`px-3 py-1 border rounded-lg text-[11px] font-black uppercase tracking-wide \${getStatusBadge(item.status)}\`}>
                       {item.status}
                     </span>
                   </td>
@@ -156,3 +167,15 @@ export default function SuperAdminAccessRolesPage() {
     </div>
   );
 }
+`;
+
+superAdminPages.forEach(page => {
+  const absolutePath = path.join(__dirname, page.path);
+  const dirPath = path.dirname(absolutePath);
+  
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+  }
+
+  fs.writeFileSync(absolutePath, generateSuperAdminTemplate(page.title, page.icon, page.desc), 'utf8');
+});
