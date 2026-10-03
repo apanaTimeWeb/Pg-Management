@@ -51,7 +51,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
         { key: 'communication', name: 'Communication', href: '/superadmin/communication', icon: MessageSquare },
         { key: 'auditLogs', name: 'Audit & Security', href: '/superadmin/audit-logs', icon: ShieldCheck },
         { key: 'featureFlags', name: 'Feature Flags', href: '/superadmin/feature-flags', icon: ToggleLeft },
-        { key: 'settings', name: 'Settings', href: '/superadmin/settings', icon: Settings },
+        { key: 'settings', name: 'Global Config', href: '/superadmin/settings', icon: Settings },
         { key: 'masterData', name: 'Master Data', href: '/superadmin/master-data', icon: Database },
         { key: 'systemManagement', name: 'System Mgmt', href: '/superadmin/system-management', icon: Server },
         { key: 'dataManagement', name: 'Data Management', href: '/superadmin/data-management', icon: Database },
