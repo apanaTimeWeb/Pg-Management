@@ -121,10 +121,10 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
           )})}
           
           <div className="pt-4 mt-4 border-t border-border space-y-2">
-            <Link href="/frontend_student/notices" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 rounded-md text-secondary hover:bg-input hover:text-primary text-sm font-medium">
+            <Link href="/frontend_student/student_notices" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 rounded-md text-secondary hover:bg-input hover:text-primary text-sm font-medium">
               <Bell className="w-5 h-5"/> Notices
             </Link>
-            <Link href="/frontend_student/feedback" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 rounded-md text-secondary hover:bg-input hover:text-primary text-sm font-medium">
+            <Link href="/frontend_student/student_feedback" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 rounded-md text-secondary hover:bg-input hover:text-primary text-sm font-medium">
               <Star className="w-5 h-5"/> Feedback
             </Link>
           </div>
@@ -187,7 +187,7 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Global Floating Emergency SOS */}
-      <Link href="/frontend_student/sos" className="fixed bottom-24 md:bottom-8 right-4 md:right-8 z-50 w-14 h-14 bg-danger text-white rounded-full flex items-center justify-center shadow-lg shadow-danger/30 border-2 border-white hover:bg-danger-hover motion-safe:transition-transform hover:scale-105 active:scale-95 group">
+      <Link href="/frontend_student/student_sos" className="fixed bottom-24 md:bottom-8 right-4 md:right-8 z-50 w-14 h-14 bg-danger text-white rounded-full flex items-center justify-center shadow-lg shadow-danger/30 border-2 border-white hover:bg-danger-hover motion-safe:transition-transform hover:scale-105 active:scale-95 group">
         <ShieldAlert className="w-6 h-6 group-hover:animate-pulse" />
       </Link>
     </div>

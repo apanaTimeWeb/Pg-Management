@@ -39,7 +39,7 @@ export function StudentHeader() {
           </button>
         </div>
 
-        <Link href="/frontend_student/notices" className="relative p-2 text-secondary hover:bg-input rounded-full motion-safe:transition-colors">
+        <Link href="/frontend_student/student_notices" className="relative p-2 text-secondary hover:bg-input rounded-full motion-safe:transition-colors">
           <Bell className="w-5 h-5" />
           <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-danger rounded-full border border-bg-page"></span>
         </Link>

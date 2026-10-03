@@ -13,7 +13,7 @@ export default function StaffNotFound() {
         The page you are looking for does not exist in the Staff portal.
       </p>
       <Link 
-        href="/frontend_staff/dashboard" 
+        href="/frontend_staff/staff_dashboard" 
         className="bg-primary text-white px-6 py-2.5 rounded-md font-medium hover:bg-primary-hover motion-safe:transition-colors"
       >
         Return to Dashboard

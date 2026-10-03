@@ -38,13 +38,13 @@ export function StudentNav() {
             );
           })}
           <div className="pt-4 mt-4 border-t border-border space-y-2">
-            <Link href="/frontend_student/notices" className="flex items-center gap-3 px-4 py-3 rounded text-secondary hover:bg-input hover:text-primary text-sm font-medium"><Bell className="w-5 h-5"/> Notices</Link>
-            <Link href="/frontend_student/documents" className="flex items-center gap-3 px-4 py-3 rounded text-secondary hover:bg-input hover:text-primary text-sm font-medium"><FileText className="w-5 h-5"/> Documents</Link>
+            <Link href="/frontend_student/student_notices" className="flex items-center gap-3 px-4 py-3 rounded text-secondary hover:bg-input hover:text-primary text-sm font-medium"><Bell className="w-5 h-5"/> Notices</Link>
+            <Link href="/frontend_student/student_documents" className="flex items-center gap-3 px-4 py-3 rounded text-secondary hover:bg-input hover:text-primary text-sm font-medium"><FileText className="w-5 h-5"/> Documents</Link>
           </div>
         </nav>
 
         <div className="p-4 border-t border-border space-y-2">
-          <Link href="/frontend_student/sos" className="block text-center w-full px-4 py-3 bg-danger text-white rounded font-bold shadow hover:bg-red-600 motion-safe:transition-colors">
+          <Link href="/frontend_student/student_sos" className="block text-center w-full px-4 py-3 bg-danger text-white rounded font-bold shadow hover:bg-red-600 motion-safe:transition-colors">
             EMERGENCY SOS
           </Link>
           <button onClick={() => { clearSession(); window.location.href = '/student/login'; }} className="flex items-center gap-3 px-4 py-3 w-full text-left text-danger hover:bg-danger-bg rounded-md motion-safe:transition-colors font-medium text-sm">

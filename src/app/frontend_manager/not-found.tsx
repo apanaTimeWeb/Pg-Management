@@ -12,7 +12,7 @@ export default function ManagerNotFound() {
         The page you are looking for does not exist in the Manager portal.
       </p>
       <Link 
-        href="/frontend_manager/dashboard" 
+        href="/frontend_manager/manager_dashboard" 
         className="bg-primary text-white px-6 py-2.5 rounded-[var(--radius-md,8px)] font-medium hover:bg-primary-hover motion-safe:transition-colors"
       >
         Return to Dashboard

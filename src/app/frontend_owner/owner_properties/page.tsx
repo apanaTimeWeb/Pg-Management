@@ -1,0 +1,7 @@
+// RESPONSIBILITY: Renders the OwnerPage component. Receives data via props/hooks.
+
+import { OwnerPropertiesMain } from '@/app/frontend_owner/owner_properties/OwnerProperties_components/OwnerPropertiesMain';
+
+export default function PropertiesPage() {
+  return <OwnerPropertiesMain />;
+}

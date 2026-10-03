@@ -13,7 +13,7 @@ export default function SuperAdminNotFound() {
         The superadmin page you are looking for does not exist or has been moved.
       </p>
       <Link 
-        href="/frontend_superadmin/dashboard" 
+        href="/frontend_superadmin/superadmin_dashboard" 
         className="bg-primary text-white px-6 py-2.5 rounded-[var(--radius-md,8px)] font-medium hover:bg-primary-hover motion-safe:transition-colors"
       >
         Return to Dashboard

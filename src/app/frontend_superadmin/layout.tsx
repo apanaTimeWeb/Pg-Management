@@ -229,7 +229,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
                     <div className="px-4 py-3 border-b border-border bg-[var(--primary-subtle)]">
                       <p className="text-sm font-bold text-[var(--primary)] flex items-center gap-2"><LifeBuoy className="w-4 h-4" /> Support Hub</p>
                     </div>
-                    <Link href="/frontend_superadmin/tickets" onClick={() => setIsSupportOpen(false)} className="block p-3 text-sm text-secondary hover:bg-[var(--bg-overlay)]">
+                    <Link href="/frontend_superadmin/superadmin_tickets" onClick={() => setIsSupportOpen(false)} className="block p-3 text-sm text-secondary hover:bg-[var(--bg-overlay)]">
                       <p className="font-bold text-primary">Open Helpdesk</p>
                       <p className="text-xs mt-1">Manage active support tickets</p>
                     </Link>
@@ -304,7 +304,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
                       <p className="text-xs text-secondary truncate">System Administrator</p>
                     </div>
                     <div className="p-1">
-                      <Link href="/frontend_superadmin/profile" onClick={() => setIsProfileOpen(false)} className="w-full text-left px-3 py-2 text-sm text-primary hover:bg-[var(--bg-overlay)] hover:text-[var(--primary)] font-medium rounded-lg flex items-center gap-2 transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--primary)]">
+                      <Link href="/frontend_superadmin/superadmin_profile" onClick={() => setIsProfileOpen(false)} className="w-full text-left px-3 py-2 text-sm text-primary hover:bg-[var(--bg-overlay)] hover:text-[var(--primary)] font-medium rounded-lg flex items-center gap-2 transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--primary)]">
                         <User className="w-4 h-4" />
                         My Profile
                       </Link>
