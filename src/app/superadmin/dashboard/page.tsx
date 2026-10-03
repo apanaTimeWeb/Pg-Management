@@ -39,23 +39,26 @@ export default function SuperAdminDashboardPage() {
     <div className="space-y-8 pb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       
       {/* 1. Page Header & 2. Welcome Area */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[var(--border)] pb-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-border/50 pb-6 relative z-10">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-[var(--text-primary)] mb-1">SuperAdmin Dashboard</h1>
-          <p className="text-[var(--text-secondary)] text-sm">System-wide overview of your PG management platform</p>
+          <h1 className="text-3xl font-black tracking-tight text-primary mb-1">SuperAdmin Dashboard</h1>
+          <p className="text-secondary font-bold text-sm">System-wide overview of your PG management platform</p>
           
-          <div className="mt-6 bg-[var(--primary-subtle)] border border-[var(--primary)]/20 rounded-xl p-4 inline-block">
-            <h2 className="text-lg font-semibold text-[var(--primary)]">{greeting}, SuperAdmin</h2>
-            <p className="text-sm text-[var(--text-secondary)] mt-1">Here’s what’s happening across your platform.</p>
+          <div className="mt-6 bg-gradient-to-r from-theme-primary to-theme-primary-hover rounded-2xl p-6 shadow-md text-white relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-700"><Megaphone className="w-24 h-24" /></div>
+            <div className="relative z-10">
+              <h2 className="text-xl font-black mb-1">{greeting}, SuperAdmin 👋</h2>
+              <p className="text-sm text-white/80 font-medium">Here’s what’s happening across your platform.</p>
+            </div>
           </div>
         </div>
-        <div className="flex flex-col items-end gap-2">
-          <div className="text-sm font-medium text-[var(--text-secondary)]">{currentDate}</div>
+        <div className="flex flex-col items-end gap-3 shrink-0">
+          <div className="text-sm font-bold text-secondary bg-bg-page px-4 py-2 rounded-xl border border-border/50">{currentDate}</div>
           <div className="flex gap-2 mt-2">
-            <Link href="/superadmin/tickets" className="p-2 border border-[var(--border)] rounded-full hover:bg-[var(--bg-overlay)] relative transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--primary)]">
-              <Bell className="w-5 h-5 text-[var(--text-secondary)]" />
+            <Link href="/superadmin/tickets" className="p-3 bg-card border border-border/50 rounded-xl hover:shadow-md hover:-translate-y-1 relative transition-all group">
+              <Bell className="w-5 h-5 text-secondary group-hover:text-primary transition-colors" />
               {data.openTicketsCount > 0 && (
-                <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-[var(--danger)] rounded-full border-2 border-[var(--bg-page)]"></span>
+                <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-danger rounded-full border-2 border-card animate-pulse"></span>
               )}
             </Link>
           </div>
@@ -68,16 +71,16 @@ export default function SuperAdminDashboardPage() {
       {/* 5. Secondary KPI Row */}
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
         {[
-          { label: 'Active Properties', value: data.activePropertiesCount, color: '' },
-          { label: 'Vacant Beds', value: data.vacantBeds, color: '' },
-          { label: 'Active Students', value: data.totalStudents, color: '' },
-          { label: 'Monthly Revenue', value: `₹${(data.mrr || 0).toLocaleString('en-IN')}`, color: 'text-[var(--success)]' },
-          { label: 'Pending Requests', value: data.pendingRequestsCount ?? 0, color: 'text-[var(--warning)]' },
-          { label: 'Expiring Plans', value: data.expiringPlansCount ?? 0, color: 'text-[var(--danger)]' },
+          { label: 'Active Properties', value: data.activePropertiesCount, color: 'text-info', bg: 'bg-info/10' },
+          { label: 'Vacant Beds', value: data.vacantBeds, color: 'text-warning', bg: 'bg-warning/10' },
+          { label: 'Active Students', value: data.totalStudents, color: 'text-success', bg: 'bg-success/10' },
+          { label: 'Monthly Revenue', value: `₹${(data.mrr || 0).toLocaleString('en-IN')}`, color: 'text-success', bg: 'bg-success/10' },
+          { label: 'Pending Requests', value: data.pendingRequestsCount ?? 0, color: 'text-warning', bg: 'bg-warning/10' },
+          { label: 'Expiring Plans', value: data.expiringPlansCount ?? 0, color: 'text-danger', bg: 'bg-danger/10' },
         ].map((item, i) => (
-          <div key={i} className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4 flex items-center justify-between shadow-sm">
-            <span className="text-sm font-medium text-[var(--text-secondary)]">{item.label}</span>
-            <span className={`text-lg font-bold ${item.color || 'text-[var(--text-primary)]'}`}>{item.value}</span>
+          <div key={i} className="bg-card border border-border/50 rounded-2xl p-5 flex flex-col justify-center items-start shadow-sm hover:shadow-md hover:-translate-y-1 transition-all">
+            <span className="text-xs font-bold text-secondary uppercase tracking-wider mb-2">{item.label}</span>
+            <span className={`text-2xl font-black ${item.color} bg-bg-page px-3 py-1 rounded-lg border border-border/50 w-full`}>{item.value}</span>
           </div>
         ))}
       </div>
@@ -88,34 +91,37 @@ export default function SuperAdminDashboardPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* 6. Occupancy Analytics */}
-            <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6 shadow-sm">
-              <h3 className="font-bold text-lg text-[var(--text-primary)] mb-6">Occupancy Overview</h3>
+            <div className="bg-card border border-border/50 rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+              <div className="absolute -right-4 -bottom-4 w-32 h-32 bg-theme-primary/10 rounded-full blur-3xl"></div>
+              <h3 className="font-black text-xl text-primary mb-6 border-b border-border/50 pb-4 flex items-center gap-2">
+                <Activity className="w-6 h-6 text-theme-primary" /> Occupancy Overview
+              </h3>
               
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-6 relative z-10">
                 {/* Horizontal Progress */}
-                <div className="w-full h-4 rounded-full overflow-hidden flex bg-[var(--bg-input)]">
-                  <div className="bg-[var(--primary)] h-full transition-all duration-1000" style={{ width: `${data.totalBeds > 0 ? (data.occupiedBeds / data.totalBeds) * 100 : 0}%` }}></div>
-                  <div className="bg-[var(--warning)] h-full transition-all duration-1000" style={{ width: `${data.totalBeds > 0 ? (data.maintenanceBeds / data.totalBeds) * 100 : 0}%` }}></div>
+                <div className="w-full h-5 rounded-full overflow-hidden flex bg-bg-page border border-border/50">
+                  <div className="bg-theme-primary h-full transition-all duration-1000 shadow-[inset_0_-2px_4px_rgba(0,0,0,0.2)]" style={{ width: `${data.totalBeds > 0 ? (data.occupiedBeds / data.totalBeds) * 100 : 0}%` }}></div>
+                  <div className="bg-warning h-full transition-all duration-1000 shadow-[inset_0_-2px_4px_rgba(0,0,0,0.2)]" style={{ width: `${data.totalBeds > 0 ? (data.maintenanceBeds / data.totalBeds) * 100 : 0}%` }}></div>
                 </div>
                 
-                <div className="flex items-end justify-between">
-                  <div className="text-4xl font-black text-[var(--text-primary)]">{data.occupancyPercentage}%</div>
-                  <div className="text-sm text-[var(--text-secondary)] text-right">Overall Occupancy</div>
+                <div className="flex items-end justify-between bg-theme-primary/5 p-4 rounded-2xl border border-theme-primary/10">
+                  <div className="text-5xl font-black text-theme-primary drop-shadow-sm">{data.occupancyPercentage}%</div>
+                  <div className="text-sm font-bold text-secondary uppercase tracking-wider text-right">Overall Occupancy</div>
                 </div>
 
                 <div className="space-y-3 mt-2">
-                  <div className="flex justify-between items-center text-sm">
-                    <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-[var(--primary)]"></div> <span className="text-[var(--text-secondary)]">Occupied</span></div>
-                    <span className="font-semibold text-[var(--text-primary)]">{data.occupiedBeds}</span>
+                  <div className="flex justify-between items-center p-3 rounded-xl bg-bg-page border border-border/50">
+                    <div className="flex items-center gap-3"><div className="w-4 h-4 rounded-lg bg-theme-primary shadow-sm"></div> <span className="font-bold text-secondary">Occupied</span></div>
+                    <span className="font-black text-primary text-lg">{data.occupiedBeds}</span>
                   </div>
-                  <div className="flex justify-between items-center text-sm">
-                    <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-[var(--bg-input)]"></div> <span className="text-[var(--text-secondary)]">Vacant</span></div>
-                    <span className="font-semibold text-[var(--text-primary)]">{data.vacantBeds}</span>
+                  <div className="flex justify-between items-center p-3 rounded-xl bg-bg-page border border-border/50">
+                    <div className="flex items-center gap-3"><div className="w-4 h-4 rounded-lg bg-border shadow-sm"></div> <span className="font-bold text-secondary">Vacant</span></div>
+                    <span className="font-black text-primary text-lg">{data.vacantBeds}</span>
                   </div>
                   {data.maintenanceBeds > 0 && (
-                    <div className="flex justify-between items-center text-sm">
-                      <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-[var(--warning)]"></div> <span className="text-[var(--text-secondary)]">Maintenance</span></div>
-                      <span className="font-semibold text-[var(--text-primary)]">{data.maintenanceBeds}</span>
+                    <div className="flex justify-between items-center p-3 rounded-xl bg-bg-page border border-border/50">
+                      <div className="flex items-center gap-3"><div className="w-4 h-4 rounded-lg bg-warning shadow-sm"></div> <span className="font-bold text-secondary">Maintenance</span></div>
+                      <span className="font-black text-primary text-lg">{data.maintenanceBeds}</span>
                     </div>
                   )}
                 </div>
@@ -123,35 +129,37 @@ export default function SuperAdminDashboardPage() {
             </div>
 
             {/* 7. Platform Overview */}
-            <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6 shadow-sm">
-              <h3 className="font-bold text-lg text-[var(--text-primary)] mb-6">Platform Overview</h3>
+            <div className="bg-card border border-border/50 rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow">
+              <h3 className="font-black text-xl text-primary mb-6 border-b border-border/50 pb-4 flex items-center gap-2">
+                <Server className="w-6 h-6 text-purple" /> Platform Overview
+              </h3>
               <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-4 p-4 rounded-xl border border-[var(--border)] bg-[var(--bg-page)]">
-                   <div className="w-10 h-10 rounded-lg bg-[var(--primary-subtle)] flex items-center justify-center shrink-0">
-                     <Users className="w-5 h-5 text-[var(--primary)]" />
+                <div className="flex items-center justify-between p-5 rounded-2xl border border-info/20 bg-info/5 hover:bg-info/10 transition-colors">
+                   <div className="flex items-center gap-4">
+                     <div className="w-12 h-12 rounded-xl bg-info/20 flex items-center justify-center shrink-0">
+                       <Users className="w-6 h-6 text-info" />
+                     </div>
+                     <div className="font-bold text-secondary uppercase tracking-wider text-sm">Total Owners</div>
                    </div>
-                   <div className="flex-1">
-                     <div className="text-xs text-[var(--text-secondary)] uppercase tracking-wider font-semibold">Total Owners</div>
-                     <div className="text-xl font-bold text-[var(--text-primary)]">{data.totalOwners}</div>
-                   </div>
+                   <div className="text-2xl font-black text-info">{data.totalOwners}</div>
                 </div>
-                <div className="flex items-center gap-4 p-4 rounded-xl border border-[var(--border)] bg-[var(--bg-page)]">
-                   <div className="w-10 h-10 rounded-lg bg-[var(--success-bg)] flex items-center justify-center shrink-0">
-                     <Building2 className="w-5 h-5 text-[var(--success)]" />
+                <div className="flex items-center justify-between p-5 rounded-2xl border border-success/20 bg-success/5 hover:bg-success/10 transition-colors">
+                   <div className="flex items-center gap-4">
+                     <div className="w-12 h-12 rounded-xl bg-success/20 flex items-center justify-center shrink-0">
+                       <Building2 className="w-6 h-6 text-success" />
+                     </div>
+                     <div className="font-bold text-secondary uppercase tracking-wider text-sm">Total Properties</div>
                    </div>
-                   <div className="flex-1">
-                     <div className="text-xs text-[var(--text-secondary)] uppercase tracking-wider font-semibold">Total Properties</div>
-                     <div className="text-xl font-bold text-[var(--text-primary)]">{data.totalProperties}</div>
-                   </div>
+                   <div className="text-2xl font-black text-success">{data.totalProperties}</div>
                 </div>
-                <div className="flex items-center gap-4 p-4 rounded-xl border border-[var(--border)] bg-[var(--bg-page)]">
-                   <div className="w-10 h-10 rounded-lg bg-[var(--info-bg)] flex items-center justify-center shrink-0">
-                     <UserCircle className="w-5 h-5 text-[var(--info)]" />
+                <div className="flex items-center justify-between p-5 rounded-2xl border border-warning/20 bg-warning/5 hover:bg-warning/10 transition-colors">
+                   <div className="flex items-center gap-4">
+                     <div className="w-12 h-12 rounded-xl bg-warning/20 flex items-center justify-center shrink-0">
+                       <UserCircle className="w-6 h-6 text-warning" />
+                     </div>
+                     <div className="font-bold text-secondary uppercase tracking-wider text-sm">Total Students</div>
                    </div>
-                   <div className="flex-1">
-                     <div className="text-xs text-[var(--text-secondary)] uppercase tracking-wider font-semibold">Total Students</div>
-                     <div className="text-xl font-bold text-[var(--text-primary)]">{data.totalStudents}</div>
-                   </div>
+                   <div className="text-2xl font-black text-warning">{data.totalStudents}</div>
                 </div>
               </div>
             </div>
