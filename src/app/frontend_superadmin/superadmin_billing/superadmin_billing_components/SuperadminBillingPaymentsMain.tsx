@@ -65,11 +65,30 @@ export function SuperadminBillingPaymentsMain() {
         </div>
       </div>
 
-      {/* Main Grid */}
-      <div className="flex h-[800px]">
+      <div className="flex flex-col space-y-6">
         
+        {/* Top Navigation Tabs */}
+        <div className="bg-card border border-border/50 rounded-3xl p-2 shadow-sm flex items-center overflow-x-auto scrollbar-hide">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-3 px-6 py-3 rounded-2xl font-bold transition-all whitespace-nowrap ${
+                activeTab === tab.id 
+                  ? 'bg-primary-subtle text-theme-primary shadow-sm' 
+                  : 'text-secondary hover:bg-bg-page hover:text-primary'
+              }`}
+            >
+              <div className={`p-1.5 rounded-lg ${activeTab === tab.id ? tab.bg : 'bg-transparent'}`}>
+                <tab.icon className={`w-5 h-5 ${activeTab === tab.id ? 'text-theme-primary' : tab.color}`} />
+              </div>
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
         {/* Dynamic Content Area */}
-        <div className="w-full flex-1 bg-card border border-border/50 rounded-3xl shadow-sm flex flex-col h-full overflow-hidden animate-in fade-in slide-in-from-right-8 duration-500 relative">
+        <div className="w-full bg-card border border-border/50 rounded-3xl shadow-sm flex flex-col h-[800px] overflow-hidden animate-in fade-in slide-in-from-right-8 duration-500 relative">
           
           {/* INVOICES SECTION */}
           {activeTab === 'invoices' && !selectedInvoice && (

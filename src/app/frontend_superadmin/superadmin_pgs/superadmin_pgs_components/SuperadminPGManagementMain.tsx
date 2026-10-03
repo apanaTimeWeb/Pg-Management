@@ -70,9 +70,29 @@ export function SuperadminPGManagementMain() {
       </div>
 
       {!selectedPG && activeTab !== 'add' && (
-        <div className="flex min-h-[700px]">
-          {/* Table Area */}
-          <div className="w-full flex-1 bg-card border border-border/50 rounded-3xl shadow-sm flex flex-col h-full overflow-hidden animate-in fade-in slide-in-from-right-8 duration-500 relative">
+              <div className="flex flex-col space-y-6">
+        
+        {/* Top Navigation Tabs */}
+        <div className="bg-card border border-border/50 rounded-3xl p-2 shadow-sm flex items-center overflow-x-auto scrollbar-hide">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-3 px-6 py-3 rounded-2xl font-bold transition-all whitespace-nowrap ${
+                activeTab === tab.id 
+                  ? 'bg-primary-subtle text-theme-primary shadow-sm' 
+                  : 'text-secondary hover:bg-bg-page hover:text-primary'
+              }`}
+            >
+              <div className={`p-1.5 rounded-lg ${activeTab === tab.id ? tab.bg : 'bg-transparent'}`}>
+                <tab.icon className={`w-5 h-5 ${activeTab === tab.id ? 'text-theme-primary' : tab.color}`} />
+              </div>
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="w-full flex-1 bg-card border border-border/50 rounded-3xl shadow-sm flex flex-col min-h-[700px] overflow-hidden animate-in fade-in slide-in-from-right-8 duration-500 relative">
             <div className="p-6 border-b border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-bg-page/50">
               <div className="flex items-center gap-3">
                  <h2 className="text-xl font-black text-primary capitalize">{activeTab === 'all' ? 'All PGs' : activeTab}</h2>

@@ -121,9 +121,30 @@ export function SuperadminMasterDataMain() {
         </div>
       </div>
 
-      <div className="flex h-[700px]">
+      <div className="flex flex-col space-y-6">
+        
+        {/* Top Navigation Tabs */}
+        <div className="bg-card border border-border/50 rounded-3xl p-2 shadow-sm flex items-center overflow-x-auto scrollbar-hide">
+          {mastersList.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveMaster(tab.id)}
+              className={`flex items-center gap-3 px-6 py-3 rounded-2xl font-bold transition-all whitespace-nowrap ${
+                activeMaster === tab.id 
+                  ? 'bg-primary-subtle text-theme-primary shadow-sm' 
+                  : 'text-secondary hover:bg-bg-page hover:text-primary'
+              }`}
+            >
+              <div className={`p-1.5 rounded-lg ${activeMaster === tab.id ? 'bg-primary-subtle' : 'bg-transparent'}`}>
+                <tab.icon className={`w-5 h-5 ${activeMaster === tab.id ? 'text-theme-primary' : 'text-secondary'}`} />
+              </div>
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
         {/* Data Table */}
-        <div className="flex-1 w-full bg-card border border-border/50 rounded-3xl shadow-sm flex flex-col h-full overflow-hidden relative">
+        <div className="flex-1 w-full bg-card border border-border/50 rounded-3xl shadow-sm flex flex-col h-[700px] overflow-hidden relative">
           <div className="p-6 border-b border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-bg-page/50 z-10">
             <div className="flex items-center gap-3">
                <div className="p-2 rounded-xl bg-primary-subtle text-theme-primary"><ActiveIcon className="w-6 h-6" /></div>
