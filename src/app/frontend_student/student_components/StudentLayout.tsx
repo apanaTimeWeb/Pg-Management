@@ -16,19 +16,19 @@ import type { DictKey } from '@/app/frontend_student/StudentI18n';
 import { STUDENT_MENU_ITEMS } from '@/app/frontend_student/student_components/StudentLayout_constants';
 
 const NAV_ITEMS = [
-  { key: 'dashboard', href: '/frontend_student/frontend_student_dashboard', icon: Home },
-  { key: 'profile', href: '/frontend_student/frontend_student_profile', icon: User },
-  { key: 'room', href: '/frontend_student/frontend_student_room', icon: Bed },
-  { key: 'payRent', href: '/frontend_student/frontend_student_rent', icon: IndianRupee },
-  { key: 'documents', href: '/frontend_student/frontend_student_documents', icon: FileText },
-  { key: 'complaints', href: '/frontend_student/frontend_student_complaints', icon: MessageSquareWarning },
-  { key: 'mess', href: '/frontend_student/frontend_student_mess', icon: Utensils },
-  { key: 'visitors', href: '/frontend_student/frontend_student_visitors', icon: Users },
-  { key: 'leaves', href: '/frontend_student/frontend_student_leaves', icon: CalendarOff },
-  { key: 'attendance', href: '/frontend_student/frontend_student_attendance', icon: CheckSquare },
-  { key: 'communication', href: '/frontend_student/frontend_student_communication', icon: MessageCircle },
-  { key: 'history', href: '/frontend_student/frontend_student_history', icon: HistoryIcon },
-  { key: 'settings', href: '/frontend_student/frontend_student_settings', icon: Settings },
+  { key: 'dashboard', href: '/frontend_student/student_dashboard', icon: Home },
+  { key: 'profile', href: '/frontend_student/student_profile', icon: User },
+  { key: 'room', href: '/frontend_student/student_room', icon: Bed },
+  { key: 'payRent', href: '/frontend_student/student_rent', icon: IndianRupee },
+  { key: 'documents', href: '/frontend_student/student_documents', icon: FileText },
+  { key: 'complaints', href: '/frontend_student/student_complaints', icon: MessageSquareWarning },
+  { key: 'mess', href: '/frontend_student/student_mess', icon: Utensils },
+  { key: 'visitors', href: '/frontend_student/student_visitors', icon: Users },
+  { key: 'leaves', href: '/frontend_student/student_leaves', icon: CalendarOff },
+  { key: 'attendance', href: '/frontend_student/student_attendance', icon: CheckSquare },
+  { key: 'communication', href: '/frontend_student/student_communication', icon: MessageCircle },
+  { key: 'history', href: '/frontend_student/student_history', icon: HistoryIcon },
+  { key: 'settings', href: '/frontend_student/student_settings', icon: Settings },
 ];
 
 function StudentLayoutInner({ children }: { children: React.ReactNode }) {
@@ -209,10 +209,10 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
               key={item.key}
               href={item.href}
               className={`flex flex-col items-center gap-1 p-2 min-w-[64px] motion-safe:transition-colors rounded-xl ${
-                pathname === item.href ? 'text-primary bg-primary-subtle' : 'text-secondary hover:bg-input'
+                pathname.startsWith(item.href) ? 'text-primary bg-primary-subtle' : 'text-secondary hover:bg-input'
               }`}
             >
-              <item.icon className={`w-6 h-6 ${pathname === item.href ? 'drop-shadow-sm' : ''}`} />
+              <item.icon className={`w-6 h-6 ${pathname.startsWith(item.href) ? 'drop-shadow-sm' : ''}`} />
               <span className="text-[10px] font-bold">{t(item.key as DictKey)}</span>
             </Link>
           ))}
@@ -234,4 +234,5 @@ export function StudentLayout({ children }: { children: React.ReactNode }) {
     </StudentProvider>
   );
 }
+
 
