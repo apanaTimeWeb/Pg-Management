@@ -1,10 +1,11 @@
-import { StudentRoomMain } from '@/app/frontend_student/student_room/student_room_components/StudentRoomMain';
+import { StudentRoomMain } from './student_room_components/StudentRoomMain';
+import type { Metadata } from 'next';
 
-export const metadata = {
-  title: 'Room & Accommodation | Student Portal',
-  description: 'View room details, roommates, facilities, and inventory',
+export const metadata: Metadata = {
+  title: 'My Room & Bed | Student Portal',
+  description: 'View room details, roommates, and change requests.',
 };
 
-export default function StudentRoomPage() {
+export default function Page() {
   return <StudentRoomMain />;
 }

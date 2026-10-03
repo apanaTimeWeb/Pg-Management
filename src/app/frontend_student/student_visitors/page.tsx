@@ -1,10 +1,11 @@
-import { StudentVisitorsMain } from '@/app/frontend_student/student_visitors/student_visitors_components/StudentVisitorsMain';
+import { StudentVisitorsMain } from './student_visitors_components/StudentVisitorsMain';
+import type { Metadata } from 'next';
 
-export const metadata = {
-  title: 'Visitor Management | Student Portal',
-  description: 'Manage visitor requests, history, and gate passes',
+export const metadata: Metadata = {
+  title: 'Visitors | Student Portal',
+  description: 'Request visitor passes and view history.',
 };
 
-export default function StudentVisitorsPage() {
+export default function Page() {
   return <StudentVisitorsMain />;
 }

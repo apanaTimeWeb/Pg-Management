@@ -1,10 +1,11 @@
-import { StudentAttendanceMain } from '@/app/frontend_student/student_attendance/student_attendance_components/StudentAttendanceMain';
+import { StudentAttendanceMain } from './student_attendance_components/StudentAttendanceMain';
+import type { Metadata } from 'next';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Attendance | Student Portal',
-  description: 'View your monthly attendance and stats',
+  description: 'Track your daily and monthly attendance.',
 };
 
-export default function StudentAttendancePage() {
+export default function Page() {
   return <StudentAttendanceMain />;
 }

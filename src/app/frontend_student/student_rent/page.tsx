@@ -1,5 +1,11 @@
-import { StudentRentMain } from '@/app/frontend_student/student_rent/student_rent_components/StudentRentMain';
+import { StudentRentMain } from './student_rent_components/StudentRentMain';
+import type { Metadata } from 'next';
 
-export default function StudentRentPage() {
+export const metadata: Metadata = {
+  title: 'Fees & Payments | Student Portal',
+  description: 'Manage your fees, dues, and payment history.',
+};
+
+export default function Page() {
   return <StudentRentMain />;
 }

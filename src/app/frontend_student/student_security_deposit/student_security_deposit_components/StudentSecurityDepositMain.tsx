@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { CheckSquare, ChevronRight } from 'lucide-react';
+import { Shield, ChevronRight } from 'lucide-react';
 
-export function StudentAttendanceMain() {
+export function StudentSecurityDepositMain() {
   const searchParams = useSearchParams();
-  const initialView = searchParams?.get('view') || searchParams?.get('action') || 'today';
+  const initialView = searchParams?.get('view') || searchParams?.get('action') || 'details';
   const [activeTab, setActiveTab] = useState(initialView);
 
   // Sync tab with URL parameter on load
@@ -14,7 +14,7 @@ export function StudentAttendanceMain() {
     const view = searchParams?.get('view') || searchParams?.get('action');
     if (view) {
       // Find matching tab or fallback
-      const matchingTab = ['today', 'monthly', 'history'].find(id => id.includes(view) || view.includes(id));
+      const matchingTab = ['details', 'settlement'].find(id => id.includes(view) || view.includes(id));
       if (matchingTab) setActiveTab(matchingTab);
     }
   }, [searchParams]);
@@ -24,11 +24,11 @@ export function StudentAttendanceMain() {
       <div className="mb-6 md:mb-8">
         <h1 className="text-2xl md:text-3xl font-black text-primary flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-            <CheckSquare className="w-6 h-6 text-primary" />
+            <Shield className="w-6 h-6 text-primary" />
           </div>
-          Attendance
+          Security Deposit
         </h1>
-        <p className="text-sm text-secondary mt-2 font-medium">Track your daily and monthly attendance.</p>
+        <p className="text-sm text-secondary mt-2 font-medium">View your deposit details and settlement status.</p>
       </div>
 
       <div className="flex flex-col md:flex-row gap-6 md:gap-8">
@@ -38,43 +38,30 @@ export function StudentAttendanceMain() {
           <div className="bg-card border border-border rounded-2xl p-3 shadow-sm flex flex-row md:flex-col overflow-x-auto hide-scrollbar gap-2">
             
             <button
-              onClick={() => setActiveTab('today')}
+              onClick={() => setActiveTab('details')}
               className={`flex-1 md:w-full flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
-                activeTab === 'today' 
+                activeTab === 'details' 
                   ? 'bg-primary text-white shadow-md scale-[1.02]' 
                   : 'text-secondary hover:bg-input hover:text-primary'
               }`}
             >
               <div className="flex items-center gap-3">
-                Today
+                Deposit Details
               </div>
-              {activeTab === 'today' && <ChevronRight className="w-4 h-4 hidden md:block" />}
+              {activeTab === 'details' && <ChevronRight className="w-4 h-4 hidden md:block" />}
             </button>
             <button
-              onClick={() => setActiveTab('monthly')}
+              onClick={() => setActiveTab('settlement')}
               className={`flex-1 md:w-full flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
-                activeTab === 'monthly' 
+                activeTab === 'settlement' 
                   ? 'bg-primary text-white shadow-md scale-[1.02]' 
                   : 'text-secondary hover:bg-input hover:text-primary'
               }`}
             >
               <div className="flex items-center gap-3">
-                Monthly
+                Settlement
               </div>
-              {activeTab === 'monthly' && <ChevronRight className="w-4 h-4 hidden md:block" />}
-            </button>
-            <button
-              onClick={() => setActiveTab('history')}
-              className={`flex-1 md:w-full flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
-                activeTab === 'history' 
-                  ? 'bg-primary text-white shadow-md scale-[1.02]' 
-                  : 'text-secondary hover:bg-input hover:text-primary'
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                History
-              </div>
-              {activeTab === 'history' && <ChevronRight className="w-4 h-4 hidden md:block" />}
+              {activeTab === 'settlement' && <ChevronRight className="w-4 h-4 hidden md:block" />}
             </button>
           </div>
         </div>
@@ -86,19 +73,19 @@ export function StudentAttendanceMain() {
           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2"></div>
           
           
-          {activeTab === 'today' && (
+          {activeTab === 'details' && (
             <div className="animate-in slide-in-from-right-4 duration-300">
               <h2 className="text-xl font-bold text-primary mb-6 flex items-center gap-2 border-b border-border pb-4">
-                Today
+                Deposit Details
               </h2>
               
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <div className="w-16 h-16 rounded-full bg-input flex items-center justify-center mb-4">
-                  <CheckSquare className="w-8 h-8 text-secondary" />
+                  <Shield className="w-8 h-8 text-secondary" />
                 </div>
-                <h3 className="text-lg font-bold text-primary mb-2">Today content goes here</h3>
+                <h3 className="text-lg font-bold text-primary mb-2">Deposit Details content goes here</h3>
                 <p className="text-sm text-secondary max-w-sm">
-                  This section handles the full UI logic for Today. You can build tables, forms, or summary cards here.
+                  This section handles the full UI logic for Deposit Details. You can build tables, forms, or summary cards here.
                 </p>
                 <button className="mt-6 bg-primary/10 text-primary font-bold text-sm px-6 py-2.5 rounded-xl hover:bg-primary/20 transition-colors">
                   Action Button
@@ -106,39 +93,19 @@ export function StudentAttendanceMain() {
               </div>
             </div>
           )}
-          {activeTab === 'monthly' && (
+          {activeTab === 'settlement' && (
             <div className="animate-in slide-in-from-right-4 duration-300">
               <h2 className="text-xl font-bold text-primary mb-6 flex items-center gap-2 border-b border-border pb-4">
-                Monthly
+                Settlement
               </h2>
               
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <div className="w-16 h-16 rounded-full bg-input flex items-center justify-center mb-4">
-                  <CheckSquare className="w-8 h-8 text-secondary" />
+                  <Shield className="w-8 h-8 text-secondary" />
                 </div>
-                <h3 className="text-lg font-bold text-primary mb-2">Monthly content goes here</h3>
+                <h3 className="text-lg font-bold text-primary mb-2">Settlement content goes here</h3>
                 <p className="text-sm text-secondary max-w-sm">
-                  This section handles the full UI logic for Monthly. You can build tables, forms, or summary cards here.
-                </p>
-                <button className="mt-6 bg-primary/10 text-primary font-bold text-sm px-6 py-2.5 rounded-xl hover:bg-primary/20 transition-colors">
-                  Action Button
-                </button>
-              </div>
-            </div>
-          )}
-          {activeTab === 'history' && (
-            <div className="animate-in slide-in-from-right-4 duration-300">
-              <h2 className="text-xl font-bold text-primary mb-6 flex items-center gap-2 border-b border-border pb-4">
-                History
-              </h2>
-              
-              <div className="flex flex-col items-center justify-center py-12 text-center">
-                <div className="w-16 h-16 rounded-full bg-input flex items-center justify-center mb-4">
-                  <CheckSquare className="w-8 h-8 text-secondary" />
-                </div>
-                <h3 className="text-lg font-bold text-primary mb-2">History content goes here</h3>
-                <p className="text-sm text-secondary max-w-sm">
-                  This section handles the full UI logic for History. You can build tables, forms, or summary cards here.
+                  This section handles the full UI logic for Settlement. You can build tables, forms, or summary cards here.
                 </p>
                 <button className="mt-6 bg-primary/10 text-primary font-bold text-sm px-6 py-2.5 rounded-xl hover:bg-primary/20 transition-colors">
                   Action Button

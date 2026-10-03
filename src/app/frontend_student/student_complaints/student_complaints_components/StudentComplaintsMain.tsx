@@ -1,122 +1,187 @@
 'use client';
 
-// RESPONSIBILITY: Renders the Student Complaints & Support UI.
-
-import { useState, useEffect } from 'react';
-import { MessageSquareWarning, Plus, Search, Filter, Star } from 'lucide-react';
-import Link from 'next/link';
-
-import { studentOperationsApi } from '@/app/frontend_student/student_lib/student_api/StudentOperations';
-import { useStudentContext } from '@/app/frontend_student/student_components/StudentContext';
-import { Pagination } from '@/components/ui/Pagination';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { MessageSquareWarning, ChevronRight } from 'lucide-react';
 
 export function StudentComplaintsMain() {
-  const { profile } = useStudentContext();
-  const [complaints, setComplaints] = useState<any[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
-  const [filterStatus, setFilterStatus] = useState('All');
+  const searchParams = useSearchParams();
+  const initialView = searchParams?.get('view') || searchParams?.get('action') || 'new';
+  const [activeTab, setActiveTab] = useState(initialView);
 
+  // Sync tab with URL parameter on load
   useEffect(() => {
-    if (profile) {
-      setComplaints(studentOperationsApi.getComplaints((profile as any).id || (profile as any).userId));
+    const view = searchParams?.get('view') || searchParams?.get('action');
+    if (view) {
+      // Find matching tab or fallback
+      const matchingTab = ['new', 'my', 'maintenance', 'resolved'].find(id => id.includes(view) || view.includes(id));
+      if (matchingTab) setActiveTab(matchingTab);
     }
-  }, [profile]);
-
-  if (!profile) return <div className="p-4 motion-safe:animate-pulse">Loading...</div>;
-  
-  const filtered = filterStatus === 'All' ? complaints : complaints.filter(c => c.status === filterStatus);
-  const paginatedComplaints = filtered.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  }, [searchParams]);
 
   return (
-    <div className="space-y-6 w-full">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-[24px] font-black text-primary flex items-center gap-2">
-            🛠️ Complaint System
-          </h1>
-          <p className="text-sm text-secondary mt-1">Raise a new complaint or track your reported issues.</p>
+    <div className="w-full max-w-6xl mx-auto pb-12 animate-in fade-in duration-300">
+      <div className="mb-6 md:mb-8">
+        <h1 className="text-2xl md:text-3xl font-black text-primary flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+            <MessageSquareWarning className="w-6 h-6 text-primary" />
+          </div>
+          Complaints & Maintenance
+        </h1>
+        <p className="text-sm text-secondary mt-2 font-medium">Raise complaints and track maintenance requests.</p>
+      </div>
+
+      <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+        
+        {/* Colorful Sidebar / Tabs */}
+        <div className="w-full md:w-64 shrink-0 space-y-2">
+          <div className="bg-card border border-border rounded-2xl p-3 shadow-sm flex flex-row md:flex-col overflow-x-auto hide-scrollbar gap-2">
+            
+            <button
+              onClick={() => setActiveTab('new')}
+              className={`flex-1 md:w-full flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
+                activeTab === 'new' 
+                  ? 'bg-primary text-white shadow-md scale-[1.02]' 
+                  : 'text-secondary hover:bg-input hover:text-primary'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                New Complaint
+              </div>
+              {activeTab === 'new' && <ChevronRight className="w-4 h-4 hidden md:block" />}
+            </button>
+            <button
+              onClick={() => setActiveTab('my')}
+              className={`flex-1 md:w-full flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
+                activeTab === 'my' 
+                  ? 'bg-primary text-white shadow-md scale-[1.02]' 
+                  : 'text-secondary hover:bg-input hover:text-primary'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                My Complaints
+              </div>
+              {activeTab === 'my' && <ChevronRight className="w-4 h-4 hidden md:block" />}
+            </button>
+            <button
+              onClick={() => setActiveTab('maintenance')}
+              className={`flex-1 md:w-full flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
+                activeTab === 'maintenance' 
+                  ? 'bg-primary text-white shadow-md scale-[1.02]' 
+                  : 'text-secondary hover:bg-input hover:text-primary'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                Maintenance
+              </div>
+              {activeTab === 'maintenance' && <ChevronRight className="w-4 h-4 hidden md:block" />}
+            </button>
+            <button
+              onClick={() => setActiveTab('resolved')}
+              className={`flex-1 md:w-full flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
+                activeTab === 'resolved' 
+                  ? 'bg-primary text-white shadow-md scale-[1.02]' 
+                  : 'text-secondary hover:bg-input hover:text-primary'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                Resolved / Closed
+              </div>
+              {activeTab === 'resolved' && <ChevronRight className="w-4 h-4 hidden md:block" />}
+            </button>
+          </div>
         </div>
-        <Link href="/frontend_student/student_complaints/new" className="px-5 py-2.5 bg-primary text-white rounded-[var(--radius-md)] font-bold shadow-md flex items-center gap-2 hover:bg-primary-hover transition-colors whitespace-nowrap">
-          <Plus className="w-5 h-5"/> Raise Complaint
-        </Link>
-      </div>
 
-      <div className="bg-card border border-border rounded-[var(--radius-lg)] p-4 flex flex-col sm:flex-row justify-between items-center gap-4 shadow-sm">
-         <div className="relative w-full sm:w-64">
-           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-secondary" />
-           <input type="text" placeholder="Search complaints..." className="w-full bg-input border border-border rounded-[var(--radius-md)] pl-9 pr-4 py-2 text-sm focus:outline-none focus:border-primary text-primary" />
-         </div>
-         <div className="flex items-center gap-2 w-full sm:w-auto">
-           <Filter className="w-4 h-4 text-secondary" />
-           <select 
-             value={filterStatus}
-             onChange={e => setFilterStatus(e.target.value)}
-             className="bg-input border border-border rounded-[var(--radius-md)] px-3 py-2 text-sm font-medium text-primary focus:outline-none focus:border-primary flex-1 sm:flex-none"
-           >
-             <option value="All">All Status</option>
-             <option value="Pending">Open / Pending</option>
-             <option value="In Progress">In Progress</option>
-             <option value="Resolved">Resolved</option>
-           </select>
-         </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {paginatedComplaints.map(c => (
-          <div key={c.id} className="bg-card border border-border rounded-[var(--radius-lg)] p-6 shadow-sm hover:border-primary transition-colors group">
-            <div className="flex justify-between items-start mb-3">
-              <h3 className="font-bold text-primary text-lg capitalize">{c.title || c.category}</h3>
-              <span className={`px-3 py-1 rounded-[var(--radius-full)] text-[10px] font-black tracking-wider uppercase shadow-sm ${
-                c.status === 'Resolved' ? 'bg-success-bg border border-success/20 text-success' :
-                c.status === 'In Progress' ? 'bg-primary-subtle border border-primary/20 text-primary' :
-                'bg-danger-bg border border-danger/20 text-danger'
-              }`}>
-                {c.status || 'Pending'}
-              </span>
-            </div>
-            <p className="text-sm text-secondary mb-5 line-clamp-2">{c.description}</p>
-            <div className="flex flex-wrap items-center justify-between gap-2 mt-4 pt-4 border-t border-border">
-              <div className="flex items-center gap-2">
-                <span className={`text-xs font-bold px-2 py-1 rounded-[var(--radius-sm)] ${c.priority === 'High' ? 'bg-danger-bg text-danger' : c.priority === 'Medium' ? 'bg-warning-bg text-warning' : 'bg-info-bg text-info'}`}>
-                  Priority: {c.priority || 'Low'}
-                </span>
-                <span className="text-xs text-secondary font-medium">
-                  {new Date(c.createdAt).toLocaleDateString()}
-                </span>
-              </div>
-              <button className="text-xs font-bold text-primary hover:underline">
-                View Details
-              </button>
-            </div>
-            {c.status === 'Resolved' && (
-              <div className="mt-4 bg-input rounded-[var(--radius-md)] p-3 border border-border flex items-center justify-between">
-                <span className="text-xs font-medium text-secondary">Rate Resolution:</span>
-                <div className="flex gap-1">
-                  {[1,2,3,4,5].map(s => (
-                    <Star key={s} className="w-4 h-4 text-warning cursor-pointer hover:scale-110 transition-transform" />
-                  ))}
+        {/* Content Area */}
+        <div className="flex-1 bg-card border border-border rounded-2xl shadow-sm min-h-[400px] p-6 relative overflow-hidden">
+          
+          {/* Decorative background blob */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2"></div>
+          
+          
+          {activeTab === 'new' && (
+            <div className="animate-in slide-in-from-right-4 duration-300">
+              <h2 className="text-xl font-bold text-primary mb-6 flex items-center gap-2 border-b border-border pb-4">
+                New Complaint
+              </h2>
+              
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="w-16 h-16 rounded-full bg-input flex items-center justify-center mb-4">
+                  <MessageSquareWarning className="w-8 h-8 text-secondary" />
                 </div>
+                <h3 className="text-lg font-bold text-primary mb-2">New Complaint content goes here</h3>
+                <p className="text-sm text-secondary max-w-sm">
+                  This section handles the full UI logic for New Complaint. You can build tables, forms, or summary cards here.
+                </p>
+                <button className="mt-6 bg-primary/10 text-primary font-bold text-sm px-6 py-2.5 rounded-xl hover:bg-primary/20 transition-colors">
+                  Action Button
+                </button>
               </div>
-            )}
-          </div>
-        ))}
-        {filtered.length === 0 && (
-          <div className="text-center p-8 bg-card border border-border rounded-[var(--radius-lg)] col-span-full">
-            <MessageSquareWarning className="w-12 h-12 text-secondary mx-auto mb-3 opacity-20" />
-            <div className="text-primary font-bold">No complaints found</div>
-            <div className="text-sm text-secondary mt-1">Everything seems fine!</div>
-          </div>
-        )}
-      </div>
+            </div>
+          )}
+          {activeTab === 'my' && (
+            <div className="animate-in slide-in-from-right-4 duration-300">
+              <h2 className="text-xl font-bold text-primary mb-6 flex items-center gap-2 border-b border-border pb-4">
+                My Complaints
+              </h2>
+              
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="w-16 h-16 rounded-full bg-input flex items-center justify-center mb-4">
+                  <MessageSquareWarning className="w-8 h-8 text-secondary" />
+                </div>
+                <h3 className="text-lg font-bold text-primary mb-2">My Complaints content goes here</h3>
+                <p className="text-sm text-secondary max-w-sm">
+                  This section handles the full UI logic for My Complaints. You can build tables, forms, or summary cards here.
+                </p>
+                <button className="mt-6 bg-primary/10 text-primary font-bold text-sm px-6 py-2.5 rounded-xl hover:bg-primary/20 transition-colors">
+                  Action Button
+                </button>
+              </div>
+            </div>
+          )}
+          {activeTab === 'maintenance' && (
+            <div className="animate-in slide-in-from-right-4 duration-300">
+              <h2 className="text-xl font-bold text-primary mb-6 flex items-center gap-2 border-b border-border pb-4">
+                Maintenance
+              </h2>
+              
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="w-16 h-16 rounded-full bg-input flex items-center justify-center mb-4">
+                  <MessageSquareWarning className="w-8 h-8 text-secondary" />
+                </div>
+                <h3 className="text-lg font-bold text-primary mb-2">Maintenance content goes here</h3>
+                <p className="text-sm text-secondary max-w-sm">
+                  This section handles the full UI logic for Maintenance. You can build tables, forms, or summary cards here.
+                </p>
+                <button className="mt-6 bg-primary/10 text-primary font-bold text-sm px-6 py-2.5 rounded-xl hover:bg-primary/20 transition-colors">
+                  Action Button
+                </button>
+              </div>
+            </div>
+          )}
+          {activeTab === 'resolved' && (
+            <div className="animate-in slide-in-from-right-4 duration-300">
+              <h2 className="text-xl font-bold text-primary mb-6 flex items-center gap-2 border-b border-border pb-4">
+                Resolved / Closed
+              </h2>
+              
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="w-16 h-16 rounded-full bg-input flex items-center justify-center mb-4">
+                  <MessageSquareWarning className="w-8 h-8 text-secondary" />
+                </div>
+                <h3 className="text-lg font-bold text-primary mb-2">Resolved / Closed content goes here</h3>
+                <p className="text-sm text-secondary max-w-sm">
+                  This section handles the full UI logic for Resolved / Closed. You can build tables, forms, or summary cards here.
+                </p>
+                <button className="mt-6 bg-primary/10 text-primary font-bold text-sm px-6 py-2.5 rounded-xl hover:bg-primary/20 transition-colors">
+                  Action Button
+                </button>
+              </div>
+            </div>
+          )}
 
-      {filtered.length > 0 && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={Math.ceil(filtered.length / itemsPerPage)}
-          onPageChange={setCurrentPage}
-        />
-      )}
+        </div>
+      </div>
     </div>
   );
 }

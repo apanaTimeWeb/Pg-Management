@@ -1,10 +1,11 @@
-import { StudentLeavesMain } from '@/app/frontend_student/student_leaves/student_leaves_components/StudentLeavesMain';
+import { StudentLeavesMain } from './student_leaves_components/StudentLeavesMain';
+import type { Metadata } from 'next';
 
-export const metadata = {
-  title: 'Leave & Outing | Student Portal',
-  description: 'Request leaves and night outs',
+export const metadata: Metadata = {
+  title: 'Leave / Outing | Student Portal',
+  description: 'Apply for leaves and view your outing history.',
 };
 
-export default function StudentLeavesPage() {
+export default function Page() {
   return <StudentLeavesMain />;
 }

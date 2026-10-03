@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Users, ChevronRight } from 'lucide-react';
+import { ListTodo, ChevronRight } from 'lucide-react';
 
-export function StudentVisitorsMain() {
+export function StudentRequestsMain() {
   const searchParams = useSearchParams();
-  const initialView = searchParams?.get('view') || searchParams?.get('action') || 'new';
+  const initialView = searchParams?.get('view') || searchParams?.get('action') || 'all';
   const [activeTab, setActiveTab] = useState(initialView);
 
   // Sync tab with URL parameter on load
@@ -14,7 +14,7 @@ export function StudentVisitorsMain() {
     const view = searchParams?.get('view') || searchParams?.get('action');
     if (view) {
       // Find matching tab or fallback
-      const matchingTab = ['new', 'pending', 'approved', 'history'].find(id => id.includes(view) || view.includes(id));
+      const matchingTab = ['all', 'pending', 'approved', 'rejected', 'completed'].find(id => id.includes(view) || view.includes(id));
       if (matchingTab) setActiveTab(matchingTab);
     }
   }, [searchParams]);
@@ -24,11 +24,11 @@ export function StudentVisitorsMain() {
       <div className="mb-6 md:mb-8">
         <h1 className="text-2xl md:text-3xl font-black text-primary flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-            <Users className="w-6 h-6 text-primary" />
+            <ListTodo className="w-6 h-6 text-primary" />
           </div>
-          Visitors
+          Requests
         </h1>
-        <p className="text-sm text-secondary mt-2 font-medium">Request visitor passes and view history.</p>
+        <p className="text-sm text-secondary mt-2 font-medium">Track all your miscellaneous requests.</p>
       </div>
 
       <div className="flex flex-col md:flex-row gap-6 md:gap-8">
@@ -38,17 +38,17 @@ export function StudentVisitorsMain() {
           <div className="bg-card border border-border rounded-2xl p-3 shadow-sm flex flex-row md:flex-col overflow-x-auto hide-scrollbar gap-2">
             
             <button
-              onClick={() => setActiveTab('new')}
+              onClick={() => setActiveTab('all')}
               className={`flex-1 md:w-full flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
-                activeTab === 'new' 
+                activeTab === 'all' 
                   ? 'bg-primary text-white shadow-md scale-[1.02]' 
                   : 'text-secondary hover:bg-input hover:text-primary'
               }`}
             >
               <div className="flex items-center gap-3">
-                Request Visitor
+                All Requests
               </div>
-              {activeTab === 'new' && <ChevronRight className="w-4 h-4 hidden md:block" />}
+              {activeTab === 'all' && <ChevronRight className="w-4 h-4 hidden md:block" />}
             </button>
             <button
               onClick={() => setActiveTab('pending')}
@@ -77,17 +77,30 @@ export function StudentVisitorsMain() {
               {activeTab === 'approved' && <ChevronRight className="w-4 h-4 hidden md:block" />}
             </button>
             <button
-              onClick={() => setActiveTab('history')}
+              onClick={() => setActiveTab('rejected')}
               className={`flex-1 md:w-full flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
-                activeTab === 'history' 
+                activeTab === 'rejected' 
                   ? 'bg-primary text-white shadow-md scale-[1.02]' 
                   : 'text-secondary hover:bg-input hover:text-primary'
               }`}
             >
               <div className="flex items-center gap-3">
-                History
+                Rejected
               </div>
-              {activeTab === 'history' && <ChevronRight className="w-4 h-4 hidden md:block" />}
+              {activeTab === 'rejected' && <ChevronRight className="w-4 h-4 hidden md:block" />}
+            </button>
+            <button
+              onClick={() => setActiveTab('completed')}
+              className={`flex-1 md:w-full flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
+                activeTab === 'completed' 
+                  ? 'bg-primary text-white shadow-md scale-[1.02]' 
+                  : 'text-secondary hover:bg-input hover:text-primary'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                Completed
+              </div>
+              {activeTab === 'completed' && <ChevronRight className="w-4 h-4 hidden md:block" />}
             </button>
           </div>
         </div>
@@ -99,19 +112,19 @@ export function StudentVisitorsMain() {
           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2"></div>
           
           
-          {activeTab === 'new' && (
+          {activeTab === 'all' && (
             <div className="animate-in slide-in-from-right-4 duration-300">
               <h2 className="text-xl font-bold text-primary mb-6 flex items-center gap-2 border-b border-border pb-4">
-                Request Visitor
+                All Requests
               </h2>
               
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <div className="w-16 h-16 rounded-full bg-input flex items-center justify-center mb-4">
-                  <Users className="w-8 h-8 text-secondary" />
+                  <ListTodo className="w-8 h-8 text-secondary" />
                 </div>
-                <h3 className="text-lg font-bold text-primary mb-2">Request Visitor content goes here</h3>
+                <h3 className="text-lg font-bold text-primary mb-2">All Requests content goes here</h3>
                 <p className="text-sm text-secondary max-w-sm">
-                  This section handles the full UI logic for Request Visitor. You can build tables, forms, or summary cards here.
+                  This section handles the full UI logic for All Requests. You can build tables, forms, or summary cards here.
                 </p>
                 <button className="mt-6 bg-primary/10 text-primary font-bold text-sm px-6 py-2.5 rounded-xl hover:bg-primary/20 transition-colors">
                   Action Button
@@ -127,7 +140,7 @@ export function StudentVisitorsMain() {
               
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <div className="w-16 h-16 rounded-full bg-input flex items-center justify-center mb-4">
-                  <Users className="w-8 h-8 text-secondary" />
+                  <ListTodo className="w-8 h-8 text-secondary" />
                 </div>
                 <h3 className="text-lg font-bold text-primary mb-2">Pending content goes here</h3>
                 <p className="text-sm text-secondary max-w-sm">
@@ -147,7 +160,7 @@ export function StudentVisitorsMain() {
               
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <div className="w-16 h-16 rounded-full bg-input flex items-center justify-center mb-4">
-                  <Users className="w-8 h-8 text-secondary" />
+                  <ListTodo className="w-8 h-8 text-secondary" />
                 </div>
                 <h3 className="text-lg font-bold text-primary mb-2">Approved content goes here</h3>
                 <p className="text-sm text-secondary max-w-sm">
@@ -159,19 +172,39 @@ export function StudentVisitorsMain() {
               </div>
             </div>
           )}
-          {activeTab === 'history' && (
+          {activeTab === 'rejected' && (
             <div className="animate-in slide-in-from-right-4 duration-300">
               <h2 className="text-xl font-bold text-primary mb-6 flex items-center gap-2 border-b border-border pb-4">
-                History
+                Rejected
               </h2>
               
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <div className="w-16 h-16 rounded-full bg-input flex items-center justify-center mb-4">
-                  <Users className="w-8 h-8 text-secondary" />
+                  <ListTodo className="w-8 h-8 text-secondary" />
                 </div>
-                <h3 className="text-lg font-bold text-primary mb-2">History content goes here</h3>
+                <h3 className="text-lg font-bold text-primary mb-2">Rejected content goes here</h3>
                 <p className="text-sm text-secondary max-w-sm">
-                  This section handles the full UI logic for History. You can build tables, forms, or summary cards here.
+                  This section handles the full UI logic for Rejected. You can build tables, forms, or summary cards here.
+                </p>
+                <button className="mt-6 bg-primary/10 text-primary font-bold text-sm px-6 py-2.5 rounded-xl hover:bg-primary/20 transition-colors">
+                  Action Button
+                </button>
+              </div>
+            </div>
+          )}
+          {activeTab === 'completed' && (
+            <div className="animate-in slide-in-from-right-4 duration-300">
+              <h2 className="text-xl font-bold text-primary mb-6 flex items-center gap-2 border-b border-border pb-4">
+                Completed
+              </h2>
+              
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="w-16 h-16 rounded-full bg-input flex items-center justify-center mb-4">
+                  <ListTodo className="w-8 h-8 text-secondary" />
+                </div>
+                <h3 className="text-lg font-bold text-primary mb-2">Completed content goes here</h3>
+                <p className="text-sm text-secondary max-w-sm">
+                  This section handles the full UI logic for Completed. You can build tables, forms, or summary cards here.
                 </p>
                 <button className="mt-6 bg-primary/10 text-primary font-bold text-sm px-6 py-2.5 rounded-xl hover:bg-primary/20 transition-colors">
                   Action Button

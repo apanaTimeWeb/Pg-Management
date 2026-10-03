@@ -1,5 +1,11 @@
-import { StudentDashboardMain } from '@/app/frontend_student/student_dashboard/student_dashboard_components/StudentDashboardMain';
+import { StudentDashboardMain } from './student_dashboard_components/StudentDashboardMain';
+import type { Metadata } from 'next';
 
-export default function StudentDashboard() {
+export const metadata: Metadata = {
+  title: 'Dashboard | Student Portal',
+  description: 'Overview of your stay and recent activities.',
+};
+
+export default function Page() {
   return <StudentDashboardMain />;
 }

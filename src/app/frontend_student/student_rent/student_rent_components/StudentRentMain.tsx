@@ -1,236 +1,220 @@
 'use client';
 
-// RESPONSIBILITY: Renders the StudentRentMain component based on the new checklist.
-
-import { useState, useEffect } from 'react';
-import { IndianRupee, CheckCircle, Download, FileText, Printer, Clock, CreditCard, Smartphone, Banknote, ShieldAlert } from 'lucide-react';
-import { toast } from 'sonner';
-
-import { studentOperationsApi } from '@/app/frontend_student/student_lib/student_api/StudentOperations';
-import { useStudentContext } from '@/app/frontend_student/student_components/StudentContext';
-import { getSession } from '@/app/frontend_student/student_lib/student_auth/StudentSession';
-import { formatINR, formatDateOnly } from '@/lib/utils/formatters';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { IndianRupee, ChevronRight } from 'lucide-react';
 
 export function StudentRentMain() {
-  const { profile } = useStudentContext();
-  const session = typeof window !== 'undefined' ? getSession() : null;
-  const [invoices, setInvoices] = useState<any[]>([]);
-  const [showPayModal, setShowPayModal] = useState<any>(null);
-  const [paymentMethod, setPaymentMethod] = useState<'UPI' | 'Card' | 'NetBanking'>('UPI');
+  const searchParams = useSearchParams();
+  const initialView = searchParams?.get('view') || searchParams?.get('action') || 'current';
+  const [activeTab, setActiveTab] = useState(initialView);
 
-  const loadData = () => {
-    if (profile) {
-      setInvoices(studentOperationsApi.getInvoices((profile as any).userId || (profile as any).id));
-    }
-  };
-
+  // Sync tab with URL parameter on load
   useEffect(() => {
-    loadData();
-  }, [profile]);
+    const view = searchParams?.get('view') || searchParams?.get('action');
+    if (view) {
+      // Find matching tab or fallback
+      const matchingTab = ['current', 'pay', 'pending', 'history', 'receipts'].find(id => id.includes(view) || view.includes(id));
+      if (matchingTab) setActiveTab(matchingTab);
+    }
+  }, [searchParams]);
 
-  const handlePay = () => {
-    if (!session || !profile || !showPayModal) return;
-    const totalAmount = showPayModal.amount + (showPayModal.electricityBillAmount || 0);
-    studentOperationsApi.payInvoice(showPayModal.id, (profile as any).id, totalAmount, (session as any).id);
-    toast.success(`Payment of ${formatINR(totalAmount)} via ${paymentMethod} successful!`);
-    setShowPayModal(null);
-    loadData();
-  };
-
-  if (!profile) return <div className="p-4 motion-safe:animate-pulse">Loading...</div>;
-
-  const pending = invoices.filter(i => i.status !== 'Paid').sort((a,b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
-  const history = invoices.filter(i => i.status === 'Paid').sort((a,b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-  
   return (
-    <div className="space-y-6 w-full pb-20 print:pb-0">
-      <div className="print:hidden">
-        <h1 className="text-[24px] font-black text-primary flex items-center gap-2">
-          💳 Rent & Payments
+    <div className="w-full max-w-6xl mx-auto pb-12 animate-in fade-in duration-300">
+      <div className="mb-6 md:mb-8">
+        <h1 className="text-2xl md:text-3xl font-black text-primary flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+            <IndianRupee className="w-6 h-6 text-primary" />
+          </div>
+          Fees & Payments
         </h1>
-        <p className="text-sm text-secondary mt-1">Manage your monthly rent, security deposit, and payment history.</p>
+        <p className="text-sm text-secondary mt-2 font-medium">Manage your fees, dues, and payment history.</p>
       </div>
 
-      {/* Top Section: Pending Dues & Security Deposit */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 print:hidden">
-        {/* Pending Dues Box */}
-        <div className="bg-card border border-border rounded-[var(--radius-lg)] p-6 shadow-sm flex flex-col justify-between">
-          <div>
-            <h3 className="font-black text-primary text-lg mb-4 flex items-center gap-2 border-b border-border pb-3">
-              <Clock className="w-5 h-5 text-danger" /> Pending Rent & Dues
-            </h3>
-            {pending.length > 0 ? (
-              <div className="space-y-3">
-                <div className="flex justify-between text-sm">
-                  <span className="text-secondary">Base Rent</span>
-                  <span className="font-medium text-primary">{formatINR(pending[0].amount)}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-secondary">Electricity (As per meter)</span>
-                  <span className="font-medium text-primary">{formatINR(pending[0].electricityBillAmount || 0)}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-secondary">Mess / Food</span>
-                  <span className="font-medium text-primary">Included</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-secondary">Wi-Fi & Maintenance</span>
-                  <span className="font-medium text-primary">Included</span>
-                </div>
-                <div className="border-t border-border pt-3 mt-3 flex justify-between items-center">
-                  <span className="font-black text-primary uppercase text-sm">Total Due</span>
-                  <span className="font-black text-2xl text-danger">{formatINR(pending[0].amount + (pending[0].electricityBillAmount || 0))}</span>
-                </div>
-                <div className="text-xs font-bold text-danger bg-danger-bg p-2 rounded text-center">
-                  Due Date: {new Date(pending[0].dueDate).toLocaleDateString()}
-                </div>
+      <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+        
+        {/* Colorful Sidebar / Tabs */}
+        <div className="w-full md:w-64 shrink-0 space-y-2">
+          <div className="bg-card border border-border rounded-2xl p-3 shadow-sm flex flex-row md:flex-col overflow-x-auto hide-scrollbar gap-2">
+            
+            <button
+              onClick={() => setActiveTab('current')}
+              className={`flex-1 md:w-full flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
+                activeTab === 'current' 
+                  ? 'bg-primary text-white shadow-md scale-[1.02]' 
+                  : 'text-secondary hover:bg-input hover:text-primary'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                Current Fees
               </div>
-            ) : (
-              <div className="flex flex-col items-center justify-center py-6 text-center h-full">
-                 <CheckCircle className="w-12 h-12 text-success mb-3" />
-                 <div className="font-black text-lg text-primary">No Pending Dues!</div>
-                 <div className="text-sm text-secondary">You are all caught up for this month.</div>
+              {activeTab === 'current' && <ChevronRight className="w-4 h-4 hidden md:block" />}
+            </button>
+            <button
+              onClick={() => setActiveTab('pay')}
+              className={`flex-1 md:w-full flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
+                activeTab === 'pay' 
+                  ? 'bg-primary text-white shadow-md scale-[1.02]' 
+                  : 'text-secondary hover:bg-input hover:text-primary'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                Pay Fees
               </div>
-            )}
+              {activeTab === 'pay' && <ChevronRight className="w-4 h-4 hidden md:block" />}
+            </button>
+            <button
+              onClick={() => setActiveTab('pending')}
+              className={`flex-1 md:w-full flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
+                activeTab === 'pending' 
+                  ? 'bg-primary text-white shadow-md scale-[1.02]' 
+                  : 'text-secondary hover:bg-input hover:text-primary'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                Pending Dues
+              </div>
+              {activeTab === 'pending' && <ChevronRight className="w-4 h-4 hidden md:block" />}
+            </button>
+            <button
+              onClick={() => setActiveTab('history')}
+              className={`flex-1 md:w-full flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
+                activeTab === 'history' 
+                  ? 'bg-primary text-white shadow-md scale-[1.02]' 
+                  : 'text-secondary hover:bg-input hover:text-primary'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                Payment History
+              </div>
+              {activeTab === 'history' && <ChevronRight className="w-4 h-4 hidden md:block" />}
+            </button>
+            <button
+              onClick={() => setActiveTab('receipts')}
+              className={`flex-1 md:w-full flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
+                activeTab === 'receipts' 
+                  ? 'bg-primary text-white shadow-md scale-[1.02]' 
+                  : 'text-secondary hover:bg-input hover:text-primary'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                Receipts
+              </div>
+              {activeTab === 'receipts' && <ChevronRight className="w-4 h-4 hidden md:block" />}
+            </button>
           </div>
-          {pending.length > 0 && (
-            <div className="mt-6">
-              <button onClick={() => setShowPayModal(pending[0])} className="w-full py-3 bg-primary text-white rounded-[var(--radius-md)] font-bold shadow-md hover:bg-primary-hover transition-colors">
-                Pay Now &rarr;
-              </button>
+        </div>
+
+        {/* Content Area */}
+        <div className="flex-1 bg-card border border-border rounded-2xl shadow-sm min-h-[400px] p-6 relative overflow-hidden">
+          
+          {/* Decorative background blob */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2"></div>
+          
+          
+          {activeTab === 'current' && (
+            <div className="animate-in slide-in-from-right-4 duration-300">
+              <h2 className="text-xl font-bold text-primary mb-6 flex items-center gap-2 border-b border-border pb-4">
+                Current Fees
+              </h2>
+              
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="w-16 h-16 rounded-full bg-input flex items-center justify-center mb-4">
+                  <IndianRupee className="w-8 h-8 text-secondary" />
+                </div>
+                <h3 className="text-lg font-bold text-primary mb-2">Current Fees content goes here</h3>
+                <p className="text-sm text-secondary max-w-sm">
+                  This section handles the full UI logic for Current Fees. You can build tables, forms, or summary cards here.
+                </p>
+                <button className="mt-6 bg-primary/10 text-primary font-bold text-sm px-6 py-2.5 rounded-xl hover:bg-primary/20 transition-colors">
+                  Action Button
+                </button>
+              </div>
             </div>
           )}
-        </div>
-
-        {/* Security Deposit Box */}
-        <div className="bg-card border border-border rounded-[var(--radius-lg)] p-6 shadow-sm">
-          <h3 className="font-black text-primary text-lg mb-4 flex items-center gap-2 border-b border-border pb-3">
-            <ShieldAlert className="w-5 h-5 text-info" /> Security Deposit Details
-          </h3>
-          <div className="space-y-4">
-             <div className="bg-info-bg border border-info/20 p-4 rounded-[var(--radius-md)]">
-               <div className="text-xs font-bold text-info/80 uppercase mb-1">Total Amount Paid</div>
-               <div className="text-3xl font-black text-info">₹10,000</div>
-             </div>
-             <div className="space-y-2 text-sm">
-               <div className="flex justify-between border-b border-border pb-2">
-                 <span className="text-secondary font-medium">Status</span>
-                 <span className="font-bold text-success">Secured with PG</span>
-               </div>
-               <div className="flex justify-between border-b border-border pb-2">
-                 <span className="text-secondary font-medium">Refundable Amount</span>
-                 <span className="font-bold text-primary">₹10,000</span>
-               </div>
-               <div className="flex justify-between border-b border-border pb-2">
-                 <span className="text-secondary font-medium">Expected Deductions</span>
-                 <span className="font-bold text-primary">₹0 (Subject to inspection)</span>
-               </div>
-               <div className="flex justify-between">
-                 <span className="text-secondary font-medium">Refund Date</span>
-                 <span className="font-bold text-primary">At time of move-out</span>
-               </div>
-             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Payment History & Invoices */}
-      <div className="bg-card border border-border rounded-[var(--radius-lg)] p-6 shadow-sm print:hidden">
-        <h3 className="font-black text-primary text-lg mb-4 flex items-center gap-2 border-b border-border pb-3">
-          📜 Payment History & Invoices
-        </h3>
-        
-        {history.length > 0 ? (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left">
-              <thead className="bg-input text-secondary text-xs uppercase font-bold">
-                <tr>
-                  <th className="px-4 py-3 rounded-tl-[var(--radius-sm)]">Invoice ID</th>
-                  <th className="px-4 py-3">Month</th>
-                  <th className="px-4 py-3">Amount</th>
-                  <th className="px-4 py-3">Status</th>
-                  <th className="px-4 py-3">Date Paid</th>
-                  <th className="px-4 py-3 rounded-tr-[var(--radius-sm)] text-right">Action</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                {history.map((inv: any) => (
-                  <tr key={inv.id} className="hover:bg-input transition-colors">
-                    <td className="px-4 py-3 font-medium text-primary">#{inv.id.substring(0,8).toUpperCase()}</td>
-                    <td className="px-4 py-3 text-secondary">{new Date(inv.dueDate).toLocaleString('default', { month: 'long', year: 'numeric' })}</td>
-                    <td className="px-4 py-3 font-bold text-primary">{formatINR(inv.amount + (inv.electricityBillAmount || 0))}</td>
-                    <td className="px-4 py-3">
-                      <span className="inline-flex items-center gap-1 text-success font-bold text-xs bg-success-bg px-2 py-1 rounded">
-                        <CheckCircle className="w-3 h-3" /> Paid
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-secondary">{new Date(inv.updatedAt).toLocaleDateString()}</td>
-                    <td className="px-4 py-3 text-right">
-                      <button onClick={() => window.print()} className="text-primary hover:underline font-bold text-xs flex items-center justify-end gap-1 w-full">
-                        <Download className="w-3 h-3" /> Download
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div className="text-sm text-secondary bg-input p-4 rounded-lg text-center">
-            No payment history available yet.
-          </div>
-        )}
-      </div>
-
-      {/* Pay Modal */}
-      {showPayModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="bg-card w-full max-w-md rounded-[var(--radius-lg)] shadow-2xl overflow-hidden animate-in fade-in zoom-in-95">
-            <div className="p-5 border-b border-border flex justify-between items-center bg-input">
-              <h2 className="text-lg font-black text-primary flex items-center gap-2">
-                <IndianRupee className="w-5 h-5 text-primary" /> Complete Payment
+          {activeTab === 'pay' && (
+            <div className="animate-in slide-in-from-right-4 duration-300">
+              <h2 className="text-xl font-bold text-primary mb-6 flex items-center gap-2 border-b border-border pb-4">
+                Pay Fees
               </h2>
-              <button onClick={() => setShowPayModal(null)} className="text-secondary hover:text-primary font-bold">X</button>
-            </div>
-            
-            <div className="p-6 space-y-5">
-              <div className="text-center">
-                <div className="text-sm font-bold text-secondary uppercase mb-1">Total Amount</div>
-                <div className="text-4xl font-black text-primary">{formatINR(showPayModal.amount + (showPayModal.electricityBillAmount || 0))}</div>
-              </div>
               
-              <div>
-                <div className="text-sm font-bold text-secondary uppercase mb-3 border-b border-border pb-1">Select Payment Method</div>
-                <div className="space-y-2">
-                  <label className={`flex items-center gap-3 p-3 rounded-[var(--radius-md)] border cursor-pointer transition-colors ${paymentMethod === 'UPI' ? 'border-primary bg-primary-subtle' : 'border-border hover:bg-input'}`}>
-                    <input type="radio" name="pay_method" checked={paymentMethod === 'UPI'} onChange={() => setPaymentMethod('UPI')} className="accent-primary" />
-                    <Smartphone className={`w-5 h-5 ${paymentMethod === 'UPI' ? 'text-primary' : 'text-secondary'}`} />
-                    <span className={`font-bold text-sm ${paymentMethod === 'UPI' ? 'text-primary' : 'text-secondary'}`}>UPI (GPay, PhonePe, Paytm)</span>
-                  </label>
-                  
-                  <label className={`flex items-center gap-3 p-3 rounded-[var(--radius-md)] border cursor-pointer transition-colors ${paymentMethod === 'Card' ? 'border-primary bg-primary-subtle' : 'border-border hover:bg-input'}`}>
-                    <input type="radio" name="pay_method" checked={paymentMethod === 'Card'} onChange={() => setPaymentMethod('Card')} className="accent-primary" />
-                    <CreditCard className={`w-5 h-5 ${paymentMethod === 'Card' ? 'text-primary' : 'text-secondary'}`} />
-                    <span className={`font-bold text-sm ${paymentMethod === 'Card' ? 'text-primary' : 'text-secondary'}`}>Credit / Debit Card</span>
-                  </label>
-
-                  <label className={`flex items-center gap-3 p-3 rounded-[var(--radius-md)] border cursor-pointer transition-colors ${paymentMethod === 'NetBanking' ? 'border-primary bg-primary-subtle' : 'border-border hover:bg-input'}`}>
-                    <input type="radio" name="pay_method" checked={paymentMethod === 'NetBanking'} onChange={() => setPaymentMethod('NetBanking')} className="accent-primary" />
-                    <Banknote className={`w-5 h-5 ${paymentMethod === 'NetBanking' ? 'text-primary' : 'text-secondary'}`} />
-                    <span className={`font-bold text-sm ${paymentMethod === 'NetBanking' ? 'text-primary' : 'text-secondary'}`}>Net Banking</span>
-                  </label>
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="w-16 h-16 rounded-full bg-input flex items-center justify-center mb-4">
+                  <IndianRupee className="w-8 h-8 text-secondary" />
                 </div>
+                <h3 className="text-lg font-bold text-primary mb-2">Pay Fees content goes here</h3>
+                <p className="text-sm text-secondary max-w-sm">
+                  This section handles the full UI logic for Pay Fees. You can build tables, forms, or summary cards here.
+                </p>
+                <button className="mt-6 bg-primary/10 text-primary font-bold text-sm px-6 py-2.5 rounded-xl hover:bg-primary/20 transition-colors">
+                  Action Button
+                </button>
               </div>
             </div>
-            
-            <div className="p-5 border-t border-border bg-input">
-              <button onClick={handlePay} className="w-full py-3 bg-primary text-white rounded-[var(--radius-md)] font-bold shadow-md hover:bg-primary-hover transition-colors">
-                Pay {formatINR(showPayModal.amount + (showPayModal.electricityBillAmount || 0))} via {paymentMethod}
-              </button>
+          )}
+          {activeTab === 'pending' && (
+            <div className="animate-in slide-in-from-right-4 duration-300">
+              <h2 className="text-xl font-bold text-primary mb-6 flex items-center gap-2 border-b border-border pb-4">
+                Pending Dues
+              </h2>
+              
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="w-16 h-16 rounded-full bg-input flex items-center justify-center mb-4">
+                  <IndianRupee className="w-8 h-8 text-secondary" />
+                </div>
+                <h3 className="text-lg font-bold text-primary mb-2">Pending Dues content goes here</h3>
+                <p className="text-sm text-secondary max-w-sm">
+                  This section handles the full UI logic for Pending Dues. You can build tables, forms, or summary cards here.
+                </p>
+                <button className="mt-6 bg-primary/10 text-primary font-bold text-sm px-6 py-2.5 rounded-xl hover:bg-primary/20 transition-colors">
+                  Action Button
+                </button>
+              </div>
             </div>
-          </div>
+          )}
+          {activeTab === 'history' && (
+            <div className="animate-in slide-in-from-right-4 duration-300">
+              <h2 className="text-xl font-bold text-primary mb-6 flex items-center gap-2 border-b border-border pb-4">
+                Payment History
+              </h2>
+              
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="w-16 h-16 rounded-full bg-input flex items-center justify-center mb-4">
+                  <IndianRupee className="w-8 h-8 text-secondary" />
+                </div>
+                <h3 className="text-lg font-bold text-primary mb-2">Payment History content goes here</h3>
+                <p className="text-sm text-secondary max-w-sm">
+                  This section handles the full UI logic for Payment History. You can build tables, forms, or summary cards here.
+                </p>
+                <button className="mt-6 bg-primary/10 text-primary font-bold text-sm px-6 py-2.5 rounded-xl hover:bg-primary/20 transition-colors">
+                  Action Button
+                </button>
+              </div>
+            </div>
+          )}
+          {activeTab === 'receipts' && (
+            <div className="animate-in slide-in-from-right-4 duration-300">
+              <h2 className="text-xl font-bold text-primary mb-6 flex items-center gap-2 border-b border-border pb-4">
+                Receipts
+              </h2>
+              
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="w-16 h-16 rounded-full bg-input flex items-center justify-center mb-4">
+                  <IndianRupee className="w-8 h-8 text-secondary" />
+                </div>
+                <h3 className="text-lg font-bold text-primary mb-2">Receipts content goes here</h3>
+                <p className="text-sm text-secondary max-w-sm">
+                  This section handles the full UI logic for Receipts. You can build tables, forms, or summary cards here.
+                </p>
+                <button className="mt-6 bg-primary/10 text-primary font-bold text-sm px-6 py-2.5 rounded-xl hover:bg-primary/20 transition-colors">
+                  Action Button
+                </button>
+              </div>
+            </div>
+          )}
+
         </div>
-      )}
+      </div>
     </div>
   );
 }
