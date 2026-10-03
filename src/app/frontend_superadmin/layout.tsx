@@ -174,11 +174,25 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
               <span className="font-semibold text-[var(--text-disabled)] uppercase tracking-wider text-[11px]">SuperAdmin</span>
               <span className="text-[var(--text-disabled)]">/</span>
               <span className="font-bold text-primary">
-                 {pathname === '/superadmin/dashboard' ? 'Dashboard' : 
-                  pathname.includes('/owners') ? 'Owners' : 
-                  pathname.includes('/tickets') ? 'Support Tickets' :
-                  pathname.includes('/settings') ? 'Settings' :
-                  pathname.split('/').pop()?.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
+                 {pathname.includes('/superadmin_dashboard') ? 'Dashboard' : 
+                  pathname.includes('/superadmin_pgs') ? 'PG Management' : 
+                  pathname.includes('/superadmin_owners') ? 'Admin / Owners' : 
+                  pathname.includes('/superadmin_users') ? 'User Management' : 
+                  pathname.includes('/superadmin_plans') ? 'Subscriptions & Plans' : 
+                  pathname.includes('/superadmin_billing') ? 'Billing & Payments' : 
+                  pathname.includes('/superadmin_analytics') ? 'Reports & Analytics' : 
+                  pathname.includes('/superadmin_tickets') ? 'Support & Helpdesk' : 
+                  pathname.includes('/superadmin_communication') ? 'Communication' : 
+                  pathname.includes('/superadmin_audit_logs') ? 'Audit & Security' : 
+                  pathname.includes('/superadmin_feature_flags') ? 'Feature Flags' : 
+                  pathname.includes('/superadmin_settings') ? 'Global Config' : 
+                  pathname.includes('/superadmin_master_data') ? 'Master Data' : 
+                  pathname.includes('/superadmin_system_management') ? 'System Management' : 
+                  pathname.includes('/superadmin_data_management') ? 'Data Management' : 
+                  pathname.includes('/superadmin_backups') ? 'Backups' : 
+                  pathname.includes('/superadmin_owner_requests') ? 'Owner Requests' : 
+                  pathname.includes('/superadmin_create_owner') ? 'Create Owner/PG' : 
+                  pathname.split('/').pop()?.replace(/superadmin_/g, '').replace(/_/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
               </span>
             </div>
 
