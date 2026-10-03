@@ -1,4 +1,15 @@
-'use client';
+const fs = require('fs');
+const path = require('path');
+
+// 1. Accounts Customization
+const accountPages = [
+  'src/app/frontend_owner/accounts/income/page.tsx',
+  'src/app/frontend_owner/accounts/expenses/page.tsx',
+  'src/app/frontend_owner/accounts/vendors/page.tsx',
+  'src/app/frontend_owner/accounts/reports/page.tsx'
+];
+
+const generateAccountsTemplate = (title) => `\'use client\';
 
 import React, { useState } from 'react';
 import { 
@@ -13,7 +24,7 @@ const MOCK_ACCOUNTS = [
   { id: 'TRX-5004', title: 'Security Deposit Received', category: 'Deposits', amount: 30000, date: '15 Oct 2026', type: 'Income', status: 'Completed' },
 ];
 
-export default function ExpensesPage() {
+export default function ${title.replace(/[^a-zA-Z0-9]/g, '')}Page() {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredData = MOCK_ACCOUNTS.filter(trx => {
@@ -31,8 +42,8 @@ export default function ExpensesPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-primary flex items-center gap-2"><Calculator className="w-6 h-6 text-[#1A3A5C]"/> Accounts: Expenses</h1>
-          <p className="text-[var(--text-disabled)] text-sm mt-1">Manage expenses and financial tracking.</p>
+          <h1 className="text-2xl font-bold text-primary flex items-center gap-2"><Calculator className="w-6 h-6 text-[#1A3A5C]"/> Accounts: ${title}</h1>
+          <p className="text-[var(--text-disabled)] text-sm mt-1">Manage ${title.toLowerCase()} and financial tracking.</p>
         </div>
         
         <div className="flex items-center gap-3">
@@ -49,11 +60,11 @@ export default function ExpensesPage() {
       {(title === 'Income' || title === 'Expenses') && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-card p-4 rounded-xl border border-border shadow-sm flex items-center gap-4">
-            <div className={`p-3 rounded-lg ${title === 'Income' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
+            <div className={\`p-3 rounded-lg \${title === 'Income' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}\`}>
               {title === 'Income' ? <ArrowUpRight className="w-6 h-6" /> : <ArrowDownRight className="w-6 h-6" />}
             </div>
             <div>
-              <p className="text-xs font-bold text-secondary uppercase">Total Expenses</p>
+              <p className="text-xs font-bold text-secondary uppercase">Total ${title}</p>
               <h3 className="text-xl font-black text-primary">₹ {title === 'Income' ? '4,80,000' : '15,000'}</h3>
             </div>
           </div>
@@ -107,12 +118,12 @@ export default function ExpensesPage() {
                   </td>
                   <td className="p-4 text-sm text-secondary font-medium">{trx.date}</td>
                   <td className="p-4">
-                    <span className={`text-sm font-black flex items-center ${trx.type === 'Income' ? 'text-green-600' : 'text-red-500'}`}>
+                    <span className={\`text-sm font-black flex items-center \${trx.type === 'Income' ? 'text-green-600' : 'text-red-500'}\`}>
                       {trx.type === 'Income' ? '+' : '-'}<IndianRupee className="w-3 h-3 mx-0.5"/>{trx.amount}
                     </span>
                   </td>
                   <td className="p-4">
-                    <span className={`px-2.5 py-1 border rounded-md text-[10px] font-bold uppercase tracking-wide ${trx.status === 'Completed' ? 'bg-green-100 text-green-700 border-green-200' : 'bg-yellow-100 text-yellow-700 border-yellow-200'}`}>
+                    <span className={\`px-2.5 py-1 border rounded-md text-[10px] font-bold uppercase tracking-wide \${trx.status === 'Completed' ? 'bg-green-100 text-green-700 border-green-200' : 'bg-yellow-100 text-yellow-700 border-yellow-200'}\`}>
                       {trx.status}
                     </span>
                   </td>
@@ -135,3 +146,65 @@ export default function ExpensesPage() {
     </div>
   );
 }
+`;
+
+accountPages.forEach(file => {
+  const absolutePath = path.join(__dirname, file);
+  const dirPath = path.dirname(absolutePath);
+  
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+  }
+
+  const folderName = file.split('/')[file.split('/').length - 2];
+  const title = folderName.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  fs.writeFileSync(absolutePath, generateAccountsTemplate(title), 'utf8');
+});
+
+
+// 2. Single Pages (Check-in/Check-out, Security Deposit)
+const singlePages = [
+  { path: 'src/app/frontend_owner/check_in_out/page.tsx', title: 'Check-in / Check-out', desc: 'Manage student on-boarding and exits', icon: 'DoorOpen' },
+  { path: 'src/app/frontend_owner/security_deposit/page.tsx', title: 'Security Deposit', desc: 'Manage deposits and refunds', icon: 'ShieldCheck' }
+];
+
+const generateSingleTemplate = (title, desc, iconName) => `\'use client\';
+import React, { useState } from 'react';
+import { Search, Filter, Plus, FileText, Download, Eye, ${iconName} } from 'lucide-react';
+
+export default function ${title.replace(/[^a-zA-Z0-9]/g, '')}Page() {
+  return (
+    <div className="max-w-7xl mx-auto space-y-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-primary flex items-center gap-2"><${iconName} className="w-6 h-6 text-purple-600"/> ${title}</h1>
+          <p className="text-[var(--text-disabled)] text-sm mt-1">${desc}.</p>
+        </div>
+        <div className="flex items-center gap-3">
+          <button className="flex items-center gap-2 bg-[#1A3A5C] hover:bg-[#122a42] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
+            <Plus className="w-4 h-4" /> New Record
+          </button>
+        </div>
+      </div>
+
+      <div className="bg-card border border-border/50 rounded-2xl shadow-sm overflow-hidden p-8 text-center">
+        <div className="w-16 h-16 bg-page rounded-full flex items-center justify-center mx-auto mb-4 border border-border">
+          <FileText className="w-8 h-8 text-secondary" />
+        </div>
+        <h3 className="text-lg font-bold text-primary">No Records Found</h3>
+        <p className="text-secondary text-sm mt-1 max-w-sm mx-auto">There are currently no active records for ${title.toLowerCase()}. Click the button above to add a new record.</p>
+      </div>
+    </div>
+  );
+}`;
+
+singlePages.forEach(page => {
+  const absolutePath = path.join(__dirname, page.path);
+  const dirPath = path.dirname(absolutePath);
+  
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+  }
+
+  fs.writeFileSync(absolutePath, generateSingleTemplate(page.title, page.desc, page.icon), 'utf8');
+});
