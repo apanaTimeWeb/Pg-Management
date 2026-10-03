@@ -239,11 +239,11 @@ export function SuperadminPGManagementMain() {
                     {formStep === 1 && (
                        <>
                          <h3 className="font-black text-lg text-primary mb-4">Organization Information</h3>
-                         <div className="grid grid-cols-2 gap-6">
+                         <div className="flex flex-col gap-6">
                            <div className="space-y-2"><label className="text-xs font-bold text-secondary uppercase">PG Name *</label><input type="text" className="w-full p-3 rounded-xl bg-card border border-border/50 text-primary" placeholder="e.g. Royal Residency"/></div>
                            <div className="space-y-2"><label className="text-xs font-bold text-secondary uppercase">PG Code (Auto/Manual)</label><input type="text" className="w-full p-3 rounded-xl bg-card border border-border/50 text-primary" placeholder="e.g. PG-007"/></div>
-                           <div className="space-y-2 col-span-2"><label className="text-xs font-bold text-secondary uppercase">Registration / License Number</label><input type="text" className="w-full p-3 rounded-xl bg-card border border-border/50 text-primary" placeholder="Enter reg number if available"/></div>
-                           <div className="space-y-2 col-span-2"><label className="text-xs font-bold text-secondary uppercase">Complete Address</label><textarea rows={3} className="w-full p-3 rounded-xl bg-card border border-border/50 text-primary resize-none" placeholder="Full address line"></textarea></div>
+                           <div className="space-y-2"><label className="text-xs font-bold text-secondary uppercase">Registration / License Number</label><input type="text" className="w-full p-3 rounded-xl bg-card border border-border/50 text-primary" placeholder="Enter reg number if available"/></div>
+                           <div className="space-y-2"><label className="text-xs font-bold text-secondary uppercase">Complete Address</label><textarea rows={3} className="w-full p-3 rounded-xl bg-card border border-border/50 text-primary resize-none" placeholder="Full address line"></textarea></div>
                            <div className="space-y-2"><label className="text-xs font-bold text-secondary uppercase">City</label><input type="text" className="w-full p-3 rounded-xl bg-card border border-border/50 text-primary"/></div>
                            <div className="space-y-2"><label className="text-xs font-bold text-secondary uppercase">State</label><input type="text" className="w-full p-3 rounded-xl bg-card border border-border/50 text-primary"/></div>
                          </div>

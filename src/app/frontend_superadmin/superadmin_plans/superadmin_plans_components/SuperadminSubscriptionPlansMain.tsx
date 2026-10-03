@@ -271,7 +271,7 @@ export function SuperadminSubscriptionPlansMain() {
             </div>
             
             <div className="grid grid-cols-2 gap-6 mb-6">
-              <div className="space-y-2 col-span-2">
+              <div className="space-y-2">
                 <label className="text-xs font-bold text-secondary uppercase tracking-wider">Plan Name</label>
                 <input type="text" placeholder="e.g. Ultra Premium" className="w-full px-4 py-3 bg-bg-page border border-border/50 rounded-xl focus:ring-2 focus:ring-theme-primary font-medium text-primary" />
               </div>

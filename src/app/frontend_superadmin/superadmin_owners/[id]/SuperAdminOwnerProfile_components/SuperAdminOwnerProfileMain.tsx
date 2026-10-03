@@ -57,7 +57,7 @@ export const SuperAdminOwnerProfileMain: React.FC<{ data: Owner360Data }> = ({ d
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="flex flex-col gap-6">
         {/* Recent Payments */}
         <div className="bg-card border border rounded-[var(--radius-lg,12px)] shadow-sm overflow-hidden flex flex-col">
           <div className="bg-page border-b border p-4 flex items-center gap-2 shrink-0">

@@ -319,7 +319,7 @@ export function SuperadminBillingPaymentsMain() {
                  </div>
 
                  {/* Details & Actions */}
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <div className="flex flex-col gap-6">
                     <div className="space-y-4">
                        <div className="bg-card p-5 rounded-2xl border border-border/50">
                          <h3 className="text-xs font-bold text-secondary uppercase tracking-wider mb-4">Request Details</h3>

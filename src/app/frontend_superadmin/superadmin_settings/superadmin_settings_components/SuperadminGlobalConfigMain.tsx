@@ -78,8 +78,8 @@ export function SuperadminGlobalConfigMain() {
                 <Globe className="w-6 h-6 text-info" /> Platform Core Settings
               </h2>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
-                <div className="space-y-2 md:col-span-2">
+              <div className="flex flex-col gap-6 relative z-10">
+                <div className="space-y-2">
                   <label className="text-xs font-bold text-secondary uppercase tracking-wider">Platform Logos</label>
                   <div className="flex flex-wrap gap-4">
                     <div className="border-2 border-dashed border-border/50 p-6 rounded-2xl flex flex-col items-center justify-center gap-2 hover:border-info/50 hover:bg-info/5 transition-colors cursor-pointer text-center w-40">
@@ -151,7 +151,7 @@ export function SuperadminGlobalConfigMain() {
                 <Building className="w-6 h-6 text-success" /> Default PG Templates
               </h2>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+              <div className="flex flex-col gap-6 relative z-10">
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-secondary uppercase tracking-wider">Default Room Types</label>
                   <select className="w-full px-4 py-3 bg-bg-page border border-border/50 rounded-xl focus:ring-2 focus:ring-success font-medium text-primary cursor-pointer">
@@ -253,7 +253,7 @@ export function SuperadminGlobalConfigMain() {
                 <ShieldCheck className="w-6 h-6 text-danger" /> Security & Access Controls
               </h2>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+              <div className="flex flex-col gap-6 relative z-10">
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-secondary uppercase tracking-wider">Password Policy</label>
                   <select className="w-full px-4 py-3 bg-bg-page border border-border/50 rounded-xl focus:ring-2 focus:ring-danger font-medium text-primary cursor-pointer">
@@ -332,7 +332,7 @@ export function SuperadminGlobalConfigMain() {
                 <HardDrive className="w-6 h-6 text-purple" /> File & Storage Settings
               </h2>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+              <div className="flex flex-col gap-6 relative z-10">
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-secondary uppercase tracking-wider">Maximum File Upload Size</label>
                   <select className="w-full px-4 py-3 bg-bg-page border border-border/50 rounded-xl focus:ring-2 focus:ring-purple font-medium text-primary cursor-pointer">
@@ -350,7 +350,7 @@ export function SuperadminGlobalConfigMain() {
                     <option>Indefinite (Never delete)</option>
                   </select>
                 </div>
-                <div className="space-y-2 md:col-span-2">
+                <div className="space-y-2">
                   <label className="text-xs font-bold text-secondary uppercase tracking-wider">Allowed File Types for Upload</label>
                   <input type="text" defaultValue=".jpg, .jpeg, .png, .pdf, .csv, .xlsx" className="w-full px-4 py-3 bg-bg-page border border-border/50 rounded-xl focus:ring-2 focus:ring-purple font-medium text-primary" />
                 </div>

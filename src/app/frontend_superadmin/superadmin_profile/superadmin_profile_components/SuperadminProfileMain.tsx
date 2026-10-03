@@ -84,7 +84,7 @@ export function SuperadminProfileMain() {
                 <User className="w-6 h-6 text-info" /> Personal Information
               </h2>
               <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="flex flex-col gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-secondary uppercase tracking-wider">Full Name</label>
                     <div className="relative">

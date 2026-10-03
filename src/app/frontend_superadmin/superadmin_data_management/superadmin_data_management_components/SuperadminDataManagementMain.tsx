@@ -143,7 +143,7 @@ export function SuperadminDataManagementMain() {
                 <DownloadCloud className="w-6 h-6 text-success" /> Export Data
               </h2>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+              <div className="flex flex-col gap-6 relative z-10">
                 {[
                   { title: 'PG Data', desc: 'Export all properties, rooms, beds, and amenities.', icon: Building2, color: 'text-info', bg: 'bg-info-bg' },
                   { title: 'User Data', desc: 'Export all students, owners, and staff members.', icon: Users, color: 'text-success', bg: 'bg-success-bg' },
@@ -221,7 +221,7 @@ export function SuperadminDataManagementMain() {
                         <span className="bg-danger-bg text-danger text-xs font-bold px-3 py-1 rounded-full">High Confidence (98%)</span>
                       </div>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="flex flex-col gap-6">
                         {/* Record A */}
                         <div className="bg-card border border-border/50 p-4 rounded-xl">
                           <div className="flex items-center justify-between mb-3">

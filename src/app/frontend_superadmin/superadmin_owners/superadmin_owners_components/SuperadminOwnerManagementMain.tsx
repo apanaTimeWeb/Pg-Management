@@ -259,7 +259,7 @@ export function SuperadminOwnerManagementMain() {
                 {/* Step 1 Form */}
                 <div className="bg-bg-page border border-border/50 rounded-2xl p-6 space-y-6">
                   <h3 className="font-black text-lg text-primary mb-4">Step 1: Create Account Details</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="flex flex-col gap-6">
                     <div className="space-y-2">
                       <label className="text-xs font-bold text-secondary uppercase tracking-wider">Full Name</label>
                       <input type="text" placeholder="e.g. Rahul Sharma" className="w-full px-4 py-3 bg-card border border-border/50 rounded-xl focus:ring-2 focus:ring-theme-primary font-medium text-primary" />
@@ -268,7 +268,7 @@ export function SuperadminOwnerManagementMain() {
                       <label className="text-xs font-bold text-secondary uppercase tracking-wider">Mobile Number</label>
                       <input type="text" placeholder="+91" className="w-full px-4 py-3 bg-card border border-border/50 rounded-xl focus:ring-2 focus:ring-theme-primary font-medium text-primary" />
                     </div>
-                    <div className="space-y-2 md:col-span-2">
+                    <div className="space-y-2">
                       <label className="text-xs font-bold text-secondary uppercase tracking-wider">Email Address</label>
                       <input type="email" placeholder="owner@pg.com" className="w-full px-4 py-3 bg-card border border-border/50 rounded-xl focus:ring-2 focus:ring-theme-primary font-medium text-primary" />
                     </div>
