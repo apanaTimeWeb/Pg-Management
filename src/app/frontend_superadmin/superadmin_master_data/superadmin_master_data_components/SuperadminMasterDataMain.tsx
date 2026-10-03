@@ -125,7 +125,7 @@ export function SuperadminMasterDataMain() {
         
         {/* Top Navigation Tabs */}
         <div className="bg-card border border-border/50 rounded-3xl p-2 shadow-sm flex items-center overflow-x-auto scrollbar-hide">
-          {mastersList.map((tab) => (
+          {masterList.map((tab: any) => (
             <button
               key={tab.id}
               onClick={() => setActiveMaster(tab.id)}

@@ -66,7 +66,7 @@ export function SuperadminProfileMain() {
                   : 'text-secondary hover:bg-bg-page hover:text-primary'
               }`}
             >
-              <div className={`p-1.5 rounded-lg ${activeTab === tab.id ? tab.bg : 'bg-transparent'}`}>
+              <div className={`p-1.5 rounded-lg ${activeTab === tab.id ? 'bg-primary-subtle' : 'bg-transparent'}`}>
                 <tab.icon className={`w-5 h-5 ${activeTab === tab.id ? 'text-theme-primary' : tab.color}`} />
               </div>
               {tab.label}
