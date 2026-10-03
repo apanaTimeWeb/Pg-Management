@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Database, Plus, Search, Filter, Download, Edit, Trash2, Eye, Power, PowerOff, Building2, LayoutGrid, Bed, Wifi, GraduationCap, FileText, FileBadge, Receipt, CreditCard, AlertTriangle, Wrench, CalendarOff, UserPlus, Utensils, IndianRupee, Bell } from 'lucide-react';
 import { SuperadminMasterDataFormModal } from './SuperadminMasterDataFormModal';
