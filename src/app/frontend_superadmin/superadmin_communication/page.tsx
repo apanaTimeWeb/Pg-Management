@@ -4,6 +4,12 @@ export const metadata = {
   title: 'Communication Center | SuperAdmin',
 };
 
+import { Suspense } from 'react';
+
 export default function SuperadminCommunicationPage() {
-  return <SuperadminCommunicationMain />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SuperadminCommunicationMain />
+    </Suspense>
+  );
 }
