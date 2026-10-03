@@ -58,7 +58,7 @@ export const MENU_ITEMS = [
   { 
     key: 'finance', icon: IndianRupee, href: '/frontend_manager/manager_finance', label: 'Fees & Dues',
     subItems: [
-      { label: 'Today's Collection', href: '/frontend_manager/manager_finance?view=today' },
+      { label: "Today's Collection", href: '/frontend_manager/manager_finance?view=today' },
       { label: 'Pending Dues', href: '/frontend_manager/manager_finance?view=pending' },
       { label: 'Overdue', href: '/frontend_manager/manager_finance?view=overdue' },
       { label: 'Payment History', href: '/frontend_manager/manager_finance?view=history' }
@@ -76,7 +76,7 @@ export const MENU_ITEMS = [
   { 
     key: 'visitors', icon: UserCheck, href: '/frontend_manager/manager_visitors', label: 'Visitors',
     subItems: [
-      { label: 'Today's Visitors', href: '/frontend_manager/manager_visitors' },
+      { label: "Today's Visitors", href: '/frontend_manager/manager_visitors' },
       { label: 'Pending', href: '/frontend_manager/manager_visitors?status=pending' },
       { label: 'Entry', href: '/frontend_manager/manager_visitors?view=entry' },
       { label: 'Exit', href: '/frontend_manager/manager_visitors?view=exit' },
@@ -104,7 +104,7 @@ export const MENU_ITEMS = [
   { 
     key: 'food', icon: Utensils, href: '/frontend_manager/manager_food', label: 'Mess / Food',
     subItems: [
-      { label: 'Today's Menu', href: '/frontend_manager/manager_food' },
+      { label: "Today's Menu", href: '/frontend_manager/manager_food' },
       { label: 'Menu', href: '/frontend_manager/manager_food?view=menu' },
       { label: 'Meal Attendance', href: '/frontend_manager/manager_food?view=attendance' },
       { label: 'Meal Count', href: '/frontend_manager/manager_food?view=count' },
