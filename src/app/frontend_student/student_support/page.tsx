@@ -1,5 +1,5 @@
 import { StudentSupportMain } from './student_support_components/StudentSupportMain';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Help & Support | SmartPG',
