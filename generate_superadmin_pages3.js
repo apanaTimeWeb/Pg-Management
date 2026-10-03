@@ -1,8 +1,21 @@
-'use client';
+const fs = require('fs');
+const path = require('path');
+
+// Target directories for SuperAdmin System & Compliance pages
+const superAdminPages = [
+  { path: 'src/app/frontend_superadmin/superadmin_feature_flags/page.tsx', title: 'Feature Toggles', icon: 'ToggleLeft', desc: 'Enable or disable features platform-wide or for specific PG owners.' },
+  { path: 'src/app/frontend_superadmin/superadmin_audit_logs/page.tsx', title: 'Audit & Compliance Logs', icon: 'ShieldCheck', desc: 'System-wide activity audit, login attempts, and data changes.' },
+  { path: 'src/app/frontend_superadmin/superadmin_settings/page.tsx', title: 'Environment Settings', icon: 'Settings', desc: 'Global platform settings, environment variables, and branding config.' },
+  { path: 'src/app/frontend_superadmin/superadmin_system_management/page.tsx', title: 'Infrastructure Health', icon: 'Server', desc: 'Real-time server metrics, CPU/RAM usage, and database status.' },
+  { path: 'src/app/frontend_superadmin/superadmin_data_management/page.tsx', title: 'Data Governance', icon: 'Database', desc: 'Manage data retention policies, archiving, and privacy compliance.' },
+  { path: 'src/app/frontend_superadmin/superadmin_backups/page.tsx', title: 'Disaster Recovery', icon: 'Database', desc: 'Automated database backups, snapshots, and restore points.' },
+];
+
+const generateSystemTemplate = (title, icon, desc) => `\'use client\';
 
 import React, { useState } from 'react';
 import { 
-  Search, Filter, Plus, Download, Eye, Settings, Trash2, Server, 
+  Search, Filter, Plus, Download, Eye, Settings, Trash2, ${icon}, 
   AlertCircle, RefreshCw, SlidersHorizontal, Activity, ShieldAlert
 } from 'lucide-react';
 
@@ -12,7 +25,7 @@ const MOCK_DATA = [
   { id: 'SYS-003', name: 'Legacy Data Archive', type: 'Background Job', status: 'Warning', metric: '68%', date: '12 Oct 2026' },
 ];
 
-export default function SuperAdminInfrastructureHealthPage() {
+export default function SuperAdmin${title.replace(/[^a-zA-Z0-9]/g, '')}Page() {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('Overview');
 
@@ -36,11 +49,11 @@ export default function SuperAdminInfrastructureHealthPage() {
         <div>
           <h1 className="text-3xl font-black text-primary flex items-center gap-3">
             <div className="p-2 bg-slate-800 rounded-lg text-slate-100">
-              <Server className="w-7 h-7"/>
+              <${icon} className="w-7 h-7"/>
             </div>
-            Infrastructure Health
+            ${title}
           </h1>
-          <p className="text-[var(--text-disabled)] text-sm mt-2 font-medium">Real-time server metrics, CPU/RAM usage, and database status.</p>
+          <p className="text-[var(--text-disabled)] text-sm mt-2 font-medium">${desc}</p>
         </div>
         
         <div className="flex items-center gap-3">
@@ -59,11 +72,11 @@ export default function SuperAdminInfrastructureHealthPage() {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-5 py-3 text-sm font-bold transition-all whitespace-nowrap relative ${
+            className={\`px-5 py-3 text-sm font-bold transition-all whitespace-nowrap relative \${
               activeTab === tab 
               ? 'text-slate-800 dark:text-slate-200' 
               : 'text-secondary hover:text-primary'
-            }`}
+            }\`}
           >
             {tab}
             {activeTab === tab && (
@@ -126,7 +139,7 @@ export default function SuperAdminInfrastructureHealthPage() {
                   </td>
                   <td className="p-5 text-sm font-medium text-secondary">{item.date}</td>
                   <td className="p-5">
-                    <span className={`px-3 py-1 border rounded-lg text-[11px] font-black uppercase tracking-wide ${getStatusBadge(item.status)}`}>
+                    <span className={\`px-3 py-1 border rounded-lg text-[11px] font-black uppercase tracking-wide \${getStatusBadge(item.status)}\`}>
                       {item.status}
                     </span>
                   </td>
@@ -152,3 +165,15 @@ export default function SuperAdminInfrastructureHealthPage() {
     </div>
   );
 }
+`;
+
+superAdminPages.forEach(page => {
+  const absolutePath = path.join(__dirname, page.path);
+  const dirPath = path.dirname(absolutePath);
+  
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+  }
+
+  fs.writeFileSync(absolutePath, generateSystemTemplate(page.title, page.icon, page.desc), 'utf8');
+});
