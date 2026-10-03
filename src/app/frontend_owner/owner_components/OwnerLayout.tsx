@@ -288,7 +288,7 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
           {/* Left Side: Property Selector & Search */}
           <div className="flex items-center gap-4 flex-1">
             {/* Property Selector */}
-            <div className="relative">
+            <div className="relative" title="Select Property">
               <button 
                 onClick={() => setIsPropertyMenuOpen(!isPropertyMenuOpen)}
                 className="flex items-center gap-2 bg-card/10 hover:bg-card/20 border border-white/20 rounded-xl px-3 py-2 transition-colors"
@@ -344,15 +344,15 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
 
           {/* Right Side Actions */}
           <div className="flex items-center gap-3">
-            <button className="p-2 text-white/80 hover:text-white hover:bg-card/10 rounded-full transition-colors relative">
+            <button className="p-2 text-white/80 hover:text-white hover:bg-card/10 rounded-full transition-colors relative" title="Notifications">
               <Bell className="w-5 h-5" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border border-[#1A3A5C]"></span>
             </button>
-            <button className="p-2 text-white/80 hover:text-white hover:bg-card/10 rounded-full transition-colors">
+            <button className="p-2 text-white/80 hover:text-white hover:bg-card/10 rounded-full transition-colors" title="Messages">
               <MessageSquare className="w-5 h-5" />
             </button>
             
-            <button className="flex items-center gap-1.5 bg-[#F5A623] hover:bg-[#E09612] text-white px-3 py-1.5 rounded-lg text-sm font-bold transition-colors ml-2 shadow-sm">
+            <button className="flex items-center gap-1.5 bg-[#F5A623] hover:bg-[#E09612] text-white px-3 py-1.5 rounded-lg text-sm font-bold transition-colors ml-2 shadow-sm" title="Quick Add">
               <Plus className="w-4 h-4" />
               <span>Quick Add</span>
             </button>
@@ -362,7 +362,7 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
             <ThemeToggle />
 
             {/* Profile Dropdown */}
-            <div className="relative ml-2">
+            <div className="relative ml-2" title="User Profile Menu">
               <button 
                 onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
                 className="flex items-center gap-2 bg-card/10 hover:bg-card/20 border border-white/20 rounded-xl pl-2 pr-3 py-1.5 transition-colors"

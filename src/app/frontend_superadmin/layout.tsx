@@ -301,6 +301,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
               <button
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                 className="w-8 h-8 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors focus:outline-none"
+                title="Toggle Theme"
               >
                 {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
               </button>
@@ -366,7 +367,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
 
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             {/* System Alerts */}
-            <div className="relative">
+            <div className="relative" title="System Alerts">
               <button onClick={() => { setIsAlertsOpen(!isAlertsOpen); setIsSupportOpen(false); setIsNotifOpen(false); setIsProfileOpen(false); }} className="hidden sm:flex w-9 h-9 items-center justify-center text-[var(--danger)] hover:bg-[var(--danger-bg)] rounded-full transition-colors relative" aria-label="System Alerts">
                 <AlertCircle className="w-[18px] h-[18px]" />
                 <span className="absolute top-2 right-2 w-2 h-2 bg-[var(--danger)] rounded-full animate-ping"></span>
@@ -388,7 +389,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
             </div>
 
             {/* Support */}
-            <div className="relative">
+            <div className="relative" title="Support Hub">
               <button onClick={() => { setIsSupportOpen(!isSupportOpen); setIsAlertsOpen(false); setIsNotifOpen(false); setIsProfileOpen(false); }} className="hidden sm:flex w-9 h-9 items-center justify-center text-secondary hover:text-[var(--primary)] hover:bg-[var(--primary-subtle)] rounded-full transition-colors" aria-label="Support">
                 <LifeBuoy className="w-[18px] h-[18px]" />
               </button>
@@ -409,7 +410,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
             </div>
 
             {/* Notifications */}
-            <div className="relative">
+            <div className="relative" title="Notifications">
               <button onClick={() => { setIsNotifOpen(!isNotifOpen); setIsSupportOpen(false); setIsAlertsOpen(false); setIsProfileOpen(false); }} className="w-9 h-9 flex items-center justify-center text-secondary hover:text-[var(--warning)] hover:bg-[var(--warning-bg)] rounded-full transition-colors relative" aria-label="Notifications">
                 <Bell className="w-[18px] h-[18px]" />
                 <span className="absolute top-2 right-2.5 w-2 h-2 bg-[var(--warning)] rounded-full"></span>
@@ -436,13 +437,14 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                 className="w-9 h-9 flex items-center justify-center text-secondary hover:text-primary hover:bg-[var(--bg-overlay)] rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                 aria-label="Toggle Theme"
+                title="Toggle Theme"
               >
                 {theme === 'dark' ? <Sun className="w-[18px] h-[18px]" /> : <Moon className="w-[18px] h-[18px]" />}
               </button>
             )}
 
             {/* Language Switcher */}
-            <div className="hidden sm:flex items-center bg-[var(--bg-overlay)] border border-border rounded-lg overflow-hidden text-xs font-semibold shadow-sm ml-1 mr-1">
+            <div className="hidden sm:flex items-center bg-[var(--bg-overlay)] border border-border rounded-lg overflow-hidden text-xs font-semibold shadow-sm ml-1 mr-1" title="Switch Language">
               <button
                 onClick={() => setLang('en')}
                 className={`px-3 py-1.5 transition-colors focus:outline-none ${lang === 'en' ? 'bg-[var(--primary)] text-white' : 'text-secondary hover:bg-[var(--bg-input)]'}`}
@@ -454,7 +456,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
             </div>
 
             {/* Profile Dropdown */}
-            <div className="relative">
+            <div className="relative" title="User Profile Menu">
               <button 
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
                 className="flex items-center gap-2 px-2 py-1.5 hover:bg-[var(--bg-overlay)] border border-transparent hover:border-border rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
