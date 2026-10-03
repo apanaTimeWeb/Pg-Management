@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { SuperadminSubscriptionPlansMain } from '@/app/frontend_superadmin/superadmin_plans/superadmin_plans_components/SuperadminSubscriptionPlansMain';
 
 export const metadata = {
@@ -5,5 +6,9 @@ export const metadata = {
 };
 
 export default function SubscriptionPlansPage() {
-  return <SuperadminSubscriptionPlansMain />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SuperadminSubscriptionPlansMain />
+    </Suspense>
+  );
 }

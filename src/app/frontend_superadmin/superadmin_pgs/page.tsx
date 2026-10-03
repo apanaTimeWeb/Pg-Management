@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { SuperadminPGManagementMain } from '@/app/frontend_superadmin/superadmin_pgs/superadmin_pgs_components/SuperadminPGManagementMain';
 
 export const metadata = {
@@ -5,5 +6,9 @@ export const metadata = {
 };
 
 export default function SuperadminPGsPage() {
-  return <SuperadminPGManagementMain />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SuperadminPGManagementMain />
+    </Suspense>
+  );
 }

@@ -1,10 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Package, Check, X, Shield, Users, Building, Activity, Copy, Edit, Archive, Play, Pause, ChevronRight, Clock, ShieldCheck, CheckCircle, RefreshCcw, Bell, AlertCircle } from 'lucide-react';
 
 export function SuperadminSubscriptionPlansMain() {
-  const [activeTab, setActiveTab] = useState('plans');
+  const searchParams = useSearchParams();
+  const tabQuery = searchParams.get('tab');
+  const [activeTab, setActiveTab] = useState(tabQuery || 'plans');
+
+  useEffect(() => {
+    if (tabQuery) setActiveTab(tabQuery);
+  }, [tabQuery]);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   const tabs = [

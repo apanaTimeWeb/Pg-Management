@@ -46,8 +46,29 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
     {
       label: 'MANAGEMENT',
       items: [
-        { key: 'pgs', name: 'PG Management', href: '/frontend_superadmin/superadmin_pgs', icon: Building2 },
-        { key: 'owners', name: 'Admin / Owners', href: '/frontend_superadmin/superadmin_owners', icon: Shield },
+        { 
+          key: 'pgs', 
+          name: 'PG Management', 
+          href: '/frontend_superadmin/superadmin_pgs', 
+          icon: Building2,
+          subItems: [
+            { key: 'pgs_pending', name: 'Pending Approval', href: '/frontend_superadmin/superadmin_pgs?tab=pending' },
+            { key: 'pgs_suspended', name: 'Suspended PGs', href: '/frontend_superadmin/superadmin_pgs?tab=suspended' },
+            { key: 'pgs_archived', name: 'Archived', href: '/frontend_superadmin/superadmin_pgs?tab=archived' },
+            { key: 'pgs_add', name: 'Add New PG', href: '/frontend_superadmin/superadmin_pgs?tab=add' }
+          ]
+        },
+        { 
+          key: 'owners', 
+          name: 'Admin / Owners', 
+          href: '/frontend_superadmin/superadmin_owners', 
+          icon: Shield,
+          subItems: [
+            { key: 'owners_pending', name: 'Pending Admins', href: '/frontend_superadmin/superadmin_owners?tab=pending' },
+            { key: 'owners_create', name: 'Create Admin / Owner', href: '/frontend_superadmin/superadmin_owners?tab=create' },
+            { key: 'owners_permissions', name: 'Admin Permissions', href: '/frontend_superadmin/superadmin_owners?tab=permissions' }
+          ]
+        },
         { 
           key: 'users', 
           name: 'User Management', 
@@ -66,9 +87,38 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
     {
       label: 'BUSINESS & FINANCE',
       items: [
-        { key: 'plans', name: 'Subscriptions & Plans', href: '/frontend_superadmin/superadmin_plans', icon: Package },
-        { key: 'billing', name: 'Billing & Payments', href: '/frontend_superadmin/superadmin_billing', icon: CreditCard },
-        { key: 'masterData', name: 'Master Data', href: '/frontend_superadmin/superadmin_master_data', icon: Database },
+        { 
+          key: 'plans', 
+          name: 'Subscriptions & Plans', 
+          href: '/frontend_superadmin/superadmin_plans', 
+          icon: Package,
+          subItems: [
+            { key: 'plans_subscriptions', name: 'Active Subscriptions', href: '/frontend_superadmin/superadmin_plans?tab=subscriptions' },
+            { key: 'plans_workflow', name: 'Workflow', href: '/frontend_superadmin/superadmin_plans?tab=workflow' }
+          ]
+        },
+        { 
+          key: 'billing', 
+          name: 'Billing & Payments', 
+          href: '/frontend_superadmin/superadmin_billing', 
+          icon: CreditCard,
+          subItems: [
+            { key: 'billing_transactions', name: 'Transactions', href: '/frontend_superadmin/superadmin_billing?tab=transactions' },
+            { key: 'billing_settlements', name: 'Settlements', href: '/frontend_superadmin/superadmin_billing?tab=settlements' },
+            { key: 'billing_gateways', name: 'Payment Gateways', href: '/frontend_superadmin/superadmin_billing?tab=gateways' }
+          ]
+        },
+        { 
+          key: 'masterData', 
+          name: 'Master Data', 
+          href: '/frontend_superadmin/superadmin_master_data', 
+          icon: Database,
+          subItems: [
+            { key: 'master_roomTypes', name: 'Room Types', href: '/frontend_superadmin/superadmin_master_data?tab=roomTypes' },
+            { key: 'master_bedTypes', name: 'Bed Types', href: '/frontend_superadmin/superadmin_master_data?tab=bedTypes' },
+            { key: 'master_facilities', name: 'Facilities', href: '/frontend_superadmin/superadmin_master_data?tab=facilities' }
+          ]
+        },
       ]
     },
     {

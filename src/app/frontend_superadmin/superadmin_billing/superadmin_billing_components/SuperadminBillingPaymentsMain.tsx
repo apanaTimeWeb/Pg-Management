@@ -1,10 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { CreditCard, Receipt, Activity, CheckCircle, XCircle, AlertCircle, RefreshCcw, Landmark, PieChart, Search, Filter, Download, Send, Eye, MoreVertical, X, Check } from 'lucide-react';
 
 export function SuperadminBillingPaymentsMain() {
-  const [activeTab, setActiveTab] = useState('invoices');
+  const searchParams = useSearchParams();
+  const tabQuery = searchParams.get('tab');
+  const [activeTab, setActiveTab] = useState(tabQuery || 'invoices');
+
+  useEffect(() => {
+    if (tabQuery) setActiveTab(tabQuery);
+  }, [tabQuery]);
   const [selectedInvoice, setSelectedInvoice] = useState<any | null>(null);
   const [selectedRefund, setSelectedRefund] = useState<any | null>(null);
 

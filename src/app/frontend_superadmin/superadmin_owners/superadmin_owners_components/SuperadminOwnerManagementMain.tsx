@@ -1,10 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { UserPlus, Shield, Users, Clock, Search, Filter, Eye, Edit, ShieldAlert, PowerOff, Key, History, MoreVertical, CheckCircle, XCircle, Mail, KeySquare, ChevronRight, Lock, Trash2 } from 'lucide-react';
 
 export function SuperadminOwnerManagementMain() {
-  const [activeTab, setActiveTab] = useState('all');
+  const searchParams = useSearchParams();
+  const tabQuery = searchParams.get('tab');
+  const [activeTab, setActiveTab] = useState(tabQuery || 'all');
+
+  useEffect(() => {
+    if (tabQuery) setActiveTab(tabQuery);
+  }, [tabQuery]);
   const [selectedOwner, setSelectedOwner] = useState<any | null>(null);
 
   const tabs = [

@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { SuperadminOwnerManagementMain } from '@/app/frontend_superadmin/superadmin_owners/superadmin_owners_components/SuperadminOwnerManagementMain';
 
 export const metadata = {
@@ -5,5 +6,9 @@ export const metadata = {
 };
 
 export default function SuperAdminOwnersDirectoryPage() {
-  return <SuperadminOwnerManagementMain />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SuperadminOwnerManagementMain />
+    </Suspense>
+  );
 }
