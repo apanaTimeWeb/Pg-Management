@@ -44,20 +44,34 @@ export function ManagerDashboardMain() {
         handleMarkPresent={handleMarkPresent}
       />
 
-      {/* Row 1: 5 Stats Cards */}
-      <ManagerDashboardStatsGrid stats={stats} />
+      {/* BENTO GRID LAYOUT */}
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-[minmax(180px,auto)]">
+        
+        {/* Quick Stats - Spans full width on mobile, 3 cols on desktop */}
+        <div className="md:col-span-3 lg:col-span-3">
+          <ManagerDashboardStatsGrid stats={stats} />
+        </div>
+        
+        {/* Summary Cards - Fits beside Quick Stats */}
+        <div className="md:col-span-3 lg:col-span-1 space-y-6 flex flex-col justify-between">
+          <ManagerDashboardSummaryCards stats={stats} />
+        </div>
 
-      {/* Row 2: 4 Summary Cards */}
-      <ManagerDashboardSummaryCards stats={stats} />
+        {/* Tasks / Complaints - Spans 2 cols */}
+        <div className="md:col-span-2 lg:col-span-2 bg-card border border-border/50 rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+          <ManagerDashboardTasks />
+        </div>
 
-      {/* Row 3: 2 Columns */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <ManagerDashboardTasks />
-        <ManagerDashboardActivity />
+        {/* Performance Summary - Spans 2 cols */}
+        <div className="md:col-span-2 lg:col-span-2 bg-card border border-border/50 rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+          <ManagerDashboardPerformance />
+        </div>
+
+        {/* Recent Activity - Full width at bottom */}
+        <div className="md:col-span-3 lg:col-span-4 bg-card border border-border/50 rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+          <ManagerDashboardActivity />
+        </div>
       </div>
-
-      {/* Row 4: Weekly Performance Summary */}
-      <ManagerDashboardPerformance />
 
       {/* Bottom: Quick Action Buttons */}
       <ManagerDashboardQuickActions />

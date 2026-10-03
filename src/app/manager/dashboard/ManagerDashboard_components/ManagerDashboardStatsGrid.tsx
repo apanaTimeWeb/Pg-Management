@@ -40,12 +40,17 @@ export function ManagerDashboardStatsGrid({ stats }: Props) {
 
 function StatCard({ icon, label, value }: { icon: React.ReactNode, label: string, value: number }) {
   return (
-    <div className="bg-card border border-border rounded-[var(--radius-lg)] p-4 flex flex-col justify-between hover:shadow-sm motion-safe:transition-shadow">
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-xs font-bold text-secondary">{label}</span>
-        <div className="p-1.5 rounded-full bg-input">{icon}</div>
+    <div className="relative overflow-hidden bg-card border border-border/40 rounded-2xl p-5 flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+      {/* Subtle background glow */}
+      <div className="absolute -inset-4 bg-gradient-to-br from-theme-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      
+      <div className="flex items-center justify-between mb-4 relative z-10">
+        <span className="text-sm font-bold text-secondary uppercase tracking-wider">{label}</span>
+        <div className="p-2.5 rounded-xl bg-gradient-to-br from-white/10 to-transparent border border-border/50 shadow-sm backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
+          {icon}
+        </div>
       </div>
-      <div className="text-2xl font-black text-primary">{value}</div>
+      <div className="text-3xl font-black text-primary relative z-10">{value}</div>
     </div>
   );
 }
