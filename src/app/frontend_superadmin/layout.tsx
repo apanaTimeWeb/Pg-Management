@@ -1,7 +1,7 @@
 'use client';
 import { SuperAdminRequireSuperAdmin } from '@/app/frontend_superadmin/SuperAdmin_components/SuperAdminRequireSuperAdmin';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { LayoutDashboard, FileText, UserPlus, Users, Package, BarChart3, ToggleLeft, Ticket, History, Settings, Menu, X, ShieldAlert, LogOut, ChevronDown, User, Search, Bell, AlertCircle, LifeBuoy, Database, Server, ShieldCheck, MessageSquare, CreditCard, Shield, Building2, PlusSquare } from 'lucide-react';
 import { getSession, clearSession } from '@/app/frontend_superadmin/superadmin_lib/superadmin_auth/SuperadminSession';
@@ -13,6 +13,7 @@ import { Moon, Sun } from 'lucide-react';
 function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMobileMenuOpen, handleLogout, pathname }: any) {
   const { lang, setLang, t } = useSuperadminI18n();
   const { theme, setTheme } = useTheme();
+  const searchParams = useSearchParams();
   const [mounted, setMounted] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isAlertsOpen, setIsAlertsOpen] = useState(false);
@@ -53,7 +54,6 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
           href: '/frontend_superadmin/superadmin_users', 
           icon: Users,
           subItems: [
-            { key: 'users_all', name: 'All Users', href: '/frontend_superadmin/superadmin_users?tab=all' },
             { key: 'users_students', name: 'Students', href: '/frontend_superadmin/superadmin_users?tab=students' },
             { key: 'users_managers', name: 'Managers', href: '/frontend_superadmin/superadmin_users?tab=managers' },
             { key: 'users_cooks', name: 'Cooks', href: '/frontend_superadmin/superadmin_users?tab=cooks' },
@@ -167,16 +167,24 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
                       {/* Sub Items */}
                       {hasSubItems && isExpanded && (
                         <div className="mt-1 ml-4 pl-4 border-l border-[#1E3A8A]/50 space-y-1">
-                          {item.subItems.map((subItem: any) => (
-                            <Link
-                              key={subItem.key || subItem.href}
-                              href={subItem.href}
-                              onClick={() => setIsMobileMenuOpen(false)}
-                              className="flex items-center px-3 py-2 rounded-lg text-[13px] font-medium text-slate-400 hover:text-white hover:bg-[#1E3A8A] transition-colors"
-                            >
-                              <span className="truncate">{t(subItem.key as DictKey) || subItem.name}</span>
-                            </Link>
-                          ))}
+                          {item.subItems.map((subItem: any) => {
+                            const currentUrl = pathname + (searchParams.toString() ? `?${searchParams.toString()}` : '');
+                            const isSubActive = currentUrl === subItem.href || currentUrl.startsWith(subItem.href + '&');
+                            return (
+                              <Link
+                                key={subItem.key || subItem.href}
+                                href={subItem.href}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className={`flex items-center px-3 py-2 rounded-lg text-[13px] font-medium transition-colors ${
+                                  isSubActive 
+                                    ? 'text-[#4F46E5] bg-white/90 shadow-sm' 
+                                    : 'text-slate-400 hover:text-white hover:bg-[#1E3A8A]'
+                                }`}
+                              >
+                                <span className="truncate">{t(subItem.key as DictKey) || subItem.name}</span>
+                              </Link>
+                            );
+                          })}
                         </div>
                       )}
                     </div>
