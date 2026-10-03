@@ -48,7 +48,7 @@ export function SuperadminOwnerManagementMain() {
             <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
               <Shield className="w-8 h-8" /> Admin / Owner Management
             </h1>
-            <p className="text-white/80 font-medium max-w-xl">
+            <p className="text-white/80 font-medium">
               Control the top-level accounts (PG Owners), configure global permissions, and manage onboarding.
             </p>
           </div>

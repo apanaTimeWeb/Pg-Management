@@ -189,31 +189,31 @@ export function SuperadminPGManagementMain() {
                <button onClick={() => setActiveTab('all')} className="text-sm text-secondary hover:text-primary transition-colors font-bold">Cancel</button>
             </h2>
 
-            <div className="flex-1 flex gap-8">
-               {/* Left Flow Steps */}
-               <div className="w-64 border-r border-border/50 pr-8 space-y-8 relative">
-                 <div className="absolute top-0 bottom-0 left-[15px] w-0.5 bg-border/50 -z-10"></div>
+            <div className="flex-1 flex flex-col gap-8">
+               {/* Top Flow Steps */}
+               <div className="w-full flex items-center justify-between relative px-4 mt-2">
+                 <div className="absolute top-[15px] left-[50px] right-[50px] h-0.5 bg-border/50 -z-10"></div>
                  {[
                    { num: 1, title: 'Organization Info' },
                    { num: 2, title: 'Business Details' },
                    { num: 3, title: 'Owner Account' },
                    { num: 4, title: 'Subscription & Plan' },
                    { num: 5, title: 'Documents Upload' },
-                   { num: 6, title: 'Final Review & Save' },
+                   { num: 6, title: 'Final Review' },
                  ].map((s) => (
-                    <div key={s.num} className="flex items-center gap-4 relative z-10">
-                       <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${
+                    <div key={s.num} className="flex flex-col items-center gap-2 relative z-10 w-28">
+                       <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-card ${
                          formStep > s.num ? 'bg-success text-white' : 
                          formStep === s.num ? 'bg-theme-primary text-white ring-4 ring-theme-primary/20' : 'bg-bg-page border border-border/50 text-secondary'
                        }`}>
                           {formStep > s.num ? <CheckCircle className="w-4 h-4"/> : s.num}
                        </div>
-                       <span className={`font-bold text-sm ${formStep === s.num ? 'text-primary' : 'text-secondary'}`}>{s.title}</span>
+                       <span className={`font-bold text-xs text-center leading-tight ${formStep === s.num ? 'text-primary' : 'text-secondary'}`}>{s.title}</span>
                     </div>
                  ))}
                </div>
 
-               {/* Right Form Area */}
+               {/* Form Area */}
                <div className="flex-1 bg-bg-page/50 border border-border/50 rounded-2xl p-8 flex flex-col">
                   <div className="flex-1 overflow-auto pr-4 space-y-6">
                     {formStep === 1 && (
