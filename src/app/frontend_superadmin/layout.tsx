@@ -150,7 +150,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
   ];
 
   return (
-    <div className="min-h-screen bg-page text-primary font-sans flex">
+    <div className="min-h-screen flex flex-col md:flex-row font-sans" style={{ background: 'var(--bg-page)' }}>
       
       {/* Mobile Backdrop */}
       {isMobileMenuOpen && (
@@ -163,98 +163,102 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
       {/* ── SIDEBAR ── */}
       <aside
         className={`
-          fixed top-0 bottom-0 left-0 z-50 w-[280px] bg-card border-r border-border/50 flex flex-col
-          transform transition-all duration-300 ease-[cubic-bezier(0.25,0.8,0.25,1)] shadow-2xl md:shadow-none
+          fixed inset-y-0 left-0 z-50 w-64 overflow-y-auto shrink-0 flex flex-col
+          transform transition-transform motion-safe:duration-300 motion-safe:ease-in-out shadow-2xl md:shadow-none
           ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
-          md:translate-x-0
+          md:relative md:translate-x-0 md:sticky md:top-0 md:h-screen
+          scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent
         `}
+        style={{ background: 'var(--bg-sidebar)', borderRight: '1px solid var(--border)' }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-theme-primary/5 to-transparent pointer-events-none" />
-        
         {/* Sidebar Header */}
-        <div className="h-[80px] flex items-center px-8 shrink-0 border-b border-border/50 relative z-10">
-          <div className="flex items-center gap-4 w-full cursor-pointer group">
-            <div className="w-10 h-10 bg-gradient-to-br from-theme-primary to-theme-primary-hover rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-theme-primary/20 transition-all duration-300 group-hover:scale-105">
-              <ShieldAlert className="w-5 h-5 text-white" />
+        <div
+          className="flex items-center justify-between px-5 py-4 shrink-0 sticky top-0 z-10"
+          style={{ background: 'linear-gradient(135deg, #1A3A5C 0%, #2D7D9A 100%)' }}
+        >
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 bg-white/15 rounded-lg flex items-center justify-center border border-white/20">
+              <ShieldAlert className="text-[#F5A623] w-4 h-4" />
             </div>
-            <div className="flex flex-col">
-              <span className="font-black text-xl text-primary leading-none tracking-tight">SmartPG</span>
-              <span className="text-[10px] text-theme-primary font-bold tracking-widest mt-1 uppercase">Super Admin</span>
-            </div>
+            <span className="font-bold text-white text-base">Smart<span style={{ color: '#F5A623' }}>PG</span> <span className="font-normal text-white/60 text-xs">Admin</span></span>
           </div>
+          <button className="md:hidden text-white/70 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>
+            <X className="w-5 h-5" />
+          </button>
         </div>
 
         {/* Sidebar Nav */}
-        <div className="flex-1 overflow-y-auto py-6 px-4 space-y-8 scrollbar-hide relative z-10">
+        <div className="flex-1 overflow-y-auto py-4 px-3 space-y-6 scrollbar-hide relative z-10">
           {navigationGroups.map((group, idx) => (
-            <div key={idx} className="space-y-3">
-              <h3 className="px-4 text-[10px] font-black tracking-widest text-secondary/70 uppercase">
+            <div key={idx} className="space-y-2">
+              <h3 className="px-4 text-[10px] font-black tracking-widest text-secondary/70 uppercase mb-2">
                 {group.label}
               </h3>
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 {group.items.map((item) => {
                   const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
                   const hasSubItems = (item as any).subItems && (item as any).subItems.length > 0;
                   const isExpanded = expandedMenus[item.key] || false;
                   
-                  return (
-                    <div key={item.key || item.href}>
-                      <div className="flex items-center">
-                        <Link
-                          href={item.href}
-                          onClick={(e) => { 
-                            setIsMobileMenuOpen(false); 
-                            if (hasSubItems) {
-                              toggleExpanded(item.key);
-                            }
-                          }}
-                          className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-bold transition-all duration-200 group relative overflow-hidden ${
-                            isActive
-                              ? 'text-theme-primary bg-primary-subtle shadow-sm'
-                              : 'text-secondary hover:text-primary hover:bg-bg-page'
+                  if (hasSubItems) {
+                    return (
+                      <div key={item.key || item.href} className="mb-1">
+                        <button
+                          onClick={() => toggleExpanded(item.key)}
+                          className={`w-full flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold motion-safe:transition-all ${
+                            isActive || isExpanded
+                              ? 'text-white'
+                              : 'text-secondary hover:bg-page hover:text-primary'
                           }`}
+                          style={isActive || isExpanded ? { background: '#2D7D9A' } : {}}
                         >
-                          {isActive && (
-                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-theme-primary rounded-r-full shadow-[0_0_8px_rgba(99,102,241,0.6)]" />
-                          )}
-                          
-                          <div className="flex items-center gap-3 truncate">
-                            <div className={`p-1.5 rounded-xl transition-colors ${isActive ? 'bg-theme-primary/10' : 'group-hover:bg-theme-primary/5'}`}>
-                              <item.icon className={`w-[18px] h-[18px] shrink-0 ${isActive ? 'text-theme-primary' : 'text-secondary group-hover:text-theme-primary transition-colors'}`} />
-                            </div>
-                            <span className="truncate">{item.key ? (t(item.key as DictKey) || item.name) : item.name}</span>
+                          <div className="flex items-center gap-3">
+                            <item.icon className={`w-4 h-4 ${isActive || isExpanded ? 'text-white' : 'text-secondary'}`} />
+                            {item.key ? (t(item.key as DictKey) || item.name) : item.name}
                           </div>
-                          
-                          {hasSubItems && (
-                            <ChevronDown className={`w-4 h-4 shrink-0 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''} ${isActive ? 'text-theme-primary' : 'text-secondary group-hover:text-primary'}`} />
-                          )}
-                        </Link>
+                          {isExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronDown className="w-4 h-4 -rotate-90" />}
+                        </button>
+                        
+                        {isExpanded && (
+                          <div className="mt-1 pl-4 space-y-1">
+                            {(item as any).subItems.map((subItem: any) => {
+                              const currentUrl = pathname + (searchParams.toString() ? `?${searchParams.toString()}` : '');
+                              const isSubActive = currentUrl === subItem.href || currentUrl.startsWith(subItem.href + '&');
+                              return (
+                                <Link
+                                  key={subItem.key || subItem.href}
+                                  href={subItem.href}
+                                  onClick={() => setIsMobileMenuOpen(false)}
+                                  className={`flex items-center gap-3 px-4 py-2 rounded-lg text-xs font-semibold motion-safe:transition-all ${
+                                    isSubActive
+                                      ? 'text-[#F5A623] bg-white/5'
+                                      : 'text-secondary hover:text-primary'
+                                  }`}
+                                >
+                                  <div className={`w-1.5 h-1.5 rounded-full ${isSubActive ? 'bg-[#F5A623]' : 'bg-secondary'}`} />
+                                  {t(subItem.key as DictKey) || subItem.name}
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        )}
                       </div>
-                      
-                      {/* Sub Items */}
-                      {hasSubItems && isExpanded && (
-                        <div className="mt-2 ml-6 pl-4 border-l-2 border-border/50 space-y-1.5 animate-in slide-in-from-top-2 duration-200">
-                          {(item as any).subItems.map((subItem: any) => {
-                            const currentUrl = pathname + (searchParams.toString() ? `?${searchParams.toString()}` : '');
-                            const isSubActive = currentUrl === subItem.href || currentUrl.startsWith(subItem.href + '&');
-                            return (
-                              <Link
-                                key={subItem.key || subItem.href}
-                                href={subItem.href}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className={`flex items-center px-4 py-2.5 rounded-xl text-[13px] font-bold transition-all duration-200 ${
-                                  isSubActive 
-                                    ? 'text-theme-primary bg-primary-subtle shadow-sm' 
-                                    : 'text-secondary hover:text-primary hover:bg-bg-page'
-                                }`}
-                              >
-                                <div className={`w-1.5 h-1.5 rounded-full mr-3 ${isSubActive ? 'bg-theme-primary' : 'bg-secondary/50 group-hover:bg-primary'}`} />
-                                <span className="truncate">{t(subItem.key as DictKey) || subItem.name}</span>
-                              </Link>
-                            );
-                          })}
-                        </div>
-                      )}
+                    );
+                  }
+
+                  return (
+                    <div key={item.key || item.href} className="mb-1">
+                      <Link href={item.href} onClick={() => setIsMobileMenuOpen(false)}
+                        className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold motion-safe:transition-all ${
+                          isActive
+                            ? 'text-white shadow-md'
+                            : 'text-secondary hover:bg-page hover:text-primary'
+                        }`}
+                        style={isActive ? { background: '#2D7D9A' } : {}}
+                      >
+                        <item.icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-secondary'}`} />
+                        {item.key ? (t(item.key as DictKey) || item.name) : item.name}
+                      </Link>
                     </div>
                   );
                 })}
@@ -263,38 +267,43 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
           ))}
         </div>
 
-        {/* Sidebar Footer */}
-        <div className="p-6 border-t border-border/50 shrink-0 relative z-10 bg-card">
-          <div className="flex items-center justify-between bg-bg-page rounded-2xl p-4 shadow-sm border border-border/50 group/footer hover:border-theme-primary/30 transition-colors">
-            <div className="flex items-center gap-3 overflow-hidden cursor-pointer" onClick={() => setIsProfileOpen(true)}>
-               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-theme-primary to-theme-primary-hover text-white flex items-center justify-center font-black shrink-0 text-sm shadow-md">
-                 {adminName.charAt(0).toUpperCase() || 'S'}
-               </div>
-               <div className="flex flex-col truncate">
-                 <span className="text-sm font-bold text-primary truncate group-hover/footer:text-theme-primary transition-colors">{adminName || 'SuperAdmin'}</span>
-                 <span className="text-[10px] text-secondary font-bold uppercase tracking-wider">System Admin</span>
-               </div>
-            </div>
-            <button onClick={handleLogout} className="p-2 text-secondary hover:text-danger hover:bg-danger-bg rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-danger" aria-label="Logout">
-              <LogOut className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
       </aside>
 
       {/* ── MAIN AREA ── */}
-      <div className="flex-1 flex flex-col min-w-0 md:ml-[280px] bg-bg-page min-h-screen">
+      <div className="flex-1 flex flex-col min-w-0 bg-transparent min-h-screen">
         
-        {/* Header */}
-        <header className="sticky top-0 z-30 bg-bg-page/80 backdrop-blur-xl h-[80px] flex items-center justify-between px-4 sm:px-6 md:px-8 border-b border-border/50 gap-4">
-          <div className="flex items-center gap-4 flex-1">
-            <button
-              onClick={() => setIsMobileMenuOpen(true)}
-              className="p-2 -ml-2 text-secondary hover:text-primary hover:bg-[var(--bg-overlay)] rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-              aria-label="Toggle Menu"
-            >
-              <Menu className="w-5 h-5" />
+        {/* Mobile Header (For screens smaller than md) */}
+        <div
+          className="md:hidden flex items-center justify-between p-3 shrink-0 sticky top-0 z-50 shadow-md"
+          style={{ background: 'linear-gradient(135deg, #1A3A5C 0%, #2D7D9A 100%)' }}
+        >
+          <div className="flex items-center gap-2">
+            <button onClick={() => setIsMobileMenuOpen(true)} className="text-white p-1">
+              <Menu className="w-6 h-6" />
             </button>
+            <div className="flex items-center gap-1 font-bold text-white">
+              <ShieldAlert className="text-[#F5A623] w-5 h-5 hidden sm:block" />
+              <span className="hidden sm:block">Smart<span style={{ color: '#F5A623' }}>PG</span></span>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            {mounted && (
+              <button
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                className="w-8 h-8 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors focus:outline-none"
+              >
+                {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              </button>
+            )}
+            <div className="text-xs font-medium text-white/80 max-w-[80px] truncate">
+              {adminName || 'Admin'}
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Header */}
+        <header className="hidden md:flex sticky top-0 z-30 bg-bg-page/80 backdrop-blur-xl h-[80px] items-center justify-between px-4 sm:px-6 md:px-8 border-b border-border/50 gap-4" style={{ background: 'var(--bg-card)' }}>
+          <div className="flex items-center gap-4 flex-1">
             <div className="hidden sm:flex items-center gap-2 text-sm shrink-0">
               <span className="font-semibold text-[var(--text-disabled)] uppercase tracking-wider text-[11px]">SuperAdmin</span>
               <span className="text-[var(--text-disabled)]">/</span>
