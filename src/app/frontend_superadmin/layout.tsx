@@ -149,7 +149,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
       {/* Mobile Backdrop */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-page/80 backdrop-blur-sm md:hidden"
+          className="fixed inset-0 z-40 bg-page/80 backdrop-blur-md md:hidden transition-all"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
@@ -157,33 +157,35 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
       {/* ── SIDEBAR ── */}
       <aside
         className={`
-          fixed top-0 bottom-0 left-0 z-50 w-[260px] bg-[#172554] text-white flex flex-col
-          transform transition-transform duration-300 ease-in-out border-r border-[#1E3A8A]/50
+          fixed top-0 bottom-0 left-0 z-50 w-[280px] bg-card border-r border-border/50 flex flex-col
+          transform transition-all duration-300 ease-[cubic-bezier(0.25,0.8,0.25,1)] shadow-2xl md:shadow-none
           ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
           md:translate-x-0
         `}
       >
+        <div className="absolute inset-0 bg-gradient-to-b from-theme-primary/5 to-transparent pointer-events-none" />
+        
         {/* Sidebar Header */}
-        <div className="h-[72px] flex items-center px-6 shrink-0 border-b border-[#1E3A8A]">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center border border-white/20">
+        <div className="h-[80px] flex items-center px-8 shrink-0 border-b border-border/50 relative z-10">
+          <div className="flex items-center gap-4 w-full cursor-pointer group">
+            <div className="w-10 h-10 bg-gradient-to-br from-theme-primary to-theme-primary-hover rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-theme-primary/20 transition-all duration-300 group-hover:scale-105">
               <ShieldAlert className="w-5 h-5 text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-lg text-white leading-none tracking-tight">SmartPG</span>
-              <span className="text-[10px] text-white/70 font-semibold tracking-wider mt-0.5">SUPER ADMIN</span>
+              <span className="font-black text-xl text-primary leading-none tracking-tight">SmartPG</span>
+              <span className="text-[10px] text-theme-primary font-bold tracking-widest mt-1 uppercase">Super Admin</span>
             </div>
           </div>
         </div>
 
         {/* Sidebar Nav */}
-        <div className="flex-1 overflow-y-auto py-6 px-4 space-y-6 scrollbar-hide">
+        <div className="flex-1 overflow-y-auto py-6 px-4 space-y-8 scrollbar-hide relative z-10">
           {navigationGroups.map((group, idx) => (
-            <div key={idx}>
-              <h3 className="px-3 text-[11px] font-bold tracking-widest text-[#64748B] mb-2 uppercase">
+            <div key={idx} className="space-y-3">
+              <h3 className="px-4 text-[10px] font-black tracking-widest text-secondary/70 uppercase">
                 {group.label}
               </h3>
-              <div className="space-y-1">
+              <div className="space-y-1.5">
                 {group.items.map((item) => {
                   const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
                   const hasSubItems = (item as any).subItems && (item as any).subItems.length > 0;
@@ -197,30 +199,35 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
                           onClick={(e) => { 
                             setIsMobileMenuOpen(false); 
                             if (hasSubItems) {
-                              // If it has subItems, also toggle expansion
                               toggleExpanded(item.key);
                             }
                           }}
-                          className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all group focus:outline-none focus:ring-2 focus:ring-[#4F46E5] ${
+                          className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-bold transition-all duration-200 group relative overflow-hidden ${
                             isActive
-                              ? 'bg-[#4F46E5] text-white shadow-sm'
-                              : 'text-slate-300 hover:bg-[#1E3A8A] hover:text-white'
+                              ? 'text-theme-primary bg-primary-subtle shadow-sm'
+                              : 'text-secondary hover:text-primary hover:bg-bg-page'
                           }`}
                         >
+                          {isActive && (
+                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-theme-primary rounded-r-full shadow-[0_0_8px_rgba(99,102,241,0.6)]" />
+                          )}
+                          
                           <div className="flex items-center gap-3 truncate">
-                            <item.icon className={`w-[18px] h-[18px] shrink-0 ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-white transition-colors'}`} />
+                            <div className={`p-1.5 rounded-xl transition-colors ${isActive ? 'bg-theme-primary/10' : 'group-hover:bg-theme-primary/5'}`}>
+                              <item.icon className={`w-[18px] h-[18px] shrink-0 ${isActive ? 'text-theme-primary' : 'text-secondary group-hover:text-theme-primary transition-colors'}`} />
+                            </div>
                             <span className="truncate">{item.key ? (t(item.key as DictKey) || item.name) : item.name}</span>
                           </div>
                           
                           {hasSubItems && (
-                            <ChevronDown className={`w-4 h-4 shrink-0 transition-transform ${isExpanded ? 'rotate-180' : ''} ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-white'}`} />
+                            <ChevronDown className={`w-4 h-4 shrink-0 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''} ${isActive ? 'text-theme-primary' : 'text-secondary group-hover:text-primary'}`} />
                           )}
                         </Link>
                       </div>
                       
                       {/* Sub Items */}
                       {hasSubItems && isExpanded && (
-                        <div className="mt-1 ml-4 pl-4 border-l border-[#1E3A8A]/50 space-y-1">
+                        <div className="mt-2 ml-6 pl-4 border-l-2 border-border/50 space-y-1.5 animate-in slide-in-from-top-2 duration-200">
                           {(item as any).subItems.map((subItem: any) => {
                             const currentUrl = pathname + (searchParams.toString() ? `?${searchParams.toString()}` : '');
                             const isSubActive = currentUrl === subItem.href || currentUrl.startsWith(subItem.href + '&');
@@ -229,12 +236,13 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
                                 key={subItem.key || subItem.href}
                                 href={subItem.href}
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className={`flex items-center px-3 py-2 rounded-lg text-[13px] font-medium transition-colors ${
+                                className={`flex items-center px-4 py-2.5 rounded-xl text-[13px] font-bold transition-all duration-200 ${
                                   isSubActive 
-                                    ? 'text-[#4F46E5] bg-white/90 shadow-sm' 
-                                    : 'text-slate-400 hover:text-white hover:bg-[#1E3A8A]'
+                                    ? 'text-theme-primary bg-primary-subtle shadow-sm' 
+                                    : 'text-secondary hover:text-primary hover:bg-bg-page'
                                 }`}
                               >
+                                <div className={`w-1.5 h-1.5 rounded-full mr-3 ${isSubActive ? 'bg-theme-primary' : 'bg-secondary/50 group-hover:bg-primary'}`} />
                                 <span className="truncate">{t(subItem.key as DictKey) || subItem.name}</span>
                               </Link>
                             );
@@ -250,30 +258,29 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
         </div>
 
         {/* Sidebar Footer */}
-        <div className="p-4 border-t border-[#1E3A8A] shrink-0">
-          <div className="flex items-center justify-between bg-[#1E3A8A]/50 rounded-xl p-3 border border-[#1E3A8A]">
-            <div className="flex items-center gap-3 overflow-hidden">
-               <div className="w-9 h-9 rounded-full bg-[#4F46E5] text-white flex items-center justify-center font-bold shrink-0 text-sm">
+        <div className="p-6 border-t border-border/50 shrink-0 relative z-10 bg-card">
+          <div className="flex items-center justify-between bg-bg-page rounded-2xl p-4 shadow-sm border border-border/50 group/footer hover:border-theme-primary/30 transition-colors">
+            <div className="flex items-center gap-3 overflow-hidden cursor-pointer" onClick={() => setIsProfileOpen(true)}>
+               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-theme-primary to-theme-primary-hover text-white flex items-center justify-center font-black shrink-0 text-sm shadow-md">
                  {adminName.charAt(0).toUpperCase() || 'S'}
                </div>
                <div className="flex flex-col truncate">
-                 <span className="text-sm font-bold text-white truncate">{adminName || 'SuperAdmin'}</span>
-                 <span className="text-[10px] text-slate-300 font-medium">System Admin</span>
+                 <span className="text-sm font-bold text-primary truncate group-hover/footer:text-theme-primary transition-colors">{adminName || 'SuperAdmin'}</span>
+                 <span className="text-[10px] text-secondary font-bold uppercase tracking-wider">System Admin</span>
                </div>
             </div>
-            <button onClick={handleLogout} className="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[#4F46E5]" aria-label="Logout">
-              <LogOut className="w-[18px] h-[18px]" />
+            <button onClick={handleLogout} className="p-2 text-secondary hover:text-danger hover:bg-danger-bg rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-danger" aria-label="Logout">
+              <LogOut className="w-5 h-5" />
             </button>
           </div>
         </div>
       </aside>
 
       {/* ── MAIN AREA ── */}
-      <div className="flex-1 flex flex-col min-w-0 md:ml-[260px] bg-page">
+      <div className="flex-1 flex flex-col min-w-0 md:ml-[280px] bg-bg-page min-h-screen">
         
         {/* Header */}
-        {/* Header */}
-        <header className="sticky top-0 z-30 bg-page/80 backdrop-blur-md h-[72px] flex items-center justify-between px-4 sm:px-6 md:px-8 border-b border-border gap-4">
+        <header className="sticky top-0 z-30 bg-bg-page/80 backdrop-blur-xl h-[80px] flex items-center justify-between px-4 sm:px-6 md:px-8 border-b border-border/50 gap-4">
           <div className="flex items-center gap-4 flex-1">
             <button
               onClick={() => setIsMobileMenuOpen(true)}
