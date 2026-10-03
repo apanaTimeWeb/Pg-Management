@@ -3,7 +3,7 @@ import { SuperAdminRequireSuperAdmin } from '@/app/frontend_superadmin/SuperAdmi
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { LayoutDashboard, FileText, UserPlus, Users, Package, BarChart3, ToggleLeft, Ticket, History, Settings, Menu, X, ShieldAlert, LogOut, ChevronDown, User, Search, Bell, AlertCircle, LifeBuoy, Database, Server, ShieldCheck, MessageSquare, CreditCard, Shield, Building2 } from 'lucide-react';
+import { LayoutDashboard, FileText, UserPlus, Users, Package, BarChart3, ToggleLeft, Ticket, History, Settings, Menu, X, ShieldAlert, LogOut, ChevronDown, User, Search, Bell, AlertCircle, LifeBuoy, Database, Server, ShieldCheck, MessageSquare, CreditCard, Shield, Building2, PlusSquare } from 'lucide-react';
 import { getSession, clearSession } from '@/app/frontend_superadmin/superadmin_lib/superadmin_auth/SuperadminSession';
 import { SuperadminI18nProvider, useSuperadminI18n } from '@/app/frontend_superadmin/SuperadminI18n';
 import type { DictKey } from '@/app/frontend_superadmin/SuperadminI18n';
@@ -39,6 +39,8 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
       items: [
         { key: 'pgs', name: 'PG Management', href: '/frontend_superadmin/superadmin_pgs', icon: Building2 },
         { key: 'owners', name: 'Admin / Owners', href: '/frontend_superadmin/superadmin_owners', icon: Shield },
+        { key: 'ownerRequests', name: 'Owner Requests', href: '/frontend_superadmin/superadmin_owner_requests', icon: UserPlus },
+        { key: 'createOwner', name: 'Create Owner/PG', href: '/frontend_superadmin/superadmin_create_owner', icon: PlusSquare },
       ]
     },
     {
