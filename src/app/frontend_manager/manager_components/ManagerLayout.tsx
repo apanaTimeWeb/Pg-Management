@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
-  Menu, X, ShieldAlert, Building2, LogOut
+  Menu, X, ShieldAlert, Building2, LogOut, ChevronDown, ChevronRight
 } from 'lucide-react';
 
 import { MENU_ITEMS } from '@/app/frontend_manager/manager_components/ManagerLayout_constants';
@@ -27,6 +27,7 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
   const { properties, selectedPropertyId, setSelectedPropertyId } = useManagerPropertyContext();
   const { lang, setLang, t } = useManagerI18n();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
   console.log('ManagerLayout render ' + JSON.stringify({ selectedPropertyId, propCount: properties.length }));
   useEffect(() => {
     setIsMobileMenuOpen(false);
@@ -105,23 +106,54 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
           <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.35)' }}>Navigation</span>
         </div>
         <nav className="px-3 pb-8 space-y-0.5">
-          {MENU_ITEMS.map((item: MenuItem) => {
+          {MENU_ITEMS.map((item: any) => {
             const label = item.label || t(item.key as DictKey);
             const isActive = pathname.startsWith(item.href);
+            const hasSub = !!item.subItems;
+            const isExpanded = expandedMenu === item.key;
+            
             return (
-              <Link key={item.key} href={item.href} onClick={() => setIsMobileMenuOpen(false)}
-                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold motion-safe:transition-all ${
-                  isActive
-                    ? 'text-[#1A3A5C] shadow-lg'
-                    : 'text-white/65 hover:text-white hover:bg-white/10'
-                }`}
-                style={isActive ? { background: '#F5A623' } : {}}
-              >
-                <item.icon className={`w-4 h-4 ${isActive ? 'text-[#1A3A5C]' : 'text-white/50'}`} />
-                {label}
-              </Link>
+              <div key={item.key} className="flex flex-col">
+                <div 
+                  onClick={() => {
+                    if (hasSub) {
+                       setExpandedMenu(isExpanded ? null : item.key);
+                    } else {
+                       if(typeof window !== 'undefined') window.location.href = item.href;
+                    }
+                  }}
+                  className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-semibold motion-safe:transition-all cursor-pointer ${
+                    isActive
+                      ? 'text-[#1A3A5C] shadow-lg'
+                      : 'text-white/65 hover:text-white hover:bg-white/10'
+                  }`}
+                  style={isActive ? { background: '#F5A623' } : {}}
+                >
+                  <div className="flex items-center gap-3">
+                    <item.icon className={`w-4 h-4 ${isActive ? 'text-[#1A3A5C]' : 'text-white/50'}`} />
+                    {label}
+                  </div>
+                  {hasSub && (
+                    isExpanded ? <ChevronDown className={`w-4 h-4 ${isActive ? 'text-[#1A3A5C]' : ''}`}/> : <ChevronRight className={`w-4 h-4 ${isActive ? 'text-[#1A3A5C]' : ''}`}/>
+                  )}
+                </div>
+                {hasSub && isExpanded && (
+                  <div className="pl-11 pr-4 py-2 flex flex-col gap-2 border-l border-white/10 ml-6 mt-1 mb-1">
+                    {item.subItems.map((sub: any) => (
+                      <Link 
+                        key={sub.label} 
+                        href={sub.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="text-white/60 hover:text-[#F5A623] text-xs font-semibold transition-colors"
+                      >
+                        {sub.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             );
-          })}
+          })}}
         </nav>
       </aside>
       {/* Main Content */}
