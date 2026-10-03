@@ -32,6 +32,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
       label: 'OVERVIEW',
       items: [
         { key: 'dashboard', name: 'Dashboard', href: '/frontend_superadmin/superadmin_dashboard', icon: LayoutDashboard },
+        { key: 'analytics', name: 'Reports & Analytics', href: '/frontend_superadmin/superadmin_analytics', icon: BarChart3 },
       ]
     },
     {
@@ -39,23 +40,32 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
       items: [
         { key: 'pgs', name: 'PG Management', href: '/frontend_superadmin/superadmin_pgs', icon: Building2 },
         { key: 'owners', name: 'Admin / Owners', href: '/frontend_superadmin/superadmin_owners', icon: Shield },
-        { key: 'ownerRequests', name: 'Owner Requests', href: '/frontend_superadmin/superadmin_owner_requests', icon: UserPlus },
-        { key: 'createOwner', name: 'Create Owner/PG', href: '/frontend_superadmin/superadmin_create_owner', icon: PlusSquare },
+        { key: 'users', name: 'User Management', href: '/frontend_superadmin/superadmin_users', icon: Users },
       ]
     },
     {
-      label: 'SYSTEM',
+      label: 'BUSINESS & FINANCE',
       items: [
-        { key: 'users', name: 'User Management', href: '/frontend_superadmin/superadmin_users', icon: Users },
         { key: 'plans', name: 'Subscriptions & Plans', href: '/frontend_superadmin/superadmin_plans', icon: Package },
         { key: 'billing', name: 'Billing & Payments', href: '/frontend_superadmin/superadmin_billing', icon: CreditCard },
-        { key: 'analytics', name: 'Reports & Analytics', href: '/frontend_superadmin/superadmin_analytics', icon: BarChart3 },
+        { key: 'masterData', name: 'Master Data', href: '/frontend_superadmin/superadmin_master_data', icon: Database },
+      ]
+    },
+    {
+      label: 'REQUESTS & SUPPORT',
+      items: [
+        { key: 'ownerRequests', name: 'Owner Requests', href: '/frontend_superadmin/superadmin_owner_requests', icon: UserPlus },
+        { key: 'createOwner', name: 'Create Owner/PG', href: '/frontend_superadmin/superadmin_create_owner', icon: PlusSquare },
         { key: 'tickets', name: 'Support & Helpdesk', href: '/frontend_superadmin/superadmin_tickets', icon: Ticket },
         { key: 'communication', name: 'Communication', href: '/frontend_superadmin/superadmin_communication', icon: MessageSquare },
-        { key: 'auditLogs', name: 'Audit & Security', href: '/frontend_superadmin/superadmin_audit_logs', icon: ShieldCheck },
+      ]
+    },
+    {
+      label: 'SYSTEM & SECURITY',
+      items: [
         { key: 'featureFlags', name: 'Feature Flags', href: '/frontend_superadmin/superadmin_feature_flags', icon: ToggleLeft },
+        { key: 'auditLogs', name: 'Audit & Security', href: '/frontend_superadmin/superadmin_audit_logs', icon: ShieldCheck },
         { key: 'settings', name: 'Global Config', href: '/frontend_superadmin/superadmin_settings', icon: Settings },
-        { key: 'masterData', name: 'Master Data', href: '/frontend_superadmin/superadmin_master_data', icon: Database },
         { key: 'systemManagement', name: 'System Mgmt', href: '/frontend_superadmin/superadmin_system_management', icon: Server },
         { key: 'dataManagement', name: 'Data Management', href: '/frontend_superadmin/superadmin_data_management', icon: Database },
         { key: 'backups', name: 'Backups', href: '/frontend_superadmin/superadmin_backups', icon: Database },
