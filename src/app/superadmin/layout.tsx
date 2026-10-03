@@ -3,7 +3,7 @@ import { SuperAdminRequireSuperAdmin } from '@/app/superadmin/SuperAdmin_compone
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { LayoutDashboard, FileText, UserPlus, Users, Package, BarChart3, ToggleLeft, Ticket, History, Settings, Menu, X, ShieldAlert, LogOut, ChevronDown, User, Search, Bell, AlertCircle, LifeBuoy, Database, Server, ShieldCheck, MessageSquare } from 'lucide-react';
+import { LayoutDashboard, FileText, UserPlus, Users, Package, BarChart3, ToggleLeft, Ticket, History, Settings, Menu, X, ShieldAlert, LogOut, ChevronDown, User, Search, Bell, AlertCircle, LifeBuoy, Database, Server, ShieldCheck, MessageSquare, CreditCard } from 'lucide-react';
 import { getSession, clearSession } from '@/app/superadmin/superadmin_lib/superadmin_auth/SuperadminSession';
 import { SuperadminI18nProvider, useSuperadminI18n } from '@/app/superadmin/SuperadminI18n';
 import type { DictKey } from '@/app/superadmin/SuperadminI18n';
@@ -46,6 +46,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
       label: 'SYSTEM',
       items: [
         { key: 'plans', name: 'Plans', href: '/superadmin/plans', icon: Package },
+        { key: 'billing', name: 'Billing & Payments', href: '/superadmin/billing', icon: CreditCard },
         { key: 'analytics', name: 'Reports & Analytics', href: '/superadmin/analytics', icon: BarChart3 },
         { key: 'tickets', name: 'Support & Helpdesk', href: '/superadmin/tickets', icon: Ticket },
         { key: 'communication', name: 'Communication', href: '/superadmin/communication', icon: MessageSquare },
