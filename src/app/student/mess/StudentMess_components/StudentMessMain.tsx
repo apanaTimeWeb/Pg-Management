@@ -145,10 +145,35 @@ export function StudentMessMain() {
                 ))}
               </div>
             ) : (
-              <div className="p-6 flex-1 flex flex-col items-center justify-center text-center">
-                <CalendarDays className="w-16 h-16 text-secondary mb-4 opacity-20" />
-                <h3 className="font-bold text-primary mb-2">Weekly Menu Coming Soon</h3>
-                <p className="text-sm text-secondary">The complete weekly mess schedule will be displayed here.</p>
+              <div className="flex-1 overflow-x-auto">
+                <table className="w-full text-left text-sm whitespace-nowrap">
+                  <thead>
+                    <tr className="border-b border-border/50 text-secondary bg-bg-page/50">
+                      <th className="p-4 font-bold">Day</th>
+                      <th className="p-4 font-bold">Breakfast (8-10 AM)</th>
+                      <th className="p-4 font-bold">Lunch (1-3 PM)</th>
+                      <th className="p-4 font-bold">Dinner (8-10 PM)</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border/30">
+                    {[
+                      { day: 'Monday', bf: 'Poha, Jalebi, Tea', l: 'Dal Makhani, Rice, Roti', d: 'Mix Veg, Dal, Roti' },
+                      { day: 'Tuesday', bf: 'Aloo Paratha, Curd', l: 'Rajma Chawal, Salad', d: 'Paneer Butter Masala, Roti' },
+                      { day: 'Wednesday', bf: 'Idli Sambar, Chutney', l: 'Kadi Pakoda, Rice', d: 'Aloo Gobi, Dal, Roti' },
+                      { day: 'Thursday', bf: 'Upma, Tea', l: 'Chole Bhature, Lassi', d: 'Matar Paneer, Roti' },
+                      { day: 'Friday', bf: 'Puri Sabji, Halwa', l: 'Dal Fry, Jeera Rice', d: 'Egg Curry / Veg Kofta' },
+                      { day: 'Saturday', bf: 'Bread Pakoda, Tea', l: 'Khichdi, Papad', d: 'Special Thali' },
+                      { day: 'Sunday', bf: 'Masala Dosa', l: 'Chicken Biryani / Veg Biryani', d: 'Noodles, Manchurian' },
+                    ].map((item, idx) => (
+                      <tr key={idx} className="hover:bg-input/50 transition-colors">
+                        <td className="p-4 font-bold text-primary">{item.day}</td>
+                        <td className="p-4 text-secondary">{item.bf}</td>
+                        <td className="p-4 text-secondary">{item.l}</td>
+                        <td className="p-4 text-secondary">{item.d}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             )}
           </div>
