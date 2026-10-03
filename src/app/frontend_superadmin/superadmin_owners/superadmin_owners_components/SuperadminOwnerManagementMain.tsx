@@ -241,7 +241,7 @@ export function SuperadminOwnerManagementMain() {
                 <UserPlus className="w-6 h-6 text-success" /> Admin Onboarding Flow
               </h2>
               
-              <div className="relative z-10 max-w-3xl mx-auto space-y-8">
+              <div className="relative z-10 w-full space-y-8">
                 
                 {/* Stepper */}
                 <div className="flex items-center justify-between relative mb-12">
