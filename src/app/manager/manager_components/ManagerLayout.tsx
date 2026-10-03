@@ -149,15 +149,23 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
             {/* Property Switcher */}
             <div className="flex items-center gap-2 bg-white/10 border border-white/20 rounded-lg px-3 py-1.5">
               <Building2 className="w-4 h-4 text-white/70 shrink-0" />
-              <select 
-                className="bg-transparent text-sm font-semibold text-white outline-none cursor-pointer w-full max-w-[130px] truncate"
-                value={selectedPropertyId}
-                onChange={(e) => setSelectedPropertyId(e.target.value)}
-              >
-                {properties.map(p => (
-                  <option key={(p as { id: string }).id} value={(p as { id: string }).id}>{(p as { id: string; name: string }).name}</option>
-                ))}
-              </select>
+              {properties.length <= 1 ? (
+                <div className="text-sm font-semibold text-white truncate max-w-[130px]">
+                  {properties.length === 1 ? (properties[0] as { name: string }).name : 'No Property'}
+                </div>
+              ) : (
+                <select 
+                  className="bg-transparent text-sm font-semibold text-white outline-none cursor-pointer w-full max-w-[130px] truncate"
+                  value={selectedPropertyId}
+                  onChange={(e) => setSelectedPropertyId(e.target.value)}
+                >
+                  {properties.map(p => (
+                    <option key={(p as { id: string }).id} value={(p as { id: string }).id} className="text-black">
+                      {(p as { id: string; name: string }).name}
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
             <div className="text-xs text-white/70">
               👤 <strong className="text-white">{user?.name}</strong>
