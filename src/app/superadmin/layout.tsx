@@ -3,7 +3,7 @@ import { SuperAdminRequireSuperAdmin } from '@/app/superadmin/SuperAdmin_compone
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { LayoutDashboard, FileText, UserPlus, Users, Package, BarChart3, ToggleLeft, Ticket, History, Settings, Menu, X, ShieldAlert, LogOut, ChevronDown, User } from 'lucide-react';
+import { LayoutDashboard, FileText, UserPlus, Users, Package, BarChart3, ToggleLeft, Ticket, History, Settings, Menu, X, ShieldAlert, LogOut, ChevronDown, User, Search, Bell, AlertCircle, LifeBuoy } from 'lucide-react';
 import { getSession, clearSession } from '@/app/superadmin/superadmin_lib/superadmin_auth/SuperadminSession';
 import { SuperadminI18nProvider, useSuperadminI18n } from '@/app/superadmin/SuperadminI18n';
 import type { DictKey } from '@/app/superadmin/SuperadminI18n';
@@ -138,8 +138,9 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
       <div className="flex-1 flex flex-col min-w-0 md:ml-[260px] bg-[var(--bg-page)]">
         
         {/* Header */}
-        <header className="sticky top-0 z-30 bg-[var(--bg-page)]/80 backdrop-blur-md h-[72px] flex items-center justify-between px-4 sm:px-6 md:px-8 border-b border-[var(--border)]">
-          <div className="flex items-center gap-4">
+        {/* Header */}
+        <header className="sticky top-0 z-30 bg-[var(--bg-page)]/80 backdrop-blur-md h-[72px] flex items-center justify-between px-4 sm:px-6 md:px-8 border-b border-[var(--border)] gap-4">
+          <div className="flex items-center gap-4 flex-1">
             <button
               onClick={() => setIsMobileMenuOpen(true)}
               className="p-2 -ml-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-overlay)] rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
@@ -147,9 +148,9 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
             >
               <Menu className="w-5 h-5" />
             </button>
-            <div className="flex items-center gap-2 text-sm">
-              <span className="hidden sm:inline font-semibold text-[var(--text-disabled)] uppercase tracking-wider text-[11px]">SuperAdmin</span>
-              <span className="hidden sm:inline text-[var(--text-disabled)]">/</span>
+            <div className="hidden sm:flex items-center gap-2 text-sm shrink-0">
+              <span className="font-semibold text-[var(--text-disabled)] uppercase tracking-wider text-[11px]">SuperAdmin</span>
+              <span className="text-[var(--text-disabled)]">/</span>
               <span className="font-bold text-[var(--text-primary)]">
                  {pathname === '/superadmin/dashboard' ? 'Dashboard' : 
                   pathname.includes('/owners') ? 'Owners' : 
@@ -158,14 +159,45 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
                   pathname.split('/').pop()?.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
               </span>
             </div>
+
+            {/* Global Search */}
+            <div className="flex-1 max-w-xl hidden md:flex items-center ml-4">
+              <div className="relative w-full group">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Search className="h-4 w-4 text-[var(--text-secondary)] group-focus-within:text-[var(--primary)] transition-colors" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search PG, Owner, Manager, Cook, Student, Subscription, Invoice, Ticket..."
+                  className="block w-full pl-10 pr-3 py-2 border border-[var(--border)] rounded-full leading-5 bg-[var(--bg-card)] text-[var(--text-primary)] placeholder-[var(--text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] sm:text-sm transition-all"
+                />
+              </div>
+            </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {/* System Alerts */}
+            <button className="hidden sm:flex w-9 h-9 items-center justify-center text-[var(--danger)] hover:bg-[var(--danger-bg)] rounded-full transition-colors relative" aria-label="System Alerts">
+              <AlertCircle className="w-[18px] h-[18px]" />
+              <span className="absolute top-2 right-2 w-2 h-2 bg-[var(--danger)] rounded-full animate-ping"></span>
+            </button>
+
+            {/* Support */}
+            <button className="hidden sm:flex w-9 h-9 items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-overlay)] rounded-full transition-colors" aria-label="Support">
+              <LifeBuoy className="w-[18px] h-[18px]" />
+            </button>
+
+            {/* Notifications */}
+            <button className="w-9 h-9 flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-overlay)] rounded-full transition-colors relative" aria-label="Notifications">
+              <Bell className="w-[18px] h-[18px]" />
+              <span className="absolute top-2 right-2.5 w-2 h-2 bg-[var(--primary)] rounded-full"></span>
+            </button>
+
              {/* Theme Toggle */}
              {mounted && (
               <button
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="w-9 h-9 flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-overlay)] rounded-full transition-colors border border-[var(--border)] shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                className="w-9 h-9 flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-overlay)] rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                 aria-label="Toggle Theme"
               >
                 {theme === 'dark' ? <Sun className="w-[18px] h-[18px]" /> : <Moon className="w-[18px] h-[18px]" />}
@@ -173,7 +205,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
             )}
 
             {/* Language Switcher */}
-            <div className="hidden sm:flex items-center bg-[var(--bg-overlay)] border border-[var(--border)] rounded-lg overflow-hidden text-xs font-semibold shadow-sm">
+            <div className="hidden sm:flex items-center bg-[var(--bg-overlay)] border border-[var(--border)] rounded-lg overflow-hidden text-xs font-semibold shadow-sm ml-1 mr-1">
               <button
                 onClick={() => setLang('en')}
                 className={`px-3 py-1.5 transition-colors focus:outline-none ${lang === 'en' ? 'bg-[var(--primary)] text-white' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-input)]'}`}
