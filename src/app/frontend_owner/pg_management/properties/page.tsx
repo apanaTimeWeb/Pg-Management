@@ -53,6 +53,7 @@ const MOCK_PROPERTIES = [
 ];
 
 export default function PropertyManagementPage() {
+  const [properties, setProperties] = useState(MOCK_PROPERTIES);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [addStep, setAddStep] = useState(1);
 
@@ -218,7 +219,25 @@ export default function PropertyManagementPage() {
                 </button>
               ) : (
                 <button 
-                  onClick={() => { alert('New Property Created! Switch to this property from the top-left dropdown to manage it.'); setIsAddModalOpen(false); setAddStep(1); }} 
+                  onClick={() => { 
+                    setProperties([...properties, {
+                      id: `PG-00${properties.length + 1}`,
+                      code: 'NEW-PG',
+                      name: 'New Registered PG',
+                      type: 'Boys Hostel',
+                      address: 'New Location',
+                      city: 'Unknown',
+                      state: 'UP',
+                      manager: 'Unassigned',
+                      contact: '-',
+                      totalBeds: 0,
+                      occupied: 0,
+                      status: 'Maintenance',
+                      buildings: 1
+                    }]);
+                    setIsAddModalOpen(false); 
+                    setAddStep(1); 
+                  }} 
                   className="px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold flex items-center gap-2 transition-colors shadow-sm"
                 >
                   <CheckCircle2 className="w-4 h-4" /> Finalize Registration
@@ -280,7 +299,7 @@ export default function PropertyManagementPage() {
 
       {/* Property Cards Grid */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        {MOCK_PROPERTIES.map(property => (
+        {properties.map(property => (
           <div key={property.id} className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:border-[#1A3A5C]/30 transition-colors flex flex-col">
             
             {/* Header */}
@@ -349,9 +368,9 @@ export default function PropertyManagementPage() {
                   <p className="text-[10px] font-bold text-[var(--text-disabled)] mt-2 text-right">{property.totalBeds - property.occupied} Vacant Beds</p>
                 </div>
                 
-                <button className="w-full py-2.5 bg-card border border-border text-[#1A3A5C] hover:bg-page hover:border-[#1A3A5C] rounded-xl text-sm font-bold transition-colors">
+                <a href="/frontend_owner/dashboard" className="block text-center w-full py-2.5 bg-card border border-border text-[#1A3A5C] hover:bg-page hover:border-[#1A3A5C] rounded-xl text-sm font-bold transition-colors">
                   Switch to Property
-                </button>
+                </a>
               </div>
 
             </div>

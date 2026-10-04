@@ -13,8 +13,15 @@ const MOCK_NOTICES = [
 ];
 
 export default function NoticesPage() {
+  const [noticesList, setNoticesList] = useState(MOCK_NOTICES);
+  const [searchTerm, setSearchTerm] = useState('');
   const [viewState, setViewState] = useState<'list' | 'create' | 'audience' | 'preview'>('list');
   const [formData, setFormData] = useState({ title: '', type: 'General announcement', content: '', audience: 'All Students' });
+
+  const filteredNotices = noticesList.filter(notice => {
+    if (searchTerm && !notice.title.toLowerCase().includes(searchTerm.toLowerCase()) && !notice.content.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+    return true;
+  });
 
   const renderContent = () => {
     switch (viewState) {
@@ -24,12 +31,18 @@ export default function NoticesPage() {
             <div className="flex items-center justify-between mb-6">
               <div className="relative w-full max-w-md">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <input type="text" placeholder="Search announcements..." className="w-full pl-10 pr-4 py-2 border border-border rounded-xl focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] outline-none text-sm" />
+                <input 
+                  type="text" 
+                  placeholder="Search announcements..." 
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 border border-border rounded-xl focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] outline-none text-sm" 
+                />
               </div>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {MOCK_NOTICES.map((notice) => (
+              {filteredNotices.map((notice) => (
                 <div key={notice.id} className="bg-card rounded-2xl p-5 border border-border/50 shadow-sm hover:shadow-md transition-shadow relative">
                   <div className="flex justify-between items-start mb-3">
                     <div className="flex items-center gap-3">
@@ -209,6 +222,18 @@ export default function NoticesPage() {
               </button>
               <button 
                 onClick={() => {
+                  setNoticesList([{
+                    id: noticesList.length + 1,
+                    title: formData.title || 'Untitled Notice',
+                    type: formData.type,
+                    content: formData.content,
+                    audience: formData.audience,
+                    date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
+                    readStatus: '0 / 210',
+                    icon: Megaphone,
+                    color: 'text-[#F5A623]',
+                    bg: 'bg-orange-50'
+                  }, ...noticesList]);
                   alert('Notice Published Successfully!');
                   setViewState('list');
                 }}

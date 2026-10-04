@@ -32,6 +32,7 @@ const MOCK_ROOMS = [
 ];
 
 export default function RoomsBedsPage() {
+  const [rooms, setRooms] = useState(MOCK_ROOMS);
   const [viewMode, setViewMode] = useState<'matrix' | 'list'>('matrix');
   const [searchTerm, setSearchTerm] = useState('');
   
@@ -133,11 +134,94 @@ export default function RoomsBedsPage() {
                   <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-card p-4 rounded-xl border border-border shadow-sm ml-4 md:ml-0 text-center">
                     <p className="text-sm font-bold text-primary">3. Final Allocation</p>
                     <p className="text-xs text-[var(--text-disabled)] mt-1 mb-3">Locks the bed and generates the master ledger.</p>
-                    <button onClick={() => { alert('Bed Allocated Successfully!'); setIsAllocateModalOpen(false); }} className="w-full py-2 bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 rounded-lg text-sm font-bold transition-colors">Confirm Allocation</button>
+                    <button onClick={() => { 
+                      setRooms(prevRooms => prevRooms.map(room => {
+                        if (room.number === selectedBed.roomNo) {
+                          return {
+                            ...room,
+                            occupied: room.occupied + 1,
+                            beds: room.beds.map(bed => {
+                              if (bed.id === selectedBed.id) {
+                                return { ...bed, status: 'Occupied', student: 'New Student' };
+                              }
+                              return bed;
+                            })
+                          };
+                        }
+                        return room;
+                      }));
+                      setIsAllocateModalOpen(false); 
+                    }} className="w-full py-2 bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 rounded-lg text-sm font-bold transition-colors">Confirm Allocation</button>
                   </div>
                 </div>
 
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Add Room Modal */}
+      {isAddRoomModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-card rounded-2xl shadow-xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="p-5 border-b border-border/50 flex items-center justify-between bg-[#1A3A5C] text-white">
+              <h2 className="text-xl font-bold flex items-center gap-2">
+                <Plus className="w-5 h-5 text-[#F5A623]" /> Add New Room
+              </h2>
+              <button onClick={() => setIsAddRoomModalOpen(false)} className="p-1.5 hover:bg-white/10 rounded-lg transition-colors"><X className="w-5 h-5" /></button>
+            </div>
+            
+            <div className="p-6 space-y-5 bg-page/50">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-secondary uppercase mb-2">Room Number</label>
+                  <input type="text" placeholder="e.g. 301" className="w-full px-4 py-2.5 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] text-sm font-bold text-primary" />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-secondary uppercase mb-2">Room Type</label>
+                  <select className="w-full px-4 py-2.5 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold text-secondary">
+                    <option>Single</option>
+                    <option>Double</option>
+                    <option>Triple</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-secondary uppercase mb-2">Building</label>
+                  <select className="w-full px-4 py-2 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold text-secondary">
+                    <option>PG Varanasi Main</option>
+                    <option>PG Lanka Branch</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-secondary uppercase mb-2">Base Rent (₹)</label>
+                  <input type="number" placeholder="8000" className="w-full px-4 py-2 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold text-primary" />
+                </div>
+              </div>
+            </div>
+            
+            <div className="p-5 border-t border-border/50 bg-card flex justify-end gap-3">
+              <button onClick={() => setIsAddRoomModalOpen(false)} className="px-6 py-2.5 bg-[var(--bg-overlay)] text-secondary rounded-xl font-bold hover:bg-gray-200 transition-colors">Cancel</button>
+              <button onClick={() => { 
+                setRooms([...rooms, {
+                  id: `RM-301`,
+                  number: '301',
+                  building: 'PG Varanasi Main',
+                  floor: '3rd Floor',
+                  type: 'Double',
+                  capacity: 2,
+                  occupied: 0,
+                  baseRent: 8000,
+                  status: 'Active',
+                  beds: [
+                    { id: '301-A', status: 'Available', student: null, joinDate: null, rent: 8000 },
+                    { id: '301-B', status: 'Available', student: null, joinDate: null, rent: 8000 }
+                  ]
+                }]);
+                setIsAddRoomModalOpen(false); 
+              }} className="px-6 py-2.5 bg-[#1A3A5C] hover:bg-[#122a42] text-white rounded-xl font-bold flex items-center gap-2 transition-colors shadow-sm">
+                <CheckCircle2 className="w-4 h-4" /> Save Room
+              </button>
             </div>
           </div>
         </div>
@@ -240,7 +324,7 @@ export default function RoomsBedsPage() {
           {/* BED MATRIX VIEW */}
           {viewMode === 'matrix' && (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {MOCK_ROOMS.filter(r => r.number.includes(searchTerm) || r.building.toLowerCase().includes(searchTerm.toLowerCase())).map((room) => (
+              {rooms.filter(r => r.number.includes(searchTerm) || r.building.toLowerCase().includes(searchTerm.toLowerCase())).map((room) => (
                 <div key={room.id} className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:border-[#F5A623]/30 transition-colors">
                   
                   {/* Room Header */}
@@ -301,7 +385,7 @@ export default function RoomsBedsPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {MOCK_ROOMS.filter(r => r.number.includes(searchTerm) || r.building.toLowerCase().includes(searchTerm.toLowerCase())).map((room) => (
+                  {rooms.filter(r => r.number.includes(searchTerm) || r.building.toLowerCase().includes(searchTerm.toLowerCase())).map((room) => (
                     <tr key={room.id} className="hover:bg-page/50 transition-colors">
                       <td className="p-4 text-center"><span className="w-12 h-12 rounded-xl bg-[var(--bg-overlay)] border border-border flex items-center justify-center font-black text-primary mx-auto text-lg">{room.number}</span></td>
                       <td className="p-4">

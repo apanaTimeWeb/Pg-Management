@@ -66,7 +66,7 @@ export default function MyProfilePage() {
               <div className="p-6 md:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div className="flex items-center justify-between mb-8">
                   <h2 className="text-xl font-bold text-primary">Personal Information</h2>
-                  <button className="flex items-center gap-2 text-sm font-bold text-white bg-[#F5A623] hover:bg-[#e09612] px-4 py-2 rounded-lg transition-colors">
+                  <button onClick={() => alert('Profile Updated Successfully!')} className="flex items-center gap-2 text-sm font-bold text-white bg-[#F5A623] hover:bg-[#e09612] px-4 py-2 rounded-lg transition-colors">
                     <Save className="w-4 h-4" /> Save Changes
                   </button>
                 </div>

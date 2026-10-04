@@ -12,14 +12,12 @@ const MOCK_ADMISSIONS = [
 ];
 
 export default function RejectedPage() {
+  const [admissions, setAdmissions] = useState(MOCK_ADMISSIONS);
   const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('Rejected');
 
-  const filterByTitle = title === 'Enquiries' ? 'Pending' : title;
-  
-  const filteredApps = MOCK_ADMISSIONS.filter(app => {
-    // For specific pages, simulate filtering by status. 
-    // Usually, the page title matches the status, but "Applications" means all.
-    if (title !== 'Applications' && app.status !== filterByTitle) return false;
+  const filteredApps = admissions.filter(app => {
+    if (statusFilter !== 'All' && app.status !== statusFilter) return false;
     if (searchTerm && !app.name.toLowerCase().includes(searchTerm.toLowerCase()) && !app.id.toLowerCase().includes(searchTerm.toLowerCase())) return false;
     return true;
   });
@@ -65,9 +63,17 @@ export default function RejectedPage() {
             />
           </div>
           <div className="flex items-center gap-2">
-            <button className="flex items-center gap-2 px-3 py-2 bg-input border border-border rounded-xl text-sm font-semibold text-secondary hover:text-primary transition-colors">
-              <Filter className="w-4 h-4" /> Filters
-            </button>
+            <select 
+              value={statusFilter} 
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="px-4 py-2 bg-input border border-border rounded-xl text-sm font-semibold text-secondary focus:outline-none focus:border-[#F5A623]"
+            >
+              <option value="All">All Applications</option>
+              <option value="Pending">Pending</option>
+              <option value="Verification">Verification</option>
+              <option value="Approved">Approved</option>
+              <option value="Rejected">Rejected</option>
+            </select>
           </div>
         </div>
 

@@ -161,7 +161,7 @@ export function OwnerDashboardMain() {
           </div>
           <div className="space-y-3">
             {propMetrics.openComplaints > 0 && (
-              <Link href="/frontend_owner/owner_complaints" className="flex items-start gap-3 p-3 bg-danger-bg border border-danger/30 rounded-xl hover:border-danger transition-colors group">
+              <Link href="/frontend_owner/complaints_maintenance/complaints" className="flex items-start gap-3 p-3 bg-danger-bg border border-danger/30 rounded-xl hover:border-danger transition-colors group">
                 <AlertTriangle className="w-4 h-4 text-danger mt-0.5 shrink-0" />
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-semibold text-primary">{propMetrics.openComplaints} Open Complaints</div>
@@ -171,7 +171,7 @@ export function OwnerDashboardMain() {
               </Link>
             )}
             {propMetrics.pendingRent > 0 && (
-              <Link href="/frontend_owner/owner_finance" className="flex items-start gap-3 p-3 bg-warning-bg border border-warning/30 rounded-xl hover:border-warning transition-colors group">
+              <Link href="/frontend_owner/fees_payments/dues" className="flex items-start gap-3 p-3 bg-warning-bg border border-warning/30 rounded-xl hover:border-warning transition-colors group">
                 <AlertTriangle className="w-4 h-4 text-warning mt-0.5 shrink-0" />
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-semibold text-primary">₹{propMetrics.pendingRent.toLocaleString('en-IN')} Pending Rent</div>
@@ -181,7 +181,7 @@ export function OwnerDashboardMain() {
               </Link>
             )}
             {propMetrics.vacantBeds > 0 && (
-              <Link href="/frontend_owner/owner_rooms" className="flex items-start gap-3 p-3 bg-[rgba(45,125,154,0.1)] border border-[#2D7D9A]/30 rounded-xl hover:border-[#2D7D9A] transition-colors group">
+              <Link href="/frontend_owner/rooms_beds/available" className="flex items-start gap-3 p-3 bg-[rgba(45,125,154,0.1)] border border-[#2D7D9A]/30 rounded-xl hover:border-[#2D7D9A] transition-colors group">
                 <Building2 className="w-4 h-4 text-[#2D7D9A] mt-0.5 shrink-0" />
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-semibold text-primary">{propMetrics.vacantBeds} Vacant Beds</div>
@@ -204,12 +204,12 @@ export function OwnerDashboardMain() {
           </div>
           <div className="grid grid-cols-2 gap-2">
             {[
-              { label: 'Add Student', href: '/owner/students', icon: Users, color: 'text-[#2D7D9A]', bg: 'bg-[rgba(45,125,154,0.1)]' },
-              { label: 'View Finance', href: '/owner/finance', icon: BarChart, color: 'text-success', bg: 'bg-success-bg' },
-              { label: 'Complaints', href: '/owner/complaints', icon: MessageSquare, color: 'text-warning', bg: 'bg-warning-bg' },
-              { label: 'Notices', href: '/owner/notices', icon: Megaphone, color: 'text-primary', bg: 'bg-primary-subtle' },
-              { label: 'Reports', href: '/owner/reports', icon: Activity, color: 'text-[#2D7D9A]', bg: 'bg-[rgba(45,125,154,0.1)]' },
-              { label: 'Tax & Compliance', href: '/owner/tax', icon: Shield, color: 'text-success', bg: 'bg-success-bg' },
+              { label: 'Add Student', href: '/frontend_owner/students/all', icon: Users, color: 'text-[#2D7D9A]', bg: 'bg-[rgba(45,125,154,0.1)]' },
+              { label: 'View Finance', href: '/frontend_owner/fees_payments/rent', icon: BarChart, color: 'text-success', bg: 'bg-success-bg' },
+              { label: 'Complaints', href: '/frontend_owner/complaints_maintenance/complaints', icon: MessageSquare, color: 'text-warning', bg: 'bg-warning-bg' },
+              { label: 'Notices', href: '/frontend_owner/notices', icon: Megaphone, color: 'text-primary', bg: 'bg-primary-subtle' },
+              { label: 'Reports', href: '/frontend_owner/reports', icon: Activity, color: 'text-[#2D7D9A]', bg: 'bg-[rgba(45,125,154,0.1)]' },
+              { label: 'Tax & Compliance', href: '/frontend_owner/accounts/reports', icon: Shield, color: 'text-success', bg: 'bg-success-bg' },
             ].map(({ label, href, icon: Icon, color, bg }) => (
               <Link key={href} href={href} className="flex flex-col items-center gap-2 p-3 rounded-xl border border-border hover:border-primary/40 transition-all hover:shadow-sm group text-center">
                 <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${bg} group-hover:scale-110 transition-transform`}>
@@ -325,7 +325,7 @@ export function OwnerDashboardMain() {
           </div>
           <div className="h-[280px] w-full">
             {(typeof window !== 'undefined') && (
-              <ReactApexChart options={incomeTrendOptions} series={incomeTrendSeries} type="area" height={280} />
+              <ReactApexChart options={incomeTrendOptions as any} series={incomeTrendSeries} type="area" height={280} />
             )}
           </div>
         </div>

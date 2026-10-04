@@ -203,7 +203,7 @@ export default function PGSettingsPage() {
         </div>
         
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 bg-[#F5A623] hover:bg-[#e09612] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
+          <button onClick={() => alert('Settings Saved Successfully!')} className="flex items-center gap-2 bg-[#F5A623] hover:bg-[#e09612] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
             <Save className="w-4 h-4" /> Save All Changes
           </button>
         </div>

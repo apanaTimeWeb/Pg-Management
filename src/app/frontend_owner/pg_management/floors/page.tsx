@@ -2,7 +2,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Layers, Plus, Edit3, Trash2, Search, Building2, MapPin, Users, CheckCircle2, ChevronDown, ChevronRight, LayoutGrid, Wifi, Droplets, Flame, MonitorPlay, Thermometer, Box } from 'lucide-react';
+import Link from 'next/link';
+import { Layers, Plus, Edit3, Trash2, Search, Building2, MapPin, Users, CheckCircle2, ChevronDown, ChevronRight, LayoutGrid, Wifi, Droplets, Flame, MonitorPlay, Thermometer, Box, X } from 'lucide-react';
 
 const MOCK_BUILDINGS = [
   { id: 'BLD-01', name: 'Block A (Boys Hostel)' },
@@ -73,6 +74,55 @@ export default function FloorManagementPage() {
   return (
     <div className="w-full space-y-6">
       
+      {/* Add Floor Modal */}
+      {isAddModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-card rounded-2xl shadow-xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="p-5 border-b border-border/50 flex items-center justify-between bg-[#1A3A5C] text-white">
+              <h2 className="text-xl font-bold flex items-center gap-2">
+                <Layers className="w-5 h-5 text-[#F5A623]" /> Add New Floor
+              </h2>
+              <button onClick={() => setIsAddModalOpen(false)} className="p-1.5 hover:bg-white/10 rounded-lg transition-colors"><X className="w-5 h-5" /></button>
+            </div>
+            
+            <div className="p-6 space-y-5 bg-page/50">
+              <div>
+                <label className="block text-xs font-bold text-secondary uppercase mb-2">Select Building</label>
+                <select className="w-full px-4 py-2.5 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold text-secondary">
+                  {MOCK_BUILDINGS.map(b => (
+                    <option key={b.id} value={b.name}>{b.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-secondary uppercase mb-2">Floor Name</label>
+                <input type="text" placeholder="e.g. Third Floor" className="w-full px-4 py-2.5 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] focus:ring-1 focus:ring-[#F5A623] text-sm font-bold text-primary" />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-secondary uppercase mb-2">Total Rooms</label>
+                  <input type="number" placeholder="10" className="w-full px-4 py-2.5 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold text-primary" />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-secondary uppercase mb-2">Floor Type</label>
+                  <select className="w-full px-4 py-2.5 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold text-secondary">
+                    <option>Standard</option>
+                    <option>Premium</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+            <div className="p-5 border-t border-border/50 bg-card flex justify-end gap-3">
+              <button onClick={() => setIsAddModalOpen(false)} className="px-6 py-2.5 bg-[var(--bg-overlay)] text-secondary rounded-xl font-bold hover:bg-gray-200 transition-colors">Cancel</button>
+              <button onClick={() => { alert('Floor Added Successfully!'); setIsAddModalOpen(false); }} className="px-6 py-2.5 bg-[#1A3A5C] hover:bg-[#122a42] text-white rounded-xl font-bold flex items-center gap-2 transition-colors shadow-sm">
+                <CheckCircle2 className="w-4 h-4" /> Save Floor
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
@@ -212,7 +262,7 @@ export default function FloorManagementPage() {
                  <Users className="w-4 h-4" />
                  Warden: <span className="text-primary">{floor.manager}</span>
                </div>
-               <button className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1">View Rooms <ChevronRight className="w-3 h-3" /></button>
+               <Link href="/frontend_owner/rooms_beds/rooms" className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1">View Rooms <ChevronRight className="w-3 h-3" /></Link>
             </div>
           </div>
         ))}

@@ -11,9 +11,11 @@ const MOCK_COMPLAINTS = [
 ];
 
 export default function ComplaintsPage() {
+  const [tickets, setTickets] = useState(MOCK_COMPLAINTS);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const filteredTickets = MOCK_COMPLAINTS.filter(tkt => {
+  const filteredTickets = tickets.filter(tkt => {
     if (searchTerm && !tkt.title.toLowerCase().includes(searchTerm.toLowerCase()) && !tkt.id.toLowerCase().includes(searchTerm.toLowerCase())) return false;
     return true;
   });
@@ -33,11 +35,54 @@ export default function ComplaintsPage() {
           <p className="text-[var(--text-disabled)] text-sm mt-1">Manage maintenance tasks and student complaints.</p>
         </div>
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 bg-[#1A3A5C] hover:bg-[#122a42] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
+          <button onClick={() => setIsModalOpen(true)} className="flex items-center gap-2 bg-[#1A3A5C] hover:bg-[#122a42] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
             <Plus className="w-4 h-4" /> Raise Ticket
           </button>
         </div>
       </div>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-card rounded-2xl shadow-xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="p-5 border-b border-border/50 flex items-center justify-between bg-[#1A3A5C] text-white">
+              <h2 className="text-xl font-bold flex items-center gap-2">
+                <Wrench className="w-5 h-5 text-red-400" /> Raise Complaint
+              </h2>
+              <button onClick={() => setIsModalOpen(false)} className="p-1.5 hover:bg-white/10 rounded-lg transition-colors">X</button>
+            </div>
+            <div className="p-6 space-y-4 bg-page/50">
+               <div>
+                <label className="block text-xs font-bold text-secondary uppercase mb-2">Issue Title</label>
+                <input type="text" placeholder="e.g. Broken Window" className="w-full px-4 py-2 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold text-primary" />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                   <label className="block text-xs font-bold text-secondary uppercase mb-2">Category</label>
+                   <select className="w-full px-4 py-2 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold text-primary">
+                    <option>Electrical</option>
+                    <option>Plumbing</option>
+                    <option>Carpentry</option>
+                    <option>Other</option>
+                   </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-secondary uppercase mb-2">Room</label>
+                  <input type="text" placeholder="e.g. 101" className="w-full px-4 py-2 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold text-primary" />
+                </div>
+              </div>
+            </div>
+            <div className="p-5 border-t border-border/50 bg-card flex justify-end gap-3">
+              <button onClick={() => setIsModalOpen(false)} className="px-5 py-2 bg-[var(--bg-overlay)] text-secondary rounded-xl font-bold hover:bg-gray-200 transition-colors">Cancel</button>
+              <button onClick={() => {
+                setTickets([{
+                  id: `TKT-${900 + tickets.length + 1}`, title: 'New Complaint', category: 'Other', room: '101', reportedBy: 'Admin', date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }), status: 'Pending', priority: 'Medium'
+                }, ...tickets]);
+                setIsModalOpen(false);
+              }} className="px-5 py-2 bg-[#1A3A5C] text-white rounded-xl font-bold">Submit</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="bg-card border border-border/50 rounded-2xl shadow-sm overflow-hidden">
         <div className="p-4 border-b border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-page/50">

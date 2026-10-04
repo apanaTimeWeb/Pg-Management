@@ -202,7 +202,7 @@ export default function NotificationsPage() {
             </div>
 
             <div className="mt-8 pt-6 border-t border-border/50 flex justify-end">
-              <button className="bg-[#F5A623] hover:bg-[#e09612] text-white px-6 py-2.5 rounded-xl font-bold shadow-sm transition-colors">
+              <button onClick={() => alert('Preferences saved!')} className="bg-[#F5A623] hover:bg-[#e09612] text-white px-6 py-2.5 rounded-xl font-bold shadow-sm transition-colors">
                 Save Channel Preferences
               </button>
             </div>

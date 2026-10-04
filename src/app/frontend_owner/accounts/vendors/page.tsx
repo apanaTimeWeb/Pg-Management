@@ -4,23 +4,21 @@
 import React, { useState } from 'react';
 import { Search, Filter, Plus, FileText, Download, Eye, IndianRupee, Calculator, TrendingUp, ArrowDownRight, ArrowUpRight, TrendingDown } from 'lucide-react';
 
-const MOCK_ACCOUNTS = [
-  { id: 'TRX-5001', title: 'Monthly Rent Collected', category: 'Rent', amount: 450000, date: '05 Oct 2026', type: 'Income', status: 'Completed' },
-  { id: 'TRX-5002', title: 'Electricity Bill', category: 'Utilities', amount: 12500, date: '10 Oct 2026', type: 'Expense', status: 'Completed' },
-  { id: 'TRX-5003', title: 'Plumbing Repair', category: 'Maintenance', amount: 2500, date: '12 Oct 2026', type: 'Expense', status: 'Pending' },
-  { id: 'TRX-5004', title: 'Security Deposit Received', category: 'Deposits', amount: 30000, date: '15 Oct 2026', type: 'Income', status: 'Completed' },
+const MOCK_VENDORS = [
+  { id: 'VND-001', name: 'Fresh Foods Groceries', service: 'Food & Groceries', pendingDue: 12500, contact: '9876543210', status: 'Active' },
+  { id: 'VND-002', name: 'Rapid Plumbers', service: 'Maintenance', pendingDue: 2500, contact: '9876543211', status: 'Active' },
+  { id: 'VND-003', name: 'City Power Corp', service: 'Utilities', pendingDue: 0, contact: '1800-POWER', status: 'Active' },
+  { id: 'VND-004', name: 'Clean Sweep Agency', service: 'Housekeeping', pendingDue: 5000, contact: '9876543212', status: 'Inactive' },
 ];
 
 export default function VendorsPage() {
+  const [vendors, setVendors] = useState(MOCK_VENDORS);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const filteredData = MOCK_ACCOUNTS.filter(trx => {
-    if (title === 'Income' && trx.type !== 'Income') return false;
-    if (title === 'Expenses' && trx.type !== 'Expense') return false;
-    
-    if (searchTerm && !trx.title.toLowerCase().includes(searchTerm.toLowerCase()) && !trx.id.toLowerCase().includes(searchTerm.toLowerCase())) return false;
-    
-    return true; // For Reports and Vendors, this might just show all or a specific table, but we use a unified template here
+  const filteredData = vendors.filter(vnd => {
+    if (searchTerm && !vnd.name.toLowerCase().includes(searchTerm.toLowerCase()) && !vnd.id.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+    return true;
   });
 
   return (
@@ -37,26 +35,65 @@ export default function VendorsPage() {
           <button className="flex items-center gap-2 bg-card hover:bg-page border border-border text-primary px-4 py-2 rounded-xl text-sm font-bold shadow-sm transition-colors">
             <Download className="w-4 h-4" /> Export CSV
           </button>
-          <button className="flex items-center gap-2 bg-[#1A3A5C] hover:bg-[#122a42] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
-            <Plus className="w-4 h-4" /> Add Record
+          <button onClick={() => setIsModalOpen(true)} className="flex items-center gap-2 bg-[#1A3A5C] hover:bg-[#122a42] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
+            <Plus className="w-4 h-4" /> Add Vendor
           </button>
         </div>
       </div>
 
-      {/* Metrics Row (for Income/Expense) */}
-      {(title === 'Income' || title === 'Expenses') && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-card p-4 rounded-xl border border-border shadow-sm flex items-center gap-4">
-            <div className={`p-3 rounded-lg ${title === 'Income' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
-              {title === 'Income' ? <ArrowUpRight className="w-6 h-6" /> : <ArrowDownRight className="w-6 h-6" />}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-card rounded-2xl shadow-xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="p-5 border-b border-border/50 flex items-center justify-between bg-[#1A3A5C] text-white">
+              <h2 className="text-xl font-bold flex items-center gap-2">
+                <Plus className="w-5 h-5 text-green-500" /> New Vendor
+              </h2>
+              <button onClick={() => setIsModalOpen(false)} className="p-1.5 hover:bg-white/10 rounded-lg transition-colors">X</button>
             </div>
-            <div>
-              <p className="text-xs font-bold text-secondary uppercase">Total Vendors</p>
-              <h3 className="text-xl font-black text-primary">₹ {title === 'Income' ? '4,80,000' : '15,000'}</h3>
+            <div className="p-6 space-y-4 bg-page/50">
+              <div>
+                <label className="block text-xs font-bold text-secondary uppercase mb-2">Vendor Name</label>
+                <input type="text" placeholder="e.g. ABC Internet" className="w-full px-4 py-2 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold text-primary" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-secondary uppercase mb-2">Service Category</label>
+                <input type="text" placeholder="e.g. Broadband" className="w-full px-4 py-2 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold text-primary" />
+              </div>
+            </div>
+            <div className="p-5 border-t border-border/50 bg-card flex justify-end gap-3">
+              <button onClick={() => setIsModalOpen(false)} className="px-5 py-2 bg-[var(--bg-overlay)] text-secondary rounded-xl font-bold hover:bg-gray-200 transition-colors">Cancel</button>
+              <button onClick={() => { 
+                setVendors([{
+                  id: `VND-00${vendors.length + 1}`, name: 'New Vendor', service: 'Broadband', pendingDue: 0, contact: '-', status: 'Active'
+                }, ...vendors]);
+                setIsModalOpen(false); 
+              }} className="px-5 py-2 bg-[#1A3A5C] text-white rounded-xl font-bold">Save</button>
             </div>
           </div>
         </div>
       )}
+
+      {/* Metrics Row */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="bg-card p-4 rounded-xl border border-border shadow-sm flex items-center gap-4">
+          <div className="p-3 rounded-lg bg-blue-100 text-blue-600">
+            <Calculator className="w-6 h-6" />
+          </div>
+          <div>
+            <p className="text-xs font-bold text-secondary uppercase">Active Vendors</p>
+            <h3 className="text-xl font-black text-primary">{filteredData.filter(v => v.status === 'Active').length}</h3>
+          </div>
+        </div>
+        <div className="bg-card p-4 rounded-xl border border-border shadow-sm flex items-center gap-4">
+          <div className="p-3 rounded-lg bg-red-100 text-red-600">
+            <IndianRupee className="w-6 h-6" />
+          </div>
+          <div>
+            <p className="text-xs font-bold text-secondary uppercase">Total Pending Dues</p>
+            <h3 className="text-xl font-black text-red-600">₹ {filteredData.reduce((acc, cur) => acc + cur.pendingDue, 0).toLocaleString('en-IN')}</h3>
+          </div>
+        </div>
+      </div>
 
       {/* Main Content Card */}
       <div className="bg-card border border-border/50 rounded-2xl shadow-sm overflow-hidden">
@@ -85,33 +122,33 @@ export default function VendorsPage() {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-border/50 bg-page/30 text-[10px] uppercase tracking-wider text-secondary">
-                <th className="p-4 font-bold">Transaction / ID</th>
-                <th className="p-4 font-bold">Category</th>
-                <th className="p-4 font-bold">Date</th>
-                <th className="p-4 font-bold">Amount</th>
+                <th className="p-4 font-bold">Vendor / ID</th>
+                <th className="p-4 font-bold">Service Category</th>
+                <th className="p-4 font-bold">Contact</th>
+                <th className="p-4 font-bold">Pending Dues</th>
                 <th className="p-4 font-bold">Status</th>
                 <th className="p-4 font-bold text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border/50">
-              {filteredData.map((trx, idx) => (
+              {filteredData.map((vnd, idx) => (
                 <tr key={idx} className="hover:bg-page/30 transition-colors group">
                   <td className="p-4">
-                    <p className="text-sm font-bold text-primary">{trx.title}</p>
-                    <p className="text-[10px] text-[var(--text-disabled)] mt-0.5 font-mono">{trx.id}</p>
+                    <p className="text-sm font-bold text-primary">{vnd.name}</p>
+                    <p className="text-[10px] text-[var(--text-disabled)] mt-0.5 font-mono">{vnd.id}</p>
                   </td>
                   <td className="p-4 text-sm font-semibold text-secondary">
-                    {trx.category}
+                    {vnd.service}
                   </td>
-                  <td className="p-4 text-sm text-secondary font-medium">{trx.date}</td>
+                  <td className="p-4 text-sm text-secondary font-medium">{vnd.contact}</td>
                   <td className="p-4">
-                    <span className={`text-sm font-black flex items-center ${trx.type === 'Income' ? 'text-green-600' : 'text-red-500'}`}>
-                      {trx.type === 'Income' ? '+' : '-'}<IndianRupee className="w-3 h-3 mx-0.5"/>{trx.amount}
+                    <span className={`text-sm font-black flex items-center ${vnd.pendingDue > 0 ? 'text-red-500' : 'text-green-600'}`}>
+                      <IndianRupee className="w-3 h-3 mx-0.5"/>{vnd.pendingDue}
                     </span>
                   </td>
                   <td className="p-4">
-                    <span className={`px-2.5 py-1 border rounded-md text-[10px] font-bold uppercase tracking-wide ${trx.status === 'Completed' ? 'bg-green-100 text-green-700 border-green-200' : 'bg-yellow-100 text-yellow-700 border-yellow-200'}`}>
-                      {trx.status}
+                    <span className={`px-2.5 py-1 border rounded-md text-[10px] font-bold uppercase tracking-wide ${vnd.status === 'Active' ? 'bg-green-100 text-green-700 border-green-200' : 'bg-gray-100 text-gray-700 border-gray-200'}`}>
+                      {vnd.status}
                     </span>
                   </td>
                   <td className="p-4 text-right">

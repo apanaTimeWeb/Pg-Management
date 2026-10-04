@@ -21,8 +21,11 @@ const STUDENT_DOCS = [
 ];
 
 export default function DocumentsPage() {
+  const [propertyDocs, setPropertyDocs] = useState(PROPERTY_DOCS);
+  const [studentDocs, setStudentDocs] = useState(STUDENT_DOCS);
   const [activeTab, setActiveTab] = useState<'property' | 'student'>('property');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -43,7 +46,7 @@ export default function DocumentsPage() {
     return <File className="w-8 h-8 text-[var(--text-disabled)]" />;
   };
 
-  const filteredDocs = (activeTab === 'property' ? PROPERTY_DOCS : STUDENT_DOCS).filter((doc: any) => 
+  const filteredDocs = (activeTab === 'property' ? propertyDocs : studentDocs).filter((doc: any) => 
     doc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     doc.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
     (doc.studentName && doc.studentName.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -61,10 +64,59 @@ export default function DocumentsPage() {
           <p className="text-[var(--text-disabled)] text-sm mt-1">Securely manage, verify, and track all PG and Student documents.</p>
         </div>
         
-        <button className="flex items-center justify-center gap-2 bg-[#F5A623] hover:bg-[#e09612] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
+        <button onClick={() => setIsModalOpen(true)} className="flex items-center justify-center gap-2 bg-[#F5A623] hover:bg-[#e09612] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
           <UploadCloud className="w-5 h-5" /> Upload Document
         </button>
       </div>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-card rounded-2xl shadow-xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="p-5 border-b border-border/50 flex items-center justify-between bg-[#1A3A5C] text-white">
+              <h2 className="text-xl font-bold flex items-center gap-2">
+                <UploadCloud className="w-5 h-5 text-blue-400" /> Upload Document
+              </h2>
+              <button onClick={() => setIsModalOpen(false)} className="p-1.5 hover:bg-white/10 rounded-lg transition-colors">X</button>
+            </div>
+            <div className="p-6 space-y-4 bg-page/50">
+               <div>
+                <label className="block text-xs font-bold text-secondary uppercase mb-2">Document Name</label>
+                <input type="text" placeholder="e.g. Electricity Bill" className="w-full px-4 py-2 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold text-primary" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-secondary uppercase mb-2">Document Type</label>
+                <select className="w-full px-4 py-2 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold text-primary">
+                  <option>Licenses</option>
+                  <option>Agreement</option>
+                  <option>ID proof</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              {activeTab === 'student' && (
+                <div>
+                  <label className="block text-xs font-bold text-secondary uppercase mb-2">Student Name & ID</label>
+                  <input type="text" placeholder="e.g. Aman Singh (101)" className="w-full px-4 py-2 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold text-primary" />
+                </div>
+              )}
+            </div>
+            <div className="p-5 border-t border-border/50 bg-card flex justify-end gap-3">
+              <button onClick={() => setIsModalOpen(false)} className="px-5 py-2 bg-[var(--bg-overlay)] text-secondary rounded-xl font-bold hover:bg-gray-200 transition-colors">Cancel</button>
+              <button onClick={() => {
+                if (activeTab === 'property') {
+                  setPropertyDocs([{
+                    id: 999 + propertyDocs.length, name: 'New Uploaded Document', type: 'Other', uploadedDate: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }), expiryDate: 'N/A', status: 'Pending', fileType: 'pdf'
+                  }, ...propertyDocs]);
+                } else {
+                  setStudentDocs([{
+                    id: 999 + studentDocs.length, studentName: 'New Student', name: 'New Uploaded Document', type: 'Other', uploadedDate: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }), expiryDate: 'N/A', status: 'Pending', fileType: 'pdf'
+                  }, ...studentDocs]);
+                }
+                setIsModalOpen(false);
+              }} className="px-5 py-2 bg-[#F5A623] text-white rounded-xl font-bold">Upload</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Tabs and Filters */}
       <div className="bg-card p-2 rounded-2xl shadow-sm border border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">

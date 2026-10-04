@@ -66,12 +66,7 @@ const NAV_ITEMS = [
       { label: 'Managers', href: '/frontend_owner/staff/managers' },
       { label: 'Cooks', href: '/frontend_owner/staff/cooks' },
   ]},
-  { key: 'mess_food', label: 'Mess / Food', icon: UtensilsCrossed, subItems: [
-      { label: 'Menu', href: '/frontend_owner/mess_food/menu' },
-      { label: 'Meals', href: '/frontend_owner/mess_food/meals' },
-      { label: 'Meal Attendance', href: '/frontend_owner/mess_food/attendance' },
-      { label: 'Kitchen Stock', href: '/frontend_owner/mess_food/stock' },
-  ]},
+  { key: 'mess_food', label: 'Mess / Food', href: '/frontend_owner/mess_food', icon: UtensilsCrossed },
   { key: 'attendance', label: 'Attendance', href: '/frontend_owner/attendance', icon: CalendarCheck },
   { key: 'leave_outing', label: 'Leave / Outing', href: '/frontend_owner/leave_outing', icon: PlaneTakeoff },
   { key: 'visitors', label: 'Visitors', href: '/frontend_owner/visitors', icon: Users },

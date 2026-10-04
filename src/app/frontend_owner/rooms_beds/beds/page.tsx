@@ -13,13 +13,13 @@ const MOCK_BEDS = [
 ];
 
 export default function BedsPage() {
+  const [beds, setBeds] = useState(MOCK_BEDS);
   const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('All');
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
-  // Filter based on the page context if needed, for now just show all or filter by title if it matches a status
-  const filterByTitle = title.includes('Available') ? 'Available' : title.includes('Maintenance') ? 'Maintenance' : 'All';
-  
-  const filteredBeds = MOCK_BEDS.filter(bed => {
-    if (filterByTitle !== 'All' && bed.status !== filterByTitle) return false;
+  const filteredBeds = beds.filter(bed => {
+    if (statusFilter !== 'All' && bed.status !== statusFilter) return false;
     if (searchTerm && !bed.id.toLowerCase().includes(searchTerm.toLowerCase()) && !bed.room.toLowerCase().includes(searchTerm.toLowerCase())) return false;
     return true;
   });
@@ -46,11 +46,43 @@ export default function BedsPage() {
           <button className="flex items-center gap-2 bg-card hover:bg-page border border-border text-primary px-4 py-2 rounded-xl text-sm font-bold shadow-sm transition-colors">
             <Download className="w-4 h-4" /> Export
           </button>
-          <button className="flex items-center gap-2 bg-[#1A3A5C] hover:bg-[#122a42] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
+          <button onClick={() => setIsAddModalOpen(true)} className="flex items-center gap-2 bg-[#1A3A5C] hover:bg-[#122a42] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
             <Plus className="w-4 h-4" /> Add Bed
           </button>
         </div>
       </div>
+
+      {isAddModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-card rounded-2xl shadow-xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="p-5 border-b border-border/50 flex items-center justify-between bg-[#1A3A5C] text-white">
+              <h2 className="text-xl font-bold flex items-center gap-2">
+                <Plus className="w-5 h-5 text-[#F5A623]" /> Add New Bed
+              </h2>
+              <button onClick={() => setIsAddModalOpen(false)} className="p-1.5 hover:bg-white/10 rounded-lg transition-colors">X</button>
+            </div>
+            <div className="p-6 space-y-4 bg-page/50">
+              <div>
+                <label className="block text-xs font-bold text-secondary uppercase mb-2">Room Number</label>
+                <input type="text" placeholder="e.g. 102" className="w-full px-4 py-2 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-secondary uppercase mb-2">Bed Label</label>
+                <input type="text" placeholder="e.g. 102-C" className="w-full px-4 py-2 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold" />
+              </div>
+            </div>
+            <div className="p-5 border-t border-border/50 bg-card flex justify-end gap-3">
+              <button onClick={() => setIsAddModalOpen(false)} className="px-5 py-2 bg-[var(--bg-overlay)] text-secondary rounded-xl font-bold hover:bg-gray-200 transition-colors">Cancel</button>
+              <button onClick={() => { 
+                setBeds([...beds, {
+                  id: 'NEW-BED', room: '100', building: 'Main', type: 'Single', rent: 8000, occupant: '-', status: 'Available'
+                }]);
+                setIsAddModalOpen(false); 
+              }} className="px-5 py-2 bg-[#1A3A5C] text-white rounded-xl font-bold">Save</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Main Content Card */}
       <div className="bg-card border border-border/50 rounded-2xl shadow-sm overflow-hidden">
@@ -68,9 +100,17 @@ export default function BedsPage() {
             />
           </div>
           <div className="flex items-center gap-2">
-            <button className="flex items-center gap-2 px-3 py-2 bg-input border border-border rounded-xl text-sm font-semibold text-secondary hover:text-primary transition-colors">
-              <Filter className="w-4 h-4" /> Filters
-            </button>
+            <select 
+              value={statusFilter} 
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="px-4 py-2 bg-input border border-border rounded-xl text-sm font-semibold text-secondary focus:outline-none focus:border-[#F5A623]"
+            >
+              <option value="All">All Status</option>
+              <option value="Available">Available</option>
+              <option value="Occupied">Occupied</option>
+              <option value="Maintenance">Maintenance</option>
+              <option value="Reserved">Reserved</option>
+            </select>
           </div>
         </div>
 

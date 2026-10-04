@@ -12,12 +12,12 @@ const MOCK_STAFF = [
 ];
 
 export default function ManagersPage() {
+  const [staffList, setStaffList] = useState(MOCK_STAFF);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const filteredStaff = MOCK_STAFF.filter(staff => {
-    if (title === 'Managers' && staff.role !== 'Property Manager') return false;
-    if (title === 'Cooks' && !staff.role.includes('Cook')) return false;
-    
+  const filteredStaff = staffList.filter(staff => {
+    if (staff.role !== 'Property Manager') return false;
     if (searchTerm && !staff.name.toLowerCase().includes(searchTerm.toLowerCase()) && !staff.id.toLowerCase().includes(searchTerm.toLowerCase())) return false;
     return true;
   });
@@ -30,11 +30,39 @@ export default function ManagersPage() {
           <p className="text-[var(--text-disabled)] text-sm mt-1">Manage employee records and roles.</p>
         </div>
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 bg-[#1A3A5C] hover:bg-[#122a42] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
-            <Plus className="w-4 h-4" /> Add Employee
+          <button onClick={() => setIsModalOpen(true)} className="flex items-center gap-2 bg-[#1A3A5C] hover:bg-[#122a42] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
+            <Plus className="w-4 h-4" /> Add Manager
           </button>
         </div>
       </div>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-card rounded-2xl shadow-xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="p-5 border-b border-border/50 flex items-center justify-between bg-[#1A3A5C] text-white">
+              <h2 className="text-xl font-bold flex items-center gap-2">
+                <Plus className="w-5 h-5 text-green-500" /> New Manager
+              </h2>
+              <button onClick={() => setIsModalOpen(false)} className="p-1.5 hover:bg-white/10 rounded-lg transition-colors">X</button>
+            </div>
+            <div className="p-6 space-y-4 bg-page/50">
+              <div>
+                <label className="block text-xs font-bold text-secondary uppercase mb-2">Name</label>
+                <input type="text" placeholder="e.g. Shyam Lal" className="w-full px-4 py-2 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold text-primary" />
+              </div>
+            </div>
+            <div className="p-5 border-t border-border/50 bg-card flex justify-end gap-3">
+              <button onClick={() => setIsModalOpen(false)} className="px-5 py-2 bg-[var(--bg-overlay)] text-secondary rounded-xl font-bold hover:bg-gray-200 transition-colors">Cancel</button>
+              <button onClick={() => { 
+                setStaffList([{
+                  id: `EMP-${Math.floor(Math.random() * 1000)}`, name: 'New Manager', role: 'Property Manager', phone: '+91 0000000000', property: 'PG Branch', salary: 20000, status: 'Active'
+                }, ...staffList]);
+                setIsModalOpen(false); 
+              }} className="px-5 py-2 bg-[#1A3A5C] text-white rounded-xl font-bold">Save</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="bg-card border border-border/50 rounded-2xl shadow-sm overflow-hidden">
         <div className="p-4 border-b border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-page/50">

@@ -92,7 +92,19 @@ export default function BuildingFloorManagementPage() {
             
             <div className="p-5 border-t border-border/50 bg-card flex justify-end gap-3">
               <button onClick={() => setIsAddBuildingModalOpen(false)} className="px-6 py-2.5 bg-[var(--bg-overlay)] text-secondary rounded-xl font-bold hover:bg-gray-200 transition-colors">Cancel</button>
-              <button onClick={() => { alert('Building Added Successfully!'); setIsAddBuildingModalOpen(false); }} className="px-6 py-2.5 bg-[#1A3A5C] hover:bg-[#122a42] text-white rounded-xl font-bold flex items-center gap-2 transition-colors shadow-sm">
+              <button onClick={() => { 
+                setBuildings([...buildings, {
+                  id: `BLD-0${buildings.length + 1}`,
+                  name: 'New Building Block',
+                  address: 'New Location Address',
+                  capacity: 0,
+                  occupied: 0,
+                  manager: 'Unassigned',
+                  isExpanded: true,
+                  floors: []
+                }]);
+                setIsAddBuildingModalOpen(false); 
+              }} className="px-6 py-2.5 bg-[#1A3A5C] hover:bg-[#122a42] text-white rounded-xl font-bold flex items-center gap-2 transition-colors shadow-sm">
                 <CheckCircle2 className="w-4 h-4" /> Save Building
               </button>
             </div>
@@ -132,7 +144,24 @@ export default function BuildingFloorManagementPage() {
             
             <div className="p-5 border-t border-border/50 bg-page flex justify-end gap-3">
               <button onClick={() => setIsAddFloorModalOpen(false)} className="px-6 py-2.5 bg-card border border-border text-secondary rounded-xl font-bold hover:bg-[var(--bg-overlay)] transition-colors">Cancel</button>
-              <button onClick={() => { alert('Floor created!'); setIsAddFloorModalOpen(false); }} className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold flex items-center gap-2 transition-colors shadow-sm">
+              <button onClick={() => { 
+                setBuildings(buildings.map(b => {
+                  if (b.id === selectedBuilding.id) {
+                    return {
+                      ...b,
+                      floors: [...b.floors, {
+                        id: `FL-${b.id}-${b.floors.length + 1}`,
+                        name: 'New Floor',
+                        capacity: 20,
+                        occupied: 0,
+                        amenities: ['WiFi']
+                      }]
+                    };
+                  }
+                  return b;
+                }));
+                setIsAddFloorModalOpen(false); 
+              }} className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold flex items-center gap-2 transition-colors shadow-sm">
                 <Plus className="w-4 h-4" /> Create Floor
               </button>
             </div>

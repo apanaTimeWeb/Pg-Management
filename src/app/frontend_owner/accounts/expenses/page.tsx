@@ -12,15 +12,14 @@ const MOCK_ACCOUNTS = [
 ];
 
 export default function ExpensesPage() {
+  const [accounts, setAccounts] = useState(MOCK_ACCOUNTS);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const filteredData = MOCK_ACCOUNTS.filter(trx => {
-    if (title === 'Income' && trx.type !== 'Income') return false;
-    if (title === 'Expenses' && trx.type !== 'Expense') return false;
-    
+  const filteredData = accounts.filter(trx => {
+    if (trx.type !== 'Expense') return false;
     if (searchTerm && !trx.title.toLowerCase().includes(searchTerm.toLowerCase()) && !trx.id.toLowerCase().includes(searchTerm.toLowerCase())) return false;
-    
-    return true; // For Reports and Vendors, this might just show all or a specific table, but we use a unified template here
+    return true;
   });
 
   return (
@@ -37,26 +36,56 @@ export default function ExpensesPage() {
           <button className="flex items-center gap-2 bg-card hover:bg-page border border-border text-primary px-4 py-2 rounded-xl text-sm font-bold shadow-sm transition-colors">
             <Download className="w-4 h-4" /> Export CSV
           </button>
-          <button className="flex items-center gap-2 bg-[#1A3A5C] hover:bg-[#122a42] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
+          <button onClick={() => setIsModalOpen(true)} className="flex items-center gap-2 bg-[#1A3A5C] hover:bg-[#122a42] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
             <Plus className="w-4 h-4" /> Add Record
           </button>
         </div>
       </div>
 
-      {/* Metrics Row (for Income/Expense) */}
-      {(title === 'Income' || title === 'Expenses') && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-card p-4 rounded-xl border border-border shadow-sm flex items-center gap-4">
-            <div className={`p-3 rounded-lg ${title === 'Income' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
-              {title === 'Income' ? <ArrowUpRight className="w-6 h-6" /> : <ArrowDownRight className="w-6 h-6" />}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-card rounded-2xl shadow-xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="p-5 border-b border-border/50 flex items-center justify-between bg-[#1A3A5C] text-white">
+              <h2 className="text-xl font-bold flex items-center gap-2">
+                <Plus className="w-5 h-5 text-red-500" /> Add Expense
+              </h2>
+              <button onClick={() => setIsModalOpen(false)} className="p-1.5 hover:bg-white/10 rounded-lg transition-colors">X</button>
             </div>
-            <div>
-              <p className="text-xs font-bold text-secondary uppercase">Total Expenses</p>
-              <h3 className="text-xl font-black text-primary">₹ {title === 'Income' ? '4,80,000' : '15,000'}</h3>
+            <div className="p-6 space-y-4 bg-page/50">
+              <div>
+                <label className="block text-xs font-bold text-secondary uppercase mb-2">Title</label>
+                <input type="text" placeholder="e.g. Plumber Fee" className="w-full px-4 py-2 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold text-primary" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-secondary uppercase mb-2">Amount</label>
+                <input type="number" placeholder="e.g. 1500" className="w-full px-4 py-2 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold text-primary" />
+              </div>
+            </div>
+            <div className="p-5 border-t border-border/50 bg-card flex justify-end gap-3">
+              <button onClick={() => setIsModalOpen(false)} className="px-5 py-2 bg-[var(--bg-overlay)] text-secondary rounded-xl font-bold hover:bg-gray-200 transition-colors">Cancel</button>
+              <button onClick={() => { 
+                setAccounts([{
+                  id: `TRX-${5000 + accounts.length + 1}`, title: 'New Expense', category: 'General', amount: 1500, date: new Date().toLocaleDateString(), type: 'Expense', status: 'Completed'
+                }, ...accounts]);
+                setIsModalOpen(false); 
+              }} className="px-5 py-2 bg-[#1A3A5C] text-white rounded-xl font-bold">Save</button>
             </div>
           </div>
         </div>
       )}
+
+      {/* Metrics Row */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="bg-card p-4 rounded-xl border border-border shadow-sm flex items-center gap-4">
+          <div className="p-3 rounded-lg bg-red-100 text-red-600">
+            <ArrowDownRight className="w-6 h-6" />
+          </div>
+          <div>
+            <p className="text-xs font-bold text-secondary uppercase">Total Expenses</p>
+            <h3 className="text-xl font-black text-primary">₹ {filteredData.reduce((acc, cur) => acc + cur.amount, 0).toLocaleString('en-IN')}</h3>
+          </div>
+        </div>
+      </div>
 
       {/* Main Content Card */}
       <div className="bg-card border border-border/50 rounded-2xl shadow-sm overflow-hidden">

@@ -12,6 +12,7 @@ const MOCK_STUDENTS = [
 ];
 
 export default function StudentManagementPage() {
+  const [students, setStudents] = useState(MOCK_STUDENTS);
   const [filterStatus, setFilterStatus] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
   
@@ -35,11 +36,17 @@ export default function StudentManagementPage() {
     }
   };
 
-  const filteredStudents = MOCK_STUDENTS.filter(s => {
+  const filteredStudents = students.filter(s => {
     if (filterStatus !== 'All' && s.status !== filterStatus) return false;
     if (searchTerm && !s.name.toLowerCase().includes(searchTerm.toLowerCase()) && !s.id.toLowerCase().includes(searchTerm.toLowerCase())) return false;
     return true;
   });
+
+  const handleUpdateStatus = (newStatus: string) => {
+    if (!selectedStudent) return;
+    setStudents(prev => prev.map(s => s.id === selectedStudent.id ? { ...s, status: newStatus } : s));
+    setSelectedStudent({ ...selectedStudent, status: newStatus });
+  };
 
   return (
     <div className="w-full space-y-6">
@@ -205,12 +212,12 @@ export default function StudentManagementPage() {
             <div className="p-4 border-t border-border bg-[var(--bg-overlay)] shrink-0 overflow-x-auto">
               <div className="flex items-center gap-2 min-w-max">
                 <span className="text-xs font-bold text-[var(--text-disabled)] uppercase mr-2">Quick Actions:</span>
-                <button className="flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border text-secondary rounded-lg text-xs font-bold hover:bg-page shadow-sm"><IndianRupee className="w-3.5 h-3.5 text-green-600"/> Collect Payment</button>
-                <button className="flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border text-secondary rounded-lg text-xs font-bold hover:bg-page shadow-sm"><ArrowRightLeft className="w-3.5 h-3.5 text-blue-600"/> Transfer Room</button>
-                <button className="flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border text-secondary rounded-lg text-xs font-bold hover:bg-page shadow-sm"><BellRing className="w-3.5 h-3.5 text-yellow-500"/> Send Notice</button>
+                <button onClick={() => alert('Payment Collected for ' + selectedStudent.name)} className="flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border text-secondary rounded-lg text-xs font-bold hover:bg-page shadow-sm"><IndianRupee className="w-3.5 h-3.5 text-green-600"/> Collect Payment</button>
+                <button onClick={() => alert('Room Transfer Initiated for ' + selectedStudent.name)} className="flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border text-secondary rounded-lg text-xs font-bold hover:bg-page shadow-sm"><ArrowRightLeft className="w-3.5 h-3.5 text-blue-600"/> Transfer Room</button>
+                <button onClick={() => alert('Notice Sent to ' + selectedStudent.name)} className="flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border text-secondary rounded-lg text-xs font-bold hover:bg-page shadow-sm"><BellRing className="w-3.5 h-3.5 text-yellow-500"/> Send Notice</button>
                 <div className="w-px h-5 bg-gray-300 mx-1"></div>
-                <button className="flex items-center gap-1.5 px-3 py-1.5 bg-red-50 border border-red-200 text-red-700 rounded-lg text-xs font-bold hover:bg-red-100 shadow-sm"><AlertOctagon className="w-3.5 h-3.5"/> Suspend</button>
-                <button className="flex items-center gap-1.5 px-3 py-1.5 bg-orange-50 border border-orange-200 text-orange-700 rounded-lg text-xs font-bold hover:bg-orange-100 shadow-sm"><Archive className="w-3.5 h-3.5"/> Initiate Check-out</button>
+                <button onClick={() => handleUpdateStatus('Suspended')} className="flex items-center gap-1.5 px-3 py-1.5 bg-red-50 border border-red-200 text-red-700 rounded-lg text-xs font-bold hover:bg-red-100 shadow-sm"><AlertOctagon className="w-3.5 h-3.5"/> Suspend</button>
+                <button onClick={() => handleUpdateStatus('Checked Out')} className="flex items-center gap-1.5 px-3 py-1.5 bg-orange-50 border border-orange-200 text-orange-700 rounded-lg text-xs font-bold hover:bg-orange-100 shadow-sm"><Archive className="w-3.5 h-3.5"/> Initiate Check-out</button>
               </div>
             </div>
 

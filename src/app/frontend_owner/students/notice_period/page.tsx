@@ -12,12 +12,13 @@ const MOCK_STUDENTS = [
 ];
 
 export default function NoticePeriodPage() {
+  const [students, setStudents] = useState(MOCK_STUDENTS);
   const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('Notice Period');
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
-  const filterByTitle = title;
-  
-  const filteredStudents = MOCK_STUDENTS.filter(student => {
-    if (filterByTitle !== 'All' && student.status !== filterByTitle) return false;
+  const filteredStudents = students.filter(student => {
+    if (statusFilter !== 'All' && student.status !== statusFilter) return false;
     if (searchTerm && !student.name.toLowerCase().includes(searchTerm.toLowerCase()) && !student.id.toLowerCase().includes(searchTerm.toLowerCase())) return false;
     return true;
   });
@@ -44,11 +45,43 @@ export default function NoticePeriodPage() {
           <button className="flex items-center gap-2 bg-card hover:bg-page border border-border text-primary px-4 py-2 rounded-xl text-sm font-bold shadow-sm transition-colors">
             <Download className="w-4 h-4" /> Export
           </button>
-          <button className="flex items-center gap-2 bg-[#1A3A5C] hover:bg-[#122a42] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
+          <button onClick={() => setIsAddModalOpen(true)} className="flex items-center gap-2 bg-[#1A3A5C] hover:bg-[#122a42] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors">
             <Plus className="w-4 h-4" /> Add Student
           </button>
         </div>
       </div>
+
+      {isAddModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-card rounded-2xl shadow-xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="p-5 border-b border-border/50 flex items-center justify-between bg-[#1A3A5C] text-white">
+              <h2 className="text-xl font-bold flex items-center gap-2">
+                <Plus className="w-5 h-5 text-[#F5A623]" /> Add New Student
+              </h2>
+              <button onClick={() => setIsAddModalOpen(false)} className="p-1.5 hover:bg-white/10 rounded-lg transition-colors">X</button>
+            </div>
+            <div className="p-6 space-y-4 bg-page/50">
+              <div>
+                <label className="block text-xs font-bold text-secondary uppercase mb-2">Student Name</label>
+                <input type="text" placeholder="e.g. Rahul Sharma" className="w-full px-4 py-2 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-secondary uppercase mb-2">Mobile Number</label>
+                <input type="text" placeholder="e.g. +91 9876543210" className="w-full px-4 py-2 bg-card border border-border rounded-xl focus:outline-none focus:border-[#F5A623] text-sm font-bold" />
+              </div>
+            </div>
+            <div className="p-5 border-t border-border/50 bg-card flex justify-end gap-3">
+              <button onClick={() => setIsAddModalOpen(false)} className="px-5 py-2 bg-[var(--bg-overlay)] text-secondary rounded-xl font-bold hover:bg-gray-200 transition-colors">Cancel</button>
+              <button onClick={() => { 
+                setStudents([...students, {
+                  id: `STU-100${students.length + 1}`, name: 'New Student', mobile: '+91 0000000000', pg: 'Main', room: '100', bed: 'Bed A', joinDate: '01 Oct 2026', status: 'Notice Period'
+                }]);
+                setIsAddModalOpen(false); 
+              }} className="px-5 py-2 bg-[#1A3A5C] text-white rounded-xl font-bold">Save</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Main Content Card */}
       <div className="bg-card border border-border/50 rounded-2xl shadow-sm overflow-hidden">
@@ -66,9 +99,17 @@ export default function NoticePeriodPage() {
             />
           </div>
           <div className="flex items-center gap-2">
-            <button className="flex items-center gap-2 px-3 py-2 bg-input border border-border rounded-xl text-sm font-semibold text-secondary hover:text-primary transition-colors">
-              <Filter className="w-4 h-4" /> Filters
-            </button>
+            <select 
+              value={statusFilter} 
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="px-4 py-2 bg-input border border-border rounded-xl text-sm font-semibold text-secondary focus:outline-none focus:border-[#F5A623]"
+            >
+              <option value="All">All Status</option>
+              <option value="Active">Active</option>
+              <option value="Pending">Pending</option>
+              <option value="Notice Period">Notice Period</option>
+              <option value="Checked Out">Checked Out</option>
+            </select>
           </div>
         </div>
 

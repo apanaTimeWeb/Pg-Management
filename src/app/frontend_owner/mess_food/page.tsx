@@ -29,7 +29,7 @@ const MOCK_ATTENDANCE = [
 ];
 
 export default function MessFoodPage() {
-  const [activeTab, setActiveTab] = useState<'menu' | 'attendance' | 'complaints'>('menu');
+  const [activeTab, setActiveTab] = useState<'menu' | 'attendance' | 'complaints' | 'inventory' | 'wastage'>('menu');
   const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
   const [menuForm, setMenuForm] = useState({ date: '', type: 'Breakfast', items: '' });
 
@@ -143,24 +143,36 @@ export default function MessFoodPage() {
       {/* Main Content Area */}
       <div className="bg-card rounded-2xl shadow-sm border border-border/50 overflow-hidden min-h-[500px]">
         {/* Tabs */}
-        <div className="flex border-b border-border/50 bg-page/50">
+        <div className="flex border-b border-border/50 bg-page/50 overflow-x-auto">
           <button 
             onClick={() => setActiveTab('menu')}
-            className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold transition-colors ${activeTab === 'menu' ? 'bg-card text-[#F5A623] border-b-2 border-[#F5A623]' : 'text-[var(--text-disabled)] hover:text-secondary'}`}
+            className={`shrink-0 flex items-center justify-center gap-2 px-6 py-4 text-sm font-bold transition-colors ${activeTab === 'menu' ? 'bg-card text-[#F5A623] border-b-2 border-[#F5A623]' : 'text-[var(--text-disabled)] hover:text-secondary'}`}
           >
             <CalendarDays className="w-4 h-4" /> Menu Planning
           </button>
           <button 
             onClick={() => setActiveTab('attendance')}
-            className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold transition-colors ${activeTab === 'attendance' ? 'bg-card text-[#F5A623] border-b-2 border-[#F5A623]' : 'text-[var(--text-disabled)] hover:text-secondary'}`}
+            className={`shrink-0 flex items-center justify-center gap-2 px-6 py-4 text-sm font-bold transition-colors ${activeTab === 'attendance' ? 'bg-card text-[#F5A623] border-b-2 border-[#F5A623]' : 'text-[var(--text-disabled)] hover:text-secondary'}`}
           >
             <User className="w-4 h-4" /> Meal Attendance
           </button>
           <button 
-            onClick={() => setActiveTab('complaints')}
-            className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold transition-colors ${activeTab === 'complaints' ? 'bg-card text-[#F5A623] border-b-2 border-[#F5A623]' : 'text-[var(--text-disabled)] hover:text-secondary'}`}
+            onClick={() => setActiveTab('inventory')}
+            className={`shrink-0 flex items-center justify-center gap-2 px-6 py-4 text-sm font-bold transition-colors ${activeTab === 'inventory' ? 'bg-card text-[#F5A623] border-b-2 border-[#F5A623]' : 'text-[var(--text-disabled)] hover:text-secondary'}`}
           >
-            <AlertTriangle className="w-4 h-4" /> Opt-outs & Complaints
+            <Package className="w-4 h-4" /> Kitchen Inventory
+          </button>
+          <button 
+            onClick={() => setActiveTab('wastage')}
+            className={`shrink-0 flex items-center justify-center gap-2 px-6 py-4 text-sm font-bold transition-colors ${activeTab === 'wastage' ? 'bg-card text-[#F5A623] border-b-2 border-[#F5A623]' : 'text-[var(--text-disabled)] hover:text-secondary'}`}
+          >
+            <AlertTriangle className="w-4 h-4" /> Food Wastage
+          </button>
+          <button 
+            onClick={() => setActiveTab('complaints')}
+            className={`shrink-0 flex items-center justify-center gap-2 px-6 py-4 text-sm font-bold transition-colors ${activeTab === 'complaints' ? 'bg-card text-[#F5A623] border-b-2 border-[#F5A623]' : 'text-[var(--text-disabled)] hover:text-secondary'}`}
+          >
+            <MessageSquare className="w-4 h-4" /> Feedback
           </button>
         </div>
 
@@ -334,6 +346,83 @@ export default function MessFoodPage() {
                 </div>
               </div>
 
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'inventory' && (
+          <div className="p-5 animate-in fade-in">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="font-bold text-primary flex items-center gap-2"><Package className="w-5 h-5 text-blue-500"/> Kitchen Stock & Inventory</h3>
+              <button className="flex items-center gap-2 bg-[#1A3A5C] hover:bg-[#122a42] text-white px-4 py-2 rounded-xl text-sm font-bold shadow-sm transition-colors">
+                <Plus className="w-4 h-4" /> Add Stock
+              </button>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-page border-y border-border/50 text-[var(--text-disabled)] text-xs uppercase tracking-wider font-bold">
+                    <th className="p-4">Item Name</th>
+                    <th className="p-4">Category</th>
+                    <th className="p-4">Current Stock</th>
+                    <th className="p-4">Reorder Level</th>
+                    <th className="p-4">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  <tr className="hover:bg-page/50 transition-colors">
+                    <td className="p-4 font-bold text-primary">Aashirvaad Atta (Wheat)</td>
+                    <td className="p-4 text-sm text-secondary">Grains</td>
+                    <td className="p-4 text-sm font-bold">25 Kg</td>
+                    <td className="p-4 text-sm text-secondary">10 Kg</td>
+                    <td className="p-4"><span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg uppercase">In Stock</span></td>
+                  </tr>
+                  <tr className="hover:bg-page/50 transition-colors">
+                    <td className="p-4 font-bold text-primary">Toor Dal</td>
+                    <td className="p-4 text-sm text-secondary">Pulses</td>
+                    <td className="p-4 text-sm font-bold text-red-600">2 Kg</td>
+                    <td className="p-4 text-sm text-secondary">5 Kg</td>
+                    <td className="p-4"><span className="px-2 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-lg uppercase">Low Stock</span></td>
+                  </tr>
+                  <tr className="hover:bg-page/50 transition-colors">
+                    <td className="p-4 font-bold text-primary">Amul Butter</td>
+                    <td className="p-4 text-sm text-secondary">Dairy</td>
+                    <td className="p-4 text-sm font-bold">1.5 Kg</td>
+                    <td className="p-4 text-sm text-secondary">2 Kg</td>
+                    <td className="p-4"><span className="px-2 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-lg uppercase">Low Stock</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'wastage' && (
+          <div className="p-5 animate-in fade-in">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="font-bold text-primary flex items-center gap-2"><AlertTriangle className="w-5 h-5 text-red-500"/> Daily Food Wastage Log</h3>
+              <button className="flex items-center gap-2 bg-[#1A3A5C] hover:bg-[#122a42] text-white px-4 py-2 rounded-xl text-sm font-bold shadow-sm transition-colors">
+                <Plus className="w-4 h-4" /> Log Wastage
+              </button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+              <div className="bg-red-50 border border-red-100 p-4 rounded-xl">
+                <p className="text-xs font-bold text-red-600 uppercase">Total Wastage Today</p>
+                <h4 className="text-2xl font-black text-red-700">4.5 Kg</h4>
+              </div>
+              <div className="bg-orange-50 border border-orange-100 p-4 rounded-xl">
+                <p className="text-xs font-bold text-orange-600 uppercase">Estimated Loss</p>
+                <h4 className="text-2xl font-black text-orange-700">₹ 350</h4>
+              </div>
+              <div className="bg-green-50 border border-green-100 p-4 rounded-xl">
+                <p className="text-xs font-bold text-green-600 uppercase">Saved from Opt-outs</p>
+                <h4 className="text-2xl font-black text-green-700">2.0 Kg</h4>
+              </div>
+            </div>
+            <div className="bg-page border border-border/50 rounded-xl p-6 text-center">
+              <AlertTriangle className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+              <h4 className="font-bold text-primary">Wastage Logging System Active</h4>
+              <p className="text-sm text-secondary mt-1">Start logging daily wastage per meal to analyze and reduce food waste.</p>
             </div>
           </div>
         )}
