@@ -289,27 +289,53 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
           style={{ background: 'linear-gradient(135deg, #1A3A5C 0%, #2D7D9A 100%)' }}
         >
           <div className="flex items-center gap-2">
-            <button onClick={() => setIsMobileMenuOpen(true)} className="text-white p-1">
+            <button onClick={() => setIsMobileMenuOpen(true)} className="text-white p-1.5 hover:bg-white/20 rounded-lg transition-colors focus:outline-none active:bg-white/30">
               <Menu className="w-6 h-6" />
             </button>
-            <div className="flex items-center gap-1 font-bold text-white">
-              <ShieldAlert className="text-[#F5A623] w-5 h-5 hidden sm:block" />
-              <span className="hidden sm:block">Smart<span style={{ color: '#F5A623' }}>PG</span></span>
+            <div className="flex items-center gap-1.5 font-bold text-white">
+              <ShieldAlert className="text-[#F5A623] w-5 h-5" />
+              <span className="text-lg">Smart<span style={{ color: '#F5A623' }}>PG</span></span>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3 relative">
             {mounted && (
               <button
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="w-8 h-8 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors focus:outline-none"
+                className="w-8 h-8 flex items-center justify-center text-white/90 hover:text-white hover:bg-white/20 rounded-full transition-colors focus:outline-none"
                 title="Toggle Theme"
               >
-                {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
             )}
-            <div className="text-xs font-medium text-white/80 max-w-[80px] truncate">
-              {adminName || 'Admin'}
-            </div>
+            <button 
+              onClick={() => setIsProfileOpen(!isProfileOpen)}
+              className="flex items-center justify-center w-8 h-8 rounded-full bg-[#F5A623] text-white font-bold text-sm shadow-md focus:outline-none ring-2 ring-transparent focus:ring-white/50 active:scale-95 transition-transform"
+            >
+              {adminName.charAt(0).toUpperCase() || 'S'}
+            </button>
+
+            {/* Mobile Profile Dropdown */}
+            {isProfileOpen && (
+              <>
+                <div className="fixed inset-0 z-40" onClick={() => setIsProfileOpen(false)}></div>
+                <div className="absolute right-0 top-full mt-3 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 z-50 overflow-hidden py-1 animate-in slide-in-from-top-2 fade-in duration-200">
+                  <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
+                    <p className="text-sm font-bold text-gray-900 dark:text-white truncate">{adminName || 'SuperAdmin'}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">System Administrator</p>
+                  </div>
+                  <div className="p-1.5">
+                    <Link href="/frontend_superadmin/superadmin_profile" onClick={() => setIsProfileOpen(false)} className="w-full text-left px-3 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-400 font-semibold rounded-lg flex items-center gap-2 transition-colors">
+                      <User className="w-4 h-4" />
+                      My Profile
+                    </Link>
+                    <button onClick={handleLogout} className="w-full text-left px-3 py-2.5 mt-1 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-700 dark:hover:text-red-300 font-semibold rounded-lg flex items-center gap-2 transition-colors">
+                      <LogOut className="w-4 h-4" />
+                      Logout
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
@@ -477,11 +503,11 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
                       <p className="text-xs text-secondary truncate">System Administrator</p>
                     </div>
                     <div className="p-1">
-                      <Link href="/frontend_superadmin/superadmin_profile" onClick={() => setIsProfileOpen(false)} className="w-full text-left px-3 py-2 text-sm text-primary hover:bg-[var(--bg-overlay)] hover:text-[var(--primary)] font-medium rounded-lg flex items-center gap-2 transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--primary)]">
+                      <Link href="/frontend_superadmin/superadmin_profile" onClick={() => setIsProfileOpen(false)} className="w-full text-left px-3 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-400 font-semibold rounded-lg flex items-center gap-2 transition-colors">
                         <User className="w-4 h-4" />
                         My Profile
                       </Link>
-                      <button onClick={handleLogout} className="w-full text-left px-3 py-2 mt-1 text-sm text-[var(--danger)] hover:bg-[var(--danger-bg)] hover:text-[var(--danger)] font-medium rounded-lg flex items-center gap-2 transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--danger)]">
+                      <button onClick={handleLogout} className="w-full text-left px-3 py-2.5 mt-1 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-700 dark:hover:text-red-300 font-semibold rounded-lg flex items-center gap-2 transition-colors">
                         <LogOut className="w-4 h-4" />
                         Logout
                       </button>

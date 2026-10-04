@@ -108,6 +108,7 @@ export function CookLayout({ children }: { children: React.ReactNode }) {
   const user = typeof window !== 'undefined' ? getSession() : null;
   const { loading } = useCookContext();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({});
 
   if (loading) return null;
@@ -128,22 +129,56 @@ export function CookLayout({ children }: { children: React.ReactNode }) {
       {/* Mobile Header */}
       <div className="md:hidden flex items-center justify-between bg-header/90 backdrop-blur-md p-3 border-b border-border shrink-0 sticky top-0 z-50">
         <div className="flex items-center gap-2">
-          <button onClick={() => setIsMobileMenuOpen(true)} className="text-primary p-1">
+          <button onClick={() => setIsMobileMenuOpen(true)} className="text-primary p-1.5 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition-colors focus:outline-none active:bg-black/10 dark:active:bg-white/20">
             <MenuIcon className="w-6 h-6" />
           </button>
-          <div className="flex items-center gap-1 font-bold text-primary">
-            <Utensils className="text-primary w-5 h-5 hidden sm:block" />
-            <span className="hidden sm:block">Cook Portal</span>
+          <div className="flex items-center gap-1.5 font-bold text-primary">
+            <Utensils className="text-orange-500 w-5 h-5" />
+            <span className="text-lg">Cook Portal</span>
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3 relative">
           <ThemeToggle />
-          <div className="text-xs font-medium text-secondary max-w-[80px] truncate">
-            {user?.name || 'Cook'}
-          </div>
-          <button onClick={handleLogout} className="text-xs bg-danger-bg text-danger px-2 py-1.5 rounded-md font-bold flex items-center gap-1">
-            <LogOut className="w-3.5 h-3.5" />
+          
+          <button 
+            onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+            className="flex items-center justify-center w-8 h-8 rounded-full bg-orange-500 text-white font-bold text-sm shadow-md focus:outline-none ring-2 ring-transparent focus:ring-orange-500/50 active:scale-95 transition-transform"
+          >
+            {user?.name?.[0]?.toUpperCase() || 'C'}
           </button>
+
+          {/* Mobile Profile Dropdown */}
+          {isProfileMenuOpen && (
+            <>
+              <div className="fixed inset-0 z-40" onClick={() => setIsProfileMenuOpen(false)}></div>
+              <div className="absolute right-0 top-full mt-3 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 z-50 overflow-hidden py-1 animate-in slide-in-from-top-2 fade-in duration-200">
+                <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-white text-lg font-bold">
+                    {user?.name?.[0]?.toUpperCase() || 'C'}
+                  </div>
+                  <div className="overflow-hidden">
+                    <p className="text-sm font-bold text-gray-900 dark:text-white truncate">{user?.name || 'Cook'}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user?.email || 'cook@example.com'}</p>
+                  </div>
+                </div>
+                
+                <div className="py-2">
+                  <Link href="/frontend_cook/profile" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-orange-50 dark:hover:bg-orange-900/30 font-semibold transition-colors">
+                    <User className="w-4 h-4 mr-3 text-gray-400 dark:text-gray-500" /> My Profile
+                  </Link>
+                  <Link href="/frontend_cook/security" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-orange-50 dark:hover:bg-orange-900/30 font-semibold transition-colors">
+                    <Shield className="w-4 h-4 mr-3 text-gray-400 dark:text-gray-500" /> Security
+                  </Link>
+                </div>
+                
+                <div className="border-t border-gray-200 dark:border-gray-700 py-1.5 bg-gray-50 dark:bg-gray-900/30">
+                  <button onClick={handleLogout} className="flex items-center w-full px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/50 hover:text-red-700 dark:hover:text-red-300 font-bold transition-colors">
+                    <LogOut className="w-4 h-4 mr-3" /> Logout
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
 

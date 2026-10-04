@@ -210,19 +210,59 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
         style={{ background: 'linear-gradient(135deg, #1A3A5C 0%, #2D7D9A 100%)' }}
       >
         <div className="flex items-center gap-2">
-          <button onClick={() => setIsMobileMenuOpen(true)} className="text-white p-1">
+          <button onClick={() => setIsMobileMenuOpen(true)} className="text-white p-1.5 hover:bg-white/20 rounded-lg transition-colors focus:outline-none active:bg-white/30">
             <Menu className="w-6 h-6" />
           </button>
-          <div className="flex items-center gap-1 font-bold text-white">
-            <Building className="text-[#F5A623] w-5 h-5 hidden sm:block" />
-            <span className="hidden sm:block">Smart<span style={{ color: '#F5A623' }}>PG</span></span>
+          <div className="flex items-center gap-1.5 font-bold text-white">
+            <Building className="text-[#F5A623] w-5 h-5" />
+            <span className="text-lg">Smart<span style={{ color: '#F5A623' }}>PG</span></span>
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3 relative">
           <ThemeToggle />
-          <div className="text-xs font-medium text-white/80 max-w-[80px] truncate">
-            {user?.name || 'Owner'}
-          </div>
+          
+          <button 
+            onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+            className="flex items-center justify-center w-8 h-8 rounded-full bg-[#F5A623] text-white font-bold text-sm shadow-md focus:outline-none ring-2 ring-transparent focus:ring-white/50 active:scale-95 transition-transform"
+          >
+            {user?.name?.[0]?.toUpperCase() || 'O'}
+          </button>
+
+          {/* Mobile Profile Dropdown */}
+          {isProfileMenuOpen && (
+            <>
+              <div className="fixed inset-0 z-40" onClick={() => setIsProfileMenuOpen(false)}></div>
+              <div className="absolute right-0 top-full mt-3 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 z-50 overflow-hidden py-1 animate-in slide-in-from-top-2 fade-in duration-200">
+                <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[#F5A623] flex items-center justify-center text-white text-lg font-bold">
+                    {user?.name?.[0]?.toUpperCase() || 'O'}
+                  </div>
+                  <div className="overflow-hidden">
+                    <p className="text-sm font-bold text-gray-900 dark:text-white truncate">{user?.name || 'Owner'}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user?.email || 'owner@example.com'}</p>
+                  </div>
+                </div>
+                
+                <div className="py-2">
+                  <Link href="/frontend_owner/my_profile" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 font-semibold transition-colors">
+                    <User className="w-4 h-4 mr-3 text-gray-400 dark:text-gray-500" /> My Profile
+                  </Link>
+                  <Link href="/frontend_owner/my_profile?tab=personal" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 font-semibold transition-colors">
+                    <FileText className="w-4 h-4 mr-3 text-gray-400 dark:text-gray-500" /> Personal Information
+                  </Link>
+                  <Link href="/frontend_owner/my_profile?tab=security" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 font-semibold transition-colors">
+                    <ShieldCheck className="w-4 h-4 mr-3 text-gray-400 dark:text-gray-500" /> Security Settings
+                  </Link>
+                </div>
+                
+                <div className="border-t border-gray-200 dark:border-gray-700 py-1.5 bg-gray-50 dark:bg-gray-900/30">
+                  <button onClick={handleLogout} className="flex items-center w-full px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/50 hover:text-red-700 dark:hover:text-red-300 font-bold transition-colors">
+                    <LogOut className="w-4 h-4 mr-3" /> Logout
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
 
