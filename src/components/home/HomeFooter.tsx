@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { Shield, Twitter, Facebook, Instagram, Linkedin, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
+import { Shield, Hash, Share2, Globe, MessageCircle, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
 
 export function HomeFooter() {
   return (
@@ -39,16 +39,16 @@ export function HomeFooter() {
             </p>
             <div className="flex items-center gap-4">
               <Link href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all group">
-                <Twitter className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                <Hash className="w-4 h-4 group-hover:scale-110 transition-transform" />
               </Link>
               <Link href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all group">
-                <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                <Share2 className="w-4 h-4 group-hover:scale-110 transition-transform" />
               </Link>
               <Link href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all group">
-                <Facebook className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                <Globe className="w-4 h-4 group-hover:scale-110 transition-transform" />
               </Link>
               <Link href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all group">
-                <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                <MessageCircle className="w-4 h-4 group-hover:scale-110 transition-transform" />
               </Link>
             </div>
           </div>
