@@ -53,7 +53,7 @@ export function ManagerCheckinFormSteps6to10({ step, formData, setFormData, vaca
       {step === 7 && (
         <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
           <h2 className="text-xl font-bold text-primary flex items-center gap-2"><FileCheck className="text-primary" /> Digital Agreement</h2>
-          <div className="bg-white text-black font-serif border border-gray-300 p-8 rounded shadow-inner max-h-96 overflow-y-auto">
+          <div className="bg-white keep-white text-black font-serif border border-gray-300 p-8 rounded shadow-inner max-h-96 overflow-y-auto">
             <div className="text-center mb-6 border-b-2 border-black pb-4">
               <h1 className="text-2xl font-bold uppercase tracking-widest">Rental Agreement</h1>
               <p className="text-sm text-gray-600 mt-1">Smart PG Management Systems</p>

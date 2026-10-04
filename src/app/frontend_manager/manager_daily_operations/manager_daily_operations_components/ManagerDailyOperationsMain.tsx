@@ -8,20 +8,7 @@ import {
   Utensils, Package, IndianRupee, FileText, ChevronRight, Check
 } from 'lucide-react';
 
-const todayTasks = [
-  { label: 'Check-ins', value: '3', icon: <LogIn className="w-5 h-5 text-green-600" />, bg: 'bg-green-100', link: '/manager_check_in' },
-  { label: 'Check-outs', value: '1', icon: <LogOut className="w-5 h-5 text-red-600" />, bg: 'bg-red-100', link: '/manager_check_in' },
-  { label: 'Admissions', value: '2', icon: <UserPlus className="w-5 h-5 text-indigo-600" />, bg: 'bg-indigo-100', link: '/manager_students' },
-  { label: 'Attendance', value: 'Pending', icon: <UserCheck className="w-5 h-5 text-orange-600" />, bg: 'bg-orange-100', link: '/manager_attendance' },
-  { label: 'Leave Req', value: '4', icon: <DoorOpen className="w-5 h-5 text-purple-600" />, bg: 'bg-purple-100', link: '/manager_leaves' },
-  { label: 'Visitors', value: '5', icon: <Users className="w-5 h-5 text-blue-600" />, bg: 'bg-blue-100', link: '/manager_visitors' },
-  { label: 'Complaints', value: '6', icon: <MessageSquare className="w-5 h-5 text-pink-600" />, bg: 'bg-pink-100', link: '/manager_complaints' },
-  { label: 'Maintenance', value: '2', icon: <Wrench className="w-5 h-5 text-gray-600" />, bg: 'bg-gray-200', link: '/manager_housekeeping' },
-  { label: 'Meals Count', value: 'Done', icon: <Utensils className="w-5 h-5 text-yellow-600" />, bg: 'bg-yellow-100', link: '/manager_food' },
-  { label: 'Low Stock', value: '3', icon: <Package className="w-5 h-5 text-red-500" />, bg: 'bg-red-50', link: '/manager_inventory' },
-  { label: 'Payments', value: '₹45K', icon: <IndianRupee className="w-5 h-5 text-emerald-600" />, bg: 'bg-emerald-100', link: '/manager_finance' },
-  { label: 'Notices', value: '0', icon: <FileText className="w-5 h-5 text-sky-600" />, bg: 'bg-sky-100', link: '/manager_broadcasts' },
-];
+import { useManagerDailyOperations } from '../manager_daily_operations_hooks/useManagerDailyOperations';
 
 const initialChecklist = [
   { id: 'c1', label: 'Morning attendance', completed: true, time: '08:00 AM' },
@@ -39,7 +26,23 @@ const initialChecklist = [
 ];
 
 export default function ManagerDailyOperationsMain() {
+  const { stats, loading } = useManagerDailyOperations();
   const [checklist, setChecklist] = useState(initialChecklist);
+
+  const todayTasks = [
+    { label: 'Check-ins', value: '3', icon: <LogIn className="w-5 h-5 text-green-600" />, bg: 'bg-green-100', link: '/manager_check_in' },
+    { label: 'Check-outs', value: '1', icon: <LogOut className="w-5 h-5 text-red-600" />, bg: 'bg-red-100', link: '/manager_check_in' },
+    { label: 'Admissions', value: '2', icon: <UserPlus className="w-5 h-5 text-indigo-600" />, bg: 'bg-indigo-100', link: '/manager_students' },
+    { label: 'Attendance', value: 'Pending', icon: <UserCheck className="w-5 h-5 text-orange-600" />, bg: 'bg-orange-100', link: '/manager_attendance' },
+    { label: 'Leave Req', value: '4', icon: <DoorOpen className="w-5 h-5 text-purple-600" />, bg: 'bg-purple-100', link: '/manager_leaves' },
+    { label: 'Visitors', value: stats.visitorsToday.toString(), icon: <Users className="w-5 h-5 text-blue-600" />, bg: 'bg-blue-100', link: '/manager_visitors' },
+    { label: 'Complaints', value: '6', icon: <MessageSquare className="w-5 h-5 text-pink-600" />, bg: 'bg-pink-100', link: '/manager_complaints' },
+    { label: 'Maintenance', value: stats.maintenanceTotal.toString(), icon: <Wrench className="w-5 h-5 text-gray-600" />, bg: 'bg-gray-200', link: '/manager_housekeeping' },
+    { label: 'Meals Count', value: 'Done', icon: <Utensils className="w-5 h-5 text-yellow-600" />, bg: 'bg-yellow-100', link: '/manager_food' },
+    { label: 'Low Stock', value: '3', icon: <Package className="w-5 h-5 text-red-500" />, bg: 'bg-red-50', link: '/manager_inventory' },
+    { label: 'Payments', value: '₹45K', icon: <IndianRupee className="w-5 h-5 text-emerald-600" />, bg: 'bg-emerald-100', link: '/manager_finance' },
+    { label: 'Housekeeping', value: `${stats.housekeepingDone}/${stats.housekeepingTotal}`, icon: <CheckCircle2 className="w-5 h-5 text-sky-600" />, bg: 'bg-sky-100', link: '/manager_housekeeping' },
+  ];
   
   const currentDate = new Date().toLocaleDateString('en-US', {
     weekday: 'long', 
@@ -55,6 +58,10 @@ export default function ManagerDailyOperationsMain() {
   };
 
   const progress = Math.round((checklist.filter(c => c.completed).length / checklist.length) * 100);
+
+  if (loading) {
+    return <div className="p-8 text-secondary">Loading daily operations...</div>;
+  }
 
   return (
     <div className="p-4 md:p-8 space-y-6 animate-in fade-in duration-500 w-full">
@@ -113,9 +120,9 @@ export default function ManagerDailyOperationsMain() {
             ))}
           </div>
 
-          <div className="mt-8 bg-indigo-50/50 border border-indigo-100 rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-6">
-            <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm shrink-0">
-              <LogOut className="w-8 h-8 text-indigo-600" />
+          <div className="mt-8 bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/40 rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-6">
+            <div className="w-16 h-16 bg-card border border-border rounded-full flex items-center justify-center shadow-sm shrink-0">
+              <LogOut className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
             </div>
             <div className="flex-1 text-center sm:text-left">
               <h3 className="text-lg font-black text-primary mb-1">End of Day Operation</h3>
@@ -142,8 +149,8 @@ export default function ManagerDailyOperationsMain() {
                   onClick={() => toggleChecklist(item.id)}
                   className={`flex items-start gap-3 p-3 rounded-xl border transition-all cursor-pointer ${
                     item.completed 
-                      ? 'bg-green-50/30 border-green-100 hover:bg-green-50' 
-                      : 'bg-white border-border/60 hover:border-indigo-300 shadow-sm'
+                      ? 'bg-green-50/30 dark:bg-green-950/20 border-green-100 dark:border-green-900/40 hover:bg-green-50 dark:hover:bg-green-950/30' 
+                      : 'bg-page border-border/60 hover:border-indigo-300 shadow-sm'
                   }`}
                 >
                   <div className="mt-0.5 shrink-0">

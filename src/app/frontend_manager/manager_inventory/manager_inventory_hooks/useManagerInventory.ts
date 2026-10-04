@@ -15,7 +15,7 @@ export function useManagerInventory(selectedPropertyId: string | null, ctxLoadin
   const [inventory, setInventory] = useState<ManagerInventoryItem[]>([]);
   const [requests, setRequests] = useState<ManagerKitchenRequest[]>([]);
   const [batches, setBatches] = useState<StockBatch[]>([]);
-  const [activeTab, setActiveTab] = useState<ManagerInventoryTab>('requests');
+  const [activeTab, setActiveTab] = useState<string>('stock');
   const [formData, setFormData] = useState({ name: '', quantity: '', threshold: '', category: 'Groceries' });
   const [purchaseCost, setPurchaseCost] = useState<{ [key: string]: string }>({});
   const [purchasedQty, setPurchasedQty] = useState<{ [key: string]: string }>({});

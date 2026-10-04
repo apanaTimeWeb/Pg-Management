@@ -108,14 +108,19 @@ export const managerDashboardApi = {
       occupancyRate,
       rentCollected: totalCollectedRent,
       rentTarget: totalExpectedRent,
+      pendingRentAmount,
+      totalExpectedRent,
       housekeepingDone: 8,
       housekeepingTotal: 12,
       maintenanceOpen: 3,
       maintenanceTotal: 5,
       // General
+      totalStudents: students.length,
       activeStudents,
+      totalBeds: beds.length,
       vacantBeds,
       activeSos,
+      todayLeaves: 0,
     };
   }
 };

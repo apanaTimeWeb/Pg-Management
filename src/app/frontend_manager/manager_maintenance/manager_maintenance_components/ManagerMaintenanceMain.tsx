@@ -8,66 +8,20 @@ import {
   User
 } from 'lucide-react';
 
-type TaskStatus = 'Pending' | 'Assigned' | 'In Progress' | 'Completed';
-
-interface MaintenanceTask {
-  id: string;
-  complaintId: string;
-  room: string;
-  student: string;
-  issue: string;
-  status: TaskStatus;
-  isEmergency: boolean;
-  assignedTo?: string;
-  vendor?: string;
-  cost?: number;
-  partsUsed?: string;
-  dateCreated: string;
-}
-
-const INITIAL_TASKS: MaintenanceTask[] = [
-  {
-    id: 'MT-1001',
-    complaintId: 'C-089',
-    room: '102',
-    student: 'Rahul Sharma',
-    issue: 'Fan is making loud noise and rotating slowly.',
-    status: 'In Progress',
-    isEmergency: false,
-    assignedTo: 'Ramesh (Electrician)',
-    dateCreated: '03 Oct 2026'
-  },
-  {
-    id: 'MT-1002',
-    complaintId: 'C-090',
-    room: '205',
-    student: 'Amit Kumar',
-    issue: 'Water leaking from bathroom tap.',
-    status: 'Pending',
-    isEmergency: true,
-    dateCreated: '03 Oct 2026'
-  },
-  {
-    id: 'MT-0995',
-    complaintId: 'C-075',
-    room: '304',
-    student: 'Vikas Singh',
-    issue: 'AC not cooling properly.',
-    status: 'Completed',
-    isEmergency: false,
-    assignedTo: 'CoolTech Services',
-    vendor: 'CoolTech AC Repair',
-    cost: 1500,
-    partsUsed: 'Gas refill, Filter change',
-    dateCreated: '01 Oct 2026'
-  }
-];
+import { useManagerMaintenance, TaskStatus, MaintenanceTask } from '../manager_maintenance_hooks/useManagerMaintenance';
 
 export default function ManagerMaintenanceMain() {
-  const [tasks, setTasks] = useState<MaintenanceTask[]>(INITIAL_TASKS);
-  const [selectedTask, setSelectedTask] = useState<MaintenanceTask>(INITIAL_TASKS[0]);
+  const { loading, tasks, updateTaskStatus, recordTaskCost, assignTask } = useManagerMaintenance();
+  
+  const [selectedTask, setSelectedTask] = useState<MaintenanceTask | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<'All' | TaskStatus>('All');
+
+  React.useEffect(() => {
+    if (tasks.length > 0 && !selectedTask) {
+      setSelectedTask(tasks[0]);
+    }
+  }, [tasks, selectedTask]);
 
   const filteredTasks = tasks.filter(t => {
     const matchesSearch = t.issue.toLowerCase().includes(searchTerm.toLowerCase()) || t.room.includes(searchTerm);
@@ -85,21 +39,22 @@ export default function ManagerMaintenanceMain() {
   };
 
   const handleUpdateStatus = (newStatus: TaskStatus) => {
-    setTasks(prev => prev.map(t => t.id === selectedTask.id ? { ...t, status: newStatus } : t));
-    setSelectedTask(prev => ({ ...prev, status: newStatus }));
+    if (selectedTask) {
+      updateTaskStatus(selectedTask.id, newStatus);
+      setSelectedTask(prev => prev ? ({ ...prev, status: newStatus }) : null);
+    }
   };
 
   const handleRecordCost = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!selectedTask) return;
     const form = e.target as HTMLFormElement;
     const vendor = (form.elements.namedItem('vendor') as HTMLInputElement).value;
     const parts = (form.elements.namedItem('parts') as HTMLInputElement).value;
     const cost = parseInt((form.elements.namedItem('cost') as HTMLInputElement).value) || 0;
     
-    setTasks(prev => prev.map(t => t.id === selectedTask.id ? { 
-      ...t, vendor, partsUsed: parts, cost, status: 'Completed' 
-    } : t));
-    setSelectedTask(prev => ({ ...prev, vendor, partsUsed: parts, cost, status: 'Completed' }));
+    recordTaskCost(selectedTask.id, vendor, parts, cost);
+    setSelectedTask(prev => prev ? ({ ...prev, vendor, partsUsed: parts, cost, status: 'Completed' }) : null);
   };
 
   return (
@@ -132,7 +87,7 @@ export default function ManagerMaintenanceMain() {
                   className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
                     filterStatus === status 
                       ? 'bg-indigo-600 text-white border-indigo-600' 
-                      : 'bg-white text-secondary border-border/60 hover:border-indigo-300'
+                      : 'bg-card text-secondary border-border/60 hover:border-indigo-300'
                   }`}
                 >
                   {status}
@@ -153,20 +108,25 @@ export default function ManagerMaintenanceMain() {
           </div>
           
           <div className="flex-1 overflow-y-auto p-2 space-y-1">
-            {filteredTasks.map(task => (
-              <div 
-                key={task.id}
-                onClick={() => setSelectedTask(task)}
-                className={`p-3 rounded-xl cursor-pointer transition-all ${
-                  selectedTask.id === task.id 
-                    ? 'bg-indigo-50 border border-indigo-200 shadow-sm' 
-                    : 'bg-transparent border border-transparent hover:bg-page/50'
-                }`}
-              >
+            {loading || tasks.length === 0 ? (
+              <div className="flex justify-center p-4">
+                {loading ? <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div> : <div className="text-secondary text-sm">No tasks found</div>}
+              </div>
+            ) : (
+              filteredTasks.map(task => (
+                <div 
+                  key={task.id}
+                  onClick={() => setSelectedTask(task)}
+                  className={`p-3 rounded-xl cursor-pointer transition-all ${
+                    selectedTask?.id === task.id 
+                      ? 'bg-indigo-50 border border-indigo-200 shadow-sm' 
+                      : 'bg-transparent border border-transparent hover:bg-page/50'
+                  }`}
+                >
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-secondary bg-white px-2 py-0.5 rounded border border-border">Rm {task.room}</span>
+                      <span className="text-xs font-bold text-secondary bg-page px-2 py-0.5 rounded border border-border">Rm {task.room}</span>
                       {task.isEmergency && <AlertTriangle className="w-3.5 h-3.5 text-red-500" />}
                     </div>
                     <h4 className="font-bold text-primary mt-1 truncate">{task.issue}</h4>
@@ -179,15 +139,21 @@ export default function ManagerMaintenanceMain() {
                   <span className="text-[10px] font-medium text-secondary">{task.dateCreated}</span>
                 </div>
               </div>
-            ))}
+            ))
+            )}
           </div>
         </div>
 
         {/* Right Side: Task Flow & Details */}
         <div className="lg:col-span-2 bg-card border border-border/60 rounded-2xl shadow-sm flex flex-col min-h-0 overflow-y-auto">
-          
-          {/* Header Info */}
-          <div className="p-6 border-b border-border/50 bg-page/30 shrink-0">
+          {!selectedTask ? (
+            <div className="flex-1 flex items-center justify-center p-8 text-center text-secondary">
+              Select a task to view details
+            </div>
+          ) : (
+            <>
+              {/* Header Info */}
+              <div className="p-6 border-b border-border/50 bg-page/30 shrink-0">
             <div className="flex items-center justify-between mb-4">
               <span className={`px-3 py-1 rounded-lg text-xs font-black uppercase tracking-wider border ${getStatusColor(selectedTask.status)}`}>
                 {selectedTask.status}
@@ -198,10 +164,10 @@ export default function ManagerMaintenanceMain() {
             <h2 className="text-2xl font-black text-primary leading-tight">{selectedTask.issue}</h2>
             
             <div className="flex flex-wrap items-center gap-4 mt-4">
-              <div className="flex items-center gap-2 text-sm font-bold text-secondary bg-white px-3 py-1.5 rounded-lg border border-border">
+              <div className="flex items-center gap-2 text-sm font-bold text-secondary bg-page px-3 py-1.5 rounded-lg border border-border">
                 <User className="w-4 h-4" /> {selectedTask.student}
               </div>
-              <div className="flex items-center gap-2 text-sm font-bold text-secondary bg-white px-3 py-1.5 rounded-lg border border-border">
+              <div className="flex items-center gap-2 text-sm font-bold text-secondary bg-page px-3 py-1.5 rounded-lg border border-border">
                 <MessageSquareWarning className="w-4 h-4" /> Linked to {selectedTask.complaintId}
               </div>
               {selectedTask.isEmergency && (
@@ -215,7 +181,7 @@ export default function ManagerMaintenanceMain() {
           <div className="p-6 flex-1 space-y-8">
             
             {/* Visual Flow Pipeline */}
-            <div className="bg-white p-4 rounded-xl border border-border shadow-sm overflow-x-auto hide-scrollbar">
+            <div className="bg-card p-4 rounded-xl border border-border shadow-sm overflow-x-auto hide-scrollbar">
               <h3 className="text-xs font-bold text-secondary uppercase tracking-wider mb-4">Maintenance Pipeline</h3>
               <div className="flex items-center justify-between min-w-[500px]">
                 
@@ -273,7 +239,7 @@ export default function ManagerMaintenanceMain() {
                 <div className="space-y-4">
                   <div>
                     <label className="text-sm font-bold text-secondary">Assign To (Staff/Vendor)</label>
-                    <input type="text" placeholder="e.g. Ramesh (Electrician)" className="w-full px-4 py-2 mt-1 bg-white border border-border rounded-lg focus:outline-none focus:border-indigo-500" />
+                    <input type="text" placeholder="e.g. Ramesh (Electrician)" className="w-full px-4 py-2 mt-1 bg-input border border-border rounded-lg text-primary focus:outline-none focus:border-indigo-500" />
                   </div>
                   <button 
                     onClick={() => handleUpdateStatus('Assigned')}
@@ -307,16 +273,16 @@ export default function ManagerMaintenanceMain() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-bold text-secondary">Vendor / Person Name</label>
-                      <input name="vendor" defaultValue={selectedTask.assignedTo} required type="text" className="w-full px-4 py-2 mt-1 bg-white border border-border rounded-lg focus:outline-none focus:border-indigo-500" />
+                      <input name="vendor" defaultValue={selectedTask.assignedTo} required type="text" className="w-full px-4 py-2 mt-1 bg-input border border-border rounded-lg text-primary focus:outline-none focus:border-indigo-500" />
                     </div>
                     <div>
                       <label className="text-sm font-bold text-secondary">Total Cost (₹)</label>
-                      <input name="cost" required type="number" min="0" placeholder="0 if covered internally" className="w-full px-4 py-2 mt-1 bg-white border border-border rounded-lg focus:outline-none focus:border-indigo-500" />
+                      <input name="cost" required type="number" min="0" placeholder="0 if covered internally" className="w-full px-4 py-2 mt-1 bg-input border border-border rounded-lg text-primary focus:outline-none focus:border-indigo-500" />
                     </div>
                   </div>
                   <div>
                     <label className="text-sm font-bold text-secondary">Parts Used (Inventory deduction)</label>
-                    <input name="parts" type="text" placeholder="e.g. 1 Fan Capacitor" className="w-full px-4 py-2 mt-1 bg-white border border-border rounded-lg focus:outline-none focus:border-indigo-500" />
+                    <input name="parts" type="text" placeholder="e.g. 1 Fan Capacitor" className="w-full px-4 py-2 mt-1 bg-input border border-border rounded-lg text-primary focus:outline-none focus:border-indigo-500" />
                   </div>
                   
                   <div className="pt-2">
@@ -355,10 +321,11 @@ export default function ManagerMaintenanceMain() {
               )}
 
             </div>
-
           </div>
-        </div>
+        </>
+      )}
       </div>
+    </div>
     </div>
   );
 }

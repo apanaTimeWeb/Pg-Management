@@ -10,9 +10,9 @@ import { getSession, clearSession } from '@/app/frontend_staff/staff_lib/staff_a
 import { StaffProvider, useStaffContext } from '@/app/frontend_staff/staff_components/StaffContext';
 import { useStaffI18n } from '@/app/frontend_staff/StaffI18n';
 
-;
 import { StaffForcePasswordChangeModal } from '@/app/frontend_staff/staff_components/StaffForcePasswordChangeModal';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { LogoutModal } from '@/components/ui/LogoutModal';
 
 import type { DictKey } from '@/app/frontend_staff/StaffI18n';
 
@@ -30,6 +30,7 @@ function StaffLayoutInner({ children }: { children: React.ReactNode }) {
   const { staffRole, loading } = useStaffContext();
   const { lang, setLang, t } = useStaffI18n();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [forcePasswordChange, setForcePasswordChange] = useState(user?.mustChangePassword || false);
 
   useEffect(() => {
@@ -41,6 +42,11 @@ function StaffLayoutInner({ children }: { children: React.ReactNode }) {
 
   const handleLogout = (e: React.MouseEvent) => {
     e.preventDefault();
+    setIsLogoutModalOpen(true);
+  };
+
+  const handleConfirmLogout = () => {
+    setIsLogoutModalOpen(false);
     clearSession();
     router.push('/');
   };
@@ -159,6 +165,12 @@ function StaffLayoutInner({ children }: { children: React.ReactNode }) {
           {children}
         </div>
       </main>
+
+      <LogoutModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={handleConfirmLogout}
+      />
     </div>
   );
 }

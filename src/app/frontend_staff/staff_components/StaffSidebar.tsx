@@ -1,11 +1,13 @@
 // RESPONSIBILITY: Renders the StaffSidebar component.
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LayoutDashboard, Utensils, Shield, Sparkles, Wrench, ListTodo, LogOut } from 'lucide-react';
 
 import { clearSession } from '@/app/frontend_staff/staff_lib/staff_auth/StaffSession';
+import { LogoutModal } from '@/components/ui/LogoutModal';
 
 const links = [
   { href: '/staff/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -18,9 +20,16 @@ const links = [
 
 export function StaffSidebar({ staffRole }: { staffRole: string | null }) {
   const pathname = usePathname();
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   // Filter links: show general ones + the one matching their specific role
   const visibleLinks = links.filter(l => !l.role || l.role === staffRole || staffRole === 'admin');
+
+  const handleConfirmLogout = () => {
+    setIsLogoutModalOpen(false);
+    clearSession();
+    window.location.href = '/staff/login';
+  };
 
   return (
     <aside className="w-64 bg-card border-r border-border h-screen flex flex-col fixed left-0 top-0">
@@ -53,13 +62,19 @@ export function StaffSidebar({ staffRole }: { staffRole: string | null }) {
 
       <div className="p-4 border-t border-border">
         <button
-          onClick={() => { clearSession(); window.location.href = '/staff/login'; }}
+          onClick={() => setIsLogoutModalOpen(true)}
           className="flex items-center gap-3 px-4 py-3 w-full text-left text-danger hover:bg-danger-bg rounded-md motion-safe:transition-colors font-medium text-sm"
         >
           <LogOut className="w-5 h-5" />
           Sign out
         </button>
       </div>
+
+      <LogoutModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={handleConfirmLogout}
+      />
     </aside>
   );
 }

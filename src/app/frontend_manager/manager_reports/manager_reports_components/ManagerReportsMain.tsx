@@ -105,13 +105,13 @@ export default function ManagerReportsMain() {
         
         <div className="flex items-center gap-2">
           <div className="flex bg-page p-1 rounded-xl border border-border/60">
-            <button className="flex items-center gap-2 bg-white text-primary px-4 py-2 rounded-lg text-sm font-bold shadow-sm">
+            <button className="flex items-center gap-2 bg-card text-primary px-4 py-2 rounded-lg text-sm font-bold shadow-sm border border-border/40">
               <FileText className="w-4 h-4 text-red-500" /> PDF
             </button>
-            <button className="flex items-center gap-2 text-secondary hover:text-primary hover:bg-white/50 px-4 py-2 rounded-lg text-sm font-bold transition-all">
+            <button className="flex items-center gap-2 text-secondary hover:text-primary hover:bg-card/70 px-4 py-2 rounded-lg text-sm font-bold transition-all">
               <FileSpreadsheet className="w-4 h-4 text-green-600" /> Excel
             </button>
-            <button className="flex items-center gap-2 text-secondary hover:text-primary hover:bg-white/50 px-4 py-2 rounded-lg text-sm font-bold transition-all">
+            <button className="flex items-center gap-2 text-secondary hover:text-primary hover:bg-card/70 px-4 py-2 rounded-lg text-sm font-bold transition-all">
               <FileIcon className="w-4 h-4 text-blue-500" /> CSV
             </button>
           </div>
@@ -182,7 +182,7 @@ export default function ManagerReportsMain() {
             </div>
             
             <div className="p-8 text-center min-h-[300px] flex flex-col items-center justify-center bg-gray-50/30">
-              <div className="w-16 h-16 bg-white border border-border rounded-2xl flex items-center justify-center mb-4 shadow-sm rotate-3">
+              <div className="w-16 h-16 bg-card border border-border rounded-2xl flex items-center justify-center mb-4 shadow-sm rotate-3">
                 <BarChart3 className="w-8 h-8 text-indigo-400 -rotate-3" />
               </div>
               <h4 className="text-lg font-bold text-primary mb-1">{activeCategory} Data Table</h4>

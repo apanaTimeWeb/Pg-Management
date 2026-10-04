@@ -85,18 +85,58 @@ const INITIAL_COMPLAINTS: Complaint[] = [
   }
 ];
 
+import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
+import { api } from '@/app/frontend_manager/manager_lib/manager_api/ManagerApi';
+
 export default function ManagerComplaintsMain() {
-  const [complaints, setComplaints] = useState<Complaint[]>(INITIAL_COMPLAINTS);
-  const [selectedComplaint, setSelectedComplaint] = useState<Complaint>(INITIAL_COMPLAINTS[0]);
+  const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
+  const [complaints, setComplaints] = useState<Complaint[]>([]);
+  const [selectedComplaint, setSelectedComplaint] = useState<Complaint | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<'All' | ComplaintStatus>('All');
   const [newComment, setNewComment] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  React.useEffect(() => {
+    if (ctxLoading) return;
+    if (!selectedPropertyId) {
+      setComplaints([]);
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+    // In real app: fetch from API, map if needed
+    // For now we just merge mock API with the required UI structure
+    const fetched = api.managerOperations.listComplaints(selectedPropertyId) as unknown as any[];
+    
+    // Fallback if db is empty or to match UI
+    if (fetched.length === 0) {
+      // simulate delay
+      setTimeout(() => {
+        setComplaints(INITIAL_COMPLAINTS);
+        setSelectedComplaint(INITIAL_COMPLAINTS[0]);
+        setLoading(false);
+      }, 500);
+    } else {
+      setComplaints(fetched);
+      setSelectedComplaint(fetched[0]);
+      setLoading(false);
+    }
+  }, [selectedPropertyId, ctxLoading]);
 
   const filteredComplaints = complaints.filter(c => {
-    const matchesSearch = c.title.toLowerCase().includes(searchTerm.toLowerCase()) || c.student.toLowerCase().includes(searchTerm.toLowerCase()) || c.room.includes(searchTerm);
+    const titleMatch = c.title ? c.title.toLowerCase().includes(searchTerm.toLowerCase()) : false;
+    const studentMatch = c.student ? c.student.toLowerCase().includes(searchTerm.toLowerCase()) : false;
+    const roomMatch = c.room ? c.room.includes(searchTerm) : false;
+    
+    const matchesSearch = titleMatch || studentMatch || roomMatch;
     const matchesStatus = filterStatus === 'All' || c.status === filterStatus;
     return matchesSearch && matchesStatus;
   });
+
+  if (loading || ctxLoading) {
+    return <div className="p-8 flex items-center justify-center min-h-[50vh]"><div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div></div>;
+  }
 
   const getStatusColor = (status: ComplaintStatus) => {
     switch (status) {
@@ -123,36 +163,45 @@ export default function ManagerComplaintsMain() {
   };
 
   const handleStatusUpdate = (newStatus: ComplaintStatus) => {
-    setComplaints(prev => prev.map(c => c.id === selectedComplaint.id ? { ...c, status: newStatus } : c));
-    setSelectedComplaint(prev => ({ ...prev, status: newStatus }));
+    if (selectedComplaint) {
+      api.managerOperations.updateComplaintStatus(selectedComplaint.id, newStatus, 'manager-1');
+      setComplaints(prev => prev.map(c => c.id === selectedComplaint.id ? { ...c, status: newStatus } : c));
+      setSelectedComplaint(prev => prev ? ({ ...prev, status: newStatus }) : null);
+    }
   };
 
   const handlePriorityUpdate = (newPriority: Priority) => {
-    setComplaints(prev => prev.map(c => c.id === selectedComplaint.id ? { ...c, priority: newPriority } : c));
-    setSelectedComplaint(prev => ({ ...prev, priority: newPriority }));
+    if (selectedComplaint) {
+      setComplaints(prev => prev.map(c => c.id === selectedComplaint.id ? { ...c, priority: newPriority } : c));
+      setSelectedComplaint(prev => prev ? ({ ...prev, priority: newPriority }) : null);
+    }
   };
 
   const handleAddComment = () => {
-    if (!newComment.trim()) return;
+    if (!newComment.trim() || !selectedComplaint) return;
     const comment = { user: 'Manager', text: newComment, time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}), isManager: true };
-    setComplaints(prev => prev.map(c => c.id === selectedComplaint.id ? { ...c, comments: [...c.comments, comment] } : c));
-    setSelectedComplaint(prev => ({ ...prev, comments: [...prev.comments, comment] }));
+    setComplaints(prev => prev.map(c => c.id === selectedComplaint.id ? { ...c, comments: [...(c.comments || []), comment] } : c));
+    setSelectedComplaint(prev => prev ? ({ ...prev, comments: [...(prev.comments || []), comment] }) : null);
     setNewComment('');
   };
 
   const handleAssign = () => {
+    if (!selectedComplaint) return;
     const person = window.prompt("Assign task to (Staff/Vendor name):");
     if (person) {
+      api.managerOperations.updateComplaintStatus(selectedComplaint.id, 'Assigned', 'manager-1');
       setComplaints(prev => prev.map(c => c.id === selectedComplaint.id ? { ...c, assignedTo: person, status: 'Assigned' } : c));
-      setSelectedComplaint(prev => ({ ...prev, assignedTo: person, status: 'Assigned' }));
+      setSelectedComplaint(prev => prev ? ({ ...prev, assignedTo: person, status: 'Assigned' }) : null);
     }
   };
 
   const handleResolve = () => {
+    if (!selectedComplaint) return;
     const resolution = window.prompt("Enter resolution details:");
     if (resolution) {
+      api.managerOperations.resolveComplaintWithCost(selectedComplaint.id, 0, resolution, 'manager-1');
       setComplaints(prev => prev.map(c => c.id === selectedComplaint.id ? { ...c, resolution, status: 'Resolved' } : c));
-      setSelectedComplaint(prev => ({ ...prev, resolution, status: 'Resolved' }));
+      setSelectedComplaint(prev => prev ? ({ ...prev, resolution, status: 'Resolved' }) : null);
     }
   };
 
@@ -186,7 +235,7 @@ export default function ManagerComplaintsMain() {
                   className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
                     filterStatus === status 
                       ? 'bg-indigo-600 text-white border-indigo-600' 
-                      : 'bg-white text-secondary border-border/60 hover:border-indigo-300'
+                      : 'bg-card text-secondary border-border/60 hover:border-indigo-300'
                   }`}
                 >
                   {status}
@@ -212,7 +261,7 @@ export default function ManagerComplaintsMain() {
                 key={comp.id}
                 onClick={() => setSelectedComplaint(comp)}
                 className={`p-3 rounded-xl cursor-pointer transition-all ${
-                  selectedComplaint.id === comp.id 
+                  selectedComplaint?.id === comp.id 
                     ? 'bg-indigo-50 border border-indigo-200 shadow-sm' 
                     : 'bg-transparent border border-transparent hover:bg-page/50'
                 }`}
@@ -232,7 +281,7 @@ export default function ManagerComplaintsMain() {
                   <span className={`px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider border ${getStatusColor(comp.status)}`}>
                     {comp.status}
                   </span>
-                  <span className="text-[10px] font-medium text-secondary">{comp.dateCreated.split(',')[0]}</span>
+                  <span className="text-[10px] font-medium text-secondary">{comp.dateCreated?.split(',')[0] || ''}</span>
                 </div>
               </div>
             ))}
@@ -245,9 +294,14 @@ export default function ManagerComplaintsMain() {
 
         {/* Right Side: Details & Lifecycle */}
         <div className="lg:col-span-2 bg-card border border-border/60 rounded-2xl shadow-sm flex flex-col min-h-0 overflow-y-auto">
-          
-          {/* Header Info */}
-          <div className="p-6 border-b border-border/50 bg-page/30 shrink-0">
+          {!selectedComplaint ? (
+            <div className="flex-1 flex items-center justify-center text-secondary p-8 text-center">
+              Select a complaint to view details
+            </div>
+          ) : (
+            <>
+              {/* Header Info */}
+              <div className="p-6 border-b border-border/50 bg-page/30 shrink-0">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-3">
                 <span className={`px-3 py-1 rounded-lg text-xs font-black uppercase tracking-wider border ${getStatusColor(selectedComplaint.status)}`}>
@@ -261,19 +315,19 @@ export default function ManagerComplaintsMain() {
             <h2 className="text-2xl font-black text-primary leading-tight mb-4">{selectedComplaint.title}</h2>
             
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="bg-white px-3 py-2 rounded-lg border border-border">
+              <div className="bg-card px-3 py-2 rounded-lg border border-border">
                 <p className="text-[10px] font-black text-secondary uppercase tracking-wider">Student</p>
                 <p className="text-sm font-bold text-primary mt-0.5 flex items-center gap-1"><User className="w-3.5 h-3.5"/> {selectedComplaint.student}</p>
               </div>
-              <div className="bg-white px-3 py-2 rounded-lg border border-border">
+              <div className="bg-card px-3 py-2 rounded-lg border border-border">
                 <p className="text-[10px] font-black text-secondary uppercase tracking-wider">Room</p>
                 <p className="text-sm font-bold text-primary mt-0.5 flex items-center gap-1"><MapPin className="w-3.5 h-3.5"/> {selectedComplaint.room}</p>
               </div>
-              <div className="bg-white px-3 py-2 rounded-lg border border-border">
+              <div className="bg-card px-3 py-2 rounded-lg border border-border">
                 <p className="text-[10px] font-black text-secondary uppercase tracking-wider">Category</p>
                 <p className="text-sm font-bold text-primary mt-0.5 flex items-center gap-1">{getCategoryIcon(selectedComplaint.category)} {selectedComplaint.category}</p>
               </div>
-              <div className="bg-white px-3 py-2 rounded-lg border border-border">
+              <div className="bg-card px-3 py-2 rounded-lg border border-border">
                 <p className="text-[10px] font-black text-secondary uppercase tracking-wider">Priority</p>
                 <select 
                   value={selectedComplaint.priority}
@@ -288,7 +342,7 @@ export default function ManagerComplaintsMain() {
               </div>
             </div>
             
-            <div className="mt-4 p-4 bg-gray-50 rounded-xl border border-border text-primary text-sm leading-relaxed">
+            <div className="mt-4 p-4 bg-page rounded-xl border border-border text-primary text-sm leading-relaxed">
               {selectedComplaint.description}
             </div>
           </div>
@@ -354,7 +408,7 @@ export default function ManagerComplaintsMain() {
             
             {selectedComplaint.status === 'Closed' && (
               <div className="flex justify-end">
-                <button onClick={() => handleStatusUpdate('In Progress')} className="px-4 py-2 bg-white text-orange-600 border border-orange-200 hover:bg-orange-50 rounded-lg text-sm font-bold transition-all flex items-center gap-2 shadow-sm">
+                <button onClick={() => handleStatusUpdate('In Progress')} className="px-4 py-2 bg-card text-orange-600 border border-orange-200 dark:border-orange-800 hover:bg-orange-50 dark:hover:bg-orange-950/30 rounded-lg text-sm font-bold transition-all flex items-center gap-2 shadow-sm">
                   <RotateCcw className="w-4 h-4"/> Reopen Complaint
                 </button>
               </div>
@@ -364,30 +418,30 @@ export default function ManagerComplaintsMain() {
             <div className="border border-border/50 rounded-xl overflow-hidden flex flex-col">
               <div className="p-3 bg-page/50 border-b border-border/50 font-bold text-primary flex items-center justify-between">
                 <span>Discussion Thread</span>
-                <span className="text-xs text-secondary font-medium">{selectedComplaint.comments.length} updates</span>
+                <span className="text-xs text-secondary font-medium">{(selectedComplaint.comments || []).length} updates</span>
               </div>
               
-              <div className="p-4 space-y-4 max-h-60 overflow-y-auto bg-gray-50/30">
-                {selectedComplaint.comments.map((cmt, idx) => (
+              <div className="p-4 space-y-4 max-h-60 overflow-y-auto bg-page/30">
+                {(selectedComplaint.comments || []).map((cmt, idx) => (
                   <div key={idx} className={`flex flex-col ${cmt.isManager ? 'items-end' : 'items-start'}`}>
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-xs font-bold text-secondary">{cmt.user}</span>
                       <span className="text-[10px] text-gray-400">{cmt.time}</span>
                     </div>
                     <div className={`px-4 py-2 rounded-2xl max-w-[80%] text-sm ${
-                      cmt.isManager ? 'bg-indigo-600 text-white rounded-br-none' : 'bg-white border border-border text-primary rounded-bl-none shadow-sm'
+                      cmt.isManager ? 'bg-indigo-600 text-white rounded-br-none' : 'bg-card border border-border text-primary rounded-bl-none shadow-sm'
                     }`}>
                       {cmt.text}
                     </div>
                   </div>
                 ))}
-                {selectedComplaint.comments.length === 0 && (
+                {(selectedComplaint.comments || []).length === 0 && (
                   <div className="text-center text-xs text-secondary italic">No comments yet.</div>
                 )}
               </div>
 
               {selectedComplaint.status !== 'Closed' && (
-                <div className="p-3 bg-white border-t border-border flex items-center gap-2">
+                <div className="p-3 bg-card border-t border-border flex items-center gap-2">
                   <button className="p-2 text-secondary hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
                     <ImageIcon className="w-5 h-5" />
                   </button>
@@ -409,10 +463,11 @@ export default function ManagerComplaintsMain() {
                 </div>
               )}
             </div>
-
           </div>
-        </div>
+        </>
+      )}
       </div>
     </div>
+  </div>
   );
 }

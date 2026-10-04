@@ -84,19 +84,19 @@ export default function ManagerFoodMain() {
         <div className="flex items-center gap-1 p-2 border-b border-border/50 bg-page/30 shrink-0 overflow-x-auto">
           <button 
             onClick={() => setActiveTab('daily')}
-            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap flex items-center gap-2 ${activeTab === 'daily' ? 'bg-white text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
+            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap flex items-center gap-2 ${activeTab === 'daily' ? 'bg-card text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
           >
             <ClipboardList className="w-4 h-4" /> Daily Execution (Counts)
           </button>
           <button 
             onClick={() => setActiveTab('menu')}
-            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap flex items-center gap-2 ${activeTab === 'menu' ? 'bg-white text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
+            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap flex items-center gap-2 ${activeTab === 'menu' ? 'bg-card text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
           >
             <CalendarDays className="w-4 h-4" /> Menu Management
           </button>
           <button 
             onClick={() => setActiveTab('complaints')}
-            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap flex items-center gap-2 ${activeTab === 'complaints' ? 'bg-white text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
+            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap flex items-center gap-2 ${activeTab === 'complaints' ? 'bg-card text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
           >
             <MessageSquareWarning className="w-4 h-4" /> Food Complaints
           </button>
@@ -119,8 +119,8 @@ export default function ManagerFoodMain() {
                       onClick={() => setActiveMeal(meal as MealType)}
                       className={`w-full flex items-center justify-between p-4 rounded-xl border-2 transition-all ${
                         activeMeal === meal 
-                          ? 'border-indigo-600 bg-indigo-50/50 text-indigo-700' 
-                          : 'border-border/60 bg-white text-secondary hover:border-indigo-300'
+                          ? 'border-indigo-600 bg-indigo-50/50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300' 
+                          : 'border-border/60 bg-card text-secondary hover:border-indigo-300'
                       }`}
                     >
                       <div className="flex items-center gap-3 font-bold">
@@ -134,7 +134,7 @@ export default function ManagerFoodMain() {
                 {/* Right: Meal Stats & Actions */}
                 <div className="flex-1 space-y-6">
                   
-                  <div className="bg-white p-6 rounded-2xl border border-border shadow-sm">
+                  <div className="bg-card p-6 rounded-2xl border border-border shadow-sm">
                     <div className="flex justify-between items-center mb-6">
                       <div>
                         <h2 className="text-xl font-black text-primary flex items-center gap-2">
@@ -190,15 +190,15 @@ export default function ManagerFoodMain() {
               <div className="flex items-center justify-between">
                 <div className="flex gap-2">
                   <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-bold shadow-sm">Today's Menu</button>
-                  <button className="px-4 py-2 bg-white border border-border text-secondary hover:text-primary rounded-lg text-sm font-bold shadow-sm">Weekly View</button>
-                  <button className="px-4 py-2 bg-white border border-border text-secondary hover:text-primary rounded-lg text-sm font-bold shadow-sm">Menu History</button>
+                  <button className="px-4 py-2 bg-card border border-border text-secondary hover:text-primary rounded-lg text-sm font-bold shadow-sm">Weekly View</button>
+                  <button className="px-4 py-2 bg-card border border-border text-secondary hover:text-primary rounded-lg text-sm font-bold shadow-sm">Menu History</button>
                 </div>
                 
                 <div className="flex gap-2">
-                  <button className="px-4 py-2 bg-white border border-border text-indigo-600 hover:bg-indigo-50 rounded-lg text-sm font-bold shadow-sm flex items-center gap-2">
+                  <button className="px-4 py-2 bg-card border border-border text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 rounded-lg text-sm font-bold shadow-sm flex items-center gap-2">
                     <Plus className="w-4 h-4" /> Add Special Meal
                   </button>
-                  <button className="px-4 py-2 bg-red-50 text-red-600 border border-red-100 hover:bg-red-100 rounded-lg text-sm font-bold shadow-sm flex items-center gap-2">
+                  <button className="px-4 py-2 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900/50 hover:bg-red-100 rounded-lg text-sm font-bold shadow-sm flex items-center gap-2">
                     <XCircle className="w-4 h-4" /> Cancel a Meal
                   </button>
                 </div>
@@ -206,7 +206,7 @@ export default function ManagerFoodMain() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
                 {Object.entries(TODAY_MENU).map(([meal, menu]) => (
-                  <div key={meal} className="bg-white p-5 rounded-2xl border border-border shadow-sm flex flex-col h-full relative group">
+                  <div key={meal} className="bg-card p-5 rounded-2xl border border-border shadow-sm flex flex-col h-full relative group">
                     <div className="flex items-center gap-2 mb-4 text-indigo-600">
                       {getMealIcon(meal as MealType)}
                       <h3 className="font-black">{meal}</h3>
@@ -234,7 +234,7 @@ export default function ManagerFoodMain() {
           {/* COMPLAINTS TAB */}
           {activeTab === 'complaints' && (
             <div className="space-y-6 animate-in fade-in duration-300">
-              <div className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden">
+              <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="bg-page/50 border-b border-border/50">
@@ -253,9 +253,9 @@ export default function ManagerFoodMain() {
                         <td className="py-4 px-6 text-primary max-w-xs truncate">{comp.issue}</td>
                         <td className="py-4 px-6">
                           <span className={`px-2.5 py-1 rounded-md text-xs font-bold border ${
-                            comp.status === 'Review Pending' ? 'bg-orange-100 text-orange-700 border-orange-200' :
-                            comp.status === 'Sent to Cook' ? 'bg-blue-100 text-blue-700 border-blue-200' :
-                            'bg-green-100 text-green-700 border-green-200'
+                            comp.status === 'Review Pending' ? 'bg-orange-100 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800' :
+                            comp.status === 'Sent to Cook' ? 'bg-blue-100 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800' :
+                            'bg-green-100 dark:bg-green-950/40 text-green-700 dark:text-green-300 border-green-200 dark:border-green-800'
                           }`}>
                             {comp.status}
                           </span>
@@ -263,7 +263,7 @@ export default function ManagerFoodMain() {
                         <td className="py-4 px-6 text-right">
                           <button 
                             onClick={() => handleReviewComplaint(comp)}
-                            className="px-3 py-1.5 bg-white border border-border text-secondary hover:text-indigo-600 hover:border-indigo-200 rounded-lg text-xs font-bold transition-all shadow-sm"
+                            className="px-3 py-1.5 bg-card border border-border text-secondary hover:text-indigo-600 hover:border-indigo-200 rounded-lg text-xs font-bold transition-all shadow-sm"
                           >
                             Review
                           </button>

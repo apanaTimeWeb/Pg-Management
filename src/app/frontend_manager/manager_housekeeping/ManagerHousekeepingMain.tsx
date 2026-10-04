@@ -5,28 +5,11 @@ import { useManagerPropertyContext } from '@/app/frontend_manager/manager_compon
 import { ClipboardCheck, Search, CheckCircle2, Circle } from 'lucide-react';
 import { api } from '@/app/frontend_manager/manager_lib/manager_api/ManagerApi';
 
+import { useManagerHousekeeping } from './manager_housekeeping_hooks/useManagerHousekeeping';
+
 export function ManagerHousekeepingMain() {
-  const { selectedPropertyId } = useManagerPropertyContext();
+  const { loading, tasks, toggleTaskStatus } = useManagerHousekeeping();
   const [search, setSearch] = useState('');
-  
-  // Basic mock data state for housekeeping
-  const [tasks, setTasks] = useState([
-    { id: '1', room: '101', status: 'pending', assignedTo: 'Ramesh (Cleaner)' },
-    { id: '2', room: '102', status: 'completed', assignedTo: 'Suresh (Cleaner)' },
-    { id: '3', room: '201', status: 'pending', assignedTo: 'Ramesh (Cleaner)' },
-    { id: '4', room: '202', status: 'completed', assignedTo: 'Suresh (Cleaner)' },
-    { id: '5', room: 'Common Area', status: 'pending', assignedTo: 'Ramesh (Cleaner)' },
-  ]);
-
-  if (!selectedPropertyId) return <div className="p-6 text-secondary">Property Required</div>;
-
-  const toggleStatus = (id: string) => {
-    setTasks(tasks.map(t => 
-      t.id === id 
-        ? { ...t, status: t.status === 'pending' ? 'completed' : 'pending' } 
-        : t
-    ));
-  };
 
   const filteredTasks = tasks.filter(t => t.room.toLowerCase().includes(search.toLowerCase()));
 
@@ -76,7 +59,7 @@ export function ManagerHousekeepingMain() {
                   </td>
                   <td className="py-4 px-4 text-right">
                     <button 
-                      onClick={() => toggleStatus(task.id)}
+                      onClick={() => toggleTaskStatus(task.id)}
                       className={`flex items-center gap-1.5 ml-auto px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${task.status === 'completed' ? 'bg-bg-page text-secondary hover:bg-danger-bg hover:text-danger' : 'bg-success text-white hover:bg-success-hover shadow-sm'}`}
                     >
                       {task.status === 'completed' ? <Circle className="w-4 h-4" /> : <CheckCircle2 className="w-4 h-4" />}

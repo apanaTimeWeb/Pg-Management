@@ -8,83 +8,15 @@ import {
   ChevronRight, ShieldAlert, FileText, Send, X
 } from 'lucide-react';
 
-type LeaveStatus = 'Pending' | 'Approved' | 'Rejected' | 'Active Outing' | 'Returned' | 'Overdue Return';
-
-interface LeaveRequest {
-  id: string;
-  student: string;
-  room: string;
-  leaveType: string;
-  startDate: string;
-  endDate: string;
-  reason: string;
-  destination: string;
-  contact: string;
-  expectedReturn: string;
-  status: LeaveStatus;
-  isEmergency?: boolean;
-  auditNote?: string;
-}
-
-const INITIAL_LEAVES: LeaveRequest[] = [
-  {
-    id: 'LR-105',
-    student: 'Rahul Sharma',
-    room: '102',
-    leaveType: 'Home Visit',
-    startDate: '04 Oct 2026',
-    endDate: '07 Oct 2026',
-    reason: 'Diwali Holidays',
-    destination: 'Jaipur, Rajasthan',
-    contact: '+91 9876543210 (Father)',
-    expectedReturn: '07 Oct 2026, 05:00 PM',
-    status: 'Pending'
-  },
-  {
-    id: 'LR-104',
-    student: 'Amit Kumar',
-    room: '205',
-    leaveType: 'Night Out',
-    startDate: '03 Oct 2026',
-    endDate: '04 Oct 2026',
-    reason: 'Friend\'s Birthday Party',
-    destination: 'Sector 29, Gurgaon',
-    contact: '+91 8765432109 (Self)',
-    expectedReturn: '04 Oct 2026, 09:00 AM',
-    status: 'Approved'
-  },
-  {
-    id: 'LR-102',
-    student: 'Suresh Patel',
-    room: '304',
-    leaveType: 'Emergency Leave',
-    startDate: '02 Oct 2026',
-    endDate: '05 Oct 2026',
-    reason: 'Medical Emergency at home',
-    destination: 'Ahmedabad, Gujarat',
-    contact: '+91 7654321098 (Brother)',
-    expectedReturn: '05 Oct 2026, 10:00 AM',
-    status: 'Active Outing',
-    isEmergency: true
-  },
-  {
-    id: 'LR-101',
-    student: 'Vikas Singh',
-    room: '105',
-    leaveType: 'Weekend Outing',
-    startDate: '01 Oct 2026',
-    endDate: '02 Oct 2026',
-    reason: 'Local Shopping',
-    destination: 'City Mall',
-    contact: '+91 6543210987',
-    expectedReturn: '02 Oct 2026, 08:00 PM',
-    status: 'Overdue Return'
-  }
-];
+import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
+import { useManagerLeaves } from '../manager_leaves_hooks/useManagerLeaves';
+import type { LeaveStatus, LeaveRequest } from '../manager_leaves_hooks/useManagerLeaves';
 
 export default function ManagerLeavesMain() {
-  const [leaves, setLeaves] = useState<LeaveRequest[]>(INITIAL_LEAVES);
-  const [selectedLeave, setSelectedLeave] = useState<LeaveRequest>(INITIAL_LEAVES[0]);
+  const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
+  const { leaves, loading, updateLeaveStatus } = useManagerLeaves(selectedPropertyId, ctxLoading, 'manager-1');
+
+  const [selectedLeave, setSelectedLeave] = useState<LeaveRequest | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<'All' | LeaveStatus>('All');
   const [emergencyModalOpen, setEmergencyModalOpen] = useState(false);
@@ -107,22 +39,35 @@ export default function ManagerLeavesMain() {
   };
 
   const handleUpdateStatus = (newStatus: LeaveStatus) => {
-    setLeaves(prev => prev.map(l => l.id === selectedLeave.id ? { ...l, status: newStatus } : l));
-    setSelectedLeave(prev => ({ ...prev, status: newStatus }));
+    if (selectedLeave) {
+      updateLeaveStatus(selectedLeave.id, newStatus);
+      setSelectedLeave(prev => prev ? ({ ...prev, status: newStatus }) : null);
+    }
   };
 
   const handleReject = () => {
     const reason = window.prompt("Enter reason for rejection (sent to student):");
-    if (reason !== null) {
-      handleUpdateStatus('Rejected');
+    if (reason !== null && selectedLeave) {
+      updateLeaveStatus(selectedLeave.id, 'Rejected', reason);
+      setSelectedLeave(prev => prev ? ({ ...prev, status: 'Rejected' }) : null);
     }
   };
+
+  React.useEffect(() => {
+    if (leaves.length > 0 && !selectedLeave) {
+      setSelectedLeave(leaves[0]);
+    }
+  }, [leaves, selectedLeave]);
 
   const handleEmergencySubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setEmergencyModalOpen(false);
     alert('Emergency leave recorded with audit note.');
   };
+
+  if (loading || ctxLoading) {
+    return <div className="p-8 flex items-center justify-center min-h-[50vh]"><div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div></div>;
+  }
 
   return (
     <div className="p-4 md:p-8 space-y-6 animate-in fade-in duration-500 w-full h-[calc(100vh-4rem)] flex flex-col">
@@ -164,7 +109,7 @@ export default function ManagerLeavesMain() {
                     className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
                       filterStatus === status 
                         ? 'bg-indigo-600 text-white border-indigo-600' 
-                        : 'bg-white text-secondary border-border/60 hover:border-indigo-300'
+                        : 'bg-card text-secondary border-border/60 hover:border-indigo-300'
                     }`}
                   >
                     {status}
@@ -216,10 +161,15 @@ export default function ManagerLeavesMain() {
 
           {/* Right Side: Details & Flow */}
           <div className="flex-1 flex flex-col min-h-0 bg-gray-50/30 overflow-y-auto">
-            
-            {/* Header Info */}
-            <div className="p-6 border-b border-border/50 bg-white shrink-0 relative overflow-hidden">
-              {selectedLeave.isEmergency && (
+            {!selectedLeave ? (
+              <div className="flex-1 flex items-center justify-center text-secondary">
+                Select a leave request to view details
+              </div>
+            ) : (
+              <>
+                {/* Header Info */}
+                <div className="p-6 border-b border-border/50 bg-card shrink-0 relative overflow-hidden">
+                  {selectedLeave.isEmergency && (
                 <div className="absolute top-0 right-0 p-4 opacity-10">
                   <AlertTriangle className="w-24 h-24 text-red-500" />
                 </div>
@@ -242,7 +192,7 @@ export default function ManagerLeavesMain() {
             <div className="p-6 flex-1 space-y-6">
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-white p-5 rounded-xl border border-border shadow-sm">
+                <div className="bg-card p-5 rounded-xl border border-border shadow-sm">
                   <h3 className="text-xs font-bold text-secondary uppercase tracking-wider mb-4 border-b border-border/50 pb-2">Leave Details</h3>
                   <div className="space-y-3">
                     <div>
@@ -260,7 +210,7 @@ export default function ManagerLeavesMain() {
                   </div>
                 </div>
                 
-                <div className="bg-white p-5 rounded-xl border border-border shadow-sm">
+                <div className="bg-card p-5 rounded-xl border border-border shadow-sm">
                   <h3 className="text-xs font-bold text-secondary uppercase tracking-wider mb-4 border-b border-border/50 pb-2">Schedule & Timing</h3>
                   <div className="space-y-3">
                     <div>
@@ -273,24 +223,24 @@ export default function ManagerLeavesMain() {
                     </div>
                     <div className="pt-2">
                       <p className="text-xs text-secondary">Expected Return</p>
-                      <p className="font-bold text-indigo-600 flex items-center gap-1"><Clock className="w-3.5 h-3.5"/> {selectedLeave.expectedReturn}</p>
+                      <p className="font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1"><Clock className="w-3.5 h-3.5"/> {selectedLeave.expectedReturn}</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               {selectedLeave.status === 'Overdue Return' && (
-                <div className="p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3">
+                <div className="p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-xl flex items-start gap-3">
                   <AlertTriangle className="w-6 h-6 text-red-600 shrink-0" />
                   <div>
-                    <h4 className="font-bold text-red-900">Student is Overdue!</h4>
-                    <p className="text-sm text-red-800 mt-1">The student was expected to return by <b>{selectedLeave.expectedReturn}</b>. Please contact the student or their registered emergency contact immediately.</p>
+                    <h4 className="font-bold text-red-900 dark:text-red-400">Student is Overdue!</h4>
+                    <p className="text-sm text-red-800 dark:text-red-300 mt-1">The student was expected to return by <b>{selectedLeave.expectedReturn}</b>. Please contact the student or their registered emergency contact immediately.</p>
                   </div>
                 </div>
               )}
 
               {/* Leave Lifecycle Pipeline */}
-              <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+              <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
                 <h3 className="font-bold text-primary mb-6 flex items-center gap-2">
                   <CalendarOff className="w-5 h-5 text-indigo-600" /> Action Flow
                 </h3>
@@ -350,7 +300,7 @@ export default function ManagerLeavesMain() {
                     <>
                       <button 
                         onClick={handleReject}
-                        className="bg-white border border-border text-red-600 hover:bg-red-50 hover:border-red-200 px-6 py-3 rounded-xl font-bold shadow-sm transition-all flex items-center gap-2"
+                        className="bg-card border border-border text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 hover:border-red-200 px-6 py-3 rounded-xl font-bold shadow-sm transition-all flex items-center gap-2"
                       >
                         <XCircle className="w-5 h-5" /> Reject
                       </button>
@@ -396,6 +346,8 @@ export default function ManagerLeavesMain() {
               </div>
             </div>
 
+              </>
+            )}
           </div>
         </div>
       </div>

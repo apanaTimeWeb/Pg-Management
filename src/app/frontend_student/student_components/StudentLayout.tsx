@@ -10,6 +10,7 @@ import { getSession, clearSession } from '@/app/frontend_student/student_lib/stu
 import { StudentProvider, useStudentContext } from '@/app/frontend_student/student_components/StudentContext';
 import { useStudentI18n } from '@/app/frontend_student/StudentI18n';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { LogoutModal } from '@/components/ui/LogoutModal';
 import '../student-theme.css';
 
 import type { DictKey } from '@/app/frontend_student/StudentI18n';
@@ -39,6 +40,7 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
   const { lang, setLang, t } = useStudentI18n();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
 
   useEffect(() => {
@@ -50,6 +52,12 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
 
   const handleLogout = (e: React.MouseEvent) => {
     e.preventDefault();
+    setIsProfileMenuOpen(false);
+    setIsLogoutModalOpen(true);
+  };
+
+  const handleConfirmLogout = () => {
+    setIsLogoutModalOpen(false);
     clearSession();
     router.push('/');
   };
@@ -258,6 +266,12 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
       <Link href="/frontend_student/student_sos" className="fixed bottom-24 md:bottom-8 right-4 md:right-8 z-50 w-14 h-14 bg-danger text-white rounded-full flex items-center justify-center shadow-lg shadow-danger/30 border-2 border-white hover:bg-danger-hover motion-safe:transition-transform hover:scale-105 active:scale-95 group">
         <ShieldAlert className="w-6 h-6 group-hover:animate-pulse" />
       </Link>
+
+      <LogoutModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={handleConfirmLogout}
+      />
     </div>
   );
 }

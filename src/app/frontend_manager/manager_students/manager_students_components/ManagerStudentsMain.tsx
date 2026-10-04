@@ -8,57 +8,29 @@ import {
   Bed, FileText, Lock, MessageSquare, LogOut, Wrench
 } from 'lucide-react';
 
-type StudentStatus = 'Active' | 'Pending' | 'Notice Period' | 'On Leave' | 'Checked Out' | 'Suspended';
-
-interface Student {
-  id: string;
-  name: string;
-  mobile: string;
-  room: string;
-  bed: string;
-  joiningDate: string;
-  rent: number;
-  due: number;
-  attendance: 'Present' | 'Absent' | 'Late' | 'Unmarked';
-  status: StudentStatus;
-  building: string;
-  floor: string;
-}
-
-const INITIAL_STUDENTS: Student[] = [
-  {
-    id: 'ST-1001', name: 'Rahul Sharma', mobile: '+91 9876543210', 
-    room: '102', bed: 'B', joiningDate: '01 Sep 2026', rent: 8000, due: 0, 
-    attendance: 'Present', status: 'Active', building: 'Block A', floor: '1st Floor'
-  },
-  {
-    id: 'ST-1002', name: 'Amit Kumar', mobile: '+91 8765432109', 
-    room: '205', bed: 'A', joiningDate: '15 Sep 2026', rent: 9000, due: 4500, 
-    attendance: 'Unmarked', status: 'Notice Period', building: 'Block A', floor: '2nd Floor'
-  },
-  {
-    id: 'ST-1003', name: 'Suresh Patel', mobile: '+91 7654321098', 
-    room: '304', bed: 'C', joiningDate: '10 Aug 2026', rent: 8500, due: 0, 
-    attendance: 'Absent', status: 'On Leave', building: 'Block B', floor: '3rd Floor'
-  },
-  {
-    id: 'ST-1004', name: 'Vikas Singh', mobile: '+91 6543210987', 
-    room: '105', bed: 'A', joiningDate: '05 Sep 2026', rent: 7500, due: 0, 
-    attendance: 'Present', status: 'Active', building: 'Block A', floor: '1st Floor'
-  },
-  {
-    id: 'ST-1005', name: 'Rohan Gupta', mobile: '+91 5432109876', 
-    room: '110', bed: 'B', joiningDate: '20 Sep 2026', rent: 8000, due: 8000, 
-    attendance: 'Late', status: 'Pending', building: 'Block B', floor: '1st Floor'
-  }
-];
+import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
+import { useManagerStudents } from '../manager_students_hooks/useManagerStudents';
+import type { ManagerStudentView, StudentStatus } from '../manager_students_hooks/useManagerStudents';
 
 export default function ManagerStudentsMain() {
-  const [students, setStudents] = useState<Student[]>(INITIAL_STUDENTS);
-  const [selectedStudent, setSelectedStudent] = useState<Student>(INITIAL_STUDENTS[0]);
+  const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
+  const { students, loading, fetchStudents } = useManagerStudents(selectedPropertyId, ctxLoading);
+
+  const [selectedStudent, setSelectedStudent] = useState<ManagerStudentView | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<'All' | StudentStatus>('All');
   const [editModalOpen, setEditModalOpen] = useState(false);
+
+  // Auto-select first student if available and none selected
+  React.useEffect(() => {
+    if (students.length > 0 && !selectedStudent) {
+      setSelectedStudent(students[0]);
+    }
+  }, [students, selectedStudent]);
+
+  if (loading || ctxLoading) {
+    return <div className="p-8 flex items-center justify-center min-h-[50vh]"><div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div></div>;
+  }
 
   const filteredStudents = students.filter(s => {
     const matchesSearch = s.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -116,7 +88,7 @@ export default function ManagerStudentsMain() {
                 className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
                   filterStatus === status 
                     ? 'bg-indigo-600 text-white border-indigo-600' 
-                    : 'bg-white text-secondary border-border/60 hover:border-indigo-300'
+                    : 'bg-card text-secondary border-border/60 hover:border-indigo-300'
                 }`}
               >
                 {status}
@@ -125,7 +97,7 @@ export default function ManagerStudentsMain() {
           </div>
           
           <div className="flex items-center gap-2">
-            <button className="p-2 bg-white border border-border rounded-lg text-secondary hover:text-indigo-600 transition-colors">
+            <button className="p-2 bg-card border border-border rounded-lg text-secondary hover:text-indigo-600 transition-colors">
               <Filter className="w-4 h-4" />
             </button>
             <div className="relative w-full sm:w-64">
@@ -144,7 +116,7 @@ export default function ManagerStudentsMain() {
         <div className="flex flex-col lg:flex-row flex-1 min-h-0 overflow-hidden">
           
           {/* Left Side: List */}
-          <div className="lg:w-1/3 border-r border-border/50 flex flex-col min-h-0 bg-white">
+          <div className="lg:w-1/3 border-r border-border/50 flex flex-col min-h-0 bg-card">
             <div className="flex-1 overflow-y-auto p-2 space-y-1">
               {filteredStudents.map(s => (
                 <div 
@@ -175,10 +147,10 @@ export default function ManagerStudentsMain() {
           </div>
 
           {/* Right Side: Details & Actions */}
-          <div className="flex-1 flex flex-col min-h-0 bg-gray-50/30 overflow-y-auto">
+          <div className="flex-1 flex flex-col min-h-0 bg-page/30 overflow-y-auto">
             
             {/* Header Info */}
-            <div className="p-6 border-b border-border/50 bg-white shrink-0">
+            <div className="p-6 border-b border-border/50 bg-card shrink-0">
               <div className="flex items-center justify-between mb-3">
                 <span className={`px-3 py-1 rounded-lg text-xs font-black uppercase tracking-wider border ${getStatusColor(selectedStudent.status)}`}>
                   Status: {selectedStudent.status}
@@ -196,7 +168,7 @@ export default function ManagerStudentsMain() {
                 </div>
                 <button 
                   onClick={() => setEditModalOpen(true)}
-                  className="px-4 py-2 bg-page border border-border text-primary hover:bg-gray-100 rounded-lg text-xs font-bold shadow-sm transition-all"
+                  className="px-4 py-2 bg-page border border-border text-primary hover:bg-page/80 rounded-lg text-xs font-bold shadow-sm transition-all"
                 >
                   Edit Profile
                 </button>
@@ -208,13 +180,13 @@ export default function ManagerStudentsMain() {
               {/* Info Cards */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 
-                <div className="bg-white p-4 rounded-xl border border-border shadow-sm">
+                <div className="bg-card p-4 rounded-xl border border-border shadow-sm">
                   <p className="text-xs font-bold text-secondary uppercase tracking-wider flex items-center gap-1 mb-2"><MapPin className="w-3.5 h-3.5"/> Accommodation</p>
                   <p className="font-black text-primary text-lg">Rm {selectedStudent.room} <span className="text-secondary font-medium">| Bed {selectedStudent.bed}</span></p>
                   <p className="text-xs text-secondary mt-1">{selectedStudent.building}, {selectedStudent.floor}</p>
                 </div>
                 
-                <div className="bg-white p-4 rounded-xl border border-border shadow-sm">
+                <div className="bg-card p-4 rounded-xl border border-border shadow-sm">
                   <p className="text-xs font-bold text-secondary uppercase tracking-wider flex items-center gap-1 mb-2"><IndianRupee className="w-3.5 h-3.5"/> Financials</p>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-secondary">Rent:</span>
@@ -226,12 +198,12 @@ export default function ManagerStudentsMain() {
                   </div>
                 </div>
 
-                <div className="bg-white p-4 rounded-xl border border-border shadow-sm">
+                <div className="bg-card p-4 rounded-xl border border-border shadow-sm">
                   <p className="text-xs font-bold text-secondary uppercase tracking-wider flex items-center gap-1 mb-2"><UserCheck className="w-3.5 h-3.5"/> Today's Attendance</p>
                   <p className={`inline-block px-3 py-1 rounded-lg text-sm font-black border ${
                     selectedStudent.attendance === 'Present' ? 'bg-green-50 text-green-700 border-green-200' : 
                     selectedStudent.attendance === 'Absent' ? 'bg-red-50 text-red-700 border-red-200' : 
-                    'bg-gray-50 text-gray-700 border-gray-200'
+                    'bg-page text-secondary border-border'
                   }`}>
                     {selectedStudent.attendance}
                   </p>
@@ -240,17 +212,17 @@ export default function ManagerStudentsMain() {
               </div>
 
               {selectedStudent.status === 'Notice Period' && (
-                <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-xl flex items-start gap-3">
-                  <AlertTriangle className="w-5 h-5 text-yellow-600 shrink-0 mt-0.5" />
+                <div className="p-4 bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-900/30 rounded-xl flex items-start gap-3">
+                  <AlertTriangle className="w-5 h-5 text-yellow-600 dark:text-yellow-400 shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-bold text-yellow-900">Student is on Notice Period</h4>
-                    <p className="text-sm text-yellow-800 mt-1">This student has requested to leave. Please prepare for Check-Out and ensure all dues are cleared before their exit date.</p>
+                    <h4 className="font-bold text-yellow-900 dark:text-yellow-200">Student is on Notice Period</h4>
+                    <p className="text-sm text-yellow-800 dark:text-yellow-300 mt-1">This student has requested to leave. Please prepare for Check-Out and ensure all dues are cleared before their exit date.</p>
                   </div>
                 </div>
               )}
 
               {/* Quick Actions Grid */}
-              <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+              <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
                 <h3 className="font-bold text-primary mb-4 flex items-center gap-2">
                   <Wrench className="w-5 h-5 text-indigo-600" /> Manager Quick Actions
                 </h3>

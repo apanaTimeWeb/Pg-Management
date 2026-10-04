@@ -12,6 +12,7 @@ import {
 import { getSession, clearSession } from './cook_lib/cook_auth/CookSession';
 import { useCookContext } from './CookContext';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { LogoutModal } from '@/components/ui/LogoutModal';
 
 type NavItem = {
   title: string;
@@ -109,12 +110,19 @@ export function CookLayout({ children }: { children: React.ReactNode }) {
   const { loading } = useCookContext();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({});
 
   if (loading) return null;
 
-  const handleLogout = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleLogout = (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    setIsProfileMenuOpen(false);
+    setIsMobileMenuOpen(false);
+    setIsLogoutModalOpen(true);
+  };
+
+  const handleConfirmLogout = () => {
     clearSession();
     router.push('/');
   };
@@ -285,6 +293,12 @@ export function CookLayout({ children }: { children: React.ReactNode }) {
           {children}
         </div>
       </main>
+
+      <LogoutModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={handleConfirmLogout}
+      />
     </div>
   );
 }

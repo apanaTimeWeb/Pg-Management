@@ -28,7 +28,7 @@ export function ConfirmDialog({
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in motion-safe:duration-200">
-      <div className="bg-card border border rounded-[var(--radius-lg,12px)] w-full max-w-md shadow-2xl animate-in zoom-in-95 motion-safe:duration-200 overflow-hidden">
+      <div className="bg-card border border-border rounded-[var(--radius-lg,12px)] w-full max-w-md shadow-2xl animate-in zoom-in-95 motion-safe:duration-200 overflow-hidden">
         <div className="p-6">
           <div className="flex gap-4">
             <div className={`shrink-0 w-12 h-12 rounded-full flex items-center justify-center ${isDestructive ? 'bg-danger-bg text-danger' : 'bg-[rgba(99,102,241,0.1)] text-primary'}`}>
@@ -40,10 +40,10 @@ export function ConfirmDialog({
             </div>
           </div>
         </div>
-        <div className="bg-page border-t border px-6 py-4 flex justify-end gap-3">
+        <div className="bg-page border-t border-border px-6 py-4 flex justify-end gap-3">
           <button 
             onClick={onCancel}
-            className="px-4 py-2 border border bg-card text-secondary hover:text-primary font-medium rounded-[var(--radius-md,8px)] motion-safe:transition-colors focus:outline-none focus:ring-2 focus:ring-border"
+            className="px-4 py-2 border border-border bg-card text-secondary hover:text-primary font-medium rounded-[var(--radius-md,8px)] motion-safe:transition-colors focus:outline-none focus:ring-2 focus:ring-border"
           >
             {cancelText}
           </button>

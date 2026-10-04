@@ -23,18 +23,37 @@ interface Staff {
   status: 'Active' | 'Inactive';
 }
 
-const DUMMY_STAFF: Staff[] = [
-  { id: 'STF-001', name: 'Ramesh Kumar', role: 'Cleaner', mobile: '+91 9876543211', assignedArea: 'Floor 1 & 2', attendance: 'Present', shift: 'Morning (7AM - 3PM)', status: 'Active' },
-  { id: 'STF-002', name: 'Sita Devi', role: 'Cook', mobile: '+91 9876543212', assignedArea: 'Kitchen', attendance: 'Present', shift: 'Full Day Split', status: 'Active' },
-  { id: 'STF-003', name: 'Mohan Singh', role: 'Guard', mobile: '+91 9876543213', assignedArea: 'Main Gate', attendance: 'Absent', shift: 'Night (8PM - 8AM)', status: 'Active' },
-  { id: 'STF-004', name: 'Abdul Rahman', role: 'Maintenance', mobile: '+91 9876543214', assignedArea: 'Entire Building', attendance: 'On Leave', shift: 'General (9AM - 6PM)', status: 'Active' },
-  { id: 'STF-005', name: 'Sunita', role: 'Cleaner', mobile: '+91 9876543215', assignedArea: 'Floor 3 & 4', attendance: 'Not Marked', shift: 'Morning (7AM - 3PM)', status: 'Active' },
-];
+import { useManagerStaff } from '../manager_staff_hooks/useManagerStaff';
 
 export default function ManagerStaffMain() {
+  const { loading, staff, attendance, markAttendance } = useManagerStaff();
+  
+  // Transform the hook data into UI structure
+  const uiStaff: Staff[] = staff.map(s => {
+    const todayStr = new Date().toISOString().split('T')[0];
+    const todayAtt = attendance.find(a => a.staffId === s.id && a.date === todayStr);
+    
+    return {
+      id: s.id,
+      name: s.name,
+      role: (s.role === 'Housekeeping' ? 'Cleaner' : s.role === 'Security' ? 'Guard' : s.role === 'Kitchen' ? 'Cook' : 'Maintenance') as StaffRole,
+      mobile: s.phone,
+      assignedArea: 'Property Area', // Default area
+      attendance: (todayAtt?.status || 'Not Marked') as AttendanceStatus,
+      shift: s.shift,
+      status: s.status
+    };
+  });
+
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedStaff, setSelectedStaff] = useState<Staff>(DUMMY_STAFF[0]);
+  const [selectedStaff, setSelectedStaff] = useState<Staff | null>(null);
   const [activeTab, setActiveTab] = useState<'overview' | 'duties' | 'tasks'>('overview');
+
+  React.useEffect(() => {
+    if (uiStaff.length > 0 && !selectedStaff) {
+      setSelectedStaff(uiStaff[0]);
+    }
+  }, [uiStaff, selectedStaff]);
 
   const getRoleIcon = (role: StaffRole) => {
     switch (role) {
@@ -88,43 +107,54 @@ export default function ManagerStaffMain() {
           </div>
           
           <div className="flex-1 overflow-y-auto p-2 space-y-1">
-            {DUMMY_STAFF.map(staff => (
-              <div 
-                key={staff.id}
-                onClick={() => setSelectedStaff(staff)}
-                className={`p-3 rounded-xl cursor-pointer transition-all ${
-                  selectedStaff.id === staff.id 
-                    ? 'bg-indigo-50 border border-indigo-200 shadow-sm' 
-                    : 'bg-transparent border border-transparent hover:bg-page/50'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-white border border-border flex items-center justify-center shrink-0">
-                    {getRoleIcon(staff.role)}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-bold text-primary truncate pr-2">{staff.name}</h4>
-                      {getAttendanceBadge(staff.attendance)}
+            {loading ? (
+              <div className="flex justify-center p-4">
+                <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+              </div>
+            ) : (
+              uiStaff.filter(s => s.name.toLowerCase().includes(searchTerm.toLowerCase()) || s.role.toLowerCase().includes(searchTerm.toLowerCase())).map(staff => (
+                <div 
+                  key={staff.id}
+                  onClick={() => setSelectedStaff(staff)}
+                  className={`p-3 rounded-xl cursor-pointer transition-all ${
+                    selectedStaff?.id === staff.id 
+                      ? 'bg-indigo-50 border border-indigo-200 shadow-sm' 
+                      : 'bg-transparent border border-transparent hover:bg-page/50'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-page border border-border flex items-center justify-center shrink-0">
+                      {getRoleIcon(staff.role)}
                     </div>
-                    <p className="text-xs text-secondary mt-0.5">{staff.role} • {staff.shift.split(' ')[0]}</p>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-bold text-primary truncate pr-2">{staff.name}</h4>
+                        {getAttendanceBadge(staff.attendance)}
+                      </div>
+                      <p className="text-xs text-secondary mt-0.5">{staff.role} • {staff.shift.split(' ')[0]}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
 
         {/* Right Side: Details & Management */}
         <div className="lg:col-span-2 bg-card border border-border/60 rounded-2xl shadow-sm flex flex-col min-h-0 overflow-hidden">
-          
-          {/* Top Profile Header */}
+          {!selectedStaff ? (
+            <div className="flex-1 flex items-center justify-center p-8 text-center text-secondary">
+              Select a staff member to view details
+            </div>
+          ) : (
+            <>
+              {/* Top Profile Header */}
           <div className="p-6 border-b border-border/50 bg-page/30 shrink-0 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-600/5 rounded-bl-full -mr-10 -mt-10"></div>
             
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
               <div className="flex items-center gap-4">
-                <div className="w-16 h-16 bg-white rounded-2xl border-2 border-indigo-100 flex items-center justify-center shadow-sm text-indigo-600">
+                <div className="w-16 h-16 bg-card rounded-2xl border-2 border-indigo-100 dark:border-indigo-900/40 flex items-center justify-center shadow-sm text-indigo-600 dark:text-indigo-400">
                   {getRoleIcon(selectedStaff.role)}
                 </div>
                 <div>
@@ -140,7 +170,15 @@ export default function ManagerStaffMain() {
               </div>
               
               <div className="flex flex-col gap-2">
-                <button className="flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm transition-all">
+                <button 
+                  onClick={() => {
+                    const status = window.prompt("Enter status (Present, Absent, On Leave):", "Present");
+                    if (status && ['Present', 'Absent', 'On Leave'].includes(status)) {
+                      markAttendance(selectedStaff.id, status as any);
+                    }
+                  }}
+                  className="flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm transition-all"
+                >
                   <UserCheck className="w-4 h-4" /> Mark Attendance
                 </button>
               </div>
@@ -148,7 +186,7 @@ export default function ManagerStaffMain() {
           </div>
 
           {/* Navigation Tabs */}
-          <div className="flex items-center px-6 border-b border-border/50 bg-white shrink-0">
+          <div className="flex items-center px-6 border-b border-border/50 bg-card shrink-0">
             <button 
               onClick={() => setActiveTab('overview')}
               className={`px-4 py-3 text-sm font-bold border-b-2 transition-colors ${activeTab === 'overview' ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-secondary hover:text-primary'}`}
@@ -176,15 +214,15 @@ export default function ManagerStaffMain() {
             {activeTab === 'overview' && (
               <div className="space-y-6 animate-in fade-in duration-300">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-white p-4 rounded-xl border border-border shadow-sm flex items-center gap-4">
-                    <div className="p-3 bg-blue-50 text-blue-600 rounded-lg"><MapPin className="w-5 h-5" /></div>
+                  <div className="bg-card p-4 rounded-xl border border-border shadow-sm flex items-center gap-4">
+                    <div className="p-3 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 rounded-lg"><MapPin className="w-5 h-5" /></div>
                     <div>
                       <p className="text-xs font-bold text-secondary uppercase tracking-wider">Assigned Area</p>
                       <p className="text-sm font-bold text-primary mt-0.5">{selectedStaff.assignedArea}</p>
                     </div>
                   </div>
-                  <div className="bg-white p-4 rounded-xl border border-border shadow-sm flex items-center gap-4">
-                    <div className="p-3 bg-purple-50 text-purple-600 rounded-lg"><Clock className="w-5 h-5" /></div>
+                  <div className="bg-card p-4 rounded-xl border border-border shadow-sm flex items-center gap-4">
+                    <div className="p-3 bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 rounded-lg"><Clock className="w-5 h-5" /></div>
                     <div>
                       <p className="text-xs font-bold text-secondary uppercase tracking-wider">Shift Timing</p>
                       <p className="text-sm font-bold text-primary mt-0.5">{selectedStaff.shift}</p>
@@ -192,7 +230,7 @@ export default function ManagerStaffMain() {
                   </div>
                 </div>
 
-                <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
+                <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
                   <div className="p-4 border-b border-border/50 flex justify-between items-center">
                     <h3 className="font-bold text-primary flex items-center gap-2"><CalendarDays className="w-4 h-4 text-indigo-600" /> Recent Leave & Attendance</h3>
                   </div>
@@ -203,19 +241,19 @@ export default function ManagerStaffMain() {
                 </div>
 
                 <div className="flex gap-4">
-                  <button className="flex-1 bg-white border border-border hover:border-indigo-300 hover:bg-indigo-50 text-indigo-600 px-4 py-3 rounded-xl text-sm font-bold shadow-sm transition-all flex justify-center items-center gap-2">
+                  <button className="flex-1 bg-card border border-border hover:border-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400 px-4 py-3 rounded-xl text-sm font-bold shadow-sm transition-all flex justify-center items-center gap-2">
                     <MessageSquarePlus className="w-4 h-4" /> Add Performance Note
                   </button>
                 </div>
 
                 {/* Restricted Area Notice */}
-                <div className="mt-8 p-4 bg-gray-100 border border-gray-200 rounded-xl flex items-start gap-3">
-                  <div className="p-1.5 bg-gray-200 rounded-md shrink-0">
-                    <Lock className="w-4 h-4 text-gray-600" />
+                <div className="mt-8 p-4 bg-page border border-border rounded-xl flex items-start gap-3">
+                  <div className="p-1.5 bg-card border border-border rounded-md shrink-0">
+                    <Lock className="w-4 h-4 text-secondary" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-800 text-sm">Owner Restricted Area</h4>
-                    <p className="text-xs text-gray-600 mt-1">Salary structure, bonuses, and termination/sensitive HR decisions are restricted to the PG Owner. As a manager, you handle operational duties and daily tracking.</p>
+                    <h4 className="font-bold text-primary text-sm">Owner Restricted Area</h4>
+                    <p className="text-xs text-secondary mt-1">Salary structure, bonuses, and termination/sensitive HR decisions are restricted to the PG Owner. As a manager, you handle operational duties and daily tracking.</p>
                   </div>
                 </div>
               </div>
@@ -229,7 +267,7 @@ export default function ManagerStaffMain() {
                   <button className="text-indigo-600 text-sm font-bold hover:underline">Edit Schedule</button>
                 </div>
 
-                <div className="bg-white rounded-xl border border-border shadow-sm p-5 space-y-4">
+                <div className="bg-card rounded-xl border border-border shadow-sm p-5 space-y-4">
                   <div className="flex justify-between items-center pb-4 border-b border-border/50">
                     <div>
                       <p className="font-bold text-primary">Primary Responsibility</p>
@@ -250,7 +288,7 @@ export default function ManagerStaffMain() {
                   </div>
                 </div>
 
-                <button className="w-full bg-white border-2 border-dashed border-indigo-200 hover:border-indigo-400 hover:bg-indigo-50 text-indigo-600 px-4 py-4 rounded-xl text-sm font-bold transition-all flex justify-center items-center gap-2">
+                <button className="w-full bg-card border-2 border-dashed border-indigo-200 dark:border-indigo-800/50 hover:border-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400 px-4 py-4 rounded-xl text-sm font-bold transition-all flex justify-center items-center gap-2">
                   <PlusIcon /> Assign Temporary Duty / Shift Override
                 </button>
               </div>
@@ -268,7 +306,7 @@ export default function ManagerStaffMain() {
 
                 <div className="space-y-3">
                   {/* Task 1 */}
-                  <div className="bg-white p-4 rounded-xl border border-border shadow-sm flex items-start gap-3 group">
+                  <div className="bg-card p-4 rounded-xl border border-border shadow-sm flex items-start gap-3 group">
                     <div className="mt-0.5"><CheckCircle2 className="w-5 h-5 text-gray-300 cursor-pointer hover:text-green-500" /></div>
                     <div className="flex-1">
                       <p className="font-bold text-primary">Deep clean 1st Floor common area</p>
@@ -292,6 +330,8 @@ export default function ManagerStaffMain() {
             )}
 
           </div>
+            </>
+          )}
         </div>
       </div>
     </div>

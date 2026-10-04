@@ -13,6 +13,7 @@ import { useOwnerPropertyContext } from '@/app/frontend_owner/owner_components/O
 import { useOwnerI18n } from '@/app/frontend_owner/OwnerI18n';
 import { OwnerForcePasswordChangeModal } from '@/app/frontend_owner/owner_components/OwnerForcePasswordChangeModal';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { LogoutModal } from '@/components/ui/LogoutModal';
 import type { DictKey } from '@/app/frontend_owner/OwnerI18n';
 
 const NAV_ITEMS = [
@@ -188,11 +189,18 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isPropertyMenuOpen, setIsPropertyMenuOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const { lang, setLang, t } = useOwnerI18n();
   const [forcePasswordChange, setForcePasswordChange] = useState(user?.mustChangePassword || false);
 
   const handleLogout = (e: React.MouseEvent) => {
     e.preventDefault();
+    setIsProfileMenuOpen(false);
+    setIsLogoutModalOpen(true);
+  };
+
+  const handleConfirmLogout = () => {
+    setIsLogoutModalOpen(false);
     clearSession();
     router.push('/');
   };
@@ -447,6 +455,12 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
           {children}
         </div>
       </main>
+
+      <LogoutModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={handleConfirmLogout}
+      />
     </div>
   );
 }

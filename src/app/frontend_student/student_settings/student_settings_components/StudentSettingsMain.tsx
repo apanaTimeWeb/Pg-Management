@@ -8,15 +8,24 @@ import {
   Fingerprint
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { clearSession } from '@/app/frontend_student/student_lib/student_auth/StudentSession';
 import { useStudentSettings } from '../student_settings_hooks/useStudentSettings';
+import { LogoutModal } from '@/components/ui/LogoutModal';
 
 export function StudentSettingsMain() {
   const searchParams = useSearchParams();
   const initialView = searchParams?.get('view') || 'profile';
   const [activeTab, setActiveTab] = useState(initialView);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const handleLogout = () => {
-    toast.success('Logged out successfully');
+    setIsLogoutModalOpen(true);
+  };
+
+  const handleConfirmLogout = () => {
+    setIsLogoutModalOpen(false);
+    clearSession();
+    window.location.href = '/';
   };
 
   const tabs = [
@@ -316,6 +325,12 @@ export function StudentSettingsMain() {
 
         </div>
       </div>
+
+      <LogoutModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={handleConfirmLogout}
+      />
     </div>
   );
 }

@@ -64,19 +64,48 @@ const INITIAL_FEES: StudentFee[] = [
   }
 ];
 
+import { useManagerFinance } from '../manager_finance_hooks/useManagerFinance';
+
 export default function ManagerFinanceMain() {
-  const [fees, setFees] = useState<StudentFee[]>(INITIAL_FEES);
-  const [selectedFee, setSelectedFee] = useState<StudentFee>(INITIAL_FEES[0]);
+  const { 
+    invoices, 
+    loading, 
+    filter: filterStatus, 
+    setFilter: setFilterStatus, 
+    handleMarkPaid 
+  } = useManagerFinance();
+
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterStatus, setFilterStatus] = useState<'All' | FeeStatus>('All');
-  
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+  const [selectedFee, setSelectedFee] = useState<any>(null); // Use any for now or map to expected interface
+
+  // Map enriched invoices to UI expected format
+  const fees = invoices.map(inv => {
+    let status = 'Pending';
+    if (inv.status === 'paid') status = 'Paid';
+    else if (inv.status === 'overdue') status = 'Overdue';
+    
+    return {
+      id: inv.id,
+      student: (inv as any).studentName,
+      room: (inv as any).roomBed,
+      dueDate: new Date(inv.dueDate).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }),
+      status,
+      details: {
+        rent: inv.amount, mess: 0, electricity: 0, other: 0, fine: 0, discount: 0, paid: inv.status === 'paid' ? inv.amount : 0
+      }
+    };
+  });
 
   const filteredFees = fees.filter(f => {
     const matchesSearch = f.student.toLowerCase().includes(searchTerm.toLowerCase()) || f.room.includes(searchTerm);
-    const matchesStatus = filterStatus === 'All' || f.status === filterStatus;
+    const matchesStatus = filterStatus === 'all' || f.status.toLowerCase() === filterStatus;
     return matchesSearch && matchesStatus;
   });
+
+  if (loading) {
+    return <div className="p-8 flex items-center justify-center min-h-[50vh]"><div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div></div>;
+  }
 
   const getStatusColor = (status: FeeStatus) => {
     switch (status) {
@@ -97,29 +126,8 @@ export default function ManagerFinanceMain() {
 
   const handleRecordPayment = (e: React.FormEvent) => {
     e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const amount = parseInt((form.elements.namedItem('amount') as HTMLInputElement).value);
-    
-    if (amount) {
-      setFees(prev => prev.map(f => {
-        if (f.id === selectedFee.id) {
-          const newPaid = f.details.paid + amount;
-          const totalDue = calculateTotalDue(f.details);
-          const newStatus = newPaid >= totalDue ? 'Paid' : f.status;
-          return { ...f, status: newStatus, details: { ...f.details, paid: newPaid } };
-        }
-        return f;
-      }));
-      
-      const newPaid = selectedFee.details.paid + amount;
-      const totalDue = calculateTotalDue(selectedFee.details);
-      const newStatus = newPaid >= totalDue ? 'Paid' : selectedFee.status;
-      
-      setSelectedFee(prev => ({
-        ...prev,
-        status: newStatus,
-        details: { ...prev.details, paid: newPaid }
-      }));
+    if (selectedFee) {
+      handleMarkPaid(selectedFee.id);
     }
     setPaymentModalOpen(false);
   };
@@ -142,29 +150,29 @@ export default function ManagerFinanceMain() {
 
       {/* Top Metric Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 shrink-0">
-        <div className="bg-white p-4 rounded-2xl border border-border shadow-sm flex items-center justify-between">
+        <div className="bg-card p-4 rounded-2xl border border-border shadow-sm flex items-center justify-between">
           <div>
             <p className="text-xs font-bold text-secondary uppercase tracking-wider">Today's Collection</p>
             <h3 className="text-xl font-black text-green-600 mt-1">₹ 15,500</h3>
           </div>
           <div className="p-3 bg-green-50 rounded-xl text-green-600"><IndianRupee className="w-5 h-5"/></div>
         </div>
-        <div className="bg-white p-4 rounded-2xl border border-border shadow-sm flex items-center justify-between">
+        <div className="bg-card p-4 rounded-2xl border border-border shadow-sm flex items-center justify-between">
           <div>
             <p className="text-xs font-bold text-secondary uppercase tracking-wider">Total Pending</p>
             <h3 className="text-xl font-black text-orange-600 mt-1">₹ 42,000</h3>
           </div>
           <div className="p-3 bg-orange-50 rounded-xl text-orange-600"><AlertTriangle className="w-5 h-5"/></div>
         </div>
-        <div className="bg-white p-4 rounded-2xl border border-red-200 shadow-sm flex items-center justify-between relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-16 h-16 bg-red-100/50 rounded-bl-full -mr-4 -mt-4"></div>
+        <div className="bg-card p-4 rounded-2xl border border-red-200 dark:border-red-900/50 shadow-sm flex items-center justify-between relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-16 h-16 bg-red-100/50 dark:bg-red-950/30 rounded-bl-full -mr-4 -mt-4"></div>
           <div>
             <p className="text-xs font-bold text-red-600 uppercase tracking-wider">Total Overdue</p>
-            <h3 className="text-xl font-black text-red-700 mt-1">₹ 18,500</h3>
+            <h3 className="text-xl font-black text-red-600 mt-1">₹ 18,500</h3>
           </div>
-          <div className="p-3 bg-red-100 rounded-xl text-red-700 relative z-10"><CalendarClock className="w-5 h-5"/></div>
+          <div className="p-3 bg-red-100 dark:bg-red-950/40 rounded-xl text-red-600 relative z-10"><CalendarClock className="w-5 h-5"/></div>
         </div>
-        <div className="bg-white p-4 rounded-2xl border border-border shadow-sm flex items-center justify-between">
+        <div className="bg-card p-4 rounded-2xl border border-border shadow-sm flex items-center justify-between">
           <div>
             <p className="text-xs font-bold text-secondary uppercase tracking-wider">Upcoming Dues</p>
             <h3 className="text-xl font-black text-blue-600 mt-1">₹ 85,000</h3>
@@ -188,7 +196,7 @@ export default function ManagerFinanceMain() {
                     className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
                       filterStatus === status 
                         ? 'bg-indigo-600 text-white border-indigo-600' 
-                        : 'bg-white text-secondary border-border/60 hover:border-indigo-300'
+                        : 'bg-card text-secondary border-border/60 hover:border-indigo-300'
                     }`}
                   >
                     {status}
@@ -216,7 +224,7 @@ export default function ManagerFinanceMain() {
                     key={f.id}
                     onClick={() => setSelectedFee(f)}
                     className={`p-3 rounded-xl cursor-pointer transition-all ${
-                      selectedFee.id === f.id 
+                      selectedFee?.id === f.id 
                         ? 'bg-indigo-50 border border-indigo-200 shadow-sm' 
                         : 'bg-transparent border border-transparent hover:bg-page/50'
                     }`}
@@ -247,25 +255,32 @@ export default function ManagerFinanceMain() {
               <Lock className="w-3 h-3" /> Owner Restricted Features: Plan Pricing, Global Fee Rules, Major Discounts, Refund Approvals.
             </div>
 
-            {/* Header Info */}
-            <div className="p-6 pt-12 border-b border-border/50 bg-white shrink-0 relative overflow-hidden">
-              <div className="flex items-center justify-between mb-3">
-                <span className={`px-3 py-1 rounded-lg text-xs font-black uppercase tracking-wider border ${getStatusColor(selectedFee.status)}`}>
-                  Status: {selectedFee.status}
-                </span>
-                <span className="text-sm font-bold text-secondary">Due Date: {selectedFee.dueDate}</span>
+            {!selectedFee ? (
+              <div className="flex-1 flex flex-col items-center justify-center text-secondary p-8 text-center pt-12">
+                <FileText className="w-12 h-12 mb-4 text-border" />
+                <p>Select a fee record to view details</p>
               </div>
-              
-              <h2 className="text-2xl font-black text-primary leading-tight">{selectedFee.student}</h2>
-              <p className="text-sm font-bold text-secondary mt-1">Room {selectedFee.room}</p>
-            </div>
+            ) : (
+              <>
+                {/* Header Info */}
+                <div className="p-6 pt-12 border-b border-border/50 bg-card shrink-0 relative overflow-hidden">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className={`px-3 py-1 rounded-lg text-xs font-black uppercase tracking-wider border ${getStatusColor(selectedFee.status)}`}>
+                      Status: {selectedFee.status}
+                    </span>
+                    <span className="text-sm font-bold text-secondary">Due Date: {selectedFee.dueDate}</span>
+                  </div>
+                  
+                  <h2 className="text-2xl font-black text-primary leading-tight">{selectedFee.student}</h2>
+                  <p className="text-sm font-bold text-secondary mt-1">Room {selectedFee.room}</p>
+                </div>
 
-            <div className="p-6 flex-1 space-y-6">
+                <div className="p-6 flex-1 space-y-6">
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
                 {/* Breakdown */}
-                <div className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden">
+                <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
                   <div className="p-4 border-b border-border/50 bg-page/30">
                     <h3 className="font-bold text-primary flex items-center gap-2"><FileText className="w-4 h-4 text-indigo-600"/> Fee Breakdown</h3>
                   </div>
@@ -319,7 +334,7 @@ export default function ManagerFinanceMain() {
                 {/* Actions & History */}
                 <div className="space-y-6">
                   
-                  <div className="bg-white p-5 rounded-2xl border border-border shadow-sm space-y-3">
+                  <div className="bg-card p-5 rounded-2xl border border-border shadow-sm space-y-3">
                     <h3 className="font-bold text-primary flex items-center gap-2 mb-4"><Zap className="w-4 h-4 text-indigo-600"/> Operational Actions</h3>
                     
                     {calculateBalance(selectedFee.details) > 0 && (
@@ -344,12 +359,12 @@ export default function ManagerFinanceMain() {
                     </div>
                   </div>
 
-                  <div className="bg-white p-5 rounded-2xl border border-border shadow-sm">
+                  <div className="bg-card p-5 rounded-2xl border border-border shadow-sm">
                     <h3 className="font-bold text-primary flex items-center gap-2 mb-4"><History className="w-4 h-4 text-indigo-600"/> Payment History</h3>
                     
                     {selectedFee.details.paid > 0 ? (
                       <div className="space-y-3">
-                        <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-border/50 text-sm">
+                        <div className="flex justify-between items-center p-3 bg-page/50 rounded-lg border border-border/50 text-sm">
                           <div>
                             <p className="font-bold text-primary">₹ {selectedFee.details.paid.toLocaleString()}</p>
                             <p className="text-xs text-secondary flex items-center gap-1 mt-0.5"><CreditCard className="w-3 h-3"/> UPI / Online</p>
@@ -369,6 +384,8 @@ export default function ManagerFinanceMain() {
               </div>
 
             </div>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -422,7 +439,7 @@ export default function ManagerFinanceMain() {
                 <label htmlFor="receipt" className="text-sm text-secondary font-medium cursor-pointer">Generate and send receipt to student instantly</label>
               </div>
 
-              <div className="p-4 border-t border-border/50 bg-gray-50 flex items-center justify-end gap-3 mt-4 -mx-6 -mb-6">
+              <div className="p-4 border-t border-border/50 bg-page/80 flex items-center justify-end gap-3 mt-4 -mx-6 -mb-6">
                 <button type="button" onClick={() => setPaymentModalOpen(false)} className="px-4 py-2 font-bold text-secondary hover:text-primary transition-colors">Cancel</button>
                 <button type="submit" className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-md transition-all flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4" /> Save Payment

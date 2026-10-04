@@ -7,84 +7,22 @@ import {
   X, MapPin, Phone, User, Clock, ShieldAlert, ArrowRight, FileText 
 } from 'lucide-react';
 
-type VisitorStatus = 'Request' | 'Approved' | 'Inside' | 'Exit';
-
-interface Visitor {
-  id: string;
-  visitorName: string;
-  mobile: string;
-  student: string;
-  room: string;
-  relation: string;
-  purpose: string;
-  idProof: string;
-  expectedTime: string;
-  entryTime?: string;
-  exitTime?: string;
-  status: VisitorStatus;
-}
-
-const INITIAL_VISITORS: Visitor[] = [
-  {
-    id: 'V-1001',
-    visitorName: 'Rajesh Sharma',
-    mobile: '+91 9876543210',
-    student: 'Rahul Sharma',
-    room: '102',
-    relation: 'Father',
-    purpose: 'Casual Visit',
-    idProof: 'Aadhar (Verified)',
-    expectedTime: '10:00 AM',
-    status: 'Request'
-  },
-  {
-    id: 'V-1002',
-    visitorName: 'Sneha Patel',
-    mobile: '+91 8765432109',
-    student: 'Suresh Patel',
-    room: '205',
-    relation: 'Sister',
-    purpose: 'Delivering luggage',
-    idProof: 'Pending',
-    expectedTime: '11:30 AM',
-    status: 'Approved'
-  },
-  {
-    id: 'V-1003',
-    visitorName: 'Ramesh Singh',
-    mobile: '+91 7654321098',
-    student: 'Vikas Singh',
-    room: '304',
-    relation: 'Uncle',
-    purpose: 'Family Emergency',
-    idProof: 'Driving License',
-    expectedTime: '09:00 AM',
-    entryTime: '09:15 AM',
-    status: 'Inside'
-  },
-  {
-    id: 'V-1004',
-    visitorName: 'Priya Kumar',
-    mobile: '+91 6543210987',
-    student: 'Amit Kumar',
-    room: '105',
-    relation: 'Mother',
-    purpose: 'Meeting',
-    idProof: 'Aadhar',
-    expectedTime: '08:00 AM',
-    entryTime: '08:10 AM',
-    exitTime: '10:30 AM',
-    status: 'Exit'
-  }
-];
+import { useManagerVisitors, Visitor, VisitorStatus } from '../manager_visitors_hooks/useManagerVisitors';
 
 export default function ManagerVisitorsMain() {
-  const [visitors, setVisitors] = useState<Visitor[]>(INITIAL_VISITORS);
-  const [selectedVisitor, setSelectedVisitor] = useState<Visitor>(INITIAL_VISITORS[0]);
+  const { loading, visitors, updateVisitorStatus } = useManagerVisitors();
+  
+  const [selectedVisitor, setSelectedVisitor] = useState<Visitor | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<'All' | VisitorStatus>('All');
   const [activeTab, setActiveTab] = useState<'today' | 'history'>('today');
   const [addModalOpen, setAddModalOpen] = useState(false);
+
+  React.useEffect(() => {
+    if (visitors.length > 0 && !selectedVisitor) {
+      setSelectedVisitor(visitors[0]);
+    }
+  }, [visitors, selectedVisitor]);
 
   const filteredVisitors = visitors.filter(v => {
     const matchesSearch = v.visitorName.toLowerCase().includes(searchTerm.toLowerCase()) || v.student.toLowerCase().includes(searchTerm.toLowerCase());
@@ -93,6 +31,23 @@ export default function ManagerVisitorsMain() {
     // For history, show all (in a real app, history would fetch past records)
     return matchesSearch && matchesStatus;
   });
+
+  const handleUpdateStatus = (status: VisitorStatus) => {
+    if (selectedVisitor) {
+      updateVisitorStatus(selectedVisitor.id, status);
+      const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      setSelectedVisitor(prev => {
+        if (!prev) return null;
+        if (status === 'Inside' && !prev.entryTime) {
+          return { ...prev, status, entryTime: timeNow };
+        }
+        if (status === 'Exit' && !prev.exitTime) {
+          return { ...prev, status, exitTime: timeNow };
+        }
+        return { ...prev, status };
+      });
+    }
+  };
 
   const getStatusColor = (status: VisitorStatus) => {
     switch (status) {
@@ -103,27 +58,7 @@ export default function ManagerVisitorsMain() {
     }
   };
 
-  const handleUpdateStatus = (newStatus: VisitorStatus) => {
-    const timeNow = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-    setVisitors(prev => prev.map(v => {
-      if (v.id === selectedVisitor.id) {
-        return {
-          ...v,
-          status: newStatus,
-          entryTime: newStatus === 'Inside' && !v.entryTime ? timeNow : v.entryTime,
-          exitTime: newStatus === 'Exit' && !v.exitTime ? timeNow : v.exitTime,
-        };
-      }
-      return v;
-    }));
-    
-    setSelectedVisitor(prev => ({
-      ...prev,
-      status: newStatus,
-      entryTime: newStatus === 'Inside' && !prev.entryTime ? timeNow : prev.entryTime,
-      exitTime: newStatus === 'Exit' && !prev.exitTime ? timeNow : prev.exitTime,
-    }));
-  };
+
 
   const handleAddVisitor = (e: React.FormEvent) => {
     e.preventDefault();
@@ -162,13 +97,13 @@ export default function ManagerVisitorsMain() {
         <div className="flex items-center gap-1 p-2 border-b border-border/50 bg-page/30 shrink-0">
           <button 
             onClick={() => setActiveTab('today')}
-            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap ${activeTab === 'today' ? 'bg-white text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
+            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap ${activeTab === 'today' ? 'bg-card text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
           >
             Today's Visitors
           </button>
           <button 
             onClick={() => setActiveTab('history')}
-            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap ${activeTab === 'history' ? 'bg-white text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
+            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap ${activeTab === 'history' ? 'bg-card text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
           >
             Student-wise History
           </button>
@@ -188,7 +123,7 @@ export default function ManagerVisitorsMain() {
                       className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
                         filterStatus === status 
                           ? 'bg-indigo-600 text-white border-indigo-600' 
-                          : 'bg-white text-secondary border-border/60 hover:border-indigo-300'
+                          : 'bg-card text-secondary border-border/60 hover:border-indigo-300'
                       }`}
                     >
                       {status}
@@ -209,34 +144,45 @@ export default function ManagerVisitorsMain() {
               </div>
 
               <div className="flex-1 overflow-y-auto p-2 space-y-1">
-                {filteredVisitors.map(v => (
-                  <div 
-                    key={v.id}
-                    onClick={() => setSelectedVisitor(v)}
-                    className={`p-3 rounded-xl cursor-pointer transition-all ${
-                      selectedVisitor.id === v.id 
-                        ? 'bg-indigo-50 border border-indigo-200 shadow-sm' 
-                        : 'bg-transparent border border-transparent hover:bg-page/50'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between mb-1">
-                      <h4 className="font-bold text-primary truncate">{v.visitorName}</h4>
-                      <span className={`px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider border ${getStatusColor(v.status)}`}>
-                        {v.status}
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-secondary truncate">To meet: {v.student} (Rm {v.room})</p>
-                    <p className="text-[10px] text-secondary mt-1 flex items-center gap-1"><Clock className="w-3 h-3"/> {v.expectedTime}</p>
+                {loading || visitors.length === 0 ? (
+                  <div className="flex justify-center p-4">
+                    {loading ? <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div> : <div className="text-secondary text-sm">No visitors found</div>}
                   </div>
-                ))}
+                ) : (
+                  filteredVisitors.map(v => (
+                    <div 
+                      key={v.id}
+                      onClick={() => setSelectedVisitor(v)}
+                      className={`p-3 rounded-xl cursor-pointer transition-all ${
+                        selectedVisitor?.id === v.id 
+                          ? 'bg-indigo-50 border border-indigo-200 shadow-sm' 
+                          : 'bg-transparent border border-transparent hover:bg-page/50'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-1">
+                        <h4 className="font-bold text-primary truncate">{v.visitorName}</h4>
+                        <span className={`px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider border ${getStatusColor(v.status)}`}>
+                          {v.status}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-secondary truncate">To meet: {v.student} (Rm {v.room})</p>
+                      <p className="text-[10px] text-secondary mt-1 flex items-center gap-1"><Clock className="w-3 h-3"/> {v.expectedTime}</p>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
 
             {/* Right Side: Details & Flow */}
             <div className="flex-1 flex flex-col min-h-0 bg-gray-50/30 overflow-y-auto">
-              
-              {/* Header Info */}
-              <div className="p-6 border-b border-border/50 bg-white shrink-0">
+              {!selectedVisitor ? (
+                <div className="flex-1 flex items-center justify-center p-8 text-center text-secondary">
+                  Select a visitor to view details
+                </div>
+              ) : (
+                <>
+                  {/* Header Info */}
+                  <div className="p-6 border-b border-border/50 bg-card shrink-0">
                 <div className="flex items-center justify-between mb-3">
                   <span className={`px-3 py-1 rounded-lg text-xs font-black uppercase tracking-wider border ${getStatusColor(selectedVisitor.status)}`}>
                     Current Status: {selectedVisitor.status}
@@ -254,10 +200,10 @@ export default function ManagerVisitorsMain() {
               <div className="p-6 flex-1 space-y-6">
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-white p-4 rounded-xl border border-border shadow-sm">
+                  <div className="bg-card p-4 rounded-xl border border-border shadow-sm">
                     <p className="text-xs font-bold text-secondary uppercase tracking-wider mb-2">Visiting</p>
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center">
+                      <div className="w-10 h-10 bg-indigo-100 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 rounded-lg flex items-center justify-center">
                         <User className="w-5 h-5" />
                       </div>
                       <div>
@@ -267,7 +213,7 @@ export default function ManagerVisitorsMain() {
                     </div>
                   </div>
                   
-                  <div className="bg-white p-4 rounded-xl border border-border shadow-sm">
+                  <div className="bg-card p-4 rounded-xl border border-border shadow-sm">
                     <p className="text-xs font-bold text-secondary uppercase tracking-wider mb-2">Details</p>
                     <div className="space-y-1">
                       <p className="text-sm font-medium text-primary"><span className="text-secondary">Purpose:</span> {selectedVisitor.purpose}</p>
@@ -278,7 +224,7 @@ export default function ManagerVisitorsMain() {
                 </div>
 
                 {/* Visitor Flow Pipeline */}
-                <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+                <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
                   <h3 className="font-bold text-primary mb-6 flex items-center gap-2">
                     <Users className="w-5 h-5 text-indigo-600" /> Visitor Flow Actions
                   </h3>
@@ -367,6 +313,8 @@ export default function ManagerVisitorsMain() {
                 </div>
 
               </div>
+                </>
+              )}
             </div>
 
           </div>
@@ -374,7 +322,7 @@ export default function ManagerVisitorsMain() {
 
         {/* History Tab */}
         {activeTab === 'history' && (
-          <div className="flex flex-col items-center justify-center h-full p-8 text-center bg-white flex-1">
+          <div className="flex flex-col items-center justify-center h-full p-8 text-center bg-card flex-1">
             <div className="w-16 h-16 bg-page rounded-full flex items-center justify-center border border-border shadow-sm mb-4">
               <FileText className="w-8 h-8 text-secondary" />
             </div>

@@ -153,36 +153,34 @@ const formatTimeAgo = (dateString: string) => {
   return `${diffInDays} days ago`;
 };
 
+import { useManagerNotifications, ManagerNotification, NotificationType } from '../manager_notifications_hooks/useManagerNotifications';
+
 export default function ManagerNotificationsMain() {
-  const [notifications, setNotifications] = useState<Notification[]>(DUMMY_NOTIFICATIONS);
+  const { loading, notifications, markAsRead, markAllAsRead, deleteNotification: deleteNotif, clearAllNotifications: clearAllNotifs } = useManagerNotifications();
   const [filterType, setFilterType] = useState<string>('All');
   const [filterStatus, setFilterStatus] = useState<string>('All');
-  const [selectedNotification, setSelectedNotification] = useState<Notification | null>(null);
+  const [selectedNotification, setSelectedNotification] = useState<ManagerNotification | null>(null);
 
   // Actions
-  const markAsRead = (id: string, e?: React.MouseEvent) => {
+  const handleMarkAsRead = (id: string, e?: React.MouseEvent) => {
     if(e) e.stopPropagation();
-    setNotifications(prev => prev.map(n => n.id === id ? { ...n, isRead: true } : n));
-  };
-
-  const markAllAsRead = () => {
-    setNotifications(prev => prev.map(n => ({ ...n, isRead: true })));
+    markAsRead(id);
   };
 
   const deleteNotification = (id: string, e?: React.MouseEvent) => {
     if(e) e.stopPropagation();
-    setNotifications(prev => prev.filter(n => n.id !== id));
+    deleteNotif(id);
     if (selectedNotification?.id === id) setSelectedNotification(null);
   };
 
   const clearAllNotifications = () => {
     if(window.confirm('Are you sure you want to clear all notifications?')) {
-      setNotifications([]);
+      clearAllNotifs();
       setSelectedNotification(null);
     }
   };
 
-  const openNotification = (notification: Notification) => {
+  const openNotification = (notification: ManagerNotification) => {
     setSelectedNotification(notification);
     if (!notification.isRead) {
       markAsRead(notification.id);

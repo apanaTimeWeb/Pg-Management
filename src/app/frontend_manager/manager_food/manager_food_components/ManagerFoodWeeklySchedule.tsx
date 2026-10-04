@@ -65,7 +65,7 @@ export function ManagerFoodWeeklySchedule({ menu }: ManagerFoodWeeklySchedulePro
                 <h3 className="text-lg font-bold text-primary mb-2 flex items-center gap-2">
                   🎉 Month End Special
                 </h3>
-                <div className="w-full max-w-2xl bg-white dark:bg-input border border rounded-[var(--radius-md,8px)] p-4 text-sm text-primary shadow-sm whitespace-pre-wrap">
+                <div className="w-full max-w-2xl bg-card border border-border rounded-[var(--radius-md,8px)] p-4 text-sm text-primary shadow-sm whitespace-pre-wrap">
                   {menu.monthEndSpecial}
                 </div>
               </div>

@@ -1,67 +1,478 @@
-/* 
- * Manager Module Specific Theme 
- * Based on the requested Student Color Palette
- */
+/* ============================================================
+   SMART PG — MANAGER PORTAL THEME (manager-theme.css)
+   Scoped to .manager-portal and .manager-theme
+   Provides seamless, premium light and dark mode styles.
+   ============================================================ */
 
+/* ── 1. LIGHT MODE TOKEN VARIABLES ───────────────────────── */
+:root,
+.manager-portal,
 .manager-theme {
-  /* Primary Colors */
-  --primary: #8E44AD;        /* Deep Purple */
-  --primary-hover: #9B59B6;  /* Light Purple */
-  --primary-subtle: #F4ECF7; /* Purple Tint */
+  /* Brand / Accent */
+  --primary:        #1A3A5C;
+  --primary-hover:  #2D7D9A;
+  --primary-subtle: rgba(45, 125, 154, 0.1);
+  --border-focus:   #F5A623;   /* Gold Accent */
 
-  /* Accent/Highlight Colors mapped to Gold */
-  --border-focus: #F5A623;   /* Gold Accent */
+  /* Surface Elevation Scale */
+  --bg-page:        #F8FAFC;
+  --bg-card:        #FFFFFF;
+  --bg-input:       #F8FAFC;
+  --bg-sidebar:     #1A3A5C;
+  --bg-header:      #1A3A5C;
+  --bg-floating:    #FFFFFF;
+  --bg-overlay:     #F1F5F9;
 
-  /* Backgrounds */
-  --bg-page: #F8F9FA;        /* Light */
-  --bg-card: #FFFFFF;        /* White */
-  --bg-input: #F8F9FA;
-  --bg-sidebar: #FFFFFF;
-  --bg-header: #FFFFFF;
-  
   /* Text Colors */
-  --text-primary: #2C3E50;   /* Dark */
-  --text-secondary: #5D6D7E; /* Medium */
-  --text-disabled: #95A5A6;  /* Light */
-  
+  --text-primary:   #0F172A;
+  --text-secondary: #64748B;
+  --text-disabled:  #94A3B8;
+
   /* Borders */
-  --border: #E8DAEF;         /* Light Purple for borders */
+  --border:         #E2E8F0;
 
   /* Status Colors */
-  --success: #27AE60;
-  --success-bg: rgba(39, 174, 96, 0.1);
-  --success-text: #27AE60;
+  --success:        #16A34A;
+  --success-bg:     #F0FDF4;
+  --success-text:   #16A34A;
 
-  --danger: #E74C3C;
-  --danger-bg: rgba(231, 76, 60, 0.1);
-  --danger-text: #E74C3C;
+  --warning:        #D97706;
+  --warning-bg:     #FFFBEB;
+  --warning-text:   #D97706;
 
-  --warning: #F39C12;
-  --warning-bg: rgba(243, 156, 18, 0.1);
-  --warning-text: #F39C12;
+  --danger:         #DC2626;
+  --danger-bg:      #FEF2F2;
+  --danger-text:    #DC2626;
 
-  --info: #3498DB;
-  --info-bg: rgba(52, 152, 219, 0.1);
-  --info-text: #3498DB;
-  
+  --info:           #0284C7;
+  --info-bg:        #F0F9FF;
+  --info-text:      #0284C7;
+
   /* Payment */
-  --pay-cash: #27AE60;
-  --pay-upi: #3498DB;
-  --pay-card: #8E44AD;
-  --pay-bank: #E74C3C;
+  --pay-cash:       #16A34A;
+  --pay-upi:        #0284C7;
+  --pay-card:       #4F46E5;
+  --pay-bank:       #1A3A5C;
 }
 
-/* Dark mode overrides if needed */
-.dark .manager-theme {
-  --bg-page: #1A1224;      /* Very dark purple */
-  --bg-card: #2D1B36;
-  --bg-input: #3A2344;
-  --bg-sidebar: #221429;
-  --bg-header: #221429;
-  
-  --text-primary: #FFFFFF;
-  --text-secondary: #E8DAEF;
-  --text-disabled: #5D6D7E;
-  
-  --border: #4A2C59;
+/* ── 2. DARK MODE TOKEN VARIABLES ────────────────────────── */
+html.dark,
+.dark,
+.dark .manager-portal,
+.dark .manager-theme,
+html.dark .manager-portal,
+html.dark .manager-theme {
+  /* Brand / Accent */
+  --primary:        #6366F1;
+  --primary-hover:  #818CF8;
+  --primary-subtle: rgba(99, 102, 241, 0.15);
+  --border-focus:   #F5A623;   /* Gold Accent */
+
+  /* Surface Elevation Scale */
+  --bg-page:        #0F172A;   /* Deep slate background */
+  --bg-card:        #1E293B;   /* Elevated dark card */
+  --bg-input:       #1E293B;   /* Dark input field */
+  --bg-sidebar:     #0B132B;
+  --bg-header:      #0F172A;
+  --bg-floating:    #1E293B;
+  --bg-overlay:     #334155;
+
+  /* Text Colors */
+  --text-primary:   #F8FAFC;   /* Crisp white text */
+  --text-secondary: #94A3B8;   /* Slate muted text */
+  --text-disabled:  #64748B;
+
+  /* Borders */
+  --border:         #334155;
+
+  /* Status Colors */
+  --success:        #22C55E;
+  --success-bg:     rgba(34, 197, 94, 0.15);
+  --success-text:   #86EFAC;
+
+  --warning:        #F59E0B;
+  --warning-bg:     rgba(245, 158, 11, 0.15);
+  --warning-text:   #FDE047;
+
+  --danger:         #EF4444;
+  --danger-bg:      rgba(239, 68, 68, 0.15);
+  --danger-text:    #FCA5A5;
+
+  --info:           #38BDF8;
+  --info-bg:        rgba(56, 189, 248, 0.15);
+  --info-text:      #93C5FD;
+
+  /* Payment */
+  --pay-cash:       #22C55E;
+  --pay-upi:        #38BDF8;
+  --pay-card:       #818CF8;
+  --pay-bank:       #60A5FA;
+}
+
+/* ── 3. COMPREHENSIVE DARK MODE OVERRIDES FOR MANAGER CONTENT ── */
+
+/* Container & Box Backgrounds */
+.dark .manager-portal .bg-white:not([class*="after:"]):not(.keep-white),
+html.dark .manager-portal .bg-white:not([class*="after:"]):not(.keep-white),
+.dark .manager-theme .bg-white:not([class*="after:"]):not(.keep-white),
+html.dark .manager-theme .bg-white:not([class*="after:"]):not(.keep-white) {
+  background-color: var(--bg-card) !important;
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+.dark .manager-portal .bg-card,
+html.dark .manager-portal .bg-card,
+.dark .manager-theme .bg-card,
+html.dark .manager-theme .bg-card {
+  background-color: var(--bg-card) !important;
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+.dark .manager-portal .bg-page,
+html.dark .manager-portal .bg-page,
+.dark .manager-theme .bg-page,
+html.dark .manager-theme .bg-page {
+  background-color: var(--bg-page) !important;
+}
+
+/* Sub-panels, headers & muted areas */
+.dark .manager-portal .bg-gray-50,
+html.dark .manager-portal .bg-gray-50,
+.dark .manager-portal .bg-slate-50,
+html.dark .manager-portal .bg-slate-50,
+.dark .manager-portal .bg-zinc-50,
+html.dark .manager-portal .bg-zinc-50,
+.dark .manager-portal .bg-gray-50\/30,
+html.dark .manager-portal .bg-gray-50\/30,
+.dark .manager-portal .bg-gray-50\/50,
+html.dark .manager-portal .bg-gray-50\/50,
+.dark .manager-portal .bg-page\/30,
+html.dark .manager-portal .bg-page\/30,
+.dark .manager-portal .bg-page\/10,
+html.dark .manager-portal .bg-page\/10 {
+  background-color: rgba(15, 23, 42, 0.5) !important;
+  border-color: var(--border);
+}
+
+.dark .manager-portal .bg-gray-100,
+html.dark .manager-portal .bg-gray-100,
+.dark .manager-portal .bg-slate-100,
+html.dark .manager-portal .bg-slate-100,
+.dark .manager-portal .bg-gray-200,
+html.dark .manager-portal .bg-gray-200 {
+  background-color: rgba(51, 65, 85, 0.45) !important;
+  border-color: var(--border);
+}
+
+/* Borders in Dark Mode */
+.dark .manager-portal .border-border,
+html.dark .manager-portal .border-border,
+.dark .manager-portal .border-border\/50,
+html.dark .manager-portal .border-border\/50,
+.dark .manager-portal .border-border\/60,
+html.dark .manager-portal .border-border\/60,
+.dark .manager-portal .border-border\/30,
+html.dark .manager-portal .border-border\/30,
+.dark .manager-portal .border-gray-100,
+html.dark .manager-portal .border-gray-100,
+.dark .manager-portal .border-gray-200,
+html.dark .manager-portal .border-gray-200,
+.dark .manager-portal .border-gray-300,
+html.dark .manager-portal .border-gray-300,
+.dark .manager-portal .border-slate-200,
+html.dark .manager-portal .border-slate-200,
+.dark .manager-portal .border-slate-100,
+html.dark .manager-portal .border-slate-100 {
+  border-color: var(--border) !important;
+}
+
+/* Divides in Dark Mode */
+.dark .manager-portal .divide-gray-100 > :not([hidden]) ~ :not([hidden]),
+.dark .manager-portal .divide-gray-200 > :not([hidden]) ~ :not([hidden]),
+.dark .manager-portal .divide-border > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--border) !important;
+}
+
+/* Text Colors in Dark Mode */
+.dark .manager-portal .text-primary,
+html.dark .manager-portal .text-primary {
+  color: var(--text-primary) !important;
+}
+
+.dark .manager-portal .text-secondary,
+html.dark .manager-portal .text-secondary {
+  color: var(--text-secondary) !important;
+}
+
+.dark .manager-portal .text-gray-900,
+html.dark .manager-portal .text-gray-900,
+.dark .manager-portal .text-gray-800,
+html.dark .manager-portal .text-gray-800,
+.dark .manager-portal .text-slate-900,
+html.dark .manager-portal .text-slate-900,
+.dark .manager-portal .text-slate-800,
+html.dark .manager-portal .text-slate-800,
+.dark .manager-portal .text-black:not(.keep-white *):not(.keep-white),
+html.dark .manager-portal .text-black:not(.keep-white *):not(.keep-white) {
+  color: var(--text-primary) !important;
+}
+
+.dark .manager-portal .text-gray-700,
+html.dark .manager-portal .text-gray-700,
+.dark .manager-portal .text-gray-600,
+html.dark .manager-portal .text-gray-600,
+.dark .manager-portal .text-slate-700,
+html.dark .manager-portal .text-slate-700,
+.dark .manager-portal .text-slate-600,
+html.dark .manager-portal .text-slate-600 {
+  color: var(--text-secondary) !important;
+}
+
+.dark .manager-portal .text-gray-500,
+html.dark .manager-portal .text-gray-500,
+.dark .manager-portal .text-gray-400,
+html.dark .manager-portal .text-gray-400,
+.dark .manager-portal .text-slate-500,
+html.dark .manager-portal .text-slate-500,
+.dark .manager-portal .text-slate-400,
+html.dark .manager-portal .text-slate-400 {
+  color: var(--text-disabled) !important;
+}
+
+/* Inputs, Textareas, and Selects */
+.dark .manager-portal input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="color"]):not([type="range"]),
+html.dark .manager-portal input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="color"]):not([type="range"]),
+.dark .manager-portal select,
+html.dark .manager-portal select,
+.dark .manager-portal textarea,
+html.dark .manager-portal textarea,
+.dark .manager-portal .bg-input,
+html.dark .manager-portal .bg-input {
+  background-color: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border) !important;
+}
+
+.dark .manager-portal input::placeholder,
+html.dark .manager-portal input::placeholder,
+.dark .manager-portal textarea::placeholder,
+html.dark .manager-portal textarea::placeholder {
+  color: var(--text-disabled) !important;
+}
+
+.dark .manager-portal select option,
+html.dark .manager-portal select option {
+  background-color: #1E293B !important;
+  color: #F8FAFC !important;
+}
+
+/* Tables in Dark Mode */
+.dark .manager-portal table,
+html.dark .manager-portal table {
+  color: var(--text-primary) !important;
+}
+
+.dark .manager-portal thead tr,
+html.dark .manager-portal thead tr,
+.dark .manager-portal thead th,
+html.dark .manager-portal thead th,
+.dark .manager-portal thead.bg-white,
+html.dark .manager-portal thead.bg-white,
+.dark .manager-portal thead.bg-page\/50,
+html.dark .manager-portal thead.bg-page\/50 {
+  background-color: #162032 !important;
+  color: var(--text-secondary) !important;
+  border-color: var(--border) !important;
+}
+
+.dark .manager-portal tbody,
+html.dark .manager-portal tbody,
+.dark .manager-portal tbody.bg-white,
+html.dark .manager-portal tbody.bg-white {
+  background-color: transparent !important;
+  color: var(--text-primary) !important;
+}
+
+.dark .manager-portal tbody tr,
+html.dark .manager-portal tbody tr {
+  border-color: var(--border) !important;
+}
+
+.dark .manager-portal tbody tr:hover,
+html.dark .manager-portal tbody tr:hover {
+  background-color: rgba(51, 65, 85, 0.3) !important;
+}
+
+/* Badges and Soft Highlights in Dark Mode */
+.dark .manager-portal .bg-indigo-50,
+.dark .manager-portal .bg-indigo-50\/50,
+.dark .manager-portal .bg-indigo-100,
+html.dark .manager-portal .bg-indigo-50,
+html.dark .manager-portal .bg-indigo-50\/50,
+html.dark .manager-portal .bg-indigo-100 {
+  background-color: rgba(99, 102, 241, 0.16) !important;
+  border-color: rgba(99, 102, 241, 0.3) !important;
+}
+
+.dark .manager-portal .bg-blue-50,
+.dark .manager-portal .bg-blue-50\/50,
+.dark .manager-portal .bg-blue-100,
+html.dark .manager-portal .bg-blue-50,
+html.dark .manager-portal .bg-blue-50\/50,
+html.dark .manager-portal .bg-blue-100 {
+  background-color: rgba(59, 130, 246, 0.16) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+}
+
+.dark .manager-portal .bg-green-50,
+.dark .manager-portal .bg-green-50\/50,
+.dark .manager-portal .bg-green-50\/30,
+.dark .manager-portal .bg-green-100,
+html.dark .manager-portal .bg-green-50,
+html.dark .manager-portal .bg-green-50\/50,
+html.dark .manager-portal .bg-green-50\/30,
+html.dark .manager-portal .bg-green-100 {
+  background-color: rgba(34, 197, 94, 0.16) !important;
+  border-color: rgba(34, 197, 94, 0.3) !important;
+}
+
+.dark .manager-portal .bg-red-50,
+.dark .manager-portal .bg-red-50\/50,
+.dark .manager-portal .bg-red-100,
+html.dark .manager-portal .bg-red-50,
+html.dark .manager-portal .bg-red-50\/50,
+html.dark .manager-portal .bg-red-100 {
+  background-color: rgba(239, 68, 68, 0.16) !important;
+  border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+.dark .manager-portal .bg-orange-50,
+.dark .manager-portal .bg-orange-50\/50,
+.dark .manager-portal .bg-yellow-50,
+.dark .manager-portal .bg-amber-50,
+html.dark .manager-portal .bg-orange-50,
+html.dark .manager-portal .bg-orange-50\/50,
+html.dark .manager-portal .bg-yellow-50,
+html.dark .manager-portal .bg-amber-50 {
+  background-color: rgba(245, 158, 11, 0.16) !important;
+  border-color: rgba(245, 158, 11, 0.3) !important;
+}
+
+.dark .manager-portal .bg-purple-50,
+.dark .manager-portal .bg-purple-50\/50,
+.dark .manager-portal .bg-purple-100,
+html.dark .manager-portal .bg-purple-50,
+html.dark .manager-portal .bg-purple-50\/50,
+html.dark .manager-portal .bg-purple-100 {
+  background-color: rgba(168, 85, 247, 0.16) !important;
+  border-color: rgba(168, 85, 247, 0.3) !important;
+}
+
+/* Badge text contrast in dark mode */
+.dark .manager-portal .text-indigo-700,
+.dark .manager-portal .text-indigo-800,
+.dark .manager-portal .text-indigo-900,
+html.dark .manager-portal .text-indigo-700,
+html.dark .manager-portal .text-indigo-800,
+html.dark .manager-portal .text-indigo-900 {
+  color: #A5B4FC !important;
+}
+
+.dark .manager-portal .text-blue-700,
+.dark .manager-portal .text-blue-800,
+.dark .manager-portal .text-blue-900,
+html.dark .manager-portal .text-blue-700,
+html.dark .manager-portal .text-blue-800,
+html.dark .manager-portal .text-blue-900 {
+  color: #93C5FD !important;
+}
+
+.dark .manager-portal .text-green-700,
+.dark .manager-portal .text-green-800,
+.dark .manager-portal .text-green-900,
+html.dark .manager-portal .text-green-700,
+html.dark .manager-portal .text-green-800,
+html.dark .manager-portal .text-green-900 {
+  color: #86EFAC !important;
+}
+
+.dark .manager-portal .text-red-700,
+.dark .manager-portal .text-red-800,
+.dark .manager-portal .text-red-900,
+html.dark .manager-portal .text-red-700,
+html.dark .manager-portal .text-red-800,
+html.dark .manager-portal .text-red-900 {
+  color: #FCA5A5 !important;
+}
+
+.dark .manager-portal .text-orange-700,
+.dark .manager-portal .text-orange-800,
+.dark .manager-portal .text-orange-900,
+.dark .manager-portal .text-yellow-700,
+.dark .manager-portal .text-yellow-800,
+.dark .manager-portal .text-yellow-900,
+html.dark .manager-portal .text-orange-700,
+html.dark .manager-portal .text-orange-800,
+html.dark .manager-portal .text-orange-900,
+html.dark .manager-portal .text-yellow-700,
+html.dark .manager-portal .text-yellow-800,
+html.dark .manager-portal .text-yellow-900 {
+  color: #FDE047 !important;
+}
+
+.dark .manager-portal .text-purple-700,
+.dark .manager-portal .text-purple-800,
+.dark .manager-portal .text-purple-900,
+html.dark .manager-portal .text-purple-700,
+html.dark .manager-portal .text-purple-800,
+html.dark .manager-portal .text-purple-900 {
+  color: #D8B4FE !important;
+}
+
+/* Hover States in Dark Mode */
+.dark .manager-portal .hover\:bg-gray-50:hover,
+html.dark .manager-portal .hover\:bg-gray-50:hover,
+.dark .manager-portal .hover\:bg-gray-100:hover,
+html.dark .manager-portal .hover\:bg-gray-100:hover,
+.dark .manager-portal .hover\:bg-page\/50:hover,
+html.dark .manager-portal .hover\:bg-page\/50:hover,
+.dark .manager-portal .hover\:bg-page:hover,
+html.dark .manager-portal .hover\:bg-page:hover {
+  background-color: rgba(51, 65, 85, 0.35) !important;
+}
+
+.dark .manager-portal .hover\:bg-indigo-50:hover,
+html.dark .manager-portal .hover\:bg-indigo-50:hover,
+.dark .manager-portal .hover\:bg-indigo-50\/50:hover,
+html.dark .manager-portal .hover\:bg-indigo-50\/50:hover {
+  background-color: rgba(99, 102, 241, 0.22) !important;
+}
+
+.dark .manager-portal .hover\:bg-green-50:hover,
+html.dark .manager-portal .hover\:bg-green-50:hover {
+  background-color: rgba(34, 197, 94, 0.22) !important;
+}
+
+.dark .manager-portal .hover\:bg-orange-50:hover,
+html.dark .manager-portal .hover\:bg-orange-50:hover {
+  background-color: rgba(245, 158, 11, 0.22) !important;
+}
+
+.dark .manager-portal .hover\:bg-red-50:hover,
+html.dark .manager-portal .hover\:bg-red-50:hover {
+  background-color: rgba(239, 68, 68, 0.22) !important;
+}
+
+/* Modals and Dialogs in Dark Mode */
+.dark .manager-portal [role="dialog"],
+html.dark .manager-portal [role="dialog"],
+.dark .manager-portal .shadow-2xl.bg-white,
+html.dark .manager-portal .shadow-2xl.bg-white,
+.dark .manager-portal .shadow-xl.bg-white,
+html.dark .manager-portal .shadow-xl.bg-white {
+  background-color: #1E293B !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border) !important;
 }

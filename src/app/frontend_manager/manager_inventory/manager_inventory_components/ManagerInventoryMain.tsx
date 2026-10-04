@@ -8,38 +8,28 @@ import {
   Utensils, Bed, Sparkles, Box, CheckCircle2, X
 } from 'lucide-react';
 
-type InventoryCategory = 'All' | 'Room Items' | 'Cleaning' | 'Kitchen' | 'Food' | 'Maintenance' | 'Stationery' | 'Other';
-type TabType = 'stock' | 'transactions' | 'damaged' | 'requests';
-
-interface Item {
-  id: string;
-  name: string;
-  category: InventoryCategory;
-  quantity: number;
-  unit: string;
-  minThreshold: number;
-}
-
-const INITIAL_INVENTORY: Item[] = [
-  { id: 'INV-01', name: 'Mattress Covers', category: 'Room Items', quantity: 15, unit: 'pcs', minThreshold: 5 },
-  { id: 'INV-02', name: 'Floor Cleaner (Lizol)', category: 'Cleaning', quantity: 2, unit: 'bottles', minThreshold: 5 }, // Low Stock
-  { id: 'INV-03', name: 'Rice (Basmati)', category: 'Food', quantity: 45, unit: 'kg', minThreshold: 20 },
-  { id: 'INV-04', name: 'LED Bulbs (9W)', category: 'Maintenance', quantity: 8, unit: 'pcs', minThreshold: 10 }, // Low Stock
-  { id: 'INV-05', name: 'Kitchen Towels', category: 'Kitchen', quantity: 24, unit: 'pcs', minThreshold: 10 },
-  { id: 'INV-06', name: 'A4 Paper Rim', category: 'Stationery', quantity: 1, unit: 'rims', minThreshold: 2 }, // Low Stock
-];
+import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
+import { useManagerInventory } from '../manager_inventory_hooks/useManagerInventory';
+import type { ManagerInventoryItem } from '../manager_inventory_types/ManagerInventory.types';
 
 export default function ManagerInventoryMain() {
-  const [activeTab, setActiveTab] = useState<TabType>('stock');
-  const [selectedCategory, setSelectedCategory] = useState<InventoryCategory>('All');
+  const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
+  const userId = 'manager-1'; // Mock user id
+  
+  const {
+    inventory, activeTab, setActiveTab, 
+    handleUpdateQty
+  } = useManagerInventory(selectedPropertyId, ctxLoading, userId);
+
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchTerm, setSearchTerm] = useState('');
   
   // Modals
   const [requestModalOpen, setRequestModalOpen] = useState(false);
   const [stockOutModalOpen, setStockOutModalOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+  const [selectedItem, setSelectedItem] = useState<ManagerInventoryItem | null>(null);
 
-  const getCategoryIcon = (category: InventoryCategory) => {
+  const getCategoryIcon = (category: string) => {
     switch (category) {
       case 'Room Items': return <Bed className="w-4 h-4" />;
       case 'Cleaning': return <Sparkles className="w-4 h-4" />;
@@ -51,13 +41,13 @@ export default function ManagerInventoryMain() {
     }
   };
 
-  const filteredInventory = INITIAL_INVENTORY.filter(item => {
+  const filteredInventory = inventory.filter(item => {
     const matchSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchCategory = selectedCategory === 'All' || item.category === selectedCategory;
     return matchSearch && matchCategory;
   });
 
-  const handleOpenRequest = (item?: Item) => {
+  const handleOpenRequest = (item?: ManagerInventoryItem) => {
     if(item) setSelectedItem(item);
     else setSelectedItem(null);
     setRequestModalOpen(true);
@@ -94,25 +84,25 @@ export default function ManagerInventoryMain() {
         <div className="flex items-center gap-1 p-2 border-b border-border/50 bg-page/30 shrink-0 overflow-x-auto">
           <button 
             onClick={() => setActiveTab('stock')}
-            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap ${activeTab === 'stock' ? 'bg-white text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
+            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap ${activeTab === 'stock' ? 'bg-card text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
           >
             Current Stock
           </button>
           <button 
             onClick={() => setActiveTab('transactions')}
-            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap ${activeTab === 'transactions' ? 'bg-white text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
+            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap ${activeTab === 'transactions' ? 'bg-card text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
           >
             Stock In / Out
           </button>
           <button 
             onClick={() => setActiveTab('damaged')}
-            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap ${activeTab === 'damaged' ? 'bg-white text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
+            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap ${activeTab === 'damaged' ? 'bg-card text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
           >
             Damage & Lost
           </button>
           <button 
             onClick={() => setActiveTab('requests')}
-            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap ${activeTab === 'requests' ? 'bg-white text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
+            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap ${activeTab === 'requests' ? 'bg-card text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
           >
             Purchase Requests
           </button>
@@ -120,7 +110,7 @@ export default function ManagerInventoryMain() {
 
         {/* Filters Area (Only for Current Stock) */}
         {activeTab === 'stock' && (
-          <div className="p-4 border-b border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white shrink-0">
+          <div className="p-4 border-b border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-card shrink-0">
             <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 hide-scrollbar flex-1">
               {['All', 'Room Items', 'Cleaning', 'Kitchen', 'Food', 'Maintenance', 'Stationery'].map((cat) => (
                 <button
@@ -154,7 +144,7 @@ export default function ManagerInventoryMain() {
           {activeTab === 'stock' && (
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-white border-b border-border/50 sticky top-0">
+                <tr className="bg-card border-b border-border/50 sticky top-0">
                   <th className="py-3 px-6 text-xs font-black text-secondary uppercase tracking-wider">Item Name</th>
                   <th className="py-3 px-6 text-xs font-black text-secondary uppercase tracking-wider">Category</th>
                   <th className="py-3 px-6 text-xs font-black text-secondary uppercase tracking-wider">Stock Level</th>
@@ -162,9 +152,9 @@ export default function ManagerInventoryMain() {
                   <th className="py-3 px-6 text-xs font-black text-secondary uppercase tracking-wider text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="text-sm bg-white">
+              <tbody className="text-sm bg-card">
                 {filteredInventory.map(item => {
-                  const isLow = item.quantity <= item.minThreshold;
+                  const isLow = item.quantity <= (item.threshold || 0);
                   return (
                     <tr key={item.id} className="border-b border-border/30 hover:bg-page/40 transition-colors">
                       <td className="py-4 px-6">
@@ -234,7 +224,7 @@ export default function ManagerInventoryMain() {
           )}
 
           {activeTab !== 'stock' && (
-            <div className="flex flex-col items-center justify-center h-full p-8 text-center bg-white">
+            <div className="flex flex-col items-center justify-center h-full p-8 text-center bg-card">
               <div className="w-16 h-16 bg-page rounded-full flex items-center justify-center border border-border shadow-sm mb-4">
                 <Box className="w-8 h-8 text-secondary" />
               </div>

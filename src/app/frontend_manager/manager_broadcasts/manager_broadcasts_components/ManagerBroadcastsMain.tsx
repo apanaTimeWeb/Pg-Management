@@ -8,11 +8,15 @@ import {
   Eye, Send, FileText, CalendarClock, ShieldAlert
 } from 'lucide-react';
 
+import { useManagerBroadcasts, BroadcastMessage } from '../manager_broadcasts_hooks/useManagerBroadcasts';
+
 type Step = 'create' | 'audience' | 'preview';
 type NoticeType = 'General' | 'Water Shutdown' | 'Electricity Maintenance' | 'Cleaning Schedule' | 'Mess Timing' | 'Room Inspection' | 'Emergency' | 'Critical Policy';
 type Audience = 'All Students' | 'Selected Rooms' | 'Selected Students' | 'Staff' | 'Cooks';
 
 export default function ManagerBroadcastsMain() {
+  const { broadcasts, addBroadcast, updateBroadcastStatus, loading } = useManagerBroadcasts();
+
   const [currentStep, setCurrentStep] = useState<Step>('create');
   
   // Notice Form State
@@ -33,6 +37,27 @@ export default function ManagerBroadcastsMain() {
     else if (currentStep === 'audience') setCurrentStep('create');
   };
 
+  const handlePublish = () => {
+    const newBroadcast: BroadcastMessage = {
+      id: `B-${Date.now()}`,
+      type: noticeType === 'Emergency' ? 'alert' : noticeType === 'Critical Policy' ? 'alert' : 'general',
+      title,
+      message: description,
+      target: selectedAudience as any,
+      date: new Date().toISOString().split('T')[0],
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      author: 'Manager',
+      status: isPolicy ? 'scheduled' : 'active'
+    };
+    addBroadcast(newBroadcast);
+    setTitle('');
+    setDescription('');
+    setNoticeType('General');
+    setSelectedAudience('All Students');
+    setCurrentStep('create');
+    alert(isPolicy ? 'Request Sent for Approval' : 'Broadcast Published Successfully');
+  };
+
   const isPolicy = noticeType === 'Critical Policy';
 
   const getIconForType = (type: NoticeType) => {
@@ -49,10 +74,10 @@ export default function ManagerBroadcastsMain() {
   };
 
   const getNoticeBgColor = () => {
-    if (noticeType === 'Emergency') return 'bg-red-50 border-red-200';
-    if (isPolicy) return 'bg-purple-50 border-purple-200';
-    if (noticeType === 'Water Shutdown' || noticeType === 'Electricity Maintenance') return 'bg-orange-50 border-orange-200';
-    return 'bg-white border-border';
+    if (noticeType === 'Emergency') return 'bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-900/50';
+    if (isPolicy) return 'bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-900/50';
+    if (noticeType === 'Water Shutdown' || noticeType === 'Electricity Maintenance') return 'bg-orange-50 dark:bg-orange-950/30 border-orange-200 dark:border-orange-900/50';
+    return 'bg-card border-border';
   };
 
   return (
@@ -146,9 +171,9 @@ export default function ManagerBroadcastsMain() {
               
               <div 
                 onClick={() => setSelectedAudience('All Students')}
-                className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-center gap-4 ${selectedAudience === 'All Students' ? 'border-indigo-600 bg-indigo-50/50' : 'border-border/60 bg-white hover:border-indigo-300'}`}
+                className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-center gap-4 ${selectedAudience === 'All Students' ? 'border-indigo-600 bg-indigo-50/50 dark:bg-indigo-950/30' : 'border-border/60 bg-card hover:border-indigo-300'}`}
               >
-                <div className={`p-2 rounded-lg ${selectedAudience === 'All Students' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-500'}`}>
+                <div className={`p-2 rounded-lg ${selectedAudience === 'All Students' ? 'bg-indigo-600 text-white' : 'bg-page text-secondary'}`}>
                   <Users className="w-5 h-5" />
                 </div>
                 <div>
@@ -160,9 +185,9 @@ export default function ManagerBroadcastsMain() {
 
               <div 
                 onClick={() => setSelectedAudience('Selected Rooms')}
-                className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-center gap-4 ${selectedAudience === 'Selected Rooms' ? 'border-indigo-600 bg-indigo-50/50' : 'border-border/60 bg-white hover:border-indigo-300'}`}
+                className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-center gap-4 ${selectedAudience === 'Selected Rooms' ? 'border-indigo-600 bg-indigo-50/50 dark:bg-indigo-950/30' : 'border-border/60 bg-card hover:border-indigo-300'}`}
               >
-                <div className={`p-2 rounded-lg ${selectedAudience === 'Selected Rooms' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-500'}`}>
+                <div className={`p-2 rounded-lg ${selectedAudience === 'Selected Rooms' ? 'bg-indigo-600 text-white' : 'bg-page text-secondary'}`}>
                   <DoorClosed className="w-5 h-5" />
                 </div>
                 <div className="flex-1">
@@ -174,9 +199,9 @@ export default function ManagerBroadcastsMain() {
 
               <div 
                 onClick={() => setSelectedAudience('Staff')}
-                className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-center gap-4 ${selectedAudience === 'Staff' ? 'border-indigo-600 bg-indigo-50/50' : 'border-border/60 bg-white hover:border-indigo-300'}`}
+                className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-center gap-4 ${selectedAudience === 'Staff' ? 'border-indigo-600 bg-indigo-50/50 dark:bg-indigo-950/30' : 'border-border/60 bg-card hover:border-indigo-300'}`}
               >
-                <div className={`p-2 rounded-lg ${selectedAudience === 'Staff' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-500'}`}>
+                <div className={`p-2 rounded-lg ${selectedAudience === 'Staff' ? 'bg-indigo-600 text-white' : 'bg-page text-secondary'}`}>
                   <Users className="w-5 h-5" />
                 </div>
                 <div>
@@ -188,9 +213,9 @@ export default function ManagerBroadcastsMain() {
 
               <div 
                 onClick={() => setSelectedAudience('Cooks')}
-                className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-center gap-4 ${selectedAudience === 'Cooks' ? 'border-indigo-600 bg-indigo-50/50' : 'border-border/60 bg-white hover:border-indigo-300'}`}
+                className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-center gap-4 ${selectedAudience === 'Cooks' ? 'border-indigo-600 bg-indigo-50/50 dark:bg-indigo-950/30' : 'border-border/60 bg-card hover:border-indigo-300'}`}
               >
-                <div className={`p-2 rounded-lg ${selectedAudience === 'Cooks' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-500'}`}>
+                <div className={`p-2 rounded-lg ${selectedAudience === 'Cooks' ? 'bg-indigo-600 text-white' : 'bg-page text-secondary'}`}>
                   <ChefHat className="w-5 h-5" />
                 </div>
                 <div>
@@ -208,7 +233,7 @@ export default function ManagerBroadcastsMain() {
             <div className="p-6 flex-1 overflow-y-auto space-y-6 animate-in slide-in-from-right-4 duration-300">
               
               <div className="text-center p-6 bg-page/50 rounded-2xl border border-border/50">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm border border-border">
+                <div className="w-16 h-16 bg-card rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm border border-border">
                   <Eye className="w-8 h-8 text-indigo-600" />
                 </div>
                 <h3 className="text-lg font-black text-primary">Review & Publish</h3>
@@ -246,7 +271,7 @@ export default function ManagerBroadcastsMain() {
             {currentStep !== 'create' ? (
               <button 
                 onClick={handleBack}
-                className="px-6 py-2.5 bg-white border border-border/60 text-secondary hover:text-primary rounded-xl text-sm font-bold shadow-sm transition-all"
+                className="px-6 py-2.5 bg-card border border-border/60 text-secondary hover:text-primary rounded-xl text-sm font-bold shadow-sm transition-all"
               >
                 Back
               </button>
@@ -262,6 +287,7 @@ export default function ManagerBroadcastsMain() {
               </button>
             ) : (
               <button 
+                onClick={handlePublish}
                 className={`px-6 py-2.5 text-white rounded-xl text-sm font-bold shadow-md transition-all flex items-center gap-2 ${isPolicy ? 'bg-purple-600 hover:bg-purple-700' : 'bg-green-600 hover:bg-green-700'}`}
               >
                 {isPolicy ? (
@@ -287,7 +313,7 @@ export default function ManagerBroadcastsMain() {
 
           <div className="flex-1 flex items-center justify-center relative z-10">
             {/* Mobile Phone Mockup Container */}
-            <div className="w-[320px] h-[550px] bg-white rounded-[2.5rem] border-[8px] border-gray-900 shadow-2xl relative overflow-hidden flex flex-col">
+            <div className="w-[320px] h-[550px] bg-card text-primary rounded-[2.5rem] border-[8px] border-gray-900 shadow-2xl relative overflow-hidden flex flex-col">
               
               {/* Notch */}
               <div className="absolute top-0 inset-x-0 h-6 bg-gray-900 rounded-b-xl w-32 mx-auto z-20"></div>
@@ -298,27 +324,40 @@ export default function ManagerBroadcastsMain() {
               </div>
               
               {/* Phone Content */}
-              <div className="flex-1 bg-gray-50 p-4">
+              <div className="flex-1 bg-page/50 p-4">
                 
                 {title || description ? (
                   <div className={`p-4 rounded-xl border shadow-sm ${getNoticeBgColor()}`}>
                     <div className="flex items-center gap-2 mb-3">
                       {getIconForType(noticeType)}
-                      <span className={`text-xs font-black uppercase tracking-wider ${noticeType === 'Emergency' ? 'text-red-600' : isPolicy ? 'text-purple-600' : 'text-gray-500'}`}>
+                      <span className={`text-xs font-black uppercase tracking-wider ${noticeType === 'Emergency' ? 'text-red-600' : isPolicy ? 'text-purple-600' : 'text-secondary'}`}>
                         {noticeType}
                       </span>
                     </div>
-                    <h3 className="font-bold text-gray-900 mb-2 leading-tight text-lg">
+                    <h3 className="font-bold text-primary mb-2 leading-tight text-lg">
                       {title || 'Notice Title Goes Here'}
                     </h3>
-                    <p className="text-sm text-gray-600 whitespace-pre-wrap leading-relaxed">
+                    <p className="text-sm text-secondary whitespace-pre-wrap leading-relaxed">
                       {description || 'Full description of the notice will appear here for the students to read.'}
                     </p>
                     
-                    <div className="mt-4 pt-3 border-t border-gray-200/50 flex items-center gap-2 text-[10px] font-bold text-gray-400">
+                    <div className="mt-4 pt-3 border-t border-border/50 flex items-center gap-2 text-[10px] font-bold text-secondary">
                       <CalendarClock className="w-3 h-3" />
                       <span>{new Date().toLocaleDateString()} • Sent by Manager</span>
                     </div>
+                  </div>
+                ) : broadcasts.length > 0 ? (
+                  <div className="h-full flex flex-col gap-3 overflow-y-auto hide-scrollbar">
+                    {broadcasts.map(b => (
+                      <div key={b.id} className={`p-4 rounded-xl border shadow-sm ${b.type === 'alert' ? 'bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-900/50' : 'bg-card border-border'}`}>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-[10px] font-black uppercase tracking-wider text-secondary">{b.type}</span>
+                          <span className="text-[10px] text-secondary">{b.date}</span>
+                        </div>
+                        <h3 className="font-bold text-primary text-sm">{b.title}</h3>
+                        <p className="text-xs text-secondary mt-1 line-clamp-2">{b.message}</p>
+                      </div>
+                    ))}
                   </div>
                 ) : (
                   <div className="h-full flex flex-col items-center justify-center text-center p-4">

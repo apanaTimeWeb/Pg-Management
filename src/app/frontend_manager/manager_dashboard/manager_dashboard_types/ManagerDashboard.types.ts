@@ -17,8 +17,13 @@ export interface ManagerDashboardStats {
   maintenanceTotal: number;
   // General (kept from old)
   activeStudents: number;
+  totalStudents: number;
   vacantBeds: number;
+  totalBeds: number;
   activeSos: number;
+  pendingRentAmount: number;
+  totalExpectedRent: number;
+  todayLeaves: number;
 }
 export interface ManagerDashboardData {
   stats: ManagerDashboardStats | null;

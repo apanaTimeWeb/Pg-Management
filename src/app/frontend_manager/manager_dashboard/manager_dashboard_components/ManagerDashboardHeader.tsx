@@ -75,7 +75,7 @@ export function ManagerDashboardHeader({ user, selectedProp, isPresent, handleMa
           ) : (
             <button 
               onClick={handleMarkPresent}
-              className="bg-white text-theme-primary hover:bg-white/90 px-6 py-3 rounded-xl font-black text-sm motion-safe:transition-colors shadow-lg flex items-center gap-2"
+              className="bg-white text-indigo-900 hover:bg-white/90 px-6 py-3 rounded-xl font-black text-sm motion-safe:transition-colors shadow-lg flex items-center gap-2 keep-white"
             >
               <CheckCircle2 className="w-5 h-5" /> Mark Present Today
             </button>

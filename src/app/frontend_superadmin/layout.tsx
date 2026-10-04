@@ -10,6 +10,7 @@ import { SuperadminI18nProvider, useSuperadminI18n } from '@/app/frontend_supera
 import type { DictKey } from '@/app/frontend_superadmin/SuperadminI18n';
 import { useTheme } from 'next-themes';
 import { Moon, Sun } from 'lucide-react';
+import { LogoutModal } from '@/components/ui/LogoutModal';
 
 function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMobileMenuOpen, handleLogout, pathname }: any) {
   const { lang, setLang, t } = useSuperadminI18n();
@@ -322,7 +323,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
                       <User className="w-4 h-4" />
                       My Profile
                     </Link>
-                    <button onClick={handleLogout} className="w-full text-left px-3 py-2.5 mt-1 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-700 dark:hover:text-red-300 font-semibold rounded-lg flex items-center gap-2 transition-colors">
+                    <button onClick={() => { setIsProfileOpen(false); handleLogout(); }} className="w-full text-left px-3 py-2.5 mt-1 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-700 dark:hover:text-red-300 font-semibold rounded-lg flex items-center gap-2 transition-colors">
                       <LogOut className="w-4 h-4" />
                       Logout
                     </button>
@@ -501,7 +502,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
                         <User className="w-4 h-4" />
                         My Profile
                       </Link>
-                      <button onClick={handleLogout} className="w-full text-left px-3 py-2.5 mt-1 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-700 dark:hover:text-red-300 font-semibold rounded-lg flex items-center gap-2 transition-colors">
+                      <button onClick={() => { setIsProfileOpen(false); handleLogout(); }} className="w-full text-left px-3 py-2.5 mt-1 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-700 dark:hover:text-red-300 font-semibold rounded-lg flex items-center gap-2 transition-colors">
                         <LogOut className="w-4 h-4" />
                         Logout
                       </button>
@@ -528,6 +529,7 @@ function SuperAdminLayoutInner({ children, adminName, isMobileMenuOpen, setIsMob
 export default function SuperAdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [adminName, setAdminName] = useState('');
 
   useEffect(() => {
@@ -535,8 +537,13 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
     if(session) setAdminName(session.name);
   }, []);
 
-  const handleLogout = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleLogout = (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    setIsMobileMenuOpen(false);
+    setIsLogoutModalOpen(true);
+  };
+
+  const handleConfirmLogout = () => {
     if (typeof window !== 'undefined') {
       clearSession();
       window.location.href = '/';
@@ -555,6 +562,11 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
           >
             {children}
           </SuperAdminLayoutInner>
+          <LogoutModal
+            isOpen={isLogoutModalOpen}
+            onClose={() => setIsLogoutModalOpen(false)}
+            onConfirm={handleConfirmLogout}
+          />
       </SuperadminI18nProvider>
     </SuperAdminRequireSuperAdmin>
   );

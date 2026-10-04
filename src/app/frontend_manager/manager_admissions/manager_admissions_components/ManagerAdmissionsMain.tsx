@@ -8,60 +8,39 @@ import {
   UserCheck, Bed, MessageSquare, Send
 } from 'lucide-react';
 
-type AdmissionStage = 'Enquiry' | 'Application' | 'Verification' | 'Approved' | 'Waiting List' | 'Rejected';
-
-interface Candidate {
-  id: string;
-  name: string;
-  mobile: string;
-  email: string;
-  date: string;
-  preferredRoomType: string;
-  stage: AdmissionStage;
-  documentsStatus: 'Pending' | 'Uploaded' | 'Verified';
-  assignedRoom?: string;
-  assignedBed?: string;
-  ownerApprovalRequired?: boolean;
-}
-
-const INITIAL_CANDIDATES: Candidate[] = [
-  {
-    id: 'ENQ-001', name: 'Rohan Gupta', mobile: '+91 9876543210', email: 'rohan@example.com',
-    date: '03 Oct 2026', preferredRoomType: '2 Sharing', stage: 'Enquiry', documentsStatus: 'Pending'
-  },
-  {
-    id: 'APP-002', name: 'Suraj Verma', mobile: '+91 8765432109', email: 'suraj@example.com',
-    date: '02 Oct 2026', preferredRoomType: '1 Sharing', stage: 'Application', documentsStatus: 'Uploaded'
-  },
-  {
-    id: 'VER-003', name: 'Karan Singh', mobile: '+91 7654321098', email: 'karan@example.com',
-    date: '01 Oct 2026', preferredRoomType: '3 Sharing', stage: 'Verification', documentsStatus: 'Verified',
-    ownerApprovalRequired: true
-  },
-  {
-    id: 'ADM-004', name: 'Rahul Joshi', mobile: '+91 6543210987', email: 'rahul@example.com',
-    date: '30 Sep 2026', preferredRoomType: '2 Sharing', stage: 'Approved', documentsStatus: 'Verified',
-    assignedRoom: '102', assignedBed: 'B'
-  },
-  {
-    id: 'WL-005', name: 'Nitin Patel', mobile: '+91 5432109876', email: 'nitin@example.com',
-    date: '28 Sep 2026', preferredRoomType: '1 Sharing', stage: 'Waiting List', documentsStatus: 'Verified'
-  }
-];
+import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
+import { useManagerAdmissions } from '../manager_admissions_hooks/useManagerAdmissions';
+import type { AdmissionCandidate, AdmissionStage } from '../manager_admissions_hooks/useManagerAdmissions';
 
 export default function ManagerAdmissionsMain() {
-  const [candidates, setCandidates] = useState<Candidate[]>(INITIAL_CANDIDATES);
-  const [selectedCandidate, setSelectedCandidate] = useState<Candidate>(INITIAL_CANDIDATES[0]);
+  const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
+  const { candidates, loading, fetchAdmissions } = useManagerAdmissions(selectedPropertyId, ctxLoading);
+  
+  const [localCandidates, setLocalCandidates] = useState<AdmissionCandidate[]>([]);
+  const [selectedCandidate, setSelectedCandidate] = useState<AdmissionCandidate | null>(null);
+  
+  // Sync hook data to local state for optimistic updates
+  React.useEffect(() => {
+    setLocalCandidates(candidates);
+    if (candidates.length > 0 && !selectedCandidate) {
+      setSelectedCandidate(candidates[0]);
+    }
+  }, [candidates, selectedCandidate]);
+
   const [filterStage, setFilterStage] = useState<'All' | AdmissionStage>('All');
   const [searchTerm, setSearchTerm] = useState('');
   
   const [enquiryModalOpen, setEnquiryModalOpen] = useState(false);
 
-  const filteredCandidates = candidates.filter(c => {
+  const filteredCandidates = localCandidates.filter(c => {
     const matchesSearch = c.name.toLowerCase().includes(searchTerm.toLowerCase()) || c.mobile.includes(searchTerm);
     const matchesStage = filterStage === 'All' || c.stage === filterStage;
     return matchesSearch && matchesStage;
   });
+
+  if (loading || ctxLoading) {
+    return <div className="p-8 flex items-center justify-center min-h-[50vh]"><div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div></div>;
+  }
 
   const getStageColor = (stage: AdmissionStage) => {
     switch (stage) {
@@ -136,7 +115,7 @@ export default function ManagerAdmissionsMain() {
                 className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
                   filterStage === stage 
                     ? 'bg-indigo-600 text-white border-indigo-600' 
-                    : 'bg-white text-secondary border-border/60 hover:border-indigo-300'
+                    : 'bg-card text-secondary border-border/60 hover:border-indigo-300'
                 }`}
               >
                 {stage}
@@ -191,10 +170,10 @@ export default function ManagerAdmissionsMain() {
           </div>
 
           {/* Right Side: Details & Action Flow */}
-          <div className="flex-1 flex flex-col min-h-0 bg-gray-50/30 overflow-y-auto">
+          <div className="flex-1 flex flex-col min-h-0 bg-page/30 overflow-y-auto">
             
             {/* Header Info */}
-            <div className="p-6 border-b border-border/50 bg-white shrink-0">
+            <div className="p-6 border-b border-border/50 bg-card shrink-0">
               <div className="flex items-center justify-between mb-3">
                 <span className={`px-3 py-1 rounded-lg text-xs font-black uppercase tracking-wider border ${getStageColor(selectedCandidate.stage)}`}>
                   Pipeline Stage: {selectedCandidate.stage}
@@ -204,15 +183,15 @@ export default function ManagerAdmissionsMain() {
               
               <h2 className="text-2xl font-black text-primary leading-tight">{selectedCandidate.name}</h2>
               <div className="flex items-center gap-4 mt-2">
-                <a href={`tel:${selectedCandidate.mobile}`} className="text-sm font-bold text-indigo-600 hover:underline flex items-center gap-1"><Phone className="w-4 h-4"/> {selectedCandidate.mobile}</a>
-                <a href={`mailto:${selectedCandidate.email}`} className="text-sm font-bold text-indigo-600 hover:underline flex items-center gap-1"><Mail className="w-4 h-4"/> {selectedCandidate.email}</a>
+                <a href={`tel:${selectedCandidate.mobile}`} className="text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"><Phone className="w-4 h-4"/> {selectedCandidate.mobile}</a>
+                <a href={`mailto:${selectedCandidate.email}`} className="text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"><Mail className="w-4 h-4"/> {selectedCandidate.email}</a>
               </div>
             </div>
 
             <div className="p-6 flex-1 space-y-6">
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-white p-4 rounded-xl border border-border shadow-sm">
+                <div className="bg-card p-4 rounded-xl border border-border shadow-sm">
                   <p className="text-xs font-bold text-secondary uppercase tracking-wider mb-2">Requirements</p>
                   <div className="space-y-1">
                     <p className="text-sm font-medium text-primary"><span className="text-secondary">Pref Room Type:</span> {selectedCandidate.preferredRoomType}</p>
@@ -220,7 +199,7 @@ export default function ManagerAdmissionsMain() {
                   </div>
                 </div>
                 
-                <div className="bg-white p-4 rounded-xl border border-border shadow-sm">
+                <div className="bg-card p-4 rounded-xl border border-border shadow-sm">
                   <p className="text-xs font-bold text-secondary uppercase tracking-wider mb-2">Allocation & Docs</p>
                   <div className="space-y-1">
                     <p className="text-sm font-medium text-primary flex items-center justify-between">
@@ -236,7 +215,7 @@ export default function ManagerAdmissionsMain() {
               </div>
 
               {/* Pipeline Flow Visualization */}
-              <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+              <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
                 <h3 className="font-bold text-primary mb-6 flex items-center gap-2">
                   <ArrowRight className="w-5 h-5 text-indigo-600" /> Operational Pipeline
                 </h3>
@@ -259,14 +238,14 @@ export default function ManagerAdmissionsMain() {
                           <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-colors ${
                             isPassed && !isCurrent ? 'bg-green-500 text-white' :
                             isCurrent ? 'bg-indigo-100 text-indigo-600 border-2 border-indigo-200 ring-4 ring-indigo-50' : 
-                            'bg-gray-100 text-gray-400 border-2 border-gray-200'
+                            'bg-page text-secondary border-2 border-border'
                           }`}>
                             {isPassed && !isCurrent ? <CheckCircle2 className="w-5 h-5" /> : <span className="text-sm font-bold">{idx+1}</span>}
                           </div>
                           <span className={`text-xs font-bold text-center ${isPassed || isCurrent ? 'text-primary' : 'text-secondary'}`}>{step}</span>
                         </div>
                         {idx < arr.length - 1 && (
-                          <div className={`h-1 w-8 md:flex-1 md:w-auto ${currentStepVal > thisStepVal ? 'bg-green-500' : 'bg-gray-200'}`}></div>
+                          <div className={`h-1 w-8 md:flex-1 md:w-auto ${currentStepVal > thisStepVal ? 'bg-green-500' : 'bg-border'}`}></div>
                         )}
                       </React.Fragment>
                     );
@@ -280,14 +259,14 @@ export default function ManagerAdmissionsMain() {
                   
                   {selectedCandidate.stage === 'Enquiry' && (
                     <div className="flex flex-wrap gap-3">
-                      <button className="bg-white border border-border text-primary hover:bg-gray-50 px-4 py-2 rounded-lg text-sm font-bold shadow-sm flex items-center gap-2"><MessageSquare className="w-4 h-4"/> Send Follow-up</button>
+                      <button className="bg-card border border-border text-primary hover:bg-page px-4 py-2 rounded-lg text-sm font-bold shadow-sm flex items-center gap-2"><MessageSquare className="w-4 h-4"/> Send Follow-up</button>
                       <button onClick={() => handleUpdateStage('Application')} className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm flex items-center gap-2">Convert to Application <ArrowRight className="w-4 h-4"/></button>
                     </div>
                   )}
 
                   {selectedCandidate.stage === 'Application' && (
                     <div className="flex flex-wrap gap-3">
-                      <button className="bg-white border border-border text-primary hover:bg-gray-50 px-4 py-2 rounded-lg text-sm font-bold shadow-sm flex items-center gap-2"><FileText className="w-4 h-4"/> Request Documents</button>
+                      <button className="bg-card border border-border text-primary hover:bg-page px-4 py-2 rounded-lg text-sm font-bold shadow-sm flex items-center gap-2"><FileText className="w-4 h-4"/> Request Documents</button>
                       <button onClick={() => handleUpdateStage('Verification')} className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm flex items-center gap-2">Move to Verification <ArrowRight className="w-4 h-4"/></button>
                     </div>
                   )}
@@ -405,7 +384,7 @@ export default function ManagerAdmissionsMain() {
                 <input type="text" placeholder="e.g. Walk-in, Google Ads, Reference" className="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:border-indigo-500" />
               </div>
 
-              <div className="p-4 border-t border-border/50 bg-gray-50 flex items-center justify-end gap-3 mt-4 -mx-6 -mb-6">
+              <div className="p-4 border-t border-border/50 bg-page/50 flex items-center justify-end gap-3 mt-4 -mx-6 -mb-6">
                 <button type="button" onClick={() => setEnquiryModalOpen(false)} className="px-4 py-2 font-bold text-secondary hover:text-primary transition-colors">Cancel</button>
                 <button type="submit" className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-md transition-all">
                   Save Enquiry

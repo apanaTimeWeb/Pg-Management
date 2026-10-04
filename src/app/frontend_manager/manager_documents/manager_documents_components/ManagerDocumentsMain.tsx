@@ -8,56 +8,39 @@ import {
   Lock, X, ChevronRight, User
 } from 'lucide-react';
 
-type DocStatus = 'Verified' | 'Pending' | 'Missing' | 'Correction Requested';
-
-interface StudentDoc {
-  type: string;
-  name: string;
-  status: DocStatus;
-  date?: string;
-  note?: string;
-}
-
-const DUMMY_STUDENTS = [
-  { id: 'S001', name: 'Rahul Sharma', room: '101', status: 'Pending Verification', docsCount: '3/6 Verified' },
-  { id: 'S002', name: 'Amit Kumar', room: '105', status: 'All Verified', docsCount: '6/6 Verified' },
-  { id: 'S003', name: 'Vikas Singh', room: '204', status: 'Action Required', docsCount: '4/6 Verified (1 Missing)' },
-  { id: 'S004', name: 'Suresh Patel', room: '302', status: 'Pending Verification', docsCount: '2/6 Verified' },
-];
-
-const INITIAL_DOCS: StudentDoc[] = [
-  { type: 'Photo', name: 'Passport Size Photo', status: 'Verified', date: '01 Oct 2026' },
-  { type: 'ID Proof', name: 'Aadhar Card Front & Back', status: 'Pending', date: '02 Oct 2026' },
-  { type: 'Address Proof', name: 'Electricity Bill', status: 'Correction Requested', date: '02 Oct 2026', note: 'Image is too blurry, please upload a clear scanned copy.' },
-  { type: 'Admission Form', name: 'Signed Admission Form', status: 'Verified', date: '01 Oct 2026' },
-  { type: 'Agreement', name: 'Rent Agreement', status: 'Missing' },
-  { type: 'Guardian Details', name: 'Guardian ID Proof', status: 'Pending', date: '03 Oct 2026' },
-];
+import { useManagerDocuments, StudentDoc, DocStatus, StudentWithDocs } from '../manager_documents_hooks/useManagerDocuments';
 
 export default function ManagerDocumentsMain() {
-  const [selectedStudent, setSelectedStudent] = useState(DUMMY_STUDENTS[0]);
-  const [documents, setDocuments] = useState<StudentDoc[]>(INITIAL_DOCS);
+  const { loading, students, documents, verifyDocument, requestCorrection, addNote } = useManagerDocuments();
+  
+  const [selectedStudent, setSelectedStudent] = useState<StudentWithDocs | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
 
   // Modal State
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [selectedDocToView, setSelectedDocToView] = useState<StudentDoc | null>(null);
 
+  React.useEffect(() => {
+    if (students.length > 0 && !selectedStudent) {
+      setSelectedStudent(students[0]);
+    }
+  }, [students, selectedStudent]);
+
   const handleVerify = (docName: string) => {
-    setDocuments(docs => docs.map(d => d.name === docName ? { ...d, status: 'Verified' } : d));
+    verifyDocument(docName);
   };
 
   const handleRequestCorrection = (docName: string) => {
     const note = window.prompt("Enter reason for correction:");
     if (note) {
-      setDocuments(docs => docs.map(d => d.name === docName ? { ...d, status: 'Correction Requested', note } : d));
+      requestCorrection(docName, note);
     }
   };
 
   const handleAddNote = (docName: string) => {
     const note = window.prompt("Enter note for this document:");
     if (note) {
-      setDocuments(docs => docs.map(d => d.name === docName ? { ...d, note } : d));
+      addNote(docName, note);
     }
   };
 
@@ -110,53 +93,68 @@ export default function ManagerDocumentsMain() {
           </div>
           
           <div className="flex-1 overflow-y-auto p-2 space-y-1">
-            {DUMMY_STUDENTS.map(student => (
-              <div 
-                key={student.id}
-                onClick={() => setSelectedStudent(student)}
-                className={`p-3 rounded-xl cursor-pointer transition-all ${
-                  selectedStudent.id === student.id 
-                    ? 'bg-indigo-50 border border-indigo-200 shadow-sm' 
-                    : 'bg-transparent border border-transparent hover:bg-page/50'
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <h4 className="font-bold text-primary">{student.name}</h4>
-                  <span className="text-xs font-bold text-secondary bg-white px-2 py-0.5 rounded border border-border">Rm: {student.room}</span>
-                </div>
-                <div className="flex items-center justify-between mt-2">
-                  <span className={`text-[10px] font-black uppercase tracking-wider ${
-                    student.status === 'All Verified' ? 'text-green-600' : 
-                    student.status === 'Action Required' ? 'text-red-600' : 'text-orange-600'
-                  }`}>
-                    {student.status}
-                  </span>
-                  <span className="text-[11px] font-medium text-secondary">{student.docsCount}</span>
-                </div>
+            {loading || students.length === 0 ? (
+              <div className="flex justify-center p-4">
+                {loading ? <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div> : <div className="text-secondary text-sm">No students found</div>}
               </div>
-            ))}
+            ) : (
+              students.map(student => {
+                if (searchTerm && !student.name.toLowerCase().includes(searchTerm.toLowerCase())) return null;
+                return (
+                  <div 
+                    key={student.id}
+                    onClick={() => setSelectedStudent(student)}
+                    className={`p-3 rounded-xl cursor-pointer transition-all ${
+                      selectedStudent?.id === student.id 
+                        ? 'bg-indigo-50 border border-indigo-200 shadow-sm' 
+                        : 'bg-transparent border border-transparent hover:bg-page/50'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-bold text-primary">{student.name}</h4>
+                      <span className="text-xs font-bold text-secondary bg-page px-2 py-0.5 rounded border border-border">Rm: {student.room}</span>
+                    </div>
+                    <div className="flex items-center justify-between mt-2">
+                      <span className={`text-[10px] font-black uppercase tracking-wider ${
+                        student.status === 'All Verified' ? 'text-green-600' : 
+                        student.status === 'Action Required' ? 'text-red-600' : 'text-orange-600'
+                      }`}>
+                        {student.status}
+                      </span>
+                      <span className="text-[11px] font-medium text-secondary">{student.docsCount}</span>
+                    </div>
+                  </div>
+                );
+              })
+            )}
           </div>
         </div>
 
         {/* Document View Area */}
         <div className="lg:col-span-3 bg-card border border-border/60 rounded-2xl shadow-sm flex flex-col min-h-0">
           
-          {/* Header Info */}
-          <div className="p-5 border-b border-border/50 bg-page/30 flex items-center justify-between shrink-0">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 border border-indigo-200">
-                <User className="w-6 h-6" />
-              </div>
-              <div>
-                <h2 className="text-xl font-black text-primary">{selectedStudent.name} <span className="text-sm font-bold text-secondary ml-2">ID: {selectedStudent.id}</span></h2>
-                <p className="text-sm text-secondary font-medium">Room {selectedStudent.room} • Documents for Verification</p>
-              </div>
+          {!selectedStudent ? (
+            <div className="flex-1 flex items-center justify-center p-8 text-center text-secondary">
+              Select a student to view documents
             </div>
-            
-            <button className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-md transition-all">
-              <Upload className="w-4 h-4" /> Upload Other Doc
-            </button>
-          </div>
+          ) : (
+            <>
+              {/* Header Info */}
+              <div className="p-5 border-b border-border/50 bg-page/30 flex items-center justify-between shrink-0">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 border border-indigo-200">
+                    <User className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-black text-primary">{selectedStudent.name} <span className="text-sm font-bold text-secondary ml-2">ID: {selectedStudent.id}</span></h2>
+                    <p className="text-sm text-secondary font-medium">Room {selectedStudent.room} • Documents for Verification</p>
+                  </div>
+                </div>
+                
+                <button className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-md transition-all">
+                  <Upload className="w-4 h-4" /> Upload Other Doc
+                </button>
+              </div>
 
           {/* Documents Table */}
           <div className="flex-1 overflow-y-auto">
@@ -202,7 +200,7 @@ export default function ManagerDocumentsMain() {
                         <button 
                           onClick={() => openViewModal(doc)}
                           disabled={doc.status === 'Missing'}
-                          className="p-2 bg-white border border-border/60 text-secondary hover:text-indigo-600 hover:border-indigo-200 rounded-lg shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="p-2 bg-card border border-border/60 text-secondary hover:text-indigo-600 hover:border-indigo-200 rounded-lg shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                           title="View Document"
                         >
                           <Eye className="w-4 h-4" />
@@ -212,7 +210,7 @@ export default function ManagerDocumentsMain() {
                         <button 
                           onClick={() => handleVerify(doc.name)}
                           disabled={doc.status === 'Verified' || doc.status === 'Missing'}
-                          className="p-2 bg-white border border-border/60 text-secondary hover:text-green-600 hover:border-green-200 rounded-lg shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="p-2 bg-card border border-border/60 text-secondary hover:text-green-600 hover:border-green-200 rounded-lg shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                           title="Mark as Verified"
                         >
                           <CheckCircle2 className="w-4 h-4" />
@@ -222,7 +220,7 @@ export default function ManagerDocumentsMain() {
                         <button 
                           onClick={() => handleRequestCorrection(doc.name)}
                           disabled={doc.status === 'Missing'}
-                          className="p-2 bg-white border border-border/60 text-secondary hover:text-orange-600 hover:border-orange-200 rounded-lg shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="p-2 bg-card border border-border/60 text-secondary hover:text-orange-600 hover:border-orange-200 rounded-lg shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                           title="Request Correction"
                         >
                           <AlertTriangle className="w-4 h-4" />
@@ -231,7 +229,7 @@ export default function ManagerDocumentsMain() {
                         {/* Upload Missing Action */}
                         {doc.status === 'Missing' && (
                           <button 
-                            className="p-2 bg-indigo-50 border border-indigo-200 text-indigo-600 hover:bg-indigo-100 rounded-lg shadow-sm transition-all"
+                            className="p-2 bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 rounded-lg shadow-sm transition-all"
                             title="Upload Document"
                           >
                             <Upload className="w-4 h-4" />
@@ -241,7 +239,7 @@ export default function ManagerDocumentsMain() {
                         {/* Add Note Action */}
                         <button 
                           onClick={() => handleAddNote(doc.name)}
-                          className="p-2 bg-white border border-border/60 text-secondary hover:text-primary rounded-lg shadow-sm transition-all"
+                          className="p-2 bg-card border border-border/60 text-secondary hover:text-primary rounded-lg shadow-sm transition-all"
                           title="Add Note"
                         >
                           <MessageSquare className="w-4 h-4" />
@@ -269,11 +267,13 @@ export default function ManagerDocumentsMain() {
               </tbody>
             </table>
           </div>
+            </>
+          )}
         </div>
       </div>
 
       {/* View Document Modal */}
-      {viewModalOpen && selectedDocToView && (
+      {viewModalOpen && selectedDocToView && selectedStudent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-200 p-4">
           <div className="bg-card w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
             {/* Modal Header */}
@@ -299,9 +299,9 @@ export default function ManagerDocumentsMain() {
             </div>
             
             {/* Modal Body - Document Viewer Placeholder */}
-            <div className="flex-1 bg-gray-100/50 p-6 flex flex-col items-center justify-center min-h-[400px] overflow-y-auto relative">
+            <div className="flex-1 bg-page/50 p-6 flex flex-col items-center justify-center min-h-[400px] overflow-y-auto relative">
               
-              <div className="w-full max-w-2xl bg-white aspect-[1/1.4] rounded-lg shadow-sm border border-border flex items-center justify-center relative overflow-hidden">
+              <div className="w-full max-w-2xl bg-card aspect-[1/1.4] rounded-lg shadow-sm border border-border flex items-center justify-center relative overflow-hidden">
                 {/* Watermark / Placeholder styling */}
                 <div className="absolute inset-0 opacity-5 flex items-center justify-center pointer-events-none">
                   <div className="rotate-[-45deg] text-6xl font-black whitespace-nowrap">SMART PG SECURE</div>
@@ -309,11 +309,11 @@ export default function ManagerDocumentsMain() {
                 
                 <div className="text-center p-8">
                   {selectedDocToView.type === 'Photo' ? (
-                    <div className="w-48 h-48 bg-gray-200 rounded-full mx-auto mb-4 border-4 border-white shadow-md flex items-center justify-center overflow-hidden">
-                      <User className="w-20 h-20 text-gray-400" />
+                    <div className="w-48 h-48 bg-page rounded-full mx-auto mb-4 border-4 border-border shadow-md flex items-center justify-center overflow-hidden">
+                      <User className="w-20 h-20 text-secondary" />
                     </div>
                   ) : (
-                    <FileText className="w-24 h-24 text-gray-300 mx-auto mb-4" />
+                    <FileText className="w-24 h-24 text-secondary/40 mx-auto mb-4" />
                   )}
                   <h4 className="text-xl font-bold text-primary">Document Preview</h4>
                   <p className="text-secondary mt-2 max-w-sm mx-auto">This is a secure preview of the document. The original file is encrypted and stored securely.</p>
@@ -323,7 +323,7 @@ export default function ManagerDocumentsMain() {
             </div>
 
             {/* Modal Footer - Actions */}
-            <div className="p-4 border-t border-border/50 bg-white flex items-center justify-between shrink-0">
+            <div className="p-4 border-t border-border/50 bg-card flex items-center justify-between shrink-0">
               <button 
                 onClick={() => {
                   handleRequestCorrection(selectedDocToView.name);

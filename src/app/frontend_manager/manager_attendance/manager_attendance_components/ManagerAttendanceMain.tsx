@@ -7,52 +7,30 @@ import {
   CalendarOff, Users, UserCheck, Calendar, Filter, FileText, Lock
 } from 'lucide-react';
 
-type AttendanceStatus = 'Present' | 'Absent' | 'Leave' | 'Late' | 'Unmarked';
+import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
+import { useManagerAttendance } from '../manager_attendance_hooks/useManagerAttendance';
+import type { AttendanceStatus, AttendanceRecord } from '../manager_attendance_hooks/useManagerAttendance';
+
 type TabType = 'students' | 'staff';
 
-interface AttendanceRecord {
-  id: string;
-  name: string;
-  room?: string; // For students
-  role?: string; // For staff
-  status: AttendanceStatus;
-  time?: string;
-  note?: string;
-}
-
-const INITIAL_STUDENTS: AttendanceRecord[] = [
-  { id: 'ST-01', name: 'Rahul Sharma', room: '102', status: 'Unmarked' },
-  { id: 'ST-02', name: 'Amit Kumar', room: '205', status: 'Unmarked' },
-  { id: 'ST-03', name: 'Suresh Patel', room: '304', status: 'Leave', note: 'Medical Leave' },
-  { id: 'ST-04', name: 'Vikas Singh', room: '105', status: 'Unmarked' },
-  { id: 'ST-05', name: 'Ajay Verma', room: '110', status: 'Unmarked' },
-];
-
-const INITIAL_STAFF: AttendanceRecord[] = [
-  { id: 'EMP-01', name: 'Ramesh (Electrician)', role: 'Maintenance', status: 'Unmarked' },
-  { id: 'EMP-02', name: 'Sita Devi', role: 'Cook', status: 'Unmarked' },
-  { id: 'EMP-03', name: 'Mohan Singh', role: 'Guard', status: 'Unmarked' },
-  { id: 'EMP-04', name: 'Sunita', role: 'Cleaner', status: 'Unmarked' },
-];
-
 export default function ManagerAttendanceMain() {
+  const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
+  const { students, staff, loading, markStudentAttendance, markStaffAttendance, markAllStudentsPresent } = useManagerAttendance(selectedPropertyId, ctxLoading, 'manager-1');
+
   const [activeTab, setActiveTab] = useState<TabType>('students');
   const [dateFilter, setDateFilter] = useState('Today');
   const [searchTerm, setSearchTerm] = useState('');
-  
-  const [students, setStudents] = useState<AttendanceRecord[]>(INITIAL_STUDENTS);
-  const [staff, setStaff] = useState<AttendanceRecord[]>(INITIAL_STAFF);
 
   const handleStudentStatusChange = (id: string, status: AttendanceStatus) => {
-    setStudents(prev => prev.map(s => s.id === id ? { ...s, status, time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) } : s));
+    markStudentAttendance(id, status);
   };
 
   const handleStaffStatusChange = (id: string, status: AttendanceStatus) => {
-    setStaff(prev => prev.map(s => s.id === id ? { ...s, status, time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) } : s));
+    markStaffAttendance(id, status);
   };
 
   const handleBulkMarkPresent = () => {
-    setStudents(prev => prev.map(s => s.status === 'Unmarked' ? { ...s, status: 'Present', time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) } : s));
+    markAllStudentsPresent();
   };
 
   const filteredStudents = students.filter(s => 
@@ -64,6 +42,10 @@ export default function ManagerAttendanceMain() {
     s.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
     (s.role && s.role.toLowerCase().includes(searchTerm.toLowerCase()))
   );
+
+  if (loading || ctxLoading) {
+    return <div className="p-8 flex items-center justify-center min-h-[50vh]"><div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div></div>;
+  }
 
   return (
     <div className="p-4 md:p-8 space-y-6 animate-in fade-in duration-500 w-full h-[calc(100vh-4rem)] flex flex-col">
@@ -87,20 +69,20 @@ export default function ManagerAttendanceMain() {
         <div className="flex items-center gap-1 p-2 border-b border-border/50 bg-page/30 shrink-0">
           <button 
             onClick={() => setActiveTab('students')}
-            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap flex items-center gap-2 ${activeTab === 'students' ? 'bg-white text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
+            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap flex items-center gap-2 ${activeTab === 'students' ? 'bg-card text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
           >
             <Users className="w-4 h-4" /> Student Attendance
           </button>
           <button 
             onClick={() => setActiveTab('staff')}
-            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap flex items-center gap-2 ${activeTab === 'staff' ? 'bg-white text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
+            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap flex items-center gap-2 ${activeTab === 'staff' ? 'bg-card text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
           >
             <UserCheck className="w-4 h-4" /> Staff Attendance
           </button>
         </div>
 
         {/* Filters & Search */}
-        <div className="p-4 border-b border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white shrink-0">
+        <div className="p-4 border-b border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-card shrink-0">
           
           <div className="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-1 sm:pb-0">
             {['Today', 'Yesterday', 'This Week', 'This Month'].map(date => (
@@ -147,7 +129,7 @@ export default function ManagerAttendanceMain() {
           {activeTab === 'students' && (
             <div className="animate-in fade-in duration-300">
               
-              <div className="p-4 bg-white border-b border-border/50 flex items-center justify-between sticky top-0 z-10">
+              <div className="p-4 bg-card border-b border-border/50 flex items-center justify-between sticky top-0 z-10">
                 <div>
                   <h3 className="font-bold text-primary">Marking Attendance for: {dateFilter}</h3>
                   <p className="text-xs text-secondary mt-0.5">Total: {students.length} | Unmarked: {students.filter(s => s.status === 'Unmarked').length}</p>
@@ -162,7 +144,7 @@ export default function ManagerAttendanceMain() {
 
               <div className="p-4 space-y-3">
                 {filteredStudents.map(student => (
-                  <div key={student.id} className="bg-white p-4 rounded-xl border border-border shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <div key={student.id} className="bg-card p-4 rounded-xl border border-border shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
                         <h4 className="font-bold text-primary truncate">{student.name}</h4>
@@ -225,7 +207,7 @@ export default function ManagerAttendanceMain() {
 
               <div className="p-4 space-y-3 mt-2">
                 {filteredStaff.map(emp => (
-                  <div key={emp.id} className="bg-white p-4 rounded-xl border border-border shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <div key={emp.id} className="bg-card p-4 rounded-xl border border-border shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
                         <h4 className="font-bold text-primary truncate">{emp.name}</h4>

@@ -8,6 +8,7 @@ import { Home, IndianRupee, Bell, LogOut, User, Menu, X, ShieldCheck } from 'luc
 
 import { getSession, clearSession } from '@/app/frontend_parent/parent_lib/parent_auth/ParentSession';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { LogoutModal } from '@/components/ui/LogoutModal';
 
 const NAV_ITEMS = [
   { key: 'dashboard', label: 'Dashboard', href: '/parent/dashboard', icon: Home },
@@ -20,9 +21,15 @@ function ParentLayoutInner({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const user = typeof window !== 'undefined' ? getSession() : null;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
-  const handleLogout = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleLogout = (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    setIsMobileMenuOpen(false);
+    setIsLogoutModalOpen(true);
+  };
+
+  const handleConfirmLogout = () => {
     clearSession();
     router.push('/');
   };
@@ -132,6 +139,12 @@ function ParentLayoutInner({ children }: { children: React.ReactNode }) {
           ))}
         </div>
       </div>
+
+      <LogoutModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={handleConfirmLogout}
+      />
     </div>
   );
 }

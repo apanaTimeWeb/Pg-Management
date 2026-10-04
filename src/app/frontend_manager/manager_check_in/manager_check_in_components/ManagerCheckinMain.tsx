@@ -77,13 +77,13 @@ export default function ManagerCheckInMain() {
         <div className="flex items-center gap-1 p-2 border-b border-border/50 bg-page/30 shrink-0">
           <button 
             onClick={() => setActiveTab('checkin')}
-            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap flex items-center gap-2 ${activeTab === 'checkin' ? 'bg-white text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
+            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap flex items-center gap-2 ${activeTab === 'checkin' ? 'bg-card text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
           >
             <LogIn className="w-4 h-4" /> Check-In Flow
           </button>
           <button 
             onClick={() => setActiveTab('checkout')}
-            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap flex items-center gap-2 ${activeTab === 'checkout' ? 'bg-white text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
+            className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-colors whitespace-nowrap flex items-center gap-2 ${activeTab === 'checkout' ? 'bg-card text-indigo-600 shadow-sm border border-border/50' : 'text-secondary hover:bg-page hover:text-primary'}`}
           >
             <LogOut className="w-4 h-4" /> Check-Out Flow
           </button>
@@ -140,7 +140,7 @@ export default function ManagerCheckInMain() {
             {activeTab === 'checkin' && (
               <div className="flex flex-col h-full">
                 
-                <div className="p-6 border-b border-border/50 bg-white shrink-0">
+                <div className="p-6 border-b border-border/50 bg-card shrink-0">
                   <h2 className="text-xl font-black text-primary leading-tight">{selectedIn.name} <span className="text-sm font-bold text-secondary ml-2 bg-page px-2 py-1 rounded border border-border">Admission ID: {selectedIn.id}</span></h2>
                   <p className="text-sm font-bold text-secondary mt-1">Assigned: Room {selectedIn.room} • Bed {selectedIn.bed}</p>
                 </div>
@@ -151,8 +151,8 @@ export default function ManagerCheckInMain() {
                   <div className="flex items-center justify-between relative before:absolute before:inset-0 before:top-1/2 before:-translate-y-1/2 before:h-1 before:bg-border/60 before:-z-10">
                     {[1,2,3,4,5].map(step => (
                       <div key={step} className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shadow-sm transition-all ${
-                        stepIn === step ? 'bg-indigo-600 text-white ring-4 ring-indigo-100' : 
-                        step < stepIn ? 'bg-green-500 text-white' : 'bg-white text-secondary border border-border'
+                        stepIn === step ? 'bg-indigo-600 text-white ring-4 ring-indigo-100 dark:ring-indigo-950/50' : 
+                        step < stepIn ? 'bg-green-500 text-white' : 'bg-card text-secondary border border-border'
                       }`}>
                         {step < stepIn ? <CheckCircle2 className="w-4 h-4"/> : step}
                       </div>
@@ -160,7 +160,7 @@ export default function ManagerCheckInMain() {
                   </div>
 
                   {/* Check-in Forms based on Step */}
-                  <div className="bg-white p-6 rounded-2xl border border-border shadow-sm min-h-[300px]">
+                  <div className="bg-card p-6 rounded-2xl border border-border shadow-sm min-h-[300px]">
                     
                     {stepIn === 1 && (
                       <div className="space-y-4 animate-in slide-in-from-right-4 duration-300">
@@ -267,7 +267,7 @@ export default function ManagerCheckInMain() {
                   <button 
                     onClick={handlePrevIn}
                     disabled={stepIn === 1}
-                    className="px-6 py-2.5 bg-white border border-border/60 text-secondary hover:text-primary rounded-xl text-sm font-bold shadow-sm transition-all disabled:opacity-50"
+                    className="px-6 py-2.5 bg-card border border-border/60 text-secondary hover:text-primary rounded-xl text-sm font-bold shadow-sm transition-all disabled:opacity-50"
                   >
                     Previous
                   </button>
@@ -298,7 +298,7 @@ export default function ManagerCheckInMain() {
             {activeTab === 'checkout' && (
               <div className="flex flex-col h-full">
                 
-                <div className="p-6 border-b border-border/50 bg-white shrink-0 relative overflow-hidden">
+                <div className="p-6 border-b border-border/50 bg-card shrink-0 relative overflow-hidden">
                   <div className="absolute top-0 right-0 p-4 opacity-10">
                     <LogOut className="w-24 h-24 text-orange-600" />
                   </div>
@@ -312,8 +312,8 @@ export default function ManagerCheckInMain() {
                   <div className="flex items-center justify-between relative before:absolute before:inset-0 before:top-1/2 before:-translate-y-1/2 before:h-1 before:bg-border/60 before:-z-10">
                     {[1,2,3,4,5].map(step => (
                       <div key={step} className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shadow-sm transition-all ${
-                        stepOut === step ? 'bg-orange-600 text-white ring-4 ring-orange-100' : 
-                        step < stepOut ? 'bg-green-500 text-white' : 'bg-white text-secondary border border-border'
+                        stepOut === step ? 'bg-orange-600 text-white ring-4 ring-orange-100 dark:ring-orange-950/50' : 
+                        step < stepOut ? 'bg-green-500 text-white' : 'bg-card text-secondary border border-border'
                       }`}>
                         {step < stepOut ? <CheckCircle2 className="w-4 h-4"/> : step}
                       </div>
@@ -321,7 +321,7 @@ export default function ManagerCheckInMain() {
                   </div>
 
                   {/* Check-out Forms */}
-                  <div className="bg-white p-6 rounded-2xl border border-border shadow-sm min-h-[300px]">
+                  <div className="bg-card p-6 rounded-2xl border border-border shadow-sm min-h-[300px]">
                     
                     {stepOut === 1 && (
                       <div className="space-y-4 animate-in slide-in-from-right-4 duration-300">
@@ -444,7 +444,7 @@ export default function ManagerCheckInMain() {
                   <button 
                     onClick={handlePrevOut}
                     disabled={stepOut === 1}
-                    className="px-6 py-2.5 bg-white border border-border/60 text-secondary hover:text-primary rounded-xl text-sm font-bold shadow-sm transition-all disabled:opacity-50"
+                    className="px-6 py-2.5 bg-card border border-border/60 text-secondary hover:text-primary rounded-xl text-sm font-bold shadow-sm transition-all disabled:opacity-50"
                   >
                     Previous
                   </button>

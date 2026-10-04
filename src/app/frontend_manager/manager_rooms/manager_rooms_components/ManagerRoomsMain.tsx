@@ -8,61 +8,36 @@ import {
   Calendar, X, RefreshCw
 , LogOut} from 'lucide-react';
 
-type BedStatus = 'Available' | 'Reserved' | 'Occupied' | 'Maintenance' | 'Blocked';
+import { useManagerPropertyContext } from '@/app/frontend_manager/manager_components/ManagerPropertyContext';
 
-interface BedData {
-  id: string;
-  bedName: string;
-  status: BedStatus;
-  student?: string;
-  studentId?: string;
-  rent: number;
-}
-
-interface RoomData {
-  id: string;
-  roomNumber: string;
-  floor: string;
-  building: string;
-  roomType: string;
-  capacity: number;
-  beds: BedData[];
-}
-
-const INITIAL_ROOMS: RoomData[] = [
-  {
-    id: 'R-101', roomNumber: '101', floor: '1st Floor', building: 'Block A', roomType: '2 Sharing', capacity: 2,
-    beds: [
-      { id: 'B-101-A', bedName: '101-A', status: 'Occupied', student: 'Rahul Sharma', studentId: 'ST-01', rent: 8000 },
-      { id: 'B-101-B', bedName: '101-B', status: 'Available', rent: 8000 },
-    ]
-  },
-  {
-    id: 'R-102', roomNumber: '102', floor: '1st Floor', building: 'Block A', roomType: '3 Sharing', capacity: 3,
-    beds: [
-      { id: 'B-102-A', bedName: '102-A', status: 'Occupied', student: 'Amit Kumar', studentId: 'ST-02', rent: 6000 },
-      { id: 'B-102-B', bedName: '102-B', status: 'Reserved', student: 'New Admission (Pending)', rent: 6000 },
-      { id: 'B-102-C', bedName: '102-C', status: 'Maintenance', rent: 6000 },
-    ]
-  },
-  {
-    id: 'R-201', roomNumber: '201', floor: '2nd Floor', building: 'Block A', roomType: '1 Sharing', capacity: 1,
-    beds: [
-      { id: 'B-201-A', bedName: '201-A', status: 'Blocked', rent: 12000 },
-    ]
-  },
-];
+import { useManagerRooms } from '../manager_rooms_hooks/useManagerRooms';
+import type { RoomData, BedData, BedStatus } from '../manager_rooms_hooks/useManagerRooms';
 
 export default function ManagerRoomsMain() {
-  const [rooms, setRooms] = useState<RoomData[]>(INITIAL_ROOMS);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterFloor, setFilterFloor] = useState('All');
+  const { selectedPropertyId, loading: ctxLoading } = useManagerPropertyContext();
+  
+  const { 
+    filteredRooms, loading, 
+    searchQuery: searchTerm, setSearchQuery: setSearchTerm,
+    filterFloor, setFilterFloor,
+    loadData
+  } = useManagerRooms(selectedPropertyId, ctxLoading, 'manager-1');
+
+  const [rooms, setRooms] = useState<RoomData[]>([]);
+
+  React.useEffect(() => {
+    setRooms(filteredRooms);
+  }, [filteredRooms]);
 
   // Modals
   const [selectedBed, setSelectedBed] = useState<{room: RoomData, bed: BedData} | null>(null);
   const [transferModalOpen, setTransferModalOpen] = useState(false);
   const [targetBedId, setTargetBedId] = useState('');
   const [transferReason, setTransferReason] = useState('');
+
+  if (loading || ctxLoading) {
+    return <div className="p-8 flex items-center justify-center min-h-[50vh]"><div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div></div>;
+  }
 
   const getStatusColor = (status: BedStatus) => {
     switch (status) {
@@ -171,25 +146,25 @@ export default function ManagerRoomsMain() {
 
       {/* Top Metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 shrink-0">
-        <div className="bg-white p-4 rounded-xl border border-border shadow-sm">
+        <div className="bg-card p-4 rounded-xl border border-border shadow-sm">
           <p className="text-xs font-bold text-secondary uppercase">Total Capacity</p>
-          <h3 className="text-xl font-black text-primary mt-1">120</h3>
+          <h3 className="text-xl font-black text-primary mt-1">{rooms.reduce((acc, r) => acc + r.capacity, 0)}</h3>
         </div>
-        <div className="bg-purple-50 p-4 rounded-xl border border-purple-200 shadow-sm">
-          <p className="text-xs font-bold text-purple-700 uppercase">Occupied</p>
-          <h3 className="text-xl font-black text-purple-800 mt-1">{getOccupiedBedsCount()}</h3>
+        <div className="bg-purple-50 dark:bg-purple-950/20 p-4 rounded-xl border border-purple-200 dark:border-purple-900/30 shadow-sm">
+          <p className="text-xs font-bold text-purple-700 dark:text-purple-300 uppercase">Occupied</p>
+          <h3 className="text-xl font-black text-purple-800 dark:text-purple-200 mt-1">{getOccupiedBedsCount()}</h3>
         </div>
-        <div className="bg-green-50 p-4 rounded-xl border border-green-200 shadow-sm">
-          <p className="text-xs font-bold text-green-700 uppercase">Available</p>
-          <h3 className="text-xl font-black text-green-800 mt-1">{getAvailableBedsCount()}</h3>
+        <div className="bg-green-50 dark:bg-green-950/20 p-4 rounded-xl border border-green-200 dark:border-green-900/30 shadow-sm">
+          <p className="text-xs font-bold text-green-700 dark:text-green-300 uppercase">Available</p>
+          <h3 className="text-xl font-black text-green-800 dark:text-green-200 mt-1">{getAvailableBedsCount()}</h3>
         </div>
-        <div className="bg-blue-50 p-4 rounded-xl border border-blue-200 shadow-sm">
-          <p className="text-xs font-bold text-blue-700 uppercase">Reserved</p>
-          <h3 className="text-xl font-black text-blue-800 mt-1">1</h3>
+        <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-xl border border-blue-200 dark:border-blue-900/30 shadow-sm">
+          <p className="text-xs font-bold text-blue-700 dark:text-blue-300 uppercase">Reserved</p>
+          <h3 className="text-xl font-black text-blue-800 dark:text-blue-200 mt-1">{rooms.reduce((acc, room) => acc + room.beds.filter(b => b.status === 'Reserved').length, 0)}</h3>
         </div>
-        <div className="bg-orange-50 p-4 rounded-xl border border-orange-200 shadow-sm">
-          <p className="text-xs font-bold text-orange-700 uppercase">Maintenance</p>
-          <h3 className="text-xl font-black text-orange-800 mt-1">1</h3>
+        <div className="bg-orange-50 dark:bg-orange-950/20 p-4 rounded-xl border border-orange-200 dark:border-orange-900/30 shadow-sm">
+          <p className="text-xs font-bold text-orange-700 dark:text-orange-300 uppercase">Maintenance</p>
+          <h3 className="text-xl font-black text-orange-800 dark:text-orange-200 mt-1">{rooms.reduce((acc, room) => acc + room.beds.filter(b => b.status === 'Maintenance').length, 0)}</h3>
         </div>
       </div>
 
@@ -205,7 +180,7 @@ export default function ManagerRoomsMain() {
                 className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
                   filterFloor === floor 
                     ? 'bg-indigo-600 text-white border-indigo-600' 
-                    : 'bg-white text-secondary border-border/60 hover:border-indigo-300'
+                    : 'bg-card text-secondary border-border/60 hover:border-indigo-300'
                 }`}
               >
                 {floor}
@@ -225,12 +200,12 @@ export default function ManagerRoomsMain() {
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-6 bg-gray-50/30">
+        <div className="flex-1 overflow-y-auto p-6 bg-page/30">
           
           <div className="space-y-8">
             {rooms.filter(r => (filterFloor === 'All' || r.floor === filterFloor) && (r.roomNumber.includes(searchTerm) || r.beds.some(b => b.student?.toLowerCase().includes(searchTerm.toLowerCase())))).map(room => (
               
-              <div key={room.id} className="bg-white p-5 rounded-2xl border border-border shadow-sm">
+              <div key={room.id} className="bg-card p-5 rounded-2xl border border-border shadow-sm">
                 
                 <div className="flex items-center justify-between mb-4 pb-3 border-b border-border/50">
                   <div className="flex items-center gap-4">
@@ -301,7 +276,7 @@ export default function ManagerRoomsMain() {
                 </h3>
                 <p className="text-sm font-bold text-secondary mt-1">Room {selectedBed.room.roomNumber}</p>
               </div>
-              <button onClick={() => setSelectedBed(null)} className="text-secondary hover:text-red-500 p-2 bg-white rounded-full border border-border">
+              <button onClick={() => setSelectedBed(null)} className="text-secondary hover:text-red-500 p-2 bg-card rounded-full border border-border">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -328,10 +303,10 @@ export default function ManagerRoomsMain() {
 
                 {selectedBed.bed.status === 'Available' && (
                   <>
-                    <button onClick={() => handleBedAction('maintenance')} className="w-full py-3 bg-white border border-orange-200 text-orange-600 hover:bg-orange-50 rounded-xl text-sm font-bold shadow-sm transition-all flex items-center gap-2">
+                    <button onClick={() => handleBedAction('maintenance')} className="w-full py-3 bg-card border border-orange-200 dark:border-orange-900/30 text-orange-600 hover:bg-page rounded-xl text-sm font-bold shadow-sm transition-all flex items-center gap-2">
                       <Wrench className="w-4 h-4" /> Mark for Maintenance
                     </button>
-                    <button onClick={() => handleBedAction('blocked')} className="w-full py-3 bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 rounded-xl text-sm font-bold shadow-sm transition-all flex items-center gap-2">
+                    <button onClick={() => handleBedAction('blocked')} className="w-full py-3 bg-card border border-border text-secondary hover:bg-page rounded-xl text-sm font-bold shadow-sm transition-all flex items-center gap-2">
                       <Lock className="w-4 h-4" /> Block Bed (Owner Request)
                     </button>
                   </>
@@ -342,7 +317,7 @@ export default function ManagerRoomsMain() {
                     <button onClick={() => handleBedAction('transfer')} className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold shadow-md transition-all flex items-center justify-center gap-2">
                       <ArrowRightLeft className="w-4 h-4" /> Transfer Student
                     </button>
-                    <button onClick={() => alert('Please use the Check-Out flow to release a bed properly.')} className="w-full py-3 bg-white border border-red-200 text-red-600 hover:bg-red-50 rounded-xl text-sm font-bold shadow-sm transition-all flex items-center justify-center gap-2">
+                    <button onClick={() => alert('Please use the Check-Out flow to release a bed properly.')} className="w-full py-3 bg-card border border-red-200 dark:border-red-900/30 text-red-600 hover:bg-page rounded-xl text-sm font-bold shadow-sm transition-all flex items-center justify-center gap-2">
                       <LogOut className="w-4 h-4" /> Initiate Check-Out
                     </button>
                   </>
@@ -375,7 +350,7 @@ export default function ManagerRoomsMain() {
             
             <form onSubmit={handleTransferConfirm} className="p-6 space-y-6">
               
-              <div className="flex items-center gap-4 p-4 bg-white border border-border rounded-xl shadow-sm">
+              <div className="flex items-center gap-4 p-4 bg-page border border-border/70 rounded-xl shadow-sm">
                 <div className="flex-1 text-center">
                   <p className="text-xs font-bold text-secondary uppercase tracking-wider">Current Bed</p>
                   <p className="font-black text-primary mt-1 text-lg">{selectedBed.bed.bedName}</p>

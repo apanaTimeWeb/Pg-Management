@@ -16,6 +16,7 @@ import { useManagerPropertyContext } from '@/app/frontend_manager/manager_compon
 import { useManagerI18n } from '@/app/frontend_manager/ManagerI18n';
 import { ManagerForcePasswordChangeModal } from '@/app/frontend_manager/manager_components/ManagerForcePasswordChangeModal';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { LogoutModal } from '@/components/ui/LogoutModal';
 
 import type { DictKey } from '@/app/frontend_manager/ManagerI18n';
 import '../manager-theme.css';
@@ -28,6 +29,7 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
   const { lang, setLang, t } = useManagerI18n();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
   console.log('ManagerLayout render ' + JSON.stringify({ selectedPropertyId, propCount: properties.length }));
   useEffect(() => {
@@ -35,13 +37,18 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
   }, [pathname]);
   const handleLogout = (e: React.MouseEvent) => {
     e.preventDefault();
-    if(typeof window !== 'undefined'){ 
-      clearSession(); 
-      window.location.href='/'; 
+    setIsProfileMenuOpen(false);
+    setIsLogoutModalOpen(true);
+  };
+  const handleConfirmLogout = () => {
+    setIsLogoutModalOpen(false);
+    if (typeof window !== 'undefined') {
+      clearSession();
+      window.location.href = '/';
     }
   };
   return (
-    <div className="min-h-screen flex flex-col md:flex-row" style={{ background: 'var(--bg-page)' }}>
+    <div className="min-h-screen flex flex-col md:flex-row manager-portal manager-theme bg-page text-primary" style={{ background: 'var(--bg-page)', color: 'var(--text-primary)' }}>
       <ManagerForcePasswordChangeModal 
         user={user} 
         onSuccess={() => { /* handled internally */ }} 
@@ -74,31 +81,31 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
           {isProfileMenuOpen && (
             <>
               <div className="fixed inset-0 z-40" onClick={() => setIsProfileMenuOpen(false)}></div>
-              <div className="absolute right-0 top-full mt-3 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 z-50 overflow-hidden py-1 animate-in slide-in-from-top-2 fade-in duration-200">
-                <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 flex items-center gap-3">
+              <div className="absolute right-0 top-full mt-3 w-64 bg-card rounded-xl shadow-2xl border border-border z-50 overflow-hidden py-1 animate-in slide-in-from-top-2 fade-in duration-200">
+                <div className="px-4 py-3 border-b border-border bg-page/50 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-[#F5A623] flex items-center justify-center text-white text-lg font-bold">
                     {user?.name?.[0]?.toUpperCase() || 'M'}
                   </div>
                   <div className="overflow-hidden">
-                    <p className="text-sm font-bold text-gray-900 dark:text-white truncate">{user?.name || 'Manager'}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user?.email || 'manager@example.com'}</p>
+                    <p className="text-sm font-bold text-primary truncate">{user?.name || 'Manager'}</p>
+                    <p className="text-xs text-secondary truncate">{user?.email || 'manager@example.com'}</p>
                   </div>
                 </div>
                 
                 <div className="py-2">
-                  <Link href="/frontend_manager/manager_profile" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 font-semibold transition-colors">
-                    <User className="w-4 h-4 mr-3 text-gray-400 dark:text-gray-500" /> My Profile
+                  <Link href="/frontend_manager/manager_profile" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2.5 text-sm text-primary hover:bg-page font-semibold transition-colors">
+                    <User className="w-4 h-4 mr-3 text-secondary" /> My Profile
                   </Link>
-                  <Link href="/frontend_manager/manager_profile?tab=personal" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 font-semibold transition-colors">
-                    <FileText className="w-4 h-4 mr-3 text-gray-400 dark:text-gray-500" /> Personal Information
+                  <Link href="/frontend_manager/manager_profile?tab=personal" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2.5 text-sm text-primary hover:bg-page font-semibold transition-colors">
+                    <FileText className="w-4 h-4 mr-3 text-secondary" /> Personal Information
                   </Link>
-                  <Link href="/frontend_manager/manager_profile?tab=security" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 font-semibold transition-colors">
-                    <ShieldCheck className="w-4 h-4 mr-3 text-gray-400 dark:text-gray-500" /> Security Settings
+                  <Link href="/frontend_manager/manager_profile?tab=security" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2.5 text-sm text-primary hover:bg-page font-semibold transition-colors">
+                    <ShieldCheck className="w-4 h-4 mr-3 text-secondary" /> Security Settings
                   </Link>
                 </div>
                 
-                <div className="border-t border-gray-200 dark:border-gray-700 py-1.5 bg-gray-50 dark:bg-gray-900/30">
-                  <button onClick={handleLogout} className="flex items-center w-full px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/50 hover:text-red-700 dark:hover:text-red-300 font-bold transition-colors">
+                <div className="border-t border-border py-1.5 bg-page/40">
+                  <button onClick={handleLogout} className="flex items-center w-full px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 hover:text-red-700 dark:hover:text-red-300 font-bold transition-colors">
                     <LogOut className="w-4 h-4 mr-3" /> Logout
                   </button>
                 </div>
@@ -242,10 +249,15 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
             </button>
           </div>
         </header>
-        <div className="flex-1 p-4 md:p-6 overflow-x-hidden" style={{ color: 'var(--text-primary)' }}>
+        <div className="flex-1 overflow-x-hidden w-full" style={{ color: 'var(--text-primary)' }}>
           {children}
         </div>
       </main>
+      <LogoutModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={handleConfirmLogout}
+      />
     </div>
   );
 }
