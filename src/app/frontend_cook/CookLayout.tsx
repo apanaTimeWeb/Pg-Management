@@ -191,13 +191,8 @@ export function CookLayout({ children }: { children: React.ReactNode }) {
       )}
 
       {/* Sidebar */}
-      <aside className={`
-        fixed inset-y-0 left-0 z-50 w-64 bg-sidebar border-r border-border overflow-y-auto shrink-0
-        transform transition-transform motion-safe:duration-300 motion-safe:ease-in-out
-        ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
-        md:relative md:translate-x-0 md:sticky md:top-0 md:h-screen
-      `}>
-        <div className="flex items-center justify-between p-6 border-b border-border shrink-0 sticky top-0 bg-sidebar z-10">
+      <aside className={`w-64 bg-card border-r border-border flex-col sticky top-0 h-screen shrink-0 z-50 overflow-y-auto ${isMobileMenuOpen ? 'flex absolute left-0 shadow-2xl' : 'hidden md:flex'}`}>
+        <div className="flex items-center justify-between p-6 border-b border-border shrink-0 sticky top-0 bg-card z-10">
           <div className="flex flex-col">
             <div className="flex items-center gap-2 font-bold text-xl text-primary">
               <Utensils className="text-primary w-7 h-7" />
