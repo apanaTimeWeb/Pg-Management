@@ -116,12 +116,7 @@ export function ManagerLayout({ children }: { children: React.ReactNode }) {
       )}
       {/* Sidebar - Dark Navy with Gold Active Items */}
       <aside
-        className={`
-          fixed inset-y-0 left-0 z-50 w-64 overflow-y-auto shrink-0
-          transform transition-transform motion-safe:duration-300 motion-safe:ease-in-out
-          ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
-          md:translate-x-0 md:sticky md:top-0 md:h-screen
-        `}
+        className={`w-64 flex-col sticky top-0 h-screen shrink-0 z-50 overflow-y-auto ${isMobileMenuOpen ? 'flex absolute left-0 shadow-2xl' : 'hidden md:flex'}`}
         style={{ background: '#1A3A5C', borderRight: '1px solid rgba(255,255,255,0.08)' }}
       >
         {/* Sidebar Header */}

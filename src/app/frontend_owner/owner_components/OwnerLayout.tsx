@@ -275,13 +275,8 @@ export function OwnerLayout({ children }: { children: React.ReactNode }) {
       )}
 
       {/* Sidebar */}
-      <aside className={`
-        fixed inset-y-0 left-0 z-50 w-64 overflow-y-auto shrink-0
-        transform transition-transform motion-safe:duration-300 motion-safe:ease-in-out
-        ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
-        md:relative md:translate-x-0 md:sticky md:top-0 md:h-screen
-        scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent
-      `} style={{ background: 'var(--bg-sidebar)', borderRight: '1px solid var(--border)' }}>
+      <aside className={`w-64 flex-col sticky top-0 h-screen shrink-0 z-50 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent ${isMobileMenuOpen ? 'flex absolute left-0 shadow-2xl' : 'hidden md:flex'}`}
+       style={{ background: 'var(--bg-sidebar)', borderRight: '1px solid var(--border)' }}>
         {/* Sidebar Header */}
         <div
           className="flex items-center justify-between px-5 py-4 shrink-0 sticky top-0 z-10"
