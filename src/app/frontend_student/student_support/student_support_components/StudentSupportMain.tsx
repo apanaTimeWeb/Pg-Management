@@ -52,7 +52,7 @@ export function StudentSupportMain() {
   const [expandedTicket, setExpandedTicket] = useState<string | null>(null);
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-6 pb-12">
+    <div className="w-full space-y-6 pb-12">
       <div>
         <h1 className="text-2xl font-black text-primary flex items-center gap-2">
           <HelpCircle className="w-6 h-6 text-primary" /> Help & Support

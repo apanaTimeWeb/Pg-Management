@@ -6,7 +6,7 @@ import { MessageSquareWarning, Download, Edit3, Plus, Search, Info, CalendarOff,
 export default function StudentMyComplaintsPage() {
   
   return (
-    <div className="p-4 md:p-8 space-y-6 animate-in fade-in duration-500 max-w-5xl mx-auto">
+    <div className="p-4 md:p-8 space-y-6 animate-in fade-in duration-500 w-full">
       
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-card p-6 rounded-2xl shadow-sm border border-border/50">

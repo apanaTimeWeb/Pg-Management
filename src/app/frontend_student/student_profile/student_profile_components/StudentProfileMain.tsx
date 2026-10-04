@@ -50,7 +50,7 @@ export function StudentProfileMain() {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto pb-12 animate-in fade-in duration-300">
+    <div className="w-full pb-12 animate-in fade-in duration-300">
 
       <div className="mb-6 md:mb-8">
         <h1 className="text-2xl md:text-3xl font-black text-primary flex items-center gap-3">

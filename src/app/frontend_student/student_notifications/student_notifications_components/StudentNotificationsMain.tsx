@@ -140,7 +140,7 @@ export function StudentNotificationsMain() {
   const unreadCount = notifications.filter(n => !n.isRead).length;
 
   return (
-    <div className="w-full max-w-4xl mx-auto pb-12 animate-in fade-in duration-300">
+    <div className="w-full pb-12 animate-in fade-in duration-300">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="text-2xl md:text-3xl font-black text-primary flex items-center gap-3">

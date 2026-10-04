@@ -113,7 +113,7 @@ export function StudentHistoryMain() {
     : ACTIVITY_DATA.filter(item => item.type === filter);
 
   return (
-    <div className="space-y-6 w-full max-w-4xl mx-auto pb-10">
+    <div className="space-y-6 w-full pb-10">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-black text-primary flex items-center gap-2">

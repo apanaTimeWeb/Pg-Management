@@ -92,7 +92,7 @@ export function StudentVisitorsMain() {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto pb-12 animate-in fade-in duration-300">
+    <div className="w-full pb-12 animate-in fade-in duration-300">
       
       <div className="mb-6 md:mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>

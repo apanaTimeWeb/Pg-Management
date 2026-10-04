@@ -70,7 +70,7 @@ export function StudentDashboardMain() {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto pb-12 animate-in fade-in duration-300 space-y-6">
+    <div className="w-full pb-12 animate-in fade-in duration-300 space-y-6">
 
       {/* Welcome Hero Banner */}
       <div className="relative overflow-hidden bg-gradient-to-r from-primary via-primary/90 to-info/80 rounded-2xl p-6 md:p-8 text-white shadow-xl">

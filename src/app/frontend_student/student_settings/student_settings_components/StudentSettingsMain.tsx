@@ -43,7 +43,7 @@ export function StudentSettingsMain() {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto pb-12">
+    <div className="w-full pb-12">
       <div className="mb-8">
         <h1 className="text-2xl md:text-3xl font-black text-primary flex items-center gap-2">
           <ShieldAlert className="w-8 h-8 text-primary" /> Profile & Security
