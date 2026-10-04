@@ -48,18 +48,24 @@ export function HomeHeader() {
           </Link>
         </div>
 
-        {/* Mobile menu button */}
-        <button 
-          className="md:hidden p-2 text-primary bg-[var(--bg-overlay)] rounded-lg border border-border"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        {/* Mobile Actions */}
+        <div className="flex md:hidden items-center gap-3">
+          <Link href="/frontend_login" className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-indigo-600 rounded-lg shadow-sm">
+            <LogIn className="w-3.5 h-3.5" />
+            Sign In
+          </Link>
+          <button 
+            className="p-1.5 text-white bg-white/10 rounded-lg border border-white/10"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-border bg-page/95 backdrop-blur-xl px-4 py-6 flex flex-col gap-6 shadow-xl absolute w-full left-0 animate-in slide-in-from-top-2">
+        <div className="md:hidden border-t border-border bg-page/95 backdrop-blur-xl px-4 py-6 flex flex-col gap-6 shadow-xl absolute top-full left-0 w-full animate-in slide-in-from-top-2">
           <nav className="flex flex-col gap-4">
             {[
               { label: 'Platform', href: '#features' },
