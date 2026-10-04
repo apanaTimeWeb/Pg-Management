@@ -93,6 +93,7 @@ const NAV_ITEMS = [
 ];
 
 function NavItemComponent({ item, pathname, isMobileMenuOpen, setIsMobileMenuOpen }: any) {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   
   const hasActiveChild = item.subItems?.some((sub: any) => pathname === sub.href || pathname.startsWith(sub.href + '/'));
