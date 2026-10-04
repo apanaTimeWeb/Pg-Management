@@ -6,20 +6,7 @@ import {
   User, Camera, Phone, Mail, MapPin, Edit2, Save, X, AlertCircle,
   UserCircle, Users, Home, CheckCircle2, Send
 } from 'lucide-react';
-import { toast } from 'sonner';
-
-const PROFILE_DATA = {
-  id: 'STU-2024-1045',
-  name: 'Rahul Sharma',
-  photo: null as null | string,
-  dob: '15 Mar 2003',
-  gender: 'Male',
-  mobile: '+91 98765 43210',
-  email: 'rahul.sharma@gmail.com',
-  parent: { name: 'Ramesh Sharma', relation: 'Father', mobile: '+91 91234 56789', email: 'ramesh@gmail.com' },
-  emergency: { name: 'Sunita Sharma', relation: 'Mother', mobile: '+91 87654 32109', alternateMobile: '+91 76543 21098' },
-  address: { address: '12, Rajiv Nagar, Near Bus Stand', city: 'Patna', state: 'Bihar', country: 'India', pincode: '800001' },
-};
+import { useStudentProfile } from '../student_profile_hooks/useStudentProfile';
 
 export function StudentProfileMain() {
   const searchParams = useSearchParams();
@@ -27,27 +14,44 @@ export function StudentProfileMain() {
   const initialTab = viewParam === 'guardian' ? 'guardian' : viewParam === 'emergency' ? 'emergency' : viewParam === 'address' ? 'address' : 'personal';
   const [activeTab, setActiveTab] = useState<'personal' | 'guardian' | 'emergency' | 'address'>(initialTab);
   const [editingEmergency, setEditingEmergency] = useState(false);
-  const [emergency, setEmergency] = useState(PROFILE_DATA.emergency);
-  const [correctionModal, setCorrectionModal] = useState(false);
-  const [correctionField, setCorrectionField] = useState('');
-  const [correctionValue, setCorrectionValue] = useState('');
-  const [correctionSubmitted, setCorrectionSubmitted] = useState(false);
 
-  const handleOpenCorrection = (field: string) => {
-    setCorrectionField(field);
-    setCorrectionModal(true);
-  };
+  const {
+    profile,
+    emergency,
+    setEmergency,
+    correctionModal,
+    setCorrectionModal,
+    correctionField,
+    correctionValue,
+    setCorrectionValue,
+    correctionSubmitted,
+    setCorrectionSubmitted,
+    handleOpenCorrection,
+    handleSubmitCorrection,
+    handleSaveEmergency
+  } = useStudentProfile();
 
-  const handleSubmitCorrection = () => {
-    if (!correctionValue.trim()) { toast.error('Please provide the correct value'); return; }
-    setCorrectionSubmitted(true);
-    toast.success('Correction request submitted to manager!');
-  };
-
-  const handleSaveEmergency = () => {
+  const handleSaveEmergencyLocal = () => {
+    handleSaveEmergency();
     setEditingEmergency(false);
-    toast.success('Emergency contact updated!');
   };
+
+  const handlePhotoUpload = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        alert(`Profile photo "${file.name}" uploaded successfully!`);
+      }
+    };
+    input.click();
+  };
+
+  if (!profile) {
+    return <div className="p-8 text-center text-secondary">Loading profile...</div>;
+  }
 
   return (
     <div className="w-full pb-12 animate-in fade-in duration-300">
@@ -69,16 +73,16 @@ export function StudentProfileMain() {
             <div className="w-24 h-24 rounded-full bg-primary/10 border-4 border-card shadow-lg flex items-center justify-center">
               <User className="w-12 h-12 text-primary" />
             </div>
-            <button className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center shadow-md hover:bg-primary/90 transition-colors">
+            <button onClick={handlePhotoUpload} className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center shadow-md hover:bg-primary/90 transition-colors" title="Change Profile Photo">
               <Camera className="w-4 h-4" />
             </button>
           </div>
           <div className="text-center sm:text-left">
-            <h2 className="text-2xl font-black text-primary">{PROFILE_DATA.name}</h2>
-            <p className="text-sm text-secondary font-medium">{PROFILE_DATA.id}</p>
+            <h2 className="text-2xl font-black text-primary">{profile.name}</h2>
+            <p className="text-sm text-secondary font-medium">{profile.id}</p>
             <div className="flex flex-wrap justify-center sm:justify-start gap-3 mt-3">
-              <span className="flex items-center gap-1.5 text-xs font-bold text-secondary bg-card border border-border px-3 py-1.5 rounded-lg"><Mail className="w-3.5 h-3.5" /> {PROFILE_DATA.email}</span>
-              <span className="flex items-center gap-1.5 text-xs font-bold text-secondary bg-card border border-border px-3 py-1.5 rounded-lg"><Phone className="w-3.5 h-3.5" /> {PROFILE_DATA.mobile}</span>
+              <span className="flex items-center gap-1.5 text-xs font-bold text-secondary bg-card border border-border px-3 py-1.5 rounded-lg"><Mail className="w-3.5 h-3.5" /> {profile.email}</span>
+              <span className="flex items-center gap-1.5 text-xs font-bold text-secondary bg-card border border-border px-3 py-1.5 rounded-lg"><Phone className="w-3.5 h-3.5" /> {profile.mobile}</span>
             </div>
           </div>
         </div>
@@ -108,12 +112,12 @@ export function StudentProfileMain() {
           <h3 className="font-black text-primary mb-6 flex items-center gap-2"><User className="w-5 h-5 text-primary" /> Personal Information</h3>
           <div className="space-y-4">
             {[
-              { label: 'Student ID', value: PROFILE_DATA.id, locked: true },
-              { label: 'Full Name', value: PROFILE_DATA.name, locked: true },
-              { label: 'Date of Birth', value: PROFILE_DATA.dob, locked: true },
-              { label: 'Gender', value: PROFILE_DATA.gender, locked: true },
-              { label: 'Mobile', value: PROFILE_DATA.mobile, locked: false },
-              { label: 'Email', value: PROFILE_DATA.email, locked: false },
+              { label: 'Student ID', value: profile.id, locked: true },
+              { label: 'Full Name', value: profile.name, locked: true },
+              { label: 'Date of Birth', value: profile.dob, locked: true },
+              { label: 'Gender', value: profile.gender, locked: true },
+              { label: 'Mobile', value: profile.mobile, locked: false },
+              { label: 'Email', value: profile.email, locked: false },
             ].map(item => (
               <div key={item.label} className="flex items-center justify-between py-3 border-b border-border/50 last:border-0 gap-4">
                 <span className="text-sm text-secondary font-medium shrink-0">{item.label}</span>
@@ -134,10 +138,10 @@ export function StudentProfileMain() {
           <h3 className="font-black text-primary mb-6 flex items-center gap-2"><Users className="w-5 h-5 text-info" /> Parent / Guardian</h3>
           <div className="space-y-4">
             {[
-              { label: 'Name', value: PROFILE_DATA.parent.name },
-              { label: 'Relation', value: PROFILE_DATA.parent.relation },
-              { label: 'Mobile', value: PROFILE_DATA.parent.mobile },
-              { label: 'Email', value: PROFILE_DATA.parent.email },
+              { label: 'Name', value: profile.parent?.name },
+              { label: 'Relation', value: profile.parent?.relation },
+              { label: 'Mobile', value: profile.parent?.mobile },
+              { label: 'Email', value: profile.parent?.email },
             ].map(item => (
               <div key={item.label} className="flex items-center justify-between py-3 border-b border-border/50 last:border-0">
                 <span className="text-sm text-secondary font-medium">{item.label}</span>
@@ -158,7 +162,7 @@ export function StudentProfileMain() {
           <div className="flex items-center justify-between mb-6">
             <h3 className="font-black text-primary flex items-center gap-2"><Phone className="w-5 h-5 text-danger" /> Emergency Contact</h3>
             <button onClick={() => setEditingEmergency(!editingEmergency)} className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold border transition-colors ${editingEmergency ? 'bg-success/10 text-success border-success/20' : 'bg-primary/10 text-primary border-primary/20 hover:bg-primary/20'}`}>
-              {editingEmergency ? <><Save className="w-3.5 h-3.5" onClick={handleSaveEmergency} /> Save</> : <><Edit2 className="w-3.5 h-3.5" /> Edit</>}
+              {editingEmergency ? <><Save className="w-3.5 h-3.5" onClick={handleSaveEmergencyLocal} /> Save</> : <><Edit2 className="w-3.5 h-3.5" /> Edit</>}
             </button>
           </div>
           <div className="space-y-4">
@@ -179,7 +183,7 @@ export function StudentProfileMain() {
             ))}
           </div>
           {editingEmergency && (
-            <button onClick={handleSaveEmergency} className="w-full mt-4 bg-primary text-white font-bold text-sm py-3 rounded-xl shadow-md hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+            <button onClick={handleSaveEmergencyLocal} className="w-full mt-4 bg-primary text-white font-bold text-sm py-3 rounded-xl shadow-md hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
               <Save className="w-4 h-4" /> Save Changes
             </button>
           )}
@@ -191,11 +195,11 @@ export function StudentProfileMain() {
           <h3 className="font-black text-primary mb-6 flex items-center gap-2"><Home className="w-5 h-5 text-success" /> Permanent Address</h3>
           <div className="space-y-4">
             {[
-              { label: 'Address', value: PROFILE_DATA.address.address },
-              { label: 'City', value: PROFILE_DATA.address.city },
-              { label: 'State', value: PROFILE_DATA.address.state },
-              { label: 'Country', value: PROFILE_DATA.address.country },
-              { label: 'Pincode', value: PROFILE_DATA.address.pincode },
+              { label: 'Address', value: profile.address?.address },
+              { label: 'City', value: profile.address?.city },
+              { label: 'State', value: profile.address?.state },
+              { label: 'Country', value: profile.address?.country },
+              { label: 'Pincode', value: profile.address?.pincode },
             ].map(item => (
               <div key={item.label} className="flex items-center justify-between py-3 border-b border-border/50 last:border-0">
                 <span className="text-sm text-secondary font-medium">{item.label}</span>

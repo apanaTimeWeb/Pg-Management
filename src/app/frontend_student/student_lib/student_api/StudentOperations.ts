@@ -25,6 +25,46 @@ export const studentOperationsApi = {
     db.update<any>(STORAGE_KEYS.STUDENTS, studentId, { ...(data as any), updatedAt: new Date().toISOString(), updatedBy: userId });
   },
 
+  getSecurityDeposit: (studentId: string) => {
+    // For demo purposes, auto-seed deposit if not exists, or return a mocked structure
+    const deposit = db.getAll<any>('spg_deposits').find(d => d.studentId === studentId && !d.isDeleted);
+    
+    if (deposit) return deposit;
+
+    // Default mock deposit
+    const mockDeposit = {
+      id: createId('dep'),
+      studentId,
+      amount: 10000,
+      paymentDate: '2024-08-20',
+      paymentMethod: 'UPI (Google Pay)',
+      receiptNo: 'REC-2024-SD-001',
+      status: 'Active',
+      adjustments: [
+        { label: 'Outstanding Fees', amount: 0 },
+        { label: 'Damage Charges', amount: 500 },
+        { label: 'Notice Period Deduction', amount: 0 },
+        { label: 'Other Adjustments', amount: 0 },
+      ],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      createdBy: 'system',
+      updatedBy: 'system',
+      isDeleted: false
+    };
+
+    db.insert('spg_deposits', mockDeposit);
+    return mockDeposit;
+  },
+
+  submitCorrectionRequest: (studentId: string, field: string, value: string, userId: string) => {
+    db.insert('spg_correction_requests', {
+      id: createId('cor'), studentId, field, value, status: 'Pending',
+      createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), createdBy: userId, updatedBy: userId, isDeleted: false
+    });
+  },
+
+
   // Finance
   getInvoices: (studentId: string) => {
     let invoices = db.getAll<any>(STORAGE_KEYS.INVOICES).filter(i => i.studentId === studentId && !i.isDeleted);
@@ -194,5 +234,54 @@ export const studentOperationsApi = {
       id: createId('sos'), propertyId, studentId, status: 'active', lat: '28.6139', lng: '77.2090',
       createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), createdBy: userId, updatedBy: userId, isDeleted: false
     });
+  },
+
+  // Leaves
+  getLeaves: (studentId: string) => {
+    let leaves = db.getAll<any>('spg_leaves').filter(l => l.studentId === studentId && !l.isDeleted);
+    if (leaves.length === 0) {
+      db.insert('spg_leaves', {
+        id: createId('lve'), studentId, startDate: '2026-10-10', endDate: '2026-10-15', reason: 'Diwali festival at home',
+        destination: 'Patna, Bihar', status: 'Approved', type: 'Leave',
+        createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), createdBy: 'system', updatedBy: 'system', isDeleted: false
+      });
+      leaves = db.getAll<any>('spg_leaves').filter(l => l.studentId === studentId && !l.isDeleted);
+    }
+    return leaves;
+  },
+
+  // Visitors
+  getVisitors: (studentId: string) => {
+    let visitors = db.getAll<any>('spg_visitors').filter(v => v.studentId === studentId && !v.isDeleted);
+    if (visitors.length === 0) {
+      db.insert('spg_visitors', {
+        id: createId('vis'), studentId, name: 'Ramesh Sharma', relation: 'Father', date: new Date().toISOString().split('T')[0],
+        timeIn: '16:00', timeOut: '19:00', status: 'Approved',
+        createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), createdBy: 'system', updatedBy: 'system', isDeleted: false
+      });
+      visitors = db.getAll<any>('spg_visitors').filter(v => v.studentId === studentId && !v.isDeleted);
+    }
+    return visitors;
+  },
+
+  // Documents
+  getDocuments: (studentId: string): any[] => {
+    return [];
+  },
+
+  // Notifications
+  getNotifications: (studentId: string): any[] => {
+    return [];
+  },
+
+  // Requests
+  getRequests: (studentId: string): any[] => {
+    return [];
+  },
+
+  // Support
+  getSupportTickets: (studentId: string): any[] => {
+    return [];
   }
 };
+

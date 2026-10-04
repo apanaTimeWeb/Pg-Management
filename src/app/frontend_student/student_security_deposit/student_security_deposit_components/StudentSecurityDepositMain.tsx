@@ -8,28 +8,26 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 
-const DEPOSIT_DATA = {
-  amount: 10000,
-  paymentDate: '20 Aug 2026',
-  paymentMethod: 'UPI (Google Pay)',
-  receiptNo: 'REC-2024-SD-001',
-  status: 'Active' as const,
-  adjustments: [
-    { label: 'Outstanding Fees', amount: 0 },
-    { label: 'Damage Charges', amount: 500 },
-    { label: 'Notice Period Deduction', amount: 0 },
-    { label: 'Other Adjustments', amount: 0 },
-  ],
-};
-
-const totalDeductions = DEPOSIT_DATA.adjustments.reduce((sum, a) => sum + a.amount, 0);
-const refundable = DEPOSIT_DATA.amount - totalDeductions;
+import { useStudentSecurityDeposit } from '../student_security_deposit_hooks/useStudentSecurityDeposit';
 
 export function StudentSecurityDepositMain() {
   const searchParams = useSearchParams();
   const viewParam = searchParams.get('view');
   const initialTab = viewParam === 'settlement' ? 'settlement' : 'details';
   const [activeTab, setActiveTab] = useState<'details' | 'settlement'>(initialTab);
+
+  const { depositData, loading } = useStudentSecurityDeposit();
+
+  if (loading) {
+    return <div className="p-8 text-center text-secondary">Loading security deposit details...</div>;
+  }
+
+  if (!depositData) {
+    return <div className="p-8 text-center text-secondary">No security deposit found.</div>;
+  }
+
+  const totalDeductions = depositData.adjustments.reduce((sum: number, a: any) => sum + a.amount, 0);
+  const refundable = depositData.amount - totalDeductions;
 
   return (
     <div className="w-full pb-12 animate-in fade-in duration-300">
@@ -50,16 +48,16 @@ export function StudentSecurityDepositMain() {
         <div className="flex flex-col md:flex-row gap-6 items-start">
           <div className="flex-1">
             <p className="text-xs font-bold text-secondary uppercase tracking-wider mb-1">Total Deposit Paid</p>
-            <p className="text-4xl font-black text-primary mb-2">₹{DEPOSIT_DATA.amount.toLocaleString()}</p>
+            <p className="text-4xl font-black text-primary mb-2">₹{depositData.amount.toLocaleString()}</p>
             <div className="flex flex-wrap gap-3 text-xs font-medium text-secondary">
-              <span>Paid on {DEPOSIT_DATA.paymentDate}</span>
+              <span>Paid on {new Date(depositData.paymentDate).toLocaleDateString()}</span>
               <span>•</span>
-              <span>via {DEPOSIT_DATA.paymentMethod}</span>
+              <span>via {depositData.paymentMethod}</span>
             </div>
           </div>
           <div className="shrink-0 flex flex-col items-end gap-2">
             <span className="bg-success/10 text-success border border-success/20 text-xs font-black px-3 py-1.5 rounded-lg flex items-center gap-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5" /> Active
+              <CheckCircle2 className="w-3.5 h-3.5" /> {depositData.status}
             </span>
             <button onClick={() => toast.success('Receipt downloading...')} className="flex items-center gap-2 bg-card border border-border px-4 py-2 rounded-xl text-xs font-bold text-primary hover:bg-input transition-colors shadow-sm">
               <Download className="w-3.5 h-3.5" /> Receipt
@@ -89,11 +87,11 @@ export function StudentSecurityDepositMain() {
           <h3 className="font-black text-primary mb-6">Deposit Information</h3>
           <div className="space-y-4">
             {[
-              { label: 'Receipt Number', value: DEPOSIT_DATA.receiptNo },
-              { label: 'Deposit Amount', value: `₹${DEPOSIT_DATA.amount.toLocaleString()}` },
-              { label: 'Payment Date', value: DEPOSIT_DATA.paymentDate },
-              { label: 'Payment Method', value: DEPOSIT_DATA.paymentMethod },
-              { label: 'Current Status', value: DEPOSIT_DATA.status },
+              { label: 'Receipt Number', value: depositData.receiptNo },
+              { label: 'Deposit Amount', value: `₹${depositData.amount.toLocaleString()}` },
+              { label: 'Payment Date', value: new Date(depositData.paymentDate).toLocaleDateString() },
+              { label: 'Payment Method', value: depositData.paymentMethod },
+              { label: 'Current Status', value: depositData.status },
               { label: 'Refundable Amount', value: `₹${refundable.toLocaleString()}` },
             ].map(item => (
               <div key={item.label} className="flex justify-between items-center py-3 border-b border-border/50 last:border-0">
@@ -121,7 +119,7 @@ export function StudentSecurityDepositMain() {
                   </div>
                   <span className="font-bold text-primary">Security Deposit</span>
                 </div>
-                <span className="font-black text-success text-lg">+ ₹{DEPOSIT_DATA.amount.toLocaleString()}</span>
+                <span className="font-black text-success text-lg">+ ₹{depositData.amount.toLocaleString()}</span>
               </div>
 
               {/* Downward Arrow */}
@@ -130,7 +128,7 @@ export function StudentSecurityDepositMain() {
               </div>
 
               {/* Deductions */}
-              {DEPOSIT_DATA.adjustments.map((adj, idx) => (
+              {depositData.adjustments.map((adj: any, idx: number) => (
                 <div key={adj.label} className={`flex justify-between items-center p-4 rounded-xl border ${adj.amount > 0 ? 'bg-danger/5 border-danger/20' : 'bg-input/30 border-border'}`}>
                   <span className={`font-bold text-sm ${adj.amount > 0 ? 'text-danger' : 'text-secondary'}`}>{adj.label}</span>
                   <span className={`font-black ${adj.amount > 0 ? 'text-danger' : 'text-secondary'}`}>

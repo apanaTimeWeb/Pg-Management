@@ -7,6 +7,7 @@ import {
   CreditCard, Home, Utensils, CalendarOff, Ticket, Plus,
   ChevronDown, Search, Paperclip, Send, RefreshCcw, ShieldAlert, CheckSquare
 } from 'lucide-react';
+import { useStudentSupport } from '../student_support_hooks/useStudentSupport';
 
 export function StudentSupportMain() {
   const searchParams = useSearchParams();
@@ -24,32 +25,25 @@ export function StudentSupportMain() {
   ];
 
   // Dummy Tickets
-  const [tickets, setTickets] = useState([
-    {
-      id: 'TKT-1024',
-      category: 'Payment Issue',
-      status: 'Resolved',
-      date: '2026-09-28',
-      description: 'Rent receipt for September is not generating in the app.',
-      messages: [
-        { sender: 'student', text: 'Rent receipt for September is not generating in the app.', time: '10:00 AM' },
-        { sender: 'manager', text: 'We had a sync issue. It is resolved now. You can download the receipt.', time: '11:30 AM' }
-      ]
-    },
-    {
-      id: 'TKT-1029',
-      category: 'Room Issue',
-      status: 'Open',
-      date: '2026-10-02',
-      description: 'I want to change my room from 102 to 105.',
-      messages: [
-        { sender: 'student', text: 'I want to change my room from 102 to 105 as discussed.', time: '02:00 PM' }
-      ]
-    }
-  ]);
-
+  const { loading, ticketsData: tickets, addMessage, reopenTicket } = useStudentSupport();
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
   const [expandedTicket, setExpandedTicket] = useState<string | null>(null);
+  const [replyText, setReplyText] = useState<{ [key: string]: string }>({});
+
+  const handleReplyChange = (id: string, text: string) => {
+    setReplyText(prev => ({ ...prev, [id]: text }));
+  };
+
+  const handleSendReply = (id: string) => {
+    if (replyText[id]?.trim()) {
+      addMessage(id, replyText[id]);
+      setReplyText(prev => ({ ...prev, [id]: '' }));
+    }
+  };
+
+  if (loading) {
+    return <div className="p-8 text-center text-secondary">Loading support data...</div>;
+  }
 
   return (
     <div className="w-full space-y-6 pb-12">
@@ -192,10 +186,15 @@ export function StudentSupportMain() {
                         </button>
                         <textarea 
                           placeholder="Type your reply here..." 
+                          value={replyText[ticket.id] || ''}
+                          onChange={(e) => handleReplyChange(ticket.id, e.target.value)}
                           className="flex-1 bg-transparent px-2 py-2.5 text-sm text-primary font-medium focus:outline-none min-h-[44px] max-h-32 resize-none"
                           rows={1}
                         />
-                        <button className="bg-primary text-white p-2.5 rounded-lg shadow-sm hover:bg-primary/90 transition-colors shrink-0">
+                        <button 
+                          onClick={() => handleSendReply(ticket.id)}
+                          className="bg-primary text-white p-2.5 rounded-lg shadow-sm hover:bg-primary/90 transition-colors shrink-0"
+                        >
                           <Send className="w-4 h-4" />
                         </button>
                       </div>
@@ -204,7 +203,10 @@ export function StudentSupportMain() {
                         <div className="flex items-center gap-2 text-sm font-bold text-success">
                           <ShieldAlert className="w-5 h-5" /> This ticket has been resolved.
                         </div>
-                        <button className="text-sm font-bold text-primary bg-card border border-border px-4 py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-input transition-colors shadow-sm">
+                        <button 
+                          onClick={() => reopenTicket(ticket.id)}
+                          className="text-sm font-bold text-primary bg-card border border-border px-4 py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-input transition-colors shadow-sm"
+                        >
                           <RefreshCcw className="w-4 h-4" /> Reopen Ticket
                         </button>
                       </div>

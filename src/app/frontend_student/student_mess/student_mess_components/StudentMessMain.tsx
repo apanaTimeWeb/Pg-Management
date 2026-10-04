@@ -7,30 +7,7 @@ import {
   Star, BarChart3
 } from 'lucide-react';
 import { toast } from 'sonner';
-
-const TODAYS_MENU = [
-  { meal: 'Breakfast', time: '08:00 AM', items: 'Poha, Tea, Banana' },
-  { meal: 'Lunch', time: '01:00 PM', items: 'Dal Fry, Jeera Rice, Sabzi, Roti, Salad, Buttermilk' },
-  { meal: 'Dinner', time: '08:30 PM', items: 'Roti (4), Paneer Butter Masala, Dal, Rice, Pickle' },
-];
-
-const WEEKLY_MENU = [
-  { day: 'Mon', breakfast: 'Idli + Chutney', lunch: 'Dal + Rice + Sabzi', dinner: 'Roti + Rajma' },
-  { day: 'Tue', breakfast: 'Poha + Tea', lunch: 'Sambar + Rice + Papad', dinner: 'Roti + Chole' },
-  { day: 'Wed', breakfast: 'Upma + Tea', lunch: 'Dal Tadka + Rice', dinner: 'Roti + Kadai Paneer' },
-  { day: 'Thu', breakfast: 'Puri + Aloo', lunch: 'Veg Pulao + Raita', dinner: 'Roti + Matar Paneer' },
-  { day: 'Fri', breakfast: 'Paratha + Curd', lunch: 'Dal + Rice + Fried Rice', dinner: 'Roti + Dal Makhani' },
-  { day: 'Sat', breakfast: 'Bread + Egg', lunch: 'Biryani + Raita', dinner: 'Roti + Mix Veg' },
-  { day: 'Sun', breakfast: 'Dosa + Chutney', lunch: 'Special Thali', dinner: 'Roti + Paneer Butter Masala' },
-];
-
-const MEAL_ATTENDANCE = [
-  { date: '01 Oct', breakfast: true, lunch: true, dinner: true },
-  { date: '02 Oct', breakfast: true, lunch: false, dinner: true },
-  { date: '03 Oct', breakfast: false, lunch: true, dinner: true },
-  { date: '04 Oct', breakfast: true, lunch: true, dinner: false },
-  { date: '05 Oct', breakfast: true, lunch: true, dinner: true },
-];
+import { useStudentMess } from '../student_mess_hooks/useStudentMess';
 
 export function StudentMessMain() {
   const searchParams = useSearchParams();
@@ -43,15 +20,23 @@ export function StudentMessMain() {
   const [complaintDesc, setComplaintDesc] = useState('');
   const [complaintSubmitted, setComplaintSubmitted] = useState(false);
 
-  const totalBreakfast = MEAL_ATTENDANCE.filter(d => d.breakfast).length;
-  const totalLunch = MEAL_ATTENDANCE.filter(d => d.lunch).length;
-  const totalDinner = MEAL_ATTENDANCE.filter(d => d.dinner).length;
+  const { loading, todaysMenu, weeklyMenu, mealAttendance } = useStudentMess();
 
   const handleComplaintSubmit = () => {
     if (!complaintCategory || !complaintDesc.trim()) { toast.error('Please fill all fields'); return; }
     setComplaintSubmitted(true);
     toast.success('Food complaint submitted!');
   };
+
+  if (loading) {
+    return <div className="p-8 text-center text-secondary">Loading mess details...</div>;
+  }
+
+  const totalBreakfast = mealAttendance.filter(d => d.breakfast).length;
+  const totalLunch = mealAttendance.filter(d => d.lunch).length;
+  const totalDinner = mealAttendance.filter(d => d.dinner).length;
+
+
 
   return (
     <div className="w-full pb-12 animate-in fade-in duration-300">
@@ -89,7 +74,7 @@ export function StudentMessMain() {
 
           {menuView === 'today' && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {TODAYS_MENU.map((m, i) => {
+              {todaysMenu.map((m, i) => {
                 const colors = ['bg-warning/10 border-warning/20 text-warning', 'bg-success/10 border-success/20 text-success', 'bg-primary/10 border-primary/20 text-primary'];
                 return (
                   <div key={m.meal} className={`rounded-2xl border p-5 shadow-sm ${colors[i]}`}>
@@ -117,7 +102,7 @@ export function StudentMessMain() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border">
-                    {WEEKLY_MENU.map(row => (
+                    {weeklyMenu.map(row => (
                       <tr key={row.day} className="hover:bg-input/50 transition-colors">
                         <td className="py-3 px-4 font-black text-primary">{row.day}</td>
                         <td className="py-3 px-4 text-sm font-medium text-secondary">{row.breakfast}</td>
@@ -149,7 +134,7 @@ export function StudentMessMain() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {MEAL_ATTENDANCE.map(row => (
+                {mealAttendance.map(row => (
                   <tr key={row.date} className="hover:bg-input/50 transition-colors">
                     <td className="py-4 px-5 font-black text-primary text-sm">{row.date}</td>
                     {[row.breakfast, row.lunch, row.dinner].map((v, idx) => (
@@ -175,9 +160,9 @@ export function StudentMessMain() {
             </h3>
             <div className="grid grid-cols-3 gap-5">
               {[
-                { meal: 'Breakfast', count: totalBreakfast, total: MEAL_ATTENDANCE.length, color: 'bg-warning' },
-                { meal: 'Lunch', count: totalLunch, total: MEAL_ATTENDANCE.length, color: 'bg-success' },
-                { meal: 'Dinner', count: totalDinner, total: MEAL_ATTENDANCE.length, color: 'bg-primary' },
+                { meal: 'Breakfast', count: totalBreakfast, total: mealAttendance.length, color: 'bg-warning' },
+                { meal: 'Lunch', count: totalLunch, total: mealAttendance.length, color: 'bg-success' },
+                { meal: 'Dinner', count: totalDinner, total: mealAttendance.length, color: 'bg-primary' },
               ].map(item => (
                 <div key={item.meal} className="text-center">
                   <div className="w-20 h-20 rounded-full border-4 border-border flex items-center justify-center mx-auto mb-3 relative">

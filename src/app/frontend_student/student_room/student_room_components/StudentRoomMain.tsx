@@ -8,29 +8,7 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 
-const ROOM_DATA = {
-  pgName: 'Green Valley PG',
-  building: 'Block A',
-  floor: '2nd Floor',
-  roomNumber: 'Room 204',
-  roomType: 'Triple Sharing',
-  bedNumber: 'Bed B',
-  capacity: 3,
-  facilities: [
-    { name: 'Wi-Fi', icon: Wifi, available: true },
-    { name: 'Fan', icon: Fan, available: true },
-    { name: 'Light', icon: Lightbulb, available: true },
-    { name: 'Study Table', icon: BookOpen, available: true },
-    { name: 'Chair', icon: Sofa, available: true },
-    { name: 'Cupboard', icon: Package, available: true },
-    { name: 'Bed + Mattress', icon: BedDouble, available: true },
-    { name: 'Attached Bathroom', icon: Droplets, available: false },
-  ],
-  roommates: [
-    { name: 'Amit Verma', bed: 'Bed A', contact: '+91 98765 XXXXX' },
-    { name: 'Ravi Gupta', bed: 'Bed C', contact: '+91 87654 XXXXX' },
-  ],
-};
+import { useStudentRoom } from '../student_room_hooks/useStudentRoom';
 
 export function StudentRoomMain() {
   const searchParams = useSearchParams();
@@ -41,11 +19,17 @@ export function StudentRoomMain() {
   const [reason, setReason] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
+  const { roomData, loading } = useStudentRoom();
+
   const handleSubmitChange = () => {
     if (!reason.trim()) { toast.error('Please provide a reason'); return; }
     setSubmitted(true);
     toast.success('Room change request submitted!');
   };
+
+  if (loading || !roomData) {
+    return <div className="p-8 text-center text-secondary">Loading room details...</div>;
+  }
 
   return (
     <div className="w-full pb-12 animate-in fade-in duration-300">
@@ -68,15 +52,14 @@ export function StudentRoomMain() {
         </button>
       </div>
 
-      {/* Quick Room Card */}
       <div className="relative overflow-hidden bg-gradient-to-br from-primary/10 to-info/10 border border-primary/20 rounded-2xl p-6 mb-6 shadow-sm">
         <div className="absolute -bottom-8 -right-8 w-40 h-40 bg-primary/10 rounded-full blur-2xl"></div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { label: 'Room', value: ROOM_DATA.roomNumber, icon: Home },
-            { label: 'Bed', value: ROOM_DATA.bedNumber, icon: BedDouble },
-            { label: 'Floor', value: ROOM_DATA.floor, icon: Home },
-            { label: 'Type', value: ROOM_DATA.roomType, icon: Users },
+            { label: 'Room', value: roomData.roomNumber, icon: Home },
+            { label: 'Bed', value: roomData.bedNumber, icon: BedDouble },
+            { label: 'Floor', value: roomData.floor, icon: Home },
+            { label: 'Type', value: roomData.roomType, icon: Users },
           ].map(item => {
             const Icon = item.icon;
             return (
@@ -113,7 +96,7 @@ export function StudentRoomMain() {
         <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
           <h3 className="font-black text-primary mb-6">Room Facilities</h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {ROOM_DATA.facilities.map((facility) => {
+            {roomData.facilities.map((facility) => {
               const Icon = facility.icon;
               return (
                 <div key={facility.name} className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-colors ${facility.available ? 'bg-success/5 border-success/20 text-success' : 'bg-input border-border text-secondary opacity-60'}`}>
@@ -137,7 +120,7 @@ export function StudentRoomMain() {
             Contact details are partially hidden to protect privacy.
           </div>
           <div className="space-y-4">
-            {ROOM_DATA.roommates.map((rm) => (
+            {roomData.roommates.map((rm) => (
               <div key={rm.name} className="flex items-center gap-4 p-4 rounded-xl border border-border bg-input/30 hover:bg-input transition-colors">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                   <User className="w-6 h-6 text-primary" />
@@ -188,7 +171,7 @@ export function StudentRoomMain() {
               <div className="p-6 space-y-4">
                 <div>
                   <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">Current Room & Bed</label>
-                  <div className="bg-input/30 border border-border rounded-xl px-4 py-3 text-sm font-bold text-primary">{ROOM_DATA.roomNumber} • {ROOM_DATA.bedNumber}</div>
+                  <div className="bg-input/30 border border-border rounded-xl px-4 py-3 text-sm font-bold text-primary">{roomData.roomNumber} • {roomData.bedNumber}</div>
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">Reason for Change *</label>

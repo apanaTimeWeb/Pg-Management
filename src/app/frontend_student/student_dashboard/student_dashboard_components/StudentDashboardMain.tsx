@@ -21,23 +21,7 @@ const QUICK_ACTIONS = [
   { label: 'Contact Manager', icon: Phone, href: '/frontend_student/student_support', color: 'bg-orange-500 text-white border-orange-500', glow: 'shadow-orange-500/30' },
 ];
 
-interface Alert {
-  id: string;
-  type: 'danger' | 'warning' | 'success' | 'info' | 'primary';
-  icon: React.ElementType;
-  title: string;
-  message: string;
-  href: string;
-  time: string;
-}
-
-const ALERTS: Alert[] = [
-  { id: '1', type: 'danger', icon: IndianRupee, title: 'Fee Due', message: 'Monthly rent of ₹8,000 is due on 05 Oct. Pay now to avoid late fine.', href: '/frontend_student/student_rent?action=pay', time: '2h ago' },
-  { id: '2', type: 'success', icon: CalendarOff, title: 'Leave Approved', message: 'Your leave request for 10 Oct – 15 Oct has been approved by Manager.', href: '/frontend_student/student_leaves?view=approved', time: 'Today' },
-  { id: '3', type: 'info', icon: Users, title: 'Visitor Approved', message: 'Visitor pass for Ramesh Sharma approved for Tomorrow, 4:00 PM.', href: '/frontend_student/student_visitors?view=approved', time: 'Today' },
-  { id: '4', type: 'warning', icon: Wrench, title: 'Complaint Updated', message: 'Your complaint CMP-2041 (Fan issue) is now In Progress. Technician assigned.', href: '/frontend_student/student_complaints', time: '3h ago' },
-  { id: '5', type: 'primary', icon: Megaphone, title: 'New Notice', message: 'Diwali celebration on 24 Oct. Attendance compulsory for all residents.', href: '/frontend_student/student_notices', time: 'Yesterday' },
-];
+import { useStudentDashboard } from '../student_dashboard_hooks/useStudentDashboard';
 
 const getAlertStyle = (type: string) => {
   switch (type) {
@@ -49,20 +33,42 @@ const getAlertStyle = (type: string) => {
   }
 };
 
-const TODAY_STATUS = [
-  { label: 'Attendance', value: 'Present ✓', color: 'text-success bg-success/10 border-success/20', href: '/frontend_student/student_attendance' },
-  { label: 'Fee Due', value: '₹8,000 Overdue', color: 'text-danger bg-danger/10 border-danger/20', href: '/frontend_student/student_rent' },
-  { label: 'Active Leave', value: 'None', color: 'text-secondary bg-input border-border', href: '/frontend_student/student_leaves' },
-  { label: 'Visitor Today', value: '1 Approved', color: 'text-info bg-info/10 border-info/20', href: '/frontend_student/student_visitors?view=approved' },
-  { label: 'Open Complaints', value: '1 In Progress', color: 'text-warning bg-warning/10 border-warning/20', href: '/frontend_student/student_complaints' },
-  { label: 'Unread Notices', value: '2 New', color: 'text-primary bg-primary/10 border-primary/20', href: '/frontend_student/student_notices' },
-];
 
 export function StudentDashboardMain() {
   const router = useRouter();
+  const { profile, loading, menu, notices, invoices, complaints, leaves, visitors, deposit } = useStudentDashboard();
   const [dismissedAlerts, setDismissedAlerts] = useState<string[]>([]);
 
-  const visibleAlerts = ALERTS.filter(a => !dismissedAlerts.includes(a.id));
+  if (loading) return <div className="p-8 text-center text-secondary">Loading dashboard...</div>;
+  if (!profile) return <div className="p-8 text-center text-secondary">Profile not found.</div>;
+
+  const dueInvoices = invoices.filter(i => i.status === 'Pending' || i.status === 'Overdue');
+  const totalDue = dueInvoices.reduce((acc, curr) => acc + curr.amount, 0);
+
+  const openComplaints = complaints.filter(c => c.status !== 'Resolved' && c.status !== 'Closed');
+  const activeLeaves = leaves.filter(l => l.status === 'Approved' && new Date(l.endDate) >= new Date());
+  
+  const todayStr = new Date().toISOString().split('T')[0];
+  const todayVisitors = visitors.filter(v => v.date === todayStr);
+
+  const ALERTS = [];
+  if (dueInvoices.length > 0) {
+    ALERTS.push({ id: 'alert_fee', type: 'danger', icon: IndianRupee, title: 'Fee Due', message: `₹${totalDue.toLocaleString()} is pending. Pay now to avoid fine.`, href: '/frontend_student/student_rent?action=pay', time: 'Action Required' });
+  }
+  if (activeLeaves.length > 0) {
+    ALERTS.push({ id: 'alert_leave', type: 'success', icon: CalendarOff, title: 'Leave Approved', message: `Leave approved from ${activeLeaves[0].startDate}.`, href: '/frontend_student/student_leaves?view=approved', time: 'Upcoming' });
+  }
+  if (todayVisitors.length > 0) {
+    ALERTS.push({ id: 'alert_visitor', type: 'info', icon: Users, title: 'Visitor Today', message: `Visitor ${todayVisitors[0].name} expected today.`, href: '/frontend_student/student_visitors?view=approved', time: 'Today' });
+  }
+  if (openComplaints.length > 0) {
+    ALERTS.push({ id: 'alert_cmp', type: 'warning', icon: Wrench, title: 'Open Complaint', message: `Complaint ${openComplaints[0].title} is ${openComplaints[0].status}.`, href: '/frontend_student/student_complaints', time: 'Recent' });
+  }
+  notices.slice(0, 2).forEach((n: any, idx: number) => {
+    ALERTS.push({ id: `alert_not_${idx}`, type: 'primary', icon: Megaphone, title: 'Notice', message: n.title, href: '/frontend_student/student_notices', time: new Date(n.createdAt).toLocaleDateString() });
+  });
+
+  const visibleAlerts = ALERTS.filter(a => !dismissedAlerts.includes(a.id as string));
 
   const dismissAlert = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -83,21 +89,21 @@ export function StudentDashboardMain() {
             <p className="text-white/70 text-sm font-medium mb-1 flex items-center gap-2">
               <Zap className="w-4 h-4" /> Welcome back 👋
             </p>
-            <h1 className="text-2xl md:text-3xl font-black tracking-tight">Rahul Sharma</h1>
+            <h1 className="text-2xl md:text-3xl font-black tracking-tight">{profile.name || profile.user?.name || 'Student'}</h1>
             <p className="text-white/80 text-sm mt-1.5 font-medium">
-              Student ID: STU-2024-1045 &nbsp;•&nbsp; Room 204, Bed B &nbsp;•&nbsp; Green Valley PG
+              Student ID: {profile.userId || profile.id} &nbsp;•&nbsp; Room {profile.roomNumber}, Bed {profile.bedCode} &nbsp;•&nbsp; {profile.propertyName}
             </p>
             <div className="flex flex-wrap gap-2 mt-3">
               <span className="bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full">🏠 Active Resident</span>
-              <span className="bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full">📅 Day 47 of Stay</span>
+              <span className="bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full">📅 Good Standing</span>
             </div>
           </div>
           
           <div className="flex flex-wrap gap-3 shrink-0">
             {[
               { label: 'Attendance', value: '92%', sub: 'This Month', good: true },
-              { label: 'Fees', value: 'Due', sub: '₹8,000 Pending', good: false },
-              { label: 'Deposit', value: '₹10K', sub: 'Secured', good: true },
+              { label: 'Fees', value: totalDue > 0 ? 'Due' : 'Clear', sub: totalDue > 0 ? `₹${totalDue.toLocaleString()} Pending` : 'All Paid', good: totalDue === 0 },
+              { label: 'Deposit', value: deposit ? `₹${(deposit.amount/1000).toFixed(0)}K` : 'N/A', sub: 'Secured', good: true },
             ].map(stat => (
               <div key={stat.label} className={`bg-white/20 backdrop-blur-sm rounded-2xl px-5 py-3 text-center border ${stat.good ? 'border-white/20' : 'border-red-400/40 bg-red-500/20'}`}>
                 <p className="text-xl md:text-2xl font-black">{stat.value}</p>
@@ -112,12 +118,12 @@ export function StudentDashboardMain() {
       {/* Main Info Cards — 7 cards */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
         {[
-          { label: 'My Room', value: 'Room 204', icon: Home, color: 'text-primary', bg: 'bg-primary/10', href: '/frontend_student/student_room' },
-          { label: 'My Bed', value: 'Bed B', icon: BedDouble, color: 'text-info', bg: 'bg-info/10', href: '/frontend_student/student_room' },
-          { label: 'Monthly Rent', value: '₹8,000', icon: IndianRupee, color: 'text-success', bg: 'bg-success/10', href: '/frontend_student/student_rent' },
-          { label: 'Due Amount', value: '₹8,000', icon: AlertCircle, color: 'text-danger', bg: 'bg-danger/10', href: '/frontend_student/student_rent?action=pay' },
-          { label: 'Due Date', value: '05 Oct', icon: Clock, color: 'text-warning', bg: 'bg-warning/10', href: '/frontend_student/student_rent' },
-          { label: 'Security Dep.', value: '₹10,000', icon: ShieldCheck, color: 'text-teal-500', bg: 'bg-teal-500/10', href: '/frontend_student/student_security_deposit' },
+          { label: 'My Room', value: `Room ${profile.roomNumber}`, icon: Home, color: 'text-primary', bg: 'bg-primary/10', href: '/frontend_student/student_room' },
+          { label: 'My Bed', value: `Bed ${profile.bedCode}`, icon: BedDouble, color: 'text-info', bg: 'bg-info/10', href: '/frontend_student/student_room' },
+          { label: 'Monthly Rent', value: '₹8,500', icon: IndianRupee, color: 'text-success', bg: 'bg-success/10', href: '/frontend_student/student_rent' },
+          { label: 'Due Amount', value: `₹${totalDue.toLocaleString()}`, icon: AlertCircle, color: totalDue > 0 ? 'text-danger' : 'text-success', bg: totalDue > 0 ? 'bg-danger/10' : 'bg-success/10', href: '/frontend_student/student_rent?action=pay' },
+          { label: 'Due Date', value: dueInvoices.length > 0 ? new Date(dueInvoices[0].dueDate).toLocaleDateString() : 'N/A', icon: Clock, color: 'text-warning', bg: 'bg-warning/10', href: '/frontend_student/student_rent' },
+          { label: 'Security Dep.', value: deposit ? `₹${deposit.amount.toLocaleString()}` : 'N/A', icon: ShieldCheck, color: 'text-teal-500', bg: 'bg-teal-500/10', href: '/frontend_student/student_security_deposit' },
           { label: 'Attendance', value: '92%', icon: BarChart3, color: 'text-purple-500', bg: 'bg-purple-500/10', href: '/frontend_student/student_attendance' },
         ].map((card) => {
           const Icon = card.icon;
@@ -151,9 +157,9 @@ export function StudentDashboardMain() {
           </h3>
           <div className="space-y-3 flex-1">
             {[
-              { meal: 'Breakfast', time: '08:00 AM', status: 'done', menu: 'Poha + Tea', color: 'bg-warning/10 border-warning/20' },
-              { meal: 'Lunch', time: '01:00 PM', status: 'done', menu: 'Dal + Rice + Sabzi', color: 'bg-success/10 border-success/20' },
-              { meal: 'Dinner', time: '08:30 PM', status: 'pending', menu: 'Roti + Paneer + Salad', color: 'bg-input/60 border-border' },
+              { meal: 'Breakfast', time: '08:00 AM', status: 'done', menu: menu?.breakfast || 'Not updated', color: 'bg-warning/10 border-warning/20' },
+              { meal: 'Lunch', time: '01:00 PM', status: 'done', menu: menu?.lunch || 'Not updated', color: 'bg-success/10 border-success/20' },
+              { meal: 'Dinner', time: '08:30 PM', status: 'pending', menu: menu?.dinner || 'Not updated', color: 'bg-input/60 border-border' },
             ].map((item) => (
               <div key={item.meal} className={`flex items-center justify-between p-3 rounded-xl border ${item.color}`}>
                 <div>
@@ -186,7 +192,14 @@ export function StudentDashboardMain() {
             {"Today's Status"}
           </h3>
           <div className="space-y-2.5 flex-1">
-            {TODAY_STATUS.map((item) => (
+            {[
+              { label: 'Attendance', value: 'Present ✓', color: 'text-success bg-success/10 border-success/20', href: '/frontend_student/student_attendance' },
+              { label: 'Fee Due', value: totalDue > 0 ? `₹${totalDue.toLocaleString()} Overdue` : 'Clear', color: totalDue > 0 ? 'text-danger bg-danger/10 border-danger/20' : 'text-success bg-success/10 border-success/20', href: '/frontend_student/student_rent' },
+              { label: 'Active Leave', value: activeLeaves.length > 0 ? 'Active' : 'None', color: activeLeaves.length > 0 ? 'text-info bg-info/10 border-info/20' : 'text-secondary bg-input border-border', href: '/frontend_student/student_leaves' },
+              { label: 'Visitor Today', value: todayVisitors.length > 0 ? `${todayVisitors.length} Approved` : 'None', color: todayVisitors.length > 0 ? 'text-info bg-info/10 border-info/20' : 'text-secondary bg-input border-border', href: '/frontend_student/student_visitors?view=approved' },
+              { label: 'Open Complaints', value: openComplaints.length > 0 ? `${openComplaints.length} Open` : 'Clear', color: openComplaints.length > 0 ? 'text-warning bg-warning/10 border-warning/20' : 'text-success bg-success/10 border-success/20', href: '/frontend_student/student_complaints' },
+              { label: 'Unread Notices', value: notices.length > 0 ? `${notices.length} New` : 'None', color: notices.length > 0 ? 'text-primary bg-primary/10 border-primary/20' : 'text-secondary bg-input border-border', href: '/frontend_student/student_notices' },
+            ].map((item) => (
               <button
                 key={item.label}
                 onClick={() => router.push(item.href)}
@@ -345,16 +358,18 @@ export function StudentDashboardMain() {
             Leave Status
           </h3>
           <div className="space-y-3">
-            <div className="p-3 rounded-xl bg-success/5 border border-success/20">
-              <p className="text-xs font-bold text-success">Upcoming Leave Approved</p>
-              <p className="text-sm font-black text-primary mt-1">10 Oct – 15 Oct 2026</p>
-              <p className="text-xs text-secondary mt-0.5">Diwali festival at home • Patna, Bihar</p>
-            </div>
-            <div className="p-3 rounded-xl bg-info/5 border border-info/20">
-              <p className="text-xs font-bold text-info">Outing Active</p>
-              <p className="text-sm font-black text-primary mt-1">Today, 6:00 PM – 9:00 PM</p>
-              <p className="text-xs text-secondary mt-0.5">Movie with friends • PVR Cinemas</p>
-            </div>
+            {activeLeaves.map((leave, idx) => (
+              <div key={idx} className="p-3 rounded-xl bg-success/5 border border-success/20">
+                <p className="text-xs font-bold text-success">Active Leave</p>
+                <p className="text-sm font-black text-primary mt-1">{new Date(leave.startDate).toLocaleDateString()} – {new Date(leave.endDate).toLocaleDateString()}</p>
+                <p className="text-xs text-secondary mt-0.5">{leave.reason} • {leave.destination}</p>
+              </div>
+            ))}
+            {activeLeaves.length === 0 && (
+              <div className="p-3 rounded-xl bg-input/30 border border-border flex items-center justify-center">
+                <p className="text-xs text-secondary font-medium text-center">No active or upcoming leaves</p>
+              </div>
+            )}
           </div>
           <button onClick={() => router.push('/frontend_student/student_leaves')} className="w-full mt-4 text-center text-xs font-bold text-primary hover:underline flex items-center justify-center gap-1">
             All Requests <ChevronRight className="w-3.5 h-3.5" />
@@ -370,18 +385,22 @@ export function StudentDashboardMain() {
             {"Today's Visitor"}
           </h3>
           <div className="space-y-3">
-            <div className="p-3 rounded-xl bg-success/5 border border-success/20">
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="text-sm font-black text-primary">Ramesh Sharma</p>
-                  <p className="text-xs text-secondary font-medium">Father • 4:00 PM – 7:00 PM</p>
+            {todayVisitors.map((visitor, idx) => (
+              <div key={idx} className="p-3 rounded-xl bg-success/5 border border-success/20">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="text-sm font-black text-primary">{visitor.name}</p>
+                    <p className="text-xs text-secondary font-medium">{visitor.relation} • {visitor.timeIn} – {visitor.timeOut}</p>
+                  </div>
+                  <span className="text-[10px] font-black bg-success text-white px-2 py-1 rounded-md">{visitor.status}</span>
                 </div>
-                <span className="text-[10px] font-black bg-success text-white px-2 py-1 rounded-md">Approved</span>
               </div>
-            </div>
-            <div className="p-3 rounded-xl bg-input/30 border border-border flex items-center justify-center">
-              <p className="text-xs text-secondary font-medium text-center">No other visitors today</p>
-            </div>
+            ))}
+            {todayVisitors.length === 0 && (
+              <div className="p-3 rounded-xl bg-input/30 border border-border flex items-center justify-center">
+                <p className="text-xs text-secondary font-medium text-center">No visitors expected today</p>
+              </div>
+            )}
           </div>
           <button onClick={() => router.push('/frontend_student/student_visitors?action=new')} className="w-full mt-4 text-xs font-bold text-primary hover:underline flex items-center justify-center gap-1">
             + Invite Visitor <ChevronRight className="w-3.5 h-3.5" />
@@ -397,22 +416,20 @@ export function StudentDashboardMain() {
             Open Complaints
           </h3>
           <div className="space-y-3">
-            <div className="p-3 rounded-xl bg-warning/5 border border-warning/20">
-              <div className="flex items-start justify-between mb-1">
-                <p className="text-xs font-bold text-warning">CMP-2041 • Electrical</p>
-                <span className="text-[10px] font-black bg-info/10 text-info border border-info/20 px-2 py-0.5 rounded">In Progress</span>
+            {openComplaints.slice(0, 2).map((cmp, idx) => (
+              <div key={idx} className={`p-3 rounded-xl ${cmp.priority === 'High' ? 'bg-danger/5 border-danger/20' : 'bg-warning/5 border-warning/20'}`}>
+                <div className="flex items-start justify-between mb-1">
+                  <p className={`text-xs font-bold ${cmp.priority === 'High' ? 'text-danger' : 'text-warning'}`}>{cmp.id} • {cmp.category}</p>
+                  <span className={`text-[10px] font-black px-2 py-0.5 rounded ${cmp.status === 'In Progress' ? 'bg-info/10 text-info border border-info/20' : 'bg-primary/10 text-primary border border-primary/20'}`}>{cmp.status}</span>
+                </div>
+                <p className="text-sm font-bold text-primary">{cmp.title}</p>
               </div>
-              <p className="text-sm font-bold text-primary">Fan making noise, Room 204</p>
-              <p className="text-xs text-secondary mt-0.5">Ramesh (Electrician) assigned</p>
-            </div>
-            <div className="p-3 rounded-xl bg-info/5 border border-info/20">
-              <div className="flex items-start justify-between mb-1">
-                <p className="text-xs font-bold text-info">CMP-2038 • Water</p>
-                <span className="text-[10px] font-black bg-primary/10 text-primary border border-primary/20 px-2 py-0.5 rounded">Assigned</span>
+            ))}
+            {openComplaints.length === 0 && (
+              <div className="p-3 rounded-xl bg-success/5 border border-success/20 flex items-center justify-center">
+                <p className="text-xs font-bold text-success text-center">No open complaints!</p>
               </div>
-              <p className="text-sm font-bold text-primary">No hot water in morning</p>
-              <p className="text-xs text-secondary mt-0.5">Suresh (Plumber) assigned</p>
-            </div>
+            )}
           </div>
           <button onClick={() => router.push('/frontend_student/student_complaints')} className="w-full mt-4 text-center text-xs font-bold text-primary hover:underline flex items-center justify-center gap-1">
             All Complaints <ChevronRight className="w-3.5 h-3.5" />

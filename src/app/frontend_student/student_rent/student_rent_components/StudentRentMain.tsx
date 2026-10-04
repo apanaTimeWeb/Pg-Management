@@ -7,25 +7,7 @@ import {
   Eye, Clock, AlertCircle, X, ArrowRight, Receipt, FileText, BadgeCheck
 } from 'lucide-react';
 import { toast } from 'sonner';
-
-const CURRENT_DUES = [
-  { label: 'Monthly Rent', amount: 8000, type: 'primary' as const },
-  { label: 'Mess Fee', amount: 1200, type: 'warning' as const },
-  { label: 'Electricity', amount: 350, type: 'info' as const },
-  { label: 'Late Fine', amount: 200, type: 'danger' as const },
-  { label: 'Discount', amount: -500, type: 'success' as const },
-  { label: 'Previous Due', amount: 0, type: 'secondary' as const },
-];
-
-const PAYMENT_HISTORY = [
-  { id: 'PAY-9012', date: '01 Sep 2026', invoice: 'INV-2026-09', amount: 8500, type: 'Monthly Rent', method: 'UPI', status: 'Success' as const },
-  { id: 'PAY-8876', date: '02 Sep 2026', invoice: 'INV-2026-SD', amount: 10000, type: 'Security Deposit', method: 'Net Banking', status: 'Success' as const },
-  { id: 'PAY-8754', date: '01 Aug 2026', invoice: 'INV-2026-08', amount: 8200, type: 'Monthly Rent', method: 'Card', status: 'Success' as const },
-];
-
-const total = CURRENT_DUES.reduce((sum, d) => sum + d.amount, 0);
-const paid = 0;
-const balance = total - paid;
+import { useStudentRent } from '../student_rent_hooks/useStudentRent';
 
 const getTypeColor = (type: string) => {
   const map: Record<string, string> = {
@@ -36,6 +18,7 @@ const getTypeColor = (type: string) => {
 };
 
 export function StudentRentMain() {
+  const { loading, total, paid, balance, currentDues, paymentHistory, processPayment } = useStudentRent();
   const searchParams = useSearchParams();
   const viewParam = searchParams.get('view');
   const actionParam = searchParams.get('action');
@@ -45,11 +28,20 @@ export function StudentRentMain() {
   const [payMethod, setPayMethod] = useState<'upi' | 'card' | 'netbanking' | null>(null);
   const [paymentDone, setPaymentDone] = useState(false);
 
-  const handlePay = () => {
+  const handlePay = async () => {
     if (!payMethod) { toast.error('Please select a payment method'); return; }
-    setPaymentDone(true);
-    toast.success('Payment successful! Receipt generated.');
+    const success = await processPayment(balance, payMethod);
+    if (success) {
+      setPaymentDone(true);
+      toast.success('Payment successful! Receipt generated.');
+    } else {
+      toast.error('Payment failed. Please try again.');
+    }
   };
+
+  if (loading) {
+    return <div className="p-8 text-center text-secondary">Loading fees & payments...</div>;
+  }
 
   return (
     <div className="w-full pb-12 animate-in fade-in duration-300">
@@ -97,8 +89,8 @@ export function StudentRentMain() {
             <h3 className="font-black text-primary">October 2026 – Fee Breakdown</h3>
           </div>
           <div className="divide-y divide-border">
-            {CURRENT_DUES.map(due => (
-              <div key={due.label} className="flex justify-between items-center p-4 md:p-5 hover:bg-input/30 transition-colors">
+            {currentDues.map((due, idx) => (
+              <div key={idx} className="flex justify-between items-center p-4 md:p-5 hover:bg-input/30 transition-colors">
                 <span className="font-bold text-secondary text-sm">{due.label}</span>
                 <span className={`font-black text-base ${getTypeColor(due.type)}`}>
                   {due.amount < 0 ? `- ₹${Math.abs(due.amount).toLocaleString()}` : `₹${due.amount.toLocaleString()}`}
@@ -169,7 +161,7 @@ export function StudentRentMain() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {PAYMENT_HISTORY.map(pay => (
+                {paymentHistory.map((pay: any) => (
                   <tr key={pay.id} className="hover:bg-input/30 transition-colors">
                     <td className="py-4 px-4 text-sm font-bold text-primary whitespace-nowrap">{pay.date}</td>
                     <td className="py-4 px-4 text-xs font-bold text-secondary">{pay.invoice}</td>

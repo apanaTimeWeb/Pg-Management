@@ -8,6 +8,7 @@ import {
   Fingerprint
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { useStudentSettings } from '../student_settings_hooks/useStudentSettings';
 
 export function StudentSettingsMain() {
   const searchParams = useSearchParams();
@@ -29,18 +30,20 @@ export function StudentSettingsMain() {
     { id: 'privacy', icon: Lock, label: 'Privacy' },
   ];
 
-  const [settings, setSettings] = useState({
-    emailNotif: true,
-    smsNotif: false,
-    pushNotif: true,
-    showProfileToRoommates: true,
-    twoFactorAuth: false
-  });
+  const { profile, loading, settings, toggleSetting, updateProfile } = useStudentSettings();
 
-  const toggleSetting = (key: keyof typeof settings) => {
-    setSettings(prev => ({ ...prev, [key]: !prev[key] }));
+  const handleToggle = (key: keyof typeof settings) => {
+    toggleSetting(key);
     toast.success('Settings updated');
   };
+
+  const handleUpdateProfile = () => {
+    toast.success('Profile updated successfully');
+  };
+
+  if (loading) {
+    return <div className="p-8 text-center text-secondary">Loading settings...</div>;
+  }
 
   return (
     <div className="w-full pb-12">
@@ -94,17 +97,17 @@ export function StudentSettingsMain() {
               <div className="space-y-4 max-w-md">
                 <div>
                   <label className="block text-xs font-bold text-secondary uppercase mb-1">Full Name</label>
-                  <input type="text" defaultValue="Rahul Sharma" className="w-full bg-input border border-border rounded-lg px-4 py-2 text-sm text-primary font-medium focus:outline-none focus:border-primary" />
+                  <input type="text" defaultValue={profile?.name || ''} className="w-full bg-input border border-border rounded-lg px-4 py-2 text-sm text-primary font-medium focus:outline-none focus:border-primary" />
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-secondary uppercase mb-1">Date of Birth</label>
-                  <input type="date" defaultValue="2002-05-15" className="w-full bg-input border border-border rounded-lg px-4 py-2 text-sm text-primary font-medium focus:outline-none focus:border-primary" />
+                  <input type="date" defaultValue={profile?.dob || ''} className="w-full bg-input border border-border rounded-lg px-4 py-2 text-sm text-primary font-medium focus:outline-none focus:border-primary" />
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-secondary uppercase mb-1">Emergency Contact</label>
-                  <input type="text" defaultValue="+91 9876543210" className="w-full bg-input border border-border rounded-lg px-4 py-2 text-sm text-primary font-medium focus:outline-none focus:border-primary" />
+                  <input type="text" defaultValue={profile?.emergencyContact || ''} className="w-full bg-input border border-border rounded-lg px-4 py-2 text-sm text-primary font-medium focus:outline-none focus:border-primary" />
                 </div>
-                <button className="bg-primary text-white font-bold text-sm px-6 py-2.5 rounded-lg shadow-md hover:bg-primary/90 transition-colors mt-4">
+                <button onClick={handleUpdateProfile} className="bg-primary text-white font-bold text-sm px-6 py-2.5 rounded-lg shadow-md hover:bg-primary/90 transition-colors mt-4">
                   Save Changes
                 </button>
               </div>
@@ -156,7 +159,7 @@ export function StudentSettingsMain() {
                     </div>
                     <div>
                       <h4 className="font-bold text-primary text-sm">Mobile Number</h4>
-                      <p className="text-xs text-secondary font-medium">+91 9999988888</p>
+                      <p className="text-xs text-secondary font-medium">{profile?.phone || 'Not provided'}</p>
                     </div>
                   </div>
                   <span className="text-xs font-bold bg-success text-white px-3 py-1 rounded-full flex items-center gap-1">
@@ -171,7 +174,7 @@ export function StudentSettingsMain() {
                     </div>
                     <div>
                       <h4 className="font-bold text-primary text-sm">Email Address</h4>
-                      <p className="text-xs text-secondary font-medium">rahul@example.com</p>
+                      <p className="text-xs text-secondary font-medium">{profile?.email || 'Not provided'}</p>
                     </div>
                   </div>
                   <button className="text-xs font-bold bg-primary text-white px-4 py-1.5 rounded-full hover:bg-primary/90 transition-colors">
@@ -194,7 +197,7 @@ export function StudentSettingsMain() {
                   <h3 className="font-bold text-primary mb-2">Secure Your Account</h3>
                   <p className="text-sm text-secondary mb-4">Add an extra layer of security to your account. We'll ask for an OTP every time you log in from a new device.</p>
                   <button 
-                    onClick={() => toggleSetting('twoFactorAuth')}
+                    onClick={() => handleToggle('twoFactorAuth')}
                     className={`font-bold text-sm px-6 py-2.5 rounded-lg transition-colors w-full ${settings.twoFactorAuth ? 'bg-danger text-white' : 'bg-primary text-white shadow-md'}`}
                   >
                     {settings.twoFactorAuth ? 'Disable 2FA' : 'Enable 2FA via SMS OTP'}
@@ -277,7 +280,7 @@ export function StudentSettingsMain() {
                       <p className="text-xs text-secondary mt-1 max-w-[280px]">{item.desc}</p>
                     </div>
                     <button 
-                      onClick={() => toggleSetting(item.id as keyof typeof settings)}
+                      onClick={() => handleToggle(item.id as keyof typeof settings)}
                       className={`w-12 h-6 rounded-full relative transition-colors shrink-0 ${settings[item.id as keyof typeof settings] ? 'bg-primary' : 'bg-border'}`}
                     >
                       <div className={`w-4 h-4 rounded-full bg-white absolute top-1 transition-all ${settings[item.id as keyof typeof settings] ? 'left-7' : 'left-1'}`}></div>
@@ -301,7 +304,7 @@ export function StudentSettingsMain() {
                     <p className="text-xs text-secondary mt-1">Allow roommates to view your basic profile (Phone number, Course).</p>
                   </div>
                   <button 
-                    onClick={() => toggleSetting('showProfileToRoommates')}
+                    onClick={() => handleToggle('showProfileToRoommates')}
                     className={`w-12 h-6 rounded-full relative transition-colors shrink-0 ${settings.showProfileToRoommates ? 'bg-primary' : 'bg-border'}`}
                   >
                     <div className={`w-4 h-4 rounded-full bg-white absolute top-1 transition-all ${settings.showProfileToRoommates ? 'left-7' : 'left-1'}`}></div>
