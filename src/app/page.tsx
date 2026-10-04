@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen font-sans bg-[#09090b] text-white selection:bg-indigo-500/30 overflow-hidden">
+    <div className="min-h-screen font-sans bg-[#09090b] text-white selection:bg-indigo-500/30 overflow-x-hidden overflow-y-auto">
       <HomeHeader />
       
       <main className="flex-grow">

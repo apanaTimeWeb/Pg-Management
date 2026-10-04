@@ -94,11 +94,11 @@ export default function UnifiedLogin() {
   };
 
   return (
-    <div className="min-h-screen flex text-primary selection:bg-[var(--primary)] selection:text-white font-sans bg-page relative overflow-hidden">
+    <div className="min-h-screen flex text-primary selection:bg-[var(--primary)] selection:text-white font-sans bg-page relative overflow-x-hidden overflow-y-auto">
       
       {/* Dynamic Background Elements for Mobile */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-600/20 blur-[120px] mix-blend-screen opacity-50 lg:hidden pointer-events-none"></div>
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-600/20 blur-[100px] mix-blend-screen opacity-50 lg:hidden pointer-events-none"></div>
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-600/20 blur-[120px] mix-blend-screen opacity-50 lg:hidden pointer-events-none fixed"></div>
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-600/20 blur-[100px] mix-blend-screen opacity-50 lg:hidden pointer-events-none fixed"></div>
 
       {/* Left side: Premium Image Panel */}
       <div className="hidden lg:flex lg:w-[45%] relative flex-col justify-between overflow-hidden p-12">
