@@ -44,7 +44,7 @@ export default function ManagerComplaintDetailMain() {
   };
   if (!complaint) return <div className="p-6 text-secondary">Loading...</div>;
   return (
-    <div className="space-y-6 pb-20 max-w-4xl mx-auto">
+    <div className="space-y-6 pb-20 w-full">
       <Link href="/frontend_manager/manager_complaints" className="inline-flex items-center gap-2 text-secondary hover:text-primary text-sm font-medium motion-safe:transition-colors">
         <ArrowLeft className="w-4 h-4" /> Back to Complaints
       </Link>

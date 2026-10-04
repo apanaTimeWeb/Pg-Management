@@ -84,7 +84,7 @@ export function OwnerPropertiesDetailsMain({ params }: { params: Promise<{ id: s
   const coverPhoto = property.photos?.[0] || 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=1200&auto=format&fit=crop';
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 pb-20">
+    <div className="w-full space-y-6 pb-20">
       <div className="flex items-center gap-4 mb-2">
         <Link href="/frontend_owner/owner_properties" className="p-2 hover:bg-card rounded-full motion-safe:transition-colors text-secondary hover:text-primary">
           <ArrowLeft className="w-5 h-5" />

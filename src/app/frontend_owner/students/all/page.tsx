@@ -42,7 +42,7 @@ export default function StudentManagementPage() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto space-y-6">
+    <div className="w-full space-y-6">
       
       {/* 360 Profile Modal */}
       {isProfileModalOpen && selectedStudent && (

@@ -28,7 +28,7 @@ export function ManagerLeavesMain() {
   );
 
   return (
-    <div className="space-y-6 pb-20 manager-theme animate-fade-in max-w-5xl mx-auto">
+    <div className="space-y-6 pb-20 manager-theme animate-fade-in w-full">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-[24px] font-bold text-primary flex items-center gap-2 tracking-tight">

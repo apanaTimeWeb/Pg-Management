@@ -86,7 +86,7 @@ const REPORT_CATEGORIES: ReportCategory[] = [
 
 export default function ReportsPage() {
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="w-full space-y-6">
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">

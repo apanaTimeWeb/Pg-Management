@@ -65,7 +65,7 @@ const t = (api.students.getById ? api.students.getById(id) : null) as unknown as
   };
   if (!student) return <div className="p-6 text-secondary">Loading...</div>;
   return (
-    <div className="space-y-6 pb-20 max-w-5xl mx-auto manager-theme animate-fade-in">
+    <div className="space-y-6 pb-20 w-full manager-theme animate-fade-in">
       <ManagerBillUploadModal
         isOpen={isBillModalOpen}
         onClose={() => {

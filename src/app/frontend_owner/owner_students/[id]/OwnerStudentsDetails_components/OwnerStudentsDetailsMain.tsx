@@ -85,7 +85,7 @@ export function OwnerStudentsDetailsMain({ params }: { params: Promise<{ id: str
   const propertyName = properties.find(p => p.id === student.profile.propertyId)?.name || 'Unknown Property';
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6 pb-20">
+    <div className="w-full space-y-6 pb-20">
       <OwnerBillUploadModal
         isOpen={isBillModalOpen}
         onClose={() => {

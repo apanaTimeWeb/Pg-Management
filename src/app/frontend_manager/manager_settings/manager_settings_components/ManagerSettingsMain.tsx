@@ -18,7 +18,7 @@ export function ManagerSettingsMain() {
   }
 
   return (
-    <div className="space-y-6 pb-20 animate-fade-in max-w-4xl mx-auto">
+    <div className="space-y-6 pb-20 animate-fade-in w-full">
       <div>
         <h1 className="text-2xl font-bold text-primary tracking-tight">Settings & Preferences</h1>
         <p className="text-sm text-secondary mt-1">Manage your profile, notifications, and property rules.</p>

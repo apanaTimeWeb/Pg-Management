@@ -26,7 +26,7 @@ export default function Owner360Page() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 pb-20">
+    <div className="w-full space-y-6 pb-20">
       <SuperAdminOwnerProfileHeader data={data} />
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

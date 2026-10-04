@@ -55,7 +55,7 @@ export function OwnerTeamDetailsMain() {
   const assignedProps = properties.filter(p => member.user.assignedPropertyIds?.includes(p.id));
 
   return (
-    <div className="max-w-6xl mx-auto pb-20 space-y-6 animate-in fade-in motion-safe:duration-300 motion-safe:ease-in-out">
+    <div className="w-full pb-20 space-y-6 animate-in fade-in motion-safe:duration-300 motion-safe:ease-in-out">
       
       {/* Breadcrumb & Navigation */}
       <div className="flex items-center justify-between">

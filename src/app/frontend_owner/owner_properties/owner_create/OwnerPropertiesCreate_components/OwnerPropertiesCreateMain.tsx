@@ -147,7 +147,7 @@ export function OwnerPropertiesCreateMain() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto pb-20">
+    <div className="w-full pb-20">
       <div className="flex items-center gap-4 mb-6">
         <Link href="/frontend_owner/owner_properties" className="p-2 hover:bg-card rounded-full motion-safe:transition-colors text-secondary hover:text-primary border border-transparent hover:border-border">
           <ArrowLeft className="w-5 h-5" />

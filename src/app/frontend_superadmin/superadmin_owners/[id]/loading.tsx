@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function Loading() {
   return (
-    <div className="max-w-6xl mx-auto space-y-6 pb-20">
+    <div className="w-full space-y-6 pb-20">
       
       {/* Header Skeleton */}
       <div className="flexitems-center gap-4 border-b border pb-4">

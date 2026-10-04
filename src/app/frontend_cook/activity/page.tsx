@@ -89,7 +89,7 @@ const formatDate = (date: Date) => {
 
 export default function ActivityHistoryPage() {
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="w-full space-y-6">
       <div className="flex items-center gap-3">
         <div className="p-3 bg-primary/10 rounded-xl">
           <Activity className="w-6 h-6 text-primary" />

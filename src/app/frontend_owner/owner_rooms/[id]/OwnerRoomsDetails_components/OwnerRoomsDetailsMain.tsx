@@ -89,7 +89,7 @@ export function OwnerRoomsDetailsMain({ params }: { params: Promise<{ id: string
   const vacantBeds = beds.filter(b => b.status === 'available').length;
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6 pb-20">
+    <div className="w-full space-y-6 pb-20">
       <div className="flex items-center gap-4 mb-2">
         <Link href="/frontend_owner/owner_rooms" className="p-2 hover:bg-card rounded-full motion-safe:transition-colors text-secondary hover:text-primary">
           <ArrowLeft className="w-5 h-5" />

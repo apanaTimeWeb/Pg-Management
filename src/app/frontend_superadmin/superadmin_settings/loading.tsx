@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function Loading() {
   return (
-    <div className="max-w-4xl mx-auto space-y-6 pb-20">
+    <div className="w-full space-y-6 pb-20">
       <div>
         <div className="h-7 w-48 bg-skeleton-base motion-safe:animate-pulse rounded-md mb-2"></div>
         <div className="h-4 w-72 bg-skeleton-base motion-safe:animate-pulse rounded-md"></div>

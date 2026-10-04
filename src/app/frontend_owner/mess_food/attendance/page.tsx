@@ -5,7 +5,7 @@ import { Search, Filter, Plus, FileText, Download, Eye, CalendarCheck, Users, Pl
 
 export default function MealAttendancePage() {
   return (
-    <div className="max-w-7xl mx-auto space-y-6">
+    <div className="w-full space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-primary flex items-center gap-2"><UtensilsCrossed className="w-6 h-6 text-[#F5A623]"/> Meal Attendance</h1>
