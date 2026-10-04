@@ -13,7 +13,7 @@ export default function LandingPage() {
       <main className="flex-grow">
         
         {/* --- HERO SECTION --- */}
-        <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center text-center">
+        <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 sm:px-6 lg:px-8 max-w-[1536px] mx-auto flex flex-col items-center text-center">
           {/* Ambient Glows */}
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-indigo-600/20 blur-[120px] rounded-full pointer-events-none"></div>
           <div className="absolute top-1/2 left-1/4 w-[400px] h-[400px] bg-purple-600/20 blur-[120px] rounded-full pointer-events-none"></div>
@@ -61,7 +61,7 @@ export default function LandingPage() {
 
         {/* --- STATS SECTION --- */}
         <section className="border-y border-white/5 bg-white/[0.02]">
-          <div className="max-w-7xl mx-auto px-4 py-12 flex flex-wrap justify-around gap-8 text-center">
+          <div className="max-w-[1536px] mx-auto px-4 py-12 flex flex-wrap justify-around gap-8 text-center">
             {[
               { value: '500+', label: 'Properties Managed' },
               { value: '₹50Cr', label: 'Rent Processed' },
@@ -77,7 +77,7 @@ export default function LandingPage() {
         </section>
 
         {/* --- BENTO BOX FEATURES --- */}
-        <section id="features" className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <section id="features" className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 max-w-[1536px] mx-auto">
           <div className="mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Everything you need to <span className="text-indigo-400">scale.</span></h2>
             <p className="text-gray-400 text-lg max-w-2xl">Stop using spreadsheets. SmartPG brings enterprise-grade property management tools to owners of all sizes.</p>
@@ -135,7 +135,7 @@ export default function LandingPage() {
         {/* --- STAKEHOLDER SECTION --- */}
         <section className="py-24 border-y border-white/5 relative overflow-hidden">
           <div className="absolute inset-0 bg-indigo-900/10"></div>
-          <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
+          <div className="max-w-[1536px] mx-auto px-4 relative z-10 text-center">
             <h2 className="text-3xl sm:text-5xl font-bold mb-16">Built for everyone.</h2>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">

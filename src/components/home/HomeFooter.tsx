@@ -5,7 +5,7 @@ import { Shield, Hash, Share2, Globe, MessageCircle, Mail, Phone, MapPin, ArrowR
 export function HomeFooter() {
   return (
     <footer className="bg-[#09090b] border-t border-white/10 pt-20 pb-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top Section - CTA & Newsletter */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-10 pb-16 border-b border-white/10">

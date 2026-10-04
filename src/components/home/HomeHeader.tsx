@@ -8,7 +8,7 @@ export function HomeHeader() {
 
   return (
     <header className="sticky top-0 z-50 transition-all duration-300 border-b border-border bg-page/80 backdrop-blur-xl">
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-4 flex items-center justify-between">
+      <div className="max-w-[1536px] mx-auto px-4 lg:px-8 py-4 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2 group">
